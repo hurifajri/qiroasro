@@ -1,4 +1,8 @@
-import type { RemoteLetter, RemoteLetterArticulation } from '@/schemas/letter';
+import type {
+  RemoteLetter,
+  RemoteLetterArticulation,
+  RemoteLetterTrait,
+} from '@/schemas/letter';
 
 function transformRemoteLetter(remoteLetter: RemoteLetter) {
   return {
@@ -30,5 +34,20 @@ export function transformRemoteLetterArticulations(
 ) {
   return remoteLetterArticulations.map((letterArticulation) =>
     transformRemoteLetterArticulation(letterArticulation),
+  );
+}
+
+function transformRemoteLetterTrait(remoteLetterTrait: RemoteLetterTrait) {
+  return {
+    letterId: remoteLetterTrait.letter_id,
+    traitId: remoteLetterTrait.trait_id,
+  };
+}
+
+export function transformRemoteLetterTraits(
+  remoteLetterTraits: RemoteLetterTrait[],
+) {
+  return remoteLetterTraits.map((letterTrait) =>
+    transformRemoteLetterTrait(letterTrait),
   );
 }

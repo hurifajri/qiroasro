@@ -1,18 +1,22 @@
 import {
   COLUMN_SORT_ORDER,
   TABLE_LETTER_ARTICULATIONS,
+  TABLE_LETTER_TRAITS,
   TABLE_LETTERS,
 } from '@/lib/constants';
 import { getSupabaseClient } from '@/lib/supabase';
 import {
   transformRemoteLetterArticulations,
   transformRemoteLetters,
+  transformRemoteLetterTraits,
 } from '@/models/letter';
 import {
   type Letter,
   type LetterArticulation,
+  type LetterTrait,
   RemoteLetterArticulationsSchema,
   RemoteLettersSchema,
+  RemoteLetterTraitsSchema,
 } from '@/schemas/letter';
 
 export async function getLetters(): Promise<Letter[]> {
@@ -54,6 +58,27 @@ export async function getLetterArticulations(): Promise<LetterArticulation[]> {
     );
 
     return letterArticulations;
+  } catch (error) {
+    // TODO: handle error
+    console.error(error);
+
+    return [];
+  }
+}
+
+export async function getLetterTraits(): Promise<LetterTrait[]> {
+  try {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from(TABLE_LETTER_TRAITS)
+      .select('*');
+
+    if (error) throw new Error(error.message);
+
+    const remoteLetterTraits = RemoteLetterTraitsSchema.parse(data);
+    const letterTraits = transformRemoteLetterTraits(remoteLetterTraits);
+
+    return letterTraits;
   } catch (error) {
     // TODO: handle error
     console.error(error);

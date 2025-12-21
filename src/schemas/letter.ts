@@ -44,3 +44,18 @@ export type RemoteLetterArticulation = z.infer<
   typeof RemoteLetterArticulationSchema
 >;
 export type LetterArticulation = z.infer<typeof LetterArticulationSchema>;
+
+const RemoteLetterTraitSchema = z.object({
+  letter_id: z.number().int(),
+  trait_id: z.number().int(),
+});
+
+const LetterTraitSchema = z.object({
+  letterId: z.number().int(),
+  traitId: z.number().int(),
+});
+
+export const RemoteLetterTraitsSchema = z.array(RemoteLetterTraitSchema);
+
+export type RemoteLetterTrait = z.infer<typeof RemoteLetterTraitSchema>;
+export type LetterTrait = z.infer<typeof LetterTraitSchema>;
