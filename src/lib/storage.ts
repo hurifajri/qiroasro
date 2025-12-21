@@ -1,5 +1,5 @@
 import type { StateStorage } from 'zustand/middleware';
-import { deleteCookies, getCookies, setCookies } from '@/lib/cookies';
+import { deleteCookies, getCookies, setCookies } from './cookies';
 
 export const cookiesStorage: StateStorage = {
   getItem: async (key: string) => (await getCookies(key)) ?? null,
