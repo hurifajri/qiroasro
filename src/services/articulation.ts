@@ -38,6 +38,7 @@ export async function getArticulationAreas(): Promise<ArticulationArea[]> {
     return [];
   }
 }
+
 export async function getArticulationPoints(): Promise<ArticulationPoint[]> {
   try {
     const supabase = getSupabaseClient();
