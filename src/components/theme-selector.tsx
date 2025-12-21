@@ -2,7 +2,7 @@
 
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useGlobalStore } from '@/providers/global-store';
+import { useGlobalStore } from '@/providers/global';
 import type { Theme } from '@/stores/global';
 
 type ThemeSelectorProps = Readonly<{

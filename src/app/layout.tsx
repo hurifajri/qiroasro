@@ -4,7 +4,7 @@ import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextIntlClientProvider } from 'next-intl';
 import { cn } from '@/lib/utils';
-import { GlobalStoreProvider } from '@/providers/global-store';
+import { GlobalStoreProvider } from '@/providers/global';
 import { QueryClientProvider } from '@/providers/query-client';
 import { getPersistedGlobalStore } from '@/stores/global';
 

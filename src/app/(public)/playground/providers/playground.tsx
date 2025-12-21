@@ -12,7 +12,7 @@ import {
 } from '@/queries/letter';
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 
-export function HomeContainer({ children }: React.PropsWithChildren) {
+export function PlaygroundStoreProvider({ children }: React.PropsWithChildren) {
   const { data: letters } = useQuery(getLettersOpt());
   const { data: letterArticulations } = useQuery(getLetterArticulationsOpt());
   const { data: letterTraits } = useQuery(getLetterTraitsOpt());

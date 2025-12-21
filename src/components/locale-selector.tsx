@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { useGlobalStore } from '@/providers/global-store';
+import { useGlobalStore } from '@/providers/global';
 import type { Locale } from '@/stores/global';
 
 type LocaleSelectorProps = Readonly<{

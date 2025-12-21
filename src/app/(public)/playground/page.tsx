@@ -14,7 +14,7 @@ import {
   getLetterTraitsOpt,
 } from '@/queries/letter';
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
-import { HomeContainer } from './components/home-container';
+import { PlaygroundStoreProvider } from './providers/playground';
 
 export default async function Playground() {
   const t = await getTranslations('playground_page');
@@ -32,9 +32,9 @@ export default async function Playground() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <HomeContainer>
+      <PlaygroundStoreProvider>
         <h1 className="font-bold text-2xl text-foreground">{t('greeting')}</h1>
-      </HomeContainer>
+      </PlaygroundStoreProvider>
     </HydrationBoundary>
   );
 }
