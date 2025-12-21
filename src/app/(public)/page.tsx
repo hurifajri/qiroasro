@@ -4,7 +4,10 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
-import { getArticulationAreasOpt } from '@/queries/articulation';
+import {
+  getArticulationAreasOpt,
+  getArticulationPointsOpt,
+} from '@/queries/articulation';
 import {
   getLetterArticulationsOpt,
   getLettersOpt,
@@ -20,6 +23,7 @@ export default async function Home() {
   await queryClient.prefetchQuery(getLetterArticulationsOpt());
   await queryClient.prefetchQuery(getLetterTraitsOpt());
   await queryClient.prefetchQuery(getArticulationAreasOpt());
+  await queryClient.prefetchQuery(getArticulationPointsOpt());
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
