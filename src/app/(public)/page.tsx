@@ -20,13 +20,15 @@ export default async function Home() {
   const t = await getTranslations('global');
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(getLettersOpt());
-  await queryClient.prefetchQuery(getLetterArticulationsOpt());
-  await queryClient.prefetchQuery(getLetterTraitsOpt());
-  await queryClient.prefetchQuery(getArticulationAreasOpt());
-  await queryClient.prefetchQuery(getArticulationPointsOpt());
-  await queryClient.prefetchQuery(getTraitsOpt());
-  await queryClient.prefetchQuery(getTraitGroupsOpt());
+  await Promise.all([
+    queryClient.prefetchQuery(getLettersOpt()),
+    queryClient.prefetchQuery(getLetterArticulationsOpt()),
+    queryClient.prefetchQuery(getLetterTraitsOpt()),
+    queryClient.prefetchQuery(getArticulationAreasOpt()),
+    queryClient.prefetchQuery(getArticulationPointsOpt()),
+    queryClient.prefetchQuery(getTraitsOpt()),
+    queryClient.prefetchQuery(getTraitGroupsOpt()),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

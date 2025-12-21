@@ -12,6 +12,7 @@ import {
   RemoteTraitGroupsSchema,
   RemoteTraitsSchema,
   type Trait,
+  type TraitGroup,
 } from '@/schemas/trait';
 
 export async function getTraits(): Promise<Trait[]> {
@@ -36,7 +37,7 @@ export async function getTraits(): Promise<Trait[]> {
   }
 }
 
-export async function getTraitGroups() {
+export async function getTraitGroups(): Promise<TraitGroup[]> {
   try {
     const supabase = getSupabaseClient();
     const { data, error } = await supabase
