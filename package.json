@@ -6,8 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "check": "biome check --write --unsafe",
+    "check:types": "tsc --noEmit --pretty",
+    "check:packages": "pnpm exec npm-check-updates -u"
   },
   "dependencies": {
     "next": "16.1.0",
