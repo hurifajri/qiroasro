@@ -1,0 +1,86 @@
+import { createStore } from 'zustand/vanilla';
+
+type ViewMode = 'all' | 'by-articulation' | 'by-trait' | 'by-letter';
+type LayoutMode = 'radial' | 'hierarchical';
+type HierarchyDirection = 'vertical' | 'horizontal';
+type EdgeShape = 'default' | 'straight' | 'step' | 'smoothstep';
+
+interface EdgeStyleOptions {
+  isFloating: boolean;
+  isAnimated: boolean;
+  shape: EdgeShape;
+}
+
+interface PlaygroundState {
+  layoutLoading: boolean;
+  viewMode: ViewMode;
+  layoutMode: LayoutMode;
+  hierarchyDirection: HierarchyDirection;
+  selectedLetterId: number | undefined;
+  selectedNodeId: string | null;
+  edgeStyle: EdgeStyleOptions;
+}
+
+interface PlaygroundAction {
+  setLayoutLoading: (loading: boolean) => void;
+  setViewMode: (mode: ViewMode) => void;
+  setLayoutMode: (mode: LayoutMode) => void;
+  setHierarchyDirection: (direction: HierarchyDirection) => void;
+  setSelectedLetterId: (id: number | undefined) => void;
+  setSelectedNodeId: (id: string | null) => void;
+  setEdgeStyle: (style: Partial<EdgeStyleOptions>) => void;
+  setIsFloating: (isFloating: boolean) => void;
+  setIsAnimated: (isAnimated: boolean) => void;
+  setEdgeShape: (shape: EdgeShape) => void;
+  getEffectiveEdgeType: () => string;
+}
+
+export type PlaygroundStore = PlaygroundState & PlaygroundAction;
+
+export function createPlaygroundStore() {
+  return createStore<PlaygroundStore>()((set, get) => ({
+    layoutLoading: false,
+    viewMode: 'all',
+    layoutMode: 'radial',
+    hierarchyDirection: 'vertical',
+    selectedLetterId: undefined,
+    selectedNodeId: null,
+    edgeStyle: {
+      isFloating: false,
+      isAnimated: false,
+      shape: 'default',
+    },
+    setLayoutLoading: (loading) => set({ layoutLoading: loading }),
+    setViewMode: (mode) => {
+      set({ viewMode: mode });
+      if (mode !== 'by-letter') {
+        set({ selectedLetterId: undefined });
+      }
+    },
+    setLayoutMode: (mode) => set({ layoutMode: mode }),
+    setHierarchyDirection: (direction) =>
+      set({ hierarchyDirection: direction }),
+    setSelectedLetterId: (id) => set({ selectedLetterId: id }),
+    setSelectedNodeId: (id) => set({ selectedNodeId: id }),
+    setEdgeStyle: (style) =>
+      set((state) => ({
+        edgeStyle: { ...state.edgeStyle, ...style },
+      })),
+    setIsFloating: (isFloating) =>
+      set((state) => ({
+        edgeStyle: { ...state.edgeStyle, isFloating },
+      })),
+    setIsAnimated: (isAnimated) =>
+      set((state) => ({
+        edgeStyle: { ...state.edgeStyle, isAnimated },
+      })),
+    setEdgeShape: (shape) =>
+      set((state) => ({
+        edgeStyle: { ...state.edgeStyle, shape },
+      })),
+    getEffectiveEdgeType: () => {
+      const { edgeStyle } = get();
+      return edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
+    },
+  }));
+}
