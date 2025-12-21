@@ -13,7 +13,7 @@ import {
   getLettersOpt,
   getLetterTraitsOpt,
 } from '@/queries/letter';
-import { getTraitsOpt } from '@/queries/trait';
+import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { HomeContainer } from './components/home-container';
 
 export default async function Home() {
@@ -26,6 +26,7 @@ export default async function Home() {
   await queryClient.prefetchQuery(getArticulationAreasOpt());
   await queryClient.prefetchQuery(getArticulationPointsOpt());
   await queryClient.prefetchQuery(getTraitsOpt());
+  await queryClient.prefetchQuery(getTraitGroupsOpt());
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

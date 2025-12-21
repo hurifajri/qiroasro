@@ -10,7 +10,7 @@ import {
   getLettersOpt,
   getLetterTraitsOpt,
 } from '@/queries/letter';
-import { getTraitsOpt } from '@/queries/trait';
+import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 
 export function HomeContainer({ children }: React.PropsWithChildren) {
   const { data: letters } = useQuery(getLettersOpt());
@@ -19,6 +19,7 @@ export function HomeContainer({ children }: React.PropsWithChildren) {
   const { data: articulationAreas } = useQuery(getArticulationAreasOpt());
   const { data: articulationPoints } = useQuery(getArticulationPointsOpt());
   const { data: traits } = useQuery(getTraitsOpt());
+  const { data: traitGroups } = useQuery(getTraitGroupsOpt());
 
   console.log('letters', letters);
   console.log('letterArticulations', letterArticulations);
@@ -26,6 +27,7 @@ export function HomeContainer({ children }: React.PropsWithChildren) {
   console.log('articulationAreas', articulationAreas);
   console.log('articulationPoints', articulationPoints);
   console.log('traits', traits);
+  console.log('traitGroups', traitGroups);
 
   return (
     <div className="flex h-screen items-center justify-center bg-background">

@@ -7,6 +7,7 @@ export const TABLE_LETTER_TRAITS = 'hij_letter_traits';
 export const TABLE_ARTICULATION_AREAS = 'hij_articulation_areas';
 export const TABLE_ARTICULATION_POINTS = 'hij_articulation_points';
 export const TABLE_TRAITS = 'hij_traits';
+export const TABLE_TRAIT_GROUPS = 'hij_trait_groups';
 
 // Column name
 export const COLUMN_SORT_ORDER = 'sort_order';

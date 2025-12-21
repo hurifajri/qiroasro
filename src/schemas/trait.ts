@@ -21,3 +21,25 @@ export const RemoteTraitsSchema = z.array(RemoteTraitSchema);
 
 export type RemoteTrait = z.infer<typeof RemoteTraitSchema>;
 export type Trait = z.infer<typeof TraitSchema>;
+
+const RemoteTraitGroupSchema = z.object({
+  id: z.number().int(),
+  is_lazimah: z.boolean(),
+  has_middle_trait: z.boolean(),
+  slug: z.string().min(1),
+  sort_order: z.number().int(),
+});
+
+const TraitGroupSchema = z
+  .object({
+    ...RemoteTraitGroupSchema.shape,
+    isLazimah: z.boolean(),
+    hasMiddleTrait: z.boolean(),
+    sortOrder: z.number().int(),
+  })
+  .omit({ is_lazimah: true, has_middle_trait: true, sort_order: true });
+
+export const RemoteTraitGroupsSchema = z.array(RemoteTraitGroupSchema);
+
+export type RemoteTraitGroup = z.infer<typeof RemoteTraitGroupSchema>;
+export type TraitGroup = z.infer<typeof TraitGroupSchema>;
