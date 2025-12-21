@@ -2,6 +2,7 @@ export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
 
 // Table name
 export const TABLE_LETTERS = 'hij_letters';
+export const TABLE_LETTER_ARTICULATIONS = 'hij_letter_articulations';
 
 // Column name
 export const COLUMN_SORT_ORDER = 'sort_order';

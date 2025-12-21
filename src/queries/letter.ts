@@ -1,14 +1,26 @@
 import { queryOptions } from '@tanstack/react-query';
-import { getLetters } from '@/services/letter';
+import { getLetterArticulations, getLetters } from '@/services/letter';
 
-const letterKey = {
-  all: ['letter'],
-  list: () => [...letterKey.all, 'list'],
+const lettersKey = {
+  all: ['letters'],
+  list: () => [...lettersKey.all, 'list'],
 };
 
 export function getLettersOpt() {
   return queryOptions({
-    queryKey: letterKey.list(),
+    queryKey: lettersKey.list(),
     queryFn: () => getLetters(),
+  });
+}
+
+const letterArticulationsKey = {
+  all: ['letter-articulations'],
+  list: () => [...letterArticulationsKey.all, 'list'],
+};
+
+export function getLetterArticulationsOpt() {
+  return queryOptions({
+    queryKey: letterArticulationsKey.list(),
+    queryFn: () => getLetterArticulations(),
   });
 }

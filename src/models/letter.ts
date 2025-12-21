@@ -1,4 +1,4 @@
-import type { RemoteLetter } from '@/schemas/letter';
+import type { RemoteLetter, RemoteLetterArticulation } from '@/schemas/letter';
 
 function transformRemoteLetter(remoteLetter: RemoteLetter) {
   return {
@@ -12,4 +12,23 @@ function transformRemoteLetter(remoteLetter: RemoteLetter) {
 
 export function transformRemoteLetters(remoteLetters: RemoteLetter[]) {
   return remoteLetters.map((letter) => transformRemoteLetter(letter));
+}
+
+function transformRemoteLetterArticulation(
+  remoteLetterArticulation: RemoteLetterArticulation,
+) {
+  return {
+    isPrimary: remoteLetterArticulation.is_primary,
+    letterId: remoteLetterArticulation.letter_id,
+    pointId: remoteLetterArticulation.point_id,
+    sortOrder: remoteLetterArticulation.sort_order,
+  };
+}
+
+export function transformRemoteLetterArticulations(
+  remoteLetterArticulations: RemoteLetterArticulation[],
+) {
+  return remoteLetterArticulations.map((letterArticulation) =>
+    transformRemoteLetterArticulation(letterArticulation),
+  );
 }

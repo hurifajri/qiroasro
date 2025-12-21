@@ -21,3 +21,26 @@ export const RemoteLettersSchema = z.array(RemoteLetterSchema);
 
 export type RemoteLetter = z.infer<typeof RemoteLetterSchema>;
 export type Letter = z.infer<typeof LetterSchema>;
+
+const RemoteLetterArticulationSchema = z.object({
+  is_primary: z.boolean(),
+  letter_id: z.number().int(),
+  point_id: z.number().int(),
+  sort_order: z.number().int(),
+});
+
+const LetterArticulationSchema = z.object({
+  isPrimary: z.boolean(),
+  letterId: z.number().int(),
+  pointId: z.number().int(),
+  sortOrder: z.number().int(),
+});
+
+export const RemoteLetterArticulationsSchema = z.array(
+  RemoteLetterArticulationSchema,
+);
+
+export type RemoteLetterArticulation = z.infer<
+  typeof RemoteLetterArticulationSchema
+>;
+export type LetterArticulation = z.infer<typeof LetterArticulationSchema>;

@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
-import { getLettersOpt } from '@/queries/letter';
+import { getLetterArticulationsOpt, getLettersOpt } from '@/queries/letter';
 import { HomeContainer } from './components/home-container';
 
 export default async function Home() {
@@ -12,6 +12,7 @@ export default async function Home() {
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(getLettersOpt());
+  await queryClient.prefetchQuery(getLetterArticulationsOpt());
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
