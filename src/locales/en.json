@@ -1,5 +1,8 @@
 {
-  "global": {
+  "home_page": {
     "greeting": "Hello, Google Sans Flex!"
+  },
+  "playground_page": {
+    "greeting": "Hello, this is a playground!"
   }
 }
