@@ -85,8 +85,6 @@
     }
   },
   "css": {
-    "parser": {
-      "tailwindDirectives": true
-    }
+    "parser": {}
   }
 }

@@ -1,6 +1,11 @@
+import { getTranslations } from 'next-intl/server';
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations('global');
+
   return (
-    <h1>Hello, Google Sans Flex!</h1>
+    <div className="flex h-screen items-center justify-center bg-background">
+      <h1 className="font-bold text-2xl text-foreground">{t('greeting')}</h1>
+    </div>
   );
 }
