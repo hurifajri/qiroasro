@@ -109,10 +109,12 @@ interface GenerateGraphOptions {
   selectedId?: number;
 }
 
-export function generateGraphFromData(
-  data: GraphData,
-  options: GenerateGraphOptions,
-): { nodes: Node[]; edges: Edge[] } {
+interface GraphView {
+  nodes: Node[];
+  edges: Edge[];
+}
+
+export function generateGraphFromData(data: GraphData, options: GenerateGraphOptions): GraphView {
   const { viewMode, selectedId } = options;
 
   switch (viewMode) {
@@ -129,24 +131,25 @@ export function generateGraphFromData(
   }
 }
 
-function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
+function generateAllView(data: GraphData): GraphView {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
-  // Add all letters
+  // Add letters
   for (const letter of data.letters) {
     nodes.push(createLetterNode(letter));
   }
 
-  // Add articulation areas and points
+  // Add articulation areas
   for (const area of data.articulationAreas) {
     nodes.push(createArticulationAreaNode(area));
   }
 
+  // Add articulation points
   for (const point of data.articulationPoints) {
     nodes.push(createArticulationPointNode(point));
 
-    // Area to point edge
+    // Add area-point edges
     edges.push({
       id: `edge-area-${point.areaId}-point-${point.id}`,
       source: `area-${point.areaId}`,
@@ -156,11 +159,12 @@ function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
     });
   }
 
-  // Add trait groups and traits
+  // Add trait groups
   for (const group of data.traitGroups) {
     nodes.push(createTraitGroupNode(group));
   }
 
+  // Add traits
   for (const trait of data.traits) {
     nodes.push(createTraitNode(trait));
 
@@ -174,7 +178,7 @@ function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
     });
   }
 
-  // Letter-articulation edges
+  // Add letter-point edges
   for (const rel of data.letterArticulations) {
     edges.push({
       id: `edge-letter-${rel.letterId}-point-${rel.pointId}`,
@@ -189,7 +193,7 @@ function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
     });
   }
 
-  // Letter-trait edges
+  // Add letter-trait edges
   for (const rel of data.letterTraits) {
     edges.push({
       id: `edge-letter-${rel.letterId}-trait-${rel.traitId}`,
@@ -207,10 +211,7 @@ function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
   return { nodes, edges };
 }
 
-function generateByArticulationView(data: GraphData): {
-  nodes: Node[];
-  edges: Edge[];
-} {
+function generateByArticulationView(data: GraphData): GraphView {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
@@ -218,7 +219,7 @@ function generateByArticulationView(data: GraphData): {
   const lettersByPoint = new Map<number, Letter[]>();
   for (const rel of data.letterArticulations) {
     const letter = data.letters.find((l) => l.id === rel.letterId);
-    if (letter && rel.isPrimary) {
+    if (letter) {
       if (!lettersByPoint.has(rel.pointId)) {
         lettersByPoint.set(rel.pointId, []);
       }
@@ -226,16 +227,16 @@ function generateByArticulationView(data: GraphData): {
     }
   }
 
-  // Add areas
+  // Add articulation areas
   for (const area of data.articulationAreas) {
     nodes.push(createArticulationAreaNode(area));
   }
 
-  // Add points and their letters
+  // Add articulation points
   for (const point of data.articulationPoints) {
     nodes.push(createArticulationPointNode(point));
 
-    // Area to point edge
+    // Add area-point edges
     edges.push({
       id: `edge-area-${point.areaId}-point-${point.id}`,
       source: `area-${point.areaId}`,
@@ -244,12 +245,14 @@ function generateByArticulationView(data: GraphData): {
       style: { stroke: '#0EA5E9', strokeWidth: 2 },
     });
 
-    // Add letters for this point
+    // Add letters
     const letters = lettersByPoint.get(point.id) || [];
     for (const letter of letters) {
       if (!nodes.find((n) => n.id === `letter-${letter.id}`)) {
         nodes.push(createLetterNode(letter));
       }
+
+      // Add point-letter edges
       edges.push({
         id: `edge-point-${point.id}-letter-${letter.id}`,
         source: `point-${point.id}`,
@@ -263,10 +266,7 @@ function generateByArticulationView(data: GraphData): {
   return { nodes, edges };
 }
 
-function generateByTraitView(data: GraphData): {
-  nodes: Node[];
-  edges: Edge[];
-} {
+function generateByTraitView(data: GraphData): GraphView {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
@@ -287,11 +287,11 @@ function generateByTraitView(data: GraphData): {
     nodes.push(createTraitGroupNode(group));
   }
 
-  // Add traits and their letters
+  // Add traits
   for (const trait of data.traits) {
     nodes.push(createTraitNode(trait));
 
-    // Group to trait edge
+    // Add group-trait edges
     edges.push({
       id: `edge-group-${trait.groupId}-trait-${trait.id}`,
       source: `trait-group-${trait.groupId}`,
@@ -300,12 +300,14 @@ function generateByTraitView(data: GraphData): {
       style: { stroke: '#8B5CF6' },
     });
 
-    // Add letters for this trait
+    // Add letters
     const letters = lettersByTrait.get(trait.id) || [];
     for (const letter of letters) {
       if (!nodes.find((n) => n.id === `letter-${letter.id}`)) {
         nodes.push(createLetterNode(letter));
       }
+
+      // Add trait-letter edges
       edges.push({
         id: `edge-trait-${trait.id}-letter-${letter.id}`,
         source: `trait-${trait.id}`,
@@ -319,10 +321,7 @@ function generateByTraitView(data: GraphData): {
   return { nodes, edges };
 }
 
-function generateByLetterView(
-  data: GraphData,
-  selectedId?: number,
-): { nodes: Node[]; edges: Edge[] } {
+function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
@@ -346,11 +345,14 @@ function generateByLetterView(
     (rel) => rel.letterId === selectedId,
   );
 
+  // Add articulation points
   for (const rel of relatedArticulations) {
     const point = data.articulationPoints.find((p) => p.id === rel.pointId);
     if (!point) continue;
 
     nodes.push(createArticulationPointNode(point));
+
+    // Add letter-point edges
     edges.push({
       id: `edge-letter-${letter.id}-point-${point.id}`,
       source: `letter-${letter.id}`,
@@ -362,10 +364,12 @@ function generateByLetterView(
       },
     });
 
-    // Add area
+    // Add articulation areas
     const area = data.articulationAreas.find((a) => a.id === point.areaId);
     if (area && !nodes.find((n) => n.id === `area-${area.id}`)) {
       nodes.push(createArticulationAreaNode(area));
+
+      // Add area-point edges
       edges.push({
         id: `edge-area-${area.id}-point-${point.id}`,
         source: `area-${area.id}`,
@@ -384,6 +388,8 @@ function generateByLetterView(
     if (!trait) continue;
 
     nodes.push(createTraitNode(trait));
+
+    // Add letter-trait edges
     edges.push({
       id: `edge-letter-${letter.id}-trait-${trait.id}`,
       source: `letter-${letter.id}`,
@@ -392,10 +398,11 @@ function generateByLetterView(
       style: { stroke: '#8B5CF6' },
     });
 
-    // Add trait group
     const group = data.traitGroups.find((g) => g.id === trait.groupId);
     if (group && !nodes.find((n) => n.id === `trait-group-${group.id}`)) {
       nodes.push(createTraitGroupNode(group));
+
+      // Add trait-group edges
       edges.push({
         id: `edge-trait-${trait.id}-group-${group.id}`,
         source: `trait-${trait.id}`,
