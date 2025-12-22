@@ -1,3 +1,4 @@
+import type { ColorMode } from '@xyflow/react';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 import { GLOBAL_STORE_KEY } from '@/lib/constants';
@@ -5,11 +6,10 @@ import { getCookies } from '@/lib/cookies';
 import { cookiesStorage } from '@/lib/storage';
 
 export type Locale = 'en' | 'id';
-export type Theme = 'light' | 'dark';
 
 export interface GlobalState {
   locale: Locale;
-  theme: Theme;
+  theme: ColorMode;
 }
 
 type PersistedGlobalState = Pick<GlobalState, 'locale' | 'theme'>;
@@ -21,7 +21,7 @@ interface PersistedGlobal {
 
 interface GlobalAction {
   setLocale: (locale: Locale) => void;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: ColorMode) => void;
 }
 
 export type GlobalStore = GlobalState & GlobalAction;

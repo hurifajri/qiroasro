@@ -1,8 +1,8 @@
 {
   "home_page": {
-    "greeting": "Hai, Google Sans Flex!"
+    "title": "Halaman Utama"
   },
   "playground_page": {
-    "greeting": "Hai, ini adalah tempat bermain!"
+    "title": "Halaman Bermain"
   }
 }

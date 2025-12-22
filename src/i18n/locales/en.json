@@ -1,8 +1,8 @@
 {
   "home_page": {
-    "greeting": "Hello, Google Sans Flex!"
+    "title": "Home Page"
   },
   "playground_page": {
-    "greeting": "Hello, this is a playground!"
+    "title": "Playground Page"
   }
 }

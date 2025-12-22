@@ -1,11 +1,11 @@
 import { createStore } from 'zustand/vanilla';
 
-type ViewMode = 'all' | 'by-articulation' | 'by-trait' | 'by-letter';
-type LayoutMode = 'radial' | 'hierarchical';
-type HierarchyDirection = 'vertical' | 'horizontal';
-type EdgeShape = 'default' | 'straight' | 'step' | 'smoothstep';
+export type ViewMode = 'all' | 'by-articulation' | 'by-trait' | 'by-letter';
+export type LayoutMode = 'radial' | 'hierarchical';
+export type HierarchyDirection = 'vertical' | 'horizontal';
+export type EdgeShape = 'default' | 'straight' | 'step' | 'smoothstep';
 
-interface EdgeStyleOptions {
+export interface EdgeStyleOptions {
   isFloating: boolean;
   isAnimated: boolean;
   shape: EdgeShape;
