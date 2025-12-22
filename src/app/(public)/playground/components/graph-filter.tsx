@@ -34,7 +34,7 @@ interface GraphFilterProps {
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
   onEdgeStyleChange: (style: Partial<EdgeStyleOptions>) => void;
-  onLetterSelect: (id: number | undefined) => void;
+  onLetterSelect: (id: number) => void;
 }
 
 const VIEW_MODE_LABELS: Record<ViewMode, string> = {
@@ -80,7 +80,7 @@ export function GraphFilter({
                 onClick={() => {
                   onViewModeChange(mode);
                   if (mode !== 'letter') {
-                    onLetterSelect(undefined);
+                    onLetterSelect(1);
                   }
                 }}
                 className={cn(

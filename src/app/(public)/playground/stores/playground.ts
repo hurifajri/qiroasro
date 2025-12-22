@@ -15,7 +15,7 @@ interface PlaygroundAction {
   setViewMode: (mode: ViewMode) => void;
   setLayoutMode: (mode: LayoutMode) => void;
   setHierarchyDirection: (direction: HierarchyDirection) => void;
-  setSelectedLetterId: (id: number | undefined) => void;
+  setSelectedLetterId: (id: number) => void;
   setSelectedNodeId: (id: string | null) => void;
   setEdgeStyle: (style: Partial<EdgeStyleOptions>) => void;
   setIsFloating: (isFloating: boolean) => void;
@@ -31,7 +31,7 @@ export function createPlaygroundStore() {
     viewMode: 'all',
     layoutMode: 'radial',
     hierarchyDirection: 'vertical',
-    selectedLetterId: undefined,
+    selectedLetterId: 1,
     selectedNodeId: null,
     edgeStyle: {
       isFloating: false,
@@ -41,7 +41,7 @@ export function createPlaygroundStore() {
     setViewMode: (mode) => {
       set({ viewMode: mode });
       if (mode !== 'letter') {
-        set({ selectedLetterId: undefined });
+        set({ selectedLetterId: 1 });
       }
     },
     setLayoutMode: (mode) => set({ layoutMode: mode }),
