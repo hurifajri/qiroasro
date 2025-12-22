@@ -3,11 +3,7 @@ import type {
   ArticulationArea,
   ArticulationPoint,
 } from '@/schemas/articulation';
-import type {
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
-} from '@/schemas/common';
+import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 

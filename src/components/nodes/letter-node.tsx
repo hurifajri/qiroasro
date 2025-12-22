@@ -1,0 +1,84 @@
+import { Handle, type NodeProps, Position } from '@xyflow/react';
+import { NODE_COLORS } from '@/lib/constants';
+import { cn } from '@/lib/utils';
+import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+
+interface LetterNodeData {
+  label: string;
+  slug: string;
+  isMadd: boolean;
+  isFloating?: boolean;
+  layoutMode?: LayoutMode;
+  hierarchyDirection?: HierarchyDirection;
+  hasSourceEdge?: boolean;
+  hasTargetEdge?: boolean;
+  isHighlighted?: boolean;
+  isConnectedToSelected?: boolean;
+  isDimmed?: boolean;
+}
+
+export function LetterNode({ data, selected }: NodeProps) {
+  const nodeData = data as unknown as LetterNodeData;
+  const bgColor = nodeData.isMadd
+    ? NODE_COLORS.letter.madd
+    : NODE_COLORS.letter.primary;
+
+  // Determine handle positions based on layout
+  const useVerticalHandles =
+    nodeData.layoutMode === 'radial' ||
+    (nodeData.layoutMode === 'hierarchical' &&
+      nodeData.hierarchyDirection === 'vertical');
+
+  const targetPosition = useVerticalHandles ? Position.Top : Position.Left;
+  const sourcePosition = useVerticalHandles ? Position.Bottom : Position.Right;
+
+  // Hide handles: when floating OR when no edge connected
+  const getHandleClass = (hasEdge: boolean) => {
+    if (nodeData.isFloating || !hasEdge) {
+      return '!h-0 !w-0 !opacity-0';
+    }
+    return '!h-2 !w-2 !border-0 !bg-amber-300';
+  };
+
+  // Only dim nodes that are not selected and not highlighted
+  const isActive = selected || nodeData.isHighlighted;
+  const isDimmed = nodeData.isDimmed && !isActive;
+
+  return (
+    <div
+      className={cn(
+        'relative flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-all duration-300',
+        isActive ? 'scale-110' : 'hover:scale-105',
+        isDimmed && 'opacity-30',
+      )}
+      style={{
+        background: nodeData.isMadd
+          ? `linear-gradient(135deg, ${NODE_COLORS.letter.madd} 0%, #DC2626 100%)`
+          : NODE_COLORS.letter.gradient,
+        boxShadow: `0 4px 20px ${bgColor}40`,
+      }}
+    >
+      <Handle
+        type="target"
+        position={targetPosition}
+        className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+      />
+
+      <span className="select-none font-bold text-3xl text-white">
+        {nodeData.label}
+      </span>
+
+      <Handle
+        type="source"
+        position={sourcePosition}
+        className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+      />
+
+      {/* Tooltip */}
+      <div className="-bottom-8 -translate-x-1/2 pointer-events-none absolute left-1/2 whitespace-nowrap rounded bg-gray-900/90 px-2 py-1 text-white text-xs opacity-0 transition-opacity group-hover:opacity-100">
+        {nodeData.slug}
+        {nodeData.isMadd && ' (madd)'}
+      </div>
+    </div>
+  );
+}

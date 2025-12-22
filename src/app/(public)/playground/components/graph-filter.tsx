@@ -19,11 +19,7 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import type {
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
-} from '@/schemas/common';
+import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
 import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
 

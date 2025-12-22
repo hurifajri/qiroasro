@@ -1,9 +1,5 @@
 import { createStore } from 'zustand/vanilla';
-import type {
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
-} from '@/schemas/common';
+import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
 
 interface PlaygroundState {
