@@ -34,20 +34,18 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as ArticulationAreaNodeData;
 
   // Determine handle positions based on layout
-  const useVerticalHandles =
-    nodeData.layoutMode === 'radial' ||
-    (nodeData.layoutMode === 'hierarchical' &&
-      nodeData.hierarchyDirection === 'vertical');
+  const isRadial = nodeData.layoutMode === 'radial';
+  const isHierarchical = nodeData.layoutMode === 'hierarchical';
+  const isVertical = nodeData.hierarchyDirection === 'vertical';
+  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
 
-  const targetPosition = useVerticalHandles ? Position.Top : Position.Left;
-  const sourcePosition = useVerticalHandles ? Position.Bottom : Position.Right;
+  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
+  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
 
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) {
-      return '!h-0 !w-0 !opacity-0';
-    }
-    return '!h-2 !w-2 !border-0 !bg-sky-300';
+    if (nodeData.isFloating || !hasEdge) return 'hidden';
+    return 'size-2 border-0! bg-sky-300!';
   };
 
   // Only dim nodes that are not selected and not highlighted
@@ -89,20 +87,18 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as ArticulationPointNodeData;
 
   // Determine handle positions based on layout
-  const useVerticalHandles =
-    nodeData.layoutMode === 'radial' ||
-    (nodeData.layoutMode === 'hierarchical' &&
-      nodeData.hierarchyDirection === 'vertical');
+  const isRadial = nodeData.layoutMode === 'radial';
+  const isHierarchical = nodeData.layoutMode === 'hierarchical';
+  const isVertical = nodeData.hierarchyDirection === 'vertical';
+  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
 
-  const targetPosition = useVerticalHandles ? Position.Top : Position.Left;
-  const sourcePosition = useVerticalHandles ? Position.Bottom : Position.Right;
+  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
+  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
 
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) {
-      return '!h-0 !w-0 !opacity-0';
-    }
-    return '!h-2 !w-2 !border-0 !bg-sky-300';
+    if (nodeData.isFloating || !hasEdge) return 'hidden';
+    return 'size-2 border-0! bg-sky-300!';
   };
 
   // Only dim nodes that are not selected and not highlighted

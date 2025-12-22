@@ -36,20 +36,18 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as TraitGroupNodeData;
 
   // Determine handle positions based on layout
-  const useVerticalHandles =
-    nodeData.layoutMode === 'radial' ||
-    (nodeData.layoutMode === 'hierarchical' &&
-      nodeData.hierarchyDirection === 'vertical');
+  const isRadial = nodeData.layoutMode === 'radial';
+  const isHierarchical = nodeData.layoutMode === 'hierarchical';
+  const isVertical = nodeData.hierarchyDirection === 'vertical';
+  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
 
-  const targetPosition = useVerticalHandles ? Position.Top : Position.Left;
-  const sourcePosition = useVerticalHandles ? Position.Bottom : Position.Right;
+  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
+  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
 
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) {
-      return '!h-0 !w-0 !opacity-0';
-    }
-    return '!h-2 !w-2 !border-0 !bg-violet-300';
+    if (nodeData.isFloating || !hasEdge) return 'hidden';
+    return 'size-2 border-0! bg-violet-300!';
   };
 
   const isActive = selected || nodeData.isHighlighted;
@@ -77,9 +75,6 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
         <span className="select-none font-semibold text-sm text-white capitalize">
           {nodeData.label.replace(/-/g, ' ')}
         </span>
-        {nodeData.isLazimah && (
-          <span className="mt-0.5 text-violet-200 text-xs">lazimah</span>
-        )}
       </div>
 
       <Handle
@@ -95,20 +90,18 @@ export function TraitNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as TraitNodeData;
 
   // Determine handle positions based on layout
-  const useVerticalHandles =
-    nodeData.layoutMode === 'radial' ||
-    (nodeData.layoutMode === 'hierarchical' &&
-      nodeData.hierarchyDirection === 'vertical');
+  const isRadial = nodeData.layoutMode === 'radial';
+  const isHierarchical = nodeData.layoutMode === 'hierarchical';
+  const isVertical = nodeData.hierarchyDirection === 'vertical';
+  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
 
-  const targetPosition = useVerticalHandles ? Position.Top : Position.Left;
-  const sourcePosition = useVerticalHandles ? Position.Bottom : Position.Right;
+  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
+  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
 
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) {
-      return '!h-0 !w-0 !opacity-0';
-    }
-    return '!h-2 !w-2 !border-0 !bg-violet-300';
+    if (nodeData.isFloating || !hasEdge) return 'hidden';
+    return 'size-2 border-0! bg-violet-300!';
   };
 
   // Only dim nodes that are not selected and not highlighted
@@ -136,11 +129,6 @@ export function TraitNode({ data, selected }: NodeProps) {
         <span className="select-none font-medium text-violet-700 text-xs capitalize dark:text-violet-100">
           {nodeData.label.replace(/-/g, ' ')}
         </span>
-        {nodeData.isMiddleTrait && (
-          <span className="text-[10px] text-violet-500 dark:text-violet-300">
-            middle
-          </span>
-        )}
       </div>
 
       <Handle
