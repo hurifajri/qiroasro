@@ -11,7 +11,7 @@ import type { Trait, TraitGroup } from '@/schemas/trait';
 // Node Creation Helpers
 // ============================================
 
-interface Graph {
+export interface GraphData {
   letters: Letter[];
   letterArticulations: LetterArticulation[];
   letterTraits: LetterTrait[];
@@ -113,7 +113,7 @@ interface GenerateGraphOptions {
 }
 
 export function generateGraphFromData(
-  data: Graph,
+  data: GraphData,
   options: GenerateGraphOptions,
 ): { nodes: Node[]; edges: Edge[] } {
   const { viewMode, selectedId } = options;
@@ -132,7 +132,7 @@ export function generateGraphFromData(
   }
 }
 
-function generateAllView(data: Graph): { nodes: Node[]; edges: Edge[] } {
+function generateAllView(data: GraphData): { nodes: Node[]; edges: Edge[] } {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
@@ -210,7 +210,7 @@ function generateAllView(data: Graph): { nodes: Node[]; edges: Edge[] } {
   return { nodes, edges };
 }
 
-function generateByArticulationView(data: Graph): {
+function generateByArticulationView(data: GraphData): {
   nodes: Node[];
   edges: Edge[];
 } {
@@ -266,7 +266,7 @@ function generateByArticulationView(data: Graph): {
   return { nodes, edges };
 }
 
-function generateByTraitView(data: Graph): {
+function generateByTraitView(data: GraphData): {
   nodes: Node[];
   edges: Edge[];
 } {
@@ -323,7 +323,7 @@ function generateByTraitView(data: Graph): {
 }
 
 function generateByLetterView(
-  data: Graph,
+  data: GraphData,
   selectedId?: number,
 ): { nodes: Node[]; edges: Edge[] } {
   const nodes: Node[] = [];

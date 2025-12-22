@@ -1,6 +1,6 @@
 import type { Edge, Node } from '@xyflow/react';
 import ELK from 'elkjs/lib/elk.bundled.js';
-import type { HierarchyDirection } from '@/schemas/common';
+import type { HierarchyDirection } from '@/schemas/graph';
 
 const elk = new ELK();
 

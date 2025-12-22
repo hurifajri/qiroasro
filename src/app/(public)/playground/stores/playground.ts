@@ -3,7 +3,6 @@ import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
 
 interface PlaygroundState {
-  layoutLoading: boolean;
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
@@ -13,7 +12,6 @@ interface PlaygroundState {
 }
 
 interface PlaygroundAction {
-  setLayoutLoading: (loading: boolean) => void;
   setViewMode: (mode: ViewMode) => void;
   setLayoutMode: (mode: LayoutMode) => void;
   setHierarchyDirection: (direction: HierarchyDirection) => void;
@@ -30,7 +28,6 @@ export type PlaygroundStore = PlaygroundState & PlaygroundAction;
 
 export function createPlaygroundStore() {
   return createStore<PlaygroundStore>()((set, get) => ({
-    layoutLoading: false,
     viewMode: 'all',
     layoutMode: 'radial',
     hierarchyDirection: 'vertical',
@@ -41,7 +38,6 @@ export function createPlaygroundStore() {
       isAnimated: false,
       shape: 'default',
     },
-    setLayoutLoading: (loading) => set({ layoutLoading: loading }),
     setViewMode: (mode) => {
       set({ viewMode: mode });
       if (mode !== 'letter') {
