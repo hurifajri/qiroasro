@@ -11,7 +11,6 @@ import {
   MiniMap,
   type NodeTypes,
   ReactFlow,
-  ReactFlowProvider,
   useEdgesState,
   useNodesState,
   useReactFlow,
@@ -368,71 +367,69 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   return (
-    <ReactFlowProvider>
-      <div className="flex h-screen flex-col">
-        <GraphFilter
-          viewMode={viewMode}
-          layoutMode={layoutMode}
-          hierarchyDirection={hierarchyDirection}
-          edgeStyle={edgeStyle}
-          letters={memoizedLetters}
-          selectedLetterId={selectedLetterId}
-          onViewModeChange={setViewMode}
-          onLayoutModeChange={setLayoutMode}
-          onHierarchyDirectionChange={setHierarchyDirection}
-          onEdgeStyleChange={setEdgeStyle}
-          onLetterSelect={setSelectedLetterId}
+    <div className="flex h-screen flex-col">
+      <GraphFilter
+        viewMode={viewMode}
+        layoutMode={layoutMode}
+        hierarchyDirection={hierarchyDirection}
+        edgeStyle={edgeStyle}
+        letters={memoizedLetters}
+        selectedLetterId={selectedLetterId}
+        onViewModeChange={setViewMode}
+        onLayoutModeChange={setLayoutMode}
+        onHierarchyDirectionChange={setHierarchyDirection}
+        onEdgeStyleChange={setEdgeStyle}
+        onLetterSelect={setSelectedLetterId}
+      />
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onNodeClick={handleNodeClick}
+        onPaneClick={handlePaneClick}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        connectionLineComponent={
+          edgeStyle.isFloating ? FloatingConnectionLine : undefined
+        }
+        colorMode={theme}
+        fitView
+        fitViewOptions={{ padding: 0.2 }}
+        minZoom={0.1}
+        maxZoom={2}
+        defaultEdgeOptions={{
+          type: computedEdgeType,
+          animated: edgeStyle.isAnimated,
+        }}
+      >
+        <Controls
+          position="bottom-right"
+          className="rounded-lg! border-gray-700! bg-gray-800! shadow-xl!"
         />
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onNodeClick={handleNodeClick}
-          onPaneClick={handlePaneClick}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          connectionLineComponent={
-            edgeStyle.isFloating ? FloatingConnectionLine : undefined
-          }
-          colorMode={theme}
-          fitView
-          fitViewOptions={{ padding: 0.2 }}
-          minZoom={0.1}
-          maxZoom={2}
-          defaultEdgeOptions={{
-            type: computedEdgeType,
-            animated: edgeStyle.isAnimated,
+        <MiniMap
+          position="bottom-left"
+          nodeColor={(node) => {
+            if (node.type === 'letter') return '#F59E0B';
+            if (
+              node.type === 'articulation-area' ||
+              node.type === 'articulation-point'
+            )
+              return '#0EA5E9';
+            if (node.type === 'trait-group' || node.type === 'trait')
+              return '#8B5CF6';
+            return '#64748b';
           }}
-        >
-          <Controls
-            position="bottom-right"
-            className="rounded-lg! border-gray-700! bg-gray-800! shadow-xl!"
-          />
-          <MiniMap
-            position="bottom-left"
-            nodeColor={(node) => {
-              if (node.type === 'letter') return '#F59E0B';
-              if (
-                node.type === 'articulation-area' ||
-                node.type === 'articulation-point'
-              )
-                return '#0EA5E9';
-              if (node.type === 'trait-group' || node.type === 'trait')
-                return '#8B5CF6';
-              return '#64748b';
-            }}
-            maskColor="rgba(0, 0, 0, 0.7)"
-            className="rounded-lg! border-gray-700! bg-gray-800/80!"
-          />
-          <Background
-            variant={BackgroundVariant.Dots}
-            gap={20}
-            size={1}
-            color="#475569"
-          />
-        </ReactFlow>
-      </div>
-    </ReactFlowProvider>
+          maskColor="rgba(0, 0, 0, 0.7)"
+          className="rounded-lg! border-gray-700! bg-gray-800/80!"
+        />
+        <Background
+          variant={BackgroundVariant.Dots}
+          gap={20}
+          size={1}
+          color="#475569"
+        />
+      </ReactFlow>
+    </div>
   );
 }

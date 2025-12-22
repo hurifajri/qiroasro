@@ -3,6 +3,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
+import { ReactFlowProvider } from '@xyflow/react';
 import { getTranslations } from 'next-intl/server';
 import {
   getArticulationAreasOpt,
@@ -35,7 +36,9 @@ export default async function PlaygroundPage() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <PlaygroundStoreProvider>
-        <Playground />
+        <ReactFlowProvider>
+          <Playground />
+        </ReactFlowProvider>
       </PlaygroundStoreProvider>
     </HydrationBoundary>
   );
