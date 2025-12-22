@@ -27,7 +27,7 @@ import type {
   HierarchyDirection,
   LayoutMode,
   ViewMode,
-} from '../stores/playground';
+} from '../schemas/playground';
 
 interface GraphFilterProps {
   viewMode: ViewMode;
@@ -47,9 +47,9 @@ interface GraphFilterProps {
 
 const VIEW_MODE_LABELS: Record<ViewMode, string> = {
   all: 'Semua',
-  'by-articulation': 'Artikulasi',
-  'by-trait': 'Sifat',
-  'by-letter': 'Huruf',
+  articulation: 'Artikulasi',
+  trait: 'Sifat',
+  letter: 'Huruf',
 };
 
 const EDGE_SHAPE_LABELS: Record<EdgeShape, string> = {
@@ -87,7 +87,7 @@ export function GraphFilter({
                 size="sm"
                 onClick={() => {
                   onViewModeChange(mode);
-                  if (mode !== 'by-letter') {
+                  if (mode !== 'letter') {
                     onLetterSelect(undefined);
                   }
                 }}
@@ -104,8 +104,8 @@ export function GraphFilter({
           </ButtonGroup>
         </div>
 
-        {/* Letter Selector (only visible in by-letter mode) */}
-        {viewMode === 'by-letter' && (
+        {/* Letter Selector (only visible in letter mode) */}
+        {viewMode === 'letter' && (
           <div className="flex items-center gap-2">
             <Label className="hidden text-muted-foreground text-sm sm:block">
               Pilih Huruf:

@@ -46,3 +46,8 @@ export const LETTERS = [
   'ـُو',
   'ـِي',
 ];
+
+export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'];
+export const LAYOUT_MODES = ['radial', 'hierarchical'];
+export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'];
+export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'];

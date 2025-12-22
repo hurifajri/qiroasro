@@ -1,15 +1,11 @@
 import { createStore } from 'zustand/vanilla';
-
-export type ViewMode = 'all' | 'by-articulation' | 'by-trait' | 'by-letter';
-export type LayoutMode = 'radial' | 'hierarchical';
-export type HierarchyDirection = 'vertical' | 'horizontal';
-export type EdgeShape = 'default' | 'straight' | 'step' | 'smoothstep';
-
-export interface EdgeStyleOptions {
-  isFloating: boolean;
-  isAnimated: boolean;
-  shape: EdgeShape;
-}
+import type {
+  EdgeShape,
+  EdgeStyleOptions,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/playground';
 
 interface PlaygroundState {
   layoutLoading: boolean;
@@ -53,7 +49,7 @@ export function createPlaygroundStore() {
     setLayoutLoading: (loading) => set({ layoutLoading: loading }),
     setViewMode: (mode) => {
       set({ viewMode: mode });
-      if (mode !== 'by-letter') {
+      if (mode !== 'letter') {
         set({ selectedLetterId: undefined });
       }
     },
