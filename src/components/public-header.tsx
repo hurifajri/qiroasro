@@ -12,9 +12,12 @@ export async function PublicHeader({ className }: PublicHeaderProps) {
   const { locale, theme } = persistedState;
 
   return (
-    <header className={cn('flex items-center justify-end gap-2 p-2', className)}>
-      <LocaleSelector locale={locale} />
-      <ThemeSelector theme={theme} />
+    <header className={cn('flex items-center justify-between gap-2 border-b px-4 py-2', className)}>
+      <span className="font-semibold text-xl">QiroAsro</span>
+      <div className="flex items-center gap-2">
+        <LocaleSelector locale={locale} />
+        <ThemeSelector theme={theme} />
+      </div>
     </header>
   );
 }

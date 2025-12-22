@@ -67,15 +67,15 @@ export function GraphFilter({
   return (
     <header className="flex flex-col gap-3 border-border border-b bg-background/80 p-3 backdrop-blur-sm sm:p-4">
       {/* First Row: View Mode and Letter Selector */}
-      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+      <div className="flex flex-col gap-3 sm:gap-4">
         {/* View Mode Tabs */}
         <div className="flex items-center gap-2">
-          <FilterIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
-          <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
+          <FilterIcon className="hidden size-4 text-muted-foreground sm:block" />
+          <ButtonGroup>
             {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
               <Button
                 key={mode}
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={() => {
                   onViewModeChange(mode);
@@ -87,7 +87,7 @@ export function GraphFilter({
                   'px-2 text-xs sm:px-3 sm:text-sm',
                   viewMode === mode
                     ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                    : 'text-muted-foreground',
                 )}
               >
                 {VIEW_MODE_LABELS[mode]}

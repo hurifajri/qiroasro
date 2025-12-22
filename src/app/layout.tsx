@@ -37,7 +37,11 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </GlobalStoreProvider>
           {process.env.NODE_ENV === 'development' && (
-            <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" position="right" />
+            <ReactQueryDevtools
+              initialIsOpen={false}
+              buttonPosition="bottom-left"
+              position="right"
+            />
           )}
         </QueryClientProvider>
       </body>
