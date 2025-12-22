@@ -15,15 +15,8 @@ import {
   useNodesState,
   useReactFlow,
 } from '@xyflow/react';
-import {
-  getArticulationAreasOpt,
-  getArticulationPointsOpt,
-} from '@/queries/articulation';
-import {
-  getLetterArticulationsOpt,
-  getLettersOpt,
-  getLetterTraitsOpt,
-} from '@/queries/letter';
+import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
+import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundStore } from '../providers/playground';
 import { GraphFilter } from './graph-filter';
@@ -31,10 +24,7 @@ import '@xyflow/react/dist/style.css';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/edges/floating-connection-line';
 import { FloatingEdge } from '@/components/edges/floating-edge';
-import {
-  ArticulationAreaNode,
-  ArticulationPointNode,
-} from '@/components/nodes/articulation-node';
+import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/articulation-node';
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
 import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
@@ -57,14 +47,10 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const { data: letters = [] } = useQuery(getLettersOpt());
-  const { data: letterArticulations = [] } = useQuery(
-    getLetterArticulationsOpt(),
-  );
+  const { data: letterArticulations = [] } = useQuery(getLetterArticulationsOpt());
   const { data: letterTraits = [] } = useQuery(getLetterTraitsOpt());
   const { data: articulationAreas = [] } = useQuery(getArticulationAreasOpt());
-  const { data: articulationPoints = [] } = useQuery(
-    getArticulationPointsOpt(),
-  );
+  const { data: articulationPoints = [] } = useQuery(getArticulationPointsOpt());
   const { data: traits = [] } = useQuery(getTraitsOpt());
   const { data: traitGroups = [] } = useQuery(getTraitGroupsOpt());
 
@@ -110,15 +96,12 @@ export function Playground() {
     async function updateLayout() {
       try {
         // Generate nodes and edges (without positions)
-        const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(
-          data,
-          {
-            viewMode,
-            layoutMode,
-            hierarchyDirection,
-            selectedId: selectedLetterId,
-          },
-        );
+        const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
+          viewMode,
+          layoutMode,
+          hierarchyDirection,
+          selectedId: selectedLetterId,
+        });
 
         // Apply layout based on mode
         let layoutedNodes: FlowNode[];
@@ -274,11 +257,7 @@ export function Playground() {
 
             // If selected is point or trait, only allow same category or letters
             if (selectedCategory !== 'letter') {
-              if (
-                targetCategory !== selectedCategory &&
-                targetCategory !== 'letter'
-              )
-                continue;
+              if (targetCategory !== selectedCategory && targetCategory !== 'letter') continue;
             }
 
             connectedNodeIds.add(edge.target);
@@ -293,11 +272,7 @@ export function Playground() {
 
             // If selected is point or trait, only allow same category or letters
             if (selectedCategory !== 'letter') {
-              if (
-                sourceCategory !== selectedCategory &&
-                sourceCategory !== 'letter'
-              )
-                continue;
+              if (sourceCategory !== selectedCategory && sourceCategory !== 'letter') continue;
             }
 
             connectedNodeIds.add(edge.source);
@@ -390,9 +365,7 @@ export function Playground() {
         onPaneClick={handlePaneClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        connectionLineComponent={
-          edgeStyle.isFloating ? FloatingConnectionLine : undefined
-        }
+        connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
         colorMode={theme}
         fitView
         fitViewOptions={{ padding: 0.2 }}
@@ -411,24 +384,15 @@ export function Playground() {
           position="bottom-left"
           nodeColor={(node) => {
             if (node.type === 'letter') return '#F59E0B';
-            if (
-              node.type === 'articulation-area' ||
-              node.type === 'articulation-point'
-            )
+            if (node.type === 'articulation-area' || node.type === 'articulation-point')
               return '#0EA5E9';
-            if (node.type === 'trait-group' || node.type === 'trait')
-              return '#8B5CF6';
+            if (node.type === 'trait-group' || node.type === 'trait') return '#8B5CF6';
             return '#64748b';
           }}
           maskColor="rgba(0, 0, 0, 0.7)"
           className="rounded-lg! border-gray-700! bg-gray-800/80!"
         />
-        <Background
-          variant={BackgroundVariant.Dots}
-          gap={20}
-          size={1}
-          color="#475569"
-        />
+        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
       </ReactFlow>
     </div>
   );

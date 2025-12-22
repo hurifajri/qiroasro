@@ -109,9 +109,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
     <div
       className={cn(
         'group relative flex items-center justify-center rounded-lg border-2 border-sky-400/50 bg-sky-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300',
-        isActive
-          ? 'scale-110 bg-sky-500/40'
-          : 'hover:scale-105 hover:bg-sky-500/30',
+        isActive ? 'scale-110 bg-sky-500/40' : 'hover:scale-105 hover:bg-sky-500/30',
         isDimmed && 'opacity-30',
       )}
     >

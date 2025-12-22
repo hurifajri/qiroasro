@@ -13,13 +13,9 @@ type GlobalStoreApi = ReturnType<typeof createGlobalStore>;
 
 const GlobalStoreContext = createContext<GlobalStoreApi | undefined>(undefined);
 
-type GlobalStoreProviderProps = React.PropsWithChildren &
-  Readonly<{ initialState?: GlobalState }>;
+type GlobalStoreProviderProps = React.PropsWithChildren & Readonly<{ initialState?: GlobalState }>;
 
-export function GlobalStoreProvider({
-  children,
-  initialState,
-}: GlobalStoreProviderProps) {
+export function GlobalStoreProvider({ children, initialState }: GlobalStoreProviderProps) {
   const storeRef = useRef<GlobalStoreApi>(undefined);
   const globalState = initialState ?? initGlobalState();
   storeRef.current ??= createGlobalStore(globalState);
@@ -30,11 +26,7 @@ export function GlobalStoreProvider({
     void store.persist.rehydrate();
   }, [store.persist.rehydrate]);
 
-  return (
-    <GlobalStoreContext.Provider value={store}>
-      {children}
-    </GlobalStoreContext.Provider>
-  );
+  return <GlobalStoreContext.Provider value={store}>{children}</GlobalStoreContext.Provider>;
 }
 
 export function useGlobalStore<T>(selector: (store: GlobalStore) => T): T {

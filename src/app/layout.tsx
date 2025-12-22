@@ -25,30 +25,19 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default async function RootLayout({
-  children,
-}: React.PropsWithChildren) {
+export default async function RootLayout({ children }: React.PropsWithChildren) {
   const persistedState = await getPersistedGlobalStore();
   const { locale, theme } = persistedState;
 
   return (
-    <html
-      lang={locale}
-      className={theme}
-      style={{ colorScheme: theme }}
-      suppressHydrationWarning
-    >
+    <html lang={locale} className={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
       <body className={cn('font-sans antialiased', googleSansFlex.variable)}>
         <QueryClientProvider>
           <GlobalStoreProvider initialState={persistedState}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </GlobalStoreProvider>
           {process.env.NODE_ENV === 'development' && (
-            <ReactQueryDevtools
-              initialIsOpen={false}
-              buttonPosition="top-left"
-              position="right"
-            />
+            <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" position="right" />
           )}
         </QueryClientProvider>
       </body>

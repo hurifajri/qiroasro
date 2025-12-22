@@ -7,13 +7,7 @@ import { getEdgeParams } from '@/lib/graph/floating-edge';
  * based on the positions of source and target nodes. The edge "floats" around
  * the nodes, connecting at the closest points rather than fixed handles.
  */
-export function FloatingEdge({
-  id,
-  source,
-  target,
-  style,
-  markerEnd,
-}: EdgeProps) {
+export function FloatingEdge({ id, source, target, style, markerEnd }: EdgeProps) {
   const { sourceNode, targetNode } = useStore((s) => {
     const sourceNode = s.nodeLookup.get(source);
     const targetNode = s.nodeLookup.get(target);
@@ -25,10 +19,7 @@ export function FloatingEdge({
     return null;
   }
 
-  const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(
-    sourceNode,
-    targetNode,
-  );
+  const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(sourceNode, targetNode);
 
   const [path] = getBezierPath({
     sourceX: sx,

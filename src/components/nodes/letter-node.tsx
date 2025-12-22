@@ -19,9 +19,7 @@ interface LetterNodeData {
 
 export function LetterNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as LetterNodeData;
-  const bgColor = nodeData.isMadd
-    ? NODE_COLORS.letter.madd
-    : NODE_COLORS.letter.primary;
+  const bgColor = nodeData.isMadd ? NODE_COLORS.letter.madd : NODE_COLORS.letter.primary;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';
@@ -62,9 +60,7 @@ export function LetterNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <span className="select-none font-bold text-3xl text-white">
-        {nodeData.label}
-      </span>
+      <span className="select-none font-bold text-3xl text-white">{nodeData.label}</span>
 
       <Handle
         type="source"

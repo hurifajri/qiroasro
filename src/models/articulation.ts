@@ -1,11 +1,6 @@
-import type {
-  RemoteArticulationArea,
-  RemoteArticulationPoint,
-} from '@/schemas/articulation';
+import type { RemoteArticulationArea, RemoteArticulationPoint } from '@/schemas/articulation';
 
-function transformRemoteArticulationArea(
-  remoteArticulationArea: RemoteArticulationArea,
-) {
+function transformRemoteArticulationArea(remoteArticulationArea: RemoteArticulationArea) {
   return {
     id: remoteArticulationArea.id,
     slug: remoteArticulationArea.slug,
@@ -16,14 +11,10 @@ function transformRemoteArticulationArea(
 export function transformRemoteArticulationAreas(
   remoteArticulationAreas: RemoteArticulationArea[],
 ) {
-  return remoteArticulationAreas.map((letter) =>
-    transformRemoteArticulationArea(letter),
-  );
+  return remoteArticulationAreas.map((letter) => transformRemoteArticulationArea(letter));
 }
 
-function transformRemoteArticulationPoint(
-  remoteArticulationPoint: RemoteArticulationPoint,
-) {
+function transformRemoteArticulationPoint(remoteArticulationPoint: RemoteArticulationPoint) {
   return {
     id: remoteArticulationPoint.id,
     areaId: remoteArticulationPoint.area_id,
@@ -35,7 +26,5 @@ function transformRemoteArticulationPoint(
 export function transformRemoteArticulationPoints(
   remoteArticulationPoints: RemoteArticulationPoint[],
 ) {
-  return remoteArticulationPoints.map((letter) =>
-    transformRemoteArticulationPoint(letter),
-  );
+  return remoteArticulationPoints.map((letter) => transformRemoteArticulationPoint(letter));
 }

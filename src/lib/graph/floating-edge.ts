@@ -1,18 +1,10 @@
-import {
-  type InternalNode,
-  type Node,
-  Position,
-  type XYPosition,
-} from '@xyflow/react';
+import { type InternalNode, type Node, Position, type XYPosition } from '@xyflow/react';
 
 /**
  * Get the intersection point of the line between the center of the intersection node
  * and the target node. This determines where the edge should connect to the node.
  */
-function getNodeIntersection(
-  intersectionNode: InternalNode,
-  targetNode: InternalNode,
-): XYPosition {
+function getNodeIntersection(intersectionNode: InternalNode, targetNode: InternalNode): XYPosition {
   const { internals: intersectionInternals } = intersectionNode;
   const { width: intersectionNodeWidth, height: intersectionNodeHeight } =
     intersectionNode.measured ?? { width: 0, height: 0 };
@@ -78,10 +70,7 @@ interface EdgeParams {
  * Returns the parameters (sx, sy, tx, ty, sourcePos, targetPos) needed to create a floating edge.
  * These parameters are dynamically calculated based on the positions of the source and target nodes.
  */
-export function getEdgeParams(
-  source: InternalNode,
-  target: InternalNode,
-): EdgeParams {
+export function getEdgeParams(source: InternalNode, target: InternalNode): EdgeParams {
   const sourceIntersectionPoint = getNodeIntersection(source, target);
   const targetIntersectionPoint = getNodeIntersection(target, source);
 

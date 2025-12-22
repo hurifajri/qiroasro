@@ -1,8 +1,4 @@
-import {
-  type ConnectionLineComponentProps,
-  getBezierPath,
-  type InternalNode,
-} from '@xyflow/react';
+import { type ConnectionLineComponentProps, getBezierPath, type InternalNode } from '@xyflow/react';
 import { getEdgeParams } from '@/lib/graph/floating-edge';
 
 /**
@@ -45,21 +41,8 @@ export function FloatingConnectionLine({
 
   return (
     <g>
-      <path
-        fill="none"
-        stroke="#94a3b8"
-        strokeWidth={2}
-        className="animated"
-        d={path}
-      />
-      <circle
-        cx={toX}
-        cy={toY}
-        fill="#1e293b"
-        r={4}
-        stroke="#94a3b8"
-        strokeWidth={2}
-      />
+      <path fill="none" stroke="#94a3b8" strokeWidth={2} className="animated" d={path} />
+      <circle cx={toX} cy={toY} fill="#1e293b" r={4} stroke="#94a3b8" strokeWidth={2} />
     </g>
   );
 }

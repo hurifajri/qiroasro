@@ -3,11 +3,7 @@
 import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { cookies } from 'next/headers';
 
-export async function setCookies(
-  key: string,
-  value: string,
-  option: Partial<ResponseCookie> = {},
-) {
+export async function setCookies(key: string, value: string, option: Partial<ResponseCookie> = {}) {
   const cookieStore = await cookies();
 
   cookieStore.set(key, value, option);

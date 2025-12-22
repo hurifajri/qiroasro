@@ -26,9 +26,7 @@ export async function getArticulationAreas(): Promise<ArticulationArea[]> {
     if (error) throw new Error(error.message);
 
     const remoteArticulationAreas = RemoteArticulationAreasSchema.parse(data);
-    const articulationAreas = transformRemoteArticulationAreas(
-      remoteArticulationAreas,
-    );
+    const articulationAreas = transformRemoteArticulationAreas(remoteArticulationAreas);
 
     return articulationAreas;
   } catch (error) {
@@ -50,9 +48,7 @@ export async function getArticulationPoints(): Promise<ArticulationPoint[]> {
     if (error) throw new Error(error.message);
 
     const remoteArticulationPoints = RemoteArticulationPointsSchema.parse(data);
-    const articulationPoints = transformRemoteArticulationPoints(
-      remoteArticulationPoints,
-    );
+    const articulationPoints = transformRemoteArticulationPoints(remoteArticulationPoints);
 
     return articulationPoints;
   } catch (error) {

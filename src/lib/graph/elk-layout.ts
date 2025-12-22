@@ -109,11 +109,7 @@ function getNodeHeight(nodeType: string | undefined): number {
  * Apply radial layout to nodes
  * Places nodes in concentric circles based on their type
  */
-export function applyRadialLayout(
-  nodes: Node[],
-  centerX: number,
-  centerY: number,
-): Node[] {
+export function applyRadialLayout(nodes: Node[], centerX: number, centerY: number): Node[] {
   // Group nodes by type
   const nodesByType = new Map<string, Node[]>();
   for (const node of nodes) {

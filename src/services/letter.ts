@@ -22,10 +22,7 @@ import {
 export async function getLetters(): Promise<Letter[]> {
   try {
     const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_LETTERS)
-      .select('*')
-      .order(COLUMN_SORT_ORDER);
+    const { data, error } = await supabase.from(TABLE_LETTERS).select('*').order(COLUMN_SORT_ORDER);
 
     if (error) throw new Error(error.message);
 
@@ -51,11 +48,8 @@ export async function getLetterArticulations(): Promise<LetterArticulation[]> {
 
     if (error) throw new Error(error.message);
 
-    const remoteLetterArticulations =
-      RemoteLetterArticulationsSchema.parse(data);
-    const letterArticulations = transformRemoteLetterArticulations(
-      remoteLetterArticulations,
-    );
+    const remoteLetterArticulations = RemoteLetterArticulationsSchema.parse(data);
+    const letterArticulations = transformRemoteLetterArticulations(remoteLetterArticulations);
 
     return letterArticulations;
   } catch (error) {
@@ -69,9 +63,7 @@ export async function getLetterArticulations(): Promise<LetterArticulation[]> {
 export async function getLetterTraits(): Promise<LetterTrait[]> {
   try {
     const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_LETTER_TRAITS)
-      .select('*');
+    const { data, error } = await supabase.from(TABLE_LETTER_TRAITS).select('*');
 
     if (error) throw new Error(error.message);
 

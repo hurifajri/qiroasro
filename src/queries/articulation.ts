@@ -1,8 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import {
-  getArticulationAreas,
-  getArticulationPoints,
-} from '@/services/articulation';
+import { getArticulationAreas, getArticulationPoints } from '@/services/articulation';
 
 const articulationAreasKey = {
   all: ['articulation-areas'],

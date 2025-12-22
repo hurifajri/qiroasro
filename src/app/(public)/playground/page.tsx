@@ -1,19 +1,8 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { ReactFlowProvider } from '@xyflow/react';
 import { getTranslations } from 'next-intl/server';
-import {
-  getArticulationAreasOpt,
-  getArticulationPointsOpt,
-} from '@/queries/articulation';
-import {
-  getLetterArticulationsOpt,
-  getLettersOpt,
-  getLetterTraitsOpt,
-} from '@/queries/letter';
+import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
+import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';

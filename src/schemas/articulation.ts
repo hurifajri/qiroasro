@@ -13,13 +13,9 @@ const ArticulationAreaSchema = z
   })
   .omit({ sort_order: true });
 
-export const RemoteArticulationAreasSchema = z.array(
-  RemoteArticulationAreaSchema,
-);
+export const RemoteArticulationAreasSchema = z.array(RemoteArticulationAreaSchema);
 
-export type RemoteArticulationArea = z.infer<
-  typeof RemoteArticulationAreaSchema
->;
+export type RemoteArticulationArea = z.infer<typeof RemoteArticulationAreaSchema>;
 export type ArticulationArea = z.infer<typeof ArticulationAreaSchema>;
 
 const RemoteArticulationPointSchema = z.object({
@@ -37,11 +33,7 @@ const ArticulationPointSchema = z
   })
   .omit({ area_id: true, sort_order: true });
 
-export const RemoteArticulationPointsSchema = z.array(
-  RemoteArticulationPointSchema,
-);
+export const RemoteArticulationPointsSchema = z.array(RemoteArticulationPointSchema);
 
-export type RemoteArticulationPoint = z.infer<
-  typeof RemoteArticulationPointSchema
->;
+export type RemoteArticulationPoint = z.infer<typeof RemoteArticulationPointSchema>;
 export type ArticulationPoint = z.infer<typeof ArticulationPointSchema>;

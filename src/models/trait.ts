@@ -24,10 +24,6 @@ function transformRemoteTraitGroup(remoteTraitGroup: RemoteTraitGroup) {
   };
 }
 
-export function transformRemoteTraitGroups(
-  remoteTraitGroups: RemoteTraitGroup[],
-) {
-  return remoteTraitGroups.map((traitGroup) =>
-    transformRemoteTraitGroup(traitGroup),
-  );
+export function transformRemoteTraitGroups(remoteTraitGroups: RemoteTraitGroup[]) {
+  return remoteTraitGroups.map((traitGroup) => transformRemoteTraitGroup(traitGroup));
 }

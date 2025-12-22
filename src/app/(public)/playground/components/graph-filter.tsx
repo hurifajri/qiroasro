@@ -99,9 +99,7 @@ export function GraphFilter({
         {/* Letter Selector (only visible in letter mode) */}
         {viewMode === 'letter' && (
           <div className="flex items-center gap-2">
-            <Label className="hidden text-muted-foreground text-sm sm:block">
-              Pilih Huruf:
-            </Label>
+            <Label className="hidden text-muted-foreground text-sm sm:block">Pilih Huruf:</Label>
             <div className="flex max-w-xs flex-wrap gap-1 sm:max-w-md">
               {letters.map((letter) => (
                 <Button
@@ -129,9 +127,7 @@ export function GraphFilter({
       <div className="flex flex-wrap items-center gap-3 sm:gap-4">
         {/* Layout Mode Toggle */}
         <div className="flex items-center gap-2">
-          <Label className="hidden text-muted-foreground text-sm sm:block">
-            Layout:
-          </Label>
+          <Label className="hidden text-muted-foreground text-sm sm:block">Layout:</Label>
           <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
             <Button
               variant="ghost"
@@ -169,9 +165,7 @@ export function GraphFilter({
         {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
         {layoutMode === 'hierarchical' && (
           <div className="flex items-center gap-2">
-            <Label className="hidden text-muted-foreground text-sm sm:block">
-              Arah:
-            </Label>
+            <Label className="hidden text-muted-foreground text-sm sm:block">Arah:</Label>
             <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
               <Button
                 variant="ghost"
@@ -216,9 +210,7 @@ export function GraphFilter({
           <Button
             variant="ghost"
             size="sm"
-            onClick={() =>
-              onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })
-            }
+            onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
             className={cn(
               'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
               edgeStyle.isFloating
@@ -237,9 +229,7 @@ export function GraphFilter({
               <SplineIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
               <Select
                 value={edgeStyle.shape}
-                onValueChange={(value) =>
-                  onEdgeStyleChange({ shape: value as EdgeShape })
-                }
+                onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
               >
                 <SelectTrigger
                   size="sm"
@@ -248,17 +238,11 @@ export function GraphFilter({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-popover text-popover-foreground">
-                  {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map(
-                    (shape) => (
-                      <SelectItem
-                        key={shape}
-                        value={shape}
-                        className="text-xs sm:text-sm"
-                      >
-                        {EDGE_SHAPE_LABELS[shape]}
-                      </SelectItem>
-                    ),
-                  )}
+                  {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
+                    <SelectItem key={shape} value={shape} className="text-xs sm:text-sm">
+                      {EDGE_SHAPE_LABELS[shape]}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

@@ -19,11 +19,7 @@ export function ThemeSelector({ theme }: ThemeSelectorProps) {
       size="icon"
       variant="outline"
     >
-      {theme === 'light' ? (
-        <SunIcon className="size-5" />
-      ) : (
-        <MoonIcon className="size-5" />
-      )}
+      {theme === 'light' ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

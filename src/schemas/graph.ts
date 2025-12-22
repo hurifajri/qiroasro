@@ -1,9 +1,5 @@
 import * as z from 'zod';
-import {
-  HIERARCHY_DIRECTIONS,
-  LAYOUT_MODES,
-  VIEW_MODES,
-} from '@/lib/constants';
+import { HIERARCHY_DIRECTIONS, LAYOUT_MODES, VIEW_MODES } from '@/lib/constants';
 
 const HierarchyDirectionSchema = z.enum(HIERARCHY_DIRECTIONS);
 const LayoutModeSchema = z.enum(LAYOUT_MODES);
