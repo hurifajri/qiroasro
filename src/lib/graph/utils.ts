@@ -149,11 +149,11 @@ function generateAllView(data: GraphData): GraphView {
   for (const point of data.articulationPoints) {
     nodes.push(createArticulationPointNode(point));
 
-    // Add area-point edges
+    // Add point-area edges
     edges.push({
       id: `edge-area-${point.areaId}-point-${point.id}`,
-      source: `area-${point.areaId}`,
-      target: `point-${point.id}`,
+      source: `point-${point.id}`,
+      target: `area-${point.areaId}`,
       type: 'default',
       style: { stroke: '#0EA5E9', strokeWidth: 1 },
     });
@@ -168,11 +168,11 @@ function generateAllView(data: GraphData): GraphView {
   for (const trait of data.traits) {
     nodes.push(createTraitNode(trait));
 
-    // Group to trait edge
+    // Add trait-group edges
     edges.push({
       id: `edge-group-${trait.groupId}-trait-${trait.id}`,
-      source: `trait-group-${trait.groupId}`,
-      target: `trait-${trait.id}`,
+      source: `trait-${trait.id}`,
+      target: `trait-group-${trait.groupId}`,
       type: 'default',
       style: { stroke: '#8B5CF6', strokeWidth: 1 },
     });
@@ -369,7 +369,7 @@ function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
     if (area && !nodes.find((n) => n.id === `area-${area.id}`)) {
       nodes.push(createArticulationAreaNode(area));
 
-      // Add area-point edges
+      // Add point-area edges
       edges.push({
         id: `edge-area-${area.id}-point-${point.id}`,
         source: `point-${point.id}`,
