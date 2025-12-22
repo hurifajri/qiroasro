@@ -1,4 +1,3 @@
-import type { ColorMode } from '@xyflow/react';
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -20,14 +19,13 @@ import {
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import type { Letter } from '@/schemas/letter';
 import type {
-  EdgeShape,
-  EdgeStyleOptions,
   HierarchyDirection,
   LayoutMode,
   ViewMode,
-} from '../schemas/playground';
+} from '@/schemas/common';
+import type { Letter } from '@/schemas/letter';
+import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
 
 interface GraphFilterProps {
   viewMode: ViewMode;
@@ -36,13 +34,11 @@ interface GraphFilterProps {
   edgeStyle: EdgeStyleOptions;
   letters: Letter[];
   selectedLetterId?: number;
-  colorMode: ColorMode;
   onViewModeChange: (mode: ViewMode) => void;
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
   onEdgeStyleChange: (style: Partial<EdgeStyleOptions>) => void;
   onLetterSelect: (id: number | undefined) => void;
-  onColorModeChange: (mode: ColorMode) => void;
 }
 
 const VIEW_MODE_LABELS: Record<ViewMode, string> = {

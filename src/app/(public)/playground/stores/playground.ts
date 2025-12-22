@@ -1,11 +1,10 @@
 import { createStore } from 'zustand/vanilla';
 import type {
-  EdgeShape,
-  EdgeStyleOptions,
   HierarchyDirection,
   LayoutMode,
   ViewMode,
-} from '../schemas/playground';
+} from '@/schemas/common';
+import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
 
 interface PlaygroundState {
   layoutLoading: boolean;
