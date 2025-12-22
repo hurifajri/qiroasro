@@ -5,6 +5,7 @@ import {
   FilterIcon,
   LayoutGridIcon,
   LinkIcon,
+  NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -65,190 +66,182 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   return (
-    <header className="flex flex-col gap-3 border-border border-b bg-background/80 p-3 backdrop-blur-sm sm:p-4">
-      {/* First Row: View Mode and Letter Selector */}
-      <div className="flex flex-col gap-3 sm:gap-4">
-        {/* View Mode Tabs */}
+    <header className="flex flex-col gap-2 border-border border-b p-2 sm:flex-row sm:items-center">
+      {/* View Mode */}
+      <div className="flex items-center gap-2">
+        <FilterIcon className="size-4 text-muted-foreground" />
+        <ButtonGroup className="flex-1">
+          {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
+            <Button
+              key={mode}
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                onViewModeChange(mode);
+                if (mode !== 'letter') {
+                  onLetterSelect(1);
+                }
+              }}
+              className={cn(
+                'flex-1',
+                viewMode === mode
+                  ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                  : 'text-muted-foreground',
+              )}
+            >
+              {VIEW_MODE_LABELS[mode]}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </div>
+
+      {/* Divider */}
+      <Separator orientation="vertical" className="hidden sm:block" />
+
+      {/* Layout Mode */}
+      <div className="flex items-center gap-2">
+        <LayoutGridIcon className="size-4 text-muted-foreground" />
+        <ButtonGroup className="flex-1">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onLayoutModeChange('radial')}
+            className={cn(
+              'flex-1',
+              layoutMode === 'radial'
+                ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                : 'text-muted-foreground',
+            )}
+          >
+            <CircleIcon className="size-4" />
+            Radial
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onLayoutModeChange('hierarchical')}
+            className={cn(
+              'flex-1',
+              layoutMode === 'hierarchical'
+                ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                : 'text-muted-foreground',
+            )}
+          >
+            <NetworkIcon className="size-4" />
+            Hierarki
+          </Button>
+        </ButtonGroup>
+      </div>
+
+      {/* Divider */}
+      <Separator orientation="vertical" className="hidden sm:block" />
+
+      {/* Edge Type */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="flex items-center gap-2">
-          <FilterIcon className="hidden size-4 text-muted-foreground sm:block" />
-          <ButtonGroup>
-            {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
-              <Button
-                key={mode}
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  onViewModeChange(mode);
-                  if (mode !== 'letter') {
-                    onLetterSelect(1);
-                  }
-                }}
-                className={cn(
-                  'px-2 text-xs sm:px-3 sm:text-sm',
-                  viewMode === mode
-                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700'
-                    : 'text-muted-foreground',
-                )}
-              >
-                {VIEW_MODE_LABELS[mode]}
-              </Button>
-            ))}
-          </ButtonGroup>
+          <LinkIcon className="size-4 text-muted-foreground" />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
+            className={cn(
+              'flex-1',
+              edgeStyle.isFloating
+                ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                : 'text-muted-foreground',
+            )}
+          >
+            Floating
+          </Button>
         </div>
 
-        {/* Letter Selector (only visible in letter mode) */}
-        {viewMode === 'letter' && (
+        {/* Edge Shape Selector - only visible when floating is OFF */}
+        {!edgeStyle.isFloating && (
           <div className="flex items-center gap-2">
-            <Label className="hidden text-muted-foreground text-sm sm:block">Pilih Huruf:</Label>
-            <div className="flex max-w-xs flex-wrap gap-1 sm:max-w-md">
-              {letters.map((letter) => (
-                <Button
-                  key={letter.id}
-                  variant="ghost"
-                  size="icon-sm"
-                  onClick={() => onLetterSelect(letter.id)}
-                  className={cn(
-                    'h-7 w-7 rounded-full p-0 font-bold text-base sm:h-8 sm:w-8 sm:text-lg',
-                    selectedLetterId === letter.id
-                      ? 'scale-110 bg-amber-500 text-white shadow-lg hover:bg-amber-600'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80',
-                  )}
-                  title={letter.slug}
-                >
-                  {letter.symbol}
-                </Button>
-              ))}
-            </div>
+            <SplineIcon className="size-4 text-muted-foreground" />
+            <Select
+              value={EDGE_SHAPE_LABELS[edgeStyle.shape]}
+              onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
+            >
+              <SelectTrigger size="sm" className="flex-1 text-muted-foreground">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
+                  <SelectItem key={shape} value={shape}>
+                    {EDGE_SHAPE_LABELS[shape]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         )}
       </div>
 
-      {/* Second Row: Layout and Edge Controls */}
-      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-        {/* Layout Mode Toggle */}
+      {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
+      {layoutMode === 'hierarchical' && (
         <div className="flex items-center gap-2">
-          <Label className="hidden text-muted-foreground text-sm sm:block">Layout:</Label>
+          <Label className="hidden text-muted-foreground text-sm sm:block">Arah:</Label>
           <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onLayoutModeChange('radial')}
+              onClick={() => onHierarchyDirectionChange('vertical')}
               className={cn(
                 'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                layoutMode === 'radial'
-                  ? 'bg-sky-500 text-white hover:bg-sky-600'
+                hierarchyDirection === 'vertical'
+                  ? 'bg-violet-500 text-white hover:bg-violet-600'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground',
               )}
-              title="Radial Layout"
+              title="Vertikal (Atas ke Bawah)"
             >
-              <CircleIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Radial</span>
+              <ArrowDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Vertikal</span>
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => onLayoutModeChange('hierarchical')}
+              onClick={() => onHierarchyDirectionChange('horizontal')}
               className={cn(
                 'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                layoutMode === 'hierarchical'
-                  ? 'bg-sky-500 text-white hover:bg-sky-600'
+                hierarchyDirection === 'horizontal'
+                  ? 'bg-violet-500 text-white hover:bg-violet-600'
                   : 'text-muted-foreground hover:bg-muted hover:text-foreground',
               )}
-              title="Hierarchical Layout"
+              title="Horizontal (Kiri ke Kanan)"
             >
-              <LayoutGridIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Hirarki</span>
+              <ArrowRightIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="hidden sm:inline">Horizontal</span>
             </Button>
           </ButtonGroup>
         </div>
+      )}
 
-        {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
-        {layoutMode === 'hierarchical' && (
-          <div className="flex items-center gap-2">
-            <Label className="hidden text-muted-foreground text-sm sm:block">Arah:</Label>
-            <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
+      {/* Letter Selector (only visible in letter mode) */}
+      {viewMode === 'letter' && (
+        <div className="flex items-center gap-2">
+          <Label className="hidden text-muted-foreground text-sm sm:block">Pilih Huruf:</Label>
+          <div className="flex max-w-xs flex-wrap gap-1 sm:max-w-md">
+            {letters.map((letter) => (
               <Button
+                key={letter.id}
                 variant="ghost"
-                size="sm"
-                onClick={() => onHierarchyDirectionChange('vertical')}
+                size="icon-sm"
+                onClick={() => onLetterSelect(letter.id)}
                 className={cn(
-                  'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                  hierarchyDirection === 'vertical'
-                    ? 'bg-violet-500 text-white hover:bg-violet-600'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                  'h-7 w-7 rounded-full p-0 font-bold text-base sm:h-8 sm:w-8 sm:text-lg',
+                  selectedLetterId === letter.id
+                    ? 'scale-110 bg-amber-500 text-white shadow-lg hover:bg-amber-600'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80',
                 )}
-                title="Vertikal (Atas ke Bawah)"
+                title={letter.slug}
               >
-                <ArrowDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">Vertikal</span>
+                {letter.symbol}
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => onHierarchyDirectionChange('horizontal')}
-                className={cn(
-                  'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                  hierarchyDirection === 'horizontal'
-                    ? 'bg-violet-500 text-white hover:bg-violet-600'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                )}
-                title="Horizontal (Kiri ke Kanan)"
-              >
-                <ArrowRightIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">Horizontal</span>
-              </Button>
-            </ButtonGroup>
+            ))}
           </div>
-        )}
-
-        {/* Divider */}
-        <Separator orientation="vertical" className="hidden h-6 sm:block" />
-
-        {/* Edge Style Controls */}
-        <div className="flex items-center gap-3 sm:gap-4">
-          {/* Floating Edge Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
-            className={cn(
-              'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-              edgeStyle.isFloating
-                ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                : 'bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground',
-            )}
-            title="Toggle floating edges"
-          >
-            <LinkIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-            <span className="hidden sm:inline">Floating</span>
-          </Button>
-
-          {/* Edge Shape Selector - only visible when floating is OFF */}
-          {!edgeStyle.isFloating && (
-            <div className="flex items-center gap-2">
-              <SplineIcon className="hidden h-4 w-4 text-muted-foreground sm:block" />
-              <Select
-                value={edgeStyle.shape}
-                onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
-              >
-                <SelectTrigger
-                  size="sm"
-                  className="w-24 border-border bg-muted text-foreground text-xs sm:w-28 sm:text-sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-popover text-popover-foreground">
-                  {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
-                    <SelectItem key={shape} value={shape} className="text-xs sm:text-sm">
-                      {EDGE_SHAPE_LABELS[shape]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
         </div>
-      </div>
+      )}
     </header>
   );
 }
