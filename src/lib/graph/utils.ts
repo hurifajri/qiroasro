@@ -372,8 +372,8 @@ function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
       // Add area-point edges
       edges.push({
         id: `edge-area-${area.id}-point-${point.id}`,
-        source: `area-${area.id}`,
-        target: `point-${point.id}`,
+        source: `point-${point.id}`,
+        target: `area-${area.id}`,
         type: 'default',
         style: { stroke: '#0EA5E9' },
       });
