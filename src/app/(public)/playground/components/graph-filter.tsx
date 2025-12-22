@@ -2,6 +2,7 @@ import {
   ArrowDownIcon,
   ArrowRightIcon,
   CircleIcon,
+  CompassIcon,
   FilterIcon,
   LayoutGridIcon,
   LinkIcon,
@@ -99,38 +100,79 @@ export function GraphFilter({
       <Separator orientation="vertical" className="hidden sm:block" />
 
       {/* Layout Mode */}
-      <div className="flex items-center gap-2">
-        <LayoutGridIcon className="size-4 text-muted-foreground" />
-        <ButtonGroup className="flex-1">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onLayoutModeChange('radial')}
-            className={cn(
-              'flex-1',
-              layoutMode === 'radial'
-                ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                : 'text-muted-foreground',
-            )}
-          >
-            <CircleIcon className="size-4" />
-            Radial
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onLayoutModeChange('hierarchical')}
-            className={cn(
-              'flex-1',
-              layoutMode === 'hierarchical'
-                ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                : 'text-muted-foreground',
-            )}
-          >
-            <NetworkIcon className="size-4" />
-            Hierarki
-          </Button>
-        </ButtonGroup>
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="flex items-center gap-2">
+          <LayoutGridIcon className="size-4 text-muted-foreground" />
+          <ButtonGroup className="flex-1">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onLayoutModeChange('radial')}
+              className={cn(
+                'flex-1',
+                layoutMode === 'radial'
+                  ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                  : 'text-muted-foreground',
+              )}
+            >
+              <CircleIcon className="size-4" />
+              Radial
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onLayoutModeChange('hierarchical')}
+              className={cn(
+                'flex-1',
+                layoutMode === 'hierarchical'
+                  ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                  : 'text-muted-foreground',
+              )}
+            >
+              <NetworkIcon className="size-4" />
+              Hierarki
+            </Button>
+          </ButtonGroup>
+        </div>
+
+        {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
+        {layoutMode === 'hierarchical' && (
+          <div className="flex items-center gap-2">
+            <CompassIcon className="size-4 text-muted-foreground" />
+            <ButtonGroup className="flex-1">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onHierarchyDirectionChange('vertical')}
+                className={cn(
+                  'flex-1',
+                  hierarchyDirection === 'vertical'
+                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                    : 'text-muted-foreground',
+                )}
+                title="Vertikal (Atas ke Bawah)"
+              >
+                <ArrowDownIcon className="size-4" />
+                Vertikal
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onHierarchyDirectionChange('horizontal')}
+                className={cn(
+                  'flex-1',
+                  hierarchyDirection === 'horizontal'
+                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                    : 'text-muted-foreground',
+                )}
+                title="Horizontal (Kiri ke Kanan)"
+              >
+                <ArrowRightIcon className="size-4" />
+                Horizontal
+              </Button>
+            </ButtonGroup>
+          </div>
+        )}
       </div>
 
       {/* Divider */}
@@ -177,45 +219,6 @@ export function GraphFilter({
           </div>
         )}
       </div>
-
-      {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
-      {layoutMode === 'hierarchical' && (
-        <div className="flex items-center gap-2">
-          <Label className="hidden text-muted-foreground text-sm sm:block">Arah:</Label>
-          <ButtonGroup className="rounded-lg bg-muted/50 p-0.5">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onHierarchyDirectionChange('vertical')}
-              className={cn(
-                'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                hierarchyDirection === 'vertical'
-                  ? 'bg-violet-500 text-white hover:bg-violet-600'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-              )}
-              title="Vertikal (Atas ke Bawah)"
-            >
-              <ArrowDownIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Vertikal</span>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onHierarchyDirectionChange('horizontal')}
-              className={cn(
-                'gap-1 px-2 text-xs sm:px-3 sm:text-sm',
-                hierarchyDirection === 'horizontal'
-                  ? 'bg-violet-500 text-white hover:bg-violet-600'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-              )}
-              title="Horizontal (Kiri ke Kanan)"
-            >
-              <ArrowRightIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              <span className="hidden sm:inline">Horizontal</span>
-            </Button>
-          </ButtonGroup>
-        </div>
-      )}
 
       {/* Letter Selector (only visible in letter mode) */}
       {viewMode === 'letter' && (
