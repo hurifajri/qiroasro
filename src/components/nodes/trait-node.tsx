@@ -57,7 +57,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'node-trait-gradient flex items-center justify-center rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
+        'node-trait-gradient rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -106,7 +106,7 @@ export function TraitNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'group flex items-center justify-center rounded-lg border-2 border-violet-400/50 bg-violet-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
+        'group rounded-lg border-2 border-violet-400/50 bg-violet-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
         isActive ? 'scale-110 bg-violet-500/40' : 'hover:scale-105 hover:bg-violet-500/30',
         isDimmed && 'opacity-30',
         ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
