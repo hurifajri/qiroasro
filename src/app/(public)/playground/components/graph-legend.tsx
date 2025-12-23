@@ -3,29 +3,46 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
+import type { ViewMode } from '@/schemas/graph';
 
-const legends = [
-  {
-    keyName: 'articulation',
-    color: 'from-node-articulation to-node-articulation-dark',
-  },
-  {
-    keyName: 'trait',
-    color: 'from-node-trait to-node-trait-dark',
-  },
-  {
-    keyName: 'letter',
-    color: 'from-node-letter to-node-letter-dark',
-  },
-  {
-    keyName: 'letterMadd',
-    color: 'from-node-letter-madd to-node-letter-madd-dark',
-  },
-];
+interface GraphLegendProps {
+  viewMode: ViewMode;
+}
 
-export function GraphLegend() {
+export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
   const [isOpen, setIsOpen] = useState(true);
+
+  const legends = [
+    ...(['all', 'articulation', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'articulation',
+            color: 'from-node-articulation to-node-articulation-dark',
+          },
+        ]
+      : []),
+    ...(['all', 'trait', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'trait',
+            color: 'from-node-trait to-node-trait-dark',
+          },
+        ]
+      : []),
+    {
+      keyName: 'letter',
+      color: 'from-node-letter to-node-letter-dark',
+    },
+    ...(['all', 'articulation', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'letterMadd',
+            color: 'from-node-letter-madd to-node-letter-madd-dark',
+          },
+        ]
+      : []),
+  ];
 
   return (
     <Collapsible

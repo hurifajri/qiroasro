@@ -387,7 +387,7 @@ export function Playground() {
 
           {/* Graph Legend */}
           <Panel position="top-right" className="static! m-0!">
-            <GraphLegend />
+            <GraphLegend viewMode={viewMode} />
           </Panel>
         </div>
 
