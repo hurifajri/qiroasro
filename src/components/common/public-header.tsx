@@ -1,5 +1,5 @@
-import { LocaleSelector } from '@/components/locale-selector';
-import { ThemeSelector } from '@/components/theme-selector';
+import { LocaleSelector } from '@/components/common/locale-selector';
+import { ThemeSelector } from '@/components/common/theme-selector';
 import { cn } from '@/lib/utils';
 import { getPersistedGlobalStore } from '@/stores/global';
 

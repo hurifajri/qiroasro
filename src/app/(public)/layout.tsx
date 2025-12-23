@@ -1,5 +1,5 @@
 import type React from 'react';
-import { PublicHeader } from '@/components/public-header';
+import { PublicHeader } from '@/components/common/public-header';
 
 export default async function PublicLayout({ children }: React.PropsWithChildren) {
   // TODO: add authentication redirect once session is implemented
