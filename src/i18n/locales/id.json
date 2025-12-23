@@ -1,12 +1,12 @@
 {
-  "Global": {
+  "global": {
     "letter": {
       "hamza": "Hamzah",
       "ba": "Ba",
       "ta": "Ta",
       "tsa": "Tsa",
       "jim": "Jim",
-      "haWasath": "Ha'",
+      "ha_wasath": "Ha'",
       "kha": "Kho",
       "dal": "Dal",
       "dzal": "Dzal",
@@ -27,34 +27,34 @@
       "mim": "Mim",
       "nun": "Nun",
       "wawu": "Wawu",
-      "haAqsa": "Ha",
-      "lamAlif": "Lam Alif",
+      "ha_aqsa": "Ha",
+      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alifMadd": "Alif Mad",
-      "wawuMadd": "Wawu Mad",
-      "yaMadd": "Ya Mad"
+      "alif_madd": "Alif Mad",
+      "wawu_madd": "Wawu Mad",
+      "ya_madd": "Ya Mad"
     },
-    "articulationArea": {
-      "alJauf": "Rongga Mulut",
-      "alHalq": "Tenggorokan",
-      "alLisan": "Lidah",
-      "asySyafatan": "Dua Bibir",
-      "alKhaisyum": "Rongga Hidung"
+    "articulation_area": {
+      "al_jauf": "Rongga Mulut",
+      "al_halq": "Tenggorokan",
+      "al_lisan": "Lidah",
+      "asy_syafatan": "Dua Bibir",
+      "al_khaisyum": "Rongga Hidung"
     }
   },
-  "HomePage": {
+  "home_page": {
     "title": "Halaman Utama"
   },
-  "PlaygroundPage": {
+  "playground_page": {
     "title": "Halaman Bermain",
     "filter": {
-      "viewMode": {
+      "view_mode": {
         "all": "Semua",
         "articulation": "Makhraj",
         "trait": "Sifat",
         "letter": "Huruf"
       },
-      "layoutMode": {
+      "layout_mode": {
         "radial": "Radial",
         "hierarchical": "Hierarki",
         "direction": {

@@ -2,7 +2,7 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn, kebabToCamelCase } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
 
@@ -18,7 +18,7 @@ type LetterNodeData = Letter & {
 };
 
 export function LetterNode({ data, selected }: NodeProps) {
-  const t = useTranslations('Global.letter');
+  const t = useTranslations('global.letter');
 
   const nodeData = data as unknown as LetterNodeData;
 
@@ -41,7 +41,7 @@ export function LetterNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
-  const localeKey = kebabToCamelCase(nodeData.slug);
+  const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = `(${t(localeKey)})`;
 
   return (

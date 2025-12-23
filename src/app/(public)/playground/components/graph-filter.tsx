@@ -53,13 +53,13 @@ export function GraphFilter({
   onEdgeStyleChange,
   onLetterSelect,
 }: GraphFilterProps) {
-  const t = useTranslations('PlaygroundPage.filter');
+  const t = useTranslations('playground_page.filter');
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
-    all: t('viewMode.all'),
-    articulation: t('viewMode.articulation'),
-    trait: t('viewMode.trait'),
-    letter: t('viewMode.letter'),
+    all: t('view_mode.all'),
+    articulation: t('view_mode.articulation'),
+    trait: t('view_mode.trait'),
+    letter: t('view_mode.letter'),
   };
 
   const EDGE_SHAPE_LABELS: Record<EdgeShape, string> = {
@@ -120,7 +120,7 @@ export function GraphFilter({
                 )}
               >
                 <CircleIcon className="size-4" />
-                {t('layoutMode.radial')}
+                {t('layout_mode.radial')}
               </Button>
               <Button
                 variant="outline"
@@ -134,7 +134,7 @@ export function GraphFilter({
                 )}
               >
                 <NetworkIcon className="size-4" />
-                {t('layoutMode.hierarchical')}
+                {t('layout_mode.hierarchical')}
               </Button>
             </ButtonGroup>
           </div>
@@ -157,7 +157,7 @@ export function GraphFilter({
                   title="Vertikal (Atas ke Bawah)"
                 >
                   <ArrowDownIcon className="size-4" />
-                  {t('layoutMode.direction.vertical')}
+                  {t('layout_mode.direction.vertical')}
                 </Button>
                 <Button
                   variant="outline"
@@ -172,7 +172,7 @@ export function GraphFilter({
                   title="Horizontal (Kiri ke Kanan)"
                 >
                   <ArrowRightIcon className="size-4" />
-                  {t('layoutMode.direction.horizontal')}
+                  {t('layout_mode.direction.horizontal')}
                 </Button>
               </ButtonGroup>
             </div>

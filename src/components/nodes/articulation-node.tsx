@@ -2,7 +2,7 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn, kebabToCamelCase } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
@@ -29,7 +29,7 @@ type ArticulationPointNodeData = ArticulationPoint & {
 };
 
 export function ArticulationAreaNode({ data, selected }: NodeProps) {
-  const t = useTranslations('Global.articulationArea');
+  const t = useTranslations('global.articulation_area');
 
   const nodeData = data as unknown as ArticulationAreaNodeData;
 
@@ -52,7 +52,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
-  const localeKey = kebabToCamelCase(nodeData.slug);
+  const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
 
   return (

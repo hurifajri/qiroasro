@@ -1,12 +1,12 @@
 {
-  "Global": {
+  "global": {
     "letter": {
       "hamza": "Hamza",
       "ba": "Ba",
       "ta": "Ta",
       "tsa": "Tsa",
       "jim": "Jim",
-      "haWasath": "Ha'",
+      "ha_wasath": "Ha'",
       "kha": "Kha",
       "dal": "Dal",
       "dzal": "Dzal",
@@ -27,34 +27,34 @@
       "mim": "Mim",
       "nun": "Nun",
       "wawu": "Wawu",
-      "haAqsa": "Ha",
-      "lamAlif": "Lam Alif",
+      "ha_aqsa": "Ha",
+      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alifMadd": "Alif Madd",
-      "wawuMadd": "Wawu Madd",
-      "yaMadd": "Ya Madd"
+      "alif_madd": "Alif Madd",
+      "wawu_madd": "Wawu Madd",
+      "ya_madd": "Ya Madd"
     },
-    "articulationArea": {
-      "alJauf": "Oral Cavity",
-      "alHalq": "Throat",
-      "alLisan": "Tongue",
-      "asySyafatan": "Two Lips",
-      "alKhaisyum": "Nasal Cavity"
+    "articulation_area": {
+      "al_jauf": "Oral Cavity",
+      "al_halq": "Throat",
+      "al_lisan": "Tongue",
+      "asy_syafatan": "Two Lips",
+      "al_khaisyum": "Nasal Cavity"
     }
   },
-  "HomePage": {
+  "home_page": {
     "title": "Home Page"
   },
-  "PlaygroundPage": {
+  "playground_page": {
     "title": "Playground Page",
     "filter": {
-      "viewMode": {
+      "view_mode": {
         "all": "All",
         "articulation": "Articulation",
         "trait": "Trait",
         "letter": "Letter"
       },
-      "layoutMode": {
+      "layout_mode": {
         "radial": "Radial",
         "hierarchical": "Hierarchical",
         "direction": {
