@@ -11,6 +11,7 @@ import {
   SplineIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -55,6 +56,7 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
+  const [isOpen, setIsOpen] = useState(true);
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
     all: t('view_mode.all'),
@@ -71,7 +73,11 @@ export function GraphFilter({
   };
 
   return (
-    <Collapsible className="flex w-72 flex-col gap-2 rounded-lg border p-2 backdrop-blur-sm">
+    <Collapsible
+      open={isOpen}
+      onOpenChange={setIsOpen}
+      className="flex w-72 flex-col gap-2 rounded-lg border p-2 backdrop-blur-sm"
+    >
       <CollapsibleTrigger className="flex items-center justify-between gap-2 text-left font-semibold text-muted-foreground text-xs">
         {t('title')}
         <ChevronsUpDown className="size-4" />
