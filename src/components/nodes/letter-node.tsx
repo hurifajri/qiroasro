@@ -1,4 +1,6 @@
-import { Handle, type NodeProps, Position } from '@xyflow/react';
+import { type NodeProps, Position } from '@xyflow/react';
+import { BaseHandle } from '@/components/ui/graph/base-handle';
+import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { NODE_COLORS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
@@ -41,9 +43,9 @@ export function LetterNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   return (
-    <div
+    <BaseNode
       className={cn(
-        'relative flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-all duration-300',
+        'flex h-16 w-16 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -54,25 +56,21 @@ export function LetterNode({ data, selected }: NodeProps) {
         boxShadow: `0 4px 20px ${bgColor}40`,
       }}
     >
-      <Handle
+      <BaseHandle
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <span className="select-none font-bold text-3xl text-white">{nodeData.label}</span>
+      <BaseNodeContent className="flex select-none items-center justify-center p-0 font-bold text-3xl text-white">
+        {nodeData.label}
+      </BaseNodeContent>
 
-      <Handle
+      <BaseHandle
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
       />
-
-      {/* Tooltip */}
-      <div className="-bottom-8 -translate-x-1/2 pointer-events-none absolute left-1/2 whitespace-nowrap rounded bg-gray-900/90 px-2 py-1 text-white text-xs opacity-0 transition-opacity group-hover:opacity-100">
-        {nodeData.slug}
-        {nodeData.isMadd && ' (madd)'}
-      </div>
-    </div>
+    </BaseNode>
   );
 }

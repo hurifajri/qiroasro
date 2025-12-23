@@ -1,4 +1,6 @@
-import { Handle, type NodeProps, Position } from '@xyflow/react';
+import { type NodeProps, Position } from '@xyflow/react';
+import { BaseHandle } from '@/components/ui/graph/base-handle';
+import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { NODE_COLORS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
@@ -53,9 +55,9 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   return (
-    <div
+    <BaseNode
       className={cn(
-        'relative flex items-center justify-center rounded-xl px-5 py-3 shadow-lg transition-all duration-300',
+        'flex items-center justify-center rounded-xl border-0 px-5 py-3 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -64,22 +66,22 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
         boxShadow: `0 4px 20px ${NODE_COLORS.articulation.primary}40`,
       }}
     >
-      <Handle
+      <BaseHandle
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <span className="select-none font-semibold text-sm text-white capitalize">
+      <BaseNodeContent className="select-none p-0 font-semibold text-sm text-white capitalize">
         {nodeData.label.replace(/-/g, ' ')}
-      </span>
+      </BaseNodeContent>
 
-      <Handle
+      <BaseHandle
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
       />
-    </div>
+    </BaseNode>
   );
 }
 
@@ -106,28 +108,28 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   return (
-    <div
+    <BaseNode
       className={cn(
-        'group relative flex items-center justify-center rounded-lg border-2 border-sky-400/50 bg-sky-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300',
+        'group flex items-center justify-center rounded-lg border-2 border-sky-400/50 bg-sky-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
         isActive ? 'scale-110 bg-sky-500/40' : 'hover:scale-105 hover:bg-sky-500/30',
         isDimmed && 'opacity-30',
       )}
     >
-      <Handle
+      <BaseHandle
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <span className="select-none font-medium text-sky-700 text-xs capitalize dark:text-sky-100">
+      <BaseNodeContent className="select-none p-0 font-medium text-sky-700 text-xs capitalize dark:text-sky-100">
         {nodeData.label.replace(/-/g, ' ')}
-      </span>
+      </BaseNodeContent>
 
-      <Handle
+      <BaseHandle
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
       />
-    </div>
+    </BaseNode>
   );
 }
