@@ -47,7 +47,7 @@ export function LetterNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'flex size-20 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300',
+        'flex size-24 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300',
         nodeData.isMadd ? 'node-letter-madd-gradient' : 'node-letter-gradient',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',

@@ -122,11 +122,11 @@ export function applyRadialLayout(nodes: Node[], centerX: number, centerY: numbe
 
   // Define ring radii for each type (inner to outer)
   const ringConfig: Record<string, number> = {
-    letter: 350,
-    'articulation-point': 550,
-    'articulation-area': 650,
-    trait: 500,
-    'trait-group': 600,
+    letter: 550,
+    'articulation-point': 750,
+    'articulation-area': 850,
+    trait: 700,
+    'trait-group': 800,
   };
 
   const layoutedNodes: Node[] = [];
