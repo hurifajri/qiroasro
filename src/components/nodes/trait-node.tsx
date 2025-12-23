@@ -1,7 +1,8 @@
 import { type NodeProps, Position } from '@xyflow/react';
+import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 
@@ -28,6 +29,8 @@ type TraitNodeData = Trait & {
 };
 
 export function TraitGroupNode({ data, selected }: NodeProps) {
+  const t = useTranslations('global.trait_group');
+
   const nodeData = data as unknown as TraitGroupNodeData;
 
   // Determine handle positions based on layout
@@ -48,6 +51,9 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
+  const localeKey = kebabToSnakeCase(nodeData.slug);
+  const label = t(localeKey);
+
   return (
     <BaseNode
       className={cn(
@@ -63,7 +69,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="flex select-none flex-col items-center p-0 font-semibold text-sm text-white capitalize">
-        {nodeData.slug.replace(/-/g, ' ')}
+        {label}
       </BaseNodeContent>
 
       <BaseHandle
@@ -97,13 +103,15 @@ export function TraitNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
+  console.log('nodeData', nodeData);
+
   return (
     <BaseNode
       className={cn(
         'group flex items-center justify-center rounded-lg border-2 border-violet-400/50 bg-violet-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
         isActive ? 'scale-110 bg-violet-500/40' : 'hover:scale-105 hover:bg-violet-500/30',
         isDimmed && 'opacity-30',
-        nodeData.isMiddleTrait && 'border-dashed',
+        ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
       )}
     >
       <BaseHandle

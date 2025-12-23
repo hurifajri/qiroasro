@@ -40,6 +40,15 @@
       "al_lisan": "Tongue",
       "asy_syafatan": "Two Lips",
       "al_khaisyum": "Nasal Cavity"
+    },
+    "trait_group": {
+      "nafas": "Airflow",
+      "shaut": "Sound Flow",
+      "ittijah_shaut": "Sound Direction",
+      "inhishar_shaut": "Sound Containment",
+      "khiffah_nuthq": "Fluency",
+      "munfaridah": "Special Traits",
+      "siman_shaut": "Conditional Traits"
     }
   },
   "home_page": {

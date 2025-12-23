@@ -40,6 +40,15 @@
       "al_lisan": "Lidah",
       "asy_syafatan": "Dua Bibir",
       "al_khaisyum": "Rongga Hidung"
+    },
+    "trait_group": {
+      "nafas": "Aliran Udara",
+      "shaut": "Aliran Suara",
+      "ittijah_shaut": "Arah Suara",
+      "inhishar_shaut": "Gumpalan Suara",
+      "khiffah_nuthq": "Kemudahan Pengucapan",
+      "munfaridah": "Sifat Khusus",
+      "siman_shaut": "Sifat Aridhoh"
     }
   },
   "home_page": {
