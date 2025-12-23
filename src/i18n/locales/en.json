@@ -84,7 +84,9 @@
     },
     "legend": {
       "title": "Legend",
-      "articulation": "Articulation",
+      "articulation_area": "Articulation Area",
+      "articulation_point": "Articulation Point",
+      "trait_group": "Trait Group",
       "trait": "Trait",
       "letter": "Letter",
       "letterMadd": "Madd Letter"

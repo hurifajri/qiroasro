@@ -84,7 +84,9 @@
     },
     "legend": {
       "title": "Keterangan",
-      "articulation": "Makhraj",
+      "articulation_area": "Makhraj Umum",
+      "articulation_point": "Makhraj",
+      "trait_group": "Sifat Umum",
       "trait": "Sifat",
       "letter": "Huruf",
       "letterMadd": "Huruf Mad"

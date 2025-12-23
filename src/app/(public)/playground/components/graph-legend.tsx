@@ -17,8 +17,24 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     ...(['all', 'articulation', 'letter'].includes(viewMode)
       ? [
           {
-            keyName: 'articulation',
+            keyName: 'articulation_area',
             color: 'from-node-articulation to-node-articulation-dark',
+          },
+        ]
+      : []),
+    ...(['all', 'articulation', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'articulation_point',
+            color: 'border-2 border-node-articulation/50 bg-node-articulation/20',
+          },
+        ]
+      : []),
+    ...(['all', 'trait', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'trait_group',
+            color: 'from-node-trait to-node-trait-dark',
           },
         ]
       : []),
@@ -26,7 +42,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
       ? [
           {
             keyName: 'trait',
-            color: 'from-node-trait to-node-trait-dark',
+            color: 'border-2 border-node-trait/50 bg-node-trait/20',
           },
         ]
       : []),
@@ -48,7 +64,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex w-28 flex-col gap-2 rounded-lg border backdrop-blur-sm"
+      className="flex w-36 flex-col gap-2 rounded-lg border backdrop-blur-sm"
     >
       <CollapsibleTrigger
         className={cn(
