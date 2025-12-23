@@ -23,7 +23,7 @@ const legends = [
 ];
 
 export function GraphLegend() {
-  const t = useTranslations('global.legend');
+  const t = useTranslations('playground_page.legend');
 
   return (
     <Collapsible className="flex w-28 flex-col gap-2 rounded-lg border p-2 backdrop-blur-sm">

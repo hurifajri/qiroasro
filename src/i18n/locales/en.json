@@ -49,13 +49,6 @@
       "khiffah_nuthq": "Fluency",
       "munfaridah": "Special Traits",
       "siman_shaut": "Conditional Traits"
-    },
-    "legend": {
-      "title": "Legend",
-      "articulation": "Articulation",
-      "trait": "Trait",
-      "letter": "Letter",
-      "letterMadd": "Madd Letter"
     }
   },
   "home_page": {
@@ -87,6 +80,13 @@
           "smoothstep": "Smoothstep"
         }
       }
+    },
+    "legend": {
+      "title": "Legend",
+      "articulation": "Articulation",
+      "trait": "Trait",
+      "letter": "Letter",
+      "letterMadd": "Madd Letter"
     }
   }
 }
