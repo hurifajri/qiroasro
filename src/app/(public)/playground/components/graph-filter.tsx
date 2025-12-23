@@ -53,7 +53,7 @@ export function GraphFilter({
   onEdgeStyleChange,
   onLetterSelect,
 }: GraphFilterProps) {
-  const t = useTranslations('PlaygroundPage.header.filter');
+  const t = useTranslations('PlaygroundPage.filter');
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
     all: t('viewMode.all'),

@@ -149,6 +149,7 @@ export function Playground() {
           fitView({ padding: 0.2, duration: 300 });
         }, 50);
       } catch (err) {
+        // TODO: handle error
         console.error('Layout error:', err);
       }
     }
@@ -376,21 +377,25 @@ export function Playground() {
           animated: edgeStyle.isAnimated,
         }}
       >
-        <Controls
-          position="bottom-right"
-          className="rounded-lg! border-gray-700! bg-gray-800! shadow-xl!"
-        />
+        <Controls position="bottom-right" />
         <MiniMap
           position="bottom-left"
           nodeColor={(node) => {
-            if (node.type === 'letter') return '#F59E0B';
-            if (node.type === 'articulation-area' || node.type === 'articulation-point')
+            if (node.type === 'letter') {
+              return '#F59E0B';
+            }
+
+            if (node.type === 'articulation-area' || node.type === 'articulation-point') {
               return '#0EA5E9';
-            if (node.type === 'trait-group' || node.type === 'trait') return '#8B5CF6';
+            }
+
+            if (node.type === 'trait-group' || node.type === 'trait') {
+              return '#8B5CF6';
+            }
+
             return '#64748b';
           }}
-          maskColor="rgba(0, 0, 0, 0.7)"
-          className="rounded-lg! border-gray-700! bg-gray-800/80!"
+          maskColor="rgba(0, 0, 0, 0.5)"
         />
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
       </ReactFlow>

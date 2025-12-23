@@ -40,30 +40,28 @@
   },
   "PlaygroundPage": {
     "title": "Halaman Bermain",
-    "header": {
-      "filter": {
-        "viewMode": {
-          "all": "Semua",
-          "articulation": "Makhraj",
-          "trait": "Sifat",
-          "letter": "Huruf"
-        },
-        "layoutMode": {
-          "radial": "Radial",
-          "hierarchical": "Hierarki",
-          "direction": {
-            "vertical": "Vertikal",
-            "horizontal": "Horizontal"
-          }
-        },
-        "edge": {
-          "dynamic": "Garis Dinamis",
-          "shape": {
-            "default": "Bezier",
-            "straight": "Lurus",
-            "step": "Langkah",
-            "smoothstep": "Halus"
-          }
+    "filter": {
+      "viewMode": {
+        "all": "Semua",
+        "articulation": "Makhraj",
+        "trait": "Sifat",
+        "letter": "Huruf"
+      },
+      "layoutMode": {
+        "radial": "Radial",
+        "hierarchical": "Hierarki",
+        "direction": {
+          "vertical": "Vertikal",
+          "horizontal": "Horizontal"
+        }
+      },
+      "edge": {
+        "dynamic": "Garis Dinamis",
+        "shape": {
+          "default": "Bezier",
+          "straight": "Lurus",
+          "step": "Langkah",
+          "smoothstep": "Halus"
         }
       }
     }
