@@ -15,11 +15,6 @@ import {
   useNodesState,
   useReactFlow,
 } from '@xyflow/react';
-import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
-import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
-import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
-import { usePlaygroundStore } from '../providers/playground';
-import { GraphFilter } from './graph-filter';
 import '@xyflow/react/dist/style.css';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/edges/floating-connection-line';
@@ -30,6 +25,11 @@ import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
 import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
 import { generateGraphFromData } from '@/lib/graph/utils';
 import { useGlobalStore } from '@/providers/global';
+import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
+import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
+import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
+import { usePlaygroundStore } from '../providers/playground';
+import { GraphFilter } from './graph-filter';
 
 // Register custom node types
 const nodeTypes: NodeTypes = {
