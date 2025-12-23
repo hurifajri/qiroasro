@@ -58,9 +58,9 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'rounded-xl border-0 px-6 py-4 shadow-lg transition-all duration-300 hover:ring-0',
-        'bg-linear-to-br from-node-articulation to-node-articulation-dark shadow-node-articulation/40',
-        isActive ? 'scale-110' : 'hover:scale-105',
+        'rounded-xl border-0 px-6 py-4 transition-all duration-300 hover:ring-0',
+        'bg-linear-to-br from-node-articulation to-node-articulation-dark',
+        isActive ? 'scale-110 shadow-lg shadow-node-articulation/40' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >

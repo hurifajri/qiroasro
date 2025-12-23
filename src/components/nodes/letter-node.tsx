@@ -47,11 +47,13 @@ export function LetterNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'flex size-24 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300 hover:ring-0',
+        'flex size-24 items-center justify-center rounded-full border-0 transition-all duration-300 hover:ring-0',
         nodeData.isMadd
-          ? 'bg-linear-to-br from-node-letter-madd to-node-letter-madd-dark shadow-node-letter-madd/40'
-          : 'bg-linear-to-br from-node-letter to-node-letter-dark shadow-node-letter/40',
-        isActive ? 'scale-110' : 'hover:scale-105',
+          ? 'bg-linear-to-br from-node-letter-madd to-node-letter-madd-dark'
+          : 'bg-linear-to-br from-node-letter to-node-letter-dark',
+        isActive
+          ? `scale-110 shadow-lg ${nodeData.isMadd ? 'shadow-node-letter-madd/40' : 'shadow-node-letter/40'}`
+          : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
