@@ -1,8 +1,44 @@
 {
-  "home_page": {
+  "Global": {
+    "letter": {
+      "hamza": "Hamzah",
+      "ba": "Ba",
+      "ta": "Ta",
+      "tsa": "Tsa",
+      "jim": "Jim",
+      "haWasath": "Ha'",
+      "kha": "Kho",
+      "dal": "Dal",
+      "dzal": "Dzal",
+      "ra": "Ro",
+      "zay": "Zay",
+      "sin": "Sin",
+      "syin": "Syin",
+      "shad": "Shod",
+      "dhad": "Dhod",
+      "tha": "Tho",
+      "zha": "Zho",
+      "ain": "Ain",
+      "ghain": "Ghoin",
+      "fa": "Fa",
+      "qaf": "Qof",
+      "kaf": "Kaf",
+      "lam": "Lam",
+      "mim": "Mim",
+      "nun": "Nun",
+      "wawu": "Wawu",
+      "haAqsa": "Ha",
+      "lamAlif": "Lam Alif",
+      "ya": "Ya",
+      "alifMadd": "Alif Mad",
+      "wawuMadd": "Wawu Mad",
+      "yaMadd": "Ya Mad"
+    }
+  },
+  "HomePage": {
     "title": "Halaman Utama"
   },
-  "playground_page": {
+  "PlaygroundPage": {
     "title": "Halaman Bermain"
   }
 }

@@ -1,7 +1,8 @@
 import { type NodeProps, Position } from '@xyflow/react';
+import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn } from '@/lib/utils';
+import { cn, kebabToCamelCase } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
 interface LetterNodeData {
@@ -19,6 +20,8 @@ interface LetterNodeData {
 }
 
 export function LetterNode({ data, selected }: NodeProps) {
+  const t = useTranslations('Global');
+
   const nodeData = data as unknown as LetterNodeData;
 
   // Determine handle positions based on layout
@@ -40,10 +43,12 @@ export function LetterNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
+  const localeKey = kebabToCamelCase(nodeData.slug);
+
   return (
     <BaseNode
       className={cn(
-        'flex h-16 w-16 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300',
+        'flex size-20 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300',
         nodeData.isMadd ? 'node-letter-madd-gradient' : 'node-letter-gradient',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
@@ -55,8 +60,9 @@ export function LetterNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="flex select-none items-center justify-center p-0 font-bold text-3xl text-white">
-        {nodeData.label}
+      <BaseNodeContent className="flex select-none items-center justify-center gap-2 p-0 text-white">
+        <span className="font-bold text-3xl">{nodeData.label}</span>
+        <span className="text-xs">{`(${t(`letter.${localeKey}`)})`}</span>
       </BaseNodeContent>
 
       <BaseHandle

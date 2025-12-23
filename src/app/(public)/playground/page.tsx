@@ -8,7 +8,7 @@ import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
 
 export default async function PlaygroundPage() {
-  const t = await getTranslations('playground_page');
+  const t = await getTranslations('PlaygroundPage');
 
   const queryClient = new QueryClient();
   await Promise.all([
