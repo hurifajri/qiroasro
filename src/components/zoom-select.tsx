@@ -16,7 +16,8 @@ export function ZoomSelect({ className, ...props }: Omit<PanelProps, 'children'>
   const { zoomTo, fitView } = useReactFlow();
 
   const handleZoomChange = useCallback(
-    (value: string) => {
+    (value: string | null) => {
+      if (!value) return;
       if (value === 'best-fit') {
         fitView();
       } else {
@@ -44,8 +45,8 @@ export function ZoomSelect({ className, ...props }: Omit<PanelProps, 'children'>
   return (
     <Panel className={cn('flex bg-primary-foreground text-foreground', className)} {...props}>
       <Select onValueChange={handleZoomChange}>
-        <SelectTrigger className="w-[140px] bg-primary-foreground">
-          <SelectValue placeholder="Zoom" />
+        <SelectTrigger className="w-35 bg-primary-foreground">
+          <SelectValue />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="best-fit">Best Fit</SelectItem>
