@@ -39,6 +39,33 @@
     "title": "Home Page"
   },
   "PlaygroundPage": {
-    "title": "Playground Page"
+    "title": "Playground Page",
+    "header": {
+      "filter": {
+        "viewMode": {
+          "all": "All",
+          "articulation": "Articulation",
+          "trait": "Trait",
+          "letter": "Letter"
+        },
+        "layoutMode": {
+          "radial": "Radial",
+          "hierarchical": "Hierarchical",
+          "direction": {
+            "vertical": "Vertical",
+            "horizontal": "Horizontal"
+          }
+        },
+        "edge": {
+          "dynamic": "Dynamic Edge",
+          "shape": {
+            "default": "Bezier",
+            "straight": "Straight",
+            "step": "Step",
+            "smoothstep": "Smoothstep"
+          }
+        }
+      }
+    }
   }
 }

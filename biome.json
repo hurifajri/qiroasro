@@ -57,6 +57,12 @@
                   "kind": "objectLiteralProperty"
                 },
                 "formats": ["camelCase", "snake_case", "CONSTANT_CASE"]
+              },
+              {
+                "selector": {
+                  "kind": "const"
+                },
+                "formats": ["camelCase", "PascalCase", "CONSTANT_CASE"]
               }
             ]
           }

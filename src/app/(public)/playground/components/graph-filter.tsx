@@ -9,6 +9,7 @@ import {
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -39,20 +40,6 @@ interface GraphFilterProps {
   onLetterSelect: (id: number) => void;
 }
 
-const VIEW_MODE_LABELS: Record<ViewMode, string> = {
-  all: 'Semua',
-  articulation: 'Artikulasi',
-  trait: 'Sifat',
-  letter: 'Huruf',
-};
-
-const EDGE_SHAPE_LABELS: Record<EdgeShape, string> = {
-  default: 'Bezier',
-  straight: 'Lurus',
-  step: 'Langkah',
-  smoothstep: 'Halus',
-};
-
 export function GraphFilter({
   viewMode,
   layoutMode,
@@ -66,9 +53,25 @@ export function GraphFilter({
   onEdgeStyleChange,
   onLetterSelect,
 }: GraphFilterProps) {
+  const t = useTranslations('PlaygroundPage.header.filter');
+
+  const VIEW_MODE_LABELS: Record<ViewMode, string> = {
+    all: t('viewMode.all'),
+    articulation: t('viewMode.articulation'),
+    trait: t('viewMode.trait'),
+    letter: t('viewMode.letter'),
+  };
+
+  const EDGE_SHAPE_LABELS: Record<EdgeShape, string> = {
+    default: t('edge.shape.default'),
+    straight: t('edge.shape.straight'),
+    step: t('edge.shape.step'),
+    smoothstep: t('edge.shape.smoothstep'),
+  };
+
   return (
     <header className="flex flex-col gap-2 border-border border-b p-2">
-      <div className="flex flex-col gap-2 md:flex-row md:items-center">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
         {/* View Mode */}
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
@@ -98,10 +101,10 @@ export function GraphFilter({
         </div>
 
         {/* Divider */}
-        <Separator orientation="vertical" className="hidden md:block" />
+        <Separator orientation="vertical" className="hidden lg:block" />
 
         {/* Layout Mode */}
-        <div className="flex flex-col gap-2 md:flex-row md:items-center">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <div className="flex items-center gap-2">
             <LayoutGridIcon className="size-4 text-muted-foreground" />
             <ButtonGroup className="flex-1">
@@ -117,7 +120,7 @@ export function GraphFilter({
                 )}
               >
                 <CircleIcon className="size-4" />
-                Radial
+                {t('layoutMode.radial')}
               </Button>
               <Button
                 variant="outline"
@@ -131,7 +134,7 @@ export function GraphFilter({
                 )}
               >
                 <NetworkIcon className="size-4" />
-                Hierarki
+                {t('layoutMode.hierarchical')}
               </Button>
             </ButtonGroup>
           </div>
@@ -154,7 +157,7 @@ export function GraphFilter({
                   title="Vertikal (Atas ke Bawah)"
                 >
                   <ArrowDownIcon className="size-4" />
-                  Vertikal
+                  {t('layoutMode.direction.vertical')}
                 </Button>
                 <Button
                   variant="outline"
@@ -169,7 +172,7 @@ export function GraphFilter({
                   title="Horizontal (Kiri ke Kanan)"
                 >
                   <ArrowRightIcon className="size-4" />
-                  Horizontal
+                  {t('layoutMode.direction.horizontal')}
                 </Button>
               </ButtonGroup>
             </div>
@@ -177,10 +180,10 @@ export function GraphFilter({
         </div>
 
         {/* Divider */}
-        <Separator orientation="vertical" className="hidden md:block" />
+        <Separator orientation="vertical" className="hidden lg:block" />
 
         {/* Edge Type */}
-        <div className="flex flex-col gap-2 md:flex-row md:items-center">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
           <div className="flex items-center gap-2">
             <LinkIcon className="size-4 text-muted-foreground" />
             <Button
@@ -194,7 +197,7 @@ export function GraphFilter({
                   : 'text-muted-foreground',
               )}
             >
-              Floating
+              {t('edge.dynamic')}
             </Button>
           </div>
 
