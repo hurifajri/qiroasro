@@ -89,9 +89,9 @@ export function GraphFilter({
       </CollapsibleTrigger>
       <CollapsibleContent className="p-2 pt-0">
         <div className="flex flex-col gap-2">
-          <div className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2">
             {/* View Mode */}
-            <div className="flex items-center gap-2">
+            <li className="flex items-center gap-2">
               <FilterIcon className="size-4 text-muted-foreground" />
               <ButtonGroup className="flex-1">
                 {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
@@ -116,126 +116,122 @@ export function GraphFilter({
                   </Button>
                 ))}
               </ButtonGroup>
-            </div>
+            </li>
 
             {/* Layout Mode */}
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <LayoutGridIcon className="size-4 text-muted-foreground" />
-                <ButtonGroup className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onLayoutModeChange('radial')}
-                    className={cn(
-                      'flex-1',
-                      layoutMode === 'radial'
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                  >
-                    <CircleIcon className="size-4" />
-                    {t('layout_mode.radial')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onLayoutModeChange('hierarchical')}
-                    className={cn(
-                      'flex-1',
-                      layoutMode === 'hierarchical'
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                  >
-                    <NetworkIcon className="size-4" />
-                    {t('layout_mode.hierarchical')}
-                  </Button>
-                </ButtonGroup>
-              </div>
-
-              {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
-              {layoutMode === 'hierarchical' && (
-                <div className="flex items-center gap-2">
-                  <CompassIcon className="size-4 text-muted-foreground" />
-                  <ButtonGroup className="flex-1">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onHierarchyDirectionChange('vertical')}
-                      className={cn(
-                        'flex-1',
-                        hierarchyDirection === 'vertical'
-                          ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                          : 'text-muted-foreground',
-                      )}
-                      title="Vertikal (Atas ke Bawah)"
-                    >
-                      <ArrowDownIcon className="size-4" />
-                      {t('layout_mode.direction.vertical')}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onHierarchyDirectionChange('horizontal')}
-                      className={cn(
-                        'flex-1',
-                        hierarchyDirection === 'horizontal'
-                          ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                          : 'text-muted-foreground',
-                      )}
-                      title="Horizontal (Kiri ke Kanan)"
-                    >
-                      <ArrowRightIcon className="size-4" />
-                      {t('layout_mode.direction.horizontal')}
-                    </Button>
-                  </ButtonGroup>
-                </div>
-              )}
-            </div>
-
-            {/* Edge Type */}
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <LinkIcon className="size-4 text-muted-foreground" />
+            <li className="flex items-center gap-2">
+              <LayoutGridIcon className="size-4 text-muted-foreground" />
+              <ButtonGroup className="flex-1">
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
+                  onClick={() => onLayoutModeChange('radial')}
                   className={cn(
                     'flex-1',
-                    edgeStyle.isFloating
+                    layoutMode === 'radial'
                       ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
                       : 'text-muted-foreground',
                   )}
                 >
-                  {t('edge.dynamic')}
+                  <CircleIcon className="size-4" />
+                  {t('layout_mode.radial')}
                 </Button>
-              </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => onLayoutModeChange('hierarchical')}
+                  className={cn(
+                    'flex-1',
+                    layoutMode === 'hierarchical'
+                      ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                      : 'text-muted-foreground',
+                  )}
+                >
+                  <NetworkIcon className="size-4" />
+                  {t('layout_mode.hierarchical')}
+                </Button>
+              </ButtonGroup>
+            </li>
 
-              {/* Edge Shape Selector - only visible when floating is OFF */}
-              {!edgeStyle.isFloating && (
-                <div className="flex items-center gap-2">
-                  <SplineIcon className="size-4 text-muted-foreground" />
-                  <Select
-                    value={EDGE_SHAPE_LABELS[edgeStyle.shape]}
-                    onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
+            {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
+            {layoutMode === 'hierarchical' && (
+              <li className="flex items-center gap-2">
+                <CompassIcon className="size-4 text-muted-foreground" />
+                <ButtonGroup className="flex-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onHierarchyDirectionChange('vertical')}
+                    className={cn(
+                      'flex-1',
+                      hierarchyDirection === 'vertical'
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                        : 'text-muted-foreground',
+                    )}
+                    title="Vertikal (Atas ke Bawah)"
                   >
-                    <SelectTrigger size="sm" className="flex-1 text-muted-foreground">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
-                        <SelectItem key={shape} value={shape}>
-                          {EDGE_SHAPE_LABELS[shape]}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-            </div>
-          </div>
+                    <ArrowDownIcon className="size-4" />
+                    {t('layout_mode.direction.vertical')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onHierarchyDirectionChange('horizontal')}
+                    className={cn(
+                      'flex-1',
+                      hierarchyDirection === 'horizontal'
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                        : 'text-muted-foreground',
+                    )}
+                    title="Horizontal (Kiri ke Kanan)"
+                  >
+                    <ArrowRightIcon className="size-4" />
+                    {t('layout_mode.direction.horizontal')}
+                  </Button>
+                </ButtonGroup>
+              </li>
+            )}
+
+            {/* Edge Type */}
+            <li className="flex items-center gap-2">
+              <LinkIcon className="size-4 text-muted-foreground" />
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
+                className={cn(
+                  'flex-1',
+                  edgeStyle.isFloating
+                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                    : 'text-muted-foreground',
+                )}
+              >
+                {t('edge.dynamic')}
+              </Button>
+            </li>
+
+            {/* Edge Shape Selector - only visible when floating is OFF */}
+            {!edgeStyle.isFloating && (
+              <li className="flex items-center gap-2">
+                <SplineIcon className="size-4 text-muted-foreground" />
+                <Select
+                  value={EDGE_SHAPE_LABELS[edgeStyle.shape]}
+                  onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
+                >
+                  <SelectTrigger size="sm" className="flex-1 text-muted-foreground">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
+                      <SelectItem key={shape} value={shape}>
+                        {EDGE_SHAPE_LABELS[shape]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </li>
+            )}
+          </ul>
 
           {/* Letter Selector (only visible in letter mode) */}
           {viewMode === 'letter' && (
