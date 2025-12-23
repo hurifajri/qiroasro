@@ -58,7 +58,8 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'node-articulation-gradient rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
+        'rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300 hover:ring-0',
+        'bg-linear-to-br from-node-articulation to-node-articulation-dark shadow-node-articulation/40',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -69,7 +70,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="select-none p-0 font-semibold text-sm text-white capitalize">
+      <BaseNodeContent className="select-none p-0 font-semibold text-node-letter-text text-sm capitalize">
         {label}
       </BaseNodeContent>
 
@@ -97,7 +98,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
     if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-sky-300!';
+    return 'size-2 border-0! bg-node-articulation-secondary!';
   };
 
   // Only dim nodes that are not selected and not highlighted
@@ -107,8 +108,10 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'group rounded-lg border-2 border-sky-400/50 bg-sky-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
-        isActive ? 'scale-110 bg-sky-500/40' : 'hover:scale-105 hover:bg-sky-500/30',
+        'group rounded-lg border-2 border-node-articulation/50 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
+        'bg-node-articulation/20 text-node-articulation-text hover:bg-node-articulation/30',
+        isActive && 'scale-110 bg-node-articulation/40',
+        !isActive && 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
@@ -118,7 +121,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="select-none p-0 font-medium text-sky-700 text-xs capitalize dark:text-sky-100">
+      <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">
         {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 

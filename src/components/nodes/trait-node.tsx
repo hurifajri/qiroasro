@@ -57,7 +57,8 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'node-trait-gradient rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
+        'rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300 hover:ring-0',
+        'bg-linear-to-br from-node-trait to-node-trait-dark shadow-node-trait/40',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -68,7 +69,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="flex select-none flex-col items-center p-0 font-semibold text-sm text-white capitalize">
+      <BaseNodeContent className="flex select-none flex-col items-center p-0 font-semibold text-node-letter-text text-sm capitalize">
         {label}
       </BaseNodeContent>
 
@@ -96,7 +97,7 @@ export function TraitNode({ data, selected }: NodeProps) {
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
     if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-violet-300!';
+    return 'size-2 border-0! bg-node-trait-secondary!';
   };
 
   // Only dim nodes that are not selected and not highlighted
@@ -106,8 +107,10 @@ export function TraitNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'group rounded-lg border-2 border-violet-400/50 bg-violet-500/20 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
-        isActive ? 'scale-110 bg-violet-500/40' : 'hover:scale-105 hover:bg-violet-500/30',
+        'group rounded-lg border-2 border-node-trait/50 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
+        'bg-node-trait/20 text-node-trait-text hover:bg-node-trait/30',
+        isActive && 'scale-110 bg-node-trait/40',
+        !isActive && 'hover:scale-105',
         isDimmed && 'opacity-30',
         ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
       )}
@@ -118,7 +121,7 @@ export function TraitNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="flex select-none flex-col items-center p-0 font-medium text-violet-700 text-xs capitalize dark:text-violet-100">
+      <BaseNodeContent className="flex select-none flex-col items-center p-0 font-medium text-xs capitalize">
         {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 
