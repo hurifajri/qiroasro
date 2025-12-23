@@ -87,7 +87,8 @@
       "articulation_area": "Makhraj Umum",
       "articulation_point": "Makhraj",
       "trait_group": "Sifat Umum",
-      "trait": "Sifat",
+      "trait_lazimah": "Sifat Lazimah",
+      "trait_aridhah": "Sifat Aridhoh",
       "letter": "Huruf",
       "letterMadd": "Huruf Mad"
     }

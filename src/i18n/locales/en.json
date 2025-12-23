@@ -87,7 +87,8 @@
       "articulation_area": "Articulation Area",
       "articulation_point": "Articulation Point",
       "trait_group": "Trait Group",
-      "trait": "Trait",
+      "trait_lazimah": "Permanent Trait",
+      "trait_aridhah": "Conditional Trait",
       "letter": "Letter",
       "letterMadd": "Madd Letter"
     }

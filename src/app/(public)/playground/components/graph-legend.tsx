@@ -41,8 +41,16 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     ...(['all', 'trait', 'letter'].includes(viewMode)
       ? [
           {
-            keyName: 'trait',
+            keyName: 'trait_lazimah',
             color: 'border-2 border-node-trait/50 bg-node-trait/20',
+          },
+        ]
+      : []),
+    ...(['all', 'trait', 'letter'].includes(viewMode)
+      ? [
+          {
+            keyName: 'trait_aridhah',
+            color: 'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
           },
         ]
       : []),
