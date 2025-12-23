@@ -58,7 +58,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'node-articulation-gradient flex items-center justify-center rounded-xl border-0 px-5 py-3 shadow-lg transition-all duration-300',
+        'node-articulation-gradient rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}

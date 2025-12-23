@@ -57,7 +57,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'node-trait-gradient flex items-center justify-center rounded-xl border-0 px-5 py-3 shadow-lg transition-all duration-300',
+        'node-trait-gradient flex items-center justify-center rounded-xl border-0 px-4 py-2 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -102,8 +102,6 @@ export function TraitNode({ data, selected }: NodeProps) {
   // Only dim nodes that are not selected and not highlighted
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
-
-  console.log('nodeData', nodeData);
 
   return (
     <BaseNode
