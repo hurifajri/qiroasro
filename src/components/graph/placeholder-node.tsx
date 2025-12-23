@@ -2,7 +2,7 @@
 
 import { Handle, type NodeProps, Position, useNodeId, useReactFlow } from '@xyflow/react';
 import { type ReactNode, useCallback } from 'react';
-import { BaseNode } from '@/components/base-node';
+import { BaseNode } from '@/components/graph/base-node';
 
 export type PlaceholderNodeProps = Partial<NodeProps> & {
   children?: ReactNode;
