@@ -58,9 +58,8 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'rounded-xl border-0 px-6 py-4 transition-all duration-300 hover:ring-0',
-        'bg-linear-to-br from-node-articulation to-node-articulation-dark',
-        isActive ? 'scale-110 shadow-lg shadow-node-articulation/40' : 'hover:scale-105',
+        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 transition-all duration-300 hover:ring-0',
+        isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
@@ -108,10 +107,8 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'group rounded-lg border-2 border-node-articulation/50 px-4 py-2 shadow-lg backdrop-blur-sm transition-all duration-300 hover:ring-0',
-        'bg-node-articulation/20 text-node-articulation-text hover:bg-node-articulation/30',
-        isActive && 'scale-110 bg-node-articulation/40',
-        !isActive && 'hover:scale-105',
+        'group rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text backdrop-blur-sm transition-all duration-300 hover:bg-node-articulation/30 hover:ring-0',
+        isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
