@@ -1,7 +1,6 @@
 import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { NODE_COLORS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
@@ -49,7 +48,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
     if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-violet-300!';
+    return 'size-2 border-0! bg-node-trait-secondary!';
   };
 
   const isActive = selected || nodeData.isHighlighted;
@@ -58,14 +57,10 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'flex items-center justify-center rounded-xl border-0 px-5 py-3 shadow-lg transition-all duration-300',
+        'node-trait-gradient flex items-center justify-center rounded-xl border-0 px-5 py-3 shadow-lg transition-all duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
-      style={{
-        background: NODE_COLORS.trait.gradient,
-        boxShadow: `0 4px 20px ${NODE_COLORS.trait.primary} 40`,
-      }}
     >
       <BaseHandle
         type="target"
