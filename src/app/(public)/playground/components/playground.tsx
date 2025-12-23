@@ -10,6 +10,7 @@ import {
   type Node as FlowNode,
   MiniMap,
   type NodeTypes,
+  Panel,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -30,6 +31,7 @@ import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundStore } from '../providers/playground';
 import { GraphFilter } from './graph-filter';
+import { GraphLegend } from './graph-legend';
 
 // Register custom node types
 const nodeTypes: NodeTypes = {
@@ -377,6 +379,10 @@ export function Playground() {
           animated: edgeStyle.isAnimated,
         }}
       >
+        {/* Graph Legend */}
+        <Panel position="top-right">
+          <GraphLegend />
+        </Panel>
         <Controls position="bottom-right" />
         <MiniMap
           position="bottom-left"

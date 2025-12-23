@@ -49,6 +49,12 @@
       "khiffah_nuthq": "Kemudahan Pengucapan",
       "munfaridah": "Sifat Khusus",
       "siman_shaut": "Sifat Aridhoh"
+    },
+    "legend": {
+      "articulation": "Makhraj",
+      "trait": "Sifat",
+      "letter": "Huruf",
+      "letterMadd": "Huruf Mad"
     }
   },
   "home_page": {

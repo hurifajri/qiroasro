@@ -49,6 +49,12 @@
       "khiffah_nuthq": "Fluency",
       "munfaridah": "Special Traits",
       "siman_shaut": "Conditional Traits"
+    },
+    "legend": {
+      "articulation": "Articulation",
+      "trait": "Trait",
+      "letter": "Letter",
+      "letterMadd": "Madd Letter"
     }
   },
   "home_page": {
