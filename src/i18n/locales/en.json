@@ -57,6 +57,7 @@
   "playground_page": {
     "title": "Playground Page",
     "filter": {
+      "title": "Settings",
       "view_mode": {
         "all": "All",
         "articulation": "Articulation",

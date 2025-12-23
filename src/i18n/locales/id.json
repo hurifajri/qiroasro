@@ -57,6 +57,7 @@
   "playground_page": {
     "title": "Halaman Bermain",
     "filter": {
+      "title": "Pengaturan",
       "view_mode": {
         "all": "Semua",
         "articulation": "Makhraj",

@@ -345,20 +345,7 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   return (
-    <div className="flex h-screen flex-col">
-      <GraphFilter
-        viewMode={viewMode}
-        layoutMode={layoutMode}
-        hierarchyDirection={hierarchyDirection}
-        edgeStyle={edgeStyle}
-        letters={memoizedLetters}
-        selectedLetterId={selectedLetterId}
-        onViewModeChange={setViewMode}
-        onLayoutModeChange={setLayoutMode}
-        onHierarchyDirectionChange={setHierarchyDirection}
-        onEdgeStyleChange={setEdgeStyle}
-        onLetterSelect={setSelectedLetterId}
-      />
+    <div className="h-[calc(100dvh-49px)]">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -379,11 +366,33 @@ export function Playground() {
           animated: edgeStyle.isAnimated,
         }}
       >
-        {/* Graph Legend */}
-        <Panel position="top-right">
-          <GraphLegend />
-        </Panel>
+        {/* Settings */}
+        <div className="absolute top-0 left-0 flex w-full flex-col justify-between gap-2 p-3 sm:flex-row">
+          {/* Graph Filter */}
+          <Panel position="top-left" className="static! m-0!">
+            <GraphFilter
+              viewMode={viewMode}
+              layoutMode={layoutMode}
+              hierarchyDirection={hierarchyDirection}
+              edgeStyle={edgeStyle}
+              letters={memoizedLetters}
+              selectedLetterId={selectedLetterId}
+              onViewModeChange={setViewMode}
+              onLayoutModeChange={setLayoutMode}
+              onHierarchyDirectionChange={setHierarchyDirection}
+              onEdgeStyleChange={setEdgeStyle}
+              onLetterSelect={setSelectedLetterId}
+            />
+          </Panel>
+
+          {/* Graph Legend */}
+          <Panel position="top-right" className="static! m-0!">
+            <GraphLegend />
+          </Panel>
+        </div>
+
         <Controls position="bottom-right" />
+
         <MiniMap
           position="bottom-left"
           nodeColor={(node) => {
@@ -403,6 +412,7 @@ export function Playground() {
           }}
           maskColor="rgba(0, 0, 0, 0.5)"
         />
+
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
       </ReactFlow>
     </div>
