@@ -1,4 +1,4 @@
-import { ChevronsUpDown } from 'lucide-react';
+import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -43,6 +43,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {
             keyName: 'trait_lazimah',
             color: 'border-2 border-node-trait/50 bg-node-trait/20',
+            hasInfo: true,
           },
         ]
       : []),
@@ -51,6 +52,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {
             keyName: 'trait_aridhah',
             color: 'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
+            hasInfo: true,
           },
         ]
       : []),
@@ -72,7 +74,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex w-36 flex-col gap-2 rounded-lg border backdrop-blur-sm"
+      className="flex w-40 flex-col gap-2 rounded-lg border backdrop-blur-sm"
     >
       <CollapsibleTrigger
         className={cn(
@@ -88,7 +90,15 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {legends.map((legend) => (
             <li className="flex items-center gap-2" key={legend.keyName}>
               <div className={cn('size-4 rounded-full bg-linear-to-br', legend.color)} />
-              <span className="text-muted-foreground text-xs">{t(legend.keyName)}</span>
+              <span className="flex items-center text-muted-foreground text-xs">
+                {t(legend.keyName)}
+                {legend.hasInfo && (
+                  <>
+                    &nbsp;
+                    <CircleQuestionMarkIcon className="size-4 text-muted-foreground" />
+                  </>
+                )}
+              </span>
             </li>
           ))}
         </ul>
