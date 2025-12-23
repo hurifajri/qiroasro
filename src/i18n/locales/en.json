@@ -51,6 +51,7 @@
       "siman_shaut": "Conditional Traits"
     },
     "legend": {
+      "title": "Legend",
       "articulation": "Articulation",
       "trait": "Trait",
       "letter": "Letter",

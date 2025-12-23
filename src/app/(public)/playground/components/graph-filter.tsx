@@ -227,7 +227,7 @@ export function GraphFilter({
 
       {/* Letter Selector (only visible in letter mode) */}
       {viewMode === 'letter' && (
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border">
+        <ScrollArea className="w-full whitespace-nowrap rounded-lg border">
           <div className="flex w-max items-center gap-2 p-4">
             {letters.map((letter) => (
               <Button

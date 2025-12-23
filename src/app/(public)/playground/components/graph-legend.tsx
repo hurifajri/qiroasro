@@ -1,5 +1,6 @@
+import { ChevronsUpDown } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
 
 const legends = [
@@ -25,20 +26,21 @@ export function GraphLegend() {
   const t = useTranslations('global.legend');
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="font-semibold text-foreground text-xs">Legenda</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ul className="flex flex-col gap-2 backdrop-blur-sm">
+    <Collapsible className="flex w-28 flex-col gap-2 rounded-lg border p-2 backdrop-blur-sm">
+      <CollapsibleTrigger className="flex items-center justify-between gap-2 text-left font-semibold text-muted-foreground text-xs">
+        {t('title')}
+        <ChevronsUpDown className="size-4" />
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <ul className="flex flex-col gap-2">
           {legends.map((legend) => (
             <li className="flex items-center gap-2" key={legend.keyName}>
               <div className={cn('size-4 rounded-full bg-linear-to-br', legend.color)} />
-              <span className="text-foreground text-xs">{t(legend.keyName)}</span>
+              <span className="text-muted-foreground text-xs">{t(legend.keyName)}</span>
             </li>
           ))}
         </ul>
-      </CardContent>
-    </Card>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }
