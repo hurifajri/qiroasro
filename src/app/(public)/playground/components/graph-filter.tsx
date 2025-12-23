@@ -76,13 +76,18 @@ export function GraphFilter({
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex w-72 flex-col gap-2 rounded-lg border p-2 backdrop-blur-sm"
+      className="flex w-72 flex-col gap-2 rounded-lg border backdrop-blur-sm"
     >
-      <CollapsibleTrigger className="flex items-center justify-between gap-2 text-left font-semibold text-muted-foreground text-xs">
+      <CollapsibleTrigger
+        className={cn(
+          'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
+          isOpen ? 'border-b' : '',
+        )}
+      >
         {t('title')}
         <ChevronsUpDown className="size-4" />
       </CollapsibleTrigger>
-      <CollapsibleContent>
+      <CollapsibleContent className="p-2 pt-0">
         <div className="flex flex-col gap-2">
           <div className="flex flex-col gap-2">
             {/* View Mode */}
