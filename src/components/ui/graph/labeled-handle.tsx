@@ -1,6 +1,6 @@
 import type { HandleProps } from '@xyflow/react';
 import type { ComponentProps } from 'react';
-import { BaseHandle } from '@/components/graph/base-handle';
+import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { cn } from '@/lib/utils';
 
 const flexDirections = {

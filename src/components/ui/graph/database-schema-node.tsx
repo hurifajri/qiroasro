@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { BaseNode, BaseNodeContent, BaseNodeHeader } from '@/components/graph/base-node';
+import { BaseNode, BaseNodeContent, BaseNodeHeader } from '@/components/ui/graph/base-node';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 /* DATABASE SCHEMA NODE HEADER ------------------------------------------------ */
