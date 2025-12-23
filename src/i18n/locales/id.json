@@ -33,6 +33,13 @@
       "alifMadd": "Alif Mad",
       "wawuMadd": "Wawu Mad",
       "yaMadd": "Ya Mad"
+    },
+    "articulationArea": {
+      "alJauf": "Rongga Mulut",
+      "alHalq": "Tenggorokan",
+      "alLisan": "Lidah",
+      "asySyafatan": "Dua Bibir",
+      "alKhaisyum": "Rongga Hidung"
     }
   },
   "HomePage": {

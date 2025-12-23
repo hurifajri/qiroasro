@@ -18,7 +18,7 @@ type LetterNodeData = Letter & {
 };
 
 export function LetterNode({ data, selected }: NodeProps) {
-  const t = useTranslations('Global');
+  const t = useTranslations('Global.letter');
 
   const nodeData = data as unknown as LetterNodeData;
 
@@ -42,7 +42,7 @@ export function LetterNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   const localeKey = kebabToCamelCase(nodeData.slug);
-  const label = `(${t(`letter.${localeKey}`)})`;
+  const label = `(${t(localeKey)})`;
 
   return (
     <BaseNode

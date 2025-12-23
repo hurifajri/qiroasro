@@ -1,7 +1,8 @@
 import { type NodeProps, Position } from '@xyflow/react';
+import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn } from '@/lib/utils';
+import { cn, kebabToCamelCase } from '@/lib/utils';
 import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
@@ -28,6 +29,8 @@ type ArticulationPointNodeData = ArticulationPoint & {
 };
 
 export function ArticulationAreaNode({ data, selected }: NodeProps) {
+  const t = useTranslations('Global.articulationArea');
+
   const nodeData = data as unknown as ArticulationAreaNodeData;
 
   // Determine handle positions based on layout
@@ -49,6 +52,9 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
+  const localeKey = kebabToCamelCase(nodeData.slug);
+  const label = t(localeKey);
+
   return (
     <BaseNode
       className={cn(
@@ -64,7 +70,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="select-none p-0 font-semibold text-sm text-white capitalize">
-        {nodeData.slug.replace(/-/g, ' ')}
+        {label}
       </BaseNodeContent>
 
       <BaseHandle

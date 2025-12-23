@@ -33,6 +33,13 @@
       "alifMadd": "Alif Madd",
       "wawuMadd": "Wawu Madd",
       "yaMadd": "Ya Madd"
+    },
+    "articulationArea": {
+      "alJauf": "Oral Cavity",
+      "alHalq": "Throat",
+      "alLisan": "Tongue",
+      "asySyafatan": "Two Lips",
+      "alKhaisyum": "Nasal Cavity"
     }
   },
   "HomePage": {
