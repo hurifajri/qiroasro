@@ -53,7 +53,7 @@ export function LetterNode({ data, selected }: NodeProps) {
         background: nodeData.isMadd
           ? `linear-gradient(135deg, ${NODE_COLORS.letter.madd} 0%, #DC2626 100%)`
           : NODE_COLORS.letter.gradient,
-        boxShadow: `0 4px 20px ${bgColor}40`,
+        boxShadow: `0 4px 20px ${bgColor} 40`,
       }}
     >
       <BaseHandle

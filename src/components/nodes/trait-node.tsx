@@ -64,7 +64,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
       )}
       style={{
         background: NODE_COLORS.trait.gradient,
-        boxShadow: `0 4px 20px ${NODE_COLORS.trait.primary}40`,
+        boxShadow: `0 4px 20px ${NODE_COLORS.trait.primary} 40`,
       }}
     >
       <BaseHandle

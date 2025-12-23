@@ -63,7 +63,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
       )}
       style={{
         background: NODE_COLORS.articulation.gradient,
-        boxShadow: `0 4px 20px ${NODE_COLORS.articulation.primary}40`,
+        boxShadow: `0 4px 20px ${NODE_COLORS.articulation.primary} 40`,
       }}
     >
       <BaseHandle
