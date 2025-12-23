@@ -3,11 +3,9 @@ import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import type { Trait, TraitGroup } from '@/schemas/trait';
 
-interface TraitGroupNodeData {
-  label: string;
-  slug: string;
-  isLazimah: boolean;
+type TraitGroupNodeData = TraitGroup & {
   isFloating?: boolean;
   layoutMode?: LayoutMode;
   hierarchyDirection?: HierarchyDirection;
@@ -16,13 +14,9 @@ interface TraitGroupNodeData {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
-}
+};
 
-interface TraitNodeData {
-  label: string;
-  slug: string;
-  groupId: number;
-  isMiddleTrait: boolean;
+type TraitNodeData = Trait & {
   isFloating?: boolean;
   layoutMode?: LayoutMode;
   hierarchyDirection?: HierarchyDirection;
@@ -31,7 +25,7 @@ interface TraitNodeData {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
-}
+};
 
 export function TraitGroupNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as TraitGroupNodeData;
@@ -69,7 +63,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="flex select-none flex-col items-center p-0 font-semibold text-sm text-white capitalize">
-        {nodeData.label.replace(/-/g, ' ')}
+        {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 
       <BaseHandle
@@ -119,7 +113,7 @@ export function TraitNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="flex select-none flex-col items-center p-0 font-medium text-violet-700 text-xs capitalize dark:text-violet-100">
-        {nodeData.label.replace(/-/g, ' ')}
+        {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 
       <BaseHandle

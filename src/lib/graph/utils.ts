@@ -26,11 +26,7 @@ export function createLetterNode(
     id: `letter-${letter.id}`,
     type: 'letter',
     position,
-    data: {
-      label: letter.symbol,
-      slug: letter.slug,
-      isMadd: letter.isMadd,
-    },
+    data: letter,
   };
 }
 
@@ -42,10 +38,7 @@ export function createArticulationAreaNode(
     id: `area-${area.id}`,
     type: 'articulation-area',
     position,
-    data: {
-      label: area.slug,
-      slug: area.slug,
-    },
+    data: area,
   };
 }
 
@@ -57,11 +50,7 @@ export function createArticulationPointNode(
     id: `point-${point.id}`,
     type: 'articulation-point',
     position,
-    data: {
-      label: point.slug,
-      slug: point.slug,
-      areaId: point.areaId,
-    },
+    data: point,
   };
 }
 
@@ -73,11 +62,7 @@ export function createTraitGroupNode(
     id: `trait-group-${group.id}`,
     type: 'trait-group',
     position,
-    data: {
-      label: group.slug,
-      slug: group.slug,
-      isLazimah: group.isLazimah,
-    },
+    data: group,
   };
 }
 
@@ -89,12 +74,7 @@ export function createTraitNode(
     id: `trait-${trait.id}`,
     type: 'trait',
     position,
-    data: {
-      label: trait.slug,
-      slug: trait.slug,
-      groupId: trait.groupId,
-      isMiddleTrait: trait.isMiddleTrait,
-    },
+    data: trait,
   };
 }
 

@@ -2,11 +2,10 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { cn } from '@/lib/utils';
+import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
-interface ArticulationAreaNodeData {
-  label: string;
-  slug: string;
+type ArticulationAreaNodeData = ArticulationArea & {
   isFloating?: boolean;
   layoutMode?: LayoutMode;
   hierarchyDirection?: HierarchyDirection;
@@ -15,12 +14,9 @@ interface ArticulationAreaNodeData {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
-}
+};
 
-interface ArticulationPointNodeData {
-  label: string;
-  slug: string;
-  areaId: number;
+type ArticulationPointNodeData = ArticulationPoint & {
   isFloating?: boolean;
   layoutMode?: LayoutMode;
   hierarchyDirection?: HierarchyDirection;
@@ -29,7 +25,7 @@ interface ArticulationPointNodeData {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
-}
+};
 
 export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const nodeData = data as unknown as ArticulationAreaNodeData;
@@ -68,7 +64,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="select-none p-0 font-semibold text-sm text-white capitalize">
-        {nodeData.label.replace(/-/g, ' ')}
+        {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 
       <BaseHandle
@@ -117,7 +113,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="select-none p-0 font-medium text-sky-700 text-xs capitalize dark:text-sky-100">
-        {nodeData.label.replace(/-/g, ' ')}
+        {nodeData.slug.replace(/-/g, ' ')}
       </BaseNodeContent>
 
       <BaseHandle

@@ -4,11 +4,9 @@ import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { cn, kebabToCamelCase } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import type { Letter } from '@/schemas/letter';
 
-interface LetterNodeData {
-  label: string;
-  slug: string;
-  isMadd: boolean;
+type LetterNodeData = Letter & {
   isFloating?: boolean;
   layoutMode?: LayoutMode;
   hierarchyDirection?: HierarchyDirection;
@@ -17,7 +15,7 @@ interface LetterNodeData {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
-}
+};
 
 export function LetterNode({ data, selected }: NodeProps) {
   const t = useTranslations('Global');
@@ -44,6 +42,7 @@ export function LetterNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   const localeKey = kebabToCamelCase(nodeData.slug);
+  const label = `(${t(`letter.${localeKey}`)})`;
 
   return (
     <BaseNode
@@ -61,8 +60,8 @@ export function LetterNode({ data, selected }: NodeProps) {
       />
 
       <BaseNodeContent className="flex select-none items-center justify-center gap-2 p-0 text-white">
-        <span className="font-bold text-3xl">{nodeData.label}</span>
-        <span className="text-xs">{`(${t(`letter.${localeKey}`)})`}</span>
+        <span className="font-bold text-3xl">{nodeData.symbol}</span>
+        <span className="text-xs">{label}</span>
       </BaseNodeContent>
 
       <BaseHandle
