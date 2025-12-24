@@ -56,7 +56,7 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const [isOpen, setIsOpen] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
     all: t('view_mode.all'),
@@ -74,14 +74,14 @@ export function GraphFilter({
 
   return (
     <Collapsible
-      open={isOpen}
-      onOpenChange={setIsOpen}
+      open={isCollapsed}
+      onOpenChange={setIsCollapsed}
       className="flex w-72 flex-col gap-2 rounded-lg border backdrop-blur-sm"
     >
       <CollapsibleTrigger
         className={cn(
           'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
-          isOpen ? 'border-b' : '',
+          isCollapsed ? 'border-b' : '',
         )}
       >
         {t('title')}
