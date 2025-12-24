@@ -67,8 +67,9 @@ export default function HomePage() {
 
           {/* Subtitle */}
           <motion.p variants={itemVariants} className="text-lg text-muted-foreground">
-            Kami sedang membangun aplikasi pembelajaran tajwid interaktif. Mohon doanya semoga Allah
-            mudahkan, Aamiin Allahumma Aamiin... 🤲
+            Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya semoga
+            Allah mudahkan. <br />
+            Aamiin Allahumma Aamiin... 🤲
           </motion.p>
 
           {/* Playground Button */}
@@ -79,7 +80,7 @@ export default function HomePage() {
             whileTap={{ scale: 0.95 }}
             className={cn(
               buttonVariants({ size: 'lg' }),
-              'h-12 bg-linear-to-r from-[#8B5CF6] to-[#6D28D9] px-6 text-base text-white shadow-[#8B5CF6]/25 shadow-lg transition-all hover:shadow-[#8B5CF6]/30 hover:shadow-xl',
+              'h-12 cursor-pointer bg-linear-to-r from-[#8B5CF6] to-[#6D28D9] px-6 text-base text-white shadow-[#8B5CF6]/25 shadow-lg transition-all hover:shadow-[#8B5CF6]/30 hover:shadow-xl',
             )}
           >
             <RocketIcon className="size-5" />
@@ -94,7 +95,7 @@ export default function HomePage() {
             variants={itemVariants}
           >
             <motion.span
-              className="inline-block size-2 rounded-full bg-[#F59E0B]"
+              className="inline-block size-2 rounded-full bg-[#F59E0B] text-lg"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -124,7 +125,7 @@ export default function HomePage() {
               whileTap={{ scale: 0.95 }}
               className={cn(
                 buttonVariants({ size: 'lg' }),
-                'h-12 bg-linear-to-r from-[#0EA5E9] to-[#0284C7] px-6 text-base text-white shadow-[#0EA5E9]/25 shadow-lg transition-all hover:shadow-[#0EA5E9]/30 hover:shadow-xl',
+                'h-12 cursor-pointer bg-linear-to-r from-[#0EA5E9] to-[#0284C7] px-6 text-base text-white shadow-[#0EA5E9]/25 shadow-lg transition-all hover:shadow-[#0EA5E9]/30 hover:shadow-xl',
               )}
             >
               Ingatkan Saya
