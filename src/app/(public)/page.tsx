@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const containerVariants = {
@@ -51,7 +52,31 @@ export default function HomePage() {
         variants={itemVariants}
         className="flex flex-1 shrink-0 items-center justify-center"
       >
-        <UnderDevelopmentIllustration className="h-auto w-full max-w-md md:max-w-none" />
+        <Tooltip>
+          <TooltipTrigger className="w-full">
+            <UnderDevelopmentIllustration className="h-auto w-full max-w-md md:max-w-none" />
+          </TooltipTrigger>
+          <TooltipContent>
+            <a
+              href="https://iconscout.com/illustrations/designer"
+              className="font-size-sm text-underline"
+              target="_blank"
+              rel="noopener"
+            >
+              designer&nbsp;
+            </a>
+            <a
+              href="https://iconscout.com/contributors/delesign"
+              className="font-size-sm text-underline"
+            >
+              Delesign Graphics&nbsp;
+            </a>
+            on&nbsp;
+            <a href="https://iconscout.com" className="font-size-sm text-underline">
+              IconScout&nbsp;
+            </a>
+          </TooltipContent>
+        </Tooltip>
       </motion.div>
 
       {/* Content */}
