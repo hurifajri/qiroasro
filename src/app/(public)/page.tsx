@@ -107,7 +107,7 @@ export default function HomePage() {
               whileTap={{ scale: 0.95 }}
               className={cn(
                 buttonVariants({ size: 'lg' }),
-                'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl',
+                'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:shadow-accent-sky/30 hover:shadow-xl',
               )}
             >
               <RocketIcon className="size-5" />
@@ -152,7 +152,7 @@ export default function HomePage() {
                 whileTap={{ scale: 0.95 }}
                 className={cn(
                   buttonVariants({ size: 'lg' }),
-                  'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:shadow-accent-sky/30 hover:shadow-xl',
+                  'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl',
                 )}
               >
                 {t('development.reminder_cta')}
