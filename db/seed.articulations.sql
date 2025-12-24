@@ -42,9 +42,9 @@ INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
 -- Map Letters to Articulation Points
 -- Mad letters (Alif, Wau, Ya Madd)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(28, 1, 4), (30, 1, 1),  -- Alif-madd -> Al-Jauf
-(31, 1, 2),  -- Wau-madd -> Al-Jauf
-(32, 1, 3);  -- Ya-madd -> Al-Jauf
+(28, 1, 1), (30, 1, 2),  -- Alif-madd -> Al-Jauf
+(31, 1, 3),  -- Wau-madd -> Al-Jauf
+(32, 1, 4);  -- Ya-madd -> Al-Jauf
 
 -- Hamzah (ء) + Ha (ه)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
@@ -83,14 +83,14 @@ INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
 (23, 9, 17);  -- Lam -> Adna Haffatayil Lisan
 
--- Ra (ر)
-INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(10, 10, 18); -- Ra -> Tharaful Lisan + Zahrihi
-
 -- Nun (ن)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(25, 11, 19), -- Nun -> Tharaful Lisan + Litsatil Ulya (primary)
-(25, 17, 20); -- Nun -> Al-Ghunnah (secondary for ghunnah aspect)
+(25, 11, 18), -- Nun -> Tharaful Lisan + Litsatil Ulya (primary)
+(25, 17, 19); -- Nun -> Al-Ghunnah (secondary for ghunnah aspect)
+
+-- Ra (ر)
+INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
+(10, 10, 20); -- Ra -> Tharaful Lisan + Zahrihi
 
 -- Zai (ز) + Sin (س) + Shad (ص)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
