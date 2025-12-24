@@ -61,8 +61,8 @@ export function LetterNode({ data, selected }: NodeProps) {
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
       />
 
-      <BaseNodeContent className="flex select-none items-center justify-center gap-2 p-0 text-node-letter-text">
-        <span className="font-bold text-3xl">{nodeData.symbol}</span>
+      <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
+        <span className="font-bold text-4xl">{nodeData.symbol}</span>
         <span className="text-xs">{label}</span>
       </BaseNodeContent>
 
