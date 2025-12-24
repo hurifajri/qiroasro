@@ -1,11 +1,11 @@
 -- Insert 29 standard Hijaiyah consonants
 INSERT INTO hij_letters (slug, symbol, is_madd, sort_order) VALUES
-('hamzah', 'ء', false, 1),
+('hamza', 'ء', false, 1),
 ('ba', 'ب', false, 2),
 ('ta', 'ت', false, 3),
 ('tsa', 'ث', false, 4),
 ('jim', 'ج', false, 5),
-('ha', 'ح', false, 6),
+('ha-wasath', 'ح', false, 6),
 ('kha', 'خ', false, 7),
 ('dal', 'د', false, 8),
 ('dzal', 'ذ', false, 9),
@@ -26,7 +26,7 @@ INSERT INTO hij_letters (slug, symbol, is_madd, sort_order) VALUES
 ('mim', 'م', false, 24),
 ('nun', 'ن', false, 25),
 ('wawu', 'و', false, 26),
-('ha-m', 'ه', false, 27),
+('ha-aqsa', 'ه', false, 27),
 ('lam-alif', 'لا', false, 28),
 ('ya', 'ي', false, 29);
 
