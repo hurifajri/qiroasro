@@ -56,7 +56,7 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
     all: t('view_mode.all'),

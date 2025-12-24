@@ -14,7 +14,7 @@ type Trait = 'traitLazimah' | 'traitAridhah';
 
 export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<Trait | null>(null);
 
