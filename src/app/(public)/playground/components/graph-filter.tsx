@@ -76,7 +76,7 @@ export function GraphFilter({
     <Collapsible
       open={isCollapsed}
       onOpenChange={setIsCollapsed}
-      className="flex w-72 flex-col gap-2 rounded-lg border backdrop-blur-sm"
+      className="flex w-full flex-col gap-2 rounded-lg border backdrop-blur-sm sm:w-72"
     >
       <CollapsibleTrigger
         className={cn(
