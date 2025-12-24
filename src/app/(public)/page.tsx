@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Rocket } from 'lucide-react';
 import Link from 'next/link';
-import { UnderConstructionIllustration } from '@/components/illustrations/under-construction';
+import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { Button } from '@/components/ui/button';
 
 const containerVariants = {
@@ -44,50 +44,6 @@ const floatingVariants = {
 export default function HomePage() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-4 py-12">
-      {/* Animated background gradients */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      >
-        <motion.div
-          className="-left-1/4 -top-1/4 absolute h-[600px] w-[600px] rounded-full bg-gradient-to-br from-[#8B5CF6]/20 via-[#0EA5E9]/10 to-transparent blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 90, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'linear',
-          }}
-        />
-        <motion.div
-          className="-bottom-1/4 -right-1/4 absolute h-[600px] w-[600px] rounded-full bg-gradient-to-tl from-[#F59E0B]/20 via-[#8B5CF6]/10 to-transparent blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            rotate: [0, -90, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'linear',
-          }}
-        />
-        <motion.div
-          className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 h-[400px] w-[400px] rounded-full bg-gradient-to-r from-[#0EA5E9]/15 to-[#8B5CF6]/15 blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'easeInOut',
-          }}
-        />
-      </motion.div>
-
       {/* Main content */}
       <motion.div
         className="relative z-10 flex max-w-2xl flex-col items-center text-center"
@@ -96,11 +52,7 @@ export default function HomePage() {
         animate="visible"
       >
         {/* SVG Illustration */}
-        <motion.div variants={floatingVariants} animate="animate" className="mb-8 w-full max-w-md">
-          <motion.div variants={itemVariants}>
-            <UnderConstructionIllustration className="h-auto w-full" />
-          </motion.div>
-        </motion.div>
+        <UnderDevelopmentIllustration className="h-auto w-full" />
 
         {/* Title */}
         <motion.h1
