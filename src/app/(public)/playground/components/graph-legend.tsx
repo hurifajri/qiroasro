@@ -135,7 +135,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
         </CollapsibleContent>
       </Collapsible>
 
-      {selectedLegendId && (
+      {isDialogOpen && selectedLegendId && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
             <DialogHeader className="flex flex-row items-center gap-2">

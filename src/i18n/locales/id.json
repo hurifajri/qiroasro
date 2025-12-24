@@ -90,7 +90,7 @@
       "trait_lazimah": "Sifat Lazimah",
       "trait_lazimah_description": "Sifat Lazimah adalah sifat yang selalu melekat pada sebuah huruf dalam setiap kondisi.",
       "trait_aridhah": "Sifat Aridhoh",
-      "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang kondisional. Artinya sifat ini bisa ada atau tidak ada tergantung pada sebab tertentu.",
+      "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang hanya ada pada sebuah huruf dalam kondisi tertentu.",
       "letter": "Huruf",
       "letterMadd": "Huruf Mad"
     }
