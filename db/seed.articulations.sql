@@ -42,7 +42,7 @@ INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
 -- Map Letters to Articulation Points
 -- Mad letters (Alif, Wau, Ya Madd)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(30, 1, 1),  -- Alif-madd -> Al-Jauf
+(28, 1, 4), (30, 1, 1),  -- Alif-madd -> Al-Jauf
 (31, 1, 2),  -- Wau-madd -> Al-Jauf
 (32, 1, 3);  -- Ya-madd -> Al-Jauf
 

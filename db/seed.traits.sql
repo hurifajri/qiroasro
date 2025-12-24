@@ -167,6 +167,10 @@ INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
 INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
 (27, 1), (27, 5), (27, 7), (27, 9), (27, 11), (27, 21);
 
+-- Lam Alif (28): Tarqiq
+INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
+(28, 21);
+
 -- Ya (29): Jahr, Rakhawah, Istifal, Infitah, Ishmat, (Lin conditional), Tarqiq
 INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
 (29, 2), (29, 5), (29, 7), (29, 9), (29, 11), (29, 14), (29, 21);
