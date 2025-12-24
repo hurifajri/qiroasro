@@ -160,7 +160,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  /* Node Colors - register with Tailwind */
+  /* Node Colors - Letter (Gold/Amber) */
   --color-node-letter: var(--node-letter);
   --color-node-letter-secondary: var(--node-letter-secondary);
   --color-node-letter-dark: var(--node-letter-dark);
@@ -169,17 +169,27 @@
   --color-node-letter-text: var(--node-letter-text);
   --color-node-letter-text-light: var(--node-letter-text-light);
 
+  /* Node Colors - Articulation (Azure/Sky) */
   --color-node-articulation: var(--node-articulation);
   --color-node-articulation-secondary: var(--node-articulation-secondary);
   --color-node-articulation-dark: var(--node-articulation-dark);
   --color-node-articulation-text: var(--node-articulation-text);
   --color-node-articulation-text-light: var(--node-articulation-text-light);
 
+  /* Node Colors - Trait (Amethyst/Purple) */
   --color-node-trait: var(--node-trait);
   --color-node-trait-secondary: var(--node-trait-secondary);
   --color-node-trait-dark: var(--node-trait-dark);
   --color-node-trait-text: var(--node-trait-text);
   --color-node-trait-text-light: var(--node-trait-text-light);
+
+  /* Accent Colors */
+  --color-accent-violet: var(--node-trait);
+  --color-accent-violet-dark: var(--node-trait-dark);
+  --color-accent-sky: var(--node-articulation);
+  --color-accent-sky-dark: var(--node-articulation-dark);
+  --color-accent-amber: var(--node-letter);
+  --color-accent-amber-light: var(--node-letter-secondary);
 }
 
 @layer base {

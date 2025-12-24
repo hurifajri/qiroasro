@@ -60,7 +60,7 @@ export default function HomePage() {
           {/* Title */}
           <motion.h2
             variants={itemVariants}
-            className="bg-linear-to-r from-[#8B5CF6] via-[#0EA5E9] to-[#F59E0B] bg-clip-text font-bold text-4xl text-transparent"
+            className="bg-linear-to-r from-accent-violet via-accent-sky to-accent-amber bg-clip-text font-bold text-4xl text-transparent"
           >
             Sedang Dalam Pengembangan
           </motion.h2>
@@ -80,7 +80,7 @@ export default function HomePage() {
             whileTap={{ scale: 0.95 }}
             className={cn(
               buttonVariants({ size: 'lg' }),
-              'h-12 cursor-pointer bg-linear-to-r from-[#8B5CF6] to-[#6D28D9] px-6 text-base text-white shadow-[#8B5CF6]/25 shadow-lg transition-all hover:shadow-[#8B5CF6]/30 hover:shadow-xl',
+              'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl',
             )}
           >
             <RocketIcon className="size-5" />
@@ -95,7 +95,7 @@ export default function HomePage() {
             variants={itemVariants}
           >
             <motion.span
-              className="inline-block size-2 rounded-full bg-[#F59E0B] text-lg"
+              className="inline-block size-2 rounded-full bg-accent-amber text-lg"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [1, 0.5, 1],
@@ -125,7 +125,7 @@ export default function HomePage() {
               whileTap={{ scale: 0.95 }}
               className={cn(
                 buttonVariants({ size: 'lg' }),
-                'h-12 cursor-pointer bg-linear-to-r from-[#0EA5E9] to-[#0284C7] px-6 text-base text-white shadow-[#0EA5E9]/25 shadow-lg transition-all hover:shadow-[#0EA5E9]/30 hover:shadow-xl',
+                'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:shadow-accent-sky/30 hover:shadow-xl',
               )}
             >
               Ingatkan Saya
