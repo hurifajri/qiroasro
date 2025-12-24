@@ -48,75 +48,75 @@ INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
 
 -- Hamzah (ء) + Ha (ه)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(1, 2, 4),  -- Hamzah -> Aqshal Halq
-(27, 2, 5);  -- Ha -> Aqshal Halq
+(1, 2, 5),  -- Hamzah -> Aqshal Halq
+(27, 2, 6);  -- Ha -> Aqshal Halq
 
 -- Ha (ح) + 'Ain (ع)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(18, 3, 6),   -- Ha -> Wasathul Halq
-(6, 3, 7);  -- 'Ain -> Wasathul Halq
+(18, 3, 7),   -- Ha -> Wasathul Halq
+(6, 3, 8);  -- 'Ain -> Wasathul Halq
 
 -- Kha (خ) + Ghain (غ)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(19, 4, 8),   -- Kha -> Adnal Halq
-(7, 4, 9);  -- Ghain -> Adnal Halq
+(19, 4, 9),   -- Kha -> Adnal Halq
+(7, 4, 10);  -- Ghain -> Adnal Halq
 
 -- Qaf (ق)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(21, 5, 10);  -- Qaf -> Aqshal Lisan + Hanakil Lahmi
+(21, 5, 11);  -- Qaf -> Aqshal Lisan + Hanakil Lahmi
 
 -- Kaf (ك)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(22, 6, 11);  -- Kaf -> Aqshal Lisan qabla Qaf
+(22, 6, 12);  -- Kaf -> Aqshal Lisan qabla Qaf
 
 -- Jim (ج) + Syin (ش) + Ya (ي)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(5, 7, 12),   -- Jim -> Wasathul Lisan
-(13, 7, 13),  -- Syin -> Wasathul Lisan
-(29, 7, 14);  -- Ya -> Wasathul Lisan
+(5, 7, 13),   -- Jim -> Wasathul Lisan
+(13, 7, 14),  -- Syin -> Wasathul Lisan
+(29, 7, 15);  -- Ya -> Wasathul Lisan
 
 -- Dhad (ض)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(15, 8, 15);  -- Dhad -> Ihda Haffatayil Lisan
+(15, 8, 16);  -- Dhad -> Ihda Haffatayil Lisan
 
 -- Lam (ل)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(23, 9, 16);  -- Lam -> Adna Haffatayil Lisan
+(23, 9, 17);  -- Lam -> Adna Haffatayil Lisan
 
 -- Ra (ر)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(10, 10, 17); -- Ra -> Tharaful Lisan + Zahrihi
+(10, 10, 18); -- Ra -> Tharaful Lisan + Zahrihi
 
 -- Nun (ن)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(25, 11, 18), -- Nun -> Tharaful Lisan + Litsatil Ulya (primary)
-(25, 17, 19); -- Nun -> Al-Ghunnah (secondary for ghunnah aspect)
+(25, 11, 19), -- Nun -> Tharaful Lisan + Litsatil Ulya (primary)
+(25, 17, 20); -- Nun -> Al-Ghunnah (secondary for ghunnah aspect)
 
 -- Zai (ز) + Sin (س) + Shad (ص)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(11, 12, 20), -- Zai -> Tharaful Lisan + Fauqats Tsanayas Sufla
-(12, 12, 21), -- Sin -> Tharaful Lisan + Fauqats Tsanayas Sufla
-(14, 12, 22); -- Shad -> Tharaful Lisan + Fauqats Tsanayas Sufla
+(11, 12, 21), -- Zai -> Tharaful Lisan + Fauqats Tsanayas Sufla
+(12, 12, 22), -- Sin -> Tharaful Lisan + Fauqats Tsanayas Sufla
+(14, 12, 23); -- Shad -> Tharaful Lisan + Fauqats Tsanayas Sufla
 
 -- Ta (ت) + Dal (د) + Tha (ط)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(3, 13, 23),  -- Ta -> Tharaful Lisan + Ushuli Tsanayal Ulya
-(8, 13, 24),  -- Dal -> Tharaful Lisan + Ushuli Tsanayal Ulya
-(16, 13, 25); -- Tha -> Tharaful Lisan + Ushuli Tsanayal Ulya
+(3, 13, 24),  -- Ta -> Tharaful Lisan + Ushuli Tsanayal Ulya
+(8, 13, 25),  -- Dal -> Tharaful Lisan + Ushuli Tsanayal Ulya
+(16, 13, 26); -- Tha -> Tharaful Lisan + Ushuli Tsanayal Ulya
 
 -- Tsa (ث) + Dzal (ذ) + Zha (ظ)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(4, 14, 26),  -- Tsa -> Tharaful Lisan + Athrafits Tsanayal Ulya
-(9, 14, 27),  -- Dzal -> Tharaful Lisan + Athrafits Tsanayal Ulya
-(17, 14, 28); -- Zha -> Tharaful Lisan + Athrafits Tsanayal Ulya
+(4, 14, 27),  -- Tsa -> Tharaful Lisan + Athrafits Tsanayal Ulya
+(9, 14, 28),  -- Dzal -> Tharaful Lisan + Athrafits Tsanayal Ulya
+(17, 14, 29); -- Zha -> Tharaful Lisan + Athrafits Tsanayal Ulya
 
 -- Fa (ف)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(20, 15, 29); -- Fa -> Bathnus Syafatain Sufla + Athrafits Tsanayal Ulya
+(20, 15, 30); -- Fa -> Bathnus Syafatain Sufla + Athrafits Tsanayal Ulya
 
 -- Ba (ب) + Mim (م) + Wau (و)
 INSERT INTO hij_letter_articulations (letter_id, point_id, sort_order) VALUES
-(2, 16, 30),  -- Ba -> Ma bainas Syafatain
-(24, 16, 31), -- Mim -> Ma bainas Syafatain (primary)
-(24, 17, 32), -- Mim -> Al-Ghunnah (secondary for ghunnah aspect)
-(26, 16, 33); -- Wau -> Ma bainas Syafatain
+(2, 16, 31),  -- Ba -> Ma bainas Syafatain
+(24, 16, 32), -- Mim -> Ma bainas Syafatain (primary)
+(24, 17, 33), -- Mim -> Al-Ghunnah (secondary for ghunnah aspect)
+(26, 16, 34); -- Wau -> Ma bainas Syafatain
