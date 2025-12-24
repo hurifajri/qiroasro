@@ -32,7 +32,14 @@ export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllu
           d="M393.7 722c1.3-13.5 13.3-23.3 26.8-22s23.3 13.3 22 26.8-13.3 23.3-26.8 22-23.3-13.3-22-26.8"
         />
       </motion.g>
-      <ellipse cx="914" cy="1005.2" fill="#2a94f4" opacity="0.1" rx="452.5" ry="36.6" />
+      <ellipse
+        cx="914"
+        cy="1005.2"
+        fill="oklch(0.68 0.16 230)"
+        opacity="0.1"
+        rx="452.5"
+        ry="36.6"
+      />
       <path
         fill="oklch(0.79 0.17 75)"
         d="M776.8 888.5c0 8.5 6.9 15.4 15.4 15.4h553.3c8.5 0 15.4-6.9 15.4-15.4V412.1h-584v476.4z"
@@ -81,7 +88,7 @@ export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllu
         d="M928 401.6s28.5-2.1 31.9-15.3 2.8-48.8 2.8-48.8h9.9s6.8 33.1 6.4 48.8-19.5 42.5-51 40.8c-31.4-1.7 0-25.5 0-25.5"
       />
       <path
-        fill="#2a94f4"
+        fill="oklch(0.68 0.16 230)"
         d="M835.7 399.9s-16.5 1.7-23.3 8.9c-3.3 3.5-23.8 28.9-23 34.4l24.1 15 19.7-27.3z"
       />
       <path
@@ -90,11 +97,11 @@ export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllu
       />
       <path fill="#fcd2b1" d="m860.7 360-15.1 46.2 27.3 5.4 6-47.9z" />
       <path
-        fill="#2a94f4"
+        fill="oklch(0.68 0.16 230)"
         d="M876.2 397.3s18.5 3.8 20.4 28 4.5 127.4 4.5 136.3c-.6 4.1-72.5 17.8-93.9-3-5.4-5.3 12.3-95.1 9.8-118.7-2.6-23.5 11.4-53.4 59.2-42.6"
       />
       <path
-        fill="#2a94f4"
+        fill="oklch(0.68 0.16 230)"
         d="M897.7 445.7s7.4-16.9 30.3-18.6c0 0 5.5-15.7 0-25.5 0 0-41.5-8.5-57.3-5.3s27 49.4 27 49.4"
       />
       <path
