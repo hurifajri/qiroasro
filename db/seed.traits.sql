@@ -174,5 +174,5 @@ INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
 -- Madd letters (Alif, Wau, Ya Madd): Rakhawah
 INSERT INTO hij_letter_traits (letter_id, trait_id) VALUES
 (30, 5), (30, 22), (30, 20), (30, 21)  -- Alif Madd
-(31, 5), (31, 22),  -- Wau Madd
-(32, 5), (32, 22);  -- Ya Madd
+(31, 5), (31, 22), (31, 21),  -- Wau Madd
+(32, 5), (32, 22), (32, 21);  -- Ya Madd
