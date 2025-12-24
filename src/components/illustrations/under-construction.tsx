@@ -11,26 +11,6 @@ export function UnderConstructionIllustration({ className }: UnderConstructionIl
     <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <title>Under Construction</title>
 
-      {/* Background gradient circles */}
-      <motion.circle
-        cx="200"
-        cy="150"
-        r="120"
-        fill="url(#bgGradient1)"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.2 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      />
-      <motion.circle
-        cx="200"
-        cy="150"
-        r="90"
-        fill="url(#bgGradient2)"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.3 }}
-        transition={{ duration: 1.2, ease: 'easeOut', delay: 0.2 }}
-      />
-
       {/* Floating particles */}
       {[
         { cx: 80, cy: 80, r: 4, delay: 0 },
@@ -65,7 +45,7 @@ export function UnderConstructionIllustration({ className }: UnderConstructionIl
         {/* Define clip path for the circle */}
         <defs>
           <clipPath id="loadingCircleClip">
-            <circle cx="200" cy="150" r="55" />
+            <circle cx="200" cy="150" r="54" />
           </clipPath>
         </defs>
 
@@ -83,7 +63,7 @@ export function UnderConstructionIllustration({ className }: UnderConstructionIl
         />
 
         {/* Inner circle background */}
-        <circle cx="200" cy="150" r="53" fill="var(--background)" opacity="0.9" />
+        <circle cx="200" cy="150" r="55" fill="var(--background)" opacity="0.9" />
 
         {/* Water fill with wave animation - clipped to circle */}
         <g clipPath="url(#loadingCircleClip)">
@@ -142,31 +122,12 @@ export function UnderConstructionIllustration({ className }: UnderConstructionIl
             }}
           />
         </g>
-
-        {/* Percentage text or loading indicator */}
-        <motion.text
-          x="200"
-          y="158"
-          textAnchor="middle"
-          fontSize="18"
-          fontWeight="bold"
-          fill="var(--foreground)"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{
-            duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: 'easeInOut',
-          }}
-        >
-          Loading...
-        </motion.text>
       </g>
 
       {/* Code brackets */}
       <motion.text
-        x="70"
-        y="155"
+        x="105"
+        y="165"
         fontSize="40"
         fontFamily="monospace"
         fontWeight="bold"
@@ -178,8 +139,8 @@ export function UnderConstructionIllustration({ className }: UnderConstructionIl
         {'<'}
       </motion.text>
       <motion.text
-        x="315"
-        y="155"
+        x="265"
+        y="165"
         fontSize="40"
         fontFamily="monospace"
         fontWeight="bold"
