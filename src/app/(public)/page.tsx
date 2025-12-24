@@ -41,18 +41,21 @@ export default function HomePage() {
 
   return (
     <motion.div
-      className="flex flex-col gap-4 p-4"
+      className="mx-auto mt-8 flex max-w-7xl flex-col gap-4 p-4 sm:mt-32 sm:flex-row"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* SVG Illustration */}
-      <motion.div variants={itemVariants}>
+      <motion.div
+        variants={itemVariants}
+        className="flex flex-1 shrink-0 items-center justify-center"
+      >
         <UnderDevelopmentIllustration className="h-auto w-full max-w-md md:max-w-none" />
       </motion.div>
 
       {/* Content */}
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-1 flex-col gap-12">
         <div className="flex flex-col items-start gap-4">
           {/* Title */}
           <motion.h2
@@ -106,8 +109,8 @@ export default function HomePage() {
           </motion.div>
 
           {/* Reminder Form */}
-          <motion.div variants={itemVariants} className="flex flex-col gap-2">
-            <InputGroup className="h-12">
+          <motion.div variants={itemVariants} className="flex flex-col gap-2 sm:flex-row">
+            <InputGroup className="h-12 sm:max-w-96">
               <InputGroupAddon>
                 <MailIcon className="size-5 text-muted-foreground" />
               </InputGroupAddon>
