@@ -52,7 +52,14 @@
     }
   },
   "home_page": {
-    "title": "Halaman Utama"
+    "title": "QiroAsro - Pembelajaran Tajwid Interaktif",
+    "development": {
+      "title": "Sedang Dalam Pengembangan",
+      "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
+      "playground_cta": "Lihat Contohnya",
+      "reminder_title": "Ingatkan saya ketika aplikasi sudah siap.",
+      "reminder_cta": "Ingatkan Saya"
+    }
   },
   "playground_page": {
     "title": "Halaman Bermain",

@@ -52,7 +52,14 @@
     }
   },
   "home_page": {
-    "title": "Home Page"
+    "title": "QiroAsro - Tajweed Interactive Learning",
+    "development": {
+      "title": "Under Development",
+      "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easier. Aamiin Allahumma Aamiin...",
+      "playground_cta": "Explore Playground",
+      "reminder_title": "Remind me when the app is ready.",
+      "reminder_cta": "Remind Me"
+    }
   },
   "playground_page": {
     "title": "Playground Page",
