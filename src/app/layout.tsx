@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Google_Sans_Flex } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextIntlClientProvider } from 'next-intl';
@@ -8,8 +8,8 @@ import { GlobalStoreProvider } from '@/providers/global';
 import { QueryClientProvider } from '@/providers/query-client';
 import { getPersistedGlobalStore } from '@/stores/global';
 
-const googleSansFlex = Google_Sans_Flex({
-  variable: '--font-google-sans-flex',
+const outfitFont = Outfit({
+  variable: '--font-outfit',
   subsets: ['latin'],
 });
 
@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
 
   return (
     <html lang={locale} className={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
-      <body className={cn('font-sans antialiased', googleSansFlex.variable)}>
+      <body className={cn('font-sans antialiased', outfitFont.variable)}>
         <QueryClientProvider>
           <GlobalStoreProvider initialState={persistedState}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
