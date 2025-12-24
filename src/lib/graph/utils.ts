@@ -378,11 +378,14 @@ function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
       style: { stroke: '#8B5CF6' },
     });
 
+    // Add trait group node if not exists
     const group = data.traitGroups.find((g) => g.id === trait.groupId);
     if (group && !nodes.find((n) => n.id === `trait-group-${group.id}`)) {
       nodes.push(createTraitGroupNode(group));
+    }
 
-      // Add trait-group edges
+    // Add trait-group edges
+    if (group) {
       edges.push({
         id: `edge-trait-${trait.id}-group-${group.id}`,
         source: `trait-${trait.id}`,
