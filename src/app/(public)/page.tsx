@@ -230,7 +230,7 @@ export default function HomePage() {
               variants={itemVariants}
             >
               <motion.span
-                className="inline-block size-2 rounded-full bg-accent-amber text-lg"
+                className="inline-block size-2 shrink-0 rounded-full bg-accent-amber text-lg"
                 animate={{
                   scale: [1, 1.5, 1],
                   opacity: [1, 0.5, 1],
