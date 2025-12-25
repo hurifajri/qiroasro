@@ -58,7 +58,13 @@
       "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easier. Aamiin Allahumma Aamiin...",
       "playground_cta": "Explore Playground",
       "reminder_title": "Remind me when the app is ready.",
-      "reminder_cta": "Remind Me"
+      "reminder_cta": "Remind Me",
+      "reminder_submitting": "Submitting...",
+      "reminder_success": "Verification email sent! Please check your inbox.",
+      "reminder_already_verified": "Your email is already verified. Thank you!",
+      "reminder_error": "Something went wrong. Please try again.",
+      "reminder_invalid_email": "Invalid email address",
+      "reminder_email_required": "Email is required"
     }
   },
   "playground_page": {

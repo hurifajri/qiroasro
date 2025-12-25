@@ -58,7 +58,13 @@
       "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
       "playground_cta": "Lihat Contohnya",
       "reminder_title": "Ingatkan saya ketika aplikasi sudah siap.",
-      "reminder_cta": "Ingatkan Saya"
+      "reminder_cta": "Ingatkan Saya",
+      "reminder_submitting": "Mengirim...",
+      "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox Anda.",
+      "reminder_already_verified": "Email Anda sudah terverifikasi. Terima kasih!",
+      "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
+      "reminder_invalid_email": "Alamat email tidak valid",
+      "reminder_email_required": "Email wajib diisi"
     }
   },
   "playground_page": {
