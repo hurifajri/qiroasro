@@ -2,12 +2,27 @@
 
 import { useForm } from '@tanstack/react-form';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CheckCircle2Icon, Loader2Icon, MailIcon, RocketIcon, XCircleIcon } from 'lucide-react';
+import {
+  CheckCircle2Icon,
+  Loader2Icon,
+  MailCheckIcon,
+  MailIcon,
+  RocketIcon,
+  XCircleIcon,
+} from 'lucide-react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
@@ -48,12 +63,14 @@ export default function HomePage() {
   const locale = useLocale();
 
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // Handle URL params from verification redirect
   useEffect(() => {
     const status = searchParams.get('waitlist_status');
     if (status === 'success') {
       setSubmitStatus('verified'); // From verification link click
+      setIsDialogOpen(true);
     } else if (status === 'already_verified') {
       setSubmitStatus('already_verified');
     } else if (status === 'error') {
@@ -222,7 +239,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-2">
             {/* Additional decorative elements */}
             <motion.div
-              className="flex items-center gap-2 text-muted-foreground"
+              className="flex items-center gap-4 text-muted-foreground"
               variants={itemVariants}
             >
               <motion.span
@@ -318,7 +335,7 @@ export default function HomePage() {
 
               {/* Status Message */}
               <AnimatePresence mode="wait">
-                {submitStatus !== 'idle' && (
+                {!['idle', 'verified'].includes(submitStatus) && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -334,6 +351,30 @@ export default function HomePage() {
           </div>
         </div>
       </motion.div>
+      {isDialogOpen && (
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="border border-lime-500">
+            <DialogHeader className="flex flex-row items-center gap-2">
+              <MailCheckIcon className="text-lime-600" />
+              <DialogTitle className="font-semibold text-lg">
+                {t('development.reminder_verified')}
+              </DialogTitle>
+            </DialogHeader>
+            <p>{t('development.reminder_verified_message')}</p>
+            <DialogFooter>
+              <Link
+                href="/playground"
+                className={cn(
+                  buttonVariants({ size: 'lg' }),
+                  'h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white',
+                )}
+              >
+                {t('development.playground_dialog_cta')}
+              </Link>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   );
 }
