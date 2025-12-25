@@ -60,21 +60,22 @@ ALTER TABLE public.waitlist ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone can insert into waitlist"
     ON public.waitlist
     FOR INSERT
+    TO anon, authenticated
     WITH CHECK (true);
 
 -- Allow anonymous update for verification (limited to verification_token match)
 CREATE POLICY "Anyone can verify their email"
     ON public.waitlist
     FOR UPDATE
+    TO anon, authenticated
     USING (true)
     WITH CHECK (true);
 
--- Only authenticated admins can select all (for admin dashboard)
--- For now, allow service role to read
-CREATE POLICY "Service role can select waitlist"
+-- Allow select for verification check (needed to check existing emails)
+CREATE POLICY "Anyone can select from waitlist"
     ON public.waitlist
     FOR SELECT
-    TO authenticated
+    TO anon, authenticated
     USING (true);
 
 COMMENT ON TABLE public.waitlist IS 'Email waitlist for coming soon page with double opt-in verification';

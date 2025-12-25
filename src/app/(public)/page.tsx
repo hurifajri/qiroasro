@@ -269,7 +269,7 @@ export default function HomePage() {
                   }}
                 >
                   {(field) => (
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-1 flex-col gap-1 sm:max-w-3xs">
                       <InputGroup className="h-12">
                         <InputGroupAddon>
                           <MailIcon className="size-5 text-muted-foreground" />
