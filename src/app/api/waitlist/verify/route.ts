@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
     const token = searchParams.get('token');
     if (!token) {
-      return redirectWithMessage('error', 'Missing verification token');
+      return redirectWithMessage('error', 'TOKEN_MISSING');
     }
 
     const supabase = getSupabaseClient();
@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (findError || !entry) {
-      return redirectWithMessage('error', 'Invalid or expired verification token');
+      return redirectWithMessage('error', 'TOKEN_INVALID_OR_EXPIRED');
     }
 
     if (entry.status === 'verified') {
-      return redirectWithMessage('already_verified', 'Email already verified', entry.locale);
+      return redirectWithMessage('already_verified', 'EMAIL_ALREADY_VERIFIED', entry.locale);
     }
 
     // Update status to verified
@@ -39,23 +39,21 @@ export async function GET(request: NextRequest) {
       .eq('id', entry.id);
 
     if (updateError) {
-      console.error('Error verifying email:', updateError);
-      return redirectWithMessage('error', 'Failed to verify email');
+      return redirectWithMessage('error', 'UPDATE_FAILED');
     }
 
-    return redirectWithMessage('success', 'Email verified successfully', entry.locale);
-  } catch (error) {
-    console.error('Verification error:', error);
-    return redirectWithMessage('error', 'Internal server error');
+    return redirectWithMessage('success', 'EMAIL_VERIFIED_SUCCESSFULLY', entry.locale);
+  } catch {
+    return redirectWithMessage('error', 'INTERNAL_SERVER_ERROR');
   }
 }
 
-function redirectWithMessage(status: string, message: string, locale?: string) {
+function redirectWithMessage(status: string, messageCode: string, locale?: string) {
   const appUrl = env.NEXT_PUBLIC_APP_URL;
   const url = new URL('/', appUrl);
 
   url.searchParams.set('waitlist_status', status);
-  url.searchParams.set('waitlist_message', message);
+  url.searchParams.set('waitlist_message_code', messageCode);
 
   if (locale) url.searchParams.set('locale', locale);
 

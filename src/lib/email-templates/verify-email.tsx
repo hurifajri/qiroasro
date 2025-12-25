@@ -1,3 +1,4 @@
+import { env } from '@/env';
 import type { Locale } from '@/stores/global';
 
 interface VerifyEmailTemplateProps {
@@ -9,22 +10,20 @@ const translations = {
   id: {
     title: 'Verifikasi Email Antum/Antunna',
     greeting: 'Assalamualaikum,',
-    message:
-      'Jazakumullahu khayran katsiran telah bergabung dalam waitlist QiroAsro. Perlu kami sampaikan bahwa aplikasi ini tidak dirancang untuk menggantikan peran guru. Metode talaqqi dan musyafahah bersama guru tetaplah yang utama sebagaimana disunnahkan. Harapan kami, aplikasi ini dapat menjadi pendamping belajar yang memudahkan Antum/Antunna, insyaa Allah. Semoga Allah senantiasa memberkahi waktu dan memudahkan langkah kita dalam mempelajari Kitab-Nya. Silakan klik tombol di bawah untuk memverifikasi email.',
+    message: `Jazakumullahu khayran katsiran telah bergabung dalam waitlist ${env.NEXT_PUBLIC_APP_NAME}. Perlu kami sampaikan bahwa aplikasi ini tidak dirancang untuk menggantikan peran guru. Metode talaqqi dan musyafahah bersama guru tetaplah yang utama sebagaimana disunnahkan. Harapan kami, aplikasi ini dapat menjadi pendamping belajar yang memudahkan Antum/Antunna, insyaa Allah. Semoga Allah senantiasa memberkahi waktu dan memudahkan langkah kita dalam mempelajari Kitab-Nya. Silakan klik tombol di bawah untuk memverifikasi email.`,
     button: 'Verifikasi Email',
     expiry: 'Link ini akan kadaluarsa dalam 24 jam.',
-    ignore: 'Jika Antum/Antunna tidak mendaftar di QiroAsro, abaikan email ini.',
-    footer: 'Tim QiroAsro',
+    ignore: `Jika Antum/Antunna tidak mendaftar di ${env.NEXT_PUBLIC_APP_NAME}, abaikan email ini.`,
+    footer: `Tim ${env.NEXT_PUBLIC_APP_NAME}`,
   },
   en: {
     title: 'Verify Your Email',
     greeting: 'Assalamualaykum,',
-    message:
-      'Jazakumullahu khayran katsiran for joining the QiroAsro waitlist. We would like to emphasize that this application is not designed to replace the role of a teacher. The methods of Talaqqi and Musyafahah with a qualified teacher remain the primary standard, in accordance with the Sunnah. Our hope is that this application serves as a beneficial study companion for you, insyaa Allah. May Allah bless your time and facilitate your journey in learning His Book. Please click the button below to verify your email.',
+    message: `Jazakumullahu khayran katsiran for joining the ${env.NEXT_PUBLIC_APP_NAME} waitlist. We would like to emphasize that this application is not designed to replace the role of a teacher. The methods of Talaqqi and Musyafahah with a qualified teacher remain the primary standard, in accordance with the Sunnah. Our hope is that this application serves as a beneficial study companion for you, insyaa Allah. May Allah bless your time and facilitate your journey in learning His Book. Please click the button below to verify your email.`,
     button: 'Verify Email',
     expiry: 'This link will expire in 24 hours.',
-    ignore: "If you didn't sign up for QiroAsro, please ignore this email.",
-    footer: 'The QiroAsro Team',
+    ignore: `If you didn't sign up for ${env.NEXT_PUBLIC_APP_NAME}, please ignore this email.`,
+    footer: `The ${env.NEXT_PUBLIC_APP_NAME} Team`,
   },
 };
 
@@ -67,7 +66,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
                 margin: 0,
               }}
             >
-              QiroAsro
+              {env.NEXT_PUBLIC_APP_NAME}
             </h1>
           </header>
 

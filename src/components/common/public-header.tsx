@@ -4,6 +4,7 @@ import type { ColorMode } from '@xyflow/react';
 import Link from 'next/link';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
+import { env } from '@/env';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/stores/global';
@@ -26,7 +27,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
       )}
     >
       <Link href="/" className="font-semibold text-xl">
-        QiroAsro
+        {env.NEXT_PUBLIC_APP_NAME}
       </Link>
       <div className="flex items-center gap-2">
         <LocaleSelector locale={locale} />

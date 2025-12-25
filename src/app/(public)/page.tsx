@@ -64,36 +64,28 @@ export default function HomePage() {
     if (status) {
       const newUrl = new URL(window.location.href);
       newUrl.searchParams.delete('waitlist_status');
-      newUrl.searchParams.delete('waitlist_message');
+      newUrl.searchParams.delete('waitlist_message_code');
       newUrl.searchParams.delete('locale');
       window.history.replaceState({}, '', newUrl.toString());
     }
   }, [searchParams]);
 
   const form = useForm({
-    defaultValues: {
-      email: '',
-    },
+    defaultValues: { email: '' },
     onSubmit: async ({ value }) => {
       try {
         setSubmitStatus('idle');
 
         const response = await fetch('/api/waitlist', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: value.email,
-            locale,
-            source: 'homepage',
-          }),
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value.email, locale, source: 'homepage' }),
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-          if (data.code === 'ALREADY_VERIFIED') {
+          if (data.message_code === 'ALREADY_VERIFIED') {
             setSubmitStatus('already_verified');
           } else {
             setSubmitStatus('error');
