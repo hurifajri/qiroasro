@@ -303,14 +303,11 @@ export default function HomePage() {
                       disabled={isSubmitting}
                       className={cn(
                         buttonVariants({ size: 'lg' }),
-                        'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70',
+                        'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70 sm:w-28',
                       )}
                     >
                       {isSubmitting ? (
-                        <>
-                          <Loader2Icon className="size-5 animate-spin" />
-                          {t('development.reminder_submitting')}
-                        </>
+                        <Loader2Icon className="size-5 animate-spin" />
                       ) : (
                         t('development.reminder_cta')
                       )}
