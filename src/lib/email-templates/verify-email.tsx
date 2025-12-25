@@ -1,3 +1,17 @@
+import {
+  Body,
+  Column,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Row,
+  Section,
+  Tailwind,
+  Text,
+} from '@react-email/components';
 import { env } from '@/env';
 import type { Locale } from '@/stores/global';
 
@@ -6,24 +20,29 @@ interface VerifyEmailTemplateProps {
   locale?: Locale;
 }
 
+const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
+const SOCIAL_MEDIA_HANDLE = env.NEXT_PUBLIC_SOCIAL_MEDIA_HANDLE;
+
 const translations = {
   id: {
-    title: 'Verifikasi Email Antum/Antunna',
+    title: 'Verifikasi Email',
     greeting: 'Assalamualaikum,',
-    message: `Jazakumullahu khayran katsiran telah bergabung dalam waitlist ${env.NEXT_PUBLIC_APP_NAME}. Perlu kami sampaikan bahwa aplikasi ini tidak dirancang untuk menggantikan peran guru. Metode talaqqi dan musyafahah bersama guru tetaplah yang utama sebagaimana disunnahkan. Harapan kami, aplikasi ini dapat menjadi pendamping belajar yang memudahkan Antum/Antunna, insyaa Allah. Semoga Allah senantiasa memberkahi waktu dan memudahkan langkah kita dalam mempelajari Kitab-Nya. Silakan klik tombol di bawah untuk memverifikasi email.`,
+    message_1: `Jazakumullahu khayran katsiran telah bergabung dalam waitlist ${APP_NAME}. Perlu kami sampaikan bahwa aplikasi ini tidak dirancang untuk menggantikan peran guru. Metode talaqqi dan musyafahah bersama guru tetaplah yang utama sebagaimana disunnahkan.`,
+    message_2: `Harapan kami, aplikasi ini dapat menjadi pendamping belajar yang memudahkan Antum/Antunna, insyaa Allah. Semoga Allah senantiasa memberkahi waktu dan memudahkan langkah kita dalam mempelajari Al-Qur'an. Aamiin Allahumma Aamiin...`,
+    verification: `Silakan klik tombol di bawah ini untuk memverifikasi email.`,
     button: 'Verifikasi Email',
     expiry: 'Link ini akan kadaluarsa dalam 24 jam.',
-    ignore: `Jika Antum/Antunna tidak mendaftar di ${env.NEXT_PUBLIC_APP_NAME}, abaikan email ini.`,
-    footer: `Tim ${env.NEXT_PUBLIC_APP_NAME}`,
+    ignore: `Jika Antum/Antunna tidak mendaftar di ${APP_NAME}, abaikan email ini.`,
   },
   en: {
     title: 'Verify Your Email',
     greeting: 'Assalamualaykum,',
-    message: `Jazakumullahu khayran katsiran for joining the ${env.NEXT_PUBLIC_APP_NAME} waitlist. We would like to emphasize that this application is not designed to replace the role of a teacher. The methods of Talaqqi and Musyafahah with a qualified teacher remain the primary standard, in accordance with the Sunnah. Our hope is that this application serves as a beneficial study companion for you, insyaa Allah. May Allah bless your time and facilitate your journey in learning His Book. Please click the button below to verify your email.`,
+    message_1: `Jazakumullahu khayran katsiran for joining the ${APP_NAME} waitlist. We would like to emphasize that this application is not designed to replace the role of a teacher. The methods of Talaqqi and Musyafahah with a qualified teacher remain the primary standard, in accordance with the Sunnah.`,
+    message_2: `Our hope is that this application serves as a beneficial study companion for you, insyaa Allah. May Allah bless your time and facilitate your journey in learning Quran. Aamiin Allahumma Aamiin...`,
+    verification: 'Please click the button below to verify your email.',
     button: 'Verify Email',
     expiry: 'This link will expire in 24 hours.',
-    ignore: `If you didn't sign up for ${env.NEXT_PUBLIC_APP_NAME}, please ignore this email.`,
-    footer: `The ${env.NEXT_PUBLIC_APP_NAME} Team`,
+    ignore: `If you didn't sign up for ${APP_NAME}, please ignore this email.`,
   },
 };
 
@@ -31,145 +50,71 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
   const t = translations[locale];
 
   return (
-    <html lang={locale}>
-      <body
-        style={{
-          fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-          backgroundColor: '#f8fafc',
-          margin: 0,
-          padding: '40px 20px',
-        }}
-      >
-        <div
-          style={{
-            maxWidth: '560px',
-            margin: '0 auto',
-            backgroundColor: '#ffffff',
-            borderRadius: '12px',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden',
-          }}
-        >
-          {/* Header */}
-          <header
-            style={{
-              background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
-              padding: '32px',
-              textAlign: 'center',
-            }}
-          >
-            <h1
-              style={{
-                color: '#ffffff',
-                fontSize: '24px',
-                fontWeight: 'bold',
-                margin: 0,
-              }}
-            >
-              {env.NEXT_PUBLIC_APP_NAME}
-            </h1>
-          </header>
-
-          {/* Content */}
-          <main style={{ padding: '32px' }}>
-            <h2
-              style={{
-                color: '#1e293b',
-                fontSize: '20px',
-                fontWeight: '600',
-                marginTop: 0,
-                marginBottom: '16px',
-              }}
-            >
-              {t.title}
-            </h2>
-
-            <p
-              style={{
-                color: '#475569',
-                fontSize: '16px',
-                lineHeight: '1.6',
-                marginBottom: '8px',
-              }}
-            >
-              {t.greeting}
-            </p>
-
-            <p
-              style={{
-                color: '#475569',
-                fontSize: '16px',
-                lineHeight: '1.6',
-                marginBottom: '24px',
-              }}
-            >
-              {t.message}
-            </p>
-
-            {/* CTA Button */}
-            <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-              <a
+    <Html lang={locale}>
+      <Head />
+      <Tailwind>
+        <Body className="bg-white font-sans">
+          <Container className="mx-auto py-5 pb-12">
+            {/* Header */}
+            <Section className="py-10">
+              <Row>
+                <Column className="w-[80%]">
+                  <Text className="font-bold text-2xl">{APP_NAME}</Text>
+                </Column>
+                <Column align="right">
+                  <Row align="right">
+                    <Column>
+                      <Link href={`https://www.instagram.com/${SOCIAL_MEDIA_HANDLE}`}>
+                        <Img
+                          src="https://react.email/static/instagram-logo.png"
+                          alt="Instagram"
+                          height="31"
+                          width="31"
+                        />
+                      </Link>
+                    </Column>
+                    <Column>
+                      <Link href={`https://www.facebook.com/${SOCIAL_MEDIA_HANDLE}`}>
+                        <Img
+                          src="https://react.email/static/facebook-logo.png"
+                          alt="Facebook"
+                          height="36"
+                          width="36"
+                        />
+                      </Link>
+                    </Column>
+                    <Column>
+                      <Link href={`https://x.com/${SOCIAL_MEDIA_HANDLE}`}>
+                        <Img
+                          src="https://react.email/static/x-logo.png"
+                          alt="X"
+                          height="29"
+                          width="29"
+                        />
+                      </Link>
+                    </Column>
+                  </Row>
+                </Column>
+              </Row>
+            </Section>
+            <Text className="text-base leading-7">{t.greeting}</Text>
+            <Text className="text-base leading-7">{t.message_1}</Text>
+            <Text className="text-base leading-7">{t.message_2}</Text>
+            <Text className="font-bold text-base leading-7">{t.verification}</Text>
+            <Section className="text-center">
+              <Link
                 href={verificationUrl}
-                style={{
-                  display: 'inline-block',
-                  background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                  color: '#ffffff',
-                  fontSize: '16px',
-                  fontWeight: '600',
-                  textDecoration: 'none',
-                  padding: '14px 32px',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 14px 0 rgba(139, 92, 246, 0.39)',
-                }}
+                className="block bg-violet-700 px-8 py-3 text-center font-semibold text-base text-white"
               >
                 {t.button}
-              </a>
-            </div>
-
-            <p
-              style={{
-                color: '#94a3b8',
-                fontSize: '14px',
-                lineHeight: '1.5',
-                marginBottom: '8px',
-              }}
-            >
-              {t.expiry}
-            </p>
-
-            <p
-              style={{
-                color: '#94a3b8',
-                fontSize: '14px',
-                lineHeight: '1.5',
-                marginBottom: '0',
-              }}
-            >
-              {t.ignore}
-            </p>
-          </main>
-
-          {/* Footer */}
-          <footer
-            style={{
-              backgroundColor: '#f8fafc',
-              padding: '24px 32px',
-              textAlign: 'center',
-              borderTop: '1px solid #e2e8f0',
-            }}
-          >
-            <p
-              style={{
-                color: '#64748b',
-                fontSize: '14px',
-                margin: 0,
-              }}
-            >
-              {t.footer}
-            </p>
-          </footer>
-        </div>
-      </body>
-    </html>
+              </Link>
+            </Section>
+            <Hr className="my-5 border-border" />
+            <Text className="text-muted-foreground text-xs">{t.expiry}</Text>
+            <Text className="text-muted-foreground text-xs">{t.ignore}</Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
   );
 }
