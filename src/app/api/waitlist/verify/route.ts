@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
       .update({
         status: 'verified',
         verified_at: new Date().toISOString(),
-        verification_token: null, // Clear token after use
+        // Keep verification_token so we can show 'already_verified' if user clicks again
       })
       .eq('id', entry.id);
 

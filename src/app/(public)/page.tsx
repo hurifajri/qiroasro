@@ -39,7 +39,7 @@ const itemVariants = {
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type SubmitStatus = 'idle' | 'success' | 'already_verified' | 'error';
+type SubmitStatus = 'idle' | 'success' | 'verified' | 'already_verified' | 'error';
 
 export default function HomePage() {
   const t = useTranslations('home_page');
@@ -53,7 +53,7 @@ export default function HomePage() {
   useEffect(() => {
     const status = searchParams.get('waitlist_status');
     if (status === 'success') {
-      setSubmitStatus('success');
+      setSubmitStatus('verified'); // From verification link click
     } else if (status === 'already_verified') {
       setSubmitStatus('already_verified');
     } else if (status === 'error') {
@@ -117,6 +117,8 @@ export default function HomePage() {
     switch (submitStatus) {
       case 'success':
         return t('development.reminder_success');
+      case 'verified':
+        return t('development.reminder_verified');
       case 'already_verified':
         return t('development.reminder_already_verified');
       case 'error':
@@ -129,6 +131,7 @@ export default function HomePage() {
   const getStatusIcon = () => {
     switch (submitStatus) {
       case 'success':
+      case 'verified':
       case 'already_verified':
         return <CheckCircle2Icon className="size-4" />;
       case 'error':
@@ -141,6 +144,7 @@ export default function HomePage() {
   const getStatusColor = () => {
     switch (submitStatus) {
       case 'success':
+      case 'verified':
       case 'already_verified':
         return 'text-green-500';
       case 'error':

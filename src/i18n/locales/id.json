@@ -61,7 +61,8 @@
       "reminder_cta": "Waitlist",
       "reminder_submitting": "Mengirim...",
       "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox Antum/Antunna.",
-      "reminder_already_verified": "Email Antum/Antunna sudah terverifikasi. Tunggu kabar selanjutnya ya, insyaa Allah.",
+      "reminder_verified": "Email berhasil diverifikasi! Tunggu kabar selanjutnya ya, insyaa Allah.",
+      "reminder_already_verified": "Email Antum/Antunna sudah terverifikasi sebelumnya.",
       "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
       "reminder_invalid_email": "Email tidak valid",
       "reminder_email_required": "Email tidak boleh kosong"
