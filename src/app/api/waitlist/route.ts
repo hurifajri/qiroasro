@@ -3,13 +3,25 @@ import { env } from '@/env';
 import { VerifyEmailTemplate } from '@/lib/email-templates/verify-email';
 import { getResendClient } from '@/lib/resend';
 import { getSupabaseClient } from '@/lib/supabase';
+import type { Locale } from '@/stores/global';
 
 // Email validation regex
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const translations = {
+  id: {
+    subject: 'Verifikasi Email - QiroAsro',
+    message: 'Email verifikasi telah dikirim. Silakan cek inbox Anda.',
+  },
+  en: {
+    subject: 'Verify Your Email - QiroAsro',
+    message: 'Verification email sent. Please check your inbox.',
+  },
+};
+
 interface WaitlistRequest {
   email: string;
-  locale?: 'id' | 'en';
+  locale?: Locale;
   source?: string;
   utmSource?: string;
   utmMedium?: string;
@@ -101,16 +113,16 @@ export async function POST(request: NextRequest) {
     }
 
     // Build verification URL
-    const appUrl = env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = env.NEXT_PUBLIC_APP_URL;
     const verificationUrl = `${appUrl}/api/waitlist/verify?token=${verificationToken}`;
 
     // Send verification email
     const resend = getResendClient();
 
     const { error: emailError } = await resend.emails.send({
-      from: 'Qiro Asro <onboarding@resend.dev>', // Change to your domain after verification
+      from: 'QiroAsro <onboarding@resend.dev>', // Change to your domain after verification
       to: [email],
-      subject: locale === 'id' ? 'Verifikasi Email - Qiro Asro' : 'Verify Your Email - Qiro Asro',
+      subject: translations[locale].subject,
       react: VerifyEmailTemplate({ verificationUrl, locale }),
     });
 
@@ -124,10 +136,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message:
-        locale === 'id'
-          ? 'Email verifikasi telah dikirim. Silakan cek inbox Anda.'
-          : 'Verification email sent. Please check your inbox.',
+      message: translations[locale].message,
     });
   } catch (error) {
     console.error('Waitlist API error:', error);

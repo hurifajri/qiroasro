@@ -5,8 +5,8 @@ import { getSupabaseClient } from '@/lib/supabase';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const token = searchParams.get('token');
 
+    const token = searchParams.get('token');
     if (!token) {
       return redirectWithMessage('error', 'Missing verification token');
     }
@@ -51,13 +51,13 @@ export async function GET(request: NextRequest) {
 }
 
 function redirectWithMessage(status: string, message: string, locale?: string) {
-  const appUrl = env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+  const appUrl = env.NEXT_PUBLIC_APP_URL;
   const url = new URL('/', appUrl);
+
   url.searchParams.set('waitlist_status', status);
   url.searchParams.set('waitlist_message', message);
-  if (locale) {
-    url.searchParams.set('locale', locale);
-  }
+
+  if (locale) url.searchParams.set('locale', locale);
 
   return NextResponse.redirect(url, { status: 302 });
 }

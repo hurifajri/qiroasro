@@ -52,7 +52,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
           }}
         >
           {/* Header */}
-          <div
+          <header
             style={{
               background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
               padding: '32px',
@@ -69,10 +69,10 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
             >
               QiroAsro
             </h1>
-          </div>
+          </header>
 
           {/* Content */}
-          <div style={{ padding: '32px' }}>
+          <main style={{ padding: '32px' }}>
             <h2
               style={{
                 color: '#1e293b',
@@ -148,10 +148,10 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
             >
               {t.ignore}
             </p>
-          </div>
+          </main>
 
           {/* Footer */}
-          <div
+          <footer
             style={{
               backgroundColor: '#f8fafc',
               padding: '24px 32px',
@@ -168,7 +168,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
             >
               {t.footer}
             </p>
-          </div>
+          </footer>
         </div>
       </body>
     </html>
