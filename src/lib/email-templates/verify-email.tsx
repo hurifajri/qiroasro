@@ -7,24 +7,24 @@ interface VerifyEmailTemplateProps {
 
 const translations = {
   id: {
-    title: 'Verifikasi Email Anda',
+    title: 'Verifikasi Email Antum/Antunna',
     greeting: 'Assalamualaikum,',
     message:
-      'Terima kasih telah bergabung dengan waitlist Qiro Asro! Silakan klik tombol di bawah untuk memverifikasi email Anda.',
+      'Jazakumullahu khayran katsiran telah bergabung dalam waitlist QiroAsro. Perlu kami sampaikan bahwa aplikasi ini tidak dirancang untuk menggantikan peran guru. Metode talaqqi dan musyafahah bersama guru tetaplah yang utama sebagaimana disunnahkan. Harapan kami, aplikasi ini dapat menjadi pendamping belajar yang memudahkan Antum/Antunna, insyaa Allah. Semoga Allah senantiasa memberkahi waktu dan memudahkan langkah kita dalam mempelajari Kitab-Nya. Silakan klik tombol di bawah untuk memverifikasi email.',
     button: 'Verifikasi Email',
     expiry: 'Link ini akan kadaluarsa dalam 24 jam.',
-    ignore: 'Jika Anda tidak mendaftar di Qiro Asro, abaikan email ini.',
-    footer: 'Tim Qiro Asro',
+    ignore: 'Jika Antum/Antunna tidak mendaftar di QiroAsro, abaikan email ini.',
+    footer: 'Tim QiroAsro',
   },
   en: {
     title: 'Verify Your Email',
-    greeting: 'Assalamualaikum,',
+    greeting: 'Assalamualaykum,',
     message:
-      'Thank you for joining the Qiro Asro waitlist! Please click the button below to verify your email address.',
+      'Jazakumullahu khayran katsiran for joining the QiroAsro waitlist. We would like to emphasize that this application is not designed to replace the role of a teacher. The methods of Talaqqi and Musyafahah with a qualified teacher remain the primary standard, in accordance with the Sunnah. Our hope is that this application serves as a beneficial study companion for you, insyaa Allah. May Allah bless your time and facilitate your journey in learning His Book. Please click the button below to verify your email.',
     button: 'Verify Email',
     expiry: 'This link will expire in 24 hours.',
-    ignore: "If you didn't sign up for Qiro Asro, please ignore this email.",
-    footer: 'The Qiro Asro Team',
+    ignore: "If you didn't sign up for QiroAsro, please ignore this email.",
+    footer: 'The QiroAsro Team',
   },
 };
 
@@ -67,7 +67,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
                 margin: 0,
               }}
             >
-              Qiro Asro
+              QiroAsro
             </h1>
           </div>
 
