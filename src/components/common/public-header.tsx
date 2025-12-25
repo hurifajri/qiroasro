@@ -2,6 +2,7 @@
 
 import type { ColorMode } from '@xyflow/react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
 import { env } from '@/env';
@@ -17,12 +18,15 @@ interface PublicHeaderProps {
 
 export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
   const isScrolled = useIsScrolled();
+  const pathname = usePathname();
+  const isPlayground = pathname === '/playground';
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
-        isScrolled ? 'border-transparent border-b' : 'border-b',
+        'sticky top-0 z-60 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
+        isScrolled && !isPlayground ? 'border-b' : '',
+        isPlayground && 'border-b',
         className,
       )}
     >
