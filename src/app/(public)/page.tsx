@@ -253,64 +253,70 @@ export default function HomePage() {
                 <form.Field
                   name="email"
                   validators={{
-                    onBlur: ({ value }) => {
-                      if (!value) {
-                        return t('development.reminder_email_required');
-                      }
-                      if (!emailRegex.test(value)) {
-                        return t('development.reminder_invalid_email');
-                      }
+                    onSubmit: ({ value }) => {
+                      if (!value) return t('development.reminder_email_required');
+                      if (!emailRegex.test(value)) return t('development.reminder_invalid_email');
                       return undefined;
                     },
                   }}
                 >
                   {(field) => (
-                    <div className="flex flex-1 flex-col gap-1 sm:max-w-3xs">
-                      <InputGroup className="h-12">
-                        <InputGroupAddon>
-                          <MailIcon className="size-5 text-muted-foreground" />
-                        </InputGroupAddon>
-                        <InputGroupInput
-                          placeholder="Email"
-                          type="email"
-                          name={field.name}
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => field.handleChange(e.target.value)}
-                          className={cn(
-                            'h-12 placeholder:text-muted-foreground',
-                            field.state.meta.errors.length > 0 &&
-                              'border-red-500 focus:ring-red-500',
+                    <form.Subscribe selector={(state) => state.isSubmitting}>
+                      {(isSubmitting) => (
+                        <div className="flex flex-1 flex-col gap-1 sm:max-w-3xs">
+                          <InputGroup className="h-12">
+                            <InputGroupAddon>
+                              <MailIcon className="size-5 text-muted-foreground" />
+                            </InputGroupAddon>
+                            <InputGroupInput
+                              placeholder="Email"
+                              type="email"
+                              name={field.name}
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) => field.handleChange(e.target.value)}
+                              className={cn(
+                                'h-12 placeholder:text-muted-foreground',
+                                field.state.meta.errors.length > 0 &&
+                                  'border-red-500 focus:ring-red-500',
+                              )}
+                              disabled={isSubmitting}
+                            />
+                          </InputGroup>
+                          {field.state.meta.errors.length > 0 && (
+                            <p className="text-red-500 text-sm">
+                              {field.state.meta.errors.join(', ')}
+                            </p>
                           )}
-                          disabled={form.state.isSubmitting}
-                        />
-                      </InputGroup>
-                      {field.state.meta.errors.length > 0 && (
-                        <p className="text-red-500 text-sm">{field.state.meta.errors.join(', ')}</p>
+                        </div>
                       )}
-                    </div>
+                    </form.Subscribe>
                   )}
                 </form.Field>
 
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: form.state.isSubmitting ? 1 : 1.005 }}
-                  whileTap={{ scale: form.state.isSubmitting ? 1 : 0.95 }}
-                  disabled={form.state.isSubmitting}
-                  className={cn(
-                    buttonVariants({ size: 'lg' }),
-                    'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70',
+                <form.Subscribe selector={(state) => state.isSubmitting}>
+                  {(isSubmitting) => (
+                    <motion.button
+                      type="submit"
+                      whileHover={{ scale: isSubmitting ? 1 : 1.005 }}
+                      whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                      disabled={isSubmitting}
+                      className={cn(
+                        buttonVariants({ size: 'lg' }),
+                        'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70',
+                      )}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2Icon className="size-5 animate-spin" />
+                          {t('development.reminder_submitting')}
+                        </>
+                      ) : (
+                        t('development.reminder_cta')
+                      )}
+                    </motion.button>
                   )}
-                >
-                  {form.state.isSubmitting ? (
-                    <>
-                      <Loader2Icon className="size-5 animate-spin" />
-                      {t('development.reminder_submitting')}
-                    </>
-                  ) : (
-                    t('development.reminder_cta')
-                  )}
-                </motion.button>
+                </form.Subscribe>
               </div>
 
               {/* Status Message */}
