@@ -1,11 +1,11 @@
 'use client';
 
 import type { ColorMode } from '@xyflow/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
-import { env } from '@/env';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/stores/global';
@@ -31,7 +31,23 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
       )}
     >
       <Link href="/" className="font-semibold text-xl">
-        {env.NEXT_PUBLIC_APP_NAME}
+        {theme === 'light' ? (
+          <Image
+            src="/qiroasro-web-logo-light.png"
+            alt="Qiroasro Logo"
+            width={96}
+            height={28}
+            loading="eager"
+          />
+        ) : (
+          <Image
+            src="/qiroasro-web-logo-dark.png"
+            alt="Qiroasro Logo"
+            width={96}
+            height={28}
+            loading="eager"
+          />
+        )}
       </Link>
       <div className="flex items-center gap-2">
         <LocaleSelector locale={locale} />
