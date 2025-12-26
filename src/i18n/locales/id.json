@@ -1,5 +1,9 @@
 {
   "global": {
+    "metadata": {
+      "title": "Aplikasi Tajwid Berbasis Graph Pertama",
+      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung."
+    },
     "letter": {
       "hamza": "Hamzah",
       "ba": "Ba",
@@ -52,7 +56,11 @@
     }
   },
   "home_page": {
-    "title": "QiroAsro - Pembelajaran Tajwid Interaktif",
+    "metadata": {
+      "title": "Aplikasi Tajwid Berbasis Graph Pertama",
+      "description": "Kuasai tajwid melalui graph interaktif. Pelajari Makhorijul Huruf & Sifatul Huruf dengan koneksi visual berbasis node."
+    },
+    "title": "Qiroasro - Aplikasi Tajwid Berbasis Graph Pertama",
     "development": {
       "title": "Sedang Dalam Pengembangan",
       "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya, semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
@@ -70,7 +78,11 @@
     }
   },
   "playground_page": {
-    "title": "Halaman Bermain",
+    "metadata": {
+      "title": "Graph Tajwid Interaktif",
+      "description": "Jelajahi Makhorijul Huruf dan Sifatul Huruf melalui visualisasi graph interaktif. Lihat bagaimana huruf hijaiyyah terhubung dengan makhraj dan sifatnya."
+    },
+    "title": "Playground - Graph Tajwid Interaktif",
     "filter": {
       "title": "Pengaturan",
       "view_mode": {

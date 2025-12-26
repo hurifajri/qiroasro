@@ -1,5 +1,9 @@
 {
   "global": {
+    "metadata": {
+      "title": "The 1st Graph-Based Tajweed App",
+      "description": "Learn Makharijul Huruf & Sifatul Huruf through interactive knowledge graphs. The first app that visualizes tajweed rules as interconnected nodes."
+    },
     "letter": {
       "hamza": "Hamza",
       "ba": "Ba",
@@ -52,7 +56,11 @@
     }
   },
   "home_page": {
-    "title": "QiroAsro - Tajweed Interactive Learning",
+    "metadata": {
+      "title": "The 1st Graph-Based Tajweed App",
+      "description": "Master Tajweed through interactive graphs. Learn Makharijul Huruf & Sifatul Huruf with visual node-based connections."
+    },
+    "title": "Qiroasro - The 1st Graph-Based Tajweed App",
     "development": {
       "title": "Under Development",
       "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easier. Aamiin Allahumma Aamiin...",
@@ -70,7 +78,11 @@
     }
   },
   "playground_page": {
-    "title": "Playground Page",
+    "metadata": {
+      "title": "Interactive Tajweed Graph",
+      "description": "Explore Makharijul Huruf and Sifatul Huruf through an interactive graph visualization. See how hijaiyyah letters connect to their articulation points and traits."
+    },
+    "title": "Playground - Interactive Tajweed Graph",
     "filter": {
       "title": "Settings",
       "view_mode": {
