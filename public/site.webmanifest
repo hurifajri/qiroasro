@@ -1,0 +1,23 @@
+{
+  "name": "Qiroasro - The 1st Graph-Based Tajweed App",
+  "short_name": "Qiroasro",
+  "description": "Learn Makharijul Huruf & Sifatul Huruf through interactive knowledge graphs.",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#401268",
+  "background_color": "#e2cbf6",
+  "display": "standalone",
+  "start_url": "/"
+}
