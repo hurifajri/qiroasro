@@ -1,11 +1,15 @@
 'use client';
 
 import type { ColorMode } from '@xyflow/react';
+import { MailIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { cn } from '@/lib/utils';
 import type { Locale } from '@/stores/global';
@@ -17,6 +21,7 @@ interface PublicHeaderProps {
 }
 
 export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
+  const t = useTranslations('global');
   const isScrolled = useIsScrolled();
   const pathname = usePathname();
   const isPlayground = pathname === '/playground';
@@ -50,8 +55,19 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
         )}
       </Link>
       <div className="flex items-center gap-2">
-        <LocaleSelector locale={locale} />
-        <ThemeSelector theme={theme} />
+        {isPlayground && (
+          <>
+            <Button className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white">
+              <MailIcon />
+              {t('misc.waitlist')}
+            </Button>
+            <Separator orientation="vertical" />
+          </>
+        )}
+        <div className="flex items-center gap-2">
+          <LocaleSelector locale={locale} />
+          <ThemeSelector theme={theme} />
+        </div>
       </div>
     </header>
   );
