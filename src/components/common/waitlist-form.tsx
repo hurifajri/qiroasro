@@ -134,7 +134,7 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
           {!['idle', 'verified'].includes(waitlistStatus) && (
             <p
               className={cn(
-                'flex items-center gap-2 text-red-500 text-sm text-sm transition-opacity duration-200',
+                'flex items-center gap-2 text-sm transition-opacity duration-200',
                 getStatusColor(),
               )}
             >
