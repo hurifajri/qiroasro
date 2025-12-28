@@ -29,9 +29,9 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-60 flex flex-col items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200 sm:flex-row',
+        'sticky top-0 z-60 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
         isScrolled && !isPlayground ? 'border-b' : '',
-        isPlayground && 'border-b',
+        isPlayground && 'flex-col border-b sm:flex-row',
         className,
       )}
     >

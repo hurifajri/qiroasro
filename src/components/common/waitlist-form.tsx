@@ -67,7 +67,7 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
             form.handleSubmit();
           }}
         >
-          <div className="flex flex-col items-end gap-2 sm:flex-row">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <form.Field
               name="email"
               validators={{
