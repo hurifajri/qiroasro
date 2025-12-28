@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import { Label } from '@/components/ui/label';
 import { useWaitlist } from '@/hooks/use-waitlist';
 import { cn } from '@/lib/utils';
 
@@ -53,12 +54,11 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
       <div className={cn('flex flex-col gap-2', className)}>
         {/* Title */}
         {showTitle && (
-          <div className="flex items-center gap-4 text-muted-foreground">
+          <div className="flex items-center gap-2 text-muted-foreground">
             <span className="inline-block size-2 shrink-0 animate-pulse rounded-full bg-accent-amber text-lg" />
-            {t('development.reminder_title')}
+            <Label htmlFor="email">{t('development.reminder_title')}</Label>
           </div>
         )}
-
         {/* Reminder Form */}
         <form
           className="flex flex-col gap-2"
@@ -67,7 +67,7 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
             form.handleSubmit();
           }}
         >
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="flex flex-col items-end gap-2 sm:flex-row">
             <form.Field
               name="email"
               validators={{
@@ -88,8 +88,9 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
                           <MailIcon className="size-5 text-muted-foreground" />
                         </InputGroupAddon>
                         <InputGroupInput
-                          placeholder="Email"
+                          id="email"
                           type="email"
+                          placeholder="Email"
                           name={field.name}
                           value={field.state.value}
                           onBlur={field.handleBlur}
