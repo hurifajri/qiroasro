@@ -1,12 +1,11 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2Icon, Loader2Icon, MailCheckIcon, MailIcon, XCircleIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -17,19 +16,6 @@ import {
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { useWaitlist } from '@/hooks/use-waitlist';
 import { cn } from '@/lib/utils';
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: 'spring' as const,
-      stiffness: 100,
-      damping: 12,
-    },
-  },
-};
 
 interface WaitlistFormProps {
   source: string;
@@ -67,29 +53,14 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
       <div className={cn('flex flex-col gap-2', className)}>
         {/* Title */}
         {showTitle && (
-          <motion.div
-            className="flex items-center gap-4 text-muted-foreground"
-            variants={itemVariants}
-          >
-            <motion.span
-              className="inline-block size-2 shrink-0 rounded-full bg-accent-amber text-lg"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [1, 0.5, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: 'easeInOut',
-              }}
-            />
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <span className="inline-block size-2 shrink-0 animate-pulse rounded-full bg-accent-amber text-lg" />
             {t('development.reminder_title')}
-          </motion.div>
+          </div>
         )}
 
         {/* Reminder Form */}
-        <motion.form
-          variants={itemVariants}
+        <form
           className="flex flex-col gap-2"
           onSubmit={(e) => {
             e.preventDefault();
@@ -140,41 +111,35 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
 
             <form.Subscribe selector={(state) => state.isSubmitting}>
               {(isSubmitting) => (
-                <motion.button
+                <Button
                   type="submit"
-                  whileHover={{ scale: isSubmitting ? 1 : 1.005 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
+                  size="lg"
                   disabled={isSubmitting}
-                  className={cn(
-                    buttonVariants({ size: 'lg' }),
-                    'h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:shadow-accent-violet/30 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70 sm:w-28',
-                  )}
+                  className="h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:scale-[1.005] hover:shadow-accent-violet/30 hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 sm:w-28"
                 >
                   {isSubmitting ? (
                     <Loader2Icon className="size-5 animate-spin" />
                   ) : (
                     t('development.reminder_cta')
                   )}
-                </motion.button>
+                </Button>
               )}
             </form.Subscribe>
           </div>
 
           {/* Status Message */}
-          <AnimatePresence mode="wait">
-            {!['idle', 'verified'].includes(waitlistStatus) && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className={cn('flex items-center gap-2 text-sm', getStatusColor())}
-              >
-                {getStatusIcon()}
-                {getStatusMessage()}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.form>
+          {!['idle', 'verified'].includes(waitlistStatus) && (
+            <span
+              className={cn(
+                'flex items-center gap-2 text-sm transition-opacity duration-200',
+                getStatusColor(),
+              )}
+            >
+              {getStatusIcon()}
+              {getStatusMessage()}
+            </span>
+          )}
+        </form>
       </div>
 
       {/* Verification Success Dialog */}
