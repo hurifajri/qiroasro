@@ -56,7 +56,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type SubmitStatus = 'idle' | 'success' | 'verified' | 'already_verified' | 'error';
 
-export default function HomePage() {
+export function Home() {
   const t = useTranslations('home_page');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -165,7 +165,6 @@ export default function HomePage() {
 
   return (
     <>
-      <h1 className="sr-only">{t('title')}</h1>
       <motion.div
         className="mx-auto mt-8 flex max-w-7xl flex-col gap-4 p-4 sm:mt-32 sm:flex-row"
         variants={containerVariants}
@@ -280,8 +279,13 @@ export default function HomePage() {
                   {(field) => (
                     <form.Subscribe selector={(state) => state.isSubmitting}>
                       {(isSubmitting) => (
-                        <div className="flex flex-1 flex-col gap-1 sm:max-w-3xs">
-                          <InputGroup className="h-12">
+                        <div className="relative flex flex-1 flex-col gap-1 sm:max-w-3xs">
+                          <InputGroup
+                            className={cn(
+                              'h-12',
+                              field.state.meta.errors.length > 0 && 'border-red-500',
+                            )}
+                          >
                             <InputGroupAddon>
                               <MailIcon className="size-5 text-muted-foreground" />
                             </InputGroupAddon>
@@ -292,16 +296,12 @@ export default function HomePage() {
                               value={field.state.value}
                               onBlur={field.handleBlur}
                               onChange={(e) => field.handleChange(e.target.value)}
-                              className={cn(
-                                'h-12 placeholder:text-muted-foreground',
-                                field.state.meta.errors.length > 0 &&
-                                  'border-red-500 focus:ring-red-500',
-                              )}
+                              className="h-12 placeholder:text-muted-foreground"
                               disabled={isSubmitting}
                             />
                           </InputGroup>
                           {field.state.meta.errors.length > 0 && (
-                            <p className="text-red-500 text-sm">
+                            <p className="-bottom-6 absolute text-red-500 text-sm">
                               {field.state.meta.errors.join(', ')}
                             </p>
                           )}
