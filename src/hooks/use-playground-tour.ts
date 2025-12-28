@@ -129,6 +129,22 @@ export function usePlaygroundTour() {
         popover: {
           title: t('steps.hierarchy_direction.title'),
           description: t('steps.hierarchy_direction.description'),
+          onNextClick: () => {
+            const buttons = document.querySelectorAll('#tour-hierarchy-direction button');
+            const lastButton = buttons[buttons.length - 1];
+
+            // Check if last button (Horizontal) is active by checking for active styling class
+            const isLastButtonActive =
+              lastButton?.classList.contains('from-amber-500') ||
+              lastButton?.className.includes('from-amber-500');
+
+            if (!isLastButtonActive) {
+              // Flash the trigger to indicate user needs to click it
+              flashElement(lastButton);
+              return;
+            }
+            driverRef.current?.moveNext();
+          },
         },
       },
       {
