@@ -138,7 +138,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
       {isDialogOpen && selectedLegendId && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
-            <DialogHeader className="flex flex-row items-center gap-2">
+            <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
               <DialogTitle>{legendInfo[selectedLegendId].title}</DialogTitle>
             </DialogHeader>

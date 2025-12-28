@@ -55,7 +55,8 @@
       "siman_shaut": "Sifat Aridhoh"
     },
     "misc": {
-      "waitlist": "Waitlist"
+      "waitlist": "Waitlist",
+      "is_beneficial": "Apakah contoh ini bermanfaat?"
     }
   },
   "home_page": {

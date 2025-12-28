@@ -55,7 +55,8 @@
       "siman_shaut": "Conditional Trait"
     },
     "misc": {
-      "waitlist": "Waitlist"
+      "waitlist": "Waitlist",
+      "is_beneficial": "Is this example beneficial?"
     }
   },
   "home_page": {
