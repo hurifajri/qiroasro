@@ -413,7 +413,7 @@ export function Playground() {
           </div>
 
           {/* Bottom Settings */}
-          <div className="absolute bottom-0 left-0 flex w-full flex-col items-end justify-between gap-2 p-3 sm:flex-row">
+          <div className="absolute bottom-0 left-0 z-10 flex w-full flex-col items-end justify-between gap-2 p-3 sm:flex-row">
             {/* Help Button */}
             <Panel position="bottom-left" className="static! m-0!">
               <Button

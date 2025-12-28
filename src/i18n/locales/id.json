@@ -131,76 +131,76 @@
     "tour": {
       "next": "Lanjut",
       "prev": "Kembali",
-      "done": "Mengerti!",
+      "done": "Alhamdulillah, Paham!",
       "help_button": "Panduan",
       "steps": {
         "welcome": {
-          "title": "Selamat datang di Playground! 👋",
-          "description": "Ini adalah visualisasi interaktif aturan Tajwid. Mari saya tunjukkan cara menggunakannya."
+          "title": "Assalamualaikum!",
+          "description": "Selamat datang di Playground Tajwid. Semoga Allah mudahkan antum/antunna dalam mempelajari ilmu tajwid melalui visualisasi interaktif ini. Mari kita mulai, Bismillah..."
         },
         "canvas": {
-          "title": "Graph Interaktif",
-          "description": "Klik node mana saja untuk menyoroti koneksinya. Geser untuk pan, scroll untuk zoom."
+          "title": "Area Interaktif",
+          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan tampilan dan keterangan."
         },
         "controls": {
-          "title": "Kontrol Zoom",
-          "description": "Gunakan tombol ini untuk zoom in/out dan menyesuaikan graph ke layar."
+          "title": "Kontrol Tampilan",
+          "description": "Gunakan scroll atau tombol +/- untuk zoom, geser untuk berpindah, icon persegi untuk memusatkan graph, dan icon gembok untuk mengunci agar graph tidak dapat diubah."
         },
         "graph_filter": {
           "title": "Panel Pengaturan",
-          "description": "Ini adalah panel pengaturan. Jika tertutup, klik headernya untuk membuka sebelum melanjutkan."
+          "description": "Di sini untuk mengatur tampilan graph sesuai kebutuhan. Silakan klik untuk membuka panel pengaturan."
         },
         "view_mode": {
           "title": "Mode Tampilan",
-          "description": "Filter apa yang ditampilkan: Semua, Makhraj, Sifat, atau Huruf tertentu."
+          "description": "Pilih apa yang ingin ditampilkan: Semua, Makhraj saja, Sifat saja, atau fokus ke satu Huruf tertentu. Silakan klik 'Huruf' untuk melanjutkan."
         },
         "letter_selector": {
-          "title": "Pengaturan Huruf",
-          "description": "Pilih huruf yang ingin Anda fokuskan."
+          "title": "Pilihan Huruf Hijaiyyah",
+          "description": "Masya Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
         },
         "layout_mode": {
-          "title": "Mode Layout",
-          "description": "Pilih antara layout Radial (melingkar) atau Hierarki (pohon)."
+          "title": "Mode Tata Letak",
+          "description": "Pilih antara tata letak Radial (melingkar seperti matahari) atau Hierarki (berjenjang seperti pohon). Silakan coba mode Hierarki."
         },
         "hierarchy_direction": {
           "title": "Arah Hierarki",
-          "description": "Pilih antara arah Vertikal atau Horizontal."
+          "description": "Atur arah tampilan: Vertikal (atas ke bawah) atau Horizontal (kiri ke kanan). Silakan pilih Horizontal."
         },
         "edge_style": {
-          "title": "Gaya Garis",
-          "description": "Aktifkan garis dinamis yang mengikuti posisi node, atau pilih bentuk garis statis."
+          "title": "Gaya Garis Penghubung",
+          "description": "Aktifkan garis dinamis yang mengikuti posisi node, atau nonaktifkan untuk memilih bentuk garis statis. Silakan nonaktifkan untuk melihat pilihan bentuk garis."
         },
         "edge_shape": {
-          "title": "Bentuk Garis",
-          "description": "Pilih antara Bezier, Straight, Step, atau Smoothstep."
+          "title": "Bentuk Garis Penghubung",
+          "description": "Pilih bentuk garis penghubung: Bezier (melengkung halus), Straight (lurus), Step (bertingkat), atau Smoothstep (bertingkat halus)."
         },
         "graph_legend": {
-          "title": "Keterangan",
-          "description": "Ini menunjukkan kode warna untuk berbagai jenis node. Jika tertutup, klik headernya untuk membuka sebelum melanjutkan."
+          "title": "Keterangan Warna",
+          "description": "Panel ini menjelaskan makna warna setiap node. Silakan buka untuk melanjutkan."
         },
         "trait_info": {
-          "title": "Detail Sifat",
-          "description": "Klik ikon tanda tanya di samping sifat untuk melihat penjelasan detailnya."
+          "title": "Info Detail",
+          "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },
         "node_letter": {
-          "title": "Node Huruf",
-          "description": "Node oranye mewakili huruf Hijaiyyah. Klik untuk melihat makhraj dan sifat yang terhubung."
+          "title": "Huruf Hijaiyyah",
+          "description": "Node berwarna oranye penuh ini mewakili huruf-huruf hijaiyyah. Klik untuk melihat makhraj dan sifat yang melekat pada huruf tersebut."
         },
         "node_articulation_point": {
-          "title": "Node Makhraj",
-          "description": "Outline node biru menunjukkan titik makhraj."
+          "title": "Makhraj Khusus",
+          "description": "Node berwarna biru dengan garis luar ini menunjukkan makhraj khusus, yaitu tempat keluarnya huruf."
         },
         "node_articulation_area": {
-          "title": "Node Area Makhraj",
-          "description": "Solid node biru menunjukkan area makhraj."
+          "title": "Makhraj Umum",
+          "description": "Node berwarna biru penuh ini menunjukkan makhraj umum yang memiliki beberapa makhraj khusus di bawahnya."
         },
         "node_trait": {
-          "title": "Node Sifat",
-          "description": "Outline node ungu menunjukkan sifat huruf."
+          "title": "Sifat Huruf",
+          "description": "Node berwarna ungu dengan garis luar ini mewakili sifat-sifat yang melekat pada huruf hijaiyyah."
         },
         "node_trait_group": {
-          "title": "Node Grup Sifat",
-          "description": "Solid node ungu menunjukkan grup sifat."
+          "title": "Kelompok Sifat",
+          "description": "Node berwarna ungu penuh ini mengelompokkan beberapa sifat yang saling berpasangan atau berkaitan."
         }
       }
     }
