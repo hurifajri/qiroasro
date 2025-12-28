@@ -72,6 +72,15 @@ export function Playground() {
 
   const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
 
+  // Show waitlist dialog after user explores for 60 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsWaitlistDialogOpen(true);
+    }, 60 * 1000); // 60 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
