@@ -27,7 +27,6 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
   const t = useTranslations('global');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isFromHome = source === 'home_page';
 
   const {
     form,
@@ -167,22 +166,16 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
                 {t('development.reminder_verified')}
               </DialogTitle>
             </DialogHeader>
-            <p>
-              {isFromHome
-                ? t('development.reminder_verified_message_pg')
-                : t('development.reminder_verified_message')}
-            </p>
-            {isFromHome && (
-              <DialogFooter>
-                <Button
-                  size="lg"
-                  onClick={handleClickPlayground}
-                  className="h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white"
-                >
-                  {t('development.reminder_playground_cta')}
-                </Button>
-              </DialogFooter>
-            )}
+            <p>{t('development.reminder_verified_message')}</p>
+            <DialogFooter>
+              <Button
+                size="lg"
+                onClick={handleClickPlayground}
+                className="h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white"
+              >
+                {t('development.reminder_playground_cta')}
+              </Button>
+            </DialogFooter>
           </DialogContent>
         </Dialog>
       )}
