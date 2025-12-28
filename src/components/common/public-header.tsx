@@ -29,13 +29,13 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-60 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
+        'sticky top-0 z-60 flex flex-col items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200 sm:flex-row',
         isScrolled && !isPlayground ? 'border-b' : '',
         isPlayground && 'border-b',
         className,
       )}
     >
-      <Link href="/" className="font-semibold text-xl">
+      <Link href="/" className="shrink-0 font-semibold text-xl">
         {theme === 'light' ? (
           <Image
             src="/qiroasro-web-logo-light.png"
@@ -54,20 +54,20 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
           />
         )}
       </Link>
-      <div className="flex items-center gap-2">
-        {isPlayground && (
-          <>
-            <Button className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white">
-              <MailIcon />
-              {t('misc.waitlist')}
-            </Button>
-            <Separator orientation="vertical" />
-          </>
-        )}
+      <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <LocaleSelector locale={locale} />
           <ThemeSelector theme={theme} />
         </div>
+        {isPlayground && (
+          <>
+            <Separator orientation="vertical" />
+            <Button className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white">
+              <MailIcon />
+              {t('misc.waitlist')}
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );
