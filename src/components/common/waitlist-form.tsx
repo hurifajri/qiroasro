@@ -25,7 +25,7 @@ interface WaitlistFormProps {
 }
 
 export function WaitlistForm({ source, className, isPlain = false }: WaitlistFormProps) {
-  const t = useTranslations('home_page');
+  const t = useTranslations('global');
   const searchParams = useSearchParams();
 
   const {

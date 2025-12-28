@@ -73,7 +73,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
                 className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white"
               >
                 <MailIcon />
-                {t('misc.waitlist')}
+                {t('development.waitlist')}
               </Button>
             </>
           )}
@@ -85,7 +85,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
           <DialogContent>
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
-              <DialogTitle>{t('misc.is_beneficial')}</DialogTitle>
+              <DialogTitle>{t('development.is_beneficial')}</DialogTitle>
             </DialogHeader>
             <WaitlistForm source="public_header" isPlain />
           </DialogContent>

@@ -54,9 +54,18 @@
       "munfaridah": "Sifat Khusus",
       "siman_shaut": "Sifat Aridhoh"
     },
-    "misc": {
+    "development": {
       "waitlist": "Waitlist",
-      "is_beneficial": "Apakah contoh ini bermanfaat?"
+      "is_beneficial": "Apakah contoh ini bermanfaat?",
+      "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
+      "reminder_cta": "Waitlist",
+      "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
+      "reminder_verified": "Email berhasil diverifikasi",
+      "reminder_verified_message": "Kami akan memberi tahu Antum/Antunna melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, Antum/Antunna dapat mengunjungi halaman Playground.",
+      "reminder_already_verified": "Email sudah terverifikasi sebelumnya.",
+      "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
+      "reminder_invalid_email": "Email tidak valid",
+      "reminder_email_required": "Email tidak boleh kosong"
     }
   },
   "home_page": {
@@ -69,16 +78,7 @@
       "title": "Sedang Dalam Pengembangan",
       "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya, semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
       "playground_cta": "Lihat Contohnya",
-      "playground_dialog_cta": "Ke Playground",
-      "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
-      "reminder_cta": "Waitlist",
-      "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
-      "reminder_verified": "Email berhasil diverifikasi",
-      "reminder_verified_message": "Kami akan memberi tahu Antum/Antunna melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, Antum/Antunna dapat mengunjungi halaman Playground.",
-      "reminder_already_verified": "Email sudah terverifikasi sebelumnya.",
-      "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
-      "reminder_invalid_email": "Email tidak valid",
-      "reminder_email_required": "Email tidak boleh kosong"
+      "playground_dialog_cta": "Ke Playground"
     }
   },
   "playground_page": {

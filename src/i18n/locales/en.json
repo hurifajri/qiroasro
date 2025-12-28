@@ -54,9 +54,18 @@
       "munfaridah": "Special Trait",
       "siman_shaut": "Conditional Trait"
     },
-    "misc": {
+    "development": {
       "waitlist": "Waitlist",
-      "is_beneficial": "Is this example beneficial?"
+      "is_beneficial": "Is this example beneficial?",
+      "reminder_title": "Notify when the app is available",
+      "reminder_cta": "Waitlist",
+      "reminder_success": "Verification email sent! Please check your inbox.",
+      "reminder_verified": "Email verified successfully",
+      "reminder_verified_message": "We will notify you via email when the app becomes available, insyaa Allah. To get a preview of the application, you can visit the Playground page.",
+      "reminder_already_verified": "Your email was already verified.",
+      "reminder_error": "Something went wrong. Please try again.",
+      "reminder_invalid_email": "Invalid email address",
+      "reminder_email_required": "Email is required"
     }
   },
   "home_page": {
@@ -69,16 +78,7 @@
       "title": "Under Development",
       "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easier. Aamiin Allahumma Aamiin...",
       "playground_cta": "Explore Playground",
-      "playground_dialog_cta": "Visit Playground",
-      "reminder_title": "Notify when the app is available",
-      "reminder_cta": "Waitlist",
-      "reminder_success": "Verification email sent! Please check your inbox.",
-      "reminder_verified": "Email verified successfully",
-      "reminder_verified_message": "We will notify you via email when the app becomes available, insyaa Allah. To get a preview of the application, you can visit the Playground page.",
-      "reminder_already_verified": "Your email was already verified.",
-      "reminder_error": "Something went wrong. Please try again.",
-      "reminder_invalid_email": "Invalid email address",
-      "reminder_email_required": "Email is required"
+      "playground_dialog_cta": "Visit Playground"
     }
   },
   "playground_page": {

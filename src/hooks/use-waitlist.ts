@@ -13,7 +13,7 @@ interface UseWaitlistOptions {
 }
 
 export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) {
-  const t = useTranslations('home_page');
+  const t = useTranslations('global');
   const locale = useLocale();
 
   const { waitlistStatus, setWaitlistStatus } = useGlobalStore((state) => state);
