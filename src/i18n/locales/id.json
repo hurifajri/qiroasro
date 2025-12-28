@@ -127,6 +127,82 @@
     },
     "development": {
       "is_beneficial": "Apakah contoh ini bermanfaat?"
+    },
+    "tour": {
+      "next": "Lanjut",
+      "prev": "Kembali",
+      "done": "Mengerti!",
+      "help_button": "Panduan",
+      "steps": {
+        "welcome": {
+          "title": "Selamat datang di Playground! 👋",
+          "description": "Ini adalah visualisasi interaktif aturan Tajwid. Mari saya tunjukkan cara menggunakannya."
+        },
+        "canvas": {
+          "title": "Graph Interaktif",
+          "description": "Klik node mana saja untuk menyoroti koneksinya. Geser untuk pan, scroll untuk zoom."
+        },
+        "controls": {
+          "title": "Kontrol Zoom",
+          "description": "Gunakan tombol ini untuk zoom in/out dan menyesuaikan graph ke layar."
+        },
+        "graph_filter": {
+          "title": "Panel Pengaturan",
+          "description": "Ini adalah panel pengaturan. Jika tertutup, klik headernya untuk membuka sebelum melanjutkan."
+        },
+        "view_mode": {
+          "title": "Mode Tampilan",
+          "description": "Filter apa yang ditampilkan: Semua, Makhraj, Sifat, atau Huruf tertentu."
+        },
+        "letter_selector": {
+          "title": "Pengaturan Huruf",
+          "description": "Pilih huruf yang ingin Anda fokuskan."
+        },
+        "layout_mode": {
+          "title": "Mode Layout",
+          "description": "Pilih antara layout Radial (melingkar) atau Hierarki (pohon)."
+        },
+        "hierarchy_direction": {
+          "title": "Arah Hierarki",
+          "description": "Pilih antara arah Vertikal atau Horizontal."
+        },
+        "edge_style": {
+          "title": "Gaya Garis",
+          "description": "Aktifkan garis dinamis yang mengikuti posisi node, atau pilih bentuk garis statis."
+        },
+        "edge_shape": {
+          "title": "Bentuk Garis",
+          "description": "Pilih antara Bezier, Straight, Step, atau Smoothstep."
+        },
+        "graph_legend": {
+          "title": "Keterangan",
+          "description": "Ini menunjukkan kode warna untuk berbagai jenis node. Jika tertutup, klik headernya untuk membuka sebelum melanjutkan."
+        },
+        "trait_info": {
+          "title": "Detail Sifat",
+          "description": "Klik ikon tanda tanya di samping sifat untuk melihat penjelasan detailnya."
+        },
+        "node_letter": {
+          "title": "Node Huruf",
+          "description": "Node oranye mewakili huruf Hijaiyyah. Klik untuk melihat makhraj dan sifat yang terhubung."
+        },
+        "node_articulation_point": {
+          "title": "Node Makhraj",
+          "description": "Outline node biru menunjukkan titik makhraj."
+        },
+        "node_articulation_area": {
+          "title": "Node Area Makhraj",
+          "description": "Solid node biru menunjukkan area makhraj."
+        },
+        "node_trait": {
+          "title": "Node Sifat",
+          "description": "Outline node ungu menunjukkan sifat huruf."
+        },
+        "node_trait_group": {
+          "title": "Node Grup Sifat",
+          "description": "Solid node ungu menunjukkan grup sifat."
+        }
+      }
     }
   }
 }

@@ -127,6 +127,82 @@
     },
     "development": {
       "is_beneficial": "Is this example beneficial?"
+    },
+    "tour": {
+      "next": "Next",
+      "prev": "Previous",
+      "done": "Got it!",
+      "help_button": "Guide",
+      "steps": {
+        "welcome": {
+          "title": "Welcome to Playground! 👋",
+          "description": "This is an interactive visualization of Tajweed rules. Let me show you around."
+        },
+        "canvas": {
+          "title": "Interactive Graph",
+          "description": "Click any node to highlight its connections. Drag to pan, scroll to zoom."
+        },
+        "controls": {
+          "title": "Zoom Controls",
+          "description": "Use these buttons to zoom in/out and fit the graph to screen."
+        },
+        "graph_filter": {
+          "title": "Settings Panel",
+          "description": "This is the settings panel. If it's closed, click the header to open it before continuing."
+        },
+        "view_mode": {
+          "title": "View Mode",
+          "description": "Filter what to display: All, Articulation (Makhraj), Trait, or specific Letter."
+        },
+        "letter_selector": {
+          "title": "Letter Selector",
+          "description": "Select a specific letter to focus on."
+        },
+        "layout_mode": {
+          "title": "Layout Mode",
+          "description": "Choose between Radial (circular) or Hierarchical (tree) layout."
+        },
+        "hierarchy_direction": {
+          "title": "Hierarchy Direction",
+          "description": "Choose between Vertical or Horizontal direction."
+        },
+        "edge_style": {
+          "title": "Edge Style",
+          "description": "Toggle dynamic edges that follow node positions, or choose static edge shapes."
+        },
+        "edge_shape": {
+          "title": "Edge Shape",
+          "description": "Choose between Bezier, Straight, Step, or Smoothstep edge shapes."
+        },
+        "graph_legend": {
+          "title": "Legend",
+          "description": "This shows the color coding for different node types. If it's closed, click the header to open it before continuing."
+        },
+        "trait_info": {
+          "title": "Trait Details",
+          "description": "Click the question mark icon next to a trait to see its detailed explanation."
+        },
+        "node_letter": {
+          "title": "Letter Node",
+          "description": "Orange nodes represent Hijaiyyah letters. Click to see connected articulation points and traits."
+        },
+        "node_articulation_point": {
+          "title": "Articulation Point Node",
+          "description": "Outlined blue nodes represent articulation points (specific makhraj)."
+        },
+        "node_articulation_area": {
+          "title": "Articulation Area Node",
+          "description": "Solid blue nodes represent articulation areas (general makhraj)."
+        },
+        "node_trait": {
+          "title": "Trait Node",
+          "description": "Outlined purple nodes represent letter traits (specific sifat)."
+        },
+        "node_trait_group": {
+          "title": "Trait Group Node",
+          "description": "Solid purple nodes represent trait groups (general sifat)."
+        }
+      }
     }
   }
 }

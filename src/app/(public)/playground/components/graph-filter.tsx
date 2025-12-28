@@ -56,7 +56,7 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const VIEW_MODE_LABELS: Record<ViewMode, string> = {
     all: t('view_mode.all'),
@@ -74,14 +74,15 @@ export function GraphFilter({
 
   return (
     <Collapsible
-      open={isCollapsed}
-      onOpenChange={setIsCollapsed}
+      id="tour-graph-filter"
+      open={isOpen}
+      onOpenChange={setIsOpen}
       className="flex w-full flex-col gap-2 rounded-lg border backdrop-blur-sm sm:w-72"
     >
       <CollapsibleTrigger
         className={cn(
           'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
-          isCollapsed ? 'border-b' : '',
+          isOpen ? 'border-b' : '',
         )}
       >
         {t('title')}
@@ -91,7 +92,7 @@ export function GraphFilter({
         <div className="flex flex-col gap-2">
           <ul className="flex flex-col gap-2">
             {/* View Mode */}
-            <li className="flex items-center gap-2">
+            <li id="tour-view-mode" className="flex items-center gap-2">
               <FilterIcon className="size-4 text-muted-foreground" />
               <ButtonGroup className="flex-1">
                 {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
@@ -119,7 +120,7 @@ export function GraphFilter({
             </li>
 
             {/* Layout Mode */}
-            <li className="flex items-center gap-2">
+            <li id="tour-layout-mode" className="flex items-center gap-2">
               <LayoutGridIcon className="size-4 text-muted-foreground" />
               <ButtonGroup className="flex-1">
                 <Button
@@ -155,7 +156,7 @@ export function GraphFilter({
 
             {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
             {layoutMode === 'hierarchical' && (
-              <li className="flex items-center gap-2">
+              <li id="tour-hierarchy-direction" className="flex items-center gap-2">
                 <CompassIcon className="size-4 text-muted-foreground" />
                 <ButtonGroup className="flex-1">
                   <Button
@@ -193,7 +194,7 @@ export function GraphFilter({
             )}
 
             {/* Edge Type */}
-            <li className="flex items-center gap-2">
+            <li id="tour-edge-style" className="flex items-center gap-2">
               <LinkIcon className="size-4 text-muted-foreground" />
               <Button
                 variant="outline"
@@ -212,7 +213,7 @@ export function GraphFilter({
 
             {/* Edge Shape Selector - only visible when floating is OFF */}
             {!edgeStyle.isFloating && (
-              <li className="flex items-center gap-2">
+              <li id="tour-edge-shape" className="flex items-center gap-2">
                 <SplineIcon className="size-4 text-muted-foreground" />
                 <Select
                   value={EDGE_SHAPE_LABELS[edgeStyle.shape]}
@@ -235,7 +236,10 @@ export function GraphFilter({
 
           {/* Letter Selector (only visible in letter mode) */}
           {viewMode === 'letter' && (
-            <ScrollArea className="w-full whitespace-nowrap rounded-lg border">
+            <ScrollArea
+              id="tour-letter-selector"
+              className="w-full whitespace-nowrap rounded-lg border"
+            >
               <div className="flex w-max items-center gap-2 p-4">
                 {letters.map((letter) => (
                   <Button

@@ -17,7 +17,7 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { CircleQuestionMarkIcon } from 'lucide-react';
+import { CircleHelpIcon, CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { WaitlistForm } from '@/components/common/waitlist-form';
@@ -26,7 +26,9 @@ import { FloatingEdge } from '@/components/edges/floating-edge';
 import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/articulation-node';
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
+import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { usePlaygroundTour } from '@/hooks/use-playground-tour';
 import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
 import { generateGraphFromData } from '@/lib/graph/utils';
 import { useGlobalStore } from '@/providers/global';
@@ -70,16 +72,18 @@ export function Playground() {
     getEffectiveEdgeType,
   } = usePlaygroundStore((state) => state);
 
+  const { startTour } = usePlaygroundTour();
+
   const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
 
   // Show waitlist dialog after user explores for 60 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsWaitlistDialogOpen(true);
-    }, 60 * 1000); // 60 seconds
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsWaitlistDialogOpen(true);
+  //   }, 180 * 1000); // 60 seconds
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
@@ -362,7 +366,7 @@ export function Playground() {
 
   return (
     <>
-      <div className="h-[calc(100dvh-49px)]">
+      <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -383,7 +387,7 @@ export function Playground() {
             animated: edgeStyle.isAnimated,
           }}
         >
-          {/* Settings */}
+          {/* Top Settings */}
           <div className="absolute top-0 left-0 flex w-full flex-col justify-between gap-2 p-3 sm:flex-row">
             {/* Graph Filter */}
             <Panel position="top-left" className="static! m-0!">
@@ -408,7 +412,25 @@ export function Playground() {
             </Panel>
           </div>
 
-          <Controls position="bottom-right" />
+          {/* Bottom Settings */}
+          <div className="absolute bottom-0 left-0 flex w-full flex-col items-end justify-between gap-2 p-3 sm:flex-row">
+            {/* Help Button */}
+            <Panel position="bottom-left" className="static! m-0!">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={startTour}
+                className="gap-2 backdrop-blur-sm"
+              >
+                <CircleHelpIcon className="size-4" />
+                {t('tour.help_button')}
+              </Button>
+            </Panel>
+
+            <div id="tour-controls">
+              <Controls position="bottom-right" className="static! m-0!" />
+            </div>
+          </div>
 
           {/* <MiniMap
             position="bottom-left"

@@ -14,7 +14,7 @@ type Trait = 'traitLazimah' | 'traitAridhah';
 
 export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<Trait | null>(null);
 
@@ -96,14 +96,15 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
   return (
     <>
       <Collapsible
-        open={isCollapsed}
-        onOpenChange={setIsCollapsed}
+        id="tour-graph-legend"
+        open={isOpen}
+        onOpenChange={setIsOpen}
         className="flex w-40 flex-col gap-2 rounded-lg border backdrop-blur-sm"
       >
         <CollapsibleTrigger
           className={cn(
             'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
-            isCollapsed ? 'border-b' : '',
+            isOpen ? 'border-b' : '',
           )}
         >
           {t('title')}
@@ -111,22 +112,24 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
         </CollapsibleTrigger>
         <CollapsibleContent className="p-2 pt-0">
           <ul className="flex flex-col gap-2">
-            {legends.map((legend) => (
+            {legends.map((legend, index) => (
               <li className="flex items-center gap-2" key={legend.id}>
                 <div className={cn('size-4 rounded-full bg-linear-to-br', legend.color)} />
-                <span className="flex items-center text-muted-foreground text-xs">
+                <span className="flex flex-1 items-center justify-between text-muted-foreground text-xs">
                   {legend.label}
                   {legend.hasInfo && (
-                    <>
-                      &nbsp;
-                      <CircleQuestionMarkIcon
-                        onClick={() => {
-                          setSelectedLegendId(legend.id as Trait);
-                          setIsDialogOpen(true);
-                        }}
-                        className="size-4 cursor-pointer text-muted-foreground"
-                      />
-                    </>
+                    <CircleQuestionMarkIcon
+                      id={
+                        index === legends.findIndex((l) => l.hasInfo)
+                          ? 'tour-trait-info'
+                          : undefined
+                      }
+                      onClick={() => {
+                        setSelectedLegendId(legend.id as Trait);
+                        setIsDialogOpen(true);
+                      }}
+                      className="size-4 cursor-pointer text-muted-foreground"
+                    />
                   )}
                 </span>
               </li>
