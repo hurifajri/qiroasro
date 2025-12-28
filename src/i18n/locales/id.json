@@ -178,7 +178,7 @@
           "title": "Keterangan Warna",
           "description": "Panel ini menjelaskan makna warna setiap node. Silakan buka untuk melanjutkan."
         },
-        "trait_info": {
+        "legend_detail": {
           "title": "Info Detail",
           "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },

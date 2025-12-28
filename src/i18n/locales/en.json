@@ -178,7 +178,7 @@
           "title": "Color Legend",
           "description": "This panel explains the meaning of each node color. Please open it to continue."
         },
-        "trait_info": {
+        "legend_detail": {
           "title": "Detail Info",
           "description": "This icon can be clicked to read more detailed explanations."
         },

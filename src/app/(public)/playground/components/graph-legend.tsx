@@ -121,7 +121,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
                     <CircleQuestionMarkIcon
                       id={
                         index === legends.findIndex((l) => l.hasInfo)
-                          ? 'tour-trait-info'
+                          ? 'tour-legend-detail'
                           : undefined
                       }
                       onClick={() => {

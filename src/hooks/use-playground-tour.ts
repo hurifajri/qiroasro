@@ -178,7 +178,7 @@ export function usePlaygroundTour() {
           description: t('steps.graph_legend.description'),
           onNextClick: () => {
             // Check if legend content is visible (user has opened it)
-            if (!isElementVisible('#tour-trait-info')) {
+            if (!isElementVisible('#tour-legend-detail')) {
               // Flash the trigger to indicate user needs to click it
               const trigger = document.querySelector('#tour-graph-legend');
               flashElement(trigger);
@@ -189,10 +189,10 @@ export function usePlaygroundTour() {
         },
       },
       {
-        element: '#tour-trait-info',
+        element: '#tour-legend-detail',
         popover: {
-          title: t('steps.trait_info.title'),
-          description: t('steps.trait_info.description'),
+          title: t('steps.legend_detail.title'),
+          description: t('steps.legend_detail.description'),
         },
       },
       {
