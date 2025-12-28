@@ -43,6 +43,12 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
     handleUrlParams(searchParams);
   }, [searchParams, handleUrlParams]);
 
+  useEffect(() => {
+    return () => {
+      setWaitlistStatus('idle');
+    };
+  }, [setWaitlistStatus]);
+
   const getStatusIcon = () => {
     switch (waitlistStatus) {
       case 'success':
