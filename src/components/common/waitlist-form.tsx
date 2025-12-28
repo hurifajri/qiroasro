@@ -1,11 +1,10 @@
 'use client';
 
 import { CheckCircle2Icon, Loader2Icon, MailCheckIcon, MailIcon, XCircleIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -26,7 +25,9 @@ interface WaitlistFormProps {
 
 export function WaitlistForm({ source, className, isPlain = false }: WaitlistFormProps) {
   const t = useTranslations('global');
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const isFromHome = source === 'home_page';
 
   const {
     form,
@@ -53,6 +54,11 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
       default:
         return null;
     }
+  };
+
+  const handleClickPlayground = () => {
+    setWaitlistStatus('idle');
+    router.push('/playground');
   };
 
   return (
@@ -161,18 +167,22 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
                 {t('development.reminder_verified')}
               </DialogTitle>
             </DialogHeader>
-            <p>{t('development.reminder_verified_message')}</p>
-            <DialogFooter>
-              <Link
-                href="/playground"
-                className={cn(
-                  buttonVariants({ size: 'lg' }),
-                  'h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white',
-                )}
-              >
-                {t('development.playground_dialog_cta')}
-              </Link>
-            </DialogFooter>
+            <p>
+              {isFromHome
+                ? t('development.reminder_verified_message_pg')
+                : t('development.reminder_verified_message')}
+            </p>
+            {isFromHome && (
+              <DialogFooter>
+                <Button
+                  size="lg"
+                  onClick={handleClickPlayground}
+                  className="h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white"
+                >
+                  {t('development.reminder_playground_cta')}
+                </Button>
+              </DialogFooter>
+            )}
           </DialogContent>
         </Dialog>
       )}

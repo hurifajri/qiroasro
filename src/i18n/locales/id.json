@@ -59,9 +59,11 @@
       "is_beneficial": "Apakah contoh ini bermanfaat?",
       "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
       "reminder_cta": "Waitlist",
+      "reminder_playground_cta": "Ke Playground",
       "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
       "reminder_verified": "Email berhasil diverifikasi",
-      "reminder_verified_message": "Kami akan memberi tahu Antum/Antunna melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, Antum/Antunna dapat mengunjungi halaman Playground.",
+      "reminder_verified_message": "Kami akan memberi tahu melalui email ketika aplikasi sudah tersedia, insyaa Allah.",
+      "reminder_verified_message_pg": "Kami akan memberi tahu melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, silakan kunjungi halaman Playground.",
       "reminder_already_verified": "Email sudah terverifikasi sebelumnya.",
       "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
       "reminder_invalid_email": "Email tidak valid",
@@ -77,8 +79,7 @@
     "development": {
       "title": "Sedang Dalam Pengembangan",
       "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya, semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
-      "playground_cta": "Lihat Contohnya",
-      "playground_dialog_cta": "Ke Playground"
+      "playground_cta": "Lihat Contohnya"
     }
   },
   "playground_page": {
