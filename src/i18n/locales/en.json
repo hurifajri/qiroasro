@@ -124,6 +124,9 @@
       "trait_aridhah_description": "Conditional Trait is a trait that is only present in a letter under certain conditions.",
       "letter": "Letter",
       "letterMadd": "Madd Letter"
+    },
+    "development": {
+      "is_beneficial": "Is this example beneficial?"
     }
   }
 }

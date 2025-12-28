@@ -17,12 +17,16 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { CircleQuestionMarkIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { WaitlistForm } from '@/components/common/waitlist-form';
 import { FloatingConnectionLine } from '@/components/edges/floating-connection-line';
 import { FloatingEdge } from '@/components/edges/floating-edge';
 import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/articulation-node';
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
 import { generateGraphFromData } from '@/lib/graph/utils';
 import { useGlobalStore } from '@/providers/global';
@@ -48,14 +52,7 @@ const edgeTypes: EdgeTypes = {
 };
 
 export function Playground() {
-  const { data: letters = [] } = useQuery(getLettersOpt());
-  const { data: letterArticulations = [] } = useQuery(getLetterArticulationsOpt());
-  const { data: letterTraits = [] } = useQuery(getLetterTraitsOpt());
-  const { data: articulationAreas = [] } = useQuery(getArticulationAreasOpt());
-  const { data: articulationPoints = [] } = useQuery(getArticulationPointsOpt());
-  const { data: traits = [] } = useQuery(getTraitsOpt());
-  const { data: traitGroups = [] } = useQuery(getTraitGroupsOpt());
-
+  const t = useTranslations('playground_page');
   const { theme } = useGlobalStore((state) => state);
   const {
     viewMode,
@@ -73,6 +70,8 @@ export function Playground() {
     getEffectiveEdgeType,
   } = usePlaygroundStore((state) => state);
 
+  const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
+
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
@@ -81,6 +80,14 @@ export function Playground() {
   // Ref to access current edges without causing effect re-runs
   const edgesRef = useRef(edges);
   edgesRef.current = edges;
+
+  const { data: letters = [] } = useQuery(getLettersOpt());
+  const { data: letterArticulations = [] } = useQuery(getLetterArticulationsOpt());
+  const { data: letterTraits = [] } = useQuery(getLetterTraitsOpt());
+  const { data: articulationAreas = [] } = useQuery(getArticulationAreasOpt());
+  const { data: articulationPoints = [] } = useQuery(getArticulationPointsOpt());
+  const { data: traits = [] } = useQuery(getTraitsOpt());
+  const { data: traitGroups = [] } = useQuery(getTraitGroupsOpt());
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
@@ -345,76 +352,90 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   return (
-    <div className="h-[calc(100dvh-49px)]">
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onNodeClick={handleNodeClick}
-        onPaneClick={handlePaneClick}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
-        colorMode={theme}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
-        minZoom={0.1}
-        maxZoom={2}
-        defaultEdgeOptions={{
-          type: computedEdgeType,
-          animated: edgeStyle.isAnimated,
-        }}
-      >
-        {/* Settings */}
-        <div className="absolute top-0 left-0 flex w-full flex-col justify-between gap-2 p-3 sm:flex-row">
-          {/* Graph Filter */}
-          <Panel position="top-left" className="static! m-0!">
-            <GraphFilter
-              viewMode={viewMode}
-              layoutMode={layoutMode}
-              hierarchyDirection={hierarchyDirection}
-              edgeStyle={edgeStyle}
-              letters={memoizedLetters}
-              selectedLetterId={selectedLetterId}
-              onViewModeChange={setViewMode}
-              onLayoutModeChange={setLayoutMode}
-              onHierarchyDirectionChange={setHierarchyDirection}
-              onEdgeStyleChange={setEdgeStyle}
-              onLetterSelect={setSelectedLetterId}
-            />
-          </Panel>
-
-          {/* Graph Legend */}
-          <Panel position="top-right" className="static! m-0!">
-            <GraphLegend viewMode={viewMode} />
-          </Panel>
-        </div>
-
-        <Controls position="bottom-right" />
-
-        <MiniMap
-          position="bottom-left"
-          nodeColor={(node) => {
-            if (node.type === 'letter') {
-              return '#F59E0B';
-            }
-
-            if (node.type === 'articulation-area' || node.type === 'articulation-point') {
-              return '#0EA5E9';
-            }
-
-            if (node.type === 'trait-group' || node.type === 'trait') {
-              return '#8B5CF6';
-            }
-
-            return '#64748b';
+    <>
+      <div className="h-[calc(100dvh-49px)]">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onNodeClick={handleNodeClick}
+          onPaneClick={handlePaneClick}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
+          colorMode={theme}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          minZoom={0.1}
+          maxZoom={2}
+          defaultEdgeOptions={{
+            type: computedEdgeType,
+            animated: edgeStyle.isAnimated,
           }}
-          maskColor="rgba(0, 0, 0, 0.5)"
-        />
+        >
+          {/* Settings */}
+          <div className="absolute top-0 left-0 flex w-full flex-col justify-between gap-2 p-3 sm:flex-row">
+            {/* Graph Filter */}
+            <Panel position="top-left" className="static! m-0!">
+              <GraphFilter
+                viewMode={viewMode}
+                layoutMode={layoutMode}
+                hierarchyDirection={hierarchyDirection}
+                edgeStyle={edgeStyle}
+                letters={memoizedLetters}
+                selectedLetterId={selectedLetterId}
+                onViewModeChange={setViewMode}
+                onLayoutModeChange={setLayoutMode}
+                onHierarchyDirectionChange={setHierarchyDirection}
+                onEdgeStyleChange={setEdgeStyle}
+                onLetterSelect={setSelectedLetterId}
+              />
+            </Panel>
 
-        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
-      </ReactFlow>
-    </div>
+            {/* Graph Legend */}
+            <Panel position="top-right" className="static! m-0!">
+              <GraphLegend viewMode={viewMode} />
+            </Panel>
+          </div>
+
+          <Controls position="bottom-right" />
+
+          <MiniMap
+            position="bottom-left"
+            nodeColor={(node) => {
+              if (node.type === 'letter') {
+                return '#F59E0B';
+              }
+
+              if (node.type === 'articulation-area' || node.type === 'articulation-point') {
+                return '#0EA5E9';
+              }
+
+              if (node.type === 'trait-group' || node.type === 'trait') {
+                return '#8B5CF6';
+              }
+
+              return '#64748b';
+            }}
+            maskColor="rgba(0, 0, 0, 0.5)"
+          />
+
+          <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
+        </ReactFlow>
+      </div>
+
+      {isWaitlistDialogOpen && (
+        <Dialog open={isWaitlistDialogOpen} onOpenChange={setIsWaitlistDialogOpen}>
+          <DialogContent>
+            <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
+              <CircleQuestionMarkIcon className="text-muted-foreground" />
+              <DialogTitle>{t('development.is_beneficial')}</DialogTitle>
+            </DialogHeader>
+            <WaitlistForm source="playground_page" isPlain />
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }

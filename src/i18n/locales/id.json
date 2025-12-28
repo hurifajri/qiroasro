@@ -124,6 +124,9 @@
       "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang hanya ada pada sebuah huruf dalam kondisi tertentu.",
       "letter": "Huruf",
       "letterMadd": "Huruf Mad"
+    },
+    "development": {
+      "is_beneficial": "Apakah contoh ini bermanfaat?"
     }
   }
 }

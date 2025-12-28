@@ -26,7 +26,7 @@ interface PublicHeaderProps {
 export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
   const t = useTranslations('global');
   const isScrolled = useIsScrolled();
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
 
   const pathname = usePathname();
   const isPlayground = pathname === '/playground';
@@ -69,7 +69,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
             <>
               <Separator orientation="vertical" />
               <Button
-                onClick={() => setIsDialogOpen(true)}
+                onClick={() => setIsWaitlistDialogOpen(true)}
                 className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white"
               >
                 <MailIcon />
@@ -80,8 +80,8 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
         </div>
       </header>
 
-      {isDialogOpen && (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      {isWaitlistDialogOpen && (
+        <Dialog open={isWaitlistDialogOpen} onOpenChange={setIsWaitlistDialogOpen}>
           <DialogContent>
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
