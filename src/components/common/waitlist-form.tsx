@@ -21,10 +21,10 @@ import { cn } from '@/lib/utils';
 interface WaitlistFormProps {
   source: string;
   className?: string;
-  showTitle?: boolean;
+  animatedLabel?: boolean;
 }
 
-export function WaitlistForm({ source, className, showTitle = false }: WaitlistFormProps) {
+export function WaitlistForm({ source, className, animatedLabel = false }: WaitlistFormProps) {
   const t = useTranslations('home_page');
   const searchParams = useSearchParams();
 
@@ -52,13 +52,13 @@ export function WaitlistForm({ source, className, showTitle = false }: WaitlistF
   return (
     <>
       <div className={cn('flex flex-col gap-2', className)}>
-        {/* Title */}
-        {showTitle && (
-          <div className="flex items-center gap-2 text-muted-foreground">
+        {/* Label */}
+        <div className="flex items-center gap-2 text-muted-foreground">
+          {animatedLabel && (
             <span className="inline-block size-2 shrink-0 animate-pulse rounded-full bg-accent-amber text-lg" />
-            <Label htmlFor="email">{t('development.reminder_title')}</Label>
-          </div>
-        )}
+          )}
+          <Label htmlFor="email">{t('development.reminder_title')}</Label>
+        </div>
         {/* Reminder Form */}
         <form
           className="flex flex-col gap-2"
