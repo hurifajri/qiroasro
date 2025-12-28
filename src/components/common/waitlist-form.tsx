@@ -28,8 +28,15 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
   const t = useTranslations('home_page');
   const searchParams = useSearchParams();
 
-  const { form, waitlistStatus, handleUrlParams, getStatusMessage, getStatusColor, validateEmail } =
-    useWaitlist({ source });
+  const {
+    form,
+    waitlistStatus,
+    setWaitlistStatus,
+    handleUrlParams,
+    getStatusMessage,
+    getStatusColor,
+    validateEmail,
+  } = useWaitlist({ source });
 
   // Handle URL params from verification redirect
   useEffect(() => {
@@ -39,7 +46,6 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
   const getStatusIcon = () => {
     switch (waitlistStatus) {
       case 'success':
-      case 'verified':
       case 'already_verified':
         return <CheckCircle2Icon className="size-4" />;
       case 'error':
@@ -147,7 +153,7 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
 
       {/* Verification Success Dialog */}
       {waitlistStatus === 'verified' && (
-        <Dialog>
+        <Dialog open={waitlistStatus === 'verified'} onOpenChange={() => setWaitlistStatus('idle')}>
           <DialogContent className="border border-lime-500">
             <DialogHeader className="flex flex-row items-center gap-2">
               <MailCheckIcon className="text-lime-600" />

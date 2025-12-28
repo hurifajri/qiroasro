@@ -1,13 +1,13 @@
 import {
   Body,
-  Column,
+  // Column,
   Container,
   Head,
   Hr,
   Html,
-  Img,
+  // Img,
   Link,
-  Row,
+  // Row,
   Section,
   Tailwind,
   Text,
@@ -21,7 +21,7 @@ interface VerifyEmailTemplateProps {
 }
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
-const SOCIAL_MEDIA_HANDLE = env.NEXT_PUBLIC_SOCIAL_MEDIA_HANDLE;
+// const SOCIAL_MEDIA_HANDLE = env.NEXT_PUBLIC_SOCIAL_MEDIA_HANDLE;
 
 const translations = {
   id: {
@@ -56,7 +56,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
         <Body className="bg-white font-sans">
           <Container className="mx-auto py-5 pb-12">
             {/* Header */}
-            <Section className="py-10">
+            {/* <Section className="py-10">
               <Row>
                 <Column className="w-[80%]">
                   <Text className="font-bold text-2xl">{APP_NAME}</Text>
@@ -96,7 +96,7 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
                   </Row>
                 </Column>
               </Row>
-            </Section>
+            </Section> */}
             <Text className="text-base leading-7">{t.greeting}</Text>
             <Text className="text-base leading-7">{t.message_1}</Text>
             <Text className="text-base leading-7">{t.message_2}</Text>

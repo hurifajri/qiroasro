@@ -79,8 +79,6 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
     switch (waitlistStatus) {
       case 'success':
         return t('development.reminder_success');
-      case 'verified':
-        return t('development.reminder_verified');
       case 'already_verified':
         return t('development.reminder_already_verified');
       case 'error':
@@ -115,6 +113,7 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
   return {
     form,
     waitlistStatus,
+    setWaitlistStatus,
     handleUrlParams,
     getStatusMessage,
     getStatusColor,
