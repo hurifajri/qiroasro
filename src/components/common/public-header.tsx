@@ -87,7 +87,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
               <CircleQuestionMarkIcon className="text-muted-foreground" />
               <DialogTitle>{t('misc.is_beneficial')}</DialogTitle>
             </DialogHeader>
-            <WaitlistForm source="public_header" />
+            <WaitlistForm source="public_header" isPlain />
           </DialogContent>
         </Dialog>
       )}

@@ -115,7 +115,7 @@ export function Home() {
 
         {/* Waitlist Form */}
         <motion.div variants={itemVariants}>
-          <WaitlistForm source="home_page" animatedLabel />
+          <WaitlistForm source="home_page" />
         </motion.div>
       </div>
     </motion.div>

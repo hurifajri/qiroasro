@@ -21,10 +21,10 @@ import { cn } from '@/lib/utils';
 interface WaitlistFormProps {
   source: string;
   className?: string;
-  animatedLabel?: boolean;
+  isPlain?: boolean;
 }
 
-export function WaitlistForm({ source, className, animatedLabel = false }: WaitlistFormProps) {
+export function WaitlistForm({ source, className, isPlain = false }: WaitlistFormProps) {
   const t = useTranslations('home_page');
   const searchParams = useSearchParams();
 
@@ -54,7 +54,7 @@ export function WaitlistForm({ source, className, animatedLabel = false }: Waitl
       <div className={cn('flex flex-col gap-2', className)}>
         {/* Label */}
         <div className="flex items-center gap-2 text-muted-foreground">
-          {animatedLabel && (
+          {!isPlain && (
             <span className="inline-block size-2 shrink-0 animate-pulse rounded-full bg-accent-amber text-lg" />
           )}
           <Label htmlFor="email">{t('development.reminder_title')}</Label>
@@ -77,7 +77,7 @@ export function WaitlistForm({ source, className, animatedLabel = false }: Waitl
               {(field) => (
                 <form.Subscribe selector={(state) => state.isSubmitting}>
                   {(isSubmitting) => (
-                    <div className="relative flex flex-1 flex-col gap-1 sm:max-w-3xs">
+                    <div className="flex flex-1 flex-col gap-1 sm:max-w-3xs">
                       <InputGroup
                         className={cn(
                           'h-12',
@@ -100,9 +100,7 @@ export function WaitlistForm({ source, className, animatedLabel = false }: Waitl
                         />
                       </InputGroup>
                       {field.state.meta.errors.length > 0 && (
-                        <p className="-bottom-6 absolute text-red-500 text-sm">
-                          {field.state.meta.errors.join(', ')}
-                        </p>
+                        <p className="text-red-500 text-sm">{field.state.meta.errors.join(', ')}</p>
                       )}
                     </div>
                   )}
@@ -116,7 +114,11 @@ export function WaitlistForm({ source, className, animatedLabel = false }: Waitl
                   type="submit"
                   size="lg"
                   disabled={isSubmitting}
-                  className="h-12 cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base text-white shadow-accent-violet/25 shadow-lg transition-all hover:scale-[1.005] hover:shadow-accent-violet/30 hover:shadow-xl active:scale-95 disabled:cursor-not-allowed disabled:opacity-70 sm:w-28"
+                  className={cn(
+                    'h-12 cursor-pointer text-whitedisabled:cursor-not-allowed bg-linear-to-r from-accent-violet to-accent-violet-dark px-6 text-base disabled:opacity-70 sm:w-28',
+                    !isPlain &&
+                      'shadow-accent-violet/25 shadow-lg transition-all hover:scale-[1.005] hover:shadow-accent-violet/30 hover:shadow-xl active:scale-95',
+                  )}
                 >
                   {isSubmitting ? (
                     <Loader2Icon className="size-5 animate-spin" />
@@ -130,15 +132,15 @@ export function WaitlistForm({ source, className, animatedLabel = false }: Waitl
 
           {/* Status Message */}
           {!['idle', 'verified'].includes(waitlistStatus) && (
-            <span
+            <p
               className={cn(
-                'flex items-center gap-2 text-sm transition-opacity duration-200',
+                'flex items-center gap-2 text-red-500 text-sm text-sm transition-opacity duration-200',
                 getStatusColor(),
               )}
             >
               {getStatusIcon()}
               {getStatusMessage()}
-            </span>
+            </p>
           )}
         </form>
       </div>
