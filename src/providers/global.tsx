@@ -4,20 +4,21 @@ import { createContext, useContext, useEffect, useRef } from 'react';
 import { useStore } from 'zustand';
 import {
   createGlobalStore,
-  type GlobalState,
   type GlobalStore,
   initGlobalState,
+  type PersistedGlobalState,
 } from '@/stores/global';
 
 type GlobalStoreApi = ReturnType<typeof createGlobalStore>;
 
 const GlobalStoreContext = createContext<GlobalStoreApi | undefined>(undefined);
 
-type GlobalStoreProviderProps = React.PropsWithChildren & Readonly<{ initialState?: GlobalState }>;
+type GlobalStoreProviderProps = React.PropsWithChildren &
+  Readonly<{ persistedState?: PersistedGlobalState }>;
 
-export function GlobalStoreProvider({ children, initialState }: GlobalStoreProviderProps) {
+export function GlobalStoreProvider({ children, persistedState }: GlobalStoreProviderProps) {
   const storeRef = useRef<GlobalStoreApi>(undefined);
-  const globalState = initialState ?? initGlobalState();
+  const globalState = initGlobalState(persistedState);
   storeRef.current ??= createGlobalStore(globalState);
 
   const store = storeRef.current;

@@ -6,13 +6,15 @@ import { getCookies } from '@/lib/cookies';
 import { cookiesStorage } from '@/lib/storage';
 
 export type Locale = 'en' | 'id';
+export type WaitlistStatus = 'idle' | 'success' | 'verified' | 'already_verified' | 'error';
 
 export interface GlobalState {
   locale: Locale;
   theme: ColorMode;
+  waitlistStatus: WaitlistStatus;
 }
 
-type PersistedGlobalState = Pick<GlobalState, 'locale' | 'theme'>;
+export type PersistedGlobalState = Pick<GlobalState, 'locale' | 'theme'>;
 
 interface PersistedGlobal {
   state: PersistedGlobalState;
@@ -22,6 +24,7 @@ interface PersistedGlobal {
 interface GlobalAction {
   setLocale: (locale: Locale) => void;
   setTheme: (theme: ColorMode) => void;
+  setWaitlistStatus: (status: WaitlistStatus) => void;
 }
 
 export type GlobalStore = GlobalState & GlobalAction;
@@ -30,8 +33,10 @@ function initPersistedGlobalState(): PersistedGlobalState {
   return { locale: 'id', theme: 'light' };
 }
 
-export function initGlobalState(): GlobalState {
-  return { ...initPersistedGlobalState() };
+export function initGlobalState(persistedState?: PersistedGlobalState): GlobalState {
+  const initPersistedState = persistedState ?? initPersistedGlobalState();
+
+  return { ...initPersistedState, waitlistStatus: 'idle' };
 }
 
 export function createGlobalStore(globalState: GlobalState) {
@@ -41,6 +46,7 @@ export function createGlobalStore(globalState: GlobalState) {
         ...globalState,
         setLocale: (locale) => set(() => ({ locale })),
         setTheme: (theme) => set(() => ({ theme })),
+        setWaitlistStatus: (status) => set(() => ({ waitlistStatus: status })),
       }),
       {
         name: GLOBAL_STORE_KEY,

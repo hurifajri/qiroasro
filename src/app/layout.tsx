@@ -78,7 +78,7 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
     <html lang={locale} className={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
       <body className={cn('font-sans antialiased', outfitFont.variable)}>
         <QueryClientProvider>
-          <GlobalStoreProvider initialState={persistedState}>
+          <GlobalStoreProvider persistedState={persistedState}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>
           </GlobalStoreProvider>
           {process.env.NODE_ENV === 'development' && (
