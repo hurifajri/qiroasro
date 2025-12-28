@@ -8,7 +8,7 @@ import {
   type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
-  MiniMap,
+  // MiniMap,
   type NodeTypes,
   Panel,
   ReactFlow,
@@ -410,7 +410,7 @@ export function Playground() {
 
           <Controls position="bottom-right" />
 
-          <MiniMap
+          {/* <MiniMap
             position="bottom-left"
             nodeColor={(node) => {
               if (node.type === 'letter') {
@@ -427,10 +427,10 @@ export function Playground() {
 
               return '#64748b';
             }}
-            maskColor="rgba(0, 0, 0, 0.5)"
-          />
+            maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
+          /> */}
 
-          <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#475569" />
+          <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
         </ReactFlow>
       </div>
 
