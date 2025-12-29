@@ -170,6 +170,7 @@ export function usePlaygroundTour() {
           title: t('steps.edge_shape.title'),
           description: t('steps.edge_shape.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-graph-legend',
@@ -194,40 +195,12 @@ export function usePlaygroundTour() {
           title: t('steps.legend_detail.title'),
           description: t('steps.legend_detail.description'),
         },
+        disableActiveInteraction: true,
       },
       {
-        element: '.react-flow__node-letter',
         popover: {
-          title: t('steps.node_letter.title'),
-          description: t('steps.node_letter.description'),
-        },
-      },
-      {
-        element: '.react-flow__node-articulation-point',
-        popover: {
-          title: t('steps.node_articulation_point.title'),
-          description: t('steps.node_articulation_point.description'),
-        },
-      },
-      {
-        element: '.react-flow__node-articulation-area',
-        popover: {
-          title: t('steps.node_articulation_area.title'),
-          description: t('steps.node_articulation_area.description'),
-        },
-      },
-      {
-        element: '.react-flow__node-trait',
-        popover: {
-          title: t('steps.node_trait.title'),
-          description: t('steps.node_trait.description'),
-        },
-      },
-      {
-        element: '.react-flow__node-trait-group',
-        popover: {
-          title: t('steps.node_trait_group.title'),
-          description: t('steps.node_trait_group.description'),
+          title: t('steps.end.title'),
+          description: t('steps.end.description'),
         },
       },
     ];

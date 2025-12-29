@@ -131,7 +131,7 @@
     "tour": {
       "next": "Next",
       "prev": "Previous",
-      "done": "Alhamdulillah, Got it!",
+      "done": "Got it!",
       "help_button": "Guide",
       "steps": {
         "welcome": {
@@ -140,7 +140,7 @@
         },
         "canvas": {
           "title": "Interactive Area",
-          "description": "This is the main area to explore the relationships between letters, Makhraj, and Sifat, complete with display settings and legends."
+          "description": "This is the main area to explore the relationships between letters, Makhraj, and Sifat, complete with display settings and legends. Please click any letter, makhraj, or sifat shown on the screen."
         },
         "controls": {
           "title": "View Controls",
@@ -182,25 +182,9 @@
           "title": "Detail Info",
           "description": "This icon can be clicked to read more detailed explanations."
         },
-        "node_letter": {
-          "title": "Hijaiyyah Letters",
-          "description": "These solid orange nodes represent the Hijaiyyah letters. Click to see the Makhraj and Sifat attached to the letter."
-        },
-        "node_articulation_point": {
-          "title": "Specific Makhraj",
-          "description": "These outlined blue nodes indicate a specific Makhraj (Articulation Point), where the letter is emitted."
-        },
-        "node_articulation_area": {
-          "title": "General Makhraj",
-          "description": "These solid blue nodes indicate a general Makhraj (Area) which contains several specific Makhraj points within it."
-        },
-        "node_trait": {
-          "title": "Letter Sifat",
-          "description": "These outlined purple nodes represent the Sifat (Characteristics) inherent in the Hijaiyyah letters."
-        },
-        "node_trait_group": {
-          "title": "Sifat Group",
-          "description": "These solid purple nodes group together several Sifat that are paired or related to each other."
+        "end": {
+          "title": "We are done!",
+          "description": "Thank you for following this guide. Please continue. Barakallahu fiikum"
         }
       }
     }

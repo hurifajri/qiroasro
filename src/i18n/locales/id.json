@@ -131,7 +131,7 @@
     "tour": {
       "next": "Lanjut",
       "prev": "Kembali",
-      "done": "Alhamdulillah, Paham!",
+      "done": "Siap!",
       "help_button": "Panduan",
       "steps": {
         "welcome": {
@@ -140,7 +140,7 @@
         },
         "canvas": {
           "title": "Area Interaktif",
-          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan dan keterangan."
+          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan dan keterangan. Silakan coba klik salah satu huruf, makhraj, atau sifat yang ada di layar."
         },
         "controls": {
           "title": "Kontrol Tampilan",
@@ -182,25 +182,9 @@
           "title": "Info Detail",
           "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },
-        "node_letter": {
-          "title": "Huruf Hijaiyyah",
-          "description": "Node berwarna oranye penuh ini mewakili huruf-huruf hijaiyyah. Klik untuk melihat makhraj dan sifat yang melekat pada huruf tersebut."
-        },
-        "node_articulation_point": {
-          "title": "Makhraj Khusus",
-          "description": "Node berwarna biru dengan garis luar ini menunjukkan makhraj khusus, yaitu tempat keluarnya huruf."
-        },
-        "node_articulation_area": {
-          "title": "Makhraj Umum",
-          "description": "Node berwarna biru penuh ini menunjukkan makhraj umum yang memiliki beberapa makhraj khusus di bawahnya."
-        },
-        "node_trait": {
-          "title": "Sifat Huruf",
-          "description": "Node berwarna ungu dengan garis luar ini mewakili sifat-sifat yang melekat pada huruf hijaiyyah."
-        },
-        "node_trait_group": {
-          "title": "Kelompok Sifat",
-          "description": "Node berwarna ungu penuh ini mengelompokkan beberapa sifat yang saling berpasangan atau berkaitan."
+        "end": {
+          "title": "Selesai",
+          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum"
         }
       }
     }
