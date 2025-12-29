@@ -126,7 +126,20 @@
       "letterMadd": "Madd Letter"
     },
     "quiz": {
-      "trigger": "Try Quiz"
+      "trigger": "Try Quiz",
+      "select_mode": "Select Quiz Mode",
+      "select_mode_description": "Choose the type of quiz you want to try",
+      "title_makhraj": "Makhraj Quiz",
+      "title_sifat": "Sifat Quiz",
+      "description_makhraj": "Connect the letters to their correct articulation points",
+      "description_sifat": "Connect the letters to their correct traits",
+      "mode_makhraj": "Makhraj Quiz",
+      "mode_sifat": "Sifat Quiz",
+      "instruction": "Drag a line from a letter to the correct target, or tap two handles in a row on touch devices",
+      "check_answer": "Check Answer",
+      "try_again": "Try Again",
+      "change_mode": "Change Mode",
+      "score": "{correct} of {total} correct"
     },
     "development": {
       "is_beneficial": "Is this example beneficial?"

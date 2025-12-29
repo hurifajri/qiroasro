@@ -126,7 +126,20 @@
       "letterMadd": "Huruf Mad"
     },
     "quiz": {
-      "trigger": "Coba Quiz"
+      "trigger": "Coba Quiz",
+      "select_mode": "Pilih Mode Quiz",
+      "select_mode_description": "Pilih jenis quiz yang ingin Antum coba",
+      "title_makhraj": "Quiz Makhraj",
+      "title_sifat": "Quiz Sifat",
+      "description_makhraj": "Hubungkan huruf dengan makhraj yang tepat",
+      "description_sifat": "Hubungkan huruf dengan sifat yang tepat",
+      "mode_makhraj": "Quiz Makhraj",
+      "mode_sifat": "Quiz Sifat",
+      "instruction": "Tarik garis dari huruf ke target yang tepat, atau tap dua handle berturut-turut di perangkat sentuh",
+      "check_answer": "Periksa Jawaban",
+      "try_again": "Coba Lagi",
+      "change_mode": "Ganti Mode",
+      "score": "{correct} dari {total} benar"
     },
     "development": {
       "is_beneficial": "Apakah contoh ini bermanfaat?"
