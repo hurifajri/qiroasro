@@ -18,6 +18,7 @@ import {
 import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
+import { LetterQuizNode } from '@/components/nodes/letter-quiz-node';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,8 +29,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
-import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
-import { cn, kebabToSnakeCase } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
@@ -55,36 +55,6 @@ interface TargetItem {
 // Constants
 const LETTERS_PER_QUIZ = 5;
 const TARGETS_PER_QUIZ = 6;
-
-interface LetterQuizNodeProps {
-  data: { label: string; symbol: string; status: string };
-}
-
-// Custom node for letter (source)
-function LetterQuizNode({ data }: LetterQuizNodeProps) {
-  console.log('data', data);
-  return (
-    <BaseNode
-      className={cn(
-        'flex size-24 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300 hover:ring-0',
-        data.status === 'none' && 'border-node-letter bg-node-letter/20 text-node-letter-dark',
-        data.status === 'correct' && 'border-green-500 bg-green-100 dark:bg-green-900/50',
-        data.status === 'incorrect' && 'border-red-500 bg-red-100 dark:bg-red-900/50',
-      )}
-    >
-      <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
-        {data.symbol}
-      </BaseNodeContent>
-
-      {/* Bigger handle for touch devices */}
-      <BaseHandle
-        type="source"
-        position={Position.Right}
-        className="size-4 border-2 border-node-letter-dark bg-node-letter-secondary"
-      />
-    </BaseNode>
-  );
-}
 
 // Custom node for target (makhraj/sifat)
 interface TargetQuizNodeProps {
@@ -220,8 +190,7 @@ export function GraphQuiz() {
         type: 'letterQuiz',
         position: { x: 50, y: 30 + index * 70 },
         data: {
-          label: t(`global.letter.${kebabToSnakeCase(q.letter.slug)}`),
-          symbol: q.letter.symbol,
+          ...q.letter,
           status: 'none',
         },
         draggable: false,
@@ -256,7 +225,6 @@ export function GraphQuiz() {
       getTargetName,
       setNodes,
       setEdges,
-      t,
     ],
   );
 
@@ -351,13 +319,7 @@ export function GraphQuiz() {
       currentNodes.map((node) => {
         if (node.type === 'letterQuiz') {
           const status = connectionResults.get(node.id) || 'none';
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              status,
-            },
-          };
+          return { ...node, data: { ...node.data, status } };
         }
 
         if (node.type === 'targetQuiz') {
