@@ -7,7 +7,6 @@ import {
   BackgroundVariant,
   type Connection,
   type Edge,
-  Handle,
   type Node,
   type NodeTypes,
   Position,
@@ -28,6 +27,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { BaseHandle } from '@/components/ui/graph/base-handle';
+import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
@@ -61,23 +62,27 @@ interface LetterQuizNodeProps {
 
 // Custom node for letter (source)
 function LetterQuizNode({ data }: LetterQuizNodeProps) {
+  console.log('data', data);
   return (
-    <div
+    <BaseNode
       className={cn(
-        'flex h-14 w-14 items-center justify-center rounded-full border-2 font-bold text-2xl shadow-md transition-all',
-        data.status === 'none' && 'border-amber-400 bg-amber-100 dark:bg-amber-900/50',
+        'flex size-24 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300 hover:ring-0',
+        data.status === 'none' && 'border-node-letter bg-node-letter/20 text-node-letter-dark',
         data.status === 'correct' && 'border-green-500 bg-green-100 dark:bg-green-900/50',
         data.status === 'incorrect' && 'border-red-500 bg-red-100 dark:bg-red-900/50',
       )}
     >
-      {data.symbol}
+      <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
+        {data.symbol}
+      </BaseNodeContent>
+
       {/* Bigger handle for touch devices */}
-      <Handle
+      <BaseHandle
         type="source"
         position={Position.Right}
-        className="size-4 border-2 border-amber-500 bg-amber-300"
+        className="size-4 border-2 border-node-letter-dark bg-node-letter-secondary"
       />
-    </div>
+    </BaseNode>
   );
 }
 
@@ -91,8 +96,9 @@ function TargetQuizNode({ data }: TargetQuizNodeProps) {
     <div
       className={cn(
         'flex min-w-30 items-center justify-center rounded-lg border-2 px-3 py-3 font-medium text-sm shadow-md transition-all',
-        data.mode === 'makhraj' && 'border-sky-400 bg-sky-100 dark:bg-sky-900/50',
-        data.mode === 'sifat' && 'border-violet-400 bg-violet-100 dark:bg-violet-900/50',
+        data.mode === 'makhraj' &&
+          'border-node-articulation bg-node-articulation/20 text-node-articulation-text',
+        data.mode === 'sifat' && 'border-node-trait bg-node-trait/20 text-node-trait-text',
         data.hasConnection &&
           data.isCorrectTarget &&
           'border-green-500 bg-green-100 dark:bg-green-900/50',
@@ -102,13 +108,13 @@ function TargetQuizNode({ data }: TargetQuizNodeProps) {
       )}
     >
       {/* Bigger handle for touch devices */}
-      <Handle
+      <BaseHandle
         type="target"
         position={Position.Left}
         className={cn(
           'size-4 border-2',
-          data.mode === 'makhraj' && 'border-sky-500 bg-sky-300',
-          data.mode === 'sifat' && 'border-violet-500 bg-violet-300',
+          data.mode === 'makhraj' && 'border-node-articulation-dark bg-node-articulation-secondary',
+          data.mode === 'sifat' && 'border-node-trait-dark bg-node-trait-secondary',
         )}
       />
       {data.label}

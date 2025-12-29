@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
+import { VerifyEmailTemplate } from '@/components/email-templates/verify-email';
 import { env } from '@/env';
-import { VerifyEmailTemplate } from '@/lib/email-templates/verify-email';
 import { getResendClient } from '@/lib/resend';
 import { getSupabaseClient } from '@/lib/supabase';
 import type { Locale } from '@/stores/global';
