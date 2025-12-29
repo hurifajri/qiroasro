@@ -203,6 +203,14 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         disableActiveInteraction: true,
       },
       {
+        element: '#tour-quiz-button',
+        popover: {
+          title: t('steps.quiz.title'),
+          description: t('steps.quiz.description'),
+        },
+        disableActiveInteraction: true,
+      },
+      {
         element: '#tour-locale-selector',
         popover: {
           title: t('steps.locale_selector.title'),

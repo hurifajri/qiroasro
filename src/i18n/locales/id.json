@@ -186,6 +186,10 @@
           "title": "Info Detail",
           "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },
+        "quiz": {
+          "title": "Quiz",
+          "description": "Klik tombol ini untuk mencoba beberapa contoh quiz."
+        },
         "locale_selector": {
           "title": "Pilih Bahasa",
           "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia dan Inggris."

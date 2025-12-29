@@ -186,6 +186,10 @@
           "title": "Detail Info",
           "description": "This icon can be clicked to read more detailed explanations."
         },
+        "quiz": {
+          "title": "Quiz",
+          "description": "Click the button to try some quiz examples."
+        },
         "locale_selector": {
           "title": "Locale Selector",
           "description": "Select the language to use the app in the language of your choice. Currently available languages are Bahasa Indonesia and English."

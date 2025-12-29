@@ -7,7 +7,7 @@ export function GraphQuiz() {
 
   return (
     <Button
-      id="tour-waitlist-button"
+      id="tour-quiz-button"
       onClick={() => console.log('quiz time')}
       className="cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark text-base text-white"
     >
