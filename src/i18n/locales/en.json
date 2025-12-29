@@ -182,6 +182,18 @@
           "title": "Detail Info",
           "description": "This icon can be clicked to read more detailed explanations."
         },
+        "locale_selector": {
+          "title": "Locale Selector",
+          "description": "Select the language to use the app in the language of your choice. Currently available languages are Bahasa Indonesia and English."
+        },
+        "theme_selector": {
+          "title": "Theme Selector",
+          "description": "Select the theme to use the app in the theme of your choice. Available themes are light and dark."
+        },
+        "waitlist_button": {
+          "title": "Waitlist",
+          "description": "Click this button to join the waitlist so we can notify you when the app is available, insyaa Allah."
+        },
         "end": {
           "title": "We are done!",
           "description": "Thank you for following this guide. Please continue. Barakallahu fiikum"

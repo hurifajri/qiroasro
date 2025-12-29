@@ -14,6 +14,7 @@ export function ThemeSelector({ theme }: ThemeSelectorProps) {
 
   return (
     <Button
+      id="tour-theme-selector"
       className="rounded-full text-muted-foreground"
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       size="icon"

@@ -182,6 +182,18 @@
           "title": "Info Detail",
           "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },
+        "locale_selector": {
+          "title": "Pilih Bahasa",
+          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia dan Inggris."
+        },
+        "theme_selector": {
+          "title": "Pilih Tema",
+          "description": "Pilih tema untuk menggunakan aplikasi dalam tema yang diinginkan. Tersedia tema terang dan gelap."
+        },
+        "waitlist_button": {
+          "title": "Waitlist",
+          "description": "Klik tombol ini untuk mendaftar ke waitlist agar kami dapat memberitahu ketika aplikasi sudah tersedia, insyaa Allah."
+        },
         "end": {
           "title": "Selesai",
           "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum"

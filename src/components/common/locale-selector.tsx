@@ -13,6 +13,7 @@ export function LocaleSelector({ locale }: LocaleSelectorProps) {
 
   return (
     <Button
+      id="tour-locale-selector"
       className="rounded-full text-muted-foreground uppercase"
       onClick={() => setLocale(locale === 'en' ? 'id' : 'en')}
       size="icon"

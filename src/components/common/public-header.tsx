@@ -69,6 +69,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
             <>
               <Separator orientation="vertical" />
               <Button
+                id="tour-waitlist-button"
                 onClick={() => setIsWaitlistDialogOpen(true)}
                 className="cursor-pointer bg-linear-to-r from-accent-violet to-accent-violet-dark text-base text-white"
               >

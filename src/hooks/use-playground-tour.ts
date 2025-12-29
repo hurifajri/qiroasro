@@ -198,6 +198,27 @@ export function usePlaygroundTour() {
         disableActiveInteraction: true,
       },
       {
+        element: '#tour-locale-selector',
+        popover: {
+          title: t('steps.locale_selector.title'),
+          description: t('steps.locale_selector.description'),
+        },
+      },
+      {
+        element: '#tour-theme-selector',
+        popover: {
+          title: t('steps.theme_selector.title'),
+          description: t('steps.theme_selector.description'),
+        },
+      },
+      {
+        element: '#tour-waitlist-button',
+        popover: {
+          title: t('steps.waitlist_button.title'),
+          description: t('steps.waitlist_button.description'),
+        },
+      },
+      {
         popover: {
           title: t('steps.end.title'),
           description: t('steps.end.description'),
