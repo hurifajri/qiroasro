@@ -208,7 +208,6 @@
    Driver.js Theme Styles
    ============================================ */
 
-/* Light mode (default) */
 .driverjs-theme {
   --driver-popover-bg: var(--background);
   --driver-popover-text: var(--foreground);
@@ -252,62 +251,12 @@
    ReactFlow Custom Styles
    ============================================ */
 
-.react-flow {
-  background: transparent;
-}
-
-/* Custom edge styles */
-.react-flow__edge-path {
-  stroke-linecap: round;
-}
-
-.react-flow__edge.animated path {
-  stroke-dasharray: 5;
-  animation: dashdraw 0.5s linear infinite;
-}
-
-@keyframes dashdraw {
-  from {
-    stroke-dashoffset: 10;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* Node hover effects */
-.react-flow__node {
-  cursor: pointer;
-}
-
-.react-flow__node:hover {
-  z-index: 10;
-}
-
-/* Control buttons styling */
-.react-flow__controls-button {
-  background: #1f2937;
-  border-color: #374151;
-  color: #9ca3af;
-}
-
-.react-flow__controls-button:hover {
-  background: #374151;
-  color: #f3f4f6;
-}
-
-.react-flow__controls-button svg {
-  fill: currentColor;
-}
-
 /* Attribution hidden */
 .react-flow__attribution {
-  display: none;
+  @apply hidden;
 }
 
-/* ============================================
-   Node Glow Effects
-   ============================================ */
+/* Node Glow Effects */
 
 @keyframes glow-gold {
   0%,
