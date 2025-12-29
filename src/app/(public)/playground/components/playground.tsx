@@ -72,7 +72,7 @@ export function Playground() {
     getEffectiveEdgeType,
   } = usePlaygroundStore((state) => state);
 
-  const { startTour } = usePlaygroundTour();
+  const { startTour } = usePlaygroundTour({ theme });
 
   const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
 

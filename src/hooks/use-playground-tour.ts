@@ -1,5 +1,6 @@
 'use client';
 
+import type { ColorMode } from '@xyflow/react';
 import { type Driver, type DriveStep, driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import { useTranslations } from 'next-intl';
@@ -7,7 +8,11 @@ import { useCallback, useEffect, useRef } from 'react';
 
 const TOUR_STORAGE_KEY = 'playground-tour-completed';
 
-export function usePlaygroundTour() {
+interface UsePlaygroundTourProps {
+  theme: ColorMode;
+}
+
+export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
   const t = useTranslations('playground_page.tour');
   const driverRef = useRef<Driver | null>(null);
 
@@ -203,6 +208,7 @@ export function usePlaygroundTour() {
           title: t('steps.locale_selector.title'),
           description: t('steps.locale_selector.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-theme-selector',
@@ -210,6 +216,7 @@ export function usePlaygroundTour() {
           title: t('steps.theme_selector.title'),
           description: t('steps.theme_selector.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-waitlist-button',
@@ -217,6 +224,7 @@ export function usePlaygroundTour() {
           title: t('steps.waitlist_button.title'),
           description: t('steps.waitlist_button.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         popover: {
@@ -243,6 +251,7 @@ export function usePlaygroundTour() {
       prevBtnText: t('prev'),
       doneBtnText: t('done'),
       popoverClass: 'driverjs-theme',
+      overlayColor: theme === 'dark' ? 'white' : 'black',
       steps: getTourSteps(),
       onDestroyed: () => {
         localStorage.setItem(TOUR_STORAGE_KEY, 'true');
@@ -251,7 +260,7 @@ export function usePlaygroundTour() {
 
     driverRef.current = driverInstance;
     driverInstance.drive();
-  }, [t, getTourSteps]);
+  }, [t, getTourSteps, theme]);
 
   // Auto-start tour on first visit
   useEffect(() => {
