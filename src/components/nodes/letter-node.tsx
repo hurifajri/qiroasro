@@ -34,7 +34,7 @@ export function LetterNode({ data, selected }: NodeProps) {
   // Hide handles: when floating OR when no edge connected
   const getHandleClass = (hasEdge: boolean) => {
     if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-node-letter-secondary!';
+    return 'size-2! border-0! bg-node-letter-secondary!';
   };
 
   // Only dim nodes that are not selected and not highlighted
