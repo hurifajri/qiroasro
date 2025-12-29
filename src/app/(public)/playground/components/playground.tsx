@@ -38,6 +38,7 @@ import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundStore } from '../providers/playground';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
+import { GraphQuiz } from './graph-quiz';
 
 // Register custom node types
 const nodeTypes: NodeTypes = {
@@ -407,8 +408,12 @@ export function Playground() {
             </Panel>
 
             {/* Graph Legend */}
-            <Panel position="top-right" className="static! m-0! self-end sm:self-auto">
+            <Panel
+              position="top-right"
+              className="static! m-0! flex flex-col gap-2 self-end sm:self-auto"
+            >
               <GraphLegend viewMode={viewMode} />
+              <GraphQuiz />
             </Panel>
           </div>
 
