@@ -242,10 +242,11 @@ export function usePlaygroundTour() {
       nextBtnText: t('next'),
       prevBtnText: t('prev'),
       doneBtnText: t('done'),
+      popoverClass: 'driverjs-theme',
+      steps: getTourSteps(),
       onDestroyed: () => {
         localStorage.setItem(TOUR_STORAGE_KEY, 'true');
       },
-      steps: getTourSteps(),
     });
 
     driverRef.current = driverInstance;

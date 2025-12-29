@@ -205,6 +205,50 @@
 }
 
 /* ============================================
+   Driver.js Theme Styles
+   ============================================ */
+
+/* Light mode (default) */
+.driverjs-theme {
+  --driver-popover-bg: var(--background);
+  --driver-popover-text: var(--foreground);
+  --driver-popover-title: var(--foreground);
+}
+
+.driverjs-theme.driver-popover {
+  @apply bg-background text-foreground border border-border shadow-lg;
+}
+
+.driverjs-theme.driver-popover * {
+  @apply font-sans!;
+}
+
+.driverjs-theme .driver-popover-title {
+  @apply text-foreground font-semibold;
+}
+
+.driverjs-theme .driver-popover-description {
+  @apply text-muted-foreground;
+}
+
+.driverjs-theme .driver-popover-progress-text {
+  @apply text-muted-foreground text-xs;
+}
+
+.driverjs-theme .driver-popover-prev-btn,
+.driverjs-theme .driver-popover-next-btn {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors;
+}
+
+.driverjs-theme .driver-popover-next-btn {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.driverjs-theme .driver-popover-close-btn {
+  @apply text-muted-foreground hover:text-foreground;
+}
+
+/* ============================================
    ReactFlow Custom Styles
    ============================================ */
 
