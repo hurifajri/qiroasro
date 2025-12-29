@@ -43,9 +43,9 @@ import { GraphQuiz } from './graph-quiz';
 // Register custom node types
 const nodeTypes: NodeTypes = {
   letter: LetterNode,
-  'articulation-area': ArticulationAreaNode,
-  'articulation-point': ArticulationPointNode,
-  'trait-group': TraitGroupNode,
+  articulationArea: ArticulationAreaNode,
+  articulationPoint: ArticulationPointNode,
+  traitGroup: TraitGroupNode,
   trait: TraitNode,
 };
 
@@ -236,7 +236,7 @@ export function Playground() {
       if (nodeId.startsWith('letter-')) return 'letter';
       if (nodeId.startsWith('area-')) return 'area';
       if (nodeId.startsWith('point-')) return 'point';
-      if (nodeId.startsWith('trait-group-')) return 'trait-group';
+      if (nodeId.startsWith('trait-group-')) return 'traitGroup';
       if (nodeId.startsWith('trait-')) return 'trait';
       return 'unknown';
     };
@@ -244,7 +244,7 @@ export function Playground() {
     // Helper to get category: articulation (area, point) vs trait (trait-group, trait) vs letter
     const getCategory = (nodeType: string): string => {
       if (nodeType === 'area' || nodeType === 'point') return 'articulation';
-      if (nodeType === 'trait-group' || nodeType === 'trait') return 'trait';
+      if (nodeType === 'traitGroup' || nodeType === 'trait') return 'trait';
       return 'letter'; // letters are neutral, connect to both
     };
 
@@ -444,11 +444,11 @@ export function Playground() {
                 return '#F59E0B';
               }
 
-              if (node.type === 'articulation-area' || node.type === 'articulation-point') {
+              if (node.type === 'articulationArea' || node.type === 'articulationPoint') {
                 return '#0EA5E9';
               }
 
-              if (node.type === 'trait-group' || node.type === 'trait') {
+              if (node.type === 'traitGroup' || node.type === 'trait') {
                 return '#8B5CF6';
               }
 

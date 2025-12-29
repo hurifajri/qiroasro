@@ -72,11 +72,11 @@ function getNodeWidth(nodeType: string | undefined): number {
   switch (nodeType) {
     case 'letter':
       return 64; // w-16 = 64px
-    case 'articulation-area':
+    case 'articulationArea':
       return 120;
-    case 'articulation-point':
+    case 'articulationPoint':
       return 100;
-    case 'trait-group':
+    case 'traitGroup':
       return 120;
     case 'trait':
       return 100;
@@ -92,11 +92,11 @@ function getNodeHeight(nodeType: string | undefined): number {
   switch (nodeType) {
     case 'letter':
       return 64; // h-16 = 64px
-    case 'articulation-area':
+    case 'articulationArea':
       return 40;
-    case 'articulation-point':
+    case 'articulationPoint':
       return 32;
-    case 'trait-group':
+    case 'traitGroup':
       return 48;
     case 'trait':
       return 36;
@@ -123,10 +123,10 @@ export function applyRadialLayout(nodes: Node[], centerX: number, centerY: numbe
   // Define ring radii for each type (inner to outer)
   const ringConfig: Record<string, number> = {
     letter: 550,
-    'articulation-point': 750,
-    'articulation-area': 850,
+    articulationPoint: 750,
+    articulationArea: 850,
     trait: 700,
-    'trait-group': 800,
+    traitGroup: 800,
   };
 
   const layoutedNodes: Node[] = [];

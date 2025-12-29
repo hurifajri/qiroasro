@@ -36,7 +36,7 @@ export function createArticulationAreaNode(
 ): Node {
   return {
     id: `area-${area.id}`,
-    type: 'articulation-area',
+    type: 'articulationArea',
     position,
     data: area,
   };
@@ -48,7 +48,7 @@ export function createArticulationPointNode(
 ): Node {
   return {
     id: `point-${point.id}`,
-    type: 'articulation-point',
+    type: 'articulationPoint',
     position,
     data: point,
   };
@@ -60,7 +60,7 @@ export function createTraitGroupNode(
 ): Node {
   return {
     id: `trait-group-${group.id}`,
-    type: 'trait-group',
+    type: 'traitGroup',
     position,
     data: group,
   };
