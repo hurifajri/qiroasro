@@ -388,54 +388,41 @@ export function Playground() {
             animated: edgeStyle.isAnimated,
           }}
         >
-          {/* Top Settings */}
-          <div className="absolute top-0 left-0 flex w-full flex-col justify-between gap-2 p-3 sm:flex-row">
-            {/* Graph Filter */}
-            <Panel position="top-left" className="static! m-0!">
-              <GraphFilter
-                viewMode={viewMode}
-                layoutMode={layoutMode}
-                hierarchyDirection={hierarchyDirection}
-                edgeStyle={edgeStyle}
-                letters={memoizedLetters}
-                selectedLetterId={selectedLetterId}
-                onViewModeChange={setViewMode}
-                onLayoutModeChange={setLayoutMode}
-                onHierarchyDirectionChange={setHierarchyDirection}
-                onEdgeStyleChange={setEdgeStyle}
-                onLetterSelect={setSelectedLetterId}
-              />
-            </Panel>
+          <Panel
+            position="top-right"
+            className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
+          >
+            <GraphFilter
+              viewMode={viewMode}
+              layoutMode={layoutMode}
+              hierarchyDirection={hierarchyDirection}
+              edgeStyle={edgeStyle}
+              letters={memoizedLetters}
+              selectedLetterId={selectedLetterId}
+              onViewModeChange={setViewMode}
+              onLayoutModeChange={setLayoutMode}
+              onHierarchyDirectionChange={setHierarchyDirection}
+              onEdgeStyleChange={setEdgeStyle}
+              onLetterSelect={setSelectedLetterId}
+            />
+            <GraphLegend viewMode={viewMode} />
+            <GraphQuiz />
+          </Panel>
 
-            {/* Graph Legend */}
-            <Panel
-              position="top-right"
-              className="static! m-0! flex flex-col gap-2 self-end sm:self-auto"
+          {/* Help Button */}
+          <Panel position="bottom-left" className="m-0! p-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={startTour}
+              className="gap-2 backdrop-blur-sm"
             >
-              <GraphLegend viewMode={viewMode} />
-              <GraphQuiz />
-            </Panel>
-          </div>
+              <CircleHelpIcon className="size-4" />
+              {t('tour.help_button')}
+            </Button>
+          </Panel>
 
-          {/* Bottom Settings */}
-          <div className="absolute bottom-0 left-0 z-10 flex w-full items-end justify-between gap-2 p-3 sm:flex-row">
-            {/* Help Button */}
-            <Panel position="bottom-left" className="static! m-0!">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={startTour}
-                className="gap-2 backdrop-blur-sm"
-              >
-                <CircleHelpIcon className="size-4" />
-                {t('tour.help_button')}
-              </Button>
-            </Panel>
-
-            <div id="tour-controls">
-              <Controls position="bottom-right" className="static! m-0!" />
-            </div>
-          </div>
+          <Controls position="bottom-right" className="m-0! p-3" />
 
           {/* <MiniMap
             position="bottom-left"
