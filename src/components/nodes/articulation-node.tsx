@@ -1,7 +1,11 @@
 import { type NodeProps, Position } from '@xyflow/react';
+import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
+import { NodeAppendix } from '@/components/ui/graph/node-appendix';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
@@ -83,6 +87,8 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
 }
 
 export function ArticulationPointNode({ data, selected }: NodeProps) {
+  const t = useTranslations('global.articulation_point');
+
   const nodeData = data as ArticulationPointNodeData;
 
   // Determine handle positions based on layout
@@ -104,31 +110,58 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
-  // const localeKey = kebabToSnakeCase(nodeData.slug);
+  const localeKey = kebabToSnakeCase(nodeData.slug);
+  const label = nodeData.slug.replace(/-/g, ' ');
+  const description = t(localeKey);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
-    <BaseNode
-      className={cn(
-        'rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text backdrop-blur-sm transition-all duration-300 hover:bg-node-articulation/30 hover:ring-0',
-        isActive ? 'scale-110' : 'hover:scale-105',
-        isDimmed && 'opacity-30',
+    <>
+      <BaseNode
+        className={cn(
+          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text backdrop-blur-sm transition-all duration-300 hover:bg-node-articulation/30 hover:ring-0',
+          isActive ? 'scale-110' : 'hover:scale-105',
+          isDimmed && 'opacity-30',
+        )}
+      >
+        <NodeAppendix position="top" className="-right-1.5 top-3 w-auto border-none p-0">
+          <CircleQuestionMarkIcon
+            onClick={() => {
+              setIsDialogOpen(true);
+            }}
+            className="size-4 cursor-pointer text-green-400"
+          />
+        </NodeAppendix>
+
+        <BaseHandle
+          type="target"
+          position={targetPosition}
+          className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+        />
+
+        <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">
+          {label}
+        </BaseNodeContent>
+
+        <BaseHandle
+          type="source"
+          position={sourcePosition}
+          className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+        />
+      </BaseNode>
+
+      {isDialogOpen && (
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent>
+            <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2 capitalize">
+              <CircleQuestionMarkIcon className="text-muted-foreground" />
+              <DialogTitle>{label}</DialogTitle>
+            </DialogHeader>
+            <p>{description}</p>
+          </DialogContent>
+        </Dialog>
       )}
-    >
-      <BaseHandle
-        type="target"
-        position={targetPosition}
-        className={getHandleClass(nodeData.hasTargetEdge ?? false)}
-      />
-
-      <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">
-        {nodeData.slug.replace(/-/g, ' ')}
-      </BaseNodeContent>
-
-      <BaseHandle
-        type="source"
-        position={sourcePosition}
-        className={getHandleClass(nodeData.hasSourceEdge ?? false)}
-      />
-    </BaseNode>
+    </>
   );
 }
