@@ -10,7 +10,8 @@ BEGIN
     NEW.updated_at = CURRENT_TIMESTAMP;
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SET search_path = '';
 
 CREATE TABLE public.waitlist (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
