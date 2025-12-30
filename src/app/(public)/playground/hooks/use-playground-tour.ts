@@ -203,7 +203,15 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         disableActiveInteraction: true,
       },
       {
-        element: '#tour-quiz-button',
+        element: '#tour-download-image',
+        popover: {
+          title: t('steps.download.title'),
+          description: t('steps.download.description'),
+        },
+        disableActiveInteraction: true,
+      },
+      {
+        element: '#tour-quiz',
         popover: {
           title: t('steps.quiz.title'),
           description: t('steps.quiz.description'),

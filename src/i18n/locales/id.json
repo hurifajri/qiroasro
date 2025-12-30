@@ -248,6 +248,10 @@
           "title": "Info Detail",
           "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
         },
+        "download": {
+          "title": "Unduh Gambar",
+          "description": "Klik tombol ini untuk mengunduh gambar graph."
+        },
         "quiz": {
           "title": "Quiz",
           "description": "Klik tombol ini untuk mencoba beberapa contoh quiz."

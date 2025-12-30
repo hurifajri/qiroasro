@@ -248,6 +248,10 @@
           "title": "Detail Info",
           "description": "This icon can be clicked to read more detailed explanations."
         },
+        "download": {
+          "title": "Download Image",
+          "description": "Click the button to download the image of the graph."
+        },
         "quiz": {
           "title": "Quiz",
           "description": "Click the button to try some quiz examples."

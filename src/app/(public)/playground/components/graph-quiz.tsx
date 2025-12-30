@@ -311,7 +311,7 @@ export function GraphQuiz() {
   return (
     <>
       <Button
-        id="tour-quiz-button"
+        id="tour-quiz"
         onClick={() => setIsDialogOpen(true)}
         className="cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark text-base text-white"
       >
