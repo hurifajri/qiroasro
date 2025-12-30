@@ -130,7 +130,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
             onClick={() => {
               setIsDialogOpen(true);
             }}
-            className="size-4 cursor-pointer text-green-400"
+            className="size-4 cursor-pointer text-node-articulation/50"
           />
         </NodeAppendix>
 
