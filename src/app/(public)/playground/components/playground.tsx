@@ -17,17 +17,15 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { CircleHelpIcon, CircleQuestionMarkIcon } from 'lucide-react';
+import { CircleHelpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { WaitlistForm } from '@/components/common/waitlist-form';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/edges/floating-connection-line';
 import { FloatingEdge } from '@/components/edges/floating-edge';
 import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/articulation-node';
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
 import { generateGraphFromData } from '@/lib/graph/utils';
 import { useGlobalStore } from '@/providers/global';
@@ -74,17 +72,6 @@ export function Playground() {
   } = usePlaygroundStore((state) => state);
 
   const { startTour } = usePlaygroundTour({ theme });
-
-  const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
-
-  // Show waitlist dialog after user explores for 60 seconds
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsWaitlistDialogOpen(true);
-  //   }, 180 * 1000); // 60 seconds
-
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
@@ -366,65 +353,64 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   return (
-    <>
-      <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onNodeClick={handleNodeClick}
-          onPaneClick={handlePaneClick}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
-          colorMode={theme}
-          fitView
-          fitViewOptions={{ padding: 0.2 }}
-          minZoom={0.1}
-          maxZoom={2}
-          defaultEdgeOptions={{
-            type: computedEdgeType,
-            animated: edgeStyle.isAnimated,
-          }}
+    <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onNodeClick={handleNodeClick}
+        onPaneClick={handlePaneClick}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
+        colorMode={theme}
+        fitView
+        fitViewOptions={{ padding: 0.2 }}
+        minZoom={0.1}
+        maxZoom={2}
+        defaultEdgeOptions={{
+          type: computedEdgeType,
+          animated: edgeStyle.isAnimated,
+        }}
+      >
+        <Panel
+          position="top-right"
+          className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
         >
-          <Panel
-            position="top-right"
-            className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
+          <GraphFilter
+            viewMode={viewMode}
+            layoutMode={layoutMode}
+            hierarchyDirection={hierarchyDirection}
+            edgeStyle={edgeStyle}
+            letters={memoizedLetters}
+            selectedLetterId={selectedLetterId}
+            onViewModeChange={setViewMode}
+            onLayoutModeChange={setLayoutMode}
+            onHierarchyDirectionChange={setHierarchyDirection}
+            onEdgeStyleChange={setEdgeStyle}
+            onLetterSelect={setSelectedLetterId}
+          />
+          <GraphLegend viewMode={viewMode} />
+          <GraphQuiz />
+        </Panel>
+
+        {/* Help Button */}
+        <Panel position="bottom-left" className="m-0! p-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={startTour}
+            className="gap-2 backdrop-blur-sm"
           >
-            <GraphFilter
-              viewMode={viewMode}
-              layoutMode={layoutMode}
-              hierarchyDirection={hierarchyDirection}
-              edgeStyle={edgeStyle}
-              letters={memoizedLetters}
-              selectedLetterId={selectedLetterId}
-              onViewModeChange={setViewMode}
-              onLayoutModeChange={setLayoutMode}
-              onHierarchyDirectionChange={setHierarchyDirection}
-              onEdgeStyleChange={setEdgeStyle}
-              onLetterSelect={setSelectedLetterId}
-            />
-            <GraphLegend viewMode={viewMode} />
-            <GraphQuiz />
-          </Panel>
+            <CircleHelpIcon className="size-4" />
+            {t('tour.help_button')}
+          </Button>
+        </Panel>
 
-          {/* Help Button */}
-          <Panel position="bottom-left" className="m-0! p-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={startTour}
-              className="gap-2 backdrop-blur-sm"
-            >
-              <CircleHelpIcon className="size-4" />
-              {t('tour.help_button')}
-            </Button>
-          </Panel>
+        <Controls position="bottom-right" className="m-0! p-3" />
 
-          <Controls position="bottom-right" className="m-0! p-3" />
-
-          {/* <MiniMap
+        {/* <MiniMap
             position="bottom-left"
             nodeColor={(node) => {
               if (node.type === 'letter') {
@@ -444,21 +430,8 @@ export function Playground() {
             maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
           /> */}
 
-          <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-        </ReactFlow>
-      </div>
-
-      {isWaitlistDialogOpen && (
-        <Dialog open={isWaitlistDialogOpen} onOpenChange={setIsWaitlistDialogOpen}>
-          <DialogContent>
-            <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
-              <CircleQuestionMarkIcon className="text-muted-foreground" />
-              <DialogTitle>{t('development.is_beneficial')}</DialogTitle>
-            </DialogHeader>
-            <WaitlistForm source="playground_page" isPlain />
-          </DialogContent>
-        </Dialog>
-      )}
-    </>
+        <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
+      </ReactFlow>
+    </div>
   );
 }

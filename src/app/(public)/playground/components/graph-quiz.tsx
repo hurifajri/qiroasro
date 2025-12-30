@@ -36,20 +36,17 @@ import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/
 import { getTraitsOpt } from '@/queries/trait';
 import type { Letter } from '@/schemas/letter';
 
-// Question structure
 interface QuizQuestion {
   letter: Letter;
   correctTargetIds: number[];
   targetType: QuizMode;
 }
 
-// Target item (makhraj or sifat)
 interface TargetItem {
   id: number;
   slug: string;
 }
 
-// Constants
 const LETTERS_PER_QUIZ = 5;
 const TARGETS_PER_QUIZ = 6;
 
