@@ -125,12 +125,15 @@ export function TraitNode({ data, selected }: NodeProps) {
           ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
-        <NodeAppendix position="top" className="-right-1.5 top-3 w-auto border-none p-0">
+        <NodeAppendix
+          position="top"
+          className="-right-2.5 top-3.5 w-auto rounded-full border-none p-0"
+        >
           <CircleQuestionMarkIcon
             onClick={() => {
               setIsDialogOpen(true);
             }}
-            className="size-4 cursor-pointer text-node-trait/50"
+            className="size-5 cursor-pointer text-node-trait/50"
           />
         </NodeAppendix>
 
