@@ -45,6 +45,25 @@
       "asy_syafatain": "Two lips",
       "al_khaisyum": "Nasal cavity"
     },
+    "articulation_point": {
+      "jauf": "The empty space within the mouth and throat cavity.",
+      "aqsha_halq": "The deepest part of the throat (furthest from the mouth), specifically at the vocal cords.",
+      "wasath_halq": "The middle part of the throat, specifically at the epiglottis.",
+      "adna_halq": "The closest part of the throat (nearest to the mouth), where the root of the tongue meets the uvula.",
+      "aqsha_lisan": "The back of the tongue touching the soft palate (the fleshy part of the roof of the mouth).",
+      "aqsha_lisan_asfal": "The back of the tongue (slightly below Qaf's position) touching the junction of the soft and hard palate.",
+      "wasath_lisan": "The middle of the tongue rising to the roof of the mouth. (Touching for Jim; rising without touching for Shin and Ya).",
+      "hafah_lisan": "The side of the tongue pressing against the inner wall of the upper molars.",
+      "adna_hafah_lisan": "The nearest part of the side of the tongue (extending to the tip) touching the gums of the upper front teeth.",
+      "tharaf_lisan": "The tip of the tongue touching the gums of the upper central incisors (slightly below Lam's position).",
+      "tharaf_lisan_zhahr_adkhal": "The tip of the tongue slightly curling onto the back of the tongue, touching the gums of the upper central incisors.",
+      "tharaf_lisan_ulya_tsanaya": "The tip of the tongue touching the base (root) of the upper central incisors.",
+      "tharaf_lisan_tsanaya_sufla": "The tip of the tongue resting behind the lower central incisors.",
+      "tharaf_lisan_athraf_tsanaya_ulya": "The tip of the tongue touching the edge of the upper central incisors.",
+      "bathn_syafah": "The inside of the lower lip touching the edge of the upper central incisors.",
+      "syafatain": "The two lips. (Rounding lips for Waw; closing lips for Ba; closing lips with nasal sound for Mim).",
+      "khaisyum": "The nasal cavity, from where the Ghunnah (nasal sound) is emitted."
+    },
     "trait_group": {
       "nafas": "Airflow",
       "shaut": "Sound Flow",
