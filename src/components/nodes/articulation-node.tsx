@@ -123,6 +123,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
           'rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text backdrop-blur-sm transition-all duration-300 hover:bg-node-articulation/30 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
+          ['jauf'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
         <NodeAppendix

@@ -158,7 +158,10 @@
     "legend": {
       "title": "Legend",
       "articulation_area": "Articulation Area",
-      "articulation_point": "Articulation Point",
+      "articulation_muhaqqaq": "Muhaqqaq Articulation",
+      "articulation_muhaqqaq_description": "An articulation point that relies on a specific part of the throat, tongue, or lips.",
+      "articulation_muqaddar": "Muqaddar Articulation",
+      "articulation_muqaddar_description": "An articulation point that does not rely on a specific part, so its exact origin cannot be pinpointed.",
       "trait_group": "Trait Group",
       "trait_lazimah": "Lazimah Trait",
       "trait_lazimah_description": "Lazimah Trait is a trait that is always present (permanent) in a letter.",

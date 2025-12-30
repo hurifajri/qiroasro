@@ -158,7 +158,10 @@
     "legend": {
       "title": "Keterangan",
       "articulation_area": "Makhraj Umum",
-      "articulation_point": "Makhraj Khusus",
+      "articulation_muhaqqaq": "Makhraj Muhaqqaq",
+      "articulation_muhaqqaq_description": "Makhraj yang bersandar pada bagian tertentu yang pasti (tenggorokan, lidah, atau bibir).",
+      "articulation_muqaddar": "Makhraj Muqaddar",
+      "articulation_muqaddar_description": "Makhraj yang tidak bersandar pada bagian tertentu, sehingga titik keluarnya tidak dapat ditentukan secara spesifik.",
       "trait_group": "Sifat Umum",
       "trait_lazimah": "Sifat Lazimah",
       "trait_lazimah_description": "Sifat Lazimah adalah sifat yang selalu melekat pada sebuah huruf dalam setiap kondisi.",

@@ -10,13 +10,13 @@ interface GraphLegendProps {
   viewMode: ViewMode;
 }
 
-type Trait = 'traitLazimah' | 'traitAridhah';
+type LegendId = 'articulationMuhaqqaq' | 'articulationMuqaddar' | 'traitLazimah' | 'traitAridhah';
 
 export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedLegendId, setSelectedLegendId] = useState<Trait | null>(null);
+  const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(null);
 
   const legends = [
     ...(['all', 'articulation', 'letter'].includes(viewMode)
@@ -31,9 +31,20 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     ...(['all', 'articulation', 'letter'].includes(viewMode)
       ? [
           {
-            id: 'articulationPoint',
-            label: t('articulation_point'),
+            id: 'articulationMuhaqqaq',
+            label: t('articulation_muhaqqaq'),
             color: 'border-2 border-node-articulation/50 bg-node-articulation/20',
+            hasInfo: true,
+          },
+        ]
+      : []),
+    ...(['all', 'articulation', 'letter'].includes(viewMode)
+      ? [
+          {
+            id: 'articulationMuqaddar',
+            label: t('articulation_muqaddar'),
+            color: 'border-2 border-dashed border-node-articulation/50 bg-node-articulation/20',
+            hasInfo: true,
           },
         ]
       : []),
@@ -82,7 +93,15 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
       : []),
   ];
 
-  const legendInfo: Record<Trait, { title: string; description: string }> = {
+  const legendInfo: Record<LegendId, { title: string; description: string }> = {
+    articulationMuhaqqaq: {
+      title: t('articulation_muhaqqaq'),
+      description: t('articulation_muhaqqaq_description'),
+    },
+    articulationMuqaddar: {
+      title: t('articulation_muqaddar'),
+      description: t('articulation_muqaddar_description'),
+    },
     traitLazimah: {
       title: t('trait_lazimah'),
       description: t('trait_lazimah_description'),
@@ -99,7 +118,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
         id="tour-graph-legend"
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="flex w-40 flex-col gap-2 rounded-lg border backdrop-blur-sm"
+        className="flex w-48 flex-col gap-2 rounded-lg border backdrop-blur-sm"
       >
         <CollapsibleTrigger
           className={cn(
@@ -125,10 +144,10 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
                           : undefined
                       }
                       onClick={() => {
-                        setSelectedLegendId(legend.id as Trait);
+                        setSelectedLegendId(legend.id as LegendId);
                         setIsDialogOpen(true);
                       }}
-                      className="size-4 cursor-pointer text-muted-foreground"
+                      className="size-4 shrink-0 cursor-pointer text-muted-foreground"
                     />
                   )}
                 </span>
