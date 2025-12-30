@@ -253,9 +253,13 @@
           "title": "Theme Selector",
           "description": "Select the theme to use the app in the theme of your choice. Available themes are light and dark."
         },
-        "waitlist_button": {
+        "waitlist": {
           "title": "Waitlist",
           "description": "Click this button to join the waitlist so we can notify you when the app is available, insyaa Allah."
+        },
+        "help": {
+          "title": "Help",
+          "description": "Click this button to restart the guide."
         },
         "end": {
           "title": "We are done!",

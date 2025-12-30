@@ -229,8 +229,16 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       {
         element: '#tour-waitlist-button',
         popover: {
-          title: t('steps.waitlist_button.title'),
-          description: t('steps.waitlist_button.description'),
+          title: t('steps.waitlist.title'),
+          description: t('steps.waitlist.description'),
+        },
+        disableActiveInteraction: true,
+      },
+      {
+        element: '#tour-help',
+        popover: {
+          title: t('steps.help.title'),
+          description: t('steps.help.description'),
         },
         disableActiveInteraction: true,
       },

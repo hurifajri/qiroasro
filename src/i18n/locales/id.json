@@ -253,9 +253,13 @@
           "title": "Pilih Tema",
           "description": "Pilih tema untuk menggunakan aplikasi dalam tema yang diinginkan. Tersedia tema terang dan gelap."
         },
-        "waitlist_button": {
+        "waitlist": {
           "title": "Waitlist",
           "description": "Klik tombol ini untuk mendaftar ke waitlist agar kami dapat memberitahu ketika aplikasi sudah tersedia, insyaa Allah."
+        },
+        "help": {
+          "title": "Bantuan",
+          "description": "Klik tombol ini untuk memulai kembali panduan halaman."
         },
         "end": {
           "title": "Selesai",

@@ -396,7 +396,7 @@ export function Playground() {
         </Panel>
 
         {/* Help Button */}
-        <Panel position="bottom-left" className="m-0! p-3">
+        <Panel id="tour-help" position="bottom-left" className="m-3!">
           <Button
             variant="outline"
             size="sm"
@@ -408,7 +408,9 @@ export function Playground() {
           </Button>
         </Panel>
 
-        <Controls position="bottom-right" className="m-0! p-3" />
+        <Panel id="tour-controls" position="bottom-right" className="m-3!">
+          <Controls className="static! m-0!" />
+        </Panel>
 
         {/* <MiniMap
             position="bottom-left"
