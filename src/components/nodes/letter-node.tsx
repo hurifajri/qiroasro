@@ -20,7 +20,7 @@ type LetterNodeData = Letter & {
 export function LetterNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.letter');
 
-  const nodeData = data as unknown as LetterNodeData;
+  const nodeData = data as LetterNodeData;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';

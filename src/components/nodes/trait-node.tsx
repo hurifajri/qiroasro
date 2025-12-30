@@ -31,7 +31,7 @@ type TraitNodeData = Trait & {
 export function TraitGroupNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.trait_group');
 
-  const nodeData = data as unknown as TraitGroupNodeData;
+  const nodeData = data as TraitGroupNodeData;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';
@@ -82,7 +82,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
 }
 
 export function TraitNode({ data, selected }: NodeProps) {
-  const nodeData = data as unknown as TraitNodeData;
+  const nodeData = data as TraitNodeData;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';

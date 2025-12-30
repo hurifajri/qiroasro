@@ -31,7 +31,7 @@ type ArticulationPointNodeData = ArticulationPoint & {
 export function ArticulationAreaNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.articulation_area');
 
-  const nodeData = data as unknown as ArticulationAreaNodeData;
+  const nodeData = data as ArticulationAreaNodeData;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';
@@ -83,7 +83,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
 }
 
 export function ArticulationPointNode({ data, selected }: NodeProps) {
-  const nodeData = data as unknown as ArticulationPointNodeData;
+  const nodeData = data as ArticulationPointNodeData;
 
   // Determine handle positions based on layout
   const isRadial = nodeData.layoutMode === 'radial';
