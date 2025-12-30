@@ -104,8 +104,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
-  const localeKey = kebabToSnakeCase(nodeData.slug);
-  console.log('localeKey', localeKey);
+  // const localeKey = kebabToSnakeCase(nodeData.slug);
 
   return (
     <BaseNode

@@ -103,6 +103,8 @@ export function TraitNode({ data, selected }: NodeProps) {
   const isActive = selected || nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
+  // const localeKey = kebabToSnakeCase(nodeData.slug);
+
   return (
     <BaseNode
       className={cn(

@@ -66,12 +66,12 @@
     },
     "trait_group": {
       "nafas": "Airflow",
-      "shaut": "Sound Flow",
-      "ittijah_shaut": "Sound Direction",
-      "inhishar_shaut": "Sound Containment",
+      "shaut": "Sound flow",
+      "ittijah_shaut": "Sound direction",
+      "inhishar_shaut": "Sound containment",
       "khiffah_nuthq": "Fluency",
-      "munfaridah": "Special Trait",
-      "siman_shaut": "Conditional Trait"
+      "munfaridah": "Special trait",
+      "siman_shaut": "Conditional trait"
     },
     "development": {
       "waitlist": "Waitlist",
