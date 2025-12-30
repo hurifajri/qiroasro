@@ -6,7 +6,11 @@ import { cn } from '@/lib/utils';
 export type QuizMode = 'makhraj' | 'sifat';
 
 interface TargetQuizNodeProps {
-  data: { label: string; mode: QuizMode; hasConnection: boolean; isCorrectTarget: boolean };
+  data: {
+    label: string;
+    mode: QuizMode;
+    status: 'none' | 'correct' | 'incorrect';
+  };
 }
 
 export function TargetQuizNode({ data }: TargetQuizNodeProps) {
@@ -26,8 +30,8 @@ export function TargetQuizNode({ data }: TargetQuizNodeProps) {
           'size-4!',
           data.mode === 'makhraj' && 'bg-node-articulation-secondary!',
           data.mode === 'sifat' && 'bg-node-trait-secondary!',
-          data.hasConnection && data.isCorrectTarget && 'bg-green-500!',
-          data.hasConnection && !data.isCorrectTarget && 'bg-red-500!',
+          data.status === 'correct' && 'bg-green-500!',
+          data.status === 'incorrect' && 'bg-red-500!',
         )}
       />
 

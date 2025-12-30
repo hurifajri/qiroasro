@@ -148,10 +148,7 @@ export function GraphQuiz() {
         id: `letter-${q.letter.id}`,
         type: 'letterQuiz',
         position: { x: 50, y: 30 + index * 70 },
-        data: {
-          ...q.letter,
-          status: 'none',
-        },
+        data: { ...q.letter, status: 'none' },
         draggable: false,
       }));
 
@@ -159,12 +156,7 @@ export function GraphQuiz() {
         id: `target-${target.id}`,
         type: 'targetQuiz',
         position: { x: 280, y: 20 + index * 60 },
-        data: {
-          label: getTargetName(target.slug, mode),
-          mode: mode,
-          hasConnection: false,
-          isCorrectTarget: false,
-        },
+        data: { label: getTargetName(target.slug, mode), mode: mode, status: 'none' },
         draggable: false,
       }));
 
@@ -255,7 +247,8 @@ export function GraphQuiz() {
   const checkAnswers = useCallback(() => {
     let correctCount = 0;
     const totalQuestions = questions.length;
-    const connectionResults: Map<string, 'correct' | 'incorrect'> = new Map();
+    const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
+    const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
     for (const question of questions) {
       const letterId = `letter-${question.letter.id}`;
@@ -264,8 +257,10 @@ export function GraphQuiz() {
       if (connection) {
         const targetIdNum = Number.parseInt(connection.target.replace('target-', ''), 10);
         const isCorrect = question.correctTargetIds.includes(targetIdNum);
+        const status = isCorrect ? 'correct' : 'incorrect';
 
-        connectionResults.set(letterId, isCorrect ? 'correct' : 'incorrect');
+        letterResults.set(letterId, status);
+        targetResults.set(connection.target, status);
 
         if (isCorrect) {
           correctCount++;
@@ -277,37 +272,13 @@ export function GraphQuiz() {
     setNodes((currentNodes) =>
       currentNodes.map((node) => {
         if (node.type === 'letterQuiz') {
-          const status = connectionResults.get(node.id) || 'none';
+          const status = letterResults.get(node.id) || 'none';
           return { ...node, data: { ...node.data, status } };
         }
 
         if (node.type === 'targetQuiz') {
-          // Check if this target has any connection
-          const hasConnection = edges.some((e) => e.target === node.id);
-          const targetIdNum = Number.parseInt(node.id.replace('target-', ''), 10);
-
-          // Check if the connection to this target is correct
-          let isCorrectTarget = false;
-          if (hasConnection) {
-            const connectionToThis = edges.find((e) => e.target === node.id);
-            if (connectionToThis) {
-              const letterIdNum = Number.parseInt(
-                connectionToThis.source.replace('letter-', ''),
-                10,
-              );
-              const question = questions.find((q) => q.letter.id === letterIdNum);
-              isCorrectTarget = question?.correctTargetIds.includes(targetIdNum) || false;
-            }
-          }
-
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              hasConnection,
-              isCorrectTarget,
-            },
-          };
+          const status = targetResults.get(node.id) || 'none';
+          return { ...node, data: { ...node.data, status } };
         }
 
         return node;
