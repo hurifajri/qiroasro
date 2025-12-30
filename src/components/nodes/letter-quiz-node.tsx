@@ -4,7 +4,9 @@ import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { cn } from '@/lib/utils';
 import type { Letter } from '@/schemas/letter';
 
-type LetterNodeData = Letter & { status: string };
+type LetterNodeData = Letter & {
+  status: 'none' | 'correct' | 'incorrect';
+};
 
 export function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as unknown as LetterNodeData;
