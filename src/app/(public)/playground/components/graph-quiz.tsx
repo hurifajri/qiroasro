@@ -29,6 +29,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { createLetterQuizNode, type LetterQuiz, type QuizMode } from '@/lib/graph/quiz';
+import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
@@ -82,7 +83,7 @@ export function GraphQuiz() {
   // Get formatted name for target (use slug with formatting)
   const getTargetName = useCallback((slug: string, _mode: QuizMode) => {
     // Format slug: replace hyphens with spaces and capitalize
-    return slug.replace(/-/g, ' ');
+    return kebabToSpaced(slug);
   }, []);
 
   // Generate quiz questions and nodes

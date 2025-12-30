@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
 import { NodeAppendix } from '@/components/ui/graph/node-appendix';
-import { cn, kebabToSnakeCase } from '@/lib/utils';
+import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
 import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 
@@ -111,7 +111,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
   const isDimmed = nodeData.isDimmed && !isActive;
 
   const localeKey = kebabToSnakeCase(nodeData.slug);
-  const label = nodeData.slug.replace(/-/g, ' ');
+  const label = kebabToSpaced(nodeData.slug);
   const description = t(localeKey);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);

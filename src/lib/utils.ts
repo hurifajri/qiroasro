@@ -13,4 +13,8 @@ export function kebabToSnakeCase(str: string): string {
   return str.replace(/-/g, '_');
 }
 
+export function kebabToSpaced(str: string): string {
+  return str.replace(/-/g, ' ');
+}
+
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
