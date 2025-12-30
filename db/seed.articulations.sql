@@ -1,10 +1,15 @@
 -- Insert 5 Articulation Areas (Makhraj 'Am)
-INSERT INTO hij_articulation_areas (slug, sort_order) VALUES
-('al-jauf', 1),           -- Rongga mulut dan tenggorokan (Mad letters only)
-('al-halq', 2),           -- Tenggorokan
-('al-lisan', 3),          -- Lidah
-('asy-syafatan', 4),     -- Kedua bibir
-('al-khaisyum', 5);       -- Rongga hidung (Mim, Nun with ghunnah)
+
+-- Muqaddar groups (is_muhaqqaq = false)
+INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
+('al-jauf', FALSE, 1),           -- Rongga mulut dan tenggorokan (Mad letters only)
+
+-- Muhaqqaq groups (is_muhaqqaq = true)
+INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
+('al-halq', TRUE, 2),           -- Tenggorokan
+('al-lisan', TRUE, 3),          -- Lidah
+('asy-syafatan', TRUE, 4),     -- Kedua bibir
+('al-khaisyum', TRUE, 5);       -- Rongga hidung (Mim, Nun with ghunnah)
 
 -- Insert 17 Articulation Points (Makhraj Khas)
 -- Area 1: Al-Jauf (1 point)

@@ -64,6 +64,7 @@ CREATE POLICY "Public can view hij_letters" ON hij_letters FOR SELECT USING (tru
 CREATE TABLE hij_articulation_areas (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     slug VARCHAR(50) NOT NULL UNIQUE, -- e.g., 'al-halq', 'al-lisan', 'asy-syafatain', 'al-khaisyum', 'al-jauf'
+    is_muhaqqaq BOOLEAN NOT NULL DEFAULT TRUE,
     sort_order INT NOT NULL
 );
 
