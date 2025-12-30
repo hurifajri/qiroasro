@@ -8,7 +8,7 @@ INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
 INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
 ('al-halq', TRUE, 2),           -- Tenggorokan
 ('al-lisan', TRUE, 3),          -- Lidah
-('asy-syafatan', TRUE, 4),     -- Kedua bibir
+('asy-syafatain', TRUE, 4),     -- Kedua bibir
 ('al-khaisyum', TRUE, 5);       -- Rongga hidung (Mim, Nun with ghunnah)
 
 -- Insert 17 Articulation Points (Makhraj Khas)

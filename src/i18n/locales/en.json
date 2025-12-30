@@ -39,11 +39,11 @@
       "ya_madd": "Ya Madd"
     },
     "articulation_area": {
-      "al_jauf": "Oral Cavity",
+      "al_jauf": "Oral cavity",
       "al_halq": "Throat",
       "al_lisan": "Tongue",
-      "asy_syafatan": "Two Lips",
-      "al_khaisyum": "Nasal Cavity"
+      "asy_syafatain": "Two lips",
+      "al_khaisyum": "Nasal cavity"
     },
     "trait_group": {
       "nafas": "Airflow",
