@@ -106,7 +106,7 @@ export function TraitNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'group rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text backdrop-blur-sm transition-all duration-300 hover:bg-node-trait/30 hover:ring-0',
+        'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text backdrop-blur-sm transition-all duration-300 hover:bg-node-trait/30 hover:ring-0',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
         ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',

@@ -9,7 +9,6 @@ import {
   type Edge,
   type Node,
   type NodeTypes,
-  Position,
   ReactFlow,
   ReactFlowProvider,
   useEdgesState,
@@ -19,6 +18,7 @@ import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { LetterQuizNode } from '@/components/nodes/letter-quiz-node';
+import { type QuizMode, TargetQuizNode } from '@/components/nodes/target-quiz-node';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,16 +28,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { BaseHandle } from '@/components/ui/graph/base-handle';
-import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitsOpt } from '@/queries/trait';
 import type { Letter } from '@/schemas/letter';
-
-// Quiz mode: 'makhraj' or 'sifat'
-type QuizMode = 'makhraj' | 'sifat';
 
 // Question structure
 interface QuizQuestion {
@@ -55,42 +50,6 @@ interface TargetItem {
 // Constants
 const LETTERS_PER_QUIZ = 5;
 const TARGETS_PER_QUIZ = 6;
-
-// Custom node for target (makhraj/sifat)
-interface TargetQuizNodeProps {
-  data: { label: string; mode: QuizMode; hasConnection: boolean; isCorrectTarget: boolean };
-}
-
-function TargetQuizNode({ data }: TargetQuizNodeProps) {
-  return (
-    <div
-      className={cn(
-        'flex min-w-30 items-center justify-center rounded-lg border-2 px-3 py-3 font-medium text-sm shadow-md transition-all',
-        data.mode === 'makhraj' &&
-          'border-node-articulation bg-node-articulation/20 text-node-articulation-text',
-        data.mode === 'sifat' && 'border-node-trait bg-node-trait/20 text-node-trait-text',
-        data.hasConnection &&
-          data.isCorrectTarget &&
-          'border-green-500 bg-green-100 dark:bg-green-900/50',
-        data.hasConnection &&
-          !data.isCorrectTarget &&
-          'border-red-500 bg-red-100 dark:bg-red-900/50',
-      )}
-    >
-      {/* Bigger handle for touch devices */}
-      <BaseHandle
-        type="target"
-        position={Position.Left}
-        className={cn(
-          'size-4 border-2',
-          data.mode === 'makhraj' && 'border-node-articulation-dark bg-node-articulation-secondary',
-          data.mode === 'sifat' && 'border-node-trait-dark bg-node-trait-secondary',
-        )}
-      />
-      {data.label}
-    </div>
-  );
-}
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
