@@ -393,18 +393,12 @@ export function Playground() {
             onLetterSelect={setSelectedLetterId}
           />
           <GraphLegend viewMode={viewMode} />
-          <GraphDownload />
-          <GraphQuiz />
         </Panel>
 
-        {/* Help Button */}
-        <Panel id="tour-help" position="bottom-left" className="m-3!">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={startTour}
-            className="gap-2 backdrop-blur-sm"
-          >
+        <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
+          <GraphQuiz />
+          <GraphDownload />
+          <Button id="tour-help" variant="outline" size="sm" onClick={startTour}>
             <CircleHelpIcon className="size-4" />
             {t('tour.help_button')}
           </Button>

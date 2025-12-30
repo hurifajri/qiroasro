@@ -64,10 +64,10 @@ export function GraphDownload() {
   return (
     <Button
       id="tour-download-image"
+      variant="outline"
+      size="sm"
       onClick={downloadImage}
       disabled={isDownloading}
-      variant="outline"
-      className="cursor-pointer gap-2"
     >
       <DownloadIcon className="size-4" />
       {isDownloading ? t('download.downloading') : t('download.trigger')}

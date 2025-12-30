@@ -312,10 +312,11 @@ export function GraphQuiz() {
     <>
       <Button
         id="tour-quiz"
+        size="sm"
         onClick={() => setIsDialogOpen(true)}
-        className="cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark text-base text-white"
+        className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
       >
-        <TrophyIcon />
+        <TrophyIcon className="size-4" />
         {t('playground_page.quiz.trigger')}
       </Button>
 
