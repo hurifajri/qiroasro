@@ -1,14 +1,13 @@
 import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/ui/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
+import type { QuizMode, QuizStatus } from '@/lib/graph/quiz';
 import { cn } from '@/lib/utils';
-
-export type QuizMode = 'makhraj' | 'sifat';
 
 type TargetQuizNodeData = {
   label: string;
   mode: QuizMode;
-  status: 'none' | 'correct' | 'incorrect';
+  status: QuizStatus;
 };
 
 export function TargetQuizNode({ data }: NodeProps) {

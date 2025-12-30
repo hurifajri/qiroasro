@@ -18,7 +18,7 @@ import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { LetterQuizNode } from '@/components/nodes/letter-quiz-node';
-import { type QuizMode, TargetQuizNode } from '@/components/nodes/target-quiz-node';
+import { TargetQuizNode } from '@/components/nodes/target-quiz-node';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -28,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { createLetterQuizNode, type LetterQuiz, type QuizMode } from '@/lib/graph/quiz';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
@@ -144,13 +145,11 @@ export function GraphQuiz() {
         .slice(0, TARGETS_PER_QUIZ);
 
       // Create nodes for ReactFlow
-      const letterNodes: Node[] = newQuestions.map((q, index) => ({
-        id: `letter-${q.letter.id}`,
-        type: 'letterQuiz',
-        position: { x: 50, y: 30 + index * 70 },
-        data: { ...q.letter, status: 'none' },
-        draggable: false,
-      }));
+      const letterNodes: Node[] = newQuestions.map((q, index) => {
+        const letter: LetterQuiz = { ...q.letter, status: 'none' };
+        const position = { x: 50, y: 30 + index * 70 };
+        return createLetterQuizNode(letter, position);
+      });
 
       const targetNodes: Node[] = selectedTargets.map((target, index) => ({
         id: `target-${target.id}`,
