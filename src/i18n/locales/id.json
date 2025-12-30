@@ -186,6 +186,10 @@
       "change_mode": "Ganti Mode",
       "score": "{correct} dari {total} benar"
     },
+    "download": {
+      "trigger": "Unduh Gambar",
+      "downloading": "Mengunduh..."
+    },
     "development": {
       "is_beneficial": "Apakah contoh ini bermanfaat?"
     },

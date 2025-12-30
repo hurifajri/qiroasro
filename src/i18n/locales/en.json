@@ -186,6 +186,10 @@
       "change_mode": "Change Mode",
       "score": "{correct} of {total} correct"
     },
+    "download": {
+      "trigger": "Download Image",
+      "downloading": "Downloading..."
+    },
     "development": {
       "is_beneficial": "Is this example beneficial?"
     },

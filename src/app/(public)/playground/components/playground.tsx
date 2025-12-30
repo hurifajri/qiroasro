@@ -34,6 +34,7 @@ import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { usePlaygroundStore } from '../providers/playground';
+import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
 import { GraphQuiz } from './graph-quiz';
@@ -392,6 +393,7 @@ export function Playground() {
             onLetterSelect={setSelectedLetterId}
           />
           <GraphLegend viewMode={viewMode} />
+          <GraphDownload />
           <GraphQuiz />
         </Panel>
 
