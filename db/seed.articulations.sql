@@ -14,35 +14,35 @@ INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
 -- Insert 17 Articulation Points (Makhraj Khas)
 -- Area 1: Al-Jauf (1 point)
 INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
-(1, 'jauf-madd', 1);   -- For Alif, Wau, Ya Maddiyyah
+(1, 'jauf', 1);   -- For Alif, Wau, Ya Maddiyyah
 
 -- Area 2: Al-Halq - Tenggorokan (3 points)
 INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
-(2, 'aqsa-halq', 2),              -- Pangkal: ء ه
+(2, 'aqsha-halq', 2),              -- Pangkal: ء ه
 (2, 'wasath-halq', 3),            -- Tengah: ح ع
 (2, 'adna-halq', 4);               -- Atas: خ غ
 
 -- Area 3: Al-Lisan - Lidah (10 points)
 INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
-(3, 'aqsa-lahmi', 5),           -- Pangkal lidah + langit lunak: ق
-(3, 'aqsa-hanak', 6),        -- Sedikit di bawah Qaf: ك
-(3, 'wasath-hanak', 7),         -- Tengah lidah + langit tengah: ج ش ي
-(3, 'haffah-adhras', 8),  -- Sisi lidah + geraham atas: ض
-(3, 'haffah-litsah', 9),  -- Sisi depan lidah + gusi atas: ل
-(3, 'tharaf-zahr', 10), -- Ujung lidah (sedikit ke punggung) + gusi: ر
-(3, 'tharaf-litsah', 11),        -- Ujung lidah + gusi atas: ن
-(3, 'tharaf-sufla', 12), -- Ujung lidah + atas gigi bawah: ز س ص
-(3, 'tharaf-ushul', 13), -- Ujung lidah + pangkal gigi atas: ت د ط
-(3, 'tharaf-athraf', 14); -- Ujung lidah + ujung gigi atas: ث ذ ظ
+(3, 'aqsha-lisan', 5),           -- Pangkal lidah + langit lunak: ق
+(3, 'aqsha-lisan-asfal', 6),        -- Sedikit di bawah Qaf: ك
+(3, 'wasath-lisan', 7),         -- Tengah lidah + langit tengah: ج ش ي
+(3, 'hafah-lisan', 8),  -- Sisi lidah + geraham atas: ض
+(3, 'adna-hafah-lisan', 9),  -- Sisi depan lidah + gusi atas: ل
+(3, 'tharaf-lisan', 10),        -- Ujung lidah + gusi atas: ن
+(3, 'tharaf-lisan-zhahr-adkhal', 11), -- Ujung lidah (sedikit ke punggung) + gusi: ر
+(3, 'tharaf-lisan-ulya-tsanaya', 12), -- Ujung lidah + pangkal gigi atas: ت د ط
+(3, 'tharaf-lisan-tsanaya-sufla', 13), -- Ujung lidah + atas gigi bawah: ز س ص
+(3, 'tharaf-lisan-athraf-tsanaya-ulya', 14); -- Ujung lidah + ujung gigi atas: ث ذ ظ
 
 -- Area 4: Asy-Syafatain - Bibir (3 points)
 INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
 (4, 'bathn-syafah', 15), -- Bibir bawah dalam + ujung gigi atas: ف
-(4, 'syafatain-thabaq', 16),                             -- Mengatup kedua bibir: ب م و
+(4, 'syafatain', 16),                             -- Mengatup kedua bibir: ب م و
 
 -- Area 5: Al-Khaisyum - Rongga Hidung (1 point, for Ghunnah)
 INSERT INTO hij_articulation_points (area_id, slug, sort_order) VALUES
-(5, 'khaisyum-ghunnah', 17);    -- Dengung hidung: م ن (when applicable)
+(5, 'khaisyum', 17);    -- Dengung hidung: م ن (when applicable)
 
 -- Map Letters to Articulation Points
 -- Mad letters (Alif, Wau, Ya Madd)
