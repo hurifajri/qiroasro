@@ -398,7 +398,13 @@ export function Playground() {
         <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
           <GraphQuiz />
           <GraphDownload />
-          <Button id="tour-help" variant="outline" size="sm" onClick={startTour}>
+          <Button
+            id="tour-help"
+            variant="outline"
+            size="sm"
+            onClick={startTour}
+            className="bg-background!"
+          >
             <CircleHelpIcon className="size-4" />
             {t('tour.help_button')}
           </Button>

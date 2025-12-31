@@ -68,6 +68,7 @@ export function GraphDownload() {
       size="sm"
       onClick={downloadImage}
       disabled={isDownloading}
+      className="bg-background!"
     >
       <DownloadIcon className="size-4" />
       {isDownloading ? t('downloading') : t('trigger')}
