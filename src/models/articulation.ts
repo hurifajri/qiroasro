@@ -4,6 +4,7 @@ function transformRemoteArticulationArea(remoteArticulationArea: RemoteArticulat
   return {
     id: remoteArticulationArea.id,
     slug: remoteArticulationArea.slug,
+    isMuhaqqaq: remoteArticulationArea.is_muhaqqaq,
     sortOrder: remoteArticulationArea.sort_order,
   };
 }

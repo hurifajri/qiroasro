@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import { LETTERS } from '@/lib/constants';
 
-const RemoteLetterSchema = z.object({
+export const RemoteLetterSchema = z.object({
   id: z.number().int(),
   slug: z.string().min(1),
   symbol: z.enum(LETTERS),
@@ -22,10 +22,10 @@ export const RemoteLettersSchema = z.array(RemoteLetterSchema);
 export type RemoteLetter = z.infer<typeof RemoteLetterSchema>;
 export type Letter = z.infer<typeof LetterSchema>;
 
-const RemoteLetterArticulationSchema = z.object({
-  is_primary: z.boolean(),
+export const RemoteLetterArticulationSchema = z.object({
   letter_id: z.number().int(),
   point_id: z.number().int(),
+  is_primary: z.boolean(),
   sort_order: z.number().int(),
 });
 
@@ -41,7 +41,7 @@ export const RemoteLetterArticulationsSchema = z.array(RemoteLetterArticulationS
 export type RemoteLetterArticulation = z.infer<typeof RemoteLetterArticulationSchema>;
 export type LetterArticulation = z.infer<typeof LetterArticulationSchema>;
 
-const RemoteLetterTraitSchema = z.object({
+export const RemoteLetterTraitSchema = z.object({
   letter_id: z.number().int(),
   trait_id: z.number().int(),
 });

@@ -28,11 +28,9 @@ import {
 } from '@/components/ui/dialog';
 import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
-import { getArticulationPointsOpt } from '@/queries/articulation';
-import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
-import { getTraitsOpt } from '@/queries/trait';
 import type { Letter } from '@/schemas/letter';
 import { createLetterQuizNode } from '../lib/node';
+import { getPlaygroundDataOpt } from '../queries/playground';
 import type { QuizMode } from '../schemas/graph';
 import type { LetterQuiz } from '../schemas/letter';
 import { LetterQuizNode } from './node-letter-quiz';
@@ -72,12 +70,13 @@ export function GraphQuiz() {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
-  // Fetch data
-  const { data: letters = [] } = useQuery(getLettersOpt());
-  const { data: letterArticulations = [] } = useQuery(getLetterArticulationsOpt());
-  const { data: letterTraits = [] } = useQuery(getLetterTraitsOpt());
-  const { data: articulationPoints = [] } = useQuery(getArticulationPointsOpt());
-  const { data: traits = [] } = useQuery(getTraitsOpt());
+  // Fetch data from single consolidated query
+  const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
+  const letters = playgroundData?.letters ?? [];
+  const letterArticulations = playgroundData?.letterArticulations ?? [];
+  const letterTraits = playgroundData?.letterTraits ?? [];
+  const articulationPoints = playgroundData?.articulationPoints ?? [];
+  const traits = playgroundData?.traits ?? [];
 
   // Get formatted name for target (use slug with formatting)
   const getTargetName = useCallback((slug: string, _mode: QuizMode) => {

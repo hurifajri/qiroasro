@@ -1,5 +1,8 @@
 export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
 
+// Materialized View name
+export const MV_PLAYGROUND_DATA = 'mv_playground_data';
+
 // Table name
 export const TABLE_LETTERS = 'hij_letters';
 export const TABLE_LETTER_ARTICULATIONS = 'hij_letter_articulations';
@@ -13,6 +16,12 @@ export const TABLE_TRAIT_GROUPS = 'hij_trait_groups';
 export const COLUMN_SORT_ORDER = 'sort_order';
 
 // Constant values
+export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
+export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
+export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
+export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'] as const;
+export const QUIZ_MODES = ['makhraj', 'sifat'] as const;
+export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
 export const LETTERS = [
   'ء',
   'ب',
@@ -47,9 +56,3 @@ export const LETTERS = [
   'ـُو',
   'ـِي',
 ] as const;
-export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
-export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
-export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
-export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'] as const;
-export const QUIZ_MODES = ['makhraj', 'sifat'] as const;
-export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;

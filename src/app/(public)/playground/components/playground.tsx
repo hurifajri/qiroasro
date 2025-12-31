@@ -25,12 +25,10 @@ import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph-layout';
 import { useGlobalStore } from '@/providers/global';
-import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
-import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
-import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
 import { usePlaygroundStore } from '../providers/playground';
+import { getPlaygroundDataOpt } from '../queries/playground';
 import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
@@ -83,13 +81,15 @@ export function Playground() {
   const edgesRef = useRef(edges);
   edgesRef.current = edges;
 
-  const { data: letters = [] } = useQuery(getLettersOpt());
-  const { data: letterArticulations = [] } = useQuery(getLetterArticulationsOpt());
-  const { data: letterTraits = [] } = useQuery(getLetterTraitsOpt());
-  const { data: articulationAreas = [] } = useQuery(getArticulationAreasOpt());
-  const { data: articulationPoints = [] } = useQuery(getArticulationPointsOpt());
-  const { data: traits = [] } = useQuery(getTraitsOpt());
-  const { data: traitGroups = [] } = useQuery(getTraitGroupsOpt());
+  // Fetch data from single consolidated query
+  const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
+  const letters = playgroundData?.letters ?? [];
+  const letterArticulations = playgroundData?.letterArticulations ?? [];
+  const letterTraits = playgroundData?.letterTraits ?? [];
+  const articulationAreas = playgroundData?.articulationAreas ?? [];
+  const articulationPoints = playgroundData?.articulationPoints ?? [];
+  const traits = playgroundData?.traits ?? [];
+  const traitGroups = playgroundData?.traitGroups ?? [];
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available

@@ -1,26 +1,28 @@
 import * as z from 'zod';
 
-const RemoteArticulationAreaSchema = z.object({
+export const RemoteArticulationAreaSchema = z.object({
   id: z.number().int(),
   slug: z.string().min(1),
+  is_muhaqqaq: z.boolean(),
   sort_order: z.number().int(),
 });
 
 const ArticulationAreaSchema = z
   .object({
     ...RemoteArticulationAreaSchema.shape,
+    isMuhaqqaq: z.boolean(),
     sortOrder: z.number().int(),
   })
-  .omit({ sort_order: true });
+  .omit({ is_muhaqqaq: true, sort_order: true });
 
 export const RemoteArticulationAreasSchema = z.array(RemoteArticulationAreaSchema);
 
 export type RemoteArticulationArea = z.infer<typeof RemoteArticulationAreaSchema>;
 export type ArticulationArea = z.infer<typeof ArticulationAreaSchema>;
 
-const RemoteArticulationPointSchema = z.object({
-  area_id: z.number().int(),
+export const RemoteArticulationPointSchema = z.object({
   id: z.number().int(),
+  area_id: z.number().int(),
   slug: z.string().min(1),
   sort_order: z.number().int(),
 });

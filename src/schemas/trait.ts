@@ -1,10 +1,10 @@
 import * as z from 'zod';
 
-const RemoteTraitSchema = z.object({
+export const RemoteTraitSchema = z.object({
   id: z.number().int(),
   group_id: z.number().int(),
-  is_middle_trait: z.boolean(),
   slug: z.string().min(1),
+  is_middle_trait: z.boolean(),
   sort_order: z.number().int(),
 });
 
@@ -22,11 +22,11 @@ export const RemoteTraitsSchema = z.array(RemoteTraitSchema);
 export type RemoteTrait = z.infer<typeof RemoteTraitSchema>;
 export type Trait = z.infer<typeof TraitSchema>;
 
-const RemoteTraitGroupSchema = z.object({
+export const RemoteTraitGroupSchema = z.object({
   id: z.number().int(),
+  slug: z.string().min(1),
   is_lazimah: z.boolean(),
   has_middle_trait: z.boolean(),
-  slug: z.string().min(1),
   sort_order: z.number().int(),
 });
 

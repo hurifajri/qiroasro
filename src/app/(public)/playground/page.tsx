@@ -2,11 +2,9 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
-import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
-import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
+import { getPlaygroundDataOpt } from './queries/playground';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('playground_page.metadata');
@@ -31,15 +29,7 @@ export default async function PlaygroundPage() {
   const t = await getTranslations('playground_page');
 
   const queryClient = new QueryClient();
-  await Promise.all([
-    queryClient.prefetchQuery(getLettersOpt()),
-    queryClient.prefetchQuery(getLetterArticulationsOpt()),
-    queryClient.prefetchQuery(getLetterTraitsOpt()),
-    queryClient.prefetchQuery(getArticulationAreasOpt()),
-    queryClient.prefetchQuery(getArticulationPointsOpt()),
-    queryClient.prefetchQuery(getTraitsOpt()),
-    queryClient.prefetchQuery(getTraitGroupsOpt()),
-  ]);
+  await queryClient.prefetchQuery(getPlaygroundDataOpt());
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

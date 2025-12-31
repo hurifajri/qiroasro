@@ -365,49 +365,98 @@ CREATE TRIGGER update_hij_trait_citations_modtime
 COMMENT ON TABLE hij_trait_citations IS 'Citations for traits';
 
 -- =====================================================================
--- 9. HELPER VIEWS (Optional - for easier querying)
+-- 9. MATERIALIZED VIEWS (Pre-computed for performance)
 -- =====================================================================
 
--- View: Get all traits for a letter with their categories
-CREATE OR REPLACE VIEW v_letter_traits_detailed AS
-SELECT
-    l.id AS letter_id,
-    l.slug AS letter_slug,
-    l.symbol AS letter_symbol,
-    t.id AS trait_id,
-    t.slug AS trait_slug,
-    t.category AS trait_category,
-    tg.slug AS group_slug
-FROM hij_letters l
-JOIN hij_letter_traits lt ON l.id = lt.letter_id
-JOIN hij_traits t ON lt.trait_id = t.id
-JOIN hij_trait_groups tg ON t.group_id = tg.id
-ORDER BY l.sort_order, tg.sort_order, t.sort_order;
+-- Materialized View: Pre-computed playground data (all static hijaiyyah data)
+-- This consolidates 7 separate queries into 1 for optimal performance
+CREATE MATERIALIZED VIEW mv_playground_data AS
+SELECT json_build_object(
+    'letters', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'id', l.id,
+                'slug', l.slug,
+                'symbol', l.symbol,
+                'is_madd', l.is_madd,
+                'sort_order', l.sort_order
+            ) ORDER BY l.sort_order
+        ), '[]'::json)
+        FROM hij_letters l
+    ),
+    'articulation_areas', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'id', aa.id,
+                'slug', aa.slug,
+                'is_muhaqqaq', aa.is_muhaqqaq,
+                'sort_order', aa.sort_order
+            ) ORDER BY aa.sort_order
+        ), '[]'::json)
+        FROM hij_articulation_areas aa
+    ),
+    'articulation_points', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'id', ap.id,
+                'area_id', ap.area_id,
+                'slug', ap.slug,
+                'sort_order', ap.sort_order
+            ) ORDER BY ap.sort_order
+        ), '[]'::json)
+        FROM hij_articulation_points ap
+    ),
+    'trait_groups', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'id', tg.id,
+                'slug', tg.slug,
+                'is_lazimah', tg.is_lazimah,
+                'has_middle_trait', tg.has_middle_trait,
+                'sort_order', tg.sort_order
+            ) ORDER BY tg.sort_order
+        ), '[]'::json)
+        FROM hij_trait_groups tg
+    ),
+    'traits', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'id', t.id,
+                'group_id', t.group_id,
+                'slug', t.slug,
+                'is_middle_trait', t.is_middle_trait,
+                'sort_order', t.sort_order
+            ) ORDER BY t.sort_order
+        ), '[]'::json)
+        FROM hij_traits t
+    ),
+    'letter_articulations', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'letter_id', la.letter_id,
+                'point_id', la.point_id,
+                'is_primary', la.is_primary,
+                'sort_order', la.sort_order
+            ) ORDER BY la.sort_order
+        ), '[]'::json)
+        FROM hij_letter_articulations la
+    ),
+    'letter_traits', (
+        SELECT COALESCE(json_agg(
+            json_build_object(
+                'letter_id', lt.letter_id,
+                'trait_id', lt.trait_id
+            )
+        ), '[]'::json)
+        FROM hij_letter_traits lt
+    )
+) AS data;
 
-COMMENT ON VIEW v_letter_traits_detailed IS 'Detailed view of all letter-trait relationships with group info';
+COMMENT ON MATERIALIZED VIEW mv_playground_data IS 'Pre-computed JSON containing all hijaiyyah data for the Playground feature. Refresh after data changes: REFRESH MATERIALIZED VIEW mv_playground_data;';
 
--- View: Get complete citations with verse ranges
-CREATE OR REPLACE VIEW v_rule_citations_expanded AS
-SELECT
-    r.id AS rule_id,
-    r.slug AS rule_slug,
-    s.slug AS source_slug,
-    rc.verse_start,
-    rc.verse_end,
-    CASE
-        WHEN rc.verse_end IS NULL THEN rc.verse_start::TEXT
-        ELSE rc.verse_start::TEXT || '-' || rc.verse_end::TEXT
-    END AS verse_range,
-    rv.arabic_text AS verse_text
-FROM taj_rules r
-JOIN taj_rule_citations rc ON r.id = rc.rule_id
-JOIN ref_sources s ON rc.source_id = s.id
-LEFT JOIN ref_verses rv ON rv.source_id = s.id
-    AND rv.verse_number >= rc.verse_start
-    AND (rc.verse_end IS NULL OR rv.verse_number <= rc.verse_end)
-ORDER BY r.id, s.id, rc.verse_start;
-
-COMMENT ON VIEW v_rule_citations_expanded IS 'Expanded view showing rules with their citation ranges and verse texts';
+-- RLS Policy for Materialized View (allow public read access)
+-- Note: MVs don't support RLS directly, but we can grant SELECT permission
+-- GRANT SELECT ON mv_playground_data TO anon, authenticated;
 
 -- =====================================================================
 -- 10. PERFORMANCE INDEXES
