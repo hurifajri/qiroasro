@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { EDGE_SHAPES, VIEW_MODES } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
@@ -58,20 +59,6 @@ export function GraphFilter({
   const t = useTranslations('playground_page.filter');
   const [isOpen, setIsOpen] = useState(false);
 
-  const VIEW_MODE_LABELS: Record<ViewMode, string> = {
-    all: t('view_mode.all'),
-    articulation: t('view_mode.articulation'),
-    trait: t('view_mode.trait'),
-    letter: t('view_mode.letter'),
-  };
-
-  const EDGE_SHAPE_LABELS: Record<EdgeShape, string> = {
-    default: t('edge.shape.default'),
-    straight: t('edge.shape.straight'),
-    step: t('edge.shape.step'),
-    smoothstep: t('edge.shape.smoothstep'),
-  };
-
   return (
     <Collapsible
       id="tour-graph-filter"
@@ -95,7 +82,7 @@ export function GraphFilter({
             <li id="tour-view-mode" className="flex items-center gap-2">
               <FilterIcon className="size-4 text-muted-foreground" />
               <ButtonGroup className="flex-1">
-                {(Object.keys(VIEW_MODE_LABELS) as ViewMode[]).map((mode) => (
+                {VIEW_MODES.map((mode) => (
                   <Button
                     key={mode}
                     variant="outline"
@@ -113,7 +100,7 @@ export function GraphFilter({
                         : 'text-muted-foreground',
                     )}
                   >
-                    {VIEW_MODE_LABELS[mode]}
+                    {t(`view_mode.${mode}`)}
                   </Button>
                 ))}
               </ButtonGroup>
@@ -216,16 +203,16 @@ export function GraphFilter({
               <li id="tour-edge-shape" className="flex items-center gap-2">
                 <SplineIcon className="size-4 text-muted-foreground" />
                 <Select
-                  value={EDGE_SHAPE_LABELS[edgeStyle.shape]}
+                  value={t(`edge.shape.${edgeStyle.shape}`)}
                   onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
                 >
                   <SelectTrigger size="sm" className="flex-1 text-muted-foreground">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {(Object.keys(EDGE_SHAPE_LABELS) as EdgeShape[]).map((shape) => (
+                    {EDGE_SHAPES.map((shape) => (
                       <SelectItem key={shape} value={shape}>
-                        {EDGE_SHAPE_LABELS[shape]}
+                        {t(`edge.shape.${shape}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
