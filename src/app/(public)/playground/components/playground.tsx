@@ -26,7 +26,7 @@ import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
 import { Button } from '@/components/ui/button';
-import { applyElkLayout, applyRadialLayout } from '@/lib/graph/elk-layout';
+import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph/layout';
 import { generateGraphFromData } from '@/lib/graph/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
@@ -119,11 +119,10 @@ export function Playground() {
         if (layoutMode === 'radial') {
           layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
         } else {
-          // Use ELK for hierarchical layout
-          layoutedNodes = await applyElkLayout(rawNodes, newEdges, {
+          layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
             direction: hierarchyDirection,
             nodeSpacing: 60,
-            layerSpacing: 120,
+            layerSpacing: viewMode === 'letter' ? 200 : 600,
           });
         }
 
