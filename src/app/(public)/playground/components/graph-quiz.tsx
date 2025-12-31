@@ -83,11 +83,15 @@ export function GraphQuiz() {
   const generateQuiz = useCallback(
     (mode: QuizMode) => {
       // Filter letters that have relationships
+      // For sifat mode, exclude letters that only have traits with groupId 7
+      const validTraitIds = new Set(traits.filter((t) => t.groupId !== 7).map((t) => t.id));
       const availableLetters = letters.filter((letter) => {
         if (mode === 'makhraj') {
           return letterArticulations.some((la) => la.letterId === letter.id);
         } else {
-          return letterTraits.some((lt) => lt.letterId === letter.id);
+          return letterTraits.some(
+            (lt) => lt.letterId === letter.id && validTraitIds.has(lt.traitId),
+          );
         }
       });
 
@@ -104,8 +108,9 @@ export function GraphQuiz() {
             .filter((la) => la.letterId === letter.id)
             .map((la) => la.pointId);
         } else {
+          // Exclude traits with groupId 7 from quiz (using validTraitIds from above)
           correctTargetIds = letterTraits
-            .filter((lt) => lt.letterId === letter.id)
+            .filter((lt) => lt.letterId === letter.id && validTraitIds.has(lt.traitId))
             .map((lt) => lt.traitId);
         }
 
@@ -117,7 +122,10 @@ export function GraphQuiz() {
       if (mode === 'makhraj') {
         allTargets = articulationPoints.map((ap) => ({ id: ap.id, slug: ap.slug }));
       } else {
-        allTargets = traits.map((t) => ({ id: t.id, slug: t.slug }));
+        // Exclude traits with groupId 7 from quiz (using validTraitIds from above)
+        allTargets = traits
+          .filter((t) => validTraitIds.has(t.id))
+          .map((t) => ({ id: t.id, slug: t.slug }));
       }
 
       // Collect ALL correct target IDs for selected letters (to exclude from distractors)
