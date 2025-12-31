@@ -30,7 +30,7 @@ interface GlobalAction {
 export type GlobalStore = GlobalState & GlobalAction;
 
 function initPersistedGlobalState(): PersistedGlobalState {
-  return { locale: 'id', theme: 'light' };
+  return { locale: 'en', theme: 'light' };
 }
 
 export function initGlobalState(persistedState?: PersistedGlobalState): GlobalState {
