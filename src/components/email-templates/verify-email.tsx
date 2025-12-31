@@ -53,8 +53,8 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
     <Html lang={locale}>
       <Head />
       <Tailwind>
-        <Body className="bg-white font-sans">
-          <Container className="mx-auto py-5 pb-12">
+        <Body className="font-sans">
+          <Container>
             {/* Header */}
             {/* <Section className="py-10">
               <Row>
