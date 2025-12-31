@@ -98,7 +98,7 @@
     },
     "development": {
       "waitlist": "Waitlist",
-      "is_beneficial": "Is this example beneficial?",
+      "is_beneficial": "Do you like this and want to see more?",
       "reminder_title": "Notify when the app is available",
       "reminder_cta": "Waitlist",
       "reminder_playground_cta": "Visit Playground",
