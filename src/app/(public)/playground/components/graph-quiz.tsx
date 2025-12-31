@@ -26,14 +26,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { createLetterQuizNode } from '@/lib/graph-node';
 import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitsOpt } from '@/queries/trait';
-import type { QuizMode } from '@/schemas/graph';
-import type { Letter, LetterQuiz } from '@/schemas/letter';
+import type { Letter } from '@/schemas/letter';
+import { createLetterQuizNode } from '../lib/node';
+import type { QuizMode } from '../schemas/graph';
+import type { LetterQuiz } from '../schemas/letter';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 

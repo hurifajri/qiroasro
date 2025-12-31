@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import type { ViewMode } from '@/schemas/graph';
+import type { ViewMode } from '../schemas/graph';
 
 interface GraphLegendProps {
   viewMode: ViewMode;

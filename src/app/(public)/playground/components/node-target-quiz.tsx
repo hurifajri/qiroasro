@@ -2,7 +2,7 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
-import type { QuizMode, QuizStatus } from '@/schemas/graph';
+import type { QuizMode, QuizStatus } from '../schemas/graph';
 
 type TargetQuizNodeData = {
   label: string;

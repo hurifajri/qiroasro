@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla';
-import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
-import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
+import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
 
 interface PlaygroundState {
   viewMode: ViewMode;

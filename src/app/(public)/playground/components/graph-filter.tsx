@@ -25,9 +25,9 @@ import {
 } from '@/components/ui/select';
 import { EDGE_SHAPES, HIERARCHY_DIRECTIONS, LAYOUT_MODES, VIEW_MODES } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
+import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
-import type { EdgeShape, EdgeStyleOptions } from '../schemas/playground';
+import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
 
 interface GraphFilterProps {
   viewMode: ViewMode;
