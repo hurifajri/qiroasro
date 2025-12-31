@@ -48,8 +48,8 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ = 1;
-const TARGETS_PER_QUIZ = 3;
+const LETTERS_PER_QUIZ = 2;
+const TARGETS_PER_QUIZ = 1;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -304,8 +304,9 @@ export function GraphQuiz() {
     setIsChecked(true);
   }, [questions, edges, setNodes, setEdges]);
 
-  // Count current connections
+  // Count current connections and targets
   const connectionCount = useMemo(() => edges.length, [edges]);
+  const targetCount = useMemo(() => nodes.filter((n) => n.type === 'targetQuiz').length, [nodes]);
 
   return (
     <>
@@ -417,7 +418,7 @@ export function GraphQuiz() {
                 ) : (
                   <Button
                     onClick={checkAnswers}
-                    disabled={connectionCount < questions.length}
+                    disabled={connectionCount < Math.min(questions.length, targetCount)}
                     variant="default"
                   >
                     <CheckCircle2Icon className="mr-2 h-4 w-4" />
