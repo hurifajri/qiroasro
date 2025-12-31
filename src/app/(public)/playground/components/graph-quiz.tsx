@@ -194,12 +194,8 @@ export function GraphQuiz() {
         return false;
       }
 
-      // Check if this letter already has a connection
-      const existingConnection = edges.find((e) => e.source === sourceId);
-      if (existingConnection) {
-        return false;
-      }
-
+      // Allow connection even if letter already has one (will be replaced)
+      // Allow connection even if target already has one (will be replaced)
       return true;
     },
     [edges],
@@ -211,7 +207,10 @@ export function GraphQuiz() {
       if (isChecked) return;
 
       // Remove existing connection from this letter (if any)
-      const newEdges = edges.filter((e) => e.source !== connection.source);
+      // Also remove existing connection to this target (if any) - each target can only have one connection
+      const newEdges = edges.filter(
+        (e) => e.source !== connection.source && e.target !== connection.target,
+      );
 
       // Add new connection with styled edge
       if (!connection.source || !connection.target) return;
@@ -250,7 +249,8 @@ export function GraphQuiz() {
   // Check answers
   const checkAnswers = useCallback(() => {
     let correctCount = 0;
-    const totalQuestions = questions.length;
+    // Total is based on actual connections, not total questions
+    const totalConnections = edges.length;
     const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
     const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
@@ -308,7 +308,7 @@ export function GraphQuiz() {
       }),
     );
 
-    setScore({ correct: correctCount, total: totalQuestions });
+    setScore({ correct: correctCount, total: totalConnections });
     setIsChecked(true);
   }, [questions, edges, setNodes, setEdges]);
 
