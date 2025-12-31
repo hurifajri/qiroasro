@@ -1,62 +1,31 @@
-import { type NodeProps, Position } from '@xyflow/react';
+import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Trait, TraitGroup } from '@/schemas/trait';
+import { useNodeLayout } from '../hooks/use-node-layout';
+import type { BaseNodeData } from '../schemas/node';
+import { NodeInfoDialog } from './node-info-dialog';
 
-type TraitGroupNodeData = TraitGroup & {
-  isFloating?: boolean;
-  layoutMode?: LayoutMode;
-  hierarchyDirection?: HierarchyDirection;
-  hasSourceEdge?: boolean;
-  hasTargetEdge?: boolean;
-  isHighlighted?: boolean;
-  isConnectedToSelected?: boolean;
-  isDimmed?: boolean;
-};
+type TraitGroupNodeData = TraitGroup & BaseNodeData;
 
-type TraitNodeData = Trait & {
-  isFloating?: boolean;
-  layoutMode?: LayoutMode;
-  hierarchyDirection?: HierarchyDirection;
-  hasSourceEdge?: boolean;
-  hasTargetEdge?: boolean;
-  isHighlighted?: boolean;
-  isConnectedToSelected?: boolean;
-  isDimmed?: boolean;
-};
+type TraitNodeData = Trait & BaseNodeData;
 
 export function TraitGroupNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.trait_group');
-
   const nodeData = data as TraitGroupNodeData;
-
-  // Determine handle positions based on layout
-  const isRadial = nodeData.layoutMode === 'radial';
-  const isHierarchical = nodeData.layoutMode === 'hierarchical';
-  const isVertical = nodeData.hierarchyDirection === 'vertical';
-  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
-
-  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
-  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
-
-  // Hide handles: when floating OR when no edge connected
-  const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-node-trait-secondary!';
-  };
-
-  const isActive = selected || nodeData.isHighlighted;
-  const isDimmed = nodeData.isDimmed && !isActive;
-
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
+
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
+    nodeData,
+    'bg-node-trait-secondary!',
+    selected,
+  );
 
   return (
     <BaseNode
@@ -87,33 +56,17 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
 
 export function TraitNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.trait');
-
   const nodeData = data as TraitNodeData;
-
-  // Determine handle positions based on layout
-  const isRadial = nodeData.layoutMode === 'radial';
-  const isHierarchical = nodeData.layoutMode === 'hierarchical';
-  const isVertical = nodeData.hierarchyDirection === 'vertical';
-  const isVerticalLayout = isRadial || (isHierarchical && isVertical);
-
-  const targetPosition = isVerticalLayout ? Position.Top : Position.Left;
-  const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
-
-  // Hide handles: when floating OR when no edge connected
-  const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return 'size-2 border-0! bg-node-trait-secondary!';
-  };
-
-  // Only dim nodes that are not selected and not highlighted
-  const isActive = selected || nodeData.isHighlighted;
-  const isDimmed = nodeData.isDimmed && !isActive;
-
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = kebabToSpaced(nodeData.slug);
   const description = t(localeKey);
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
+    nodeData,
+    'bg-node-trait-secondary!',
+    selected,
+  );
 
   return (
     <>
@@ -155,15 +108,12 @@ export function TraitNode({ data, selected }: NodeProps) {
       </BaseNode>
 
       {isDialogOpen && (
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent>
-            <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2 capitalize">
-              <CircleQuestionMarkIcon className="text-muted-foreground" />
-              <DialogTitle>{label}</DialogTitle>
-            </DialogHeader>
-            <p>{description}</p>
-          </DialogContent>
-        </Dialog>
+        <NodeInfoDialog
+          label={label}
+          description={description}
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
       )}
     </>
   );
