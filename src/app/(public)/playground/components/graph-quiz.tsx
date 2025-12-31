@@ -17,8 +17,8 @@ import {
 import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
-import { LetterQuizNode } from '@/components/nodes/letter-quiz-node';
-import { TargetQuizNode } from '@/components/nodes/target-quiz-node';
+import { LetterQuizNode } from '@/components/nodes/node-letter-quiz';
+import { TargetQuizNode } from '@/components/nodes/node-target-quiz';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
