@@ -1,7 +1,7 @@
 import { type NodeProps, Position } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
-import { BaseHandle } from '@/components/ui/graph/base-handle';
-import { BaseNode, BaseNodeContent } from '@/components/ui/graph/base-node';
+import { BaseHandle } from '@/components/graph/base-handle';
+import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
