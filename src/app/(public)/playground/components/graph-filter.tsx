@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { EDGE_SHAPES, VIEW_MODES } from '@/lib/constants';
+import { EDGE_SHAPES, HIERARCHY_DIRECTIONS, LAYOUT_MODES, VIEW_MODES } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
@@ -110,34 +110,27 @@ export function GraphFilter({
             <li id="tour-layout-mode" className="flex items-center gap-2">
               <LayoutGridIcon className="size-4 text-muted-foreground" />
               <ButtonGroup className="flex-1">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onLayoutModeChange('radial')}
-                  className={cn(
-                    'flex-1',
-                    layoutMode === 'radial'
-                      ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                      : 'text-muted-foreground',
-                  )}
-                >
-                  <CircleIcon className="size-4" />
-                  {t('layout_mode.radial')}
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onLayoutModeChange('hierarchical')}
-                  className={cn(
-                    'flex-1',
-                    layoutMode === 'hierarchical'
-                      ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                      : 'text-muted-foreground',
-                  )}
-                >
-                  <NetworkIcon className="size-4" />
-                  {t('layout_mode.hierarchical')}
-                </Button>
+                {LAYOUT_MODES.map((mode) => (
+                  <Button
+                    key={mode}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onLayoutModeChange(mode)}
+                    className={cn(
+                      'flex-1',
+                      layoutMode === mode
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                        : 'text-muted-foreground',
+                    )}
+                  >
+                    {mode === 'radial' ? (
+                      <CircleIcon className="size-4" />
+                    ) : (
+                      <NetworkIcon className="size-4" />
+                    )}
+                    {t(`layout_mode.${mode}`)}
+                  </Button>
+                ))}
               </ButtonGroup>
             </li>
 
@@ -146,36 +139,27 @@ export function GraphFilter({
               <li id="tour-hierarchy-direction" className="flex items-center gap-2">
                 <CompassIcon className="size-4 text-muted-foreground" />
                 <ButtonGroup className="flex-1">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onHierarchyDirectionChange('vertical')}
-                    className={cn(
-                      'flex-1',
-                      hierarchyDirection === 'vertical'
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                    title="Vertikal (Atas ke Bawah)"
-                  >
-                    <ArrowDownIcon className="size-4" />
-                    {t('layout_mode.direction.vertical')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onHierarchyDirectionChange('horizontal')}
-                    className={cn(
-                      'flex-1',
-                      hierarchyDirection === 'horizontal'
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                    title="Horizontal (Kiri ke Kanan)"
-                  >
-                    <ArrowRightIcon className="size-4" />
-                    {t('layout_mode.direction.horizontal')}
-                  </Button>
+                  {HIERARCHY_DIRECTIONS.map((direction) => (
+                    <Button
+                      key={direction}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onHierarchyDirectionChange(direction)}
+                      className={cn(
+                        'flex-1',
+                        hierarchyDirection === direction
+                          ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                          : 'text-muted-foreground',
+                      )}
+                    >
+                      {direction === 'vertical' ? (
+                        <ArrowDownIcon className="size-4" />
+                      ) : (
+                        <ArrowRightIcon className="size-4" />
+                      )}
+                      {t(`layout_mode.direction.${direction}`)}
+                    </Button>
+                  ))}
                 </ButtonGroup>
               </li>
             )}
