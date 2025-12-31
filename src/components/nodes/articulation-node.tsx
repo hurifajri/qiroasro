@@ -134,7 +134,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
             onClick={() => {
               setIsDialogOpen(true);
             }}
-            className="size-5 cursor-pointer text-node-articulation/50"
+            className="nodrag size-5 cursor-pointer text-node-articulation/50"
           />
         </NodeAppendix>
 

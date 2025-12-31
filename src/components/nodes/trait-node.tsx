@@ -133,7 +133,7 @@ export function TraitNode({ data, selected }: NodeProps) {
             onClick={() => {
               setIsDialogOpen(true);
             }}
-            className="size-5 cursor-pointer text-node-trait/50"
+            className="nodrag size-5 cursor-pointer text-node-trait/50"
           />
         </NodeAppendix>
 
