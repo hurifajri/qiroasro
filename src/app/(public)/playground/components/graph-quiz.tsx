@@ -112,9 +112,6 @@ export function GraphQuiz() {
         return { letter, correctTargetIds, targetType: mode };
       });
 
-      // Collect all correct targets
-      const allCorrectTargetIds = new Set(newQuestions.flatMap((q) => q.correctTargetIds));
-
       // Get target items
       let allTargets: TargetItem[];
       if (mode === 'makhraj') {
@@ -123,10 +120,27 @@ export function GraphQuiz() {
         allTargets = traits.map((t) => ({ id: t.id, slug: t.slug }));
       }
 
-      // Ensure we include all correct targets + some distractors
-      const correctTargets = allTargets.filter((t) => allCorrectTargetIds.has(t.id));
+      // For each question, pick only ONE correct target randomly
+      // This ensures each letter has exactly one correct answer
+      const selectedCorrectIds = new Set<number>();
+      const updatedQuestions = newQuestions.map((q) => {
+        // Shuffle correct targets and pick only one
+        const shuffledCorrectIds = [...q.correctTargetIds].sort(() => Math.random() - 0.5);
+        const singleCorrectId = shuffledCorrectIds[0];
+        selectedCorrectIds.add(singleCorrectId);
+        return { ...q, correctTargetIds: [singleCorrectId] };
+      });
+
+      // Update questions with single correct answer
+      newQuestions.length = 0;
+      newQuestions.push(...updatedQuestions);
+
+      // Get correct targets (only the selected ones)
+      const correctTargets = allTargets.filter((t) => selectedCorrectIds.has(t.id));
+
+      // Get distractors (targets that are NOT the selected correct ones)
       const distractors = allTargets
-        .filter((t) => !allCorrectTargetIds.has(t.id))
+        .filter((t) => !selectedCorrectIds.has(t.id))
         .sort(() => Math.random() - 0.5)
         .slice(0, Math.max(0, TARGETS_PER_QUIZ - correctTargets.length));
 
