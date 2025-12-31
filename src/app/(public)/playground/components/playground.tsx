@@ -22,9 +22,6 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
-import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/node-articulation';
-import { LetterNode } from '@/components/nodes/node-letter';
-import { TraitGroupNode, TraitNode } from '@/components/nodes/node-trait';
 import { Button } from '@/components/ui/button';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph-layout';
 import { useGlobalStore } from '@/providers/global';
@@ -38,6 +35,9 @@ import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
 import { GraphQuiz } from './graph-quiz';
+import { ArticulationAreaNode, ArticulationPointNode } from './node-articulation';
+import { LetterNode } from './node-letter';
+import { TraitGroupNode, TraitNode } from './node-trait';
 
 // Register custom node types
 const nodeTypes: NodeTypes = {

@@ -17,8 +17,6 @@ import {
 import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
-import { LetterQuizNode } from '@/components/nodes/node-letter-quiz';
-import { TargetQuizNode } from '@/components/nodes/node-target-quiz';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -36,6 +34,8 @@ import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/
 import { getTraitsOpt } from '@/queries/trait';
 import type { QuizMode } from '@/schemas/graph';
 import type { Letter, LetterQuiz } from '@/schemas/letter';
+import { LetterQuizNode } from './node-letter-quiz';
+import { TargetQuizNode } from './node-target-quiz';
 
 interface QuizQuestion {
   letter: Letter;
