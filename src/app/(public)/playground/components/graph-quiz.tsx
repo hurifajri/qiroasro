@@ -49,7 +49,7 @@ interface TargetItem {
 }
 
 const LETTERS_PER_QUIZ = 1;
-const TARGETS_PER_QUIZ = 2;
+const TARGETS_PER_QUIZ = 3;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -120,6 +120,9 @@ export function GraphQuiz() {
         allTargets = traits.map((t) => ({ id: t.id, slug: t.slug }));
       }
 
+      // Collect ALL correct target IDs for selected letters (to exclude from distractors)
+      const allCorrectTargetIds = new Set(newQuestions.flatMap((q) => q.correctTargetIds));
+
       // For each question, pick only ONE correct target randomly
       // This ensures each letter has exactly one correct answer
       const selectedCorrectIds = new Set<number>();
@@ -138,9 +141,10 @@ export function GraphQuiz() {
       // Get correct targets (only the selected ones)
       const correctTargets = allTargets.filter((t) => selectedCorrectIds.has(t.id));
 
-      // Get distractors (targets that are NOT the selected correct ones)
+      // Get distractors - exclude ALL correct targets for the letter, not just selected one
+      // This ensures distractors are truly wrong answers
       const distractors = allTargets
-        .filter((t) => !selectedCorrectIds.has(t.id))
+        .filter((t) => !allCorrectTargetIds.has(t.id))
         .sort(() => Math.random() - 0.5)
         .slice(0, Math.max(0, TARGETS_PER_QUIZ - correctTargets.length));
 
