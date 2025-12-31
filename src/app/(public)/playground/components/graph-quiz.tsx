@@ -48,8 +48,8 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ = 2;
-const TARGETS_PER_QUIZ = 1;
+const LETTERS_PER_QUIZ = 1;
+const TARGETS_PER_QUIZ = 2;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -95,26 +95,51 @@ export function GraphQuiz() {
         }
       });
 
-      // Shuffle and pick letters
+      // Shuffle and pick first letter (the one that will have correct answer)
       const shuffledLetters = [...availableLetters].sort(() => Math.random() - 0.5);
-      const selectedLetters = shuffledLetters.slice(0, LETTERS_PER_QUIZ);
+      const firstLetter = shuffledLetters[0];
 
-      // Generate questions
-      const newQuestions: QuizQuestion[] = selectedLetters.map((letter) => {
-        let correctTargetIds: number[];
+      // Get correct target IDs for the first letter
+      let firstLetterCorrectIds: number[];
+      if (mode === 'makhraj') {
+        firstLetterCorrectIds = letterArticulations
+          .filter((la) => la.letterId === firstLetter.id)
+          .map((la) => la.pointId);
+      } else {
+        firstLetterCorrectIds = letterTraits
+          .filter((lt) => lt.letterId === firstLetter.id && validTraitIds.has(lt.traitId))
+          .map((lt) => lt.traitId);
+      }
 
+      // Pick one correct target for the first letter
+      const shuffledCorrectIds = [...firstLetterCorrectIds].sort(() => Math.random() - 0.5);
+      const selectedTargetId = shuffledCorrectIds[0];
+
+      // Select additional letters that do NOT have the selected target (distractor letters)
+      const distractorLetters = shuffledLetters.slice(1).filter((letter) => {
         if (mode === 'makhraj') {
-          correctTargetIds = letterArticulations
-            .filter((la) => la.letterId === letter.id)
-            .map((la) => la.pointId);
+          return !letterArticulations.some(
+            (la) => la.letterId === letter.id && la.pointId === selectedTargetId,
+          );
         } else {
-          // Exclude traits with groupId 7 from quiz (using validTraitIds from above)
-          correctTargetIds = letterTraits
-            .filter((lt) => lt.letterId === letter.id && validTraitIds.has(lt.traitId))
-            .map((lt) => lt.traitId);
+          return !letterTraits.some(
+            (lt) => lt.letterId === letter.id && lt.traitId === selectedTargetId,
+          );
         }
+      });
 
-        return { letter, correctTargetIds, targetType: mode };
+      // Combine first letter with distractor letters
+      const selectedLetters = [firstLetter, ...distractorLetters.slice(0, LETTERS_PER_QUIZ - 1)];
+
+      // Generate questions - only the first letter has the correct answer
+      const newQuestions: QuizQuestion[] = selectedLetters.map((letter, index) => {
+        if (index === 0) {
+          // First letter has the selected target as correct answer
+          return { letter, correctTargetIds: [selectedTargetId], targetType: mode };
+        } else {
+          // Other letters are distractors - they don't have the selected target
+          return { letter, correctTargetIds: [], targetType: mode };
+        }
       });
 
       // Get target items
@@ -128,35 +153,16 @@ export function GraphQuiz() {
           .map((t) => ({ id: t.id, slug: t.slug }));
       }
 
-      // Collect ALL correct target IDs for selected letters (to exclude from distractors)
-      const allCorrectTargetIds = new Set(newQuestions.flatMap((q) => q.correctTargetIds));
+      // The correct target is the one selected for the first letter
+      const correctTargets = allTargets.filter((t) => t.id === selectedTargetId);
 
-      // For each question, pick only ONE correct target randomly
-      // This ensures each letter has exactly one correct answer
-      const selectedCorrectIds = new Set<number>();
-      const updatedQuestions = newQuestions.map((q) => {
-        // Shuffle correct targets and pick only one
-        const shuffledCorrectIds = [...q.correctTargetIds].sort(() => Math.random() - 0.5);
-        const singleCorrectId = shuffledCorrectIds[0];
-        selectedCorrectIds.add(singleCorrectId);
-        return { ...q, correctTargetIds: [singleCorrectId] };
-      });
-
-      // Update questions with single correct answer
-      newQuestions.length = 0;
-      newQuestions.push(...updatedQuestions);
-
-      // Get correct targets (only the selected ones)
-      const correctTargets = allTargets.filter((t) => selectedCorrectIds.has(t.id));
-
-      // Get distractors - exclude ALL correct targets for the letter, not just selected one
-      // This ensures distractors are truly wrong answers
-      const distractors = allTargets
-        .filter((t) => !allCorrectTargetIds.has(t.id))
+      // Get distractor targets - targets that the first letter does NOT have
+      const distractorTargets = allTargets
+        .filter((t) => !firstLetterCorrectIds.includes(t.id))
         .sort(() => Math.random() - 0.5)
         .slice(0, Math.max(0, TARGETS_PER_QUIZ - correctTargets.length));
 
-      const selectedTargets = [...correctTargets, ...distractors]
+      const selectedTargets = [...correctTargets, ...distractorTargets]
         .sort(() => Math.random() - 0.5)
         .slice(0, TARGETS_PER_QUIZ);
 
