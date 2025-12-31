@@ -94,9 +94,9 @@ export function GraphFilter({
                       }
                     }}
                     className={cn(
-                      'flex-1',
+                      'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                       viewMode === mode
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
                         : 'text-muted-foreground',
                     )}
                   >
@@ -117,9 +117,9 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => onLayoutModeChange(mode)}
                     className={cn(
-                      'flex-1',
+                      'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                       layoutMode === mode
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
                         : 'text-muted-foreground',
                     )}
                   >
@@ -146,9 +146,9 @@ export function GraphFilter({
                       size="sm"
                       onClick={() => onHierarchyDirectionChange(direction)}
                       className={cn(
-                        'flex-1',
+                        'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                         hierarchyDirection === direction
-                          ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                          ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
                           : 'text-muted-foreground',
                       )}
                     >
@@ -172,9 +172,9 @@ export function GraphFilter({
                 size="sm"
                 onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
                 className={cn(
-                  'flex-1',
+                  'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                   edgeStyle.isFloating
-                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                    ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
                     : 'text-muted-foreground',
                 )}
               >
