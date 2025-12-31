@@ -1,6 +1,6 @@
 'use client';
 
-import { getNodesBounds, getViewportForBounds, useReactFlow } from '@xyflow/react';
+import { getViewportForBounds, useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { DownloadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -12,7 +12,7 @@ const IMAGE_HEIGHT = 1080;
 
 export function GraphDownload() {
   const t = useTranslations('playground_page');
-  const { getNodes } = useReactFlow();
+  const { getNodes, getNodesBounds } = useReactFlow();
   const [isDownloading, setIsDownloading] = useState(false);
 
   const downloadImage = useCallback(() => {
@@ -59,7 +59,7 @@ export function GraphDownload() {
       .catch(() => {
         setIsDownloading(false);
       });
-  }, [getNodes]);
+  }, [getNodes, getNodesBounds]);
 
   return (
     <Button
