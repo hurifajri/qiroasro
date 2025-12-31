@@ -8,8 +8,8 @@ interface HierarchicalLayoutOptions {
 }
 
 /**
- * Apply manual hierarchical layout to nodes and edges
- * Returns new nodes with updated positions
+ * Apply hierarchical layout to nodes
+ * Places nodes in layers based on their connections
  */
 export function applyHierarchicalLayout(
   nodes: Node[],
@@ -118,46 +118,6 @@ export function applyHierarchicalLayout(
 }
 
 /**
- * Get estimated node width based on type
- */
-function getNodeWidth(nodeType: string | undefined): number {
-  switch (nodeType) {
-    case 'letter':
-      return 96; // size-24 = 96px
-    case 'articulationArea':
-      return 120;
-    case 'articulationPoint':
-      return 100;
-    case 'traitGroup':
-      return 120;
-    case 'trait':
-      return 100;
-    default:
-      return 80;
-  }
-}
-
-/**
- * Get estimated node height based on type
- */
-function getNodeHeight(nodeType: string | undefined): number {
-  switch (nodeType) {
-    case 'letter':
-      return 96; // size-24 = 96px
-    case 'articulationArea':
-      return 48;
-    case 'articulationPoint':
-      return 36;
-    case 'traitGroup':
-      return 56;
-    case 'trait':
-      return 40;
-    default:
-      return 40;
-  }
-}
-
-/**
  * Apply radial layout to nodes
  * Places nodes in concentric circles based on their type
  */
@@ -198,4 +158,44 @@ export function applyRadialLayout(nodes: Node[], centerX: number, centerY: numbe
   }
 
   return layoutedNodes;
+}
+
+/**
+ * Get estimated node width based on type
+ */
+function getNodeWidth(nodeType: string | undefined): number {
+  switch (nodeType) {
+    case 'letter':
+      return 96; // size-24 = 96px
+    case 'articulationArea':
+      return 120;
+    case 'articulationPoint':
+      return 100;
+    case 'traitGroup':
+      return 120;
+    case 'trait':
+      return 100;
+    default:
+      return 80;
+  }
+}
+
+/**
+ * Get estimated node height based on type
+ */
+function getNodeHeight(nodeType: string | undefined): number {
+  switch (nodeType) {
+    case 'letter':
+      return 96; // size-24 = 96px
+    case 'articulationArea':
+      return 48;
+    case 'articulationPoint':
+      return 36;
+    case 'traitGroup':
+      return 56;
+    case 'trait':
+      return 40;
+    default:
+      return 40;
+  }
 }

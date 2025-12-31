@@ -51,3 +51,5 @@ export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
 export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
 export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
 export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'] as const;
+export const QUIZ_MODES = ['makhraj', 'sifat'] as const;
+export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;

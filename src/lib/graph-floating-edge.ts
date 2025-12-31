@@ -1,5 +1,35 @@
 import { type InternalNode, type Node, Position, type XYPosition } from '@xyflow/react';
 
+interface EdgeParams {
+  sx: number;
+  sy: number;
+  tx: number;
+  ty: number;
+  sourcePos: Position;
+  targetPos: Position;
+}
+
+/**
+ * Returns the parameters (sx, sy, tx, ty, sourcePos, targetPos) needed to create a floating edge.
+ * These parameters are dynamically calculated based on the positions of the source and target nodes.
+ */
+export function getEdgeParams(source: InternalNode, target: InternalNode): EdgeParams {
+  const sourceIntersectionPoint = getNodeIntersection(source, target);
+  const targetIntersectionPoint = getNodeIntersection(target, source);
+
+  const sourcePos = getEdgePosition(source, sourceIntersectionPoint);
+  const targetPos = getEdgePosition(target, targetIntersectionPoint);
+
+  return {
+    sx: sourceIntersectionPoint.x,
+    sy: sourceIntersectionPoint.y,
+    tx: targetIntersectionPoint.x,
+    ty: targetIntersectionPoint.y,
+    sourcePos,
+    targetPos,
+  };
+}
+
 /**
  * Get the intersection point of the line between the center of the intersection node
  * and the target node. This determines where the edge should connect to the node.
@@ -55,34 +85,4 @@ function getEdgePosition(node: Node, intersectionPoint: XYPosition): Position {
   }
 
   return Position.Top;
-}
-
-interface EdgeParams {
-  sx: number;
-  sy: number;
-  tx: number;
-  ty: number;
-  sourcePos: Position;
-  targetPos: Position;
-}
-
-/**
- * Returns the parameters (sx, sy, tx, ty, sourcePos, targetPos) needed to create a floating edge.
- * These parameters are dynamically calculated based on the positions of the source and target nodes.
- */
-export function getEdgeParams(source: InternalNode, target: InternalNode): EdgeParams {
-  const sourceIntersectionPoint = getNodeIntersection(source, target);
-  const targetIntersectionPoint = getNodeIntersection(target, source);
-
-  const sourcePos = getEdgePosition(source, sourceIntersectionPoint);
-  const targetPos = getEdgePosition(target, targetIntersectionPoint);
-
-  return {
-    sx: sourceIntersectionPoint.x,
-    sy: sourceIntersectionPoint.y,
-    tx: targetIntersectionPoint.x,
-    ty: targetIntersectionPoint.y,
-    sourcePos,
-    targetPos,
-  };
 }

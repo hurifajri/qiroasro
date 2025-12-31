@@ -1,5 +1,6 @@
 import * as z from 'zod';
 import { LETTERS } from '@/lib/constants';
+import { QuizStatusSchema } from './graph';
 
 const RemoteLetterSchema = z.object({
   id: z.number().int(),
@@ -55,3 +56,7 @@ export const RemoteLetterTraitsSchema = z.array(RemoteLetterTraitSchema);
 
 export type RemoteLetterTrait = z.infer<typeof RemoteLetterTraitSchema>;
 export type LetterTrait = z.infer<typeof LetterTraitSchema>;
+
+const LetterQuizSchema = z.object({ ...LetterSchema.shape, status: QuizStatusSchema });
+
+export type LetterQuiz = z.infer<typeof LetterQuizSchema>;

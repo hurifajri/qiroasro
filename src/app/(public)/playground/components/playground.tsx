@@ -26,13 +26,13 @@ import { ArticulationAreaNode, ArticulationPointNode } from '@/components/nodes/
 import { LetterNode } from '@/components/nodes/letter-node';
 import { TraitGroupNode, TraitNode } from '@/components/nodes/trait-node';
 import { Button } from '@/components/ui/button';
-import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph/layout';
-import { generateGraphFromData } from '@/lib/graph/utils';
+import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph-layout';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationAreasOpt, getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitGroupsOpt, getTraitsOpt } from '@/queries/trait';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
+import { generateGraphFromData } from '../lib/graph';
 import { usePlaygroundStore } from '../providers/playground';
 import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';

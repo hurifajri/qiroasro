@@ -1,12 +1,15 @@
 import type { Edge, Node } from '@xyflow/react';
+import {
+  createArticulationAreaNode,
+  createArticulationPointNode,
+  createLetterNode,
+  createTraitGroupNode,
+  createTraitNode,
+} from '@/lib/graph-node';
 import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode, ViewMode } from '@/schemas/graph';
 import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
-
-// ============================================
-// Node Creation Helpers
-// ============================================
 
 export interface GraphData {
   letters: Letter[];
@@ -17,70 +20,6 @@ export interface GraphData {
   traits: Trait[];
   traitGroups: TraitGroup[];
 }
-
-export function createLetterNode(
-  letter: Letter,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `letter-${letter.id}`,
-    type: 'letter',
-    position,
-    data: letter,
-  };
-}
-
-export function createArticulationAreaNode(
-  area: ArticulationArea,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `area-${area.id}`,
-    type: 'articulationArea',
-    position,
-    data: area,
-  };
-}
-
-export function createArticulationPointNode(
-  point: ArticulationPoint,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `point-${point.id}`,
-    type: 'articulationPoint',
-    position,
-    data: point,
-  };
-}
-
-export function createTraitGroupNode(
-  group: TraitGroup,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `trait-group-${group.id}`,
-    type: 'traitGroup',
-    position,
-    data: group,
-  };
-}
-
-export function createTraitNode(
-  trait: Trait,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `trait-${trait.id}`,
-    type: 'trait',
-    position,
-    data: trait,
-  };
-}
-
-// ============================================
-// Graph Generation (creates nodes/edges without positions)
-// ============================================
 
 interface GenerateGraphOptions {
   viewMode: ViewMode;

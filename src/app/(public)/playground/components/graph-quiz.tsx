@@ -28,13 +28,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { createLetterQuizNode, type LetterQuiz, type QuizMode } from '@/lib/graph/quiz';
+import { createLetterQuizNode } from '@/lib/graph-node';
 import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { getArticulationPointsOpt } from '@/queries/articulation';
 import { getLetterArticulationsOpt, getLettersOpt, getLetterTraitsOpt } from '@/queries/letter';
 import { getTraitsOpt } from '@/queries/trait';
-import type { Letter } from '@/schemas/letter';
+import type { QuizMode } from '@/schemas/graph';
+import type { Letter, LetterQuiz } from '@/schemas/letter';
 
 interface QuizQuestion {
   letter: Letter;
