@@ -1,4 +1,5 @@
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import type { QuizMode, QuizStatus } from './graph';
 
 /**
  * Base node data properties shared across all playground graph nodes.
@@ -14,4 +15,11 @@ export type BaseNodeData = {
   isHighlighted?: boolean;
   isConnectedToSelected?: boolean;
   isDimmed?: boolean;
+};
+
+export type TargetQuiz = {
+  id: number;
+  label: string;
+  mode: QuizMode;
+  status: QuizStatus;
 };

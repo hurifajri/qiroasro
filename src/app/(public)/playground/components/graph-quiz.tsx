@@ -29,10 +29,11 @@ import {
 import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import type { Letter } from '@/schemas/letter';
-import { createLetterQuizNode } from '../lib/node';
+import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
 import { getPlaygroundDataOpt } from '../queries/playground';
 import type { QuizMode } from '../schemas/graph';
 import type { LetterQuiz } from '../schemas/letter';
+import type { TargetQuiz } from '../schemas/node';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 
@@ -47,8 +48,8 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ = 5;
-const TARGETS_PER_QUIZ = 6;
+const LETTERS_PER_QUIZ = 1;
+const TARGETS_PER_QUIZ = 2;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -77,12 +78,6 @@ export function GraphQuiz() {
   const letterTraits = playgroundData?.letterTraits ?? [];
   const articulationPoints = playgroundData?.articulationPoints ?? [];
   const traits = playgroundData?.traits ?? [];
-
-  // Get formatted name for target (use slug with formatting)
-  const getTargetName = useCallback((slug: string, _mode: QuizMode) => {
-    // Format slug: replace hyphens with spaces and capitalize
-    return kebabToSpaced(slug);
-  }, []);
 
   // Generate quiz questions and nodes
   const generateQuiz = useCallback(
@@ -114,11 +109,7 @@ export function GraphQuiz() {
             .map((lt) => lt.traitId);
         }
 
-        return {
-          letter,
-          correctTargetIds,
-          targetType: mode,
-        };
+        return { letter, correctTargetIds, targetType: mode };
       });
 
       // Collect all correct targets
@@ -150,13 +141,11 @@ export function GraphQuiz() {
         return createLetterQuizNode(letter, position);
       });
 
-      const targetNodes: Node[] = selectedTargets.map((target, index) => ({
-        id: `target-${target.id}`,
-        type: 'targetQuiz',
-        position: { x: 280, y: 20 + index * 60 },
-        data: { label: getTargetName(target.slug, mode), mode: mode, status: 'none' },
-        draggable: false,
-      }));
+      const targetNodes: Node[] = selectedTargets.map((q, index) => {
+        const target: TargetQuiz = { id: q.id, label: kebabToSpaced(q.slug), mode, status: 'none' };
+        const position = { x: 280, y: 20 + index * 60 };
+        return createTargetQuizNode(target, position);
+      });
 
       setQuestions(newQuestions);
       setTargets(selectedTargets);
@@ -165,16 +154,7 @@ export function GraphQuiz() {
       setIsChecked(false);
       setScore({ correct: 0, total: 0 });
     },
-    [
-      letters,
-      letterArticulations,
-      letterTraits,
-      articulationPoints,
-      traits,
-      getTargetName,
-      setNodes,
-      setEdges,
-    ],
+    [letters, letterArticulations, letterTraits, articulationPoints, traits, setNodes, setEdges],
   );
 
   // Validate connection - ensure letter connects to valid targets only
@@ -184,7 +164,7 @@ export function GraphQuiz() {
       const sourceId = connection.source;
       const targetId = connection.target;
 
-      if (!sourceId?.startsWith('letter-') || !targetId?.startsWith('target-')) {
+      if (!sourceId?.startsWith('letter-quiz-') || !targetId?.startsWith('target-quiz-')) {
         return false;
       }
 
@@ -249,11 +229,11 @@ export function GraphQuiz() {
     const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
     for (const question of questions) {
-      const letterId = `letter-${question.letter.id}`;
+      const letterId = `letter-quiz-${question.letter.id}`;
       const connection = edges.find((e) => e.source === letterId);
 
       if (connection) {
-        const targetIdNum = Number.parseInt(connection.target.replace('target-', ''), 10);
+        const targetIdNum = Number.parseInt(connection.target.replace('target-quiz-', ''), 10);
         const isCorrect = question.correctTargetIds.includes(targetIdNum);
         const status = isCorrect ? 'correct' : 'incorrect';
 
@@ -286,8 +266,8 @@ export function GraphQuiz() {
     // Update edge styles
     setEdges((currentEdges) =>
       currentEdges.map((edge) => {
-        const letterIdNum = Number.parseInt(edge.source.replace('letter-', ''), 10);
-        const targetIdNum = Number.parseInt(edge.target.replace('target-', ''), 10);
+        const letterIdNum = Number.parseInt(edge.source.replace('letter-quiz-', ''), 10);
+        const targetIdNum = Number.parseInt(edge.target.replace('target-quiz-', ''), 10);
         const question = questions.find((q) => q.letter.id === letterIdNum);
         const isCorrect = question?.correctTargetIds.includes(targetIdNum) || false;
 

@@ -3,6 +3,7 @@ import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation
 import type { Letter } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 import type { LetterQuiz } from '../schemas/letter';
+import type { TargetQuiz } from '../schemas/node';
 
 export function createLetterNode(
   letter: Letter,
@@ -73,6 +74,19 @@ export function createLetterQuizNode(
     type: 'letterQuiz',
     position,
     data: letter,
+    draggable: false,
+  };
+}
+
+export function createTargetQuizNode(
+  target: TargetQuiz,
+  position: { x: number; y: number } = { x: 0, y: 0 },
+): Node {
+  return {
+    id: `target-quiz-${target.id}`,
+    type: 'targetQuiz',
+    position,
+    data: target,
     draggable: false,
   };
 }
