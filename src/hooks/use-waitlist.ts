@@ -33,7 +33,7 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
         const data = await response.json();
 
         if (!response.ok) {
-          if (data.message_code === 'ALREADY_VERIFIED') {
+          if (data.message_code === 'already_verified') {
             setWaitlistStatus('already_verified');
           } else {
             setWaitlistStatus('error');
@@ -67,7 +67,6 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
       if (status) {
         const newUrl = new URL(window.location.href);
         newUrl.searchParams.delete('waitlist_status');
-        newUrl.searchParams.delete('waitlist_message_code');
         newUrl.searchParams.delete('locale');
         window.history.replaceState({}, '', newUrl.toString());
       }

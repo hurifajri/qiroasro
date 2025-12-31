@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     // Validate email
     if (!email || !emailRegex.test(email)) {
-      return NextResponse.json({ success: false, message_code: 'INVALID_EMAIL' }, { status: 400 });
+      return NextResponse.json({ success: false, message_code: 'invalid_email' }, { status: 400 });
     }
 
     const supabase = getSupabaseClient();
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     if (existing) {
       if (existing.status === 'verified') {
         return NextResponse.json(
-          { success: false, message_code: 'ALREADY_VERIFIED' },
+          { success: false, message_code: 'already_verified' },
           { status: 409 },
         );
       }
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (updateError) {
-        return NextResponse.json({ success: false, message_code: 'UPDATE_ERROR' }, { status: 500 });
+        return NextResponse.json({ success: false, message_code: 'update_error' }, { status: 500 });
       }
 
       verificationToken = updated.verification_token;
@@ -88,12 +88,12 @@ export async function POST(request: NextRequest) {
         // Handle unique constraint violation
         if (insertError.code === '23505') {
           return NextResponse.json(
-            { success: false, message_code: 'EMAIL_EXISTS' },
+            { success: false, message_code: 'email_exists' },
             { status: 409 },
           );
         }
 
-        return NextResponse.json({ success: false, message_code: 'INSERT_ERROR' }, { status: 500 });
+        return NextResponse.json({ success: false, message_code: 'insert_error' }, { status: 500 });
       }
 
       verificationToken = newEntry.verification_token;
@@ -114,11 +114,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (emailError) {
-      return NextResponse.json({ success: false, message_code: 'EMAIL_ERROR' }, { status: 500 });
+      return NextResponse.json({ success: false, message_code: 'email_error' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json({ success: false, message_code: 'INTERNAL_ERROR' }, { status: 500 });
+    return NextResponse.json({ success: false, message_code: 'internal_error' }, { status: 500 });
   }
 }

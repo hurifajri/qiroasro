@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
 
     const token = searchParams.get('token');
     if (!token) {
-      return redirectWithMessage('error', 'TOKEN_MISSING');
+      return redirectWithMessage('error');
     }
 
     const supabase = getSupabaseClient();
@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
       .single();
 
     if (findError || !entry) {
-      return redirectWithMessage('error', 'TOKEN_INVALID_OR_EXPIRED');
+      return redirectWithMessage('error');
     }
 
     if (entry.status === 'verified') {
-      return redirectWithMessage('already_verified', 'EMAIL_ALREADY_VERIFIED', entry.locale);
+      return redirectWithMessage('already_verified', entry.locale);
     }
 
     // Update status to verified
@@ -39,21 +39,20 @@ export async function GET(request: NextRequest) {
       .eq('id', entry.id);
 
     if (updateError) {
-      return redirectWithMessage('error', 'UPDATE_FAILED');
+      return redirectWithMessage('error');
     }
 
-    return redirectWithMessage('success', 'EMAIL_VERIFIED_SUCCESSFULLY', entry.locale);
+    return redirectWithMessage('success', entry.locale);
   } catch {
-    return redirectWithMessage('error', 'INTERNAL_SERVER_ERROR');
+    return redirectWithMessage('error');
   }
 }
 
-function redirectWithMessage(status: string, messageCode: string, locale?: string) {
+function redirectWithMessage(status: string, locale?: string) {
   const appUrl = env.NEXT_PUBLIC_APP_URL;
   const url = new URL('/', appUrl);
 
   url.searchParams.set('waitlist_status', status);
-  url.searchParams.set('waitlist_message_code', messageCode);
 
   if (locale) url.searchParams.set('locale', locale);
 
