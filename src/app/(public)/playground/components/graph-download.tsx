@@ -11,7 +11,7 @@ const IMAGE_WIDTH = 1920;
 const IMAGE_HEIGHT = 1080;
 
 export function GraphDownload() {
-  const t = useTranslations('playground_page');
+  const t = useTranslations('playground_page.download');
   const { getNodes, getNodesBounds } = useReactFlow();
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -70,7 +70,7 @@ export function GraphDownload() {
       disabled={isDownloading}
     >
       <DownloadIcon className="size-4" />
-      {isDownloading ? t('download.downloading') : t('download.trigger')}
+      {isDownloading ? t('downloading') : t('trigger')}
     </Button>
   );
 }

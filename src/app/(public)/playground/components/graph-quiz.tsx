@@ -56,7 +56,7 @@ const nodeTypes: NodeTypes = {
 };
 
 export function GraphQuiz() {
-  const t = useTranslations();
+  const t = useTranslations('playground_page.quiz');
   const { theme } = useGlobalStore((state) => state);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -317,21 +317,15 @@ export function GraphQuiz() {
         className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
       >
         <TrophyIcon className="size-4" />
-        {t('playground_page.quiz.trigger')}
+        {t('trigger')}
       </Button>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-h-[90vh] max-w-lg overflow-hidden">
           <DialogHeader>
-            <DialogTitle>
-              {quizMode
-                ? t(`playground_page.quiz.title_${quizMode}`)
-                : t('playground_page.quiz.select_mode')}
-            </DialogTitle>
+            <DialogTitle>{quizMode ? t(`title_${quizMode}`) : t('select_mode')}</DialogTitle>
             <DialogDescription>
-              {quizMode
-                ? t(`playground_page.quiz.description_${quizMode}`)
-                : t('playground_page.quiz.select_mode_description')}
+              {quizMode ? t(`description_${quizMode}`) : t('select_mode_description')}
             </DialogDescription>
           </DialogHeader>
 
@@ -344,11 +338,11 @@ export function GraphQuiz() {
                 className="h-20 text-lg"
               >
                 <span className="text-2xl">🎯</span>
-                {t('playground_page.quiz.mode_makhraj')}
+                {t('mode_makhraj')}
               </Button>
               <Button onClick={() => startQuiz('sifat')} variant="outline" className="h-20 text-lg">
                 <span className="text-2xl">✨</span>
-                {t('playground_page.quiz.mode_sifat')}
+                {t('mode_sifat')}
               </Button>
             </div>
           ) : (
@@ -363,7 +357,7 @@ export function GraphQuiz() {
                     <XCircleIcon className="text-red-500" />
                   )}
                   <span className="font-semibold text-lg">
-                    {t('playground_page.quiz.score', {
+                    {t('score', {
                       correct: score.correct,
                       total: score.total,
                     })}
@@ -404,9 +398,7 @@ export function GraphQuiz() {
 
               {/* Instructions */}
               {!isChecked && (
-                <p className="text-center text-muted-foreground text-sm">
-                  {t('playground_page.quiz.instruction')}
-                </p>
+                <p className="text-center text-muted-foreground text-sm">{t('instruction')}</p>
               )}
             </div>
           )}
@@ -415,13 +407,13 @@ export function GraphQuiz() {
             <DialogFooter className="flex-row justify-between gap-2 sm:justify-between">
               <Button variant="outline" onClick={resetQuiz}>
                 <RefreshCwIcon className="mr-2 h-4 w-4" />
-                {t('playground_page.quiz.change_mode')}
+                {t('change_mode')}
               </Button>
               <div className="flex gap-2">
                 {isChecked ? (
                   <Button onClick={() => generateQuiz(quizMode)} variant="default">
                     <RefreshCwIcon className="mr-2 h-4 w-4" />
-                    {t('playground_page.quiz.try_again')}
+                    {t('try_again')}
                   </Button>
                 ) : (
                   <Button
@@ -430,7 +422,7 @@ export function GraphQuiz() {
                     variant="default"
                   >
                     <CheckCircle2Icon className="mr-2 h-4 w-4" />
-                    {t('playground_page.quiz.check_answer')}
+                    {t('check_answer')}
                   </Button>
                 )}
               </div>
