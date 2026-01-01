@@ -193,9 +193,9 @@
       "check_answer": "Check Answer",
       "try_again": "Try Again",
       "change_mode": "Change Mode",
-      "score": "{correct} out of {total} correct",
       "unsupported_quiz": "Quiz is not available for this option",
-      "unanswered_quiz": "Unanswered"
+      "correct_score": "{correct} correct",
+      "incorrect_score": "{incorrect} incorrect"
     },
     "download": {
       "trigger": "Download Image",
