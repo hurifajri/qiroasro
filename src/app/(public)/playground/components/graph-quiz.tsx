@@ -48,9 +48,9 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ: number = 1;
-const TARGETS_PER_QUIZ: number = 3;
-const MULTI_EDGE = false;
+const LETTERS_PER_QUIZ: number = 3;
+const TARGETS_PER_QUIZ: number = 1;
+const MULTI_EDGE: boolean = true;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -308,7 +308,25 @@ export function GraphQuiz() {
         // Multi-edge mode: allow multiple connections
         // Case 2: multiple edges from same letter to different targets
         // Case 4: multiple edges from different letters to same target
-        // Don't remove existing edges, just add new one
+
+        // Check if connection to this target already exists
+        const connectionExists = edges.some((e) => e.target === connection.target);
+        if (connectionExists) return; // Don't allow duplicate connections to same target
+
+        // Case 2: Limit edges to targetCount - 1 (leave one distractor)
+        if (LETTERS_PER_QUIZ === 1 && TARGETS_PER_QUIZ > 1) {
+          const targetNodes = nodes.filter((n) => n.type === 'targetQuiz');
+          const maxEdges = targetNodes.length - 1;
+          if (edges.length >= maxEdges) return; // Don't allow more edges
+        }
+
+        // Case 4: Limit edges to letterCount - 1 (leave one distractor)
+        if (LETTERS_PER_QUIZ > 1 && TARGETS_PER_QUIZ === 1) {
+          const letterNodes = nodes.filter((n) => n.type === 'letterQuiz');
+          const maxEdges = letterNodes.length - 1;
+          if (edges.length >= maxEdges) return; // Don't allow more edges
+        }
+
         newEdges = edges;
       } else {
         // Single-edge mode: replace existing connections
@@ -339,7 +357,7 @@ export function GraphQuiz() {
 
       setEdges(addEdge(newEdge, newEdges));
     },
-    [edges, isChecked, setEdges],
+    [edges, isChecked, setEdges, nodes.filter],
   );
 
   // Start quiz
