@@ -1,6 +1,25 @@
-'use client';
+import type { QUIZ_MODES, QUIZ_STATUSES } from '@/lib/constants';
+import type { Letter } from '@/schemas/letter';
 
-import type { QuizMode } from './graph';
+export type QuizMode = (typeof QUIZ_MODES)[number];
+export type QuizStatus = (typeof QUIZ_STATUSES)[number];
+
+// Quiz question and answer types
+export interface QuizQuestion {
+  letter: Letter;
+  correctTargetIds: number[];
+  targetType: QuizMode;
+}
+
+export interface QuizScoreCount {
+  correct: number;
+  total: number;
+}
+
+export interface TargetItem {
+  id: number;
+  slug: string;
+}
 
 // Settings per quiz
 export interface QuizSettingsValues {

@@ -30,10 +30,7 @@ export async function getArticulationAreas(): Promise<ArticulationArea[]> {
 
     return articulationAreas;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch articulation areas');
   }
 }
 
@@ -52,9 +49,6 @@ export async function getArticulationPoints(): Promise<ArticulationPoint[]> {
 
     return articulationPoints;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch articulation points');
   }
 }

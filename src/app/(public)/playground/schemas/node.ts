@@ -1,6 +1,6 @@
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
-import type { QuizMode, QuizStatus } from './graph';
+import type { QuizMode, QuizStatus } from './quiz';
 
 /**
  * Base node data properties shared across all playground graph nodes.

@@ -24,7 +24,7 @@ import { useGlobalStore } from '@/providers/global';
 import { useQuizGenerator } from '../hooks/use-quiz-generator';
 import { useQuizTimer } from '../hooks/use-quiz-timer';
 import { useQuizStore } from '../providers/quiz';
-import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/graph';
+import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/quiz';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 import { QuizCanvas } from './quiz-canvas';

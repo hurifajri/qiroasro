@@ -31,10 +31,7 @@ export async function getLetters(): Promise<Letter[]> {
 
     return letters;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch letters');
   }
 }
 
@@ -53,10 +50,7 @@ export async function getLetterArticulations(): Promise<LetterArticulation[]> {
 
     return letterArticulations;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch letter articulations');
   }
 }
 
@@ -72,9 +66,6 @@ export async function getLetterTraits(): Promise<LetterTrait[]> {
 
     return letterTraits;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch letter traits');
   }
 }

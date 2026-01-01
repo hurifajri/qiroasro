@@ -1,7 +1,7 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
-import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/graph';
+import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/quiz';
 import { DEFAULT_QUIZ_SETTINGS, type QuizSettingsValues } from '../schemas/quiz';
 
 interface QuizState {

@@ -1,7 +1,7 @@
 import { InfoIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { QuizMode } from '../schemas/graph';
+import type { QuizMode } from '../schemas/quiz';
 
 interface QuizInstructionProps {
   quizMode: QuizMode;

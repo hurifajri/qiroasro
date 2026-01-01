@@ -4,7 +4,7 @@ import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { QuizScoreCount } from '../schemas/graph';
+import type { QuizScoreCount } from '../schemas/quiz';
 
 export interface QuizScoreProps {
   score: QuizScoreCount;

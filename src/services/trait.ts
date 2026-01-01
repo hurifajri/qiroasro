@@ -20,10 +20,7 @@ export async function getTraits(): Promise<Trait[]> {
 
     return traits;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch traits');
   }
 }
 
@@ -42,9 +39,6 @@ export async function getTraitGroups(): Promise<TraitGroup[]> {
 
     return traitGroups;
   } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
-    return [];
+    throw error instanceof Error ? error : new Error('Failed to fetch trait groups');
   }
 }

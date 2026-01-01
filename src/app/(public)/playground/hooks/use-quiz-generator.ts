@@ -6,9 +6,9 @@ import { useCallback, useMemo } from 'react';
 import type { Letter } from '@/schemas/letter';
 import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
 import { getPlaygroundDataOpt } from '../queries/playground';
-import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/graph';
 import type { LetterQuiz } from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
+import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/quiz';
 
 interface UseQuizGeneratorProps {
   lettersPerQuiz: number;
