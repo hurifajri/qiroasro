@@ -13,13 +13,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
-import {
-  type QuizQuestion,
-  type QuizScore,
-  type TargetItem,
-  useQuizGenerator,
-} from '../hooks/use-quiz-generator';
-import type { QuizMode } from '../schemas/graph';
+import { useQuizGenerator } from '../hooks/use-quiz-generator';
+import type { QuizMode, QuizQuestion, QuizScore, TargetItem } from '../schemas/graph';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 import { QuizCanvas } from './quiz-canvas';

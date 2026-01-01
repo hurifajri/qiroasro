@@ -13,7 +13,7 @@ import {
 } from '@xyflow/react';
 import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { QuizScore } from '../hooks/use-quiz-generator';
+import type { QuizScore } from '../schemas/graph';
 
 interface QuizCanvasProps {
   nodes: Node[];
