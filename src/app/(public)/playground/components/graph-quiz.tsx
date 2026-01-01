@@ -25,6 +25,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -567,22 +568,27 @@ export function GraphQuiz() {
 
               {/* Instructions */}
               {isInstructionShown && (
-                <div className="flex flex-col gap-2 rounded-lg bg-linear-to-br from-lime-300/60 to-lime-300/40 px-3 py-2 text-foreground text-sm dark:from-lime-800/60 dark:to-lime-800/40">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1 font-semibold">
-                      <InfoIcon className="size-4" /> {t('instruction_title')}
-                    </span>
-                    <XIcon
-                      onClick={() => setIsInstructionShown(false)}
-                      className="size-4 cursor-pointer"
-                    />
-                  </div>
-                  <p>
-                    {t('instruction_description', {
-                      target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
-                    })}
-                  </p>
-                </div>
+                <Card className="gap-0 rounded-lg bg-linear-to-br from-lime-300/60 to-lime-300/40 px-3 py-2 text-foreground dark:from-lime-800/60 dark:to-lime-800/40">
+                  <CardHeader className="px-0">
+                    <CardTitle className="flex items-center gap-1 text-sm">
+                      <InfoIcon className="size-4" />
+                      {t('instruction_title')}
+                    </CardTitle>
+                    <CardAction>
+                      <XIcon
+                        onClick={() => setIsInstructionShown(false)}
+                        className="size-4 cursor-pointer"
+                      />
+                    </CardAction>
+                  </CardHeader>
+                  <CardContent className="px-0">
+                    <p className="text-sm">
+                      {t('instruction_description', {
+                        target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
+                      })}
+                    </p>
+                  </CardContent>
+                </Card>
               )}
             </div>
           )}
