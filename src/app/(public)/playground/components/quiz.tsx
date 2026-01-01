@@ -8,9 +8,9 @@ import {
   useEdgesState,
   useNodesState,
 } from '@xyflow/react';
-import { TimerIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
+import { TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import { useQuizGenerator } from '../hooks/use-quiz-generator';
+import { useQuizTimer } from '../hooks/use-quiz-timer';
 import type { QuizMode, QuizQuestion, QuizScore, TargetItem } from '../schemas/graph';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
@@ -29,6 +30,7 @@ import { QuizFooter } from './quiz-footer';
 import { QuizInstruction } from './quiz-instruction';
 import { QuizModeSelector } from './quiz-mode-selector';
 import { QuizSettings, type QuizSettingsValues } from './quiz-settings';
+import { QuizTimer } from './quiz-timer';
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -56,7 +58,6 @@ export function Quiz() {
   const [isUnsupportedConfig, setIsUnsupportedConfig] = useState(false);
   const [score, setScore] = useState<QuizScore>({ correct: 0, total: 0 });
   const [isInstructionShown, setIsInstructionShown] = useState(true);
-  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
@@ -85,35 +86,29 @@ export function Quiz() {
     setScore,
   });
 
-  const startQuiz = (mode: QuizMode) => {
-    setQuizMode(mode);
-    generateQuiz(mode);
-    if (settings.timerMode) {
-      setTimeRemaining(settings.timerDuration);
-    }
-  };
-
   const handleTimeUp = useCallback(() => {
     if (!isChecked) {
       checkAnswers();
     }
   }, [isChecked, checkAnswers]);
 
-  // Timer countdown effect
-  useEffect(() => {
-    if (timeRemaining === null || isChecked || !quizMode) return;
+  const {
+    timeRemaining,
+    start: startTimer,
+    reset: resetTimer,
+    stop: stopTimer,
+  } = useQuizTimer({
+    duration: settings.timerDuration,
+    enabled: settings.timerMode,
+    onTimeUp: handleTimeUp,
+    isPaused: isChecked,
+  });
 
-    if (timeRemaining <= 0) {
-      handleTimeUp();
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setTimeRemaining((prev) => (prev !== null ? prev - 1 : null));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeRemaining, isChecked, quizMode, handleTimeUp]);
+  const startQuiz = (mode: QuizMode) => {
+    setQuizMode(mode);
+    generateQuiz(mode);
+    startTimer();
+  };
 
   const resetQuiz = () => {
     setQuizMode(null);
@@ -123,7 +118,7 @@ export function Quiz() {
     setEdges([]);
     setIsChecked(false);
     setScore({ correct: 0, total: 0 });
-    setTimeRemaining(null);
+    stopTimer();
   };
 
   return (
@@ -160,18 +155,7 @@ export function Quiz() {
           ) : (
             <div className="relative flex flex-col gap-4">
               {settings.timerMode && timeRemaining !== null && !isChecked && (
-                <div
-                  className={`flex items-center justify-center gap-2 self-center rounded-full border px-4 py-2 font-medium text-sm ${
-                    timeRemaining <= 5
-                      ? 'animate-pulse border-destructive bg-destructive/10 text-destructive'
-                      : timeRemaining <= 10
-                        ? 'border-yellow-500 bg-yellow-500/10 text-yellow-500'
-                        : 'border-muted bg-muted/50 text-muted-foreground'
-                  }`}
-                >
-                  <TimerIcon className="size-4" />
-                  <span>{timeRemaining}s</span>
-                </div>
+                <QuizTimer timeRemaining={timeRemaining} />
               )}
 
               <QuizCanvas
@@ -202,9 +186,7 @@ export function Quiz() {
               onReset={resetQuiz}
               onTryAgain={() => {
                 generateQuiz(quizMode);
-                if (settings.timerMode) {
-                  setTimeRemaining(settings.timerDuration);
-                }
+                resetTimer();
               }}
               onCheckAnswers={checkAnswers}
               timerMode={settings.timerMode}
