@@ -54,8 +54,8 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ: number = 1;
-const TARGETS_PER_QUIZ: number = 3;
+const LETTERS_PER_QUIZ: number = 3;
+const TARGETS_PER_QUIZ: number = 1;
 const MULTI_EDGE: boolean = false;
 
 const nodeTypes: NodeTypes = {
@@ -514,9 +514,7 @@ export function GraphQuiz() {
             // Unsupported configuration message
             <div className="flex flex-col items-center justify-center gap-4 py-8">
               <XCircleIcon className="h-16 w-16 text-muted-foreground" />
-              <p className="text-center text-muted-foreground">
-                Quiz belum tersedia untuk pilihan ini.
-              </p>
+              <p className="text-center text-muted-foreground">{t('unsupported_quiz')}</p>
             </div>
           ) : (
             // Quiz area
@@ -589,38 +587,24 @@ export function GraphQuiz() {
             </div>
           )}
 
-          {quizMode && !isUnsupportedConfig && (
-            <DialogFooter className="flex-row justify-between gap-2 sm:justify-between">
+          {quizMode && (
+            <DialogFooter className="flex-row items-center justify-between gap-2">
               <Button variant="outline" onClick={resetQuiz}>
-                <RefreshCwIcon className="mr-2 h-4 w-4" />
+                <RefreshCwIcon />
                 {t('change_mode')}
               </Button>
-              <div className="flex gap-2">
-                {isChecked ? (
-                  <Button onClick={() => generateQuiz(quizMode)} variant="default">
-                    <RefreshCwIcon className="mr-2 h-4 w-4" />
-                    {t('try_again')}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={checkAnswers}
-                    disabled={connectionCount < requiredConnections}
-                    variant="default"
-                  >
-                    <CheckCircle2Icon className="mr-2 h-4 w-4" />
-                    {t('check_answer')}
-                  </Button>
-                )}
-              </div>
-            </DialogFooter>
-          )}
-
-          {quizMode && isUnsupportedConfig && (
-            <DialogFooter className="flex-row justify-center">
-              <Button variant="outline" onClick={resetQuiz}>
-                <RefreshCwIcon className="mr-2 h-4 w-4" />
-                {t('change_mode')}
-              </Button>
+              {!isUnsupportedConfig && isChecked && (
+                <Button onClick={() => generateQuiz(quizMode)}>
+                  <RefreshCwIcon />
+                  {t('try_again')}
+                </Button>
+              )}
+              {!isUnsupportedConfig && !isChecked && (
+                <Button onClick={checkAnswers} disabled={connectionCount < requiredConnections}>
+                  <CheckCircle2Icon />
+                  {t('check_answer')}
+                </Button>
+              )}
             </DialogFooter>
           )}
         </DialogContent>
