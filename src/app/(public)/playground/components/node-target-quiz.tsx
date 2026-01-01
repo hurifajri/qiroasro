@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
-import type { TargetQuiz } from '../schemas/node';
+import type { TargetQuizNodeData } from '../schemas/node';
 
 export function TargetQuizNode({ data }: NodeProps) {
-  const nodeData = data as TargetQuiz;
+  const nodeData = data as TargetQuizNodeData;
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const _label = t(`${nodeData.mode}.${localeKey}`);

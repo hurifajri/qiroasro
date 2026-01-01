@@ -32,7 +32,7 @@ import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
 import { getPlaygroundDataOpt } from '../queries/playground';
 import type { QuizMode } from '../schemas/graph';
 import type { LetterQuiz } from '../schemas/letter';
-import type { TargetQuiz } from '../schemas/node';
+import type { TargetQuizNodeData } from '../schemas/node';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 
@@ -265,7 +265,7 @@ export function GraphQuiz() {
       });
 
       const targetNodes: Node[] = selectedTargets.map((q, index) => {
-        const target: TargetQuiz = { id: q.id, slug: q.slug, mode, status: 'none' };
+        const target: TargetQuizNodeData = { id: q.id, slug: q.slug, mode, status: 'none' };
         const position = { x: 280, y: 20 + index * 60 };
         return createTargetQuizNode(target, position);
       });

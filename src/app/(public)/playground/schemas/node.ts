@@ -1,4 +1,5 @@
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import type { Letter } from '@/schemas/letter';
 import type { QuizMode, QuizStatus } from './graph';
 
 /**
@@ -17,7 +18,9 @@ export type BaseNodeData = {
   isDimmed?: boolean;
 };
 
-export type TargetQuiz = {
+export type LetterQuizNodeData = Letter & { status: QuizStatus };
+
+export type TargetQuizNodeData = {
   id: number;
   slug: string;
   mode: QuizMode;

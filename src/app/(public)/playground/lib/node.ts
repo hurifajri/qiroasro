@@ -3,7 +3,7 @@ import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation
 import type { Letter } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 import type { LetterQuiz } from '../schemas/letter';
-import type { TargetQuiz } from '../schemas/node';
+import type { TargetQuizNodeData } from '../schemas/node';
 
 export function createLetterNode(
   letter: Letter,
@@ -79,7 +79,7 @@ export function createLetterQuizNode(
 }
 
 export function createTargetQuizNode(
-  target: TargetQuiz,
+  target: TargetQuizNodeData,
   position: { x: number; y: number } = { x: 0, y: 0 },
 ): Node {
   return {

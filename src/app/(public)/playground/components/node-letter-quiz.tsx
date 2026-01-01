@@ -2,10 +2,7 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
-import type { Letter } from '@/schemas/letter';
-import type { QuizStatus } from '../schemas/graph';
-
-type LetterQuizNodeData = Letter & { status: QuizStatus };
+import type { LetterQuizNodeData } from '../schemas/node';
 
 export function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as LetterQuizNodeData;
