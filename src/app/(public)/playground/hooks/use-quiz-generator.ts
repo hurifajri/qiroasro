@@ -293,6 +293,19 @@ export function useQuizGenerator({
     [edges, isChecked, setEdges, nodes, lettersPerQuiz, targetsPerQuiz, multiEdge],
   );
 
+  // Derived state - moved before checkAnswers so it can be used there
+  const connectionCount = useMemo(() => edges.length, [edges]);
+  const letterCount = useMemo(() => nodes.filter((n) => n.type === 'letterQuiz').length, [nodes]);
+  const targetCount = useMemo(() => nodes.filter((n) => n.type === 'targetQuiz').length, [nodes]);
+
+  const requiredConnections = useMemo(() => {
+    if (multiEdge) {
+      if (lettersPerQuiz === 1) return targetCount - 1;
+      if (targetsPerQuiz === 1) return letterCount - 1;
+    }
+    return 1;
+  }, [letterCount, targetCount, multiEdge, lettersPerQuiz, targetsPerQuiz]);
+
   // Check answers
   const checkAnswers = useCallback(() => {
     let correctCount = 0;
@@ -347,22 +360,10 @@ export function useQuizGenerator({
       }),
     );
 
-    setScore({ correct: correctCount, total: edges.length });
+    // Use requiredConnections as total, so missing connections count as wrong
+    setScore({ correct: correctCount, total: requiredConnections });
     setIsChecked(true);
-  }, [questions, edges, setNodes, setEdges, setScore, setIsChecked]);
-
-  // Derived state
-  const connectionCount = useMemo(() => edges.length, [edges]);
-  const letterCount = useMemo(() => nodes.filter((n) => n.type === 'letterQuiz').length, [nodes]);
-  const targetCount = useMemo(() => nodes.filter((n) => n.type === 'targetQuiz').length, [nodes]);
-
-  const requiredConnections = useMemo(() => {
-    if (multiEdge) {
-      if (lettersPerQuiz === 1) return targetCount - 1;
-      if (targetsPerQuiz === 1) return letterCount - 1;
-    }
-    return 1;
-  }, [letterCount, targetCount, multiEdge, lettersPerQuiz, targetsPerQuiz]);
+  }, [questions, edges, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
 
   return {
     generateQuiz,
