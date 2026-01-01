@@ -21,7 +21,7 @@ export function TargetQuizNode({ data }: NodeProps) {
     <>
       <BaseNode
         className={cn(
-          'max-w-32 rounded-lg border-2 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:ring-0',
+          'rounded-lg border-2 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:ring-0',
           nodeData.mode === 'articulation_point' &&
             'border-node-articulation/50 bg-node-articulation/20 text-node-articulation-text',
           nodeData.mode === 'trait' && 'border-node-trait/50 bg-node-trait/20 text-node-trait-text',

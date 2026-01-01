@@ -106,7 +106,7 @@ export function generateQuizData(
 
   const targetNodes: Node[] = selectedTargets.map((q, index) => {
     const target: TargetQuizNodeData = { id: q.id, slug: q.slug, mode, status: 'none' };
-    const position = { x: 280, y: 20 + index * 60 };
+    const position = { x: 200, y: 20 + index * 60 };
     return createTargetQuizNode(target, position);
   });
 
