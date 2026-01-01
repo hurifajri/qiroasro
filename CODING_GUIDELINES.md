@@ -6,6 +6,7 @@
 
 ## Table of Contents
 
+0. [Available Scripts](#0-available-scripts)
 1. [Core Principles](#1-core-principles)
 2. [Naming Conventions](#2-naming-conventions)
 3. [File & Folder Organization](#3-file--folder-organization)
@@ -14,6 +15,37 @@
 6. [SEO, Accessibility & Semantic HTML](#6-seo-accessibility--semantic-html)
 7. [Error Handling](#7-error-handling)
 8. [Testing Guidelines](#8-testing-guidelines)
+
+---
+
+## 0. Available Scripts
+
+All commands should be run with `pnpm`:
+
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start Next.js development server |
+| `pnpm build` | Build production bundle |
+| `pnpm start` | Start production server |
+| `pnpm format` | Format code with Biome |
+| `pnpm check` | Run Biome linter & apply safe fixes |
+| `pnpm check:types` | TypeScript type checking (no emit) |
+| `pnpm check:packages` | Check for outdated packages |
+
+### Common Workflows
+
+```bash
+# Before committing
+pnpm check          # Lint + format
+pnpm check:types    # Type check
+
+# Start development
+pnpm dev
+
+# Production build
+pnpm build
+pnpm start
+```
 
 ---
 
