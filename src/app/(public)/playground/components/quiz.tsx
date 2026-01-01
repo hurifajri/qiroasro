@@ -19,16 +19,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { useQuizGenerator } from '../hooks/use-quiz-generator';
 import { useQuizTimer } from '../hooks/use-quiz-timer';
-import type { QuizMode, QuizQuestion, QuizScore, TargetItem } from '../schemas/graph';
+import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/graph';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 import { QuizCanvas } from './quiz-canvas';
 import { QuizFooter } from './quiz-footer';
 import { QuizInstruction } from './quiz-instruction';
 import { QuizModeSelector } from './quiz-mode-selector';
+import { QuizScore } from './quiz-score';
 import { QuizSettings, type QuizSettingsValues } from './quiz-settings';
 import { QuizTimer } from './quiz-timer';
 
@@ -56,7 +58,7 @@ export function Quiz() {
   const [, setTargets] = useState<TargetItem[]>([]);
   const [isChecked, setIsChecked] = useState(false);
   const [isUnsupportedConfig, setIsUnsupportedConfig] = useState(false);
-  const [score, setScore] = useState<QuizScore>({ correct: 0, total: 0 });
+  const [score, setScore] = useState<QuizScoreCount>({ correct: 0, total: 0 });
   const [isInstructionShown, setIsInstructionShown] = useState(true);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
@@ -153,10 +155,18 @@ export function Quiz() {
               <p className="text-center text-muted-foreground">{t('unsupported_quiz')}</p>
             </div>
           ) : (
-            <div className="relative flex flex-col gap-4">
-              {settings.timerMode && timeRemaining !== null && !isChecked && (
-                <QuizTimer timeRemaining={timeRemaining} />
-              )}
+            <div className="relative flex flex-col gap-2">
+              <div
+                className={cn(
+                  'flex h-9 items-center gap-2',
+                  isChecked ? 'justify-between' : 'justify-end',
+                )}
+              >
+                {isChecked && <QuizScore score={score} />}
+                {settings.timerMode && timeRemaining !== null && !isChecked && (
+                  <QuizTimer timeRemaining={timeRemaining} />
+                )}
+              </div>
 
               <QuizCanvas
                 nodes={nodes}
@@ -164,7 +174,6 @@ export function Quiz() {
                 nodeTypes={nodeTypes}
                 theme={theme}
                 isChecked={isChecked}
-                score={score}
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}

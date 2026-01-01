@@ -31,18 +31,18 @@ export function QuizTimer({
     if (timeRemaining <= warningThreshold) {
       return 'border-yellow-500 bg-yellow-500/10 text-yellow-500';
     }
-    return 'border-muted bg-muted/50 text-muted-foreground';
+    return 'bg-muted/50 text-muted-foreground';
   };
 
   return (
     <div
       className={cn(
-        'flex items-center justify-center gap-2 self-center rounded-full border px-4 py-2 font-medium text-sm',
+        'flex w-20 items-center gap-2 self-center rounded-full border px-4 py-1.5 font-medium text-sm',
         getTimerStyles(),
         className,
       )}
     >
-      <TimerIcon className="size-4" />
+      <TimerIcon className="size-4 shrink-0" />
       <span>{timeRemaining}s</span>
     </div>
   );

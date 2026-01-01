@@ -20,7 +20,7 @@ export interface QuizQuestion {
   targetType: QuizMode;
 }
 
-export interface QuizScore {
+export interface QuizScoreCount {
   correct: number;
   total: number;
 }

@@ -6,7 +6,7 @@ import { useCallback, useMemo } from 'react';
 import type { Letter } from '@/schemas/letter';
 import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
 import { getPlaygroundDataOpt } from '../queries/playground';
-import type { QuizMode, QuizQuestion, QuizScore, TargetItem } from '../schemas/graph';
+import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/graph';
 import type { LetterQuiz } from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
 
@@ -24,7 +24,7 @@ interface UseQuizGeneratorProps {
   setTargets: React.Dispatch<React.SetStateAction<TargetItem[]>>;
   setIsUnsupportedConfig: React.Dispatch<React.SetStateAction<boolean>>;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-  setScore: React.Dispatch<React.SetStateAction<QuizScore>>;
+  setScore: React.Dispatch<React.SetStateAction<QuizScoreCount>>;
 }
 
 export function useQuizGenerator({

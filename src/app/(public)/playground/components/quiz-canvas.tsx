@@ -12,8 +12,6 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import { useEffect } from 'react';
-import type { QuizScore as QuizScoreType } from '../schemas/graph';
-import { QuizScore } from './quiz-score';
 
 interface QuizCanvasProps {
   nodes: Node[];
@@ -21,7 +19,6 @@ interface QuizCanvasProps {
   nodeTypes: NodeTypes;
   theme: ColorMode;
   isChecked: boolean;
-  score: QuizScoreType;
   onNodesChange: OnNodesChange<Node>;
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
@@ -34,7 +31,6 @@ export function QuizCanvas({
   nodeTypes,
   theme,
   isChecked,
-  score,
   onNodesChange,
   onEdgesChange,
   onConnect,
@@ -52,7 +48,6 @@ export function QuizCanvas({
 
   return (
     <div className="relative h-100 overflow-hidden rounded-lg border bg-muted/30">
-      {isChecked && <QuizScore score={score} />}
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         colorMode={theme}

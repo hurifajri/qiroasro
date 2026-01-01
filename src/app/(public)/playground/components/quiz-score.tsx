@@ -4,11 +4,11 @@ import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { QuizScore as QuizScoreType } from '../schemas/graph';
+import type { QuizScoreCount } from '../schemas/graph';
 
 export interface QuizScoreProps {
   /** Score object with correct and total counts */
-  score: QuizScoreType;
+  score: QuizScoreCount;
   /** Additional CSS classes */
   className?: string;
 }
@@ -27,11 +27,7 @@ export function QuizScore({ score, className }: QuizScoreProps) {
   return (
     <Badge
       variant={isAllCorrect ? 'default' : 'destructive'}
-      className={cn(
-        'absolute top-1.5 right-1 gap-2 px-3 py-4 [&>svg]:size-5!',
-        isAllCorrect && successStyles,
-        className,
-      )}
+      className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', isAllCorrect && successStyles, className)}
     >
       {isAllCorrect ? <CheckCircle2Icon /> : <XCircleIcon />}
       <span className="font-semibold text-base">
