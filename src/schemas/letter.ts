@@ -9,7 +9,7 @@ export const RemoteLetterSchema = z.object({
   sort_order: z.number().int(),
 });
 
-export const LetterSchema = z
+const LetterSchema = z
   .object({
     ...RemoteLetterSchema.shape,
     isMadd: z.boolean(),

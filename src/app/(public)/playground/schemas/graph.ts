@@ -1,22 +1,18 @@
-import * as z from 'zod';
-import { EDGE_SHAPES, QUIZ_MODES, QUIZ_STATUSES, VIEW_MODES } from '@/lib/constants';
+import type { EDGE_SHAPES, QUIZ_MODES, QUIZ_STATUSES, VIEW_MODES } from '@/lib/constants';
 import type { Letter } from '@/schemas/letter';
 
-const EdgeShapeSchema = z.enum(EDGE_SHAPES);
-const EdgeStyleOptionsSchema = z.object({
-  isFloating: z.boolean(),
-  isAnimated: z.boolean(),
-  shape: EdgeShapeSchema,
-});
-const ViewModeSchema = z.enum(VIEW_MODES);
-const QuizModeSchema = z.enum(QUIZ_MODES);
-export const QuizStatusSchema = z.enum(QUIZ_STATUSES);
+// Types derived from constants
+export type EdgeShape = (typeof EDGE_SHAPES)[number];
+export type ViewMode = (typeof VIEW_MODES)[number];
+export type QuizMode = (typeof QUIZ_MODES)[number];
+export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 
-export type EdgeShape = z.infer<typeof EdgeShapeSchema>;
-export type EdgeStyleOptions = z.infer<typeof EdgeStyleOptionsSchema>;
-export type ViewMode = z.infer<typeof ViewModeSchema>;
-export type QuizMode = z.infer<typeof QuizModeSchema>;
-export type QuizStatus = z.infer<typeof QuizStatusSchema>;
+// Native TypeScript types
+export interface EdgeStyleOptions {
+  isFloating: boolean;
+  isAnimated: boolean;
+  shape: EdgeShape;
+}
 
 export interface QuizQuestion {
   letter: Letter;
