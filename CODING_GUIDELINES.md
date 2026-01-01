@@ -349,13 +349,14 @@ export function useAppStore<T>(selector: (store: Store) => T): T {
    const startQuiz = useQuizStore(s => s.startQuiz);
    ```
 
-2. **Use selectors for performance**:
+2. **Use granular selectors for performance**:
    ```typescript
    // ❌ Subscribes to entire store
    const store = useQuizStore(state => state);
 
    // ✅ Only subscribes to specific value
-   const mode = useQuizStore(s => s.mode);
+   const isStarted = useQuizStore(state => state.isStarted);
+   const startQuiz = useQuizStore(state => state.startQuiz);
    ```
 
 3. **Group related actions**:
