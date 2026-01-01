@@ -99,7 +99,9 @@ export function QuizSettings() {
           return (
             <div key={key} className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <Label className="text-sm">{t(labelKey)}</Label>
+                <Label className="text-sm">
+                  {t(labelKey, { mode: mode === 'articulation_point' ? 'Makhraj' : 'Sifat' })}
+                </Label>
                 <span className="font-medium text-sm">{settings[key]}</span>
               </div>
               <Slider

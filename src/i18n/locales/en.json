@@ -177,7 +177,7 @@
       "select_mode_description": "Select the quiz type you want to take",
       "settings": "Quiz Settings",
       "letters_per_quiz": "Letters per Quiz",
-      "targets_per_quiz": "Targets per Quiz",
+      "targets_per_quiz": "{mode} per Quiz",
       "multi_edge": "Multi Answer",
       "timer_mode": "Timer Mode",
       "timer_duration": "Timer Duration",
