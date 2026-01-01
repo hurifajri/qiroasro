@@ -36,7 +36,7 @@ const nodeTypes: NodeTypes = {
   targetQuiz: TargetQuizNode,
 };
 
-export function GraphQuiz() {
+export function Quiz() {
   const t = useTranslations('playground_page.quiz');
   const { theme } = useGlobalStore((state) => state);
 

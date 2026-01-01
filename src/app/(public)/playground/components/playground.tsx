@@ -32,10 +32,10 @@ import { getPlaygroundDataOpt } from '../queries/playground';
 import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
-import { GraphQuiz } from './graph-quiz';
 import { ArticulationAreaNode, ArticulationPointNode } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
+import { Quiz } from './quiz';
 
 // Register custom node types
 const nodeTypes: NodeTypes = {
@@ -396,7 +396,7 @@ export function Playground() {
         </Panel>
 
         <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
-          <GraphQuiz />
+          <Quiz />
           <GraphDownload />
           <Button
             id="tour-help"
