@@ -1,6 +1,6 @@
 'use client';
 
-import { InfoIcon, SettingsIcon, TimerIcon } from 'lucide-react';
+import { SettingsIcon, TimerIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -113,21 +113,18 @@ export function QuizSettings() {
           );
         })}
 
-        <div className="flex items-center justify-between">
-          <Label className="text-sm">{t('multi_edge')}</Label>
-          <Switch
-            checked={settings.multiEdge}
-            disabled={isMultiEdgeDisabled}
-            onCheckedChange={(checked) => setSettings({ ...settings, multiEdge: checked })}
-          />
-        </div>
+        {mode === 'trait' && (
+          <div className="flex items-center justify-between">
+            <Label className="text-sm">{t('multi_edge')}</Label>
+            <Switch
+              checked={settings.multiEdge}
+              disabled={isMultiEdgeDisabled}
+              onCheckedChange={(checked) => setSettings({ ...settings, multiEdge: checked })}
+            />
+          </div>
+        )}
 
-        <p className="flex items-start gap-1 border-b pb-4 text-muted-foreground text-xs">
-          <InfoIcon className="mt-1 size-3 shrink-0" />
-          <span>{t('settings_note')}</span>
-        </p>
-
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 border-t pt-4">
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-1 text-sm">
               <TimerIcon className="size-5 shrink-0" />
