@@ -419,6 +419,15 @@ export function useAppStore<T>(selector: (store: Store) => T): T {
    // ✅ Only subscribes to specific value
    const isStarted = useQuizStore(state => state.isStarted);
    const startQuiz = useQuizStore(state => state.startQuiz);
+
+   // ✅ Or use shallow selector for performance
+   import { useShallow } from 'zustand/react/shallow';
+   const { isStarted, startQuiz } = useQuizStore(
+     useShallow((state) => ({
+       isStarted: state.isStarted,
+       startQuiz: state.startQuiz,
+     }))
+   );
    ```
 
 3. **Group related actions**:
