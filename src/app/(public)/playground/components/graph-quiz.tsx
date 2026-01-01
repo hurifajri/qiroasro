@@ -14,7 +14,14 @@ import {
   useEdgesState,
   useNodesState,
 } from '@xyflow/react';
-import { CheckCircle2Icon, InfoIcon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
+import {
+  CheckCircle2Icon,
+  InfoIcon,
+  RefreshCwIcon,
+  TrophyIcon,
+  XCircleIcon,
+  XIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -67,6 +74,7 @@ export function GraphQuiz() {
   const [isChecked, setIsChecked] = useState(false);
   const [isUnsupportedConfig, setIsUnsupportedConfig] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [isInstructionShown, setIsInstructionShown] = useState(true);
 
   // ReactFlow state
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
@@ -560,15 +568,23 @@ export function GraphQuiz() {
               </div>
 
               {/* Instructions */}
-              {!isChecked && (
-                <p className="flex flex-col gap-2 rounded-lg bg-linear-to-br from-lime-300/60 to-lime-300/40 px-3 py-2 text-foreground text-sm dark:from-lime-800/60 dark:to-lime-800/40">
-                  <span className="flex items-center gap-1 font-semibold">
-                    <InfoIcon className="size-4" /> {t('instruction_title')}
-                  </span>
-                  {t('instruction_description', {
-                    target: quizMode === 'articulation_point' ? 'Makhraj' : 'Sifat',
-                  })}
-                </p>
+              {isInstructionShown && (
+                <div className="flex flex-col gap-2 rounded-lg bg-linear-to-br from-lime-300/60 to-lime-300/40 px-3 py-2 text-foreground text-sm dark:from-lime-800/60 dark:to-lime-800/40">
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1 font-semibold">
+                      <InfoIcon className="size-4" /> {t('instruction_title')}
+                    </span>
+                    <XIcon
+                      onClick={() => setIsInstructionShown(false)}
+                      className="size-4 cursor-pointer"
+                    />
+                  </div>
+                  <p>
+                    {t('instruction_description', {
+                      target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
+                    })}
+                  </p>
+                </div>
               )}
             </div>
           )}
