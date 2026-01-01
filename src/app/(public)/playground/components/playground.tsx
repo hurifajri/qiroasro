@@ -23,7 +23,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
-import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph-layout';
+import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
