@@ -28,18 +28,18 @@ export function QuizFooter({
 
   return (
     <DialogFooter className="sm:justify-between! flex-col gap-2 sm:flex-row sm:items-center">
-      <Button variant="outline" onClick={onReset}>
+      <Button size="lg" variant="outline" onClick={onReset}>
         <RefreshCwIcon />
         {t('change_mode')}
       </Button>
       {!isUnsupportedConfig && isChecked && (
-        <Button onClick={onTryAgain}>
+        <Button size="lg" onClick={onTryAgain}>
           <RefreshCwIcon />
           {t('try_again')}
         </Button>
       )}
       {!isUnsupportedConfig && !isChecked && (
-        <Button onClick={onCheckAnswers} disabled={connectionCount < requiredConnections}>
+        <Button size="lg" onClick={onCheckAnswers} disabled={connectionCount < requiredConnections}>
           <CheckCircle2Icon />
           {t('check_answer')}
         </Button>
