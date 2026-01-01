@@ -20,16 +20,22 @@ export function QuizScore({ score }: QuizScoreProps) {
 
   return (
     <div className="flex items-center gap-1">
-      <Badge variant="default" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', successStyles)}>
-        <CheckCircle2Icon />
-        <span className="font-semibold text-base">
-          {t('correct_score', { correct: score.correct })}
-        </span>
-      </Badge>
-      <Badge variant="destructive" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!')}>
-        <XCircleIcon />
-        <span className="font-semibold text-base">{t('incorrect_score', { incorrect })}</span>
-      </Badge>
+      {!isUnanswered && (
+        <Badge variant="default" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', successStyles)}>
+          <CheckCircle2Icon />
+          <span className="font-semibold text-base">
+            {isAllCorrect ? t('all_correct') : t('correct_score', { correct: score.correct })}
+          </span>
+        </Badge>
+      )}
+      {!isAllCorrect && (
+        <Badge variant="destructive" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!')}>
+          <XCircleIcon />
+          <span className="font-semibold text-base">
+            {isUnanswered ? t('unanswered_quiz') : t('incorrect_score', { incorrect })}
+          </span>
+        </Badge>
+      )}
     </div>
   );
 }
