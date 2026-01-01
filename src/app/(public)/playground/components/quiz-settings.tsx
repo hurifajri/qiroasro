@@ -22,23 +22,31 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
 
   const handleLettersChange = (value: number | readonly number[]) => {
     const newLetters = Array.isArray(value) ? value[0] : value;
-    // If letters equals targets, adjust targets
-    if (newLetters === values.targetsPerQuiz) {
-      const adjustedTargets = newLetters < 5 ? newLetters + 1 : newLetters - 1;
-      onChange({ ...values, lettersPerQuiz: newLetters, targetsPerQuiz: adjustedTargets });
+    // Case 1: letters = 1, targets > 1 → if letters increased, targets must reset to 1
+    // Case 2: letters > 1, targets = 1 → valid
+    // Rule: one must be 1, but not both
+    if (newLetters > 1) {
+      // If letters > 1, targets must be 1
+      onChange({ ...values, lettersPerQuiz: newLetters, targetsPerQuiz: 1 });
     } else {
-      onChange({ ...values, lettersPerQuiz: newLetters });
+      // If letters = 1, targets must be > 1 (at least 2)
+      const newTargets = values.targetsPerQuiz === 1 ? 2 : values.targetsPerQuiz;
+      onChange({ ...values, lettersPerQuiz: newLetters, targetsPerQuiz: newTargets });
     }
   };
 
   const handleTargetsChange = (value: number | readonly number[]) => {
     const newTargets = Array.isArray(value) ? value[0] : value;
-    // If targets equals letters, adjust letters
-    if (newTargets === values.lettersPerQuiz) {
-      const adjustedLetters = newTargets < 5 ? newTargets + 1 : newTargets - 1;
-      onChange({ ...values, targetsPerQuiz: newTargets, lettersPerQuiz: adjustedLetters });
+    // Case 1: letters = 1, targets > 1 → valid
+    // Case 2: letters > 1, targets = 1 → if targets increased, letters must reset to 1
+    // Rule: one must be 1, but not both
+    if (newTargets > 1) {
+      // If targets > 1, letters must be 1
+      onChange({ ...values, targetsPerQuiz: newTargets, lettersPerQuiz: 1 });
     } else {
-      onChange({ ...values, targetsPerQuiz: newTargets });
+      // If targets = 1, letters must be > 1 (at least 2)
+      const newLetters = values.lettersPerQuiz === 1 ? 2 : values.lettersPerQuiz;
+      onChange({ ...values, targetsPerQuiz: newTargets, lettersPerQuiz: newLetters });
     }
   };
 
