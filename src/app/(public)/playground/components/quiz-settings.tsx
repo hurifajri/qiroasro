@@ -1,6 +1,6 @@
 'use client';
 
-import { InfoIcon, SettingsIcon } from 'lucide-react';
+import { InfoIcon, SettingsIcon, TimerIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -11,6 +11,8 @@ export interface QuizSettingsValues {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
+  timerMode: boolean;
+  timerDuration: number; // in seconds
 }
 
 interface QuizSettingsProps {
@@ -78,45 +80,75 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
 
   return (
     <Card size="sm">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-1 text-muted-foreground">
-          <SettingsIcon className="size-4 shrink-0" />
+      <CardHeader className="border-b">
+        <CardTitle className="flex items-center gap-1">
+          <SettingsIcon className="size-5 shrink-0" />
           <span>{t('settings')}</span>
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-4">
-        <ul className="flex flex-col gap-4">
-          {SLIDER_CONFIG.map(({ key, labelKey }) => (
-            <li key={key} className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <Label className="text-sm">{t(labelKey)}</Label>
-                <span className="font-medium text-sm">{values[key]}</span>
-              </div>
-              <Slider
-                value={[values[key]]}
-                onValueChange={(v) => handleSliderChange(key, v)}
-                min={1}
-                max={5}
-                step={1}
-              />
-            </li>
-          ))}
-
-          <li className="flex items-center justify-between">
-            <Label className="text-sm">{t('multi_edge')}</Label>
-            <Switch
-              checked={values.multiEdge}
-              disabled={values.lettersPerQuiz <= 2 && values.targetsPerQuiz <= 2}
-              onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
+        {SLIDER_CONFIG.map(({ key, labelKey }) => (
+          <div key={key} className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <Label className="text-sm">{t(labelKey)}</Label>
+              <span className="font-medium text-sm">{values[key]}</span>
+            </div>
+            <Slider
+              value={[values[key]]}
+              onValueChange={(v) => handleSliderChange(key, v)}
+              min={1}
+              max={5}
+              step={1}
             />
-          </li>
-        </ul>
+          </div>
+        ))}
 
-        <p className="flex items-start gap-1 text-muted-foreground text-xs">
+        <div className="flex items-center justify-between">
+          <Label className="text-sm">{t('multi_edge')}</Label>
+          <Switch
+            checked={values.multiEdge}
+            disabled={values.lettersPerQuiz <= 2 && values.targetsPerQuiz <= 2}
+            onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
+          />
+        </div>
+
+        <p className="flex items-start gap-1 border-b pb-4 text-muted-foreground text-xs">
           <InfoIcon className="mt-1 size-3 shrink-0" />
           <span>{t('settings_note')}</span>
         </p>
+
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <Label className="flex items-center gap-1 text-sm">
+              <TimerIcon className="size-5 shrink-0" />
+              {t('timer_mode')}
+            </Label>
+            <Switch
+              checked={values.timerMode}
+              onCheckedChange={(checked) => onChange({ ...values, timerMode: checked })}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between">
+              <Label className="text-muted-foreground text-sm">{t('timer_duration')}</Label>
+              <span className="font-medium text-sm">{values.timerDuration}s</span>
+            </div>
+            <Slider
+              value={[values.timerDuration]}
+              onValueChange={(v) =>
+                onChange({
+                  ...values,
+                  timerDuration: Array.isArray(v) ? v[0] : v,
+                })
+              }
+              min={5}
+              max={60}
+              step={5}
+              disabled={!values.timerMode}
+            />
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

@@ -11,6 +11,8 @@ interface QuizFooterProps {
   onReset: () => void;
   onTryAgain: () => void;
   onCheckAnswers: () => void;
+  timerMode?: boolean;
+  timeRemaining?: number | null;
 }
 
 export function QuizFooter({
