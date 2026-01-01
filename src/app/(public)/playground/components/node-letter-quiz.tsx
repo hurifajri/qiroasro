@@ -5,9 +5,7 @@ import { cn } from '@/lib/utils';
 import type { Letter } from '@/schemas/letter';
 import type { QuizStatus } from '../schemas/graph';
 
-type LetterQuizNodeData = Letter & {
-  status: QuizStatus;
-};
+type LetterQuizNodeData = Letter & { status: QuizStatus };
 
 export function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as LetterQuizNodeData;

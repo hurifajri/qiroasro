@@ -12,7 +12,6 @@ import type { BaseNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
-
 type TraitNodeData = Trait & BaseNodeData;
 
 export function TraitGroupNode({ data, selected }: NodeProps) {

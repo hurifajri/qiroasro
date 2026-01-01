@@ -12,7 +12,6 @@ import type { BaseNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
 type ArticulationAreaNodeData = ArticulationArea & BaseNodeData;
-
 type ArticulationPointNodeData = ArticulationPoint & BaseNodeData;
 
 export function ArticulationAreaNode({ data, selected }: NodeProps) {

@@ -19,7 +19,7 @@ export type BaseNodeData = {
 
 export type TargetQuiz = {
   id: number;
-  label: string;
+  slug: string;
   mode: QuizMode;
   status: QuizStatus;
 };

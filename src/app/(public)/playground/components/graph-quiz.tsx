@@ -26,7 +26,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { kebabToSpaced } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import type { Letter } from '@/schemas/letter';
 import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
@@ -88,7 +87,7 @@ export function GraphQuiz() {
       // For sifat mode, exclude letters that only have traits with groupId 7
       const validTraitIds = new Set(traits.filter((t) => t.groupId !== 7).map((t) => t.id));
       const availableLetters = letters.filter((letter) => {
-        if (mode === 'makhraj') {
+        if (mode === 'articulation_point') {
           return letterArticulations.some((la) => la.letterId === letter.id);
         } else {
           return letterTraits.some(
@@ -102,7 +101,7 @@ export function GraphQuiz() {
 
       // Get target items
       let allTargets: TargetItem[];
-      if (mode === 'makhraj') {
+      if (mode === 'articulation_point') {
         allTargets = articulationPoints.map((ap) => ({ id: ap.id, slug: ap.slug }));
       } else {
         allTargets = traits
@@ -112,7 +111,7 @@ export function GraphQuiz() {
 
       // Helper function to get correct target IDs for a letter
       const getCorrectTargetIds = (letter: Letter): number[] => {
-        if (mode === 'makhraj') {
+        if (mode === 'articulation_point') {
           return letterArticulations
             .filter((la) => la.letterId === letter.id)
             .map((la) => la.pointId);
@@ -266,7 +265,7 @@ export function GraphQuiz() {
       });
 
       const targetNodes: Node[] = selectedTargets.map((q, index) => {
-        const target: TargetQuiz = { id: q.id, label: kebabToSpaced(q.slug), mode, status: 'none' };
+        const target: TargetQuiz = { id: q.id, slug: q.slug, mode, status: 'none' };
         const position = { x: 280, y: 20 + index * 60 };
         return createTargetQuizNode(target, position);
       });
@@ -491,16 +490,16 @@ export function GraphQuiz() {
             // Mode selection
             <div className="flex flex-col gap-4 py-4">
               <Button
-                onClick={() => startQuiz('makhraj')}
+                onClick={() => startQuiz('articulation_point')}
                 variant="outline"
                 className="h-20 text-lg"
               >
                 <span className="text-2xl">🎯</span>
-                {t('mode_makhraj')}
+                {t('mode_articulation_point')}
               </Button>
-              <Button onClick={() => startQuiz('sifat')} variant="outline" className="h-20 text-lg">
+              <Button onClick={() => startQuiz('trait')} variant="outline" className="h-20 text-lg">
                 <span className="text-2xl">✨</span>
-                {t('mode_sifat')}
+                {t('mode_trait')}
               </Button>
             </div>
           ) : isUnsupportedConfig ? (
