@@ -497,7 +497,7 @@ export function GraphQuiz() {
 
           {!quizMode ? (
             // Mode selection
-            <div className="flex flex-col gap-4 py-4">
+            <div className="flex flex-col gap-4">
               <Button
                 onClick={() => startQuiz('articulation_point')}
                 variant="outline"
@@ -512,17 +512,16 @@ export function GraphQuiz() {
               </Button>
             </div>
           ) : isUnsupportedConfig ? (
-            // Unsupported configuration message
             <div className="flex flex-col items-center justify-center gap-4 py-8">
               <XCircleIcon className="h-16 w-16 text-muted-foreground" />
               <p className="text-center text-muted-foreground">{t('unsupported_quiz')}</p>
             </div>
           ) : (
             // Quiz area
-            <div className="flex flex-col gap-4">
+            <div className="relative flex flex-col gap-4">
               {/* Score display */}
               {isChecked && (
-                <div className="flex items-center justify-center gap-2 rounded-lg bg-muted p-3">
+                <div className="absolute flex w-full items-center justify-center gap-2 rounded-lg bg-transparent p-3">
                   {score.correct === score.total ? (
                     <CheckCircle2Icon className="text-green-500" />
                   ) : (
