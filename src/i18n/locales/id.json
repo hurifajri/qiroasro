@@ -99,7 +99,7 @@
     },
     "development": {
       "waitlist": "Waitlist",
-      "is_beneficial": "Apakah ada yang lain?",
+      "more_comprehensive": "Mau yang lebih komprehensif?",
       "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
       "reminder_cta": "Waitlist",
       "reminder_playground_cta": "Ke Playground",
@@ -192,7 +192,7 @@
       "downloading": "Mengunduh..."
     },
     "development": {
-      "is_beneficial": "Apakah contoh ini bermanfaat?"
+      "more_comprehensive": "Mau yang lebih komprehensif?"
     },
     "tour": {
       "next": "Lanjut",

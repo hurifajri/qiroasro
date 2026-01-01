@@ -99,7 +99,7 @@
     },
     "development": {
       "waitlist": "Waitlist",
-      "is_beneficial": "Do you like this and want to see more?",
+      "more_comprehensive": "Do you want more comprehensive?",
       "reminder_title": "Notify when the app is available",
       "reminder_cta": "Waitlist",
       "reminder_playground_cta": "Visit Playground",
@@ -192,7 +192,7 @@
       "downloading": "Downloading..."
     },
     "development": {
-      "is_beneficial": "Is this example beneficial?"
+      "more_comprehensive": "Do you want more comprehensive?"
     },
     "tour": {
       "next": "Next",

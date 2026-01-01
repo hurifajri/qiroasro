@@ -86,7 +86,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
           <DialogContent>
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
-              <DialogTitle>{t('development.is_beneficial')}</DialogTitle>
+              <DialogTitle>{t('development.more_comprehensive')}</DialogTitle>
             </DialogHeader>
             <WaitlistForm source="public_header" isPlain />
           </DialogContent>
