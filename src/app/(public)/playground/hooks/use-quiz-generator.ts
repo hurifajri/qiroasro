@@ -5,44 +5,34 @@ import { addEdge, type Connection, type Edge, type Node } from '@xyflow/react';
 import { useCallback, useMemo } from 'react';
 import type { Letter } from '@/schemas/letter';
 import { createLetterQuizNode, createTargetQuizNode } from '../lib/node';
+import { useQuizStore } from '../providers/quiz';
 import { getPlaygroundDataOpt } from '../queries/playground';
 import type { LetterQuiz } from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
-import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/quiz';
+import type { QuizMode, QuizQuestion, TargetItem } from '../schemas/quiz';
 
 interface UseQuizGeneratorProps {
-  lettersPerQuiz: number;
-  targetsPerQuiz: number;
-  multiEdge: boolean;
   nodes: Node[];
   edges: Edge[];
-  questions: QuizQuestion[];
-  isChecked: boolean;
   setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
   setEdges: React.Dispatch<React.SetStateAction<Edge[]>>;
-  setQuestions: React.Dispatch<React.SetStateAction<QuizQuestion[]>>;
-  setTargets: React.Dispatch<React.SetStateAction<TargetItem[]>>;
-  setIsUnsupportedConfig: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-  setScore: React.Dispatch<React.SetStateAction<QuizScoreCount>>;
 }
 
-export function useQuizGenerator({
-  lettersPerQuiz,
-  targetsPerQuiz,
-  multiEdge,
-  nodes,
-  edges,
-  questions,
-  isChecked,
-  setNodes,
-  setEdges,
-  setQuestions,
-  setTargets,
-  setIsUnsupportedConfig,
-  setIsChecked,
-  setScore,
-}: UseQuizGeneratorProps) {
+export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGeneratorProps) {
+  // Get settings and state from store
+  const settings = useQuizStore((s) => s.settings);
+  const questions = useQuizStore((s) => s.questions);
+  const isChecked = useQuizStore((s) => s.isChecked);
+
+  // Get store actions
+  const setQuestions = useQuizStore((s) => s.setQuestions);
+  const setTargets = useQuizStore((s) => s.setTargets);
+  const setIsUnsupportedConfig = useQuizStore((s) => s.setIsUnsupportedConfig);
+  const setIsChecked = useQuizStore((s) => s.setIsChecked);
+  const setScore = useQuizStore((s) => s.setScore);
+
+  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = settings;
+
   // Fetch data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
   const letters = playgroundData?.letters ?? [];

@@ -10,7 +10,7 @@ import {
 } from '@xyflow/react';
 import { PlayIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -24,7 +24,7 @@ import { useGlobalStore } from '@/providers/global';
 import { useQuizGenerator } from '../hooks/use-quiz-generator';
 import { useQuizTimer } from '../hooks/use-quiz-timer';
 import { useQuizStore } from '../providers/quiz';
-import type { QuizMode, QuizQuestion, QuizScoreCount, TargetItem } from '../schemas/quiz';
+import type { QuizMode } from '../schemas/quiz';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 import { QuizCanvas } from './quiz-canvas';
@@ -44,23 +44,23 @@ export function Quiz() {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
-  // Zustand store state
+  // Zustand store state - using granular selectors for performance
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
   const settings = useQuizStore((s) => s.settings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const openDialog = useQuizStore((s) => s.openDialog);
+  const isStarted = useQuizStore((s) => s.isStarted);
+  const startQuiz = useQuizStore((s) => s.startQuiz);
+  const isChecked = useQuizStore((s) => s.isChecked);
+  const isUnsupportedConfig = useQuizStore((s) => s.isUnsupportedConfig);
+  const isInstructionShown = useQuizStore((s) => s.isInstructionShown);
+  const setIsInstructionShown = useQuizStore((s) => s.setIsInstructionShown);
+  const score = useQuizStore((s) => s.score);
+  const resetQuiz = useQuizStore((s) => s.resetQuiz);
   const resetAll = useQuizStore((s) => s.resetAll);
 
-  // Local state for quiz internals (nodes/edges managed by ReactFlow)
-  const [isStarted, setIsStarted] = useState(false);
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-  const [, setTargets] = useState<TargetItem[]>([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const [isUnsupportedConfig, setIsUnsupportedConfig] = useState(false);
-  const [score, setScore] = useState<QuizScoreCount>({ correct: 0, total: 0 });
-  const [isInstructionShown, setIsInstructionShown] = useState(true);
-
+  // ReactFlow-specific state (nodes/edges managed by ReactFlow hooks)
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
@@ -72,20 +72,10 @@ export function Quiz() {
     connectionCount,
     requiredConnections,
   } = useQuizGenerator({
-    lettersPerQuiz: settings.lettersPerQuiz,
-    targetsPerQuiz: settings.targetsPerQuiz,
-    multiEdge: settings.multiEdge,
     nodes,
     edges,
-    questions,
-    isChecked,
     setNodes,
     setEdges,
-    setQuestions,
-    setTargets,
-    setIsUnsupportedConfig,
-    setIsChecked,
-    setScore,
   });
 
   const handleTimeUp = useCallback(() => {
@@ -113,31 +103,25 @@ export function Quiz() {
 
   const handleStartQuiz = () => {
     if (!mode) return;
-    setIsStarted(true);
+    startQuiz();
     generateQuiz(mode);
     startTimer();
   };
 
   const handleBackToModeSelect = () => {
     setMode(null);
-    setIsStarted(false);
   };
 
-  const resetQuiz = () => {
-    setMode(null);
-    setIsStarted(false);
-    setQuestions([]);
-    setTargets([]);
+  const handleResetQuiz = () => {
     setNodes([]);
     setEdges([]);
-    setIsChecked(false);
-    setScore({ correct: 0, total: 0 });
+    resetQuiz();
     stopTimer();
   };
 
   const handleDialogClose = (open: boolean) => {
     if (!open) {
-      resetQuiz();
+      handleResetQuiz();
       resetAll();
     }
   };
@@ -238,7 +222,7 @@ export function Quiz() {
                 isChecked={isChecked}
                 connectionCount={connectionCount}
                 requiredConnections={requiredConnections}
-                onReset={resetQuiz}
+                onReset={handleResetQuiz}
                 onTryAgain={() => {
                   generateQuiz(mode);
                   resetTimer();

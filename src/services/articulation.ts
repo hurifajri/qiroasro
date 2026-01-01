@@ -3,7 +3,7 @@ import {
   TABLE_ARTICULATION_AREAS,
   TABLE_ARTICULATION_POINTS,
 } from '@/lib/constants';
-import { getSupabaseClient } from '@/lib/supabase';
+import { fetchFromTable } from '@/lib/supabase';
 import {
   transformRemoteArticulationAreas,
   transformRemoteArticulationPoints,
@@ -15,40 +15,20 @@ import {
   RemoteArticulationPointsSchema,
 } from '@/schemas/articulation';
 
-export async function getArticulationAreas(): Promise<ArticulationArea[]> {
-  try {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_ARTICULATION_AREAS)
-      .select('*')
-      .order(COLUMN_SORT_ORDER);
-
-    if (error) throw new Error(error.message);
-
-    const remoteArticulationAreas = RemoteArticulationAreasSchema.parse(data);
-    const articulationAreas = transformRemoteArticulationAreas(remoteArticulationAreas);
-
-    return articulationAreas;
-  } catch (error) {
-    throw error instanceof Error ? error : new Error('Failed to fetch articulation areas');
-  }
+export function getArticulationAreas(): Promise<ArticulationArea[]> {
+  return fetchFromTable(
+    TABLE_ARTICULATION_AREAS,
+    RemoteArticulationAreasSchema,
+    transformRemoteArticulationAreas,
+    COLUMN_SORT_ORDER,
+  );
 }
 
-export async function getArticulationPoints(): Promise<ArticulationPoint[]> {
-  try {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_ARTICULATION_POINTS)
-      .select('*')
-      .order(COLUMN_SORT_ORDER);
-
-    if (error) throw new Error(error.message);
-
-    const remoteArticulationPoints = RemoteArticulationPointsSchema.parse(data);
-    const articulationPoints = transformRemoteArticulationPoints(remoteArticulationPoints);
-
-    return articulationPoints;
-  } catch (error) {
-    throw error instanceof Error ? error : new Error('Failed to fetch articulation points');
-  }
+export function getArticulationPoints(): Promise<ArticulationPoint[]> {
+  return fetchFromTable(
+    TABLE_ARTICULATION_POINTS,
+    RemoteArticulationPointsSchema,
+    transformRemoteArticulationPoints,
+    COLUMN_SORT_ORDER,
+  );
 }
