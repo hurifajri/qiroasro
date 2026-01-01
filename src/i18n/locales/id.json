@@ -177,7 +177,7 @@
       "select_mode_description": "Pilih jenis kuis yang ingin dikerjakan",
       "settings": "Pengaturan Kuis",
       "letters_per_quiz": "Jumlah Huruf",
-      "targets_per_quiz": "Jumlah {mode}",
+      "targets_per_quiz": "Jumlah {target}",
       "multi_edge": "Multi Jawaban",
       "timer_mode": "Mode Timer",
       "timer_duration": "Durasi Timer",
