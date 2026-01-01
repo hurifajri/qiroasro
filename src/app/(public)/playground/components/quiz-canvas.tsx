@@ -9,9 +9,7 @@ import {
   type OnEdgesChange,
   type OnNodesChange,
   ReactFlow,
-  useReactFlow,
 } from '@xyflow/react';
-import { useEffect } from 'react';
 
 interface QuizCanvasProps {
   nodes: Node[];
@@ -36,16 +34,6 @@ export function QuizCanvas({
   onConnect,
   isValidConnection,
 }: QuizCanvasProps) {
-  const { fitView } = useReactFlow();
-
-  useEffect(() => {
-    // Small delay to ensure nodes are rendered before fitting
-    const timeout = setTimeout(() => {
-      fitView({ padding: 0.2 });
-    }, 50);
-    return () => clearTimeout(timeout);
-  }, [fitView]);
-
   return (
     <div className="relative h-100 overflow-hidden rounded-lg border bg-muted/30">
       <ReactFlow
