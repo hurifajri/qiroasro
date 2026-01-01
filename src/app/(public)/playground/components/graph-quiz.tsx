@@ -546,7 +546,6 @@ export function GraphQuiz() {
                     fitViewOptions={{ padding: 0.2 }}
                     nodesDraggable={false}
                     nodesConnectable={!isChecked}
-                    elementsSelectable={false}
                     panOnDrag={false}
                     zoomOnScroll={false}
                     zoomOnPinch={false}
