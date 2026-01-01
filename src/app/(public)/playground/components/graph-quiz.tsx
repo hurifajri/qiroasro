@@ -561,7 +561,7 @@ export function GraphQuiz() {
 
               {/* Instructions */}
               {!isChecked && (
-                <p className="flex flex-col gap-2 rounded-lg bg-lime-300/60 px-3 py-2 text-foreground text-sm dark:bg-lime-800">
+                <p className="flex flex-col gap-2 rounded-lg bg-linear-to-br from-lime-300/60 to-lime-300/40 px-3 py-2 text-foreground text-sm dark:from-lime-800/60 dark:to-lime-800/40">
                   <span className="flex items-center gap-1 font-semibold">
                     <InfoIcon className="size-4" /> {t('instruction_title')}
                   </span>
