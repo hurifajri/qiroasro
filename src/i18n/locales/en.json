@@ -193,7 +193,6 @@
       "try_again": "Try Again",
       "change_mode": "Change Mode",
       "unsupported_quiz": "Quiz is not available for this option",
-      "unanswered_quiz": "Unanswered",
       "all_correct": "All Correct",
       "correct_score": "{correct} correct",
       "incorrect_score": "{incorrect} incorrect",

@@ -152,7 +152,7 @@ export function Quiz() {
       </Button>
 
       <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
-        <DialogContent className="max-h-[90vh] max-w-lg overflow-hidden">
+        <DialogContent className="flex max-h-[90vh] max-w-lg flex-col overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{getDialogTitle()}</DialogTitle>
             <DialogDescription>{getDialogDescription()}</DialogDescription>
