@@ -157,11 +157,13 @@ export function useQuizGenerator({
         });
 
         selectedLetters = [firstLetter, ...distractorLetters.slice(0, lettersPerQuiz - 1)];
-        newQuestions = selectedLetters.map((letter, index) => ({
-          letter,
-          correctTargetIds: index === 0 ? [selectedTargetId] : [],
-          targetType: mode,
-        }));
+        newQuestions = selectedLetters
+          .map((letter, index) => ({
+            letter,
+            correctTargetIds: index === 0 ? [selectedTargetId] : [],
+            targetType: mode,
+          }))
+          .sort(() => Math.random() - 0.5); // Shuffle to randomize position
         selectedTargets = allTargets.filter((t) => t.id === selectedTargetId);
       } else if (isCase4) {
         const shuffledTargets = [...allTargets].sort(() => Math.random() - 0.5);
