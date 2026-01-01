@@ -460,7 +460,6 @@ export async function getEntities(): Promise<Entity[]> {
     return transformRemoteEntities(remoteEntities);
   } catch (error) {
     // Proper error handling
-    console.error('[getEntities]', error);
     throw error;  // Let React Query handle it
   }
 }
