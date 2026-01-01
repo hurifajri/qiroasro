@@ -194,7 +194,8 @@
       "try_again": "Try Again",
       "change_mode": "Change Mode",
       "score": "{correct} out of {total} correct",
-      "unsupported_quiz": "Quiz is not available for this option"
+      "unsupported_quiz": "Quiz is not available for this option",
+      "unanswered_quiz": "Unanswered"
     },
     "download": {
       "trigger": "Download Image",

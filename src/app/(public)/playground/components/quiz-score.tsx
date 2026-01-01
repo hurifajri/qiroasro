@@ -21,8 +21,9 @@ const successStyles = 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:
  */
 export function QuizScore({ score, className }: QuizScoreProps) {
   const t = useTranslations('playground_page.quiz');
-
-  const isAllCorrect = score.correct === score.total;
+  const isUnanswered = score.correct === 0 && score.total === 0;
+  const isAllCorrect = !isUnanswered && score.correct === score.total;
+  const incorrect = score.total - score.correct;
 
   return (
     <Badge
@@ -31,7 +32,9 @@ export function QuizScore({ score, className }: QuizScoreProps) {
     >
       {isAllCorrect ? <CheckCircle2Icon /> : <XCircleIcon />}
       <span className="font-semibold text-base">
-        {t('score', { correct: score.correct, total: score.total })}
+        {isUnanswered
+          ? t('unanswered_quiz')
+          : t('score', { correct: score.correct, total: score.total })}
       </span>
     </Badge>
   );

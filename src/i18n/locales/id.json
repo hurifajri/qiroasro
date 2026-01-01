@@ -194,7 +194,8 @@
       "try_again": "Coba Lagi",
       "change_mode": "Ganti Mode",
       "score": "{correct} dari {total} benar",
-      "unsupported_quiz": "Kuis belum tersedia untuk pilihan ini"
+      "unsupported_quiz": "Kuis belum tersedia untuk pilihan ini",
+      "unanswered_quiz": "Tidak terjawab"
     },
     "download": {
       "trigger": "Unduh Gambar",
