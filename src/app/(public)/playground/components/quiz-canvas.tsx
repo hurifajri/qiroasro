@@ -9,10 +9,11 @@ import {
   type OnEdgesChange,
   type OnNodesChange,
   ReactFlow,
-  ReactFlowProvider,
+  useReactFlow,
 } from '@xyflow/react';
 import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
 import type { QuizScore } from '../schemas/graph';
 
 interface QuizCanvasProps {
@@ -41,6 +42,15 @@ export function QuizCanvas({
   isValidConnection,
 }: QuizCanvasProps) {
   const t = useTranslations('playground_page.quiz');
+  const { fitView } = useReactFlow();
+
+  useEffect(() => {
+    // Small delay to ensure nodes are rendered before fitting
+    const timeout = setTimeout(() => {
+      fitView({ padding: 0.2 });
+    }, 50);
+    return () => clearTimeout(timeout);
+  }, [fitView]);
 
   return (
     <>
@@ -58,31 +68,29 @@ export function QuizCanvas({
       )}
 
       <div className="h-100 overflow-hidden rounded-lg border bg-muted/30">
-        <ReactFlowProvider>
-          <ReactFlow
-            proOptions={{ hideAttribution: true }}
-            colorMode={theme}
-            fitView
-            fitViewOptions={{ padding: 0.2 }}
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            nodeTypes={nodeTypes}
-            onConnect={onConnect}
-            isValidConnection={isValidConnection}
-            nodesDraggable={false}
-            nodesConnectable={!isChecked}
-            panOnDrag={false}
-            zoomOnScroll={false}
-            zoomOnPinch={false}
-            zoomOnDoubleClick={false}
-            preventScrolling={false}
-            connectOnClick={true}
-          >
-            <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
-          </ReactFlow>
-        </ReactFlowProvider>
+        <ReactFlow
+          proOptions={{ hideAttribution: true }}
+          colorMode={theme}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          nodeTypes={nodeTypes}
+          onConnect={onConnect}
+          isValidConnection={isValidConnection}
+          nodesDraggable={false}
+          nodesConnectable={!isChecked}
+          panOnDrag={false}
+          zoomOnScroll={false}
+          zoomOnPinch={false}
+          zoomOnDoubleClick={false}
+          preventScrolling={false}
+          connectOnClick={true}
+        >
+          <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
+        </ReactFlow>
       </div>
     </>
   );

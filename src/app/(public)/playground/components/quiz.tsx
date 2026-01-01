@@ -1,6 +1,13 @@
 'use client';
 
-import { type Edge, type Node, type NodeTypes, useEdgesState, useNodesState } from '@xyflow/react';
+import {
+  type Edge,
+  type Node,
+  type NodeTypes,
+  ReactFlowProvider,
+  useEdgesState,
+  useNodesState,
+} from '@xyflow/react';
 import { TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -91,7 +98,7 @@ export function Quiz() {
   };
 
   return (
-    <>
+    <ReactFlowProvider>
       <Button
         id="tour-quiz"
         size="sm"
@@ -155,6 +162,6 @@ export function Quiz() {
           )}
         </DialogContent>
       </Dialog>
-    </>
+    </ReactFlowProvider>
   );
 }
