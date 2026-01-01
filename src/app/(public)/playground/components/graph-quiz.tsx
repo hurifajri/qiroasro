@@ -594,7 +594,7 @@ export function GraphQuiz() {
           )}
 
           {quizMode && (
-            <DialogFooter className="flex-row items-center justify-between gap-2">
+            <DialogFooter className="sm:justify-between! flex-col gap-2 sm:flex-row sm:items-center">
               <Button variant="outline" onClick={resetQuiz}>
                 <RefreshCwIcon />
                 {t('change_mode')}
