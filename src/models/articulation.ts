@@ -12,7 +12,7 @@ function transformRemoteArticulationArea(remoteArticulationArea: RemoteArticulat
 export function transformRemoteArticulationAreas(
   remoteArticulationAreas: RemoteArticulationArea[],
 ) {
-  return remoteArticulationAreas.map((letter) => transformRemoteArticulationArea(letter));
+  return remoteArticulationAreas.map((area) => transformRemoteArticulationArea(area));
 }
 
 function transformRemoteArticulationPoint(remoteArticulationPoint: RemoteArticulationPoint) {
@@ -27,5 +27,5 @@ function transformRemoteArticulationPoint(remoteArticulationPoint: RemoteArticul
 export function transformRemoteArticulationPoints(
   remoteArticulationPoints: RemoteArticulationPoint[],
 ) {
-  return remoteArticulationPoints.map((letter) => transformRemoteArticulationPoint(letter));
+  return remoteArticulationPoints.map((point) => transformRemoteArticulationPoint(point));
 }

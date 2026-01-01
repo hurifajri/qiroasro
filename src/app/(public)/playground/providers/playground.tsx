@@ -20,11 +20,11 @@ export function PlaygroundStoreProvider({ children }: React.PropsWithChildren) {
 }
 
 export function usePlaygroundStore<T>(selector: (store: PlaygroundStore) => T): T {
-  const usePlaygroundStoreContext = useContext(PlaygroundStoreContext);
+  const playgroundStoreContext = useContext(PlaygroundStoreContext);
 
-  if (!usePlaygroundStoreContext) {
+  if (!playgroundStoreContext) {
     throw new Error(`usePlaygroundStore must be used within PlaygroundStoreProvider`);
   }
 
-  return useStore(usePlaygroundStoreContext, selector);
+  return useStore(playgroundStoreContext, selector);
 }
