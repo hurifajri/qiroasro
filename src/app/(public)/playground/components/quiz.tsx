@@ -135,7 +135,10 @@ export function Quiz() {
 
   const getDialogDescription = () => {
     if (!mode) return t('select_mode_description');
-    if (!isStarted) return t(`description_${mode}`);
+    if (!isStarted)
+      return t('settings_description', {
+        mode: mode === 'articulation_point' ? 'makhraj' : 'sifat',
+      });
     return t(`description_${mode}`);
   };
 

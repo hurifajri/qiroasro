@@ -173,9 +173,10 @@
     },
     "quiz": {
       "trigger": "Mulai Kuis",
-      "select_mode": "Mode Kuis",
-      "select_mode_description": "Pilih jenis kuis yang ingin dikerjakan",
+      "select_mode": "Jenis Kuis",
+      "select_mode_description": "Pilih jenis kuis yang ingin dicoba",
       "settings": "Pengaturan Kuis",
+      "settings_description": "Sesuaikan pengaturan untuk kuis {mode}",
       "letters_per_quiz": "Jumlah Huruf",
       "targets_per_quiz": "Jumlah {target}",
       "multi_edge": "Multi Jawaban",

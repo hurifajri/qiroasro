@@ -16,7 +16,11 @@ const SLIDER_CONFIG: { key: SliderKey; labelKey: string }[] = [
   { key: 'targetsPerQuiz', labelKey: 'targets_per_quiz' },
 ];
 
-export function QuizSettings() {
+interface QuizSettingsProps {
+  hasHeader?: boolean;
+}
+
+export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const t = useTranslations('playground_page.quiz');
 
   const mode = useQuizStore((s) => s.mode);
@@ -86,12 +90,14 @@ export function QuizSettings() {
 
   return (
     <Card size="sm">
-      <CardHeader className="border-b">
-        <CardTitle className="flex items-center gap-1">
-          <SettingsIcon className="size-5 shrink-0" />
-          <span>{t('settings')}</span>
-        </CardTitle>
-      </CardHeader>
+      {hasHeader && (
+        <CardHeader className="border-b">
+          <CardTitle className="flex items-center gap-1">
+            <SettingsIcon className="size-5 shrink-0" />
+            <span>{t('settings')}</span>
+          </CardTitle>
+        </CardHeader>
+      )}
 
       <CardContent className="flex flex-col gap-4">
         {SLIDER_CONFIG.map(({ key, labelKey }) => {
