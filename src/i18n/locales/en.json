@@ -179,6 +179,7 @@
       "letters_per_quiz": "Letters per Quiz",
       "targets_per_quiz": "Targets per Quiz",
       "multi_edge": "Multi Answer",
+      "settings_note": "Actual counts may vary from the selected values depending on available data.",
       "title_articulation_point": "Makhraj Quiz",
       "description_articulation_point": "Match the letter with its correct Makhraj",
       "title_trait": "Sifat Quiz",

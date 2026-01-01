@@ -1,6 +1,6 @@
 'use client';
 
-import { SettingsIcon } from 'lucide-react';
+import { InfoIcon, SettingsIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -85,7 +85,7 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="flex flex-col gap-4">
         <ul className="flex flex-col gap-4">
           {SLIDER_CONFIG.map(({ key, labelKey }) => (
             <li key={key} className="flex flex-col gap-2">
@@ -112,6 +112,11 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
             />
           </li>
         </ul>
+
+        <p className="flex items-start gap-1 text-muted-foreground text-xs">
+          <InfoIcon className="mt-1 size-3 shrink-0" />
+          <span>{t('settings_note')}</span>
+        </p>
       </CardContent>
     </Card>
   );
