@@ -197,7 +197,8 @@
       "unanswered_quiz": "Tidak terjawab",
       "all_correct": "Mumtaz",
       "correct_score": "Benar {correct}",
-      "incorrect_score": "Salah {incorrect}"
+      "incorrect_score": "Salah {incorrect}",
+      "incorrect_single_answer": "Kurang tepat"
     },
     "download": {
       "trigger": "Unduh Gambar",
