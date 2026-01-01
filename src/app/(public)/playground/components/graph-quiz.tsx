@@ -48,9 +48,9 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ: number = 3;
-const TARGETS_PER_QUIZ: number = 1;
-const MULTI_EDGE: boolean = true;
+const LETTERS_PER_QUIZ: number = 1;
+const TARGETS_PER_QUIZ: number = 3;
+const MULTI_EDGE: boolean = false;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -309,19 +309,21 @@ export function GraphQuiz() {
         // Case 2: multiple edges from same letter to different targets
         // Case 4: multiple edges from different letters to same target
 
-        // Check if connection to this target already exists
-        const connectionExists = edges.some((e) => e.target === connection.target);
-        if (connectionExists) return; // Don't allow duplicate connections to same target
-
-        // Case 2: Limit edges to targetCount - 1 (leave one distractor)
+        // Case 2: Check if connection to this target already exists (same letter can't connect to same target twice)
         if (LETTERS_PER_QUIZ === 1 && TARGETS_PER_QUIZ > 1) {
+          const connectionExists = edges.some((e) => e.target === connection.target);
+          if (connectionExists) return; // Don't allow duplicate connections to same target
+
           const targetNodes = nodes.filter((n) => n.type === 'targetQuiz');
           const maxEdges = targetNodes.length - 1;
           if (edges.length >= maxEdges) return; // Don't allow more edges
         }
 
-        // Case 4: Limit edges to letterCount - 1 (leave one distractor)
+        // Case 4: Check if connection from this letter already exists (same letter can't connect twice)
         if (LETTERS_PER_QUIZ > 1 && TARGETS_PER_QUIZ === 1) {
+          const connectionExists = edges.some((e) => e.source === connection.source);
+          if (connectionExists) return; // Don't allow duplicate connections from same letter
+
           const letterNodes = nodes.filter((n) => n.type === 'letterQuiz');
           const maxEdges = letterNodes.length - 1;
           if (edges.length >= maxEdges) return; // Don't allow more edges
@@ -357,7 +359,7 @@ export function GraphQuiz() {
 
       setEdges(addEdge(newEdge, newEdges));
     },
-    [edges, isChecked, setEdges, nodes.filter],
+    [edges, isChecked, setEdges, nodes],
   );
 
   // Start quiz
