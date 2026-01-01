@@ -33,17 +33,45 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
 
     if (key === 'lettersPerQuiz') {
       if (newValue > 1) {
-        onChange({ ...values, lettersPerQuiz: newValue, targetsPerQuiz: 1 });
+        // letters > 1 means targets = 1, so multiEdge only valid if letters > 2
+        const shouldResetMultiEdge = newValue <= 2;
+        onChange({
+          ...values,
+          lettersPerQuiz: newValue,
+          targetsPerQuiz: 1,
+          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+        });
       } else {
         const newTargets = values.targetsPerQuiz === 1 ? 2 : values.targetsPerQuiz;
-        onChange({ ...values, lettersPerQuiz: newValue, targetsPerQuiz: newTargets });
+        // letters = 1, targets > 1, multiEdge valid if targets > 2
+        const shouldResetMultiEdge = newTargets <= 2;
+        onChange({
+          ...values,
+          lettersPerQuiz: newValue,
+          targetsPerQuiz: newTargets,
+          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+        });
       }
     } else {
       if (newValue > 1) {
-        onChange({ ...values, targetsPerQuiz: newValue, lettersPerQuiz: 1 });
+        // targets > 1 means letters = 1, so multiEdge only valid if targets > 2
+        const shouldResetMultiEdge = newValue <= 2;
+        onChange({
+          ...values,
+          targetsPerQuiz: newValue,
+          lettersPerQuiz: 1,
+          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+        });
       } else {
         const newLetters = values.lettersPerQuiz === 1 ? 2 : values.lettersPerQuiz;
-        onChange({ ...values, targetsPerQuiz: newValue, lettersPerQuiz: newLetters });
+        // targets = 1, letters > 1, multiEdge valid if letters > 2
+        const shouldResetMultiEdge = newLetters <= 2;
+        onChange({
+          ...values,
+          targetsPerQuiz: newValue,
+          lettersPerQuiz: newLetters,
+          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+        });
       }
     }
   };
@@ -79,6 +107,7 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
             <Label className="text-sm">{t('multi_edge')}</Label>
             <Switch
               checked={values.multiEdge}
+              disabled={values.lettersPerQuiz <= 2 && values.targetsPerQuiz <= 2}
               onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
             />
           </li>
