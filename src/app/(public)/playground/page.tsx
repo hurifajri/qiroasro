@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
+import { QuizStoreProvider } from './providers/quiz';
 import { getPlaygroundDataOpt } from './queries/playground';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,9 +36,11 @@ export default async function PlaygroundPage() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <PlaygroundStoreProvider>
-        <ReactFlowProvider>
-          <Playground />
-        </ReactFlowProvider>
+        <QuizStoreProvider>
+          <ReactFlowProvider>
+            <Playground />
+          </ReactFlowProvider>
+        </QuizStoreProvider>
       </PlaygroundStoreProvider>
     </HydrationBoundary>
   );

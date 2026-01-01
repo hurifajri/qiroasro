@@ -198,7 +198,9 @@
       "all_correct": "Mumtaz",
       "correct_score": "Benar {correct}",
       "incorrect_score": "Salah {incorrect}",
-      "incorrect_single_answer": "Kurang tepat"
+      "incorrect_single_answer": "Kurang tepat",
+      "back": "Kembali",
+      "start_quiz": "Mulai Kuis"
     },
     "download": {
       "trigger": "Unduh Gambar",

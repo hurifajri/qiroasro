@@ -6,19 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-
-export interface QuizSettingsValues {
-  lettersPerQuiz: number;
-  targetsPerQuiz: number;
-  multiEdge: boolean;
-  timerMode: boolean;
-  timerDuration: number; // in seconds
-}
-
-interface QuizSettingsProps {
-  values: QuizSettingsValues;
-  onChange: (values: QuizSettingsValues) => void;
-}
+import { useQuizStore } from '../providers/quiz';
+import { QUIZ_MODE_CONFIG } from '../schemas/quiz';
 
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
 
@@ -27,8 +16,15 @@ const SLIDER_CONFIG: { key: SliderKey; labelKey: string }[] = [
   { key: 'targetsPerQuiz', labelKey: 'targets_per_quiz' },
 ];
 
-export function QuizSettings({ values, onChange }: QuizSettingsProps) {
+export function QuizSettings() {
   const t = useTranslations('playground_page.quiz');
+
+  const mode = useQuizStore((s) => s.mode);
+  const settings = useQuizStore((s) => s.settings);
+  const setSettings = useQuizStore((s) => s.setSettings);
+
+  // Get config for current mode (default to trait if no mode selected)
+  const config = mode ? QUIZ_MODE_CONFIG[mode] : QUIZ_MODE_CONFIG.trait;
 
   const handleSliderChange = (key: SliderKey, value: number | readonly number[]) => {
     const newValue = Array.isArray(value) ? value[0] : value;
@@ -36,47 +32,57 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
     if (key === 'lettersPerQuiz') {
       if (newValue > 1) {
         // letters > 1 means targets = 1, so multiEdge only valid if letters > 2
-        const shouldResetMultiEdge = newValue <= 2;
-        onChange({
-          ...values,
+        const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
+        setSettings({
+          ...settings,
           lettersPerQuiz: newValue,
           targetsPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
         });
       } else {
-        const newTargets = values.targetsPerQuiz === 1 ? 2 : values.targetsPerQuiz;
+        const newTargets = settings.targetsPerQuiz === 1 ? 2 : settings.targetsPerQuiz;
         // letters = 1, targets > 1, multiEdge valid if targets > 2
-        const shouldResetMultiEdge = newTargets <= 2;
-        onChange({
-          ...values,
+        const shouldResetMultiEdge = newTargets <= 2 || !config.allowMultiEdge;
+        setSettings({
+          ...settings,
           lettersPerQuiz: newValue,
           targetsPerQuiz: newTargets,
-          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
         });
       }
     } else {
       if (newValue > 1) {
         // targets > 1 means letters = 1, so multiEdge only valid if targets > 2
-        const shouldResetMultiEdge = newValue <= 2;
-        onChange({
-          ...values,
+        const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
+        setSettings({
+          ...settings,
           targetsPerQuiz: newValue,
           lettersPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
         });
       } else {
-        const newLetters = values.lettersPerQuiz === 1 ? 2 : values.lettersPerQuiz;
+        const newLetters = settings.lettersPerQuiz === 1 ? 2 : settings.lettersPerQuiz;
         // targets = 1, letters > 1, multiEdge valid if letters > 2
-        const shouldResetMultiEdge = newLetters <= 2;
-        onChange({
-          ...values,
+        const shouldResetMultiEdge = newLetters <= 2 || !config.allowMultiEdge;
+        setSettings({
+          ...settings,
           targetsPerQuiz: newValue,
           lettersPerQuiz: newLetters,
-          multiEdge: shouldResetMultiEdge ? false : values.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
         });
       }
     }
   };
+
+  const getSliderConfig = (key: SliderKey) => {
+    if (key === 'lettersPerQuiz') {
+      return config.lettersPerQuiz;
+    }
+    return config.targetsPerQuiz;
+  };
+
+  const isMultiEdgeDisabled =
+    !config.allowMultiEdge || (settings.lettersPerQuiz <= 2 && settings.targetsPerQuiz <= 2);
 
   return (
     <Card size="sm">
@@ -88,28 +94,31 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
       </CardHeader>
 
       <CardContent className="flex flex-col gap-4">
-        {SLIDER_CONFIG.map(({ key, labelKey }) => (
-          <div key={key} className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm">{t(labelKey)}</Label>
-              <span className="font-medium text-sm">{values[key]}</span>
+        {SLIDER_CONFIG.map(({ key, labelKey }) => {
+          const sliderRange = getSliderConfig(key);
+          return (
+            <div key={key} className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm">{t(labelKey)}</Label>
+                <span className="font-medium text-sm">{settings[key]}</span>
+              </div>
+              <Slider
+                value={[settings[key]]}
+                onValueChange={(v) => handleSliderChange(key, v)}
+                min={sliderRange.min}
+                max={sliderRange.max}
+                step={1}
+              />
             </div>
-            <Slider
-              value={[values[key]]}
-              onValueChange={(v) => handleSliderChange(key, v)}
-              min={1}
-              max={5}
-              step={1}
-            />
-          </div>
-        ))}
+          );
+        })}
 
         <div className="flex items-center justify-between">
           <Label className="text-sm">{t('multi_edge')}</Label>
           <Switch
-            checked={values.multiEdge}
-            disabled={values.lettersPerQuiz <= 2 && values.targetsPerQuiz <= 2}
-            onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
+            checked={settings.multiEdge}
+            disabled={isMultiEdgeDisabled}
+            onCheckedChange={(checked) => setSettings({ ...settings, multiEdge: checked })}
           />
         </div>
 
@@ -125,27 +134,27 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
               {t('timer_mode')}
             </Label>
             <Switch
-              checked={values.timerMode}
-              onCheckedChange={(checked) => onChange({ ...values, timerMode: checked })}
+              checked={settings.timerMode}
+              onCheckedChange={(checked) => setSettings({ ...settings, timerMode: checked })}
             />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <Label className="text-muted-foreground text-sm">{t('timer_duration')}</Label>
-              <span className="font-medium text-sm">{values.timerDuration}s</span>
+              <span className="font-medium text-sm">{settings.timerDuration}s</span>
             </div>
             <Slider
-              value={[values.timerDuration]}
+              value={[settings.timerDuration]}
               onValueChange={(v) =>
-                onChange({
-                  ...values,
+                setSettings({
+                  ...settings,
                   timerDuration: Array.isArray(v) ? v[0] : v,
                 })
               }
               min={5}
               max={60}
               step={5}
-              disabled={!values.timerMode}
+              disabled={!settings.timerMode}
             />
           </div>
         </div>

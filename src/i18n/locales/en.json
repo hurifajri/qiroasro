@@ -198,7 +198,9 @@
       "all_correct": "All Correct",
       "correct_score": "{correct} correct",
       "incorrect_score": "{incorrect} incorrect",
-      "incorrect_single_answer": "Keep it going"
+      "incorrect_single_answer": "Keep it going",
+      "back": "Back",
+      "start_quiz": "Start Quiz"
     },
     "download": {
       "trigger": "Download Image",
