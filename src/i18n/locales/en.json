@@ -194,10 +194,10 @@
       "try_again": "Try Again",
       "change_mode": "Change Mode",
       "unsupported_quiz": "Quiz is not available for this option",
-      "all_correct": "All Correct",
+      "all_correct": "Awesome!",
       "correct_score": "{correct} correct",
       "incorrect_score": "{incorrect} incorrect",
-      "incorrect_single_answer": "Keep it going",
+      "incorrect_single_answer": "Keep it going!",
       "back": "Back",
       "start_quiz": "Start Quiz"
     },

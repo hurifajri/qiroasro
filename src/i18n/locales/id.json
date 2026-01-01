@@ -194,10 +194,10 @@
       "try_again": "Coba Lagi",
       "change_mode": "Ganti Mode",
       "unsupported_quiz": "Kuis belum tersedia untuk pilihan ini",
-      "all_correct": "Mumtaz",
+      "all_correct": "Mumtaz!",
       "correct_score": "Benar {correct}",
       "incorrect_score": "Salah {incorrect}",
-      "incorrect_single_answer": "Kurang tepat",
+      "incorrect_single_answer": "Tetap semangat!",
       "back": "Kembali",
       "start_quiz": "Mulai Kuis"
     },
