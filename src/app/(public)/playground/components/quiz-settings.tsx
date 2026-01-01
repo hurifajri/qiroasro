@@ -2,6 +2,7 @@
 
 import { SettingsIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
@@ -48,37 +49,41 @@ export function QuizSettings({ values, onChange }: QuizSettingsProps) {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-border bg-muted/30 p-4">
-      <div className="flex items-center gap-2 text-muted-foreground">
-        <SettingsIcon className="size-4" />
-        <span className="font-medium text-sm">{t('settings')}</span>
-      </div>
+    <Card size="sm">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-1 text-muted-foreground">
+          <SettingsIcon className="size-4 shrink-0" />
+          <span>{t('settings')}</span>
+        </CardTitle>
+      </CardHeader>
 
-      <ul className="flex flex-col gap-4">
-        {SLIDER_CONFIG.map(({ key, labelKey }) => (
-          <li key={key} className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <Label className="text-sm">{t(labelKey)}</Label>
-              <span className="font-medium text-sm">{values[key]}</span>
-            </div>
-            <Slider
-              value={[values[key]]}
-              onValueChange={(v) => handleSliderChange(key, v)}
-              min={1}
-              max={5}
-              step={1}
+      <CardContent>
+        <ul className="flex flex-col gap-4">
+          {SLIDER_CONFIG.map(({ key, labelKey }) => (
+            <li key={key} className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm">{t(labelKey)}</Label>
+                <span className="font-medium text-sm">{values[key]}</span>
+              </div>
+              <Slider
+                value={[values[key]]}
+                onValueChange={(v) => handleSliderChange(key, v)}
+                min={1}
+                max={5}
+                step={1}
+              />
+            </li>
+          ))}
+
+          <li className="flex items-center justify-between">
+            <Label className="text-sm">{t('multi_edge')}</Label>
+            <Switch
+              checked={values.multiEdge}
+              onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
             />
           </li>
-        ))}
-
-        <li className="flex items-center justify-between">
-          <Label className="text-sm">{t('multi_edge')}</Label>
-          <Switch
-            checked={values.multiEdge}
-            onCheckedChange={(checked) => onChange({ ...values, multiEdge: checked })}
-          />
-        </li>
-      </ul>
-    </div>
+        </ul>
+      </CardContent>
+    </Card>
   );
 }
