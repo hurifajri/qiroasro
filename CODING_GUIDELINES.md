@@ -264,6 +264,36 @@ src/
    - If same filename exists in global and feature-specific, add context
    - Example: `graph-layout.ts` (global) vs `graph-generator.ts` (feature)
 
+### Import Rules
+
+```typescript
+// ❌ NEVER import from page-level to global
+// Global files should never depend on page-specific code
+import { something } from '@/app/(public)/playground/lib/graph'; // ❌ NO!
+
+// ✅ Import from global to page-level (absolute import alias)
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import type { Letter } from '@/schemas/letter';
+
+// ✅ Import within same page-level (relative import)
+// Inside src/app/(public)/playground/components/quiz.tsx
+import { useQuizStore } from '../providers/quiz';
+import type { QuizMode } from '../schemas/quiz';
+import { QuizCanvas } from './quiz-canvas';
+
+// ✅ Import within same global level (relative import)
+// Inside src/lib/utils.ts
+import { GLOBAL_CONSTANTS } from './constants';
+```
+
+| From | To | Import Style |
+|------|----|--------------|
+| Global | Page-level | ❌ Never allowed |
+| Page-level | Global | ✅ Absolute alias (`@/`) |
+| Page-level | Same page-level | ✅ Relative (`../` or `./`) |
+| Global | Same global | ✅ Relative (`./`) |
+
 ---
 
 ## 4. State Management (Zustand)
@@ -677,13 +707,45 @@ export function ErrorBoundary({
 
 ## 8. Testing Guidelines
 
-### What to Test
+### Testing Trophy Pattern
 
-1. **Model Transformers**: Pure functions, easy to test
-2. **Zustand Stores**: Test state transitions
-3. **Custom Hooks**: Test with `@testing-library/react-hooks`
-4. **Utility Functions**: Pure functions in `lib/`
-5. **Critical User Flows**: E2E tests for important paths
+We follow Kent C. Dodds' [Testing Trophy](https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications) approach:
+
+```
+        🏆 E2E Tests (few)
+       ━━━━━━━━━━━━━━━━━━
+      Integration Tests (many)
+     ━━━━━━━━━━━━━━━━━━━━━━━━
+        Unit Tests (some)
+       ━━━━━━━━━━━━━━━━━━
+      Static Analysis (base)
+```
+
+| Layer | What to Test | Tools |
+|-------|--------------|-------|
+| **Static** | Type errors, lint issues | TypeScript, Biome |
+| **Unit** | Pure functions, utilities, transformers | Vitest |
+| **Integration** | Component interactions, hooks, stores | Vitest + Testing Library |
+| **E2E** | Critical user flows | Playwright |
+
+### Priority Order
+
+1. **Static Analysis** (always on, catches most bugs)
+   - TypeScript strict mode
+   - Biome linter & formatter
+
+2. **Integration Tests** (highest ROI)
+   - Test components with their hooks and stores
+   - Test user interactions, not implementation details
+
+3. **Unit Tests** (for pure logic)
+   - Model transformers (`transformRemoteLetter`)
+   - Utility functions (`cn`, `formatDate`)
+   - Complex calculations
+
+4. **E2E Tests** (critical paths only)
+   - Main user journeys
+   - Payment flows, authentication
 
 ### Test File Location
 
@@ -722,20 +784,49 @@ describe('transformRemoteLetter', () => {
 - Use TypeScript strict mode
 - Prefer `const` over `let`
 - Use descriptive variable names
-- Add JSDoc comments for public APIs
 - Keep components under 200 lines
 - Use proper semantic HTML
 - Test critical business logic
+- Import global → page-level with absolute alias (`@/`)
+- Import within same level with relative paths (`./`, `../`)
 
 ### Don'ts ❌
 
 - Don't use `any` type
 - Don't mutate state directly
-- Don't use `// eslint-disable` without justification
+- Don't use `// biome-ignore` without justification
 - Don't ignore TypeScript errors with `@ts-ignore`
 - Don't commit console.log (use proper logging)
 - Don't hardcode strings (use i18n)
 - Don't duplicate code across components
+- Don't import from page-level to global
+
+### Documentation
+
+**JSDoc in TypeScript**: Generally not required because TypeScript provides type information. Use JSDoc only for:
+- Public APIs that need behavioral documentation
+- Complex functions where types alone don't explain intent
+- Deprecation notices
+
+```typescript
+// ❌ Redundant JSDoc (types already clear)
+/**
+ * @param name - The user's name
+ * @returns The greeting string
+ */
+function greet(name: string): string { ... }
+
+// ✅ Useful JSDoc (explains behavior, not types)
+/**
+ * Generates a quiz with the specified configuration.
+ * Throws if the configuration is unsupported (e.g., too many letters for available data).
+ */
+function generateQuiz(mode: QuizMode): void { ... }
+
+// ✅ Useful for deprecation
+/** @deprecated Use `newFunction` instead */
+function oldFunction() { ... }
+```
 
 ---
 
