@@ -48,8 +48,9 @@ interface TargetItem {
   slug: string;
 }
 
-const LETTERS_PER_QUIZ = 1;
-const TARGETS_PER_QUIZ = 2;
+const LETTERS_PER_QUIZ: number = 1;
+const TARGETS_PER_QUIZ: number = 3;
+const MULTI_EDGE = false;
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
@@ -65,6 +66,7 @@ export function GraphQuiz() {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [, setTargets] = useState<TargetItem[]>([]);
   const [isChecked, setIsChecked] = useState(false);
+  const [isUnsupportedConfig, setIsUnsupportedConfig] = useState(false);
   const [score, setScore] = useState({ correct: 0, total: 0 });
 
   // ReactFlow state
@@ -95,76 +97,166 @@ export function GraphQuiz() {
         }
       });
 
-      // Shuffle and pick first letter (the one that will have correct answer)
+      // Shuffle letters
       const shuffledLetters = [...availableLetters].sort(() => Math.random() - 0.5);
-      const firstLetter = shuffledLetters[0];
-
-      // Get correct target IDs for the first letter
-      let firstLetterCorrectIds: number[];
-      if (mode === 'makhraj') {
-        firstLetterCorrectIds = letterArticulations
-          .filter((la) => la.letterId === firstLetter.id)
-          .map((la) => la.pointId);
-      } else {
-        firstLetterCorrectIds = letterTraits
-          .filter((lt) => lt.letterId === firstLetter.id && validTraitIds.has(lt.traitId))
-          .map((lt) => lt.traitId);
-      }
-
-      // Pick one correct target for the first letter
-      const shuffledCorrectIds = [...firstLetterCorrectIds].sort(() => Math.random() - 0.5);
-      const selectedTargetId = shuffledCorrectIds[0];
-
-      // Select additional letters that do NOT have the selected target (distractor letters)
-      const distractorLetters = shuffledLetters.slice(1).filter((letter) => {
-        if (mode === 'makhraj') {
-          return !letterArticulations.some(
-            (la) => la.letterId === letter.id && la.pointId === selectedTargetId,
-          );
-        } else {
-          return !letterTraits.some(
-            (lt) => lt.letterId === letter.id && lt.traitId === selectedTargetId,
-          );
-        }
-      });
-
-      // Combine first letter with distractor letters
-      const selectedLetters = [firstLetter, ...distractorLetters.slice(0, LETTERS_PER_QUIZ - 1)];
-
-      // Generate questions - only the first letter has the correct answer
-      const newQuestions: QuizQuestion[] = selectedLetters.map((letter, index) => {
-        if (index === 0) {
-          // First letter has the selected target as correct answer
-          return { letter, correctTargetIds: [selectedTargetId], targetType: mode };
-        } else {
-          // Other letters are distractors - they don't have the selected target
-          return { letter, correctTargetIds: [], targetType: mode };
-        }
-      });
 
       // Get target items
       let allTargets: TargetItem[];
       if (mode === 'makhraj') {
         allTargets = articulationPoints.map((ap) => ({ id: ap.id, slug: ap.slug }));
       } else {
-        // Exclude traits with groupId 7 from quiz (using validTraitIds from above)
         allTargets = traits
           .filter((t) => validTraitIds.has(t.id))
           .map((t) => ({ id: t.id, slug: t.slug }));
       }
 
-      // The correct target is the one selected for the first letter
-      const correctTargets = allTargets.filter((t) => t.id === selectedTargetId);
+      // Helper function to get correct target IDs for a letter
+      const getCorrectTargetIds = (letter: Letter): number[] => {
+        if (mode === 'makhraj') {
+          return letterArticulations
+            .filter((la) => la.letterId === letter.id)
+            .map((la) => la.pointId);
+        } else {
+          return letterTraits
+            .filter((lt) => lt.letterId === letter.id && validTraitIds.has(lt.traitId))
+            .map((lt) => lt.traitId);
+        }
+      };
 
-      // Get distractor targets - targets that the first letter does NOT have
-      const distractorTargets = allTargets
-        .filter((t) => !firstLetterCorrectIds.includes(t.id))
-        .sort(() => Math.random() - 0.5)
-        .slice(0, Math.max(0, TARGETS_PER_QUIZ - correctTargets.length));
+      let selectedLetters: Letter[] = [];
+      let newQuestions: QuizQuestion[] = [];
+      let selectedTargets: TargetItem[] = [];
 
-      const selectedTargets = [...correctTargets, ...distractorTargets]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, TARGETS_PER_QUIZ);
+      // Determine quiz case based on configuration
+      const isCase1 = !MULTI_EDGE && LETTERS_PER_QUIZ === 1 && TARGETS_PER_QUIZ > 1;
+      const isCase2 = MULTI_EDGE && LETTERS_PER_QUIZ === 1 && TARGETS_PER_QUIZ > 1;
+      const isCase3 = !MULTI_EDGE && LETTERS_PER_QUIZ > 1 && TARGETS_PER_QUIZ === 1;
+      const isCase4 = MULTI_EDGE && LETTERS_PER_QUIZ > 1 && TARGETS_PER_QUIZ === 1;
+      const isSupportedConfig = isCase1 || isCase2 || isCase3 || isCase4;
+
+      if (!isSupportedConfig) {
+        // Case 5: Unsupported configuration
+        setIsUnsupportedConfig(true);
+        setQuestions([]);
+        setTargets([]);
+        setNodes([]);
+        setEdges([]);
+        return;
+      }
+
+      setIsUnsupportedConfig(false);
+
+      if (isCase1) {
+        // Case 1: !multiEdge && letter=1 && target>1
+        // Letter can only connect to 1 target, rest are distractors
+        const letter = shuffledLetters[0];
+        const letterCorrectIds = getCorrectTargetIds(letter);
+
+        // Pick one correct target randomly
+        const shuffledCorrectIds = [...letterCorrectIds].sort(() => Math.random() - 0.5);
+        const selectedTargetId = shuffledCorrectIds[0];
+
+        selectedLetters = [letter];
+        newQuestions = [{ letter, correctTargetIds: [selectedTargetId], targetType: mode }];
+
+        // Get correct target and distractors
+        const correctTarget = allTargets.find((t) => t.id === selectedTargetId);
+        const distractorTargets = allTargets
+          .filter((t) => !letterCorrectIds.includes(t.id))
+          .sort(() => Math.random() - 0.5)
+          .slice(0, TARGETS_PER_QUIZ - 1);
+
+        selectedTargets = correctTarget
+          ? [correctTarget, ...distractorTargets].sort(() => Math.random() - 0.5)
+          : distractorTargets;
+      } else if (isCase2) {
+        // Case 2: multiEdge && letter=1 && target>1
+        // Letter can connect to multiple targets, must have 1 distractor
+        const letter = shuffledLetters[0];
+        const letterCorrectIds = getCorrectTargetIds(letter);
+
+        selectedLetters = [letter];
+        // All letter's targets are correct
+        newQuestions = [{ letter, correctTargetIds: letterCorrectIds, targetType: mode }];
+
+        // Get correct targets (limit to TARGETS_PER_QUIZ - 1 to leave room for 1 distractor)
+        const correctTargets = allTargets
+          .filter((t) => letterCorrectIds.includes(t.id))
+          .sort(() => Math.random() - 0.5)
+          .slice(0, TARGETS_PER_QUIZ - 1);
+
+        // Get 1 distractor (target that letter doesn't have)
+        const distractorTarget = allTargets
+          .filter((t) => !letterCorrectIds.includes(t.id))
+          .sort(() => Math.random() - 0.5)[0];
+
+        selectedTargets = distractorTarget
+          ? [...correctTargets, distractorTarget].sort(() => Math.random() - 0.5)
+          : correctTargets;
+      } else if (isCase3) {
+        // Case 3: !multiEdge && letter>1 && target=1
+        // Target can only connect to 1 letter, rest are distractors
+        const firstLetter = shuffledLetters[0];
+        const firstLetterCorrectIds = getCorrectTargetIds(firstLetter);
+
+        // Pick one correct target randomly
+        const shuffledCorrectIds = [...firstLetterCorrectIds].sort(() => Math.random() - 0.5);
+        const selectedTargetId = shuffledCorrectIds[0];
+
+        // Find distractor letters that don't have this target
+        const distractorLetters = shuffledLetters.slice(1).filter((letter) => {
+          const letterTargetIds = getCorrectTargetIds(letter);
+          return !letterTargetIds.includes(selectedTargetId);
+        });
+
+        selectedLetters = [firstLetter, ...distractorLetters.slice(0, LETTERS_PER_QUIZ - 1)];
+
+        // First letter is correct, others are distractors
+        newQuestions = selectedLetters.map((letter, index) => ({
+          letter,
+          correctTargetIds: index === 0 ? [selectedTargetId] : [],
+          targetType: mode,
+        }));
+
+        // Only one target
+        selectedTargets = allTargets.filter((t) => t.id === selectedTargetId);
+      } else if (isCase4) {
+        // Case 4: multiEdge && letter>1 && target=1
+        // Target can connect to multiple letters, must have 1 distractor letter
+        const shuffledTargets = [...allTargets].sort(() => Math.random() - 0.5);
+        const targetItem = shuffledTargets[0];
+
+        // Find letters that have this target
+        const lettersWithTarget = shuffledLetters.filter((letter) => {
+          const letterTargetIds = getCorrectTargetIds(letter);
+          return letterTargetIds.includes(targetItem.id);
+        });
+
+        // Find 1 distractor letter that doesn't have this target
+        const distractorLetter = shuffledLetters.find((letter) => {
+          const letterTargetIds = getCorrectTargetIds(letter);
+          return !letterTargetIds.includes(targetItem.id);
+        });
+
+        // Take correct letters (limit to LETTERS_PER_QUIZ - 1 for distractor)
+        const correctLetters = lettersWithTarget.slice(0, LETTERS_PER_QUIZ - 1);
+        selectedLetters = distractorLetter
+          ? [...correctLetters, distractorLetter].sort(() => Math.random() - 0.5)
+          : correctLetters;
+
+        // Create questions - letters that have the target are correct
+        newQuestions = selectedLetters.map((letter) => {
+          const letterTargetIds = getCorrectTargetIds(letter);
+          const isCorrect = letterTargetIds.includes(targetItem.id);
+          return {
+            letter,
+            correctTargetIds: isCorrect ? [targetItem.id] : [],
+            targetType: mode,
+          };
+        });
+
+        selectedTargets = [targetItem];
+      }
 
       // Create nodes for ReactFlow
       const letterNodes: Node[] = newQuestions.map((q, index) => {
@@ -190,36 +282,51 @@ export function GraphQuiz() {
   );
 
   // Validate connection - ensure letter connects to valid targets only
-  const isValidConnection = useCallback(
-    (connection: Edge | Connection) => {
-      // Only allow connections from letters to targets
-      const sourceId = connection.source;
-      const targetId = connection.target;
+  const isValidConnection = useCallback((connection: Edge | Connection) => {
+    // Only allow connections from letters to targets
+    const sourceId = connection.source;
+    const targetId = connection.target;
 
-      if (!sourceId?.startsWith('letter-quiz-') || !targetId?.startsWith('target-quiz-')) {
-        return false;
-      }
+    if (!sourceId?.startsWith('letter-quiz-') || !targetId?.startsWith('target-quiz-')) {
+      return false;
+    }
 
-      // Allow connection even if letter already has one (will be replaced)
-      // Allow connection even if target already has one (will be replaced)
-      return true;
-    },
-    [edges],
-  );
+    // Allow connection even if letter already has one (will be replaced)
+    // Allow connection even if target already has one (will be replaced)
+    return true;
+  }, []);
 
   // Handle new connection
   const onConnect = useCallback(
     (connection: Connection) => {
       if (isChecked) return;
-
-      // Remove existing connection from this letter (if any)
-      // Also remove existing connection to this target (if any) - each target can only have one connection
-      const newEdges = edges.filter(
-        (e) => e.source !== connection.source && e.target !== connection.target,
-      );
-
-      // Add new connection with styled edge
       if (!connection.source || !connection.target) return;
+
+      let newEdges: Edge[];
+
+      if (MULTI_EDGE) {
+        // Multi-edge mode: allow multiple connections
+        // Case 2: multiple edges from same letter to different targets
+        // Case 4: multiple edges from different letters to same target
+        // Don't remove existing edges, just add new one
+        newEdges = edges;
+      } else {
+        // Single-edge mode: replace existing connections
+        // Case 1: letter can only connect to 1 target (remove letter's existing edge)
+        // Case 3: target can only connect to 1 letter (remove target's existing edge)
+        if (LETTERS_PER_QUIZ === 1 && TARGETS_PER_QUIZ > 1) {
+          // Case 1: Remove existing connection from this letter
+          newEdges = edges.filter((e) => e.source !== connection.source);
+        } else if (LETTERS_PER_QUIZ > 1 && TARGETS_PER_QUIZ === 1) {
+          // Case 3: Remove existing connection to this target
+          newEdges = edges.filter((e) => e.target !== connection.target);
+        } else {
+          // Default: remove both
+          newEdges = edges.filter(
+            (e) => e.source !== connection.source && e.target !== connection.target,
+          );
+        }
+      }
 
       const newEdge: Edge = {
         ...connection,
@@ -255,21 +362,25 @@ export function GraphQuiz() {
   // Check answers
   const checkAnswers = useCallback(() => {
     let correctCount = 0;
-    // Total is based on actual connections, not total questions
-    const totalConnections = edges.length;
     const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
     const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
     for (const question of questions) {
       const letterId = `letter-quiz-${question.letter.id}`;
-      const connection = edges.find((e) => e.source === letterId);
+      // Find all connections for this letter (for multiEdge mode)
+      const letterConnections = edges.filter((e) => e.source === letterId);
 
-      if (connection) {
+      for (const connection of letterConnections) {
         const targetIdNum = Number.parseInt(connection.target.replace('target-quiz-', ''), 10);
         const isCorrect = question.correctTargetIds.includes(targetIdNum);
         const status = isCorrect ? 'correct' : 'incorrect';
 
-        letterResults.set(letterId, status);
+        // For letter status, use the result of this connection
+        // In multiEdge mode, letter could have multiple connections
+        const currentLetterStatus = letterResults.get(letterId);
+        if (!currentLetterStatus || (isCorrect && currentLetterStatus === 'incorrect')) {
+          letterResults.set(letterId, status);
+        }
         targetResults.set(connection.target, status);
 
         if (isCorrect) {
@@ -314,13 +425,26 @@ export function GraphQuiz() {
       }),
     );
 
-    setScore({ correct: correctCount, total: totalConnections });
+    setScore({ correct: correctCount, total: edges.length });
     setIsChecked(true);
   }, [questions, edges, setNodes, setEdges]);
 
   // Count current connections and targets
   const connectionCount = useMemo(() => edges.length, [edges]);
+  const letterCount = useMemo(() => nodes.filter((n) => n.type === 'letterQuiz').length, [nodes]);
   const targetCount = useMemo(() => nodes.filter((n) => n.type === 'targetQuiz').length, [nodes]);
+
+  // Calculate required connections based on quiz case
+  const requiredConnections = useMemo(() => {
+    if (MULTI_EDGE) {
+      // Case 2: all correct targets (targetCount - 1 distractors = targetCount - 1 correct)
+      // Case 4: all correct letters (letterCount - 1 distractors = letterCount - 1 correct)
+      if (LETTERS_PER_QUIZ === 1) return targetCount - 1; // Case 2
+      if (TARGETS_PER_QUIZ === 1) return letterCount - 1; // Case 4
+    }
+    // Cases 1 and 3: only 1 connection needed
+    return 1;
+  }, [letterCount, targetCount]);
 
   return (
     <>
@@ -358,6 +482,14 @@ export function GraphQuiz() {
                 <span className="text-2xl">✨</span>
                 {t('mode_sifat')}
               </Button>
+            </div>
+          ) : isUnsupportedConfig ? (
+            // Unsupported configuration message
+            <div className="flex flex-col items-center justify-center gap-4 py-8">
+              <XCircleIcon className="h-16 w-16 text-muted-foreground" />
+              <p className="text-center text-muted-foreground">
+                Quiz belum tersedia untuk pilihan ini.
+              </p>
             </div>
           ) : (
             // Quiz area
@@ -417,7 +549,7 @@ export function GraphQuiz() {
             </div>
           )}
 
-          {quizMode && (
+          {quizMode && !isUnsupportedConfig && (
             <DialogFooter className="flex-row justify-between gap-2 sm:justify-between">
               <Button variant="outline" onClick={resetQuiz}>
                 <RefreshCwIcon className="mr-2 h-4 w-4" />
@@ -432,7 +564,7 @@ export function GraphQuiz() {
                 ) : (
                   <Button
                     onClick={checkAnswers}
-                    disabled={connectionCount < Math.min(questions.length, targetCount)}
+                    disabled={connectionCount < requiredConnections}
                     variant="default"
                   >
                     <CheckCircle2Icon className="mr-2 h-4 w-4" />
@@ -440,6 +572,15 @@ export function GraphQuiz() {
                   </Button>
                 )}
               </div>
+            </DialogFooter>
+          )}
+
+          {quizMode && isUnsupportedConfig && (
+            <DialogFooter className="flex-row justify-center">
+              <Button variant="outline" onClick={resetQuiz}>
+                <RefreshCwIcon className="mr-2 h-4 w-4" />
+                {t('change_mode')}
+              </Button>
             </DialogFooter>
           )}
         </DialogContent>
