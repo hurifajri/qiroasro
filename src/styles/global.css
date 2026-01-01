@@ -251,13 +251,6 @@
    ReactFlow Custom Styles
    ============================================ */
 
-/* Attribution hidden */
-.react-flow__attribution {
-  @apply hidden;
-}
-
-/* Node Glow Effects */
-
 @keyframes glow-gold {
   0%,
   100% {
@@ -300,7 +293,6 @@
   }
 }
 
-/* Apply glow on selection */
 .react-flow__node-letter.selected > div {
   animation: glow-gold 2s ease-in-out infinite;
 }

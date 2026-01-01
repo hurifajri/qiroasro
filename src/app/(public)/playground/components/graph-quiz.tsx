@@ -534,16 +534,17 @@ export function GraphQuiz() {
               <div className="h-100 overflow-hidden rounded-lg border bg-muted/30">
                 <ReactFlowProvider>
                   <ReactFlow
+                    proOptions={{ hideAttribution: true }}
+                    colorMode={theme}
+                    fitView
+                    fitViewOptions={{ padding: 0.2 }}
                     nodes={nodes}
                     edges={edges}
                     onNodesChange={onNodesChange}
                     onEdgesChange={onEdgesChange}
+                    nodeTypes={nodeTypes}
                     onConnect={onConnect}
                     isValidConnection={isValidConnection}
-                    nodeTypes={nodeTypes}
-                    colorMode={theme}
-                    fitView
-                    fitViewOptions={{ padding: 0.2 }}
                     nodesDraggable={false}
                     nodesConnectable={!isChecked}
                     panOnDrag={false}
@@ -551,8 +552,6 @@ export function GraphQuiz() {
                     zoomOnPinch={false}
                     zoomOnDoubleClick={false}
                     preventScrolling={false}
-                    proOptions={{ hideAttribution: true }}
-                    // Touch device support - tap two handles to connect
                     connectOnClick={true}
                   >
                     <Background variant={BackgroundVariant.Dots} gap={16} size={1} />

@@ -355,18 +355,19 @@ export function Playground() {
   return (
     <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
       <ReactFlow
+        proOptions={{ hideAttribution: true }}
+        colorMode={theme}
+        fitView
+        fitViewOptions={{ padding: 0.2 }}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onNodeClick={handleNodeClick}
-        onPaneClick={handlePaneClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        onNodeClick={handleNodeClick}
+        onPaneClick={handlePaneClick}
         connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
-        colorMode={theme}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
         minZoom={0.1}
         maxZoom={2}
         defaultEdgeOptions={{
