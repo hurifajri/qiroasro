@@ -14,7 +14,7 @@ import {
   useEdgesState,
   useNodesState,
 } from '@xyflow/react';
-import { CheckCircle2Icon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
+import { CheckCircle2Icon, InfoIcon, RefreshCwIcon, TrophyIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -561,7 +561,14 @@ export function GraphQuiz() {
 
               {/* Instructions */}
               {!isChecked && (
-                <p className="text-center text-muted-foreground text-sm">{t('instruction')}</p>
+                <p className="flex flex-col gap-2 rounded-lg bg-lime-300/60 px-3 py-2 text-foreground text-sm dark:bg-lime-800">
+                  <span className="flex items-center gap-1 font-semibold">
+                    <InfoIcon className="size-4" /> {t('instruction_title')}
+                  </span>
+                  {t('instruction_description', {
+                    target: quizMode === 'articulation_point' ? 'Makhraj' : 'Sifat',
+                  })}
+                </p>
               )}
             </div>
           )}

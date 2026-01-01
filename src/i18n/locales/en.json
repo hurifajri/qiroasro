@@ -172,20 +172,21 @@
       "letterMadd": "Madd Letter"
     },
     "quiz": {
-      "trigger": "Try Quiz",
-      "select_mode": "Select Quiz Mode",
-      "select_mode_description": "Choose the type of quiz you want to try",
+      "trigger": "Start Quiz",
+      "select_mode": "Quiz Mode",
+      "select_mode_description": "Select the quiz type you want to take",
       "title_articulation_point": "Makhraj Quiz",
+      "description_articulation_point": "Match the letter with its correct Makhraj",
       "title_trait": "Sifat Quiz",
-      "description_articulation_point": "Connect the letters to their correct articulation points",
-      "description_trait": "Connect the letters to their correct traits",
+      "description_trait": "Match the letter with its correct Sifat (Trait)",
       "mode_articulation_point": "Makhraj Quiz",
       "mode_trait": "Sifat Quiz",
-      "instruction": "Drag a line from a letter to the correct target, or tap two handles in a row on touch devices",
+      "instruction_title": "Instruction",
+      "instruction_description": "Match the letter to the correct {target}. Draw a line or click the connection dots on both items to link them.",
       "check_answer": "Check Answer",
       "try_again": "Try Again",
       "change_mode": "Change Mode",
-      "score": "{correct} of {total} correct"
+      "score": "{correct} out of {total} correct"
     },
     "download": {
       "trigger": "Download Image",
