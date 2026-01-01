@@ -21,14 +21,17 @@ import { QuizCanvas } from './quiz-canvas';
 import { QuizFooter } from './quiz-footer';
 import { QuizInstruction } from './quiz-instruction';
 import { QuizModeSelector } from './quiz-mode-selector';
-
-const LETTERS_PER_QUIZ: number = 3;
-const TARGETS_PER_QUIZ: number = 1;
-const MULTI_EDGE: boolean = false;
+import { QuizSettings, type QuizSettingsValues } from './quiz-settings';
 
 const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
   targetQuiz: TargetQuizNode,
+};
+
+const DEFAULT_SETTINGS: QuizSettingsValues = {
+  lettersPerQuiz: 1,
+  targetsPerQuiz: 2,
+  multiEdge: false,
 };
 
 export function Quiz() {
@@ -36,6 +39,7 @@ export function Quiz() {
   const { theme } = useGlobalStore((state) => state);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [settings, setSettings] = useState<QuizSettingsValues>(DEFAULT_SETTINGS);
   const [quizMode, setQuizMode] = useState<QuizMode | null>(null);
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [, setTargets] = useState<TargetItem[]>([]);
@@ -55,9 +59,9 @@ export function Quiz() {
     connectionCount,
     requiredConnections,
   } = useQuizGenerator({
-    lettersPerQuiz: LETTERS_PER_QUIZ,
-    targetsPerQuiz: TARGETS_PER_QUIZ,
-    multiEdge: MULTI_EDGE,
+    lettersPerQuiz: settings.lettersPerQuiz,
+    targetsPerQuiz: settings.targetsPerQuiz,
+    multiEdge: settings.multiEdge,
     nodes,
     edges,
     questions,
@@ -108,7 +112,10 @@ export function Quiz() {
           </DialogHeader>
 
           {!quizMode ? (
-            <QuizModeSelector onSelect={startQuiz} />
+            <div className="flex flex-col gap-4">
+              <QuizSettings values={settings} onChange={setSettings} />
+              <QuizModeSelector onSelect={startQuiz} />
+            </div>
           ) : isUnsupportedConfig ? (
             <div className="flex flex-col items-center justify-center gap-4 py-8">
               <XCircleIcon className="h-16 w-16 text-muted-foreground" />
