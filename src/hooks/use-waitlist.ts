@@ -16,7 +16,8 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
   const t = useTranslations('global');
   const locale = useLocale();
 
-  const { waitlistStatus, setWaitlistStatus } = useGlobalStore((state) => state);
+  const waitlistStatus = useGlobalStore((s) => s.waitlistStatus);
+  const setWaitlistStatus = useGlobalStore((s) => s.setWaitlistStatus);
 
   const form = useForm({
     defaultValues: { email: '' },

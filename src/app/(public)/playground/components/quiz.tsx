@@ -42,7 +42,7 @@ const nodeTypes: NodeTypes = {
 
 export function Quiz() {
   const t = useTranslations('playground_page.quiz');
-  const { theme } = useGlobalStore((state) => state);
+  const theme = useGlobalStore((s) => s.theme);
 
   // Zustand store state
   const mode = useQuizStore((s) => s.mode);

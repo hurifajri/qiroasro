@@ -9,7 +9,7 @@ type LocaleSelectorProps = Readonly<{
 }>;
 
 export function LocaleSelector({ locale }: LocaleSelectorProps) {
-  const { setLocale } = useGlobalStore((state) => state);
+  const setLocale = useGlobalStore((s) => s.setLocale);
 
   return (
     <Button

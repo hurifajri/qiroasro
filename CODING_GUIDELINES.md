@@ -414,18 +414,18 @@ export function useAppStore<T>(selector: (store: Store) => T): T {
 2. **Use granular selectors for performance**:
    ```typescript
    // ❌ Subscribes to entire store
-   const store = useQuizStore(state => state);
+   const store = useQuizStore(s => s);
 
    // ✅ Only subscribes to specific value
-   const isStarted = useQuizStore(state => state.isStarted);
-   const startQuiz = useQuizStore(state => state.startQuiz);
+   const isStarted = useQuizStore(s => s.isStarted);
+   const startQuiz = useQuizStore(s => s.startQuiz);
 
    // ✅ Or use shallow selector for performance
    import { useShallow } from 'zustand/react/shallow';
    const { isStarted, startQuiz } = useQuizStore(
-     useShallow((state) => ({
-       isStarted: state.isStarted,
-       startQuiz: state.startQuiz,
+     useShallow((s) => ({
+       isStarted: s.isStarted,
+       startQuiz: s.startQuiz,
      }))
    );
    ```

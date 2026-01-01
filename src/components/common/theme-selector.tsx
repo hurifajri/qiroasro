@@ -10,7 +10,7 @@ type ThemeSelectorProps = Readonly<{
 }>;
 
 export function ThemeSelector({ theme }: ThemeSelectorProps) {
-  const { setTheme } = useGlobalStore((state) => state);
+  const setTheme = useGlobalStore((s) => s.setTheme);
 
   return (
     <Button

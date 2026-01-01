@@ -20,6 +20,7 @@ import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
@@ -53,7 +54,7 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
-  const { theme } = useGlobalStore((state) => state);
+  const theme = useGlobalStore((s) => s.theme);
   const {
     viewMode,
     layoutMode,
@@ -68,7 +69,7 @@ export function Playground() {
     setSelectedNodeId,
     setEdgeStyle,
     getEffectiveEdgeType,
-  } = usePlaygroundStore((state) => state);
+  } = usePlaygroundStore(useShallow((s) => s));
 
   const { startTour } = usePlaygroundTour({ theme });
 
