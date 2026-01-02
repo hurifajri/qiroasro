@@ -208,7 +208,7 @@
       "seconds_per_question": "{seconds} detik per pertanyaan",
       "total_question_count": "Total {count} pertanyaan",
       "question_of": "Pertanyaan {current} dari {total}",
-      "point": "{point} poin",
+      "point": "poin",
       "challenge_result": "Hasil Challenge",
       "total_time": "Total Waktu",
       "total_point": "Total Poin",

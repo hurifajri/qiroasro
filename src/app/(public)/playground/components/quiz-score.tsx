@@ -59,9 +59,11 @@ function ChallengeScore({ totalPoint, className }: { totalPoint: number; classNa
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
         >
-          {t('point', { point: totalPoint })}
+          {totalPoint}
         </motion.span>
       </AnimatePresence>
+      &nbsp;
+      <span>{t('point', { point: totalPoint })}</span>
     </div>
   );
 }

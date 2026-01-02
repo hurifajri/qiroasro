@@ -208,7 +208,7 @@
       "seconds_per_question": "{seconds} seconds per question",
       "total_question_count": "{count} questions in total",
       "question_of": "Question {current} of {total}",
-      "point": "{point} points",
+      "point": "points",
       "challenge_result": "Challenge Result",
       "total_time": "Total Time",
       "total_point": "Total Points",
