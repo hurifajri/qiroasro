@@ -24,6 +24,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
+  // Step 1: Settings
   if (quiz.screenState.showRegularSettings) {
     return (
       <>
@@ -46,6 +47,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
     );
   }
 
+  // Step 2: Quiz
   if (quiz.screenState.showRegularQuiz) {
     return (
       <>

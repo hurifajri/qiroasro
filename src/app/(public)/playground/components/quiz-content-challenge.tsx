@@ -1,9 +1,10 @@
 'use client';
 
 import type { NodeTypes } from '@xyflow/react';
-import { PlayIcon } from 'lucide-react';
+import { CheckCircle2Icon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
+import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
@@ -26,43 +27,98 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
+  // Step 1: Difficulty Selection
+  if (quiz.screenState.showDifficultySelection) {
+    return (
+      <>
+        <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
+        <DialogFooter>
+          <Button size="lg" variant="outline" onClick={quiz.handleBackToModeSelect}>
+            {t('back')}
+          </Button>
+        </DialogFooter>
+      </>
+    );
+  }
+
+  // Step 2: Challenge instructions
+  if (quiz.screenState.showChallengeReady) {
+    return (
+      <>
+        <p className="text-center text-muted-foreground text-sm">
+          {t('total_question_count', {
+            count: quiz.currentChallengeConfig?.question.length ?? 10,
+          })}
+        </p>
+        <DialogFooter className="flex flex-row items-center">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={quiz.handleBackToDifficultySelect}
+            className="flex-1"
+          >
+            {t('back')}
+          </Button>
+          <Button size="lg" onClick={quiz.handleStartChallenge} className="flex-1">
+            <PlayIcon />
+            {t('start_quiz')}
+          </Button>
+        </DialogFooter>
+      </>
+    );
+  }
+
+  // Step 3: Challenge
+  if (quiz.screenState.showChallengeQuiz) {
+    return (
+      <>
+        <PointAnimation lastPointChange={quiz.lastPointChange} />
+        <QuizContent
+          nodes={quiz.nodes}
+          edges={quiz.edges}
+          nodeTypes={nodeTypes}
+          theme={theme}
+          isChecked={quiz.isChecked}
+          onNodesChange={quiz.onNodesChange}
+          onEdgesChange={quiz.onEdgesChange}
+          onConnect={quiz.onConnect}
+          isValidConnection={quiz.isValidConnection}
+          headerContent={
+            <>
+              <ChallengeProgress
+                currentIndex={quiz.currentQuestionIndex}
+                totalQuestion={TOTAL_CHALLENGE_QUESTION}
+                questionStat={quiz.questionStat}
+              />
+              <div className="flex h-9 items-center justify-between gap-2">
+                <span className="font-medium text-sm">
+                  {t('point', { point: quiz.challengeScoring.totalPoint })}
+                </span>
+                {quiz.challengeTimeRemaining !== null && (
+                  <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
+                )}
+              </div>
+            </>
+          }
+        />
+        <DialogFooter className="flex flex-row items-center">
+          <Button
+            size="lg"
+            onClick={quiz.handleChallengeCheckAndNext}
+            disabled={quiz.connectionCount < quiz.requiredConnections || quiz.isChecked}
+            className="flex-1"
+          >
+            <CheckCircle2Icon />
+            {t('check_answer')}
+          </Button>
+        </DialogFooter>
+      </>
+    );
+  }
+
   return (
     <>
       <PointAnimation lastPointChange={quiz.lastPointChange} />
-
-      {quiz.screenState.showDifficultySelection && (
-        <div className="flex flex-col gap-4">
-          <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
-          <Button variant="outline" onClick={quiz.handleBackToModeSelect}>
-            {t('back')}
-          </Button>
-        </div>
-      )}
-
-      {quiz.screenState.showChallengeReady && (
-        <div className="flex flex-col gap-4">
-          <div className="rounded-lg bg-muted/50 p-4 text-center">
-            <p className="text-muted-foreground text-sm">
-              {t('total_question_count', {
-                count: quiz.currentChallengeConfig?.question.length ?? 10,
-              })}
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              onClick={quiz.handleBackToDifficultySelect}
-              className="flex-1"
-            >
-              {t('back')}
-            </Button>
-            <Button onClick={quiz.handleStartChallenge} className="flex-1">
-              <PlayIcon className="size-4" />
-              {t('start_quiz')}
-            </Button>
-          </div>
-        </div>
-      )}
 
       {quiz.screenState.showChallengeResults && quiz.challengeResult && (
         <ChallengeResults
@@ -70,48 +126,6 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           onPlayAgain={quiz.handlePlayAgain}
           onBackToMenu={quiz.handleBackToMenu}
         />
-      )}
-
-      {quiz.screenState.showChallengeQuiz && (
-        <>
-          <QuizContent
-            nodes={quiz.nodes}
-            edges={quiz.edges}
-            nodeTypes={nodeTypes}
-            theme={theme}
-            isChecked={quiz.isChecked}
-            onNodesChange={quiz.onNodesChange}
-            onEdgesChange={quiz.onEdgesChange}
-            onConnect={quiz.onConnect}
-            isValidConnection={quiz.isValidConnection}
-            headerContent={
-              <>
-                <ChallengeProgress
-                  currentIndex={quiz.currentQuestionIndex}
-                  totalQuestion={TOTAL_CHALLENGE_QUESTION}
-                  questionStat={quiz.questionStat}
-                />
-                <div className="flex h-9 items-center justify-between gap-2">
-                  <span className="font-medium text-sm">
-                    {t('point', { point: quiz.challengeScoring.totalPoint })}
-                  </span>
-                  {quiz.challengeTimeRemaining !== null && (
-                    <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
-                  )}
-                </div>
-              </>
-            }
-          />
-          <div className="flex gap-2">
-            <Button
-              onClick={quiz.handleChallengeCheckAndNext}
-              disabled={quiz.connectionCount < quiz.requiredConnections || quiz.isChecked}
-              className="flex-1"
-            >
-              {t('check_answer')}
-            </Button>
-          </div>
-        </>
       )}
     </>
   );
