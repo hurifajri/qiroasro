@@ -7,7 +7,7 @@ import {
   CheckCircleIcon,
   ClockIcon,
   CopyIcon,
-  LinkIcon,
+  PlayIcon,
   ShareIcon,
   TrophyIcon,
   XCircleIcon,
@@ -52,10 +52,15 @@ function ConfettiParticle({ delay, x }: { delay: number; x: number }) {
 
 // Badge configuration
 function getBadge(accuracy: number) {
-  if (accuracy >= 100)
+  if (accuracy >= 100) {
     return { emoji: '🏆', key: 'challenge_badge_perfect', color: 'text-yellow-500' };
-  if (accuracy >= 80) return { emoji: '🥈', key: 'challenge_badge_great', color: 'text-gray-400' };
-  if (accuracy >= 60) return { emoji: '🥉', key: 'challenge_badge_good', color: 'text-amber-600' };
+  }
+  if (accuracy >= 80) {
+    return { emoji: '🥈', key: 'challenge_badge_great', color: 'text-gray-400' };
+  }
+  if (accuracy >= 60) {
+    return { emoji: '🥉', key: 'challenge_badge_good', color: 'text-amber-600' };
+  }
   return { emoji: '📖', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
 }
 
@@ -282,25 +287,25 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        <Button onClick={handleShare} variant="outline" className="w-full">
+        <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
           {copied ? (
             <>
-              <CopyIcon className="size-4" />
+              <CopyIcon />
               {t('challenge_share_copied')}
             </>
           ) : (
             <>
-              <ShareIcon className="size-4" />
+              <ShareIcon />
               {t('challenge_share_result')}
             </>
           )}
         </Button>
         <div className="flex gap-2">
-          <Button onClick={onBackToMenu} variant="ghost" className="flex-1">
-            <LinkIcon className="size-4" />
+          <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
             {t('back')}
           </Button>
-          <Button onClick={onPlayAgain} className="flex-1">
+          <Button size="lg" onClick={onPlayAgain} className="flex-1">
+            <PlayIcon />
             {t('challenge_play_again')}
           </Button>
         </div>
