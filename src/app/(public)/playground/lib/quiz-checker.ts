@@ -1,10 +1,16 @@
 import type { Edge, Node } from '@xyflow/react';
 import type { QuizQuestion } from '../schemas/quiz';
 
+export interface IncorrectItem {
+  name: string;
+  type: 'letter' | 'articulation_point' | 'trait';
+}
+
 interface CheckAnswersResult {
   correctCount: number;
   letterResults: Map<string, 'correct' | 'incorrect'>;
   targetResults: Map<string, 'correct' | 'incorrect'>;
+  incorrectItem: IncorrectItem[];
 }
 
 /**
@@ -14,6 +20,7 @@ export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): Chec
   let correctCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
+  const incorrectItem: IncorrectItem[] = [];
 
   for (const question of questions) {
     const letterId = `letter-quiz-${question.letter.id}`;
@@ -30,11 +37,32 @@ export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): Chec
       }
       targetResults.set(connection.target, status);
 
-      if (isCorrect) correctCount++;
+      if (isCorrect) {
+        correctCount++;
+      } else {
+        // Track incorrect answer - add letter slug
+        incorrectItem.push({
+          name: question.letter.slug,
+          type: 'letter',
+        });
+      }
+    }
+
+    // Check for missed correct connections (unanswered)
+    const answeredTargets = letterConnections.map((c) =>
+      Number.parseInt(c.target.replace('target-quiz-', ''), 10),
+    );
+    for (const correctId of question.correctTargetIds) {
+      if (!answeredTargets.includes(correctId)) {
+        incorrectItem.push({
+          name: question.letter.slug,
+          type: 'letter',
+        });
+      }
     }
   }
 
-  return { correctCount, letterResults, targetResults };
+  return { correctCount, letterResults, targetResults, incorrectItem };
 }
 
 /**

@@ -10,25 +10,30 @@ interface PointAnimationProps {
 
 interface AnimationItem {
   value: number;
-  id: number;
+  id: string;
 }
 
 export function PointAnimation({ lastPointChange }: PointAnimationProps) {
   const [queue, setQueue] = useState<AnimationItem[]>([]);
-  const lastTimestampRef = useRef<number | null>(null);
-  const idCounterRef = useRef(0);
+  const processedTimestampsRef = useRef<Set<number>>(new Set());
 
   // Add new animation to queue when lastPointChange changes
   useEffect(() => {
-    if (lastPointChange && lastPointChange.timestamp !== lastTimestampRef.current) {
-      lastTimestampRef.current = lastPointChange.timestamp;
-      idCounterRef.current += 1;
-      setQueue((prev) => [...prev, { value: lastPointChange.value, id: idCounterRef.current }]);
+    if (lastPointChange && !processedTimestampsRef.current.has(lastPointChange.timestamp)) {
+      processedTimestampsRef.current.add(lastPointChange.timestamp);
+      const id = `${lastPointChange.timestamp}-${lastPointChange.value}`;
+      setQueue((prev) => [...prev, { value: lastPointChange.value, id }]);
+
+      // Cleanup old timestamps to prevent memory leak
+      if (processedTimestampsRef.current.size > 100) {
+        const arr = Array.from(processedTimestampsRef.current);
+        processedTimestampsRef.current = new Set(arr.slice(-50));
+      }
     }
   }, [lastPointChange]);
 
   // Remove animation from queue after it completes
-  const handleAnimationComplete = (id: number) => {
+  const handleAnimationComplete = (id: string) => {
     setQueue((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -43,7 +48,7 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
           )}
           style={{
             top: '50%',
-            left: `calc(50% + ${index * 30}px)`,
+            left: `calc(50% + ${index * 40}px)`,
           }}
           initial={{ opacity: 1, scale: 1.5, x: '-50%', y: '-50%' }}
           animate={{

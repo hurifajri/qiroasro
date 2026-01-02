@@ -83,7 +83,7 @@ export function Quiz() {
   const nextChallengeQuestion = useQuizStore((s) => s.nextChallengeQuestion);
   const addConnectionScore = useQuizStore((s) => s.addConnectionScore);
   const recordQuestionStat = useQuizStore((s) => s.recordQuestionStat);
-  const _addErrorItem = useQuizStore((s) => s.addErrorItem);
+  const addErrorItem = useQuizStore((s) => s.addErrorItem);
   const finishChallenge = useQuizStore((s) => s.finishChallenge);
   const resetChallenge = useQuizStore((s) => s.resetChallenge);
 
@@ -227,8 +227,8 @@ export function Quiz() {
 
   // Handle challenge answer check and move to next question
   const handleChallengeCheckAndNext = useCallback(() => {
-    // checkAnswers now returns the score directly
-    const currentScore = checkAnswers();
+    // checkAnswers now returns score and incorrectItem
+    const { score: currentScore, incorrectItem } = checkAnswers();
     const timeSpent = getElapsedTime();
     const isPerfect = currentScore.correct === currentScore.total;
 
@@ -239,6 +239,11 @@ export function Quiz() {
       isPerfect,
     };
     recordQuestionStat(stat);
+
+    // Track incorrect items for weakness analysis
+    for (const item of incorrectItem) {
+      addErrorItem(item.name, item.type);
+    }
 
     // Add scores with staggered delays for animation visibility
     const totalConnections = currentScore.total;
@@ -272,6 +277,7 @@ export function Quiz() {
     checkAnswers,
     getElapsedTime,
     recordQuestionStat,
+    addErrorItem,
     addConnectionScore,
     currentQuestionIndex,
     challengeScoring,

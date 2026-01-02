@@ -128,9 +128,12 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     [letterCount, targetCount, multiEdge, lettersPerQuiz, targetsPerQuiz],
   );
 
-  // Check answers - returns the score for caller to use
+  // Check answers - returns the score and incorrect items for caller to use
   const checkAnswers = useCallback(() => {
-    const { correctCount, letterResults, targetResults } = checkQuizAnswers(questions, edges);
+    const { correctCount, letterResults, targetResults, incorrectItem } = checkQuizAnswers(
+      questions,
+      edges,
+    );
 
     setNodes((currentNodes) => applyResultsToNodes(currentNodes, letterResults, targetResults));
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
@@ -139,7 +142,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     setScore(newScore);
     setIsChecked(true);
 
-    return newScore;
+    return { score: newScore, incorrectItem };
   }, [questions, edges, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
 
   return {
