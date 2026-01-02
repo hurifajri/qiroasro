@@ -315,6 +315,17 @@ export function useQuiz() {
     resetAll();
   }, [setNodes, setEdges, resetAll]);
 
+  // Handler for "Try Again" button in regular mode
+  const handleTryAgain = useCallback(() => {
+    if (mode) {
+      setNodes([]);
+      setEdges([]);
+      stopTimer();
+      generateQuiz(mode);
+      startTimer();
+    }
+  }, [mode, setNodes, setEdges, stopTimer, generateQuiz, startTimer]);
+
   // Screen state
   const screenState = useMemo(
     () => ({
@@ -417,6 +428,7 @@ export function useQuiz() {
     handlePlayAgain,
     handleBackToMenu,
     handleChallengeCheckAndNext,
+    handleTryAgain,
     checkAnswers,
     generateQuiz,
 
