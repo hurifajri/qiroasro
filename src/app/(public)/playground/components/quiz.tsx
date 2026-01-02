@@ -227,48 +227,42 @@ export function Quiz() {
 
   // Handle challenge answer check and move to next question
   const handleChallengeCheckAndNext = useCallback(() => {
-    checkAnswers();
+    // checkAnswers now returns the score directly
+    const currentScore = checkAnswers();
+    const timeSpent = getElapsedTime();
+    const isPerfect = currentScore.correct === currentScore.total;
 
-    // Wait for state update then record and move to next
+    const stat = {
+      correctConnection: currentScore.correct,
+      incorrectConnection: currentScore.total - currentScore.correct,
+      timeSpent,
+      isPerfect,
+    };
+    recordQuestionStat(stat);
+
+    // Add scores for each connection
+    for (let i = 0; i < currentScore.correct; i++) {
+      addConnectionScore(true);
+    }
+    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
+      addConnectionScore(false);
+    }
+
+    // Small delay before moving to next question to show the result
     setTimeout(() => {
-      // Use current score from the store's reactive state
-      const currentScore = score;
-      const timeSpent = getElapsedTime();
-      const isPerfect = currentScore.correct === currentScore.total;
-
-      const stat = {
-        correctConnection: currentScore.correct,
-        incorrectConnection: currentScore.total - currentScore.correct,
-        timeSpent,
-        isPerfect,
-      };
-      recordQuestionStat(stat);
-
-      // Add scores for each connection
-      for (let i = 0; i < currentScore.correct; i++) {
-        addConnectionScore(true);
+      if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
+        const totalConnections =
+          challengeScoring.correctConnection +
+          challengeScoring.incorrectConnection +
+          currentScore.correct +
+          (currentScore.total - currentScore.correct);
+        finishChallenge(totalConnections);
+      } else {
+        nextChallengeQuestion();
       }
-      for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-        addConnectionScore(false);
-      }
-
-      // Small delay before moving to next question
-      setTimeout(() => {
-        if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-          const totalConnections =
-            challengeScoring.correctConnection +
-            challengeScoring.incorrectConnection +
-            currentScore.correct +
-            (currentScore.total - currentScore.correct);
-          finishChallenge(totalConnections);
-        } else {
-          nextChallengeQuestion();
-        }
-      }, 1000);
-    }, 100);
+    }, 1000);
   }, [
     checkAnswers,
-    score,
     getElapsedTime,
     recordQuestionStat,
     addConnectionScore,

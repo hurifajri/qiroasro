@@ -128,15 +128,18 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     [letterCount, targetCount, multiEdge, lettersPerQuiz, targetsPerQuiz],
   );
 
-  // Check answers
+  // Check answers - returns the score for caller to use
   const checkAnswers = useCallback(() => {
     const { correctCount, letterResults, targetResults } = checkQuizAnswers(questions, edges);
 
     setNodes((currentNodes) => applyResultsToNodes(currentNodes, letterResults, targetResults));
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
-    setScore({ correct: correctCount, total: requiredConnections });
+    const newScore = { correct: correctCount, total: requiredConnections };
+    setScore(newScore);
     setIsChecked(true);
+
+    return newScore;
   }, [questions, edges, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
 
   return {
