@@ -76,12 +76,21 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
             />
           )}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <Button size="lg" variant="outline" onClick={quiz.handleResetQuiz}>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={quiz.handleResetQuiz}
+              className="sm:flex-1"
+            >
               <RefreshCwIcon />
               {t('change_mode')}
             </Button>
             {quiz.isChecked ? (
-              <Button size="lg" onClick={() => quiz.mode && quiz.generateQuiz(quiz.mode)}>
+              <Button
+                size="lg"
+                onClick={() => quiz.mode && quiz.generateQuiz(quiz.mode)}
+                className="sm:flex-1"
+              >
                 <RefreshCwIcon />
                 {t('try_again')}
               </Button>
@@ -90,6 +99,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
                 size="lg"
                 onClick={quiz.checkAnswers}
                 disabled={quiz.connectionCount < quiz.requiredConnections}
+                className="sm:flex-1"
               >
                 <CheckCircle2Icon />
                 {t('check_answer')}
