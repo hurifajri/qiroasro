@@ -80,7 +80,7 @@ interface QuizActions {
   addConnectionScore: (isCorrect: boolean) => void;
   recordQuestionStat: (stat: ChallengeQuestionStat) => void;
   addErrorItem: (item: string, type: ChallengeWeakness['type']) => void;
-  finishChallenge: (totalPossibleConnection: number) => void;
+  finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
   resetChallenge: () => void;
 }
 
@@ -212,9 +212,9 @@ export function createQuizStore() {
         };
       }),
 
-    finishChallenge: (totalPossibleConnection) => {
+    finishChallenge: (totalPossibleConnection, endTime) => {
       const state = get();
-      const totalTime = state.challengeStartTime ? Date.now() - state.challengeStartTime : 0;
+      const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
       const perfectQuestion = state.questionStat.filter((s) => s.isPerfect).length;
       const questionWithError = state.questionStat.length - perfectQuestion;
 

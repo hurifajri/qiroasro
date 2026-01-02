@@ -160,6 +160,7 @@ export function Quiz() {
         challengeScoring.correctConnection +
           challengeScoring.incorrectConnection +
           missedConnections,
+        Date.now(),
       );
     } else {
       nextChallengeQuestion();
@@ -259,6 +260,9 @@ export function Quiz() {
       delay += ANIMATION_DELAY;
     }
 
+    // Capture end time NOW (before animation delay)
+    const endTime = Date.now();
+
     // Wait for animations to complete + show result, then move to next question
     const animationDuration = totalConnections * ANIMATION_DELAY + 800;
     setTimeout(() => {
@@ -268,7 +272,7 @@ export function Quiz() {
           challengeScoring.incorrectConnection +
           currentScore.correct +
           (currentScore.total - currentScore.correct);
-        finishChallenge(totalConnectionsSum);
+        finishChallenge(totalConnectionsSum, endTime);
       } else {
         nextChallengeQuestion();
       }
