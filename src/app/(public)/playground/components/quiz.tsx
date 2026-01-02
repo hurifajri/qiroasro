@@ -408,7 +408,12 @@ export function Quiz() {
       </Button>
 
       <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
-        <DialogContent className="flex max-h-[90vh] max-w-lg flex-col overflow-y-auto">
+        <DialogContent
+          className={cn(
+            'flex max-h-[90vh] max-w-lg flex-col',
+            showChallengeResults && challengeResult ? 'overflow-hidden' : 'overflow-y-auto',
+          )}
+        >
           <DialogHeader>
             <DialogTitle>{getDialogTitle()}</DialogTitle>
             <DialogDescription>{getDialogDescription()}</DialogDescription>
