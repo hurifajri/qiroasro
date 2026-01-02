@@ -364,7 +364,8 @@ export function Quiz() {
       if (challengeResult) return '';
       if (!challengeDifficulty) return t('select_mode_description');
       if (!isStarted) return t(`difficulty_${challengeDifficulty}_desc`);
-      return t(`description_${mode}`);
+      // When quiz is active, show the current question type description
+      return mode ? t(`description_${mode}`) : '';
     }
     if (!mode) return t('select_mode_description');
     if (!isStarted)
