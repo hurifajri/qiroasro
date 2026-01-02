@@ -43,7 +43,8 @@ export function Quiz() {
       <Dialog open={quiz.isDialogOpen} onOpenChange={quiz.handleDialogClose}>
         <DialogContent
           className={cn(
-            'flex max-h-[90vh] max-w-lg flex-col',
+            'flex max-h-[90vh] max-w-lg flex-col rounded-none sm:rounded-xl',
+            quiz.isStarted && 'min-h-full min-w-full sm:min-w-auto',
             quiz.screenState.showChallengeResults && quiz.challengeResult
               ? 'overflow-hidden'
               : 'overflow-y-auto',
