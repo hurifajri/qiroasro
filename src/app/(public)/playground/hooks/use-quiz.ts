@@ -91,66 +91,73 @@ export function useQuiz() {
     isPaused: isChecked,
   });
 
-  // Challenge timer
+  // Shared function to process challenge answer (used by both timeout and manual check)
+  const processChallengeAnswer = useCallback(
+    (timeSpent: number) => {
+      // Call checkAnswers to update edge colors (blue/red)
+      const { score: currentScore, incorrectItem } = checkAnswers();
+      const isPerfect = currentScore.correct === currentScore.total;
+
+      const stat = {
+        correctConnection: currentScore.correct,
+        incorrectConnection: currentScore.total - currentScore.correct,
+        timeSpent,
+        isPerfect,
+      };
+      recordQuestionStat(stat);
+
+      for (const item of incorrectItem) {
+        addErrorItem(item.name, item.type);
+      }
+
+      // Animate score changes with delay
+      // Note: currentScore.total is requiredConnections, so (total - correct) already includes
+      // both wrong connections AND missed connections (connections not made before timeout)
+      let delay = 0;
+      for (let i = 0; i < currentScore.correct; i++) {
+        setTimeout(() => addConnectionScore(true), delay);
+        delay += ANIMATION_DELAY;
+      }
+      for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
+        setTimeout(() => addConnectionScore(false), delay);
+        delay += ANIMATION_DELAY;
+      }
+
+      const endTime = Date.now();
+      const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
+
+      setTimeout(() => {
+        if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
+          finishChallenge(
+            challengeScoring.correctConnection +
+              challengeScoring.incorrectConnection +
+              currentScore.total,
+            endTime,
+          );
+        } else {
+          nextChallengeQuestion();
+        }
+      }, animationDuration);
+    },
+    [
+      checkAnswers,
+      recordQuestionStat,
+      addErrorItem,
+      addConnectionScore,
+      currentQuestionIndex,
+      finishChallenge,
+      challengeScoring,
+      nextChallengeQuestion,
+    ],
+  );
+
+  // Challenge timer - when time runs out
   const handleChallengeTimeUp = useCallback(() => {
-    // Call checkAnswers to update edge colors (blue/red)
-    const { score: currentScore, incorrectItem } = checkAnswers();
     const timeSpent = currentChallengeConfig?.timerDuration
       ? currentChallengeConfig.timerDuration * 1000
       : 0;
-    const isPerfect = currentScore.correct === currentScore.total;
-
-    const stat = {
-      correctConnection: currentScore.correct,
-      incorrectConnection: currentScore.total - currentScore.correct,
-      timeSpent,
-      isPerfect,
-    };
-    recordQuestionStat(stat);
-
-    for (const item of incorrectItem) {
-      addErrorItem(item.name, item.type);
-    }
-
-    // Animate score changes with delay
-    // Note: currentScore.total is requiredConnections, so (total - correct) already includes
-    // both wrong connections AND missed connections (connections not made before timeout)
-    let delay = 0;
-    for (let i = 0; i < currentScore.correct; i++) {
-      setTimeout(() => addConnectionScore(true), delay);
-      delay += ANIMATION_DELAY;
-    }
-    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-      setTimeout(() => addConnectionScore(false), delay);
-      delay += ANIMATION_DELAY;
-    }
-
-    const endTime = Date.now();
-    const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
-
-    setTimeout(() => {
-      if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-        finishChallenge(
-          challengeScoring.correctConnection +
-            challengeScoring.incorrectConnection +
-            currentScore.total,
-          endTime,
-        );
-      } else {
-        nextChallengeQuestion();
-      }
-    }, animationDuration);
-  }, [
-    checkAnswers,
-    currentChallengeConfig,
-    recordQuestionStat,
-    addErrorItem,
-    addConnectionScore,
-    currentQuestionIndex,
-    finishChallenge,
-    challengeScoring,
-    nextChallengeQuestion,
-  ]);
+    processChallengeAnswer(timeSpent);
+  }, [currentChallengeConfig, processChallengeAnswer]);
 
   const {
     timeRemaining: challengeTimeRemaining,
@@ -199,59 +206,11 @@ export function useQuiz() {
   ]);
 
   // Handlers
+  // Handler for manual check button click
   const handleChallengeCheckAndNext = useCallback(() => {
-    const { score: currentScore, incorrectItem } = checkAnswers();
     const timeSpent = getElapsedTime();
-    const isPerfect = currentScore.correct === currentScore.total;
-
-    recordQuestionStat({
-      correctConnection: currentScore.correct,
-      incorrectConnection: currentScore.total - currentScore.correct,
-      timeSpent,
-      isPerfect,
-    });
-
-    for (const item of incorrectItem) {
-      addErrorItem(item.name, item.type);
-    }
-
-    let delay = 0;
-    for (let i = 0; i < currentScore.correct; i++) {
-      setTimeout(() => addConnectionScore(true), delay);
-      delay += ANIMATION_DELAY;
-    }
-    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-      setTimeout(() => addConnectionScore(false), delay);
-      delay += ANIMATION_DELAY;
-    }
-
-    const endTime = Date.now();
-    const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
-
-    setTimeout(() => {
-      if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-        finishChallenge(
-          challengeScoring.correctConnection +
-            challengeScoring.incorrectConnection +
-            currentScore.correct +
-            (currentScore.total - currentScore.correct),
-          endTime,
-        );
-      } else {
-        nextChallengeQuestion();
-      }
-    }, animationDuration);
-  }, [
-    checkAnswers,
-    getElapsedTime,
-    recordQuestionStat,
-    addErrorItem,
-    addConnectionScore,
-    currentQuestionIndex,
-    challengeScoring,
-    finishChallenge,
-    nextChallengeQuestion,
-  ]);
+    processChallengeAnswer(timeSpent);
+  }, [getElapsedTime, processChallengeAnswer]);
 
   const handleModeSelect = useCallback(
     (selectedMode: QuizMode) => {
