@@ -30,7 +30,6 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   // Get store actions
   const setQuestions = useQuizStore((s) => s.setQuestions);
   const setTargets = useQuizStore((s) => s.setTargets);
-  const setIsUnsupportedConfig = useQuizStore((s) => s.setIsUnsupportedConfig);
   const setIsChecked = useQuizStore((s) => s.setIsChecked);
   const setScore = useQuizStore((s) => s.setScore);
 
@@ -52,8 +51,6 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
         { letters, letterArticulations, letterTraits, articulationPoints, traits },
         { lettersPerQuiz, targetsPerQuiz, multiEdge },
       );
-
-      setIsUnsupportedConfig(result.isUnsupported);
 
       if (result.isUnsupported) {
         setQuestions([]);
@@ -83,7 +80,6 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
       setEdges,
       setQuestions,
       setTargets,
-      setIsUnsupportedConfig,
       setIsChecked,
       setScore,
     ],

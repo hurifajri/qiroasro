@@ -32,7 +32,6 @@ interface QuizState {
   // Quiz state
   isStarted: boolean;
   isChecked: boolean;
-  isUnsupportedConfig: boolean;
   isInstructionShown: boolean;
   // Quiz data
   questions: QuizQuestion[];
@@ -65,7 +64,6 @@ interface QuizActions {
   // Quiz actions
   startQuiz: () => void;
   setIsChecked: (isChecked: boolean) => void;
-  setIsUnsupportedConfig: (isUnsupported: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
   setQuestions: (questions: QuizQuestion[]) => void;
   setTargets: (targets: TargetItem[]) => void;
@@ -105,7 +103,6 @@ const initialState: QuizState = {
   settings: DEFAULT_QUIZ_SETTINGS,
   isStarted: false,
   isChecked: false,
-  isUnsupportedConfig: false,
   isInstructionShown: true,
   questions: [],
   targets: [],
@@ -134,7 +131,6 @@ export function createQuizStore() {
     // Quiz actions
     startQuiz: () => set({ isStarted: true, isInstructionShown: true }),
     setIsChecked: (isChecked) => set({ isChecked }),
-    setIsUnsupportedConfig: (isUnsupportedConfig) => set({ isUnsupportedConfig }),
     setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
     setQuestions: (questions) => set({ questions }),
     setTargets: (targets) => set({ targets }),
@@ -144,7 +140,6 @@ export function createQuizStore() {
       set({
         isStarted: false,
         isChecked: false,
-        isUnsupportedConfig: false,
         questions: [],
         targets: [],
         score: { correct: 0, total: 0 },

@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 
 interface QuizFooterProps {
-  isUnsupportedConfig: boolean;
   isChecked: boolean;
   connectionCount: number;
   requiredConnections: number;
@@ -16,7 +15,6 @@ interface QuizFooterProps {
 }
 
 export function QuizFooter({
-  isUnsupportedConfig,
   isChecked,
   connectionCount,
   requiredConnections,
@@ -32,13 +30,13 @@ export function QuizFooter({
         <RefreshCwIcon />
         {t('change_mode')}
       </Button>
-      {!isUnsupportedConfig && isChecked && (
+      {isChecked && (
         <Button size="lg" onClick={onTryAgain}>
           <RefreshCwIcon />
           {t('try_again')}
         </Button>
       )}
-      {!isUnsupportedConfig && !isChecked && (
+      {!isChecked && (
         <Button size="lg" onClick={onCheckAnswers} disabled={connectionCount < requiredConnections}>
           <CheckCircle2Icon />
           {t('check_answer')}
