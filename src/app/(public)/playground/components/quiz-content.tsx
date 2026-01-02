@@ -38,7 +38,7 @@ export function QuizContent({
   headerContent,
 }: QuizContentProps) {
   return (
-    <div className="flex flex-col gap-2 rounded-lg border">
+    <div className="flex h-dvh flex-col gap-2 rounded-lg border">
       {headerContent}
       <QuizCanvas
         nodes={nodes}
