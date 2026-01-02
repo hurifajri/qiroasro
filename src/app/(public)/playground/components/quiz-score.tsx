@@ -44,39 +44,28 @@ function ChallengeScore({ totalPoint, className }: { totalPoint: number; classNa
     return 'from-slate-400 via-slate-500 to-slate-600';
   };
 
-  // Determine glow color
-  const getGlowClass = () => {
-    if (totalPoint < 0) return 'shadow-red-500/50';
-    if (totalPoint > 0) return 'shadow-green-500/50';
-    return 'shadow-slate-500/30';
-  };
-
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5',
+        'relative flex w-24 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5',
         getGradientClass(),
-        getGlowClass(),
       )}
     >
-      {/* Calendar flip container - fixed height */}
-      <div className="relative flex h-7 min-w-16 items-center justify-center">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={totalPoint}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{
-              duration: 0.2,
-              ease: 'easeOut',
-            }}
-            className={cn('font-black text-xl tracking-tight', 'text-white drop-shadow-md')}
-          >
-            {t('point', { point: totalPoint })}
-          </motion.span>
-        </AnimatePresence>
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span
+          key={totalPoint}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{
+            duration: 0.2,
+            ease: 'easeOut',
+          }}
+          className={cn('font-black text-xl tracking-tight', 'text-white drop-shadow-md')}
+        >
+          {t('point', { point: totalPoint })}
+        </motion.span>
+      </AnimatePresence>
     </div>
   );
 }

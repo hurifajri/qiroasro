@@ -19,8 +19,8 @@ import {
 } from '../schemas/quiz';
 
 // Point values for scoring
-const CORRECT_POINT = 100;
-const INCORRECT_POINT = -10;
+const CORRECT_POINT = 10;
+const INCORRECT_POINT = -1;
 
 interface QuizState {
   // Dialog state
