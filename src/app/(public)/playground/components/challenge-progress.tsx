@@ -22,7 +22,7 @@ export function ChallengeProgress({
   return (
     <div className="flex flex-col gap-2">
       <span className="text-center text-muted-foreground text-sm">
-        {t('question_of', { current: currentIndex + 1, total: totalQuestion })}
+        {t('challenge_question_of', { current: currentIndex + 1, total: totalQuestion })}
       </span>
 
       <div className="flex justify-center gap-1.5">

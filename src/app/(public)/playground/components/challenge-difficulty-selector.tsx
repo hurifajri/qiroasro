@@ -45,10 +45,12 @@ export function ChallengeDifficultySelector({ onSelect }: ChallengeDifficultySel
             >
               <div className="flex items-center gap-2">
                 <Icon className={`size-5 ${uiConfig.color}`} />
-                <span className="font-semibold text-lg">{t(`difficulty_${difficulty}`)}</span>
+                <span className="font-semibold text-lg">
+                  {t(`challenge_difficulty_${difficulty}`)}
+                </span>
               </div>
               <span className="text-muted-foreground text-sm">
-                {t('seconds_per_question', { seconds: modeConfig.timerDuration })}
+                {t('challenge_seconds_per_question', { seconds: modeConfig.timerDuration })}
               </span>
             </Button>
           </motion.div>

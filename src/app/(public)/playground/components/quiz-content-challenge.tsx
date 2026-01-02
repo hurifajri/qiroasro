@@ -52,12 +52,12 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
       <>
         <div className="flex flex-col">
           <p className="text-muted-foreground text-sm">
-            {t('seconds_per_question', {
+            {t('challenge_seconds_per_question', {
               seconds: quiz.currentChallengeConfig.timerDuration,
             })}
           </p>
           <p className="text-muted-foreground text-sm">
-            {t('total_question_count', {
+            {t('challenge_total_question_count', {
               count: quiz.currentChallengeConfig.question.length,
             })}
           </p>

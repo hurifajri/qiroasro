@@ -12,8 +12,8 @@ import { QUIZ_MODE_CONFIG } from '../schemas/quiz';
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
 
 const SLIDER_CONFIG: { key: SliderKey; labelKey: string }[] = [
-  { key: 'lettersPerQuiz', labelKey: 'letters_per_quiz' },
-  { key: 'targetsPerQuiz', labelKey: 'targets_per_quiz' },
+  { key: 'lettersPerQuiz', labelKey: 'regular_letters_per_quiz' },
+  { key: 'targetsPerQuiz', labelKey: 'regular_targets_per_quiz' },
 ];
 
 interface QuizSettingsProps {
@@ -123,7 +123,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
 
         {mode === 'trait' && (
           <div className="flex items-center justify-between">
-            <Label className="text-sm">{t('multi_edge')}</Label>
+            <Label className="text-sm">{t('regular_multi_edge')}</Label>
             <Switch
               checked={settings.multiEdge}
               disabled={isMultiEdgeDisabled}
@@ -136,7 +136,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-1 text-sm">
               <TimerIcon className="size-5 shrink-0" />
-              {t('timer_mode')}
+              {t('regular_timer_mode')}
             </Label>
             <Switch
               checked={settings.timerMode}
@@ -145,7 +145,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label className="text-muted-foreground text-sm">{t('timer_duration')}</Label>
+              <Label className="text-muted-foreground text-sm">{t('regular_timer_duration')}</Label>
               <span className="font-medium text-sm">{settings.timerDuration}s</span>
             </div>
             <Slider

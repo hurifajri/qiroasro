@@ -52,10 +52,11 @@ function ConfettiParticle({ delay, x }: { delay: number; x: number }) {
 
 // Badge configuration
 function getBadge(accuracy: number) {
-  if (accuracy >= 100) return { emoji: '🏆', key: 'badge_perfect', color: 'text-yellow-500' };
-  if (accuracy >= 80) return { emoji: '🥈', key: 'badge_great', color: 'text-gray-400' };
-  if (accuracy >= 60) return { emoji: '🥉', key: 'badge_good', color: 'text-amber-600' };
-  return { emoji: '📖', key: 'badge_keep_learning', color: 'text-blue-500' };
+  if (accuracy >= 100)
+    return { emoji: '🏆', key: 'challenge_badge_perfect', color: 'text-yellow-500' };
+  if (accuracy >= 80) return { emoji: '🥈', key: 'challenge_badge_great', color: 'text-gray-400' };
+  if (accuracy >= 60) return { emoji: '🥉', key: 'challenge_badge_good', color: 'text-amber-600' };
+  return { emoji: '📖', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
 }
 
 // Format time from ms to mm:ss
@@ -97,7 +98,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
   const handleShare = useCallback(async () => {
     const shareText = t('share_text', {
       point: result.scoring.totalPoint,
-      difficulty: t(`difficulty_${result.difficulty}`),
+      difficulty: t(`challenge_difficulty_${result.difficulty}`),
       time: formatTime(result.totalTime),
     });
 
@@ -173,7 +174,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
           <div className="flex items-center gap-2 text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 text-sm">
-              {t(`difficulty_${result.difficulty}`)}
+              {t(`challenge_difficulty_${result.difficulty}`)}
             </span>
           </div>
         </motion.div>
@@ -189,14 +190,14 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           <div className="flex flex-col items-center rounded-lg bg-linear-to-br from-primary/10 to-primary/5 p-3">
             <TrophyIcon className="mb-1 size-5 text-primary" />
             <span className="font-bold text-2xl">{result.scoring.totalPoint}</span>
-            <span className="text-muted-foreground text-xs">{t('total_point')}</span>
+            <span className="text-muted-foreground text-xs">{t('challenge_total_point')}</span>
           </div>
 
           {/* Total Time */}
           <div className="flex flex-col items-center rounded-lg bg-muted/50 p-3">
             <ClockIcon className="mb-1 size-5 text-muted-foreground" />
             <span className="font-bold text-2xl">{formatTime(result.totalTime)}</span>
-            <span className="text-muted-foreground text-xs">{t('total_time')}</span>
+            <span className="text-muted-foreground text-xs">{t('challenge_total_time')}</span>
           </div>
 
           {/* Perfect Questions */}
@@ -205,7 +206,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             <span className="font-bold text-green-700 text-xl dark:text-green-400">
               {result.perfectQuestion}/{result.totalQuestion}
             </span>
-            <span className="text-muted-foreground text-xs">{t('perfect_question')}</span>
+            <span className="text-muted-foreground text-xs">{t('challenge_perfect_question')}</span>
           </div>
 
           {/* Questions with Errors */}
@@ -214,7 +215,9 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             <span className="font-bold text-red-700 text-xl dark:text-red-400">
               {result.questionWithError}/{result.totalQuestion}
             </span>
-            <span className="text-muted-foreground text-xs">{t('question_with_error')}</span>
+            <span className="text-muted-foreground text-xs">
+              {t('challenge_question_with_error')}
+            </span>
           </div>
         </motion.div>
 
@@ -229,19 +232,23 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             <span className="font-semibold text-green-600 text-lg">
               {result.scoring.correctConnection}
             </span>
-            <span className="text-muted-foreground text-xs">{t('correct_connection')}</span>
+            <span className="text-muted-foreground text-xs">
+              {t('challenge_correct_connection')}
+            </span>
           </div>
           <div className="h-full w-px bg-border" />
           <div className="flex flex-col items-center">
             <span className="font-semibold text-lg text-red-600">
               {result.scoring.incorrectConnection}
             </span>
-            <span className="text-muted-foreground text-xs">{t('incorrect_connection')}</span>
+            <span className="text-muted-foreground text-xs">
+              {t('challenge_incorrect_connection')}
+            </span>
           </div>
           <div className="h-full w-px bg-border" />
           <div className="flex flex-col items-center">
             <span className="font-semibold text-lg">{accuracy}%</span>
-            <span className="text-muted-foreground text-xs">{t('accuracy')}</span>
+            <span className="text-muted-foreground text-xs">{t('challenge_accuracy')}</span>
           </div>
         </motion.div>
 
@@ -256,11 +263,11 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             <div className="mb-2 flex items-center gap-2">
               <BookOpenIcon className="size-4 text-amber-600" />
               <span className="font-medium text-amber-800 text-sm dark:text-amber-200">
-                {t('weakness_analysis')}
+                {t('challenge_weakness_analysis')}
               </span>
             </div>
             <p className="text-amber-700 text-sm dark:text-amber-300">
-              {t('weakness_message', {
+              {t('challenge_weakness_message', {
                 items: result.weakness.map((w) => w.item).join(', '),
               })}
             </p>
@@ -279,12 +286,12 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           {copied ? (
             <>
               <CopyIcon className="size-4" />
-              {t('share_copied')}
+              {t('challenge_share_copied')}
             </>
           ) : (
             <>
               <ShareIcon className="size-4" />
-              {t('share_result')}
+              {t('challenge_share_result')}
             </>
           )}
         </Button>
@@ -294,7 +301,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             {t('back')}
           </Button>
           <Button onClick={onPlayAgain} className="flex-1">
-            {t('play_again')}
+            {t('challenge_play_again')}
           </Button>
         </div>
       </motion.div>

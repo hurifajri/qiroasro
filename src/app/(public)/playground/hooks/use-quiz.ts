@@ -329,23 +329,27 @@ export function useQuiz() {
         title = t('challenge_result');
         description = '';
       } else if (!challengeDifficulty) {
-        title = t('select_difficulty');
+        title = t('challenge_select_difficulty');
       } else if (!isStarted) {
         title = t('mode_challenge');
         description = '';
       } else {
         title = t('mode_challenge');
-        description = mode ? t(`description_${mode}`) : '';
+        description = mode ? t('regular_description', { mode: 'makhraj/sifat' }) : '';
       }
     } else if (mode) {
       if (!isStarted) {
-        title = t('settings');
-        description = t('settings_description', {
-          mode: mode === 'articulation_point' ? 'makhraj' : 'sifat',
+        title = t('regular_settings');
+        description = t('regular_settings_description', {
+          mode: mode === 'articulation_point' ? 'makharijul huruf' : 'sifatul huruf',
         });
       } else {
-        title = t(`title_${mode}`);
-        description = t(`description_${mode}`);
+        title = t('regular_title', {
+          mode: mode === 'articulation_point' ? 'Makharijul Huruf' : 'Sifatul Huruf',
+        });
+        description = t('regular_description', {
+          mode: mode === 'articulation_point' ? 'makhraj' : 'sifat',
+        });
       }
     }
 
