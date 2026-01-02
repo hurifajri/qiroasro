@@ -240,27 +240,34 @@ export function Quiz() {
     };
     recordQuestionStat(stat);
 
-    // Add scores for each connection
+    // Add scores with staggered delays for animation visibility
+    const totalConnections = currentScore.total;
+    let delay = 0;
+    const ANIMATION_DELAY = 150; // 150ms between each animation
+
     for (let i = 0; i < currentScore.correct; i++) {
-      addConnectionScore(true);
+      setTimeout(() => addConnectionScore(true), delay);
+      delay += ANIMATION_DELAY;
     }
     for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-      addConnectionScore(false);
+      setTimeout(() => addConnectionScore(false), delay);
+      delay += ANIMATION_DELAY;
     }
 
-    // Small delay before moving to next question to show the result
+    // Wait for animations to complete + show result, then move to next question
+    const animationDuration = totalConnections * ANIMATION_DELAY + 800;
     setTimeout(() => {
       if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-        const totalConnections =
+        const totalConnectionsSum =
           challengeScoring.correctConnection +
           challengeScoring.incorrectConnection +
           currentScore.correct +
           (currentScore.total - currentScore.correct);
-        finishChallenge(totalConnections);
+        finishChallenge(totalConnectionsSum);
       } else {
         nextChallengeQuestion();
       }
-    }, 1000);
+    }, animationDuration);
   }, [
     checkAnswers,
     getElapsedTime,
