@@ -374,7 +374,9 @@ export function Quiz() {
     if (isChallengeMode) {
       if (challengeResult) return '';
       if (!challengeDifficulty) return t('select_mode_description');
-      if (!isStarted) return t(`difficulty_${challengeDifficulty}_desc`);
+      if (!isStarted && currentChallengeConfig) {
+        return t('seconds_per_question', { seconds: currentChallengeConfig.timerDuration });
+      }
       // When quiz is active, show the current question type description
       return mode ? t(`description_${mode}`) : '';
     }
@@ -445,7 +447,9 @@ export function Quiz() {
             <div className="flex flex-col gap-4">
               <div className="rounded-lg bg-muted/50 p-4 text-center">
                 <p className="text-muted-foreground text-sm">
-                  {t('question_of', { current: 10, total: 10 })}
+                  {t('total_question_count', {
+                    count: currentChallengeConfig?.question.length ?? 10,
+                  })}
                 </p>
               </div>
               <div className="flex gap-2">
