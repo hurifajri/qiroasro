@@ -1,14 +1,14 @@
 'use client';
 
 import type { NodeTypes } from '@xyflow/react';
-import { PlayIcon } from 'lucide-react';
+import { CheckCircle2Icon, PlayIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
+import { DialogFooter } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
 import { QuizContent } from './quiz-content';
-import { QuizFooterRegular } from './quiz-footer-regular';
 import { QuizScore } from './quiz-score';
 import { QuizSettings } from './quiz-settings';
 import { QuizTimer } from './quiz-timer';
@@ -26,18 +26,23 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
 
   if (quiz.screenState.showRegularSettings) {
     return (
-      <div className="flex flex-col gap-4">
+      <>
         <QuizSettings />
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={quiz.handleBackToModeSelect} className="flex-1">
+        <DialogFooter className="flex flex-row items-center">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={quiz.handleBackToModeSelect}
+            className="flex-1"
+          >
             {t('back')}
           </Button>
-          <Button onClick={quiz.handleStartQuiz} className="flex-1">
-            <PlayIcon className="size-4" />
+          <Button size="lg" onClick={quiz.handleStartQuiz} className="flex-1">
+            <PlayIcon />
             {t('start_quiz')}
           </Button>
-        </div>
-      </div>
+        </DialogFooter>
+      </>
     );
   }
 
@@ -71,16 +76,27 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
             </div>
           }
         />
-        <QuizFooterRegular
-          isChecked={quiz.isChecked}
-          connectionCount={quiz.connectionCount}
-          requiredConnections={quiz.requiredConnections}
-          onReset={quiz.handleResetQuiz}
-          onTryAgain={() => quiz.mode && quiz.generateQuiz(quiz.mode)}
-          onCheckAnswers={quiz.checkAnswers}
-          timerMode={quiz.settings.timerMode}
-          timeRemaining={quiz.timeRemaining}
-        />
+        <DialogFooter className="sm:justify-between! flex-col gap-2 sm:flex-row sm:items-center">
+          <Button size="lg" variant="outline" onClick={quiz.handleResetQuiz}>
+            <RefreshCwIcon />
+            {t('change_mode')}
+          </Button>
+          {quiz.isChecked ? (
+            <Button size="lg" onClick={() => quiz.mode && quiz.generateQuiz(quiz.mode)}>
+              <RefreshCwIcon />
+              {t('try_again')}
+            </Button>
+          ) : (
+            <Button
+              size="lg"
+              onClick={quiz.checkAnswers}
+              disabled={quiz.connectionCount < quiz.requiredConnections}
+            >
+              <CheckCircle2Icon />
+              {t('check_answer')}
+            </Button>
+          )}
+        </DialogFooter>
       </>
     );
   }
