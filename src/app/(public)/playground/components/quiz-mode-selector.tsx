@@ -55,7 +55,7 @@ export function QuizModeSelector({ onSelect, onChallengeSelect }: QuizModeSelect
           animate={{ rotate: [0, -10, 10, -10, 0] }}
           transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
         >
-          🏅
+          🏆
         </motion.span>
         {t('mode_challenge')}
       </motion.button>
