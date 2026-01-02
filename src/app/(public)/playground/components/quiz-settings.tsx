@@ -146,7 +146,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <Label className="text-muted-foreground text-sm">{t('regular_timer_duration')}</Label>
-              <span className="font-medium text-sm">{settings.timerDuration}s</span>
+              <span className="font-medium text-sm">{settings.timerDuration}</span>
             </div>
             <Slider
               value={[settings.timerDuration]}
