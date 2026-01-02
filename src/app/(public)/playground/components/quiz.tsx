@@ -52,7 +52,9 @@ export function Quiz() {
         >
           <DialogHeader>
             <DialogTitle>{quiz.dialogTitle}</DialogTitle>
-            <DialogDescription>{quiz.dialogDescription}</DialogDescription>
+            {quiz.dialogDescription && (
+              <DialogDescription>{quiz.dialogDescription}</DialogDescription>
+            )}
           </DialogHeader>
 
           {quiz.screenState.showModeSelection && (

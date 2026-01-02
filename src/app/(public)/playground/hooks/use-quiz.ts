@@ -332,9 +332,7 @@ export function useQuiz() {
         title = t('select_difficulty');
       } else if (!isStarted) {
         title = t('mode_challenge');
-        description = t('seconds_per_question', {
-          seconds: currentChallengeConfig?.timerDuration ?? 60,
-        });
+        description = '';
       } else {
         title = t('mode_challenge');
         description = mode ? t(`description_${mode}`) : '';
@@ -352,15 +350,7 @@ export function useQuiz() {
     }
 
     return { dialogTitle: title, dialogDescription: description };
-  }, [
-    isChallengeMode,
-    challengeResult,
-    challengeDifficulty,
-    isStarted,
-    mode,
-    currentChallengeConfig,
-    t,
-  ]);
+  }, [isChallengeMode, challengeResult, challengeDifficulty, isStarted, mode, t]);
 
   return {
     // State

@@ -13,6 +13,7 @@ import { ChallengeProgress } from './challenge-progress';
 import { ChallengeResults } from './challenge-results';
 import { PointAnimation } from './point-animation';
 import { QuizContent } from './quiz-content';
+import { QuizInstruction } from './quiz-instruction';
 import { QuizScore } from './quiz-score';
 import { QuizTimer } from './quiz-timer';
 
@@ -44,14 +45,25 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
   }
 
   // Step 2: Challenge instructions
-  if (quiz.screenState.showChallengeReady) {
+  if (quiz.screenState.showChallengeReady && quiz.currentChallengeConfig) {
+    console.log('quiz.isInstructionShown', quiz.isInstructionShown);
+    console.log('quiz.mode', quiz.mode);
     return (
       <>
-        <p className="text-center text-muted-foreground text-sm">
-          {t('total_question_count', {
-            count: quiz.currentChallengeConfig?.question.length ?? 10,
-          })}
-        </p>
+        <div className="flex flex-col">
+          <p className="text-muted-foreground text-sm">
+            {t('seconds_per_question', {
+              seconds: quiz.currentChallengeConfig.timerDuration,
+            })}
+          </p>
+          <p className="text-muted-foreground text-sm">
+            {t('total_question_count', {
+              count: quiz.currentChallengeConfig.question.length,
+            })}
+          </p>
+
+          <QuizInstruction quizMode={quiz.mode} />
+        </div>
         <DialogFooter className="flex flex-row items-center">
           <Button
             size="lg"

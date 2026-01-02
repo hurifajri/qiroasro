@@ -191,6 +191,7 @@
       "mode_challenge": "Challenge",
       "instruction_title": "Petunjuk",
       "instruction_description": "Hubungkan huruf dengan {target} yang sesuai. Tarik garis atau klik titik koneksi pada keduanya untuk memasangkan.",
+      "challenge_instruction_description": "Hubungkan huruf dengan makhraj/sifat yang sesuai. Tarik garis atau klik titik koneksi pada keduanya untuk memasangkan. Soal 1-5 hanya menghubungkan 1 garis. Soal 5-6 menghubungkan lebih dari 1 garis (bisa 2, 3, atau 4 garis).",
       "check_answer": "Periksa Jawaban",
       "try_again": "Coba Lagi",
       "change_mode": "Ganti Mode",

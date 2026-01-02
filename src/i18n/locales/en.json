@@ -191,6 +191,7 @@
       "mode_challenge": "Challenge",
       "instruction_title": "Instruction",
       "instruction_description": "Match the letter to the correct {target}. Draw a line or click the connection dots on both items to link them.",
+      "challenge_instruction_description": "Match the letter to the correct makhraj/sifat. Draw a line or click the connection dots on both items to link them. Soal 1-5 hanya menghubungkan 1 garis. Soal 5-6 menghubungkan lebih dari 1 garis (bisa 2, 3, atau 4 garis).",
       "check_answer": "Check Answer",
       "try_again": "Try Again",
       "change_mode": "Change Mode",

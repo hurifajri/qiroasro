@@ -4,8 +4,8 @@ import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/componen
 import type { QuizMode } from '../schemas/quiz';
 
 interface QuizInstructionProps {
-  quizMode: QuizMode;
-  onClose: () => void;
+  quizMode: QuizMode | null;
+  onClose?: () => void;
 }
 
 export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
@@ -18,15 +18,19 @@ export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
           <InfoIcon className="size-4" />
           {t('instruction_title')}
         </CardTitle>
-        <CardAction>
-          <XIcon onClick={onClose} className="size-4 cursor-pointer" />
-        </CardAction>
+        {!!onClose && (
+          <CardAction>
+            <XIcon onClick={onClose} className="size-4 cursor-pointer" />
+          </CardAction>
+        )}
       </CardHeader>
       <CardContent className="px-0">
         <p className="text-sm">
-          {t('instruction_description', {
-            target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
-          })}
+          {quizMode
+            ? t('instruction_description', {
+                target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
+              })
+            : t('challenge_instruction_description')}
         </p>
       </CardContent>
     </Card>
