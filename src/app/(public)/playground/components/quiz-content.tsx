@@ -10,9 +10,7 @@ import type {
   OnEdgesChange,
   OnNodesChange,
 } from '@xyflow/react';
-import type { QuizMode } from '../schemas/quiz';
 import { QuizCanvas } from './quiz-canvas';
-import { QuizInstruction } from './quiz-instruction';
 
 interface QuizContentProps {
   nodes: Node[];
@@ -20,13 +18,10 @@ interface QuizContentProps {
   nodeTypes: NodeTypes;
   theme: ColorMode;
   isChecked: boolean;
-  isInstructionShown: boolean;
-  mode: QuizMode | null;
   onNodesChange: OnNodesChange<Node>;
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
-  onInstructionClose: () => void;
   headerContent?: React.ReactNode;
 }
 
@@ -36,17 +31,14 @@ export function QuizContent({
   nodeTypes,
   theme,
   isChecked,
-  isInstructionShown = false,
-  mode,
   onNodesChange,
   onEdgesChange,
   onConnect,
   isValidConnection,
-  onInstructionClose,
   headerContent,
 }: QuizContentProps) {
   return (
-    <div className="relative flex flex-col gap-2 overflow-hidden rounded-lg border">
+    <div className="flex flex-col gap-2 rounded-lg border">
       {headerContent}
       <QuizCanvas
         nodes={nodes}
@@ -59,9 +51,6 @@ export function QuizContent({
         onConnect={onConnect}
         isValidConnection={isValidConnection}
       />
-      {isInstructionShown && mode && (
-        <QuizInstruction quizMode={mode} onClose={onInstructionClose} />
-      )}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
 import { QuizContent } from './quiz-content';
+import { QuizInstruction } from './quiz-instruction';
 import { QuizScore } from './quiz-score';
 import { QuizSettings } from './quiz-settings';
 import { QuizTimer } from './quiz-timer';
@@ -54,15 +55,12 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
           nodeTypes={nodeTypes}
           theme={theme}
           isChecked={quiz.isChecked}
-          isInstructionShown={quiz.isInstructionShown}
-          mode={quiz.mode}
           onNodesChange={quiz.onNodesChange}
           onEdgesChange={quiz.onEdgesChange}
           onConnect={quiz.onConnect}
           isValidConnection={quiz.isValidConnection}
-          onInstructionClose={() => quiz.setIsInstructionShown(false)}
           headerContent={
-            <div className="flex items-center justify-end gap-2 p-2">
+            <div className="flex h-12 items-center justify-end gap-2 p-1.5">
               {quiz.isChecked && <QuizScore score={quiz.score} />}
               {quiz.settings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
                 <QuizTimer timeRemaining={quiz.timeRemaining} />
@@ -70,26 +68,34 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
             </div>
           }
         />
-        <DialogFooter className="sm:justify-between! flex-col gap-2 sm:flex-row sm:items-center">
-          <Button size="lg" variant="outline" onClick={quiz.handleResetQuiz}>
-            <RefreshCwIcon />
-            {t('change_mode')}
-          </Button>
-          {quiz.isChecked ? (
-            <Button size="lg" onClick={() => quiz.mode && quiz.generateQuiz(quiz.mode)}>
-              <RefreshCwIcon />
-              {t('try_again')}
-            </Button>
-          ) : (
-            <Button
-              size="lg"
-              onClick={quiz.checkAnswers}
-              disabled={quiz.connectionCount < quiz.requiredConnections}
-            >
-              <CheckCircle2Icon />
-              {t('check_answer')}
-            </Button>
+        <DialogFooter className="flex-col! gap-4">
+          {quiz.isInstructionShown && quiz.mode && (
+            <QuizInstruction
+              quizMode={quiz.mode}
+              onClose={() => quiz.setIsInstructionShown(false)}
+            />
           )}
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <Button size="lg" variant="outline" onClick={quiz.handleResetQuiz}>
+              <RefreshCwIcon />
+              {t('change_mode')}
+            </Button>
+            {quiz.isChecked ? (
+              <Button size="lg" onClick={() => quiz.mode && quiz.generateQuiz(quiz.mode)}>
+                <RefreshCwIcon />
+                {t('try_again')}
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                onClick={quiz.checkAnswers}
+                disabled={quiz.connectionCount < quiz.requiredConnections}
+              >
+                <CheckCircle2Icon />
+                {t('check_answer')}
+              </Button>
+            )}
+          </div>
         </DialogFooter>
       </>
     );

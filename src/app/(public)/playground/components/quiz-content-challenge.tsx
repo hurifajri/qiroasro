@@ -80,13 +80,10 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
             nodeTypes={nodeTypes}
             theme={theme}
             isChecked={quiz.isChecked}
-            isInstructionShown={quiz.isInstructionShown}
-            mode={quiz.mode}
             onNodesChange={quiz.onNodesChange}
             onEdgesChange={quiz.onEdgesChange}
             onConnect={quiz.onConnect}
             isValidConnection={quiz.isValidConnection}
-            onInstructionClose={() => quiz.setIsInstructionShown(false)}
             headerContent={
               <>
                 <ChallengeProgress
