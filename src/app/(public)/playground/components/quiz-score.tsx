@@ -47,7 +47,7 @@ function ChallengeScore({ totalPoint, className }: { totalPoint: number; classNa
   return (
     <div
       className={cn(
-        'relative flex w-24 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5',
+        'relative flex w-20 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5 font-medium text-sm text-white',
         getGradientClass(),
       )}
     >
@@ -57,11 +57,7 @@ function ChallengeScore({ totalPoint, className }: { totalPoint: number; classNa
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
-          transition={{
-            duration: 0.2,
-            ease: 'easeOut',
-          }}
-          className={cn('font-black text-xl tracking-tight', 'text-white drop-shadow-md')}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           {t('point', { point: totalPoint })}
         </motion.span>
