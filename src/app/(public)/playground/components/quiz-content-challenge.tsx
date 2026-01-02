@@ -50,17 +50,16 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     console.log('quiz.mode', quiz.mode);
     return (
       <>
-        <div className="flex flex-col">
-          <p className="text-muted-foreground text-sm">
-            {t('challenge_seconds_per_question', {
-              seconds: quiz.currentChallengeConfig.timerDuration,
-            })}
-          </p>
-          <p className="text-muted-foreground text-sm">
-            {t('challenge_total_question_count', {
-              count: quiz.currentChallengeConfig.question.length,
-            })}
-          </p>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col">
+            <p className="font-medium text-sm">
+              {`${t('challenge_total_question_count', {
+                count: quiz.currentChallengeConfig.question.length,
+              })}. ${t('challenge_seconds_per_question', {
+                seconds: quiz.currentChallengeConfig.timerDuration,
+              })}`}
+            </p>
+          </div>
 
           <QuizInstruction quizMode={quiz.mode} />
         </div>
