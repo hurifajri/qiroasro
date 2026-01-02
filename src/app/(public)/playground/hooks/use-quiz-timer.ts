@@ -1,67 +1,99 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface UseQuizTimerOptions {
-  /** Initial duration in seconds */
+  /** Timer duration in seconds */
   duration: number;
-  /** Whether timer mode is enabled */
+  /** Whether timer is enabled */
   enabled: boolean;
   /** Callback when timer reaches zero */
   onTimeUp?: () => void;
-  /** Whether timer should be paused */
+  /** Whether timer is paused */
   isPaused?: boolean;
+  /** Whether to track elapsed time (for challenge mode scoring) */
+  trackElapsedTime?: boolean;
 }
 
 export interface UseQuizTimerReturn {
-  /** Current time remaining in seconds, null if timer not started */
+  /** Current time remaining in seconds, null if not started */
   timeRemaining: number | null;
   /** Whether timer is currently running */
   isRunning: boolean;
   /** Start the timer */
   start: () => void;
-  /** Reset the timer to initial duration */
+  /** Reset timer to initial duration */
   reset: () => void;
-  /** Stop and clear the timer */
+  /** Stop timer completely */
   stop: () => void;
+  /** Get elapsed time in milliseconds since start (only available if trackElapsedTime is true) */
+  getElapsedTime: () => number;
 }
 
 /**
  * A reusable hook for countdown timer functionality.
- * Used for quiz time limits and other timed features.
+ * Used for quiz time limits in both regular and challenge modes.
  */
 export function useQuizTimer({
   duration,
   enabled,
   onTimeUp,
   isPaused = false,
+  trackElapsedTime = false,
 }: UseQuizTimerOptions): UseQuizTimerReturn {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const hasCalledTimeUpRef = useRef(false);
+  const onTimeUpRef = useRef(onTimeUp);
+
+  // Keep onTimeUp ref updated to prevent stale closure issues
+  useEffect(() => {
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
 
   const isRunning = timeRemaining !== null && timeRemaining > 0 && !isPaused;
 
   const start = useCallback(() => {
     if (enabled) {
       setTimeRemaining(duration);
+      if (trackElapsedTime) {
+        setStartTime(Date.now());
+      }
+      hasCalledTimeUpRef.current = false;
     }
-  }, [enabled, duration]);
+  }, [enabled, duration, trackElapsedTime]);
 
   const reset = useCallback(() => {
     if (enabled) {
       setTimeRemaining(duration);
+      if (trackElapsedTime) {
+        setStartTime(Date.now());
+      }
+      hasCalledTimeUpRef.current = false;
     }
-  }, [enabled, duration]);
+  }, [enabled, duration, trackElapsedTime]);
 
   const stop = useCallback(() => {
     setTimeRemaining(null);
+    setStartTime(null);
+    hasCalledTimeUpRef.current = false;
   }, []);
 
-  // Handle countdown
+  const getElapsedTime = useCallback(() => {
+    if (!startTime) return 0;
+    return Date.now() - startTime;
+  }, [startTime]);
+
+  // Countdown effect
   useEffect(() => {
     if (timeRemaining === null || isPaused) return;
 
     if (timeRemaining <= 0) {
-      onTimeUp?.();
+      // Only call onTimeUp once per timer cycle
+      if (!hasCalledTimeUpRef.current) {
+        hasCalledTimeUpRef.current = true;
+        onTimeUpRef.current?.();
+      }
       return;
     }
 
@@ -70,7 +102,7 @@ export function useQuizTimer({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeRemaining, isPaused, onTimeUp]);
+  }, [timeRemaining, isPaused]);
 
   return {
     timeRemaining,
@@ -78,5 +110,6 @@ export function useQuizTimer({
     start,
     reset,
     stop,
+    getElapsedTime,
   };
 }

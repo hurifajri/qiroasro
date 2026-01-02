@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQuizStore } from '../providers/quiz';
 import { CHALLENGE_MODE_CONFIG, type QuizMode } from '../schemas/quiz';
-import { useChallengeTimer } from './use-challenge-timer';
 import { useQuizGenerator } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
 
@@ -165,11 +164,12 @@ export function useQuiz() {
     reset: resetChallengeTimer,
     stop: stopChallengeTimer,
     getElapsedTime,
-  } = useChallengeTimer({
+  } = useQuizTimer({
     duration: currentChallengeConfig?.timerDuration ?? 60,
     enabled: isChallengeMode && isStarted && !challengeResult,
     onTimeUp: handleChallengeTimeUp,
     isPaused: isChecked,
+    trackElapsedTime: true,
   });
 
   // Generate challenge question when index changes
