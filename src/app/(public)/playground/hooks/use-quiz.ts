@@ -93,37 +93,58 @@ export function useQuiz() {
 
   // Challenge timer
   const handleChallengeTimeUp = useCallback(() => {
+    // Call checkAnswers to update edge colors (blue/red)
+    const { score: currentScore, incorrectItem } = checkAnswers();
+    const timeSpent = currentChallengeConfig?.timerDuration
+      ? currentChallengeConfig.timerDuration * 1000
+      : 0;
+    const isPerfect = currentScore.correct === currentScore.total;
+
     const stat = {
-      correctConnection: score.correct,
-      incorrectConnection: requiredConnections - score.correct,
-      timeSpent: currentChallengeConfig?.timerDuration
-        ? currentChallengeConfig.timerDuration * 1000
-        : 0,
-      isPerfect: false,
+      correctConnection: currentScore.correct,
+      incorrectConnection: currentScore.total - currentScore.correct,
+      timeSpent,
+      isPerfect,
     };
     recordQuestionStat(stat);
 
-    const missedConnections = requiredConnections - connectionCount;
-    for (let i = 0; i < missedConnections; i++) {
-      addConnectionScore(false);
+    for (const item of incorrectItem) {
+      addErrorItem(item.name, item.type);
     }
 
-    if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-      finishChallenge(
-        challengeScoring.correctConnection +
-          challengeScoring.incorrectConnection +
-          missedConnections,
-        Date.now(),
-      );
-    } else {
-      nextChallengeQuestion();
+    // Animate score changes with delay
+    // Note: currentScore.total is requiredConnections, so (total - correct) already includes
+    // both wrong connections AND missed connections (connections not made before timeout)
+    let delay = 0;
+    for (let i = 0; i < currentScore.correct; i++) {
+      setTimeout(() => addConnectionScore(true), delay);
+      delay += ANIMATION_DELAY;
     }
+    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
+      setTimeout(() => addConnectionScore(false), delay);
+      delay += ANIMATION_DELAY;
+    }
+
+    const endTime = Date.now();
+    const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
+
+    setTimeout(() => {
+      if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
+        finishChallenge(
+          challengeScoring.correctConnection +
+            challengeScoring.incorrectConnection +
+            currentScore.total,
+          endTime,
+        );
+      } else {
+        nextChallengeQuestion();
+      }
+    }, animationDuration);
   }, [
-    score.correct,
-    requiredConnections,
+    checkAnswers,
     currentChallengeConfig,
     recordQuestionStat,
-    connectionCount,
+    addErrorItem,
     addConnectionScore,
     currentQuestionIndex,
     finishChallenge,
