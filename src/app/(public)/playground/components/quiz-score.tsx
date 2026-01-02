@@ -30,7 +30,7 @@ export type QuizScoreProps = QuizScoreRegularProps | QuizScoreChallengeProps;
 const successStyles = 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-500';
 
 /** Challenge mode score display with calendar flip animation */
-function ChallengeScore({ totalPoint, className }: { totalPoint: number; className?: string }) {
+function ChallengeScore({ totalPoint }: { totalPoint: number }) {
   const t = useTranslations('playground_page.quiz');
 
   // Determine gradient based on point value
@@ -73,7 +73,7 @@ export function QuizScore(props: QuizScoreProps) {
 
   // Challenge mode - animated point display
   if (props.variant === 'challenge') {
-    return <ChallengeScore totalPoint={props.totalPoint} className={props.className} />;
+    return <ChallengeScore totalPoint={props.totalPoint} />;
   }
 
   // Regular mode - correct/incorrect badges
