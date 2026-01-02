@@ -5,11 +5,11 @@ import { useEdgesState, useNodesState } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useQuizStore } from '../providers/quiz';
-import { CHALLENGE_MODE_CONFIG, type QuizMode } from '../schemas/quiz';
+import { CHALLENGE_MODE_CONFIG, CHALLENGE_QUESTION, type QuizMode } from '../schemas/quiz';
 import { useQuizGenerator } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
 
-const TOTAL_CHALLENGE_QUESTION = 10;
+const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
 const ANIMATION_DELAY = 150;
 
 export function useQuiz() {

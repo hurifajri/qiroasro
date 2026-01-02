@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
+import { CHALLENGE_QUESTION } from '../schemas/quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
 import { ChallengeProgress } from './challenge-progress';
 import { ChallengeResults } from './challenge-results';
@@ -14,7 +15,7 @@ import { PointAnimation } from './point-animation';
 import { QuizContent } from './quiz-content';
 import { QuizTimer } from './quiz-timer';
 
-const TOTAL_CHALLENGE_QUESTION = 10;
+const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
 
 type QuizHook = ReturnType<typeof useQuiz>;
 

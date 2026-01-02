@@ -108,7 +108,7 @@ export interface ChallengeResult {
 }
 
 // Questions for Challenge mode (same for all difficulties, only timer differs)
-const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
+export const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 2, allowMultiEdge: false },
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: false },
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: false },
