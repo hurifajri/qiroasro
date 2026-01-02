@@ -62,7 +62,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
           onConnect={quiz.onConnect}
           isValidConnection={quiz.isValidConnection}
           headerContent={
-            <div className="flex h-12 items-center justify-end gap-2 p-1.5">
+            <div className="flex h-14 items-center justify-end gap-2 px-2">
               {quiz.isChecked && <QuizScore variant="regular" score={quiz.score} />}
               {quiz.settings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
                 <QuizTimer timeRemaining={quiz.timeRemaining} />

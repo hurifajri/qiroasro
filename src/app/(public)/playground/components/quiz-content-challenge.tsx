@@ -91,7 +91,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           onConnect={quiz.onConnect}
           isValidConnection={quiz.isValidConnection}
           headerContent={
-            <div className="flex h-12 items-center justify-between gap-2 p-1.5">
+            <div className="flex h-14 items-center justify-between gap-2 px-2">
               <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
               {quiz.challengeTimeRemaining !== null && (
                 <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
