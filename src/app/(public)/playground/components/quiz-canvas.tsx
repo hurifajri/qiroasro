@@ -25,7 +25,7 @@ interface QuizCanvasProps {
   isValidConnection: IsValidConnection;
 }
 
-function QuizCanvasInner({
+export function QuizCanvas({
   nodes,
   edges,
   nodeTypes,
@@ -50,36 +50,30 @@ function QuizCanvasInner({
   }, [nodes, fitView]);
 
   return (
-    <ReactFlow
-      proOptions={{ hideAttribution: true }}
-      colorMode={theme}
-      fitView
-      fitViewOptions={{ padding: 0.2 }}
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      nodeTypes={nodeTypes}
-      onConnect={onConnect}
-      isValidConnection={isValidConnection}
-      nodesDraggable={false}
-      nodesConnectable={!isChecked}
-      panOnDrag={false}
-      zoomOnScroll={false}
-      zoomOnPinch={false}
-      zoomOnDoubleClick={false}
-      preventScrolling={false}
-      connectOnClick={true}
-    >
-      <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
-    </ReactFlow>
-  );
-}
-
-export function QuizCanvas(props: QuizCanvasProps) {
-  return (
     <div className="relative h-100 overflow-hidden rounded-lg border bg-muted/30">
-      <QuizCanvasInner {...props} />
+      <ReactFlow
+        proOptions={{ hideAttribution: true }}
+        colorMode={theme}
+        fitView
+        fitViewOptions={{ padding: 0.2 }}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        onConnect={onConnect}
+        isValidConnection={isValidConnection}
+        nodesDraggable={false}
+        nodesConnectable={!isChecked}
+        panOnDrag={false}
+        zoomOnScroll={false}
+        zoomOnPinch={false}
+        zoomOnDoubleClick={false}
+        preventScrolling={false}
+        connectOnClick={true}
+      >
+        <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
+      </ReactFlow>
     </div>
   );
 }
