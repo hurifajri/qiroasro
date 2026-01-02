@@ -43,7 +43,7 @@ export function QuizModeSelector({ onSelect, onChallengeSelect }: QuizModeSelect
         <Button
           onClick={onChallengeSelect}
           variant="outline"
-          className="h-20 w-full border-2 border-amber-400 bg-gradient-to-r from-amber-50 to-yellow-50 text-lg hover:from-amber-100 hover:to-yellow-100 dark:from-amber-950 dark:to-yellow-950 dark:hover:from-amber-900 dark:hover:to-yellow-900"
+          className="h-20 w-full border-2 border-amber-400 bg-linear-to-r from-amber-50 to-yellow-50 text-lg hover:from-amber-100 hover:to-yellow-100 dark:from-amber-950 dark:to-yellow-950 dark:hover:from-amber-900 dark:hover:to-yellow-900"
         >
           <motion.span
             className="text-2xl"

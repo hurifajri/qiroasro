@@ -186,7 +186,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           transition={{ delay: 0.2 }}
         >
           {/* Total Points */}
-          <div className="flex flex-col items-center rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 p-3">
+          <div className="flex flex-col items-center rounded-lg bg-linear-to-br from-primary/10 to-primary/5 p-3">
             <TrophyIcon className="mb-1 size-5 text-primary" />
             <span className="font-bold text-2xl">{result.scoring.totalPoint}</span>
             <span className="text-muted-foreground text-xs">{t('total_point')}</span>
