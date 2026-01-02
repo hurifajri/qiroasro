@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
 import { QuizContent } from './quiz-content';
-import { QuizFooter } from './quiz-footer';
+import { QuizFooterRegular } from './quiz-footer-regular';
 import { QuizScore } from './quiz-score';
 import { QuizSettings } from './quiz-settings';
 import { QuizTimer } from './quiz-timer';
@@ -71,7 +71,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
             </div>
           }
         />
-        <QuizFooter
+        <QuizFooterRegular
           isChecked={quiz.isChecked}
           connectionCount={quiz.connectionCount}
           requiredConnections={quiz.requiredConnections}

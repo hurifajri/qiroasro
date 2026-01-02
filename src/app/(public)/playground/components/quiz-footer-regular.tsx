@@ -14,7 +14,7 @@ interface QuizFooterProps {
   timeRemaining?: number | null;
 }
 
-export function QuizFooter({
+export function QuizFooterRegular({
   isChecked,
   connectionCount,
   requiredConnections,
