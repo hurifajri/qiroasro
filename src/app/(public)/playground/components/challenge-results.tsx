@@ -101,7 +101,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
   // Share functionality
   const handleShare = useCallback(async () => {
-    const shareText = t('share_text', {
+    const shareText = t('challenge_share_text', {
       point: result.scoring.totalPoint,
       difficulty: t(`challenge_difficulty_${result.difficulty}`),
       time: formatTime(result.totalTime),
