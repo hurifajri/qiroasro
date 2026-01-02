@@ -73,6 +73,11 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     return (
       <>
         <PointAnimation lastPointChange={quiz.lastPointChange} />
+        <ChallengeProgress
+          currentIndex={quiz.currentQuestionIndex}
+          totalQuestion={TOTAL_CHALLENGE_QUESTION}
+          questionStat={quiz.questionStat}
+        />
         <QuizContent
           nodes={quiz.nodes}
           edges={quiz.edges}
@@ -84,21 +89,14 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           onConnect={quiz.onConnect}
           isValidConnection={quiz.isValidConnection}
           headerContent={
-            <>
-              <ChallengeProgress
-                currentIndex={quiz.currentQuestionIndex}
-                totalQuestion={TOTAL_CHALLENGE_QUESTION}
-                questionStat={quiz.questionStat}
-              />
-              <div className="flex h-9 items-center justify-between gap-2">
-                <span className="font-medium text-sm">
-                  {t('point', { point: quiz.challengeScoring.totalPoint })}
-                </span>
-                {quiz.challengeTimeRemaining !== null && (
-                  <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
-                )}
-              </div>
-            </>
+            <div className="flex h-12 items-center justify-between gap-2 p-1.5">
+              <span className="font-medium text-sm">
+                {t('point', { point: quiz.challengeScoring.totalPoint })}
+              </span>
+              {quiz.challengeTimeRemaining !== null && (
+                <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
+              )}
+            </div>
           }
         />
         <DialogFooter className="flex flex-row items-center">
@@ -116,17 +114,16 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     );
   }
 
-  return (
-    <>
-      <PointAnimation lastPointChange={quiz.lastPointChange} />
+  // Step 4: Challenge Results
+  if (quiz.screenState.showChallengeResults && quiz.challengeResult) {
+    return (
+      <ChallengeResults
+        result={quiz.challengeResult}
+        onPlayAgain={quiz.handlePlayAgain}
+        onBackToMenu={quiz.handleBackToMenu}
+      />
+    );
+  }
 
-      {quiz.screenState.showChallengeResults && quiz.challengeResult && (
-        <ChallengeResults
-          result={quiz.challengeResult}
-          onPlayAgain={quiz.handlePlayAgain}
-          onBackToMenu={quiz.handleBackToMenu}
-        />
-      )}
-    </>
-  );
+  return null;
 }
