@@ -63,7 +63,7 @@ function ChallengeScore({ totalPoint, className }: { totalPoint: number; classNa
         </motion.span>
       </AnimatePresence>
       &nbsp;
-      <span>{t('point', { point: totalPoint })}</span>
+      <span>{t('point', { count: totalPoint })}</span>
     </div>
   );
 }
