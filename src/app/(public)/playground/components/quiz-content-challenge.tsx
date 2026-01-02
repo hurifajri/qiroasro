@@ -46,8 +46,6 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
 
   // Step 2: Challenge instructions
   if (quiz.screenState.showChallengeReady && quiz.currentChallengeConfig) {
-    console.log('quiz.isInstructionShown', quiz.isInstructionShown);
-    console.log('quiz.mode', quiz.mode);
     return (
       <>
         <div className="flex flex-col gap-2">
