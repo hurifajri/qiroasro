@@ -50,7 +50,7 @@ export function QuizCanvas({
   }, [nodes, fitView]);
 
   return (
-    <div className="relative h-100 overflow-hidden rounded-lg border bg-muted/30">
+    <div className="h-100">
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         colorMode={theme}

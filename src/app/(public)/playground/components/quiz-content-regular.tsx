@@ -5,7 +5,6 @@ import { CheckCircle2Icon, PlayIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
 import { QuizContent } from './quiz-content';
@@ -63,12 +62,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
           isValidConnection={quiz.isValidConnection}
           onInstructionClose={() => quiz.setIsInstructionShown(false)}
           headerContent={
-            <div
-              className={cn(
-                'flex h-9 items-center gap-2',
-                quiz.isChecked ? 'justify-between' : 'justify-end',
-              )}
-            >
+            <div className="flex items-center justify-end gap-2 p-2">
               {quiz.isChecked && <QuizScore score={quiz.score} />}
               {quiz.settings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
                 <QuizTimer timeRemaining={quiz.timeRemaining} />
