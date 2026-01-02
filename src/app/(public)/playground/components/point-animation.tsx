@@ -15,31 +15,32 @@ interface AnimationItem {
 
 export function PointAnimation({ lastPointChange }: PointAnimationProps) {
   const [queue, setQueue] = useState<AnimationItem[]>([]);
-  const processedTimestampsRef = useRef<Set<number>>(new Set());
+  const lastProcessedTimestamp = useRef<number>(0);
 
   // Add new animation to queue when lastPointChange changes
   useEffect(() => {
-    if (lastPointChange && !processedTimestampsRef.current.has(lastPointChange.timestamp)) {
-      processedTimestampsRef.current.add(lastPointChange.timestamp);
-      const id = `${lastPointChange.timestamp}-${lastPointChange.value}`;
+    if (lastPointChange && lastPointChange.timestamp > lastProcessedTimestamp.current) {
+      lastProcessedTimestamp.current = lastPointChange.timestamp;
+      const id = `${lastPointChange.timestamp}-${Math.random()}`;
       setQueue((prev) => [...prev, { value: lastPointChange.value, id }]);
-
-      // Cleanup old timestamps to prevent memory leak
-      if (processedTimestampsRef.current.size > 100) {
-        const arr = Array.from(processedTimestampsRef.current);
-        processedTimestampsRef.current = new Set(arr.slice(-50));
-      }
     }
   }, [lastPointChange]);
 
-  // Remove animation from queue after it completes
-  const handleAnimationComplete = (id: string) => {
-    setQueue((prev) => prev.filter((item) => item.id !== id));
-  };
+  // Auto-cleanup after animation duration
+  useEffect(() => {
+    if (queue.length > 0) {
+      const timer = setTimeout(() => {
+        setQueue((prev) => prev.slice(1));
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [queue.length]);
+
+  if (queue.length === 0) return null;
 
   return (
-    <AnimatePresence>
-      {queue.map((item, index) => (
+    <AnimatePresence mode="popLayout">
+      {queue.slice(0, 5).map((item, index) => (
         <motion.div
           key={item.id}
           className={cn(
@@ -47,18 +48,17 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
             item.value > 0 ? 'text-green-500' : 'text-red-500',
           )}
           style={{
-            top: '50%',
-            left: `calc(50% + ${index * 40}px)`,
+            top: '45%',
+            left: `calc(50% + ${(index - 2) * 50}px)`,
           }}
-          initial={{ opacity: 1, scale: 1.5, x: '-50%', y: '-50%' }}
+          initial={{ opacity: 1, scale: 1.5, y: 0 }}
           animate={{
             opacity: 0,
-            scale: 0.5,
-            y: '-150%',
+            scale: 0.8,
+            y: -80,
           }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          onAnimationComplete={() => handleAnimationComplete(item.id)}
         >
           {item.value > 0 ? `+${item.value}` : item.value}
         </motion.div>

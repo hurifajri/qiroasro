@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface UseChallengeTimerOptions {
   /** Timer duration in seconds */
@@ -40,6 +40,13 @@ export function useChallengeTimer({
 }: UseChallengeTimerOptions): UseChallengeTimerReturn {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [startTime, setStartTime] = useState<number | null>(null);
+  const hasCalledTimeUpRef = useRef(false);
+  const onTimeUpRef = useRef(onTimeUp);
+
+  // Keep onTimeUp ref updated
+  useEffect(() => {
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
 
   const isRunning = timeRemaining !== null && timeRemaining > 0 && !isPaused;
 
@@ -47,6 +54,7 @@ export function useChallengeTimer({
     if (enabled) {
       setTimeRemaining(duration);
       setStartTime(Date.now());
+      hasCalledTimeUpRef.current = false;
     }
   }, [enabled, duration]);
 
@@ -54,12 +62,14 @@ export function useChallengeTimer({
     if (enabled) {
       setTimeRemaining(duration);
       setStartTime(Date.now());
+      hasCalledTimeUpRef.current = false;
     }
   }, [enabled, duration]);
 
   const stop = useCallback(() => {
     setTimeRemaining(null);
     setStartTime(null);
+    hasCalledTimeUpRef.current = false;
   }, []);
 
   const getElapsedTime = useCallback(() => {
@@ -72,7 +82,11 @@ export function useChallengeTimer({
     if (timeRemaining === null || isPaused) return;
 
     if (timeRemaining <= 0) {
-      onTimeUp();
+      // Only call onTimeUp once per timer cycle
+      if (!hasCalledTimeUpRef.current) {
+        hasCalledTimeUpRef.current = true;
+        onTimeUpRef.current();
+      }
       return;
     }
 
@@ -81,7 +95,7 @@ export function useChallengeTimer({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeRemaining, isPaused, onTimeUp]);
+  }, [timeRemaining, isPaused]);
 
   return {
     timeRemaining,
