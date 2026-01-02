@@ -91,6 +91,7 @@ export interface ChallengeQuestionStat {
 export interface ChallengeWeakness {
   item: string;
   type: 'letter' | 'articulation_point' | 'trait';
+  errorType: 'incorrect' | 'missed';
   errorCount: number;
 }
 

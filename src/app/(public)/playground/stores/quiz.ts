@@ -77,7 +77,11 @@ interface QuizActions {
   nextChallengeQuestion: () => void;
   addConnectionScore: (isCorrect: boolean) => void;
   recordQuestionStat: (stat: ChallengeQuestionStat) => void;
-  addErrorItem: (item: string, type: ChallengeWeakness['type']) => void;
+  addErrorItem: (
+    item: string,
+    type: ChallengeWeakness['type'],
+    errorType: ChallengeWeakness['errorType'],
+  ) => void;
   finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
   resetChallenge: () => void;
 }
@@ -192,18 +196,22 @@ export function createQuizStore() {
         questionStat: [...state.questionStat, stat],
       })),
 
-    addErrorItem: (item, type) =>
+    addErrorItem: (item, type, errorType) =>
       set((state) => {
-        const existing = state.errorItem.find((e) => e.item === item && e.type === type);
+        const existing = state.errorItem.find(
+          (e) => e.item === item && e.type === type && e.errorType === errorType,
+        );
         if (existing) {
           return {
             errorItem: state.errorItem.map((e) =>
-              e.item === item && e.type === type ? { ...e, errorCount: e.errorCount + 1 } : e,
+              e.item === item && e.type === type && e.errorType === errorType
+                ? { ...e, errorCount: e.errorCount + 1 }
+                : e,
             ),
           };
         }
         return {
-          errorItem: [...state.errorItem, { item, type, errorCount: 1 }],
+          errorItem: [...state.errorItem, { item, type, errorType, errorCount: 1 }],
         };
       }),
 

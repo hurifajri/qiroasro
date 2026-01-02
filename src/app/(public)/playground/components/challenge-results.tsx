@@ -260,22 +260,46 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         {/* Weakness Analysis */}
         {result.weakness.length > 0 && (
           <motion.div
-            className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950"
+            className="flex flex-col gap-2"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            <div className="mb-2 flex items-center gap-2">
-              <BookOpenIcon className="size-4 text-amber-600" />
-              <span className="font-medium text-amber-800 text-sm dark:text-amber-200">
-                {t('challenge_weakness_analysis')}
-              </span>
-            </div>
-            <p className="text-amber-700 text-sm dark:text-amber-300">
-              {t('challenge_weakness_message', {
-                items: result.weakness.map((w) => w.item).join(', '),
-              })}
-            </p>
+            {/* Incorrect connections */}
+            {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+                <div className="mb-1 flex items-center gap-2">
+                  <XCircleIcon className="size-4 text-red-600" />
+                  <span className="font-medium text-red-800 text-sm dark:text-red-200">
+                    {t('challenge_weakness_incorrect')}
+                  </span>
+                </div>
+                <p className="text-red-700 text-sm dark:text-red-300">
+                  {result.weakness
+                    .filter((w) => w.errorType === 'incorrect')
+                    .map((w) => w.item)
+                    .join(', ')}
+                </p>
+              </div>
+            )}
+
+            {/* Missed connections */}
+            {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
+              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
+                <div className="mb-1 flex items-center gap-2">
+                  <BookOpenIcon className="size-4 text-amber-600" />
+                  <span className="font-medium text-amber-800 text-sm dark:text-amber-200">
+                    {t('challenge_weakness_missed')}
+                  </span>
+                </div>
+                <p className="text-amber-700 text-sm dark:text-amber-300">
+                  {result.weakness
+                    .filter((w) => w.errorType === 'missed')
+                    .map((w) => w.item)
+                    .join(', ')}
+                </p>
+              </div>
+            )}
           </motion.div>
         )}
       </div>

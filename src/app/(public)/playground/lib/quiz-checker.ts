@@ -4,6 +4,7 @@ import type { QuizQuestion } from '../schemas/quiz';
 export interface IncorrectItem {
   name: string;
   type: 'letter' | 'articulation_point' | 'trait';
+  errorType: 'incorrect' | 'missed';
 }
 
 interface CheckAnswersResult {
@@ -40,10 +41,11 @@ export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): Chec
       if (isCorrect) {
         correctCount++;
       } else {
-        // Track incorrect answer - add letter slug
+        // Track incorrect connection - letter connected to wrong target
         incorrectItem.push({
           name: question.letter.slug,
           type: 'letter',
+          errorType: 'incorrect',
         });
       }
     }
@@ -54,9 +56,11 @@ export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): Chec
     );
     for (const correctId of question.correctTargetIds) {
       if (!answeredTargets.includes(correctId)) {
+        // Track missed connection - should have been connected but wasn't
         incorrectItem.push({
           name: question.letter.slug,
           type: 'letter',
+          errorType: 'missed',
         });
       }
     }

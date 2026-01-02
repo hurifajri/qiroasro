@@ -106,7 +106,7 @@ export function useQuiz() {
       recordQuestionStat(stat);
 
       for (const item of incorrectItem) {
-        addErrorItem(item.name, item.type);
+        addErrorItem(item.name, item.type, item.errorType);
       }
 
       // Animate score changes with delay
