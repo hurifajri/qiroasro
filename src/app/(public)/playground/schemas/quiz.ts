@@ -57,3 +57,78 @@ export const DEFAULT_QUIZ_SETTINGS: QuizSettingsValues = {
   timerMode: false,
   timerDuration: 15,
 };
+
+// Challenge types
+export type ChallengeDifficulty = 'easy' | 'medium' | 'hard';
+
+export interface ChallengeQuestionConfig {
+  mode: QuizMode;
+  lettersPerQuiz: number;
+  targetsPerQuiz: number;
+  allowMultiEdge: boolean;
+}
+
+export interface ChallengeModeConfig {
+  timerDuration: number;
+  question: ChallengeQuestionConfig[];
+}
+
+export interface ChallengeScoring {
+  correctConnection: number;
+  incorrectConnection: number;
+  totalPoint: number;
+}
+
+// Track per-question stats for detailed results
+export interface ChallengeQuestionStat {
+  correctConnection: number;
+  incorrectConnection: number;
+  timeSpent: number;
+  isPerfect: boolean;
+}
+
+// Track weakness for analysis
+export interface ChallengeWeakness {
+  item: string;
+  type: 'letter' | 'articulation_point' | 'trait';
+  errorCount: number;
+}
+
+export interface ChallengeResult {
+  difficulty: ChallengeDifficulty;
+  scoring: ChallengeScoring;
+  questionStat: ChallengeQuestionStat[];
+  weakness: ChallengeWeakness[];
+  totalQuestion: number;
+  perfectQuestion: number;
+  questionWithError: number;
+  totalPossibleConnection: number;
+  totalTime: number;
+  completedAt: Date;
+}
+
+// Questions for Challenge mode (same for all difficulties, only timer differs)
+const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
+  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 2, allowMultiEdge: false },
+  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: false },
+  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: false },
+  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 5, allowMultiEdge: false },
+  { mode: 'articulation_point', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: false },
+  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: true },
+  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: true },
+  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 5, allowMultiEdge: true },
+  { mode: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
+  { mode: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
+];
+
+export const CHALLENGE_MODE_CONFIG: Record<ChallengeDifficulty, ChallengeModeConfig> = {
+  easy: { timerDuration: 60, question: CHALLENGE_QUESTION },
+  medium: { timerDuration: 30, question: CHALLENGE_QUESTION },
+  hard: { timerDuration: 10, question: CHALLENGE_QUESTION },
+};
+
+export const DEFAULT_CHALLENGE_SCORING: ChallengeScoring = {
+  correctConnection: 0,
+  incorrectConnection: 0,
+  totalPoint: 0,
+};
