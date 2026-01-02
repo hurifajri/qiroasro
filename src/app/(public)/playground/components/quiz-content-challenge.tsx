@@ -13,6 +13,7 @@ import { ChallengeProgress } from './challenge-progress';
 import { ChallengeResults } from './challenge-results';
 import { PointAnimation } from './point-animation';
 import { QuizContent } from './quiz-content';
+import { QuizScore } from './quiz-score';
 import { QuizTimer } from './quiz-timer';
 
 const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
@@ -91,9 +92,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           isValidConnection={quiz.isValidConnection}
           headerContent={
             <div className="flex h-12 items-center justify-between gap-2 p-1.5">
-              <span className="font-medium text-sm">
-                {t('point', { point: quiz.challengeScoring.totalPoint })}
-              </span>
+              <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
               {quiz.challengeTimeRemaining !== null && (
                 <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
               )}
