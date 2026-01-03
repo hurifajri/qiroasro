@@ -1,0 +1,322 @@
+{
+  "global": {
+    "metadata": {
+      "title": "The 1st Graph-Based Tajweed App",
+      "description": "Learn Makharijul Huruf & Sifatul Huruf through interactive knowledge graphs. The first app that visualizes tajweed rules as interconnected nodes."
+    },
+    "letter": {
+      "hamzah": "Hamzah",
+      "ba": "Ba",
+      "ta": "Ta",
+      "tsa": "Tsa",
+      "jim": "Jim",
+      "ha_wasath": "Ha'",
+      "kha": "Kha",
+      "dal": "Dal",
+      "dhal": "Dhal",
+      "ra": "Ra",
+      "zay": "Zay",
+      "sin": "Sin",
+      "shin": "Shin",
+      "shad": "Shad",
+      "dhad": "Dhad",
+      "tha": "Tha",
+      "zha": "Zha",
+      "ayn": "'Ayn",
+      "ghain": "Ghain",
+      "fa": "Fa",
+      "qaf": "Qaf",
+      "kaf": "Kaf",
+      "lam": "Lam",
+      "mim": "Mim",
+      "nun": "Nun",
+      "waw": "Waw",
+      "ha_aqsha": "Ha",
+      "lam_alif": "Lam Alif",
+      "ya": "Ya",
+      "alif_madd": "Alif Madd",
+      "waw_madd": "Wawu Madd",
+      "ya_madd": "Ya Madd"
+    },
+    "articulation_area": {
+      "al_jauf": "The Oral and Throat Cavity",
+      "al_halq": "The Throat",
+      "al_lisan": "The Tongue",
+      "asy_syafatain": "The Two Lips",
+      "al_khaisyum": "The Nasal Cavity"
+    },
+    "articulation_point": {
+      "jauf": "The empty space within the mouth and throat cavity.",
+      "aqsha_halq": "The deepest part of the throat (furthest from the mouth), specifically at the vocal cords (larynx).",
+      "wasath_halq": "The middle part of the throat, specifically at the epiglottis (lisaanul mizmar).",
+      "adna_halq": "The closest part of the throat (nearest to the mouth), where the root of the tongue meets the uvula.",
+      "aqsha_lisan": "The back of the tongue touching the soft palate (the fleshy part of the roof of the mouth).",
+      "aqsha_lisan_asfal": "The back of the tongue (slightly below the Qaf makhraj) touching the junction of the soft and hard palates.",
+      "wasath_lisan": "The middle of the tongue rising to the roof of the mouth. (Touching for Jim; rising without touching for Shin and Ya).",
+      "hafah_lisan": "The edge of the tongue (extending from the back to the tip) pressing against the inner wall of the upper molars on the left, right, or both.",
+      "adna_hafah_lisan": "The nearest part of the tongue's edge (from the end of the Dhad makhraj to the tip) touching the palate near the gums of the upper incisors.",
+      "tharaf_lisan": "The tip of the tongue touching the palate near the gums of the upper incisors (slightly below the Lam makhraj).",
+      "tharaf_lisan_zhahr_adkhal": "The tip of the tongue slightly curling into the back of the tongue (close to the Nun makhraj).",
+      "tharaf_lisan_ulya_tsanaya": "The tip of the tongue touching the base (root) of the upper incisors.",
+      "tharaf_lisan_tsanaya_sufla": "The tip of the tongue positioned just above the lower incisors (without touching).",
+      "tharaf_lisan_athraf_tsanaya_ulya": "The tip of the tongue touching the cutting edge of the upper incisors.",
+      "bathn_syafah": "The inner part of the lower lip touching the cutting edge of the upper incisors.",
+      "syafatain": "The two lips. (Rounding lips for Waw; Closing lips for Ba; Closing lips with ghunnah for Mim).",
+      "khaisyum": "The nasal cavity (base of the nose), from where the Ghunnah (nasal sound) of Nun and Mim is emitted."
+    },
+    "trait_group": {
+      "nafas": "Airflow (Breath)",
+      "shaut": "Sound flow",
+      "ittijah_shaut": "Direction of sound",
+      "inhishar_shaut": "Containment of sound",
+      "khiffah_nuthq": "Fluency of pronunciation",
+      "munfaridah": "Traits without opposites",
+      "siman_shaut": "Temporary traits"
+    },
+    "trait": {
+      "jahr": "The stoppage of breath flow (audible/clear).",
+      "hams": "The flow of breath.",
+      "syiddah": "The stoppage of sound flow (strong).",
+      "rakhawah": "The flow of sound (soft).",
+      "tawassuth": "The moderate flow of sound (between Syiddah and Rakhawah).",
+      "istila": "The elevation of the back of the tongue.",
+      "istifal": "The lowering of the back of the tongue.",
+      "itbaq": "The tongue elevates until it almost adheres to the palate, causing the sound to fill the space between the tongue and the palate.",
+      "infitah": "The opening of the space between the tongue and the palate.",
+      "idzlaq": "Easier and faster to pronounce due to its proximity to the tip of the tongue.",
+      "ishmat": "More difficult (heavier) to pronounce.",
+      "safir": "A sharp (whistling) sound.",
+      "qalqalah": "Vibration (bouncing/echoing).",
+      "lin": "Softness. (The letter Waw or Ya in a Sukoon state preceded by a Fathah).",
+      "inhiraf": "Drifting. (The makhraj of Lam drifts towards the makhraj of Nun when pronounced thick, and the makhraj of Ra drifts towards the makhraj of Lam when pronounced thin).",
+      "takrir": "A gentle trill/vibration.",
+      "tafasyi": "Air blowing strongly and spreading within the mouth.",
+      "istithalah": "The elongation of the makhraj of the letter Dhad.",
+      "ghunnah": "A humming sound emitted from the nasal cavity.",
+      "tafkhim": "A thick (heavy) sound caused by the elevation of the back of the tongue. There are 7 letters that are always pronounced thick, namely the letters possessing the trait of Isti'la.",
+      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition.",
+      "others": "There are some that have not been added, insyaa Allah will be added soon."
+    },
+    "development": {
+      "waitlist": "Waitlist",
+      "more_comprehensive": "Do you want more comprehensive?",
+      "reminder_title": "Notify when the app is available",
+      "reminder_cta": "Waitlist",
+      "reminder_playground_cta": "Visit Playground",
+      "reminder_success": "Verification email sent! Please check your inbox.",
+      "reminder_verified": "Email verified successfully",
+      "reminder_verified_message": "We will notify you via email when the app becomes available, insyaa Allah. To get a preview of the application, you can visit the Playground page.",
+      "reminder_already_verified": "Your email was already verified.",
+      "reminder_error": "Something went wrong. Please try again.",
+      "reminder_invalid_email": "Invalid email address",
+      "reminder_email_required": "Email is required"
+    }
+  },
+  "home_page": {
+    "metadata": {
+      "title": "The 1st Graph-Based Tajweed App",
+      "description": "Master Tajweed through interactive graphs. Learn Makharijul Huruf & Sifatul Huruf with visual node-based connections."
+    },
+    "title": "Qiroasro - The 1st Graph-Based Tajweed App",
+    "development": {
+      "title": "Under Development",
+      "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easier. Aamiin Allahumma Aamiin...",
+      "playground_cta": "Explore Playground"
+    }
+  },
+  "playground_page": {
+    "metadata": {
+      "title": "Interactive Tajweed Graph",
+      "description": "Explore Makharijul Huruf and Sifatul Huruf through an interactive graph visualization. See how hijaiyyah letters connect to their articulation points and traits."
+    },
+    "title": "Playground - Interactive Tajweed Graph",
+    "filter": {
+      "title": "Settings",
+      "view_mode": {
+        "all": "All",
+        "articulation": "Articulation",
+        "trait": "Trait",
+        "letter": "Letter"
+      },
+      "layout_mode": {
+        "radial": "Radial",
+        "hierarchical": "Hierarchical",
+        "direction": {
+          "vertical": "Vertical",
+          "horizontal": "Horizontal"
+        }
+      },
+      "edge": {
+        "dynamic": "Dynamic Edge",
+        "shape": {
+          "default": "Bezier",
+          "straight": "Straight",
+          "step": "Step",
+          "smoothstep": "Smoothstep"
+        }
+      }
+    },
+    "legend": {
+      "title": "Legend",
+      "articulation_area": "Articulation Area",
+      "articulation_muhaqqaq": "Muhaqqaq Articulation",
+      "articulation_muhaqqaq_description": "An articulation point that relies on a specific part of the throat, tongue, or lips.",
+      "articulation_muqaddar": "Muqaddar Articulation",
+      "articulation_muqaddar_description": "An articulation point that does not rely on a specific part, so its exact origin cannot be pinpointed.",
+      "trait_group": "Trait Group",
+      "trait_lazimah": "Lazimah Trait",
+      "trait_lazimah_description": "Lazimah Trait is a trait that is always present (permanent) in a letter.",
+      "trait_aridhah": "Aridhah Trait",
+      "trait_aridhah_description": "Aridhah Trait is a trait that is only present (conditional) in a letter under certain conditions.",
+      "letter": "Letter",
+      "letterMadd": "Madd Letter"
+    },
+    "quiz": {
+      "trigger": "Start Quiz",
+      "select_mode": "Quiz Type",
+      "select_mode_description": "Select the quiz type you want to take",
+      "mode_articulation_point": "Makhraj Quiz",
+      "mode_trait": "Sifat Quiz",
+      "mode_challenge": "Challenge Mode",
+      "regular_title": "{mode} Quiz",
+      "regular_description": "Match the letter with the correct {mode}",
+      "regular_settings": "Quiz Settings",
+      "regular_settings_description": "Adjust settings for {mode} quiz",
+      "regular_letters_per_quiz": "Number of Letters",
+      "regular_targets_per_quiz": "Number of {target}s",
+      "regular_multi_edge": "Multi-Answer",
+      "regular_timer_mode": "Timer Mode",
+      "regular_timer_duration": "Duration (Seconds)",
+      "regular_instruction_title": "Instructions",
+      "regular_instruction_description": "Connect the letter to the correct {target}. Draw a line or click the connection dots on both items to pair them.",
+      "challenge_instruction_description": "Connect the letter to the correct Makhraj/Sifat. Questions 1-5 require only 1 connection. Subsequent questions require multiple connections (2, 3, or 4 lines).",
+      "challenge_select_difficulty": "Select Difficulty",
+      "challenge_difficulty_easy": "Easy",
+      "challenge_difficulty_medium": "Medium",
+      "challenge_difficulty_hard": "Hard",
+      "challenge_seconds_per_question": "{seconds} seconds per question",
+      "challenge_total_question_count": "Total {count} questions",
+      "challenge_question_of": "Question {current} of {total}",
+      "challenge_point": "points",
+      "challenge_result": "Challenge Results",
+      "challenge_total_time": "Total Time",
+      "challenge_total_point": "Total Score",
+      "challenge_perfect_question": "Perfect Questions",
+      "challenge_correct_connection": "Correct",
+      "challenge_incorrect_connection": "Incorrect",
+      "challenge_accuracy": "Accuracy",
+      "challenge_badge_perfect": "Perfect!",
+      "challenge_badge_great": "Great!",
+      "challenge_badge_good": "Good!",
+      "challenge_badge_keep_learning": "Keep Learning",
+      "challenge_weakness_analysis": "Analysis",
+      "challenge_weakness_incorrect": "Answered but incorrect",
+      "challenge_weakness_missed": "Not answered",
+      "challenge_share_result": "Share Result",
+      "challenge_share_text": "I scored {point} points on the Makhraj/Sifat Quiz ({difficulty} Challenge) in {time}! 🎯",
+      "challenge_share_copied": "Copied!",
+      "challenge_play_again": "Play Again",
+      "check_answer": "Check Answer",
+      "try_again": "Try Again",
+      "change_mode": "Change Mode",
+      "all_correct": "Mumtaz!",
+      "correct_score": "{correct} Correct",
+      "incorrect_score": "{incorrect} Incorrect",
+      "incorrect_single_answer": "Keep going!",
+      "back": "Back",
+      "start_quiz": "Start Quiz"
+    },
+    "download": {
+      "trigger": "Download Image",
+      "downloading": "Downloading..."
+    },
+    "development": {
+      "more_comprehensive": "Do you want more comprehensive?"
+    },
+    "tour": {
+      "next": "Next",
+      "prev": "Previous",
+      "done": "Got it!",
+      "help_button": "Guide",
+      "of": "of",
+      "steps": {
+        "welcome": {
+          "title": "Assalamualaikum!",
+          "description": "Welcome to Tajweed Playground. May Allah ease your journey in learning Tajweed through this interactive visualization. Let's begin, Bismillah..."
+        },
+        "canvas": {
+          "title": "Interactive Area",
+          "description": "This is the main area to explore the relationships between letters, Makhraj, and Sifat, complete with display settings and legends. Please click any letter, makhraj, or sifat shown on the screen."
+        },
+        "controls": {
+          "title": "View Controls",
+          "description": "Use scroll or +/- buttons to zoom, drag to pan, the square icon to center the graph, and the lock icon to freeze the graph layout."
+        },
+        "graph_filter": {
+          "title": "Settings Panel",
+          "description": "Here you can adjust the graph display according to your needs. Please click to open the settings panel."
+        },
+        "view_mode": {
+          "title": "View Mode",
+          "description": "Choose what to display: All, Makhraj only, Sifat only, or focus on a specific Letter. Please click 'Letter' to continue."
+        },
+        "letter_selector": {
+          "title": "Hijaiyyah Selection",
+          "description": "Masya Allah, there are 29 Hijaiyyah letters to explore. Select one letter to see its Makhraj and Sifat in detail."
+        },
+        "layout_mode": {
+          "title": "Layout Mode",
+          "description": "Choose between Radial layout (circular like the sun) or Hierarchy (tiered like a tree). Please try the Hierarchy mode."
+        },
+        "hierarchy_direction": {
+          "title": "Hierarchy Direction",
+          "description": "Set the flow direction: Vertical (top to bottom) or Horizontal (left to right). Please select Horizontal."
+        },
+        "edge_style": {
+          "title": "Edge Style",
+          "description": "Enable dynamic lines that follow node positions, or disable to select static line shapes. Please disable it to see line shape options."
+        },
+        "edge_shape": {
+          "title": "Edge Shape",
+          "description": "Choose the connecting line shape: Bezier (smooth curve), Straight, Step, or Smoothstep."
+        },
+        "graph_legend": {
+          "title": "Color Legend",
+          "description": "This panel explains the meaning of each node color. Please open it to continue."
+        },
+        "legend_detail": {
+          "title": "Detail Info",
+          "description": "This icon can be clicked to read more detailed explanations."
+        },
+        "download": {
+          "title": "Download Image",
+          "description": "Click the button to download the image of the graph."
+        },
+        "quiz": {
+          "title": "Quiz",
+          "description": "Click the button to try some quiz examples."
+        },
+        "locale_selector": {
+          "title": "Locale Selector",
+          "description": "Select the language to use the app in the language of your choice. Currently available languages are Bahasa Indonesia and English."
+        },
+        "theme_selector": {
+          "title": "Theme Selector",
+          "description": "Select the theme to use the app in the theme of your choice. Available themes are light and dark."
+        },
+        "waitlist": {
+          "title": "Waitlist",
+          "description": "Click this button to join the waitlist so we can notify you when the app is available, insyaa Allah."
+        },
+        "help": {
+          "title": "Help",
+          "description": "Click this button to restart the guide."
+        },
+        "end": {
+          "title": "We are done!",
+          "description": "Thank you for following this guide. Please continue. Barakallahu fiikum"
+        }
+      }
+    }
+  }
+}

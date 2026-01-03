@@ -1,0 +1,322 @@
+{
+  "global": {
+    "metadata": {
+      "title": "Aplikasi Tajwid Berbasis Graph Pertama",
+      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung."
+    },
+    "letter": {
+      "hamzah": "Hamzah",
+      "ba": "Ba",
+      "ta": "Ta",
+      "tsa": "Tsa",
+      "jim": "Jim",
+      "ha_wasath": "Ha'",
+      "kha": "Kho",
+      "dal": "Dal",
+      "dhal": "Dzal",
+      "ra": "Ro",
+      "zay": "Zay",
+      "sin": "Sin",
+      "shin": "Syin",
+      "shad": "Shod",
+      "dhad": "Dhod",
+      "tha": "Tho",
+      "zha": "Zho",
+      "ayn": "'Ain",
+      "ghain": "Ghoin",
+      "fa": "Fa",
+      "qaf": "Qof",
+      "kaf": "Kaf",
+      "lam": "Lam",
+      "mim": "Mim",
+      "nun": "Nun",
+      "waw": "Wawu",
+      "ha_aqsha": "Ha",
+      "lam_alif": "Lam Alif",
+      "ya": "Ya",
+      "alif_madd": "Alif Mad",
+      "waw_madd": "Wawu Mad",
+      "ya_madd": "Ya Mad"
+    },
+    "articulation_area": {
+      "al_jauf": "Rongga",
+      "al_halq": "Tenggorokan",
+      "al_lisan": "Lidah",
+      "asy_syafatain": "Dua bibir",
+      "al_khaisyum": "Pangkal hidung"
+    },
+    "articulation_point": {
+      "jauf": "Rongga (mulut dan tenggorokan).",
+      "aqsha_halq": "Tenggorokan bagian bawah (terjauh dari rongga mulut), tepatnya pada pangkal pita suara (laring).",
+      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisaanul mizmar).",
+      "adna_halq": "Tenggorokan bagian atas (terdekat dari rongga mulut), yakni pertemuan antara akar lidah dengan uvula (anak tekak).",
+      "aqsha_lisan": "Pangkal lidah menempel pada langit-langit bagian lunak.",
+      "aqsha_lisan_asfal": "Pangkal lidah (sedikit di bawah makhraj Qaf) menempel pada pertemuan langit-langit bagian lunak dan keras.",
+      "wasath_lisan": "Tengah lidah bertemu dengan langit-langit. (Menempel untuk huruf Jim; mendekat tanpa menempel untuk huruf Syin dan Ya).",
+      "hafah_lisan": "Tepi lidah (memanjang dari pangkal sampai ujung tepi) menekan dinding bagian dalam gigi geraham atas bagian kiri, kanan, atau keduanya.",
+      "adna_hafah_lisan": "Ujung tepi lidah (akhir dari makhraj huruf Dhad sampai ujung lidah) menempel pada langit-langit yang dekat dengan gusi gigi seri atas.",
+      "tharaf_lisan": "Ujung lidah menempel pada langit-langit yang dekat dengan gusi gigi seri atas (sedikit di bawah makhraj huruf Lam).",
+      "tharaf_lisan_zhahr_adkhal": "Ujung lidah sedikit masuk ke bagian ujung punggung lidah (dekat dengan makhraj huruf Nun).",
+      "tharaf_lisan_ulya_tsanaya": "Ujung lidah menempel pada pangkal gigi seri atas.",
+      "tharaf_lisan_tsanaya_sufla": "Ujung lidah berada di bagian atas gigi seri bawah (posisi tidak menempel).",
+      "tharaf_lisan_athraf_tsanaya_ulya": "Ujung lidah menyentuh ujung gigi seri atas.",
+      "bathn_syafah": "Bibir bawah bagian dalam menyentuh ujung gigi seri atas.",
+      "syafatain": "Dua bibir. (Membulat untuk Wawu; Mengatup untuk Ba; Mengatup disertai dengung untuk Mim).",
+      "khaisyum": "Rongga hidung (pangkal hidung), tempat keluarnya suara dengung (ghunnah) yang dimiliki oleh huruf Nun dan Mim."
+    },
+    "trait_group": {
+      "nafas": "Aliran udara",
+      "shaut": "Aliran suara",
+      "ittijah_shaut": "Arah suara",
+      "inhishar_shaut": "Gumpalan suara",
+      "khiffah_nuthq": "Kemudahan pengucapan",
+      "munfaridah": "Sifat khusus",
+      "siman_shaut": "Sifat aridhoh"
+    },
+    "trait": {
+      "jahr": "Tertahannya udara (jelas).",
+      "hams": "Mengalirnya udara.",
+      "syiddah": "Tertahannya suara (kuat).",
+      "rakhawah": "Mengalirnya suara (lemah).",
+      "tawassuth": "Mengalirnya suara (sedang, antara Syiddah dan Rakhawah).",
+      "istila": "Terangkatnya pangkal lidah.",
+      "istifal": "Terhamparnya pangkal lidah.",
+      "itbaq": "Terangkatnya lidah hingga seolah-olah menempel pada langit-langit, sehingga suara memenuhi ruang antara lidah dan langit-langit.",
+      "infitah": "Terbukanya ruang antara lidah dan langit-langit.",
+      "idzlaq": "Lebih mudah dan cepat dikeluarkan karena dekatnya dengan ujung lidah.",
+      "ishmat": "Lebih sulit dikeluarkan.",
+      "safir": "Suara yang tajam.",
+      "qalqalah": "Goncangan (memantul).",
+      "lin": "Lembut. (Huruf Wawu atau Ya dalam keadaan sukun dan huruf sebelumnya berharakat fathah).",
+      "inhiraf": "Menyimpang. (Makhraj huruf Lam menyimpang ke makhraj huruf Nun saat diucapkan tebal, dan makhraj huruf Ra menyimpang ke makhraj huruf Lam saat diucapkan tipis).",
+      "takrir": "Getaran yang lembut.",
+      "tafasyi": "Udara yang berhembus deras dan menyebar di dalam mulut.",
+      "istithalah": "Memanjangnya makhraj huruf Dhad.",
+      "ghunnah": "Suara dengung yang keluar dari pangkal hidung.",
+      "tafkhim": "Suara tebal yang disebabkan oleh terangkatnya pangkal lidah. Terdapat 7 huruf yang senantiasa dibaca tebal, yaitu huruf-huruf yang memiliki sifat Isti'la.",
+      "tarqiq": "Suara tipis yang disebabkan oleh terhamparnya pangkal lidah. Terdapat 19 huruf yang senantiasa dibaca tipis (huruf Istifal), kecuali Alif, Lam, dan Ra karena ketiganya dapat dibaca tebal atau tipis tergantung kondisi tertentu.",
+      "others": "Ada beberapa yang belum ditambahkan, insyaa Allah akan segera ditambahkan."
+    },
+    "development": {
+      "waitlist": "Waitlist",
+      "more_comprehensive": "Mau yang lebih komprehensif?",
+      "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
+      "reminder_cta": "Waitlist",
+      "reminder_playground_cta": "Ke Playground",
+      "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
+      "reminder_verified": "Email berhasil diverifikasi",
+      "reminder_verified_message": "Kami akan memberi tahu melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, silakan kunjungi halaman Playground.",
+      "reminder_already_verified": "Email sudah terverifikasi sebelumnya.",
+      "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
+      "reminder_invalid_email": "Email tidak valid",
+      "reminder_email_required": "Email tidak boleh kosong"
+    }
+  },
+  "home_page": {
+    "metadata": {
+      "title": "Aplikasi Tajwid Berbasis Graph Pertama",
+      "description": "Kuasai tajwid melalui graph interaktif. Pelajari Makhorijul Huruf & Sifatul Huruf dengan koneksi visual berbasis node."
+    },
+    "title": "Qiroasro - Aplikasi Tajwid Berbasis Graph Pertama",
+    "development": {
+      "title": "Sedang Dalam Pengembangan",
+      "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya, semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
+      "playground_cta": "Lihat Contohnya"
+    }
+  },
+  "playground_page": {
+    "metadata": {
+      "title": "Graph Tajwid Interaktif",
+      "description": "Jelajahi Makhorijul Huruf dan Sifatul Huruf melalui visualisasi graph interaktif. Lihat bagaimana huruf hijaiyyah terhubung dengan makhraj dan sifatnya."
+    },
+    "title": "Playground - Graph Tajwid Interaktif",
+    "filter": {
+      "title": "Pengaturan",
+      "view_mode": {
+        "all": "Semua",
+        "articulation": "Makhraj",
+        "trait": "Sifat",
+        "letter": "Huruf"
+      },
+      "layout_mode": {
+        "radial": "Radial",
+        "hierarchical": "Hierarki",
+        "direction": {
+          "vertical": "Vertikal",
+          "horizontal": "Horizontal"
+        }
+      },
+      "edge": {
+        "dynamic": "Garis Dinamis",
+        "shape": {
+          "default": "Bezier",
+          "straight": "Lurus",
+          "step": "Langkah",
+          "smoothstep": "Halus"
+        }
+      }
+    },
+    "legend": {
+      "title": "Keterangan",
+      "articulation_area": "Makhraj Umum",
+      "articulation_muhaqqaq": "Makhraj Muhaqqaq",
+      "articulation_muhaqqaq_description": "Makhraj yang bersandar pada bagian tertentu yang pasti (tenggorokan, lidah, atau bibir).",
+      "articulation_muqaddar": "Makhraj Muqaddar",
+      "articulation_muqaddar_description": "Makhraj yang tidak bersandar pada bagian tertentu, sehingga titik keluarnya tidak dapat ditentukan secara spesifik.",
+      "trait_group": "Sifat Umum",
+      "trait_lazimah": "Sifat Lazimah",
+      "trait_lazimah_description": "Sifat Lazimah adalah sifat yang selalu melekat pada sebuah huruf dalam setiap kondisi.",
+      "trait_aridhah": "Sifat Aridhoh",
+      "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang hanya ada pada sebuah huruf dalam kondisi tertentu.",
+      "letter": "Huruf",
+      "letterMadd": "Huruf Mad"
+    },
+    "quiz": {
+      "trigger": "Mulai Kuis",
+      "select_mode": "Jenis Kuis",
+      "select_mode_description": "Pilih jenis kuis yang ingin dikerjakan",
+      "mode_articulation_point": "Kuis Makhraj",
+      "mode_trait": "Kuis Sifat",
+      "mode_challenge": "Challenge",
+      "regular_title": "Kuis {mode}",
+      "regular_description": "Pasangkan huruf dengan {mode} yang tepat",
+      "regular_settings": "Pengaturan Kuis",
+      "regular_settings_description": "Sesuaikan konfigurasi untuk kuis {mode}",
+      "regular_letters_per_quiz": "Jumlah Huruf",
+      "regular_targets_per_quiz": "Jumlah {target}",
+      "regular_multi_edge": "Multi Jawaban",
+      "regular_timer_mode": "Mode Waktu",
+      "regular_timer_duration": "Durasi (Detik)",
+      "regular_instruction_title": "Petunjuk",
+      "regular_instruction_description": "Hubungkan huruf dengan {target} yang sesuai. Tarik garis atau klik titik koneksi pada keduanya untuk memasangkan.",
+      "challenge_instruction_description": "Hubungkan huruf dengan makhraj/sifat yang sesuai. Soal 1-5 hanya membutuhkan 1 garis koneksi. Soal selanjutnya membutuhkan koneksi jamak/lebih dari 1 garis (bisa 2, 3, atau 4).",
+      "challenge_select_difficulty": "Pilih Tingkat Kesulitan",
+      "challenge_difficulty_easy": "Mudah",
+      "challenge_difficulty_medium": "Sedang",
+      "challenge_difficulty_hard": "Syulit",
+      "challenge_seconds_per_question": "{seconds} detik per soal",
+      "challenge_total_question_count": "Total {count} soal",
+      "challenge_question_of": "Soal {current} dari {total}",
+      "challenge_point": "poin",
+      "challenge_result": "Hasil Challenge",
+      "challenge_total_time": "Total Waktu",
+      "challenge_total_point": "Total Poin",
+      "challenge_perfect_question": "Soal Sempurna",
+      "challenge_correct_connection": "Benar",
+      "challenge_incorrect_connection": "Salah",
+      "challenge_accuracy": "Akurasi",
+      "challenge_badge_perfect": "Sempurna!",
+      "challenge_badge_great": "Hebat!",
+      "challenge_badge_good": "Bagus!",
+      "challenge_badge_keep_learning": "Lanjutkan Belajar",
+      "challenge_weakness_analysis": "Analisa",
+      "challenge_weakness_incorrect": "Terjawab tapi belum tepat",
+      "challenge_weakness_missed": "Belum terjawab",
+      "challenge_share_result": "Bagikan Hasil",
+      "challenge_share_text": "Saya berhasil meraih {point} poin pada Kuis Makhraj/Sifat Huruf (level {difficulty}) dalam {time}! 🎯",
+      "challenge_share_copied": "Tersalin!",
+      "challenge_play_again": "Main Lagi",
+      "check_answer": "Cek Jawaban",
+      "try_again": "Coba Lagi",
+      "change_mode": "Ganti Mode",
+      "all_correct": "Mumtaz!",
+      "correct_score": "Benar {correct}",
+      "incorrect_score": "Salah {incorrect}",
+      "incorrect_single_answer": "Tetap semangat!",
+      "back": "Kembali",
+      "start_quiz": "Mulai Kuis"
+    },
+    "download": {
+      "trigger": "Unduh Gambar",
+      "downloading": "Mengunduh..."
+    },
+    "development": {
+      "more_comprehensive": "Mau yang lebih komprehensif?"
+    },
+    "tour": {
+      "next": "Lanjut",
+      "prev": "Kembali",
+      "done": "Siap!",
+      "help_button": "Panduan",
+      "of": "dari",
+      "steps": {
+        "welcome": {
+          "title": "Assalamualaikum!",
+          "description": "Selamat datang di Playground Tajwid. Semoga Allah mudahkan antum/antunna dalam mempelajari ilmu tajwid melalui visualisasi interaktif ini. Mari kita mulai, Bismillah..."
+        },
+        "canvas": {
+          "title": "Area Interaktif",
+          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan dan keterangan. Silakan coba klik salah satu huruf, makhraj, atau sifat yang ada di layar."
+        },
+        "controls": {
+          "title": "Kontrol Tampilan",
+          "description": "Gunakan scroll atau tombol +/- untuk zoom, geser untuk berpindah, icon persegi untuk memusatkan graph, dan icon gembok untuk mengunci agar graph tidak dapat diubah."
+        },
+        "graph_filter": {
+          "title": "Panel Pengaturan",
+          "description": "Di sini untuk mengatur tampilan graph sesuai kebutuhan. Silakan klik untuk membuka panel pengaturan."
+        },
+        "view_mode": {
+          "title": "Mode Tampilan",
+          "description": "Pilih apa yang ingin ditampilkan: Semua, Makhraj saja, Sifat saja, atau fokus ke satu Huruf tertentu. Silakan klik 'Huruf' untuk melanjutkan."
+        },
+        "letter_selector": {
+          "title": "Pilihan Huruf Hijaiyyah",
+          "description": "Masya Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
+        },
+        "layout_mode": {
+          "title": "Mode Tata Letak",
+          "description": "Pilih antara tata letak Radial (melingkar seperti matahari) atau Hierarki (berjenjang seperti pohon). Silakan coba mode Hierarki."
+        },
+        "hierarchy_direction": {
+          "title": "Arah Hierarki",
+          "description": "Atur arah tampilan: Vertikal (atas ke bawah) atau Horizontal (kiri ke kanan). Silakan pilih Horizontal."
+        },
+        "edge_style": {
+          "title": "Gaya Garis Penghubung",
+          "description": "Aktifkan garis dinamis yang mengikuti posisi node, atau nonaktifkan untuk memilih bentuk garis statis. Silakan nonaktifkan untuk melihat pilihan bentuk garis."
+        },
+        "edge_shape": {
+          "title": "Bentuk Garis Penghubung",
+          "description": "Pilih bentuk garis penghubung: Bezier (melengkung halus), Straight (lurus), Step (bertingkat), atau Smoothstep (bertingkat halus)."
+        },
+        "graph_legend": {
+          "title": "Keterangan Warna",
+          "description": "Panel ini menjelaskan makna warna setiap node. Silakan buka untuk melanjutkan."
+        },
+        "legend_detail": {
+          "title": "Info Detail",
+          "description": "Ikon ini dapat diklik untuk membaca penjelasan lebih detailnya."
+        },
+        "download": {
+          "title": "Unduh Gambar",
+          "description": "Klik tombol ini untuk mengunduh gambar graph."
+        },
+        "quiz": {
+          "title": "Quiz",
+          "description": "Klik tombol ini untuk mencoba beberapa contoh quiz."
+        },
+        "locale_selector": {
+          "title": "Pilih Bahasa",
+          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia dan Inggris."
+        },
+        "theme_selector": {
+          "title": "Pilih Tema",
+          "description": "Pilih tema untuk menggunakan aplikasi dalam tema yang diinginkan. Tersedia tema terang dan gelap."
+        },
+        "waitlist": {
+          "title": "Waitlist",
+          "description": "Klik tombol ini untuk mendaftar ke waitlist agar kami dapat memberitahu ketika aplikasi sudah tersedia, insyaa Allah."
+        },
+        "help": {
+          "title": "Bantuan",
+          "description": "Klik tombol ini untuk memulai kembali panduan halaman."
+        },
+        "end": {
+          "title": "Selesai",
+          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum"
+        }
+      }
+    }
+  }
+}
