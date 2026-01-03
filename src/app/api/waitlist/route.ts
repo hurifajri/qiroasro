@@ -5,6 +5,8 @@ import { getResendClient } from '@/lib/resend';
 import { getSupabaseClient } from '@/lib/supabase';
 import type { Locale } from '@/stores/global';
 
+export const runtime = 'edge';
+
 const FROM_EMAIL = `${env.NEXT_PUBLIC_APP_NAME} <${env.NEXT_PUBLIC_NOREPLY_EMAIL}>`;
 
 // Email validation regex

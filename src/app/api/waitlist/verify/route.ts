@@ -2,6 +2,8 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { env } from '@/env';
 import { getSupabaseClient } from '@/lib/supabase';
 
+export const runtime = 'edge';
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
