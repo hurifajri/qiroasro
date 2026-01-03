@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Outfit } from 'next/font/google';
+import { Amiri, Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextIntlClientProvider } from 'next-intl';
@@ -13,6 +13,12 @@ import { getPersistedGlobalStore } from '@/stores/global';
 const outfitFont = Outfit({
   variable: '--font-outfit',
   subsets: ['latin'],
+});
+
+const amiriFont = Amiri({
+  variable: '--font-amiri',
+  weight: ['400', '700'],
+  subsets: ['arabic'],
 });
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
@@ -76,7 +82,7 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
 
   return (
     <html lang={locale} className={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
-      <body className={cn('font-sans antialiased', outfitFont.variable)}>
+      <body className={cn('font-sans antialiased', outfitFont.variable, amiriFont.variable)}>
         <QueryClientProvider>
           <GlobalStoreProvider persistedState={persistedState}>
             <NextIntlClientProvider>{children}</NextIntlClientProvider>

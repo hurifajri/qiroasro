@@ -35,13 +35,9 @@ function ChallengeScore({ totalPoint }: { totalPoint: number }) {
 
   // Determine gradient based on point value
   const getGradientClass = () => {
-    if (totalPoint < 0) {
-      return 'from-red-500 via-rose-500 to-orange-500';
-    }
-    if (totalPoint > 0) {
-      return 'from-emerald-400 via-green-500 to-teal-500';
-    }
-    return 'from-slate-400 via-slate-500 to-slate-600';
+    if (totalPoint < 0) return 'bg-red-500';
+    if (totalPoint > 0) return 'bg-green-500';
+    return 'bg-slate-500';
   };
 
   return (

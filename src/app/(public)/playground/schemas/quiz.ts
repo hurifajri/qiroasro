@@ -125,7 +125,7 @@ export const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
 export const CHALLENGE_MODE_CONFIG: Record<ChallengeDifficulty, ChallengeModeConfig> = {
   easy: { timerDuration: 60, question: CHALLENGE_QUESTION },
   medium: { timerDuration: 30, question: CHALLENGE_QUESTION },
-  hard: { timerDuration: 2, question: CHALLENGE_QUESTION },
+  hard: { timerDuration: 10, question: CHALLENGE_QUESTION },
 };
 
 export const DEFAULT_CHALLENGE_SCORING: ChallengeScoring = {

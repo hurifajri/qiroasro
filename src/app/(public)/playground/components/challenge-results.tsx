@@ -17,7 +17,6 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { DialogFooter } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import type { ChallengeResult } from '../schemas/quiz';
 
@@ -144,7 +143,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         valueClass: 'text-xl text-amber-700 dark:text-amber-400',
       },
     ],
-    [result],
+    [result, accuracy],
   );
 
   // Connection stats data
@@ -306,14 +305,14 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           >
             {/* Missed connections */}
             {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
-              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
+              <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950">
                 <div className="mb-1 flex items-center gap-2">
-                  <BookOpenIcon className="size-4 text-amber-600" />
-                  <span className="font-medium text-amber-800 text-sm dark:text-amber-200">
+                  <BookOpenIcon className="size-4 text-yellow-600" />
+                  <span className="font-medium text-sm text-yellow-800 dark:text-yellow-200">
                     {t('challenge_weakness_missed')}
                   </span>
                 </div>
-                <p className="text-amber-700 text-sm dark:text-amber-300">
+                <p className="text-right font-arabic text-xl text-yellow-700 dark:text-yellow-300">
                   {result.weakness
                     .filter((w) => w.errorType === 'missed')
                     .map((w) => w.item)
@@ -331,7 +330,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                     {t('challenge_weakness_incorrect')}
                   </span>
                 </div>
-                <p className="text-red-700 text-sm dark:text-red-300">
+                <p className="text-right font-arabic text-red-700 text-xl dark:text-red-300">
                   {result.weakness
                     .filter((w) => w.errorType === 'incorrect')
                     .map((w) => w.item)
@@ -344,37 +343,35 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       </div>
 
       {/* Action Buttons */}
-      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background pt-2">
-        <motion.div
-          className="flex flex-col gap-2 px-4 pb-2"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
-            {copied ? (
-              <>
-                <CopyIcon />
-                {t('challenge_share_copied')}
-              </>
-            ) : (
-              <>
-                <ShareIcon />
-                {t('challenge_share_result')}
-              </>
-            )}
+      <motion.div
+        className="flex flex-col gap-2 px-4 pb-2"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
+          {copied ? (
+            <>
+              <CopyIcon />
+              {t('challenge_share_copied')}
+            </>
+          ) : (
+            <>
+              <ShareIcon />
+              {t('challenge_share_result')}
+            </>
+          )}
+        </Button>
+        <div className="flex gap-2">
+          <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
+            {t('back')}
           </Button>
-          <div className="flex gap-2">
-            <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
-              {t('back')}
-            </Button>
-            <Button size="lg" onClick={onPlayAgain} className="flex-1">
-              <PlayIcon />
-              {t('challenge_play_again')}
-            </Button>
-          </div>
-        </motion.div>
-      </DialogFooter>
+          <Button size="lg" onClick={onPlayAgain} className="flex-1">
+            <PlayIcon />
+            {t('challenge_play_again')}
+          </Button>
+        </div>
+      </motion.div>
     </>
   );
 }

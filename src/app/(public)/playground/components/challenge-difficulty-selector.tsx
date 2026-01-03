@@ -15,7 +15,7 @@ const DIFFICULTY_UI_CONFIG: Record<
   { icon: typeof ClockIcon; color: string; bgColor: string }
 > = {
   easy: { icon: ClockIcon, color: 'text-green-600', bgColor: 'bg-green-50 dark:bg-green-950' },
-  medium: { icon: ZapIcon, color: 'text-amber-600', bgColor: 'bg-amber-50 dark:bg-amber-950' },
+  medium: { icon: ZapIcon, color: 'text-yellow-600', bgColor: 'bg-yellow-50 dark:bg-yellow-950' },
   hard: { icon: FlameIcon, color: 'text-red-600', bgColor: 'bg-red-50 dark:bg-red-950' },
 };
 
