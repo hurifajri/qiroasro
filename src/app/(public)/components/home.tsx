@@ -8,6 +8,7 @@ import { WaitlistForm } from '@/components/common/waitlist-form';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 const containerVariants = {
@@ -39,6 +40,7 @@ export function Home() {
   const router = useRouter();
 
   const handleClickExplore = () => {
+    trackEvent('explore_clicked', { source: 'home_page' });
     router.push('/playground');
   };
 

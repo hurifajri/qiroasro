@@ -4,6 +4,7 @@ import type { Edge, Node } from '@xyflow/react';
 import { useEdgesState, useNodesState } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
+import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
 import { CHALLENGE_MODE_CONFIG, CHALLENGE_QUESTION, type QuizMode } from '../schemas/quiz';
 import { useQuizGenerator } from './use-quiz-generator';
@@ -21,7 +22,12 @@ export function useQuiz() {
   const settings = useQuizStore((s) => s.settings);
   const setSettings = useQuizStore((s) => s.setSettings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
-  const openDialog = useQuizStore((s) => s.openDialog);
+  const OpenDialog = useQuizStore((s) => s.openDialog);
+
+  const openDialog = useCallback(() => {
+    trackEvent('quiz_dialog_opened');
+    OpenDialog();
+  }, [OpenDialog]);
   const isStarted = useQuizStore((s) => s.isStarted);
   const startQuiz = useQuizStore((s) => s.startQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);
@@ -127,12 +133,22 @@ export function useQuiz() {
 
       setTimeout(() => {
         if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
-          finishChallenge(
+          const totalPossible =
             challengeScoring.correctConnection +
-              challengeScoring.incorrectConnection +
-              currentScore.total,
-            endTime,
-          );
+            challengeScoring.incorrectConnection +
+            currentScore.total;
+          finishChallenge(totalPossible, endTime);
+          trackEvent('challenge_completed', {
+            difficulty: challengeDifficulty,
+            totalPoints:
+              challengeScoring.totalPoint +
+              (isPerfect ? currentScore.correct * 2 : currentScore.correct),
+            accuracy: Math.round(
+              ((challengeScoring.correctConnection + currentScore.correct) / totalPossible) * 100,
+            ),
+            perfectQuestions: questionStat.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
+            totalQuestions: TOTAL_CHALLENGE_QUESTION,
+          });
         } else {
           nextChallengeQuestion();
         }
@@ -214,33 +230,38 @@ export function useQuiz() {
 
   const handleModeSelect = useCallback(
     (selectedMode: QuizMode) => {
+      trackEvent('quiz_mode_selected', { mode: selectedMode });
       setMode(selectedMode);
     },
     [setMode],
   );
 
   const handleChallengeSelect = useCallback(() => {
+    trackEvent('quiz_mode_selected', { mode: 'challenge' });
     enterChallengeMode();
   }, [enterChallengeMode]);
 
   const handleDifficultySelect = useCallback(
     (difficulty: keyof typeof CHALLENGE_MODE_CONFIG) => {
+      trackEvent('challenge_difficulty_selected', { difficulty });
       selectChallengeDifficulty(difficulty);
     },
     [selectChallengeDifficulty],
   );
 
   const handleStartChallenge = useCallback(() => {
+    trackEvent('challenge_started', { difficulty: challengeDifficulty });
     startChallenge();
-  }, [startChallenge]);
+  }, [startChallenge, challengeDifficulty]);
 
   const handleStartQuiz = useCallback(() => {
     if (mode) {
+      trackEvent('quiz_started', { mode, settings });
       generateQuiz(mode);
       startQuiz();
       startTimer();
     }
-  }, [mode, generateQuiz, startQuiz, startTimer]);
+  }, [mode, settings, generateQuiz, startQuiz, startTimer]);
 
   const handleBackToModeSelect = useCallback(() => {
     setMode(null);
