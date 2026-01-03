@@ -31,8 +31,6 @@ export default async function PlaygroundPage() {
   const t = await getTranslations('playground_page');
   const persistedQuizState = await getPersistedQuizStore();
 
-  console.log('persistedQuizState', persistedQuizState);
-
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(getPlaygroundDataOpt());
 
