@@ -1,5 +1,5 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { QuizQuestion } from '../schemas/quiz';
+import type { QuizQuestion, TargetItem } from '../schemas/quiz';
 
 export interface IncorrectItem {
   name: string;
@@ -16,20 +16,35 @@ interface CheckAnswersResult {
 
 /**
  * Pure function to check quiz answers and determine results.
+ * @param questions - Quiz questions with letters and their correct target IDs
+ * @param edges - User's connections/answers
+ * @param displayedTargets - Targets that are actually displayed on screen (for filtering)
  */
-export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): CheckAnswersResult {
+export function checkQuizAnswers(
+  questions: QuizQuestion[],
+  edges: Edge[],
+  displayedTargets: TargetItem[],
+): CheckAnswersResult {
   let correctCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const incorrectItem: IncorrectItem[] = [];
 
+  // Get set of displayed target IDs for fast lookup
+  const displayedTargetIds = new Set(displayedTargets.map((t) => t.id));
+
   for (const question of questions) {
     const letterId = `letter-quiz-${question.letter.id}`;
     const letterConnections = edges.filter((e) => e.source === letterId);
 
+    // Filter correctTargetIds to only include targets that are displayed on screen
+    const validCorrectTargetIds = question.correctTargetIds.filter((id) =>
+      displayedTargetIds.has(id),
+    );
+
     for (const connection of letterConnections) {
       const targetIdNum = Number.parseInt(connection.target.replace('target-quiz-', ''), 10);
-      const isCorrect = question.correctTargetIds.includes(targetIdNum);
+      const isCorrect = validCorrectTargetIds.includes(targetIdNum);
       const status = isCorrect ? 'correct' : 'incorrect';
 
       const currentLetterStatus = letterResults.get(letterId);
@@ -50,11 +65,11 @@ export function checkQuizAnswers(questions: QuizQuestion[], edges: Edge[]): Chec
       }
     }
 
-    // Check for missed correct connections (unanswered)
+    // Check for missed correct connections (unanswered) - only for displayed targets
     const answeredTargets = letterConnections.map((c) =>
       Number.parseInt(c.target.replace('target-quiz-', ''), 10),
     );
-    for (const correctId of question.correctTargetIds) {
+    for (const correctId of validCorrectTargetIds) {
       if (!answeredTargets.includes(correctId)) {
         // Track missed connection - should have been connected but wasn't
         incorrectItem.push({

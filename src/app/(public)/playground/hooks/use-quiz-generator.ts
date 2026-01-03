@@ -25,6 +25,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   // Get settings and state from store
   const settings = useQuizStore((s) => s.settings);
   const questions = useQuizStore((s) => s.questions);
+  const targets = useQuizStore((s) => s.targets);
   const isChecked = useQuizStore((s) => s.isChecked);
 
   // Get store actions
@@ -129,6 +130,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     const { correctCount, letterResults, targetResults, incorrectItem } = checkQuizAnswers(
       questions,
       edges,
+      targets,
     );
 
     setNodes((currentNodes) => applyResultsToNodes(currentNodes, letterResults, targetResults));
@@ -139,7 +141,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     setIsChecked(true);
 
     return { score: newScore, incorrectItem };
-  }, [questions, edges, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
+  }, [questions, edges, targets, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
 
   return {
     generateQuiz,
