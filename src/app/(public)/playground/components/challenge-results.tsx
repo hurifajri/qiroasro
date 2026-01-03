@@ -92,7 +92,7 @@ interface ConnectionStatItem {
 }
 
 export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: ChallengeResultsProps) {
-  const t = useTranslations();
+  const t = useTranslations('playground_page.quiz');
   const resultRef = useRef<HTMLDivElement>(null);
   const [showConfetti, setShowConfetti] = useState(true);
   const [copied, setCopied] = useState(false);
@@ -181,9 +181,9 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
   // Share functionality
   const handleShare = useCallback(async () => {
-    const shareText = t('playground_page.quiz.challenge_share_text', {
+    const shareText = t('challenge_share_text', {
       point: result.scoring.totalPoint,
-      difficulty: t(`playground_page.quiz.challenge_difficulty_${result.difficulty}`),
+      difficulty: t(`challenge_difficulty_${result.difficulty}`),
       time: formatTime(result.totalTime),
     });
 
@@ -256,12 +256,10 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
         >
           <span className="text-6xl">{badge.emoji}</span>
-          <span className={cn('font-bold text-2xl', badge.color)}>
-            {t(`playground_page.quiz.${badge.key}`)}
-          </span>
+          <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
           <div className="flex items-center gap-2 text-muted-foreground">
             <span className="rounded-full bg-muted px-3 py-1 text-sm">
-              {t(`playground_page.quiz.challenge_difficulty_${result.difficulty}`)}
+              {t(`challenge_difficulty_${result.difficulty}`)}
             </span>
           </div>
         </motion.div>
@@ -280,9 +278,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             >
               <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
               <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
-              <span className="text-muted-foreground text-xs">
-                {t(`playground_page.quiz.${stat.labelKey}`)}
-              </span>
+              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
             </div>
           ))}
         </motion.div>
@@ -299,9 +295,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
               {index > 0 && <div className="h-8 w-px bg-border" />}
               <div className="flex flex-col items-center">
                 <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
-                <span className="text-muted-foreground text-xs">
-                  {t(`playground_page.quiz.${stat.labelKey}`)}
-                </span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
               </div>
             </div>
           ))}
@@ -321,13 +315,13 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                 <div className="mb-1 flex items-center gap-2">
                   <XCircleIcon className="size-4 text-red-600" />
                   <span className="font-medium text-red-800 text-sm dark:text-red-200">
-                    {t('playground_page.quiz.challenge_weakness_incorrect')}
+                    {t('challenge_weakness_incorrect')}
                   </span>
                 </div>
                 <p className="text-red-700 text-sm dark:text-red-300">
                   {result.weakness
                     .filter((w) => w.errorType === 'incorrect')
-                    .map((w) => t(`global.letter.${w.item}`))
+                    .map((w) => w.item)
                     .join(', ')}
                 </p>
               </div>
@@ -339,13 +333,13 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                 <div className="mb-1 flex items-center gap-2">
                   <BookOpenIcon className="size-4 text-amber-600" />
                   <span className="font-medium text-amber-800 text-sm dark:text-amber-200">
-                    {t('playground_page.quiz.challenge_weakness_missed')}
+                    {t('challenge_weakness_missed')}
                   </span>
                 </div>
                 <p className="text-amber-700 text-sm dark:text-amber-300">
                   {result.weakness
                     .filter((w) => w.errorType === 'missed')
-                    .map((w) => t(`global.letter.${w.item}`))
+                    .map((w) => w.item)
                     .join(', ')}
                 </p>
               </div>
@@ -366,22 +360,22 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             {copied ? (
               <>
                 <CopyIcon />
-                {t('playground_page.quiz.challenge_share_copied')}
+                {t('challenge_share_copied')}
               </>
             ) : (
               <>
                 <ShareIcon />
-                {t('playground_page.quiz.challenge_share_result')}
+                {t('challenge_share_result')}
               </>
             )}
           </Button>
           <div className="flex gap-2">
             <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
-              {t('playground_page.quiz.back')}
+              {t('back')}
             </Button>
             <Button size="lg" onClick={onPlayAgain} className="flex-1">
               <PlayIcon />
-              {t('playground_page.quiz.challenge_play_again')}
+              {t('challenge_play_again')}
             </Button>
           </div>
         </motion.div>
