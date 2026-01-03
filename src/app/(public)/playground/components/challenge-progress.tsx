@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { CheckIcon, XIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import type { ChallengeQuestionStat } from '../schemas/quiz';
 
@@ -17,13 +17,13 @@ export function ChallengeProgress({
   totalQuestion,
   questionStat,
 }: ChallengeProgressProps) {
-  const t = useTranslations('playground_page.quiz');
+  // const t = useTranslations('playground_page.quiz');
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-center text-muted-foreground text-sm">
+      {/* <span className="text-center text-muted-foreground text-sm">
         {t('challenge_question_of', { current: currentIndex + 1, total: totalQuestion })}
-      </span>
+      </span> */}
 
       <div className="flex justify-center gap-1.5">
         {Array.from({ length: totalQuestion }, (_, i) => `question-${i + 1}`).map((key, index) => {

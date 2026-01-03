@@ -47,7 +47,7 @@ function ChallengeScore({ totalPoint }: { totalPoint: number }) {
   return (
     <div
       className={cn(
-        'relative flex w-20 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5 font-medium text-sm text-white',
+        'relative flex h-8.5 w-20 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5 font-medium text-sm text-white',
         getGradientClass(),
       )}
     >
