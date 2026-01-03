@@ -237,8 +237,6 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     }
   }, [result, t]);
 
-  console.log('result.weakness', result.weakness);
-
   return (
     <>
       {/* Confetti animation */}
@@ -351,9 +349,9 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       </div>
 
       {/* Action Buttons */}
-      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background py-0">
+      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background pt-2">
         <motion.div
-          className="flex flex-col gap-2 px-4 py-2"
+          className="flex flex-col gap-2 px-4 pb-2"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
