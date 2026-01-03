@@ -28,6 +28,7 @@
     "driver.js": "^1.4.0",
     "framer-motion": "^12.23.26",
     "html-to-image": "1.11.11",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.562.0",
     "next": "16.1.0",
     "next-intl": "^4.6.1",
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
     "@tailwindcss/postcss": "^4",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
