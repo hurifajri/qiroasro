@@ -6,7 +6,6 @@ import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
 import { QuizStoreProvider } from './providers/quiz';
 import { getPlaygroundDataOpt } from './queries/playground';
-import { getPersistedQuizStore } from './stores/quiz';
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('playground_page.metadata');
@@ -29,7 +28,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PlaygroundPage() {
   const t = await getTranslations('playground_page');
-  const persistedQuizState = await getPersistedQuizStore();
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(getPlaygroundDataOpt());
@@ -38,7 +36,7 @@ export default async function PlaygroundPage() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <PlaygroundStoreProvider>
-        <QuizStoreProvider persistedState={persistedQuizState}>
+        <QuizStoreProvider>
           <ReactFlowProvider>
             <Playground />
           </ReactFlowProvider>

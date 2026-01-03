@@ -1,32 +1,18 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef } from 'react';
+import { createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
-import {
-  createQuizStore,
-  initQuizState,
-  type PersistedQuizState,
-  type QuizStore,
-} from '../stores/quiz';
+import { createQuizStore, type QuizStore } from '../stores/quiz';
 
 type QuizStoreApi = ReturnType<typeof createQuizStore>;
 
 const QuizStoreContext = createContext<QuizStoreApi | undefined>(undefined);
 
-type QuizStoreProviderProps = React.PropsWithChildren &
-  Readonly<{ persistedState?: PersistedQuizState }>;
-
-export function QuizStoreProvider({ children, persistedState }: QuizStoreProviderProps) {
+export function QuizStoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<QuizStoreApi>(undefined);
-  const quizState = initQuizState(persistedState);
-  storeRef.current ??= createQuizStore(quizState);
+  storeRef.current ??= createQuizStore();
 
   const store = storeRef.current;
-
-  // Rehydrate persisted state from cookies
-  useEffect(() => {
-    void store.persist.rehydrate();
-  }, [store.persist.rehydrate]);
 
   return <QuizStoreContext.Provider value={store}>{children}</QuizStoreContext.Provider>;
 }
