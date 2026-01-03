@@ -237,6 +237,8 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     }
   }, [result, t]);
 
+  console.log('result.weakness', result.weakness);
+
   return (
     <>
       {/* Confetti animation */}
@@ -247,7 +249,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div ref={resultRef} className="flex flex-col gap-4 overflow-y-scroll bg-background">
+      <div ref={resultRef} className="mb-24 flex flex-col gap-4 overflow-y-scroll bg-background">
         {/* Badge and Score Header */}
         <motion.div
           className="flex flex-col items-center gap-2"
@@ -349,7 +351,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       </div>
 
       {/* Action Buttons */}
-      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background pt-0">
+      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background py-0">
         <motion.div
           className="flex flex-col gap-2 px-4 py-2"
           initial={{ y: 20, opacity: 0 }}

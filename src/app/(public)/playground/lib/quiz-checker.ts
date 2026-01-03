@@ -58,7 +58,7 @@ export function checkQuizAnswers(
       } else {
         // Track incorrect connection - letter connected to wrong target
         incorrectItem.push({
-          name: question.letter.slug,
+          name: question.letter.symbol,
           type: 'letter',
           errorType: 'incorrect',
         });
@@ -73,7 +73,7 @@ export function checkQuizAnswers(
       if (!answeredTargets.includes(correctId)) {
         // Track missed connection - should have been connected but wasn't
         incorrectItem.push({
-          name: question.letter.slug,
+          name: question.letter.symbol,
           type: 'letter',
           errorType: 'missed',
         });
