@@ -1,6 +1,8 @@
-'use client';
-
+import { createJSONStorage, persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
+import { CORRECT_POINT, INCORRECT_POINT, QUIZ_STORE_KEY } from '@/lib/constants';
+import { getCookies } from '@/lib/cookies';
+import { cookiesStorage } from '@/lib/storage';
 import type {
   ChallengeDifficulty,
   ChallengeQuestionStat,
@@ -17,10 +19,6 @@ import {
   DEFAULT_QUIZ_SETTINGS,
   type QuizSettingsValues,
 } from '../schemas/quiz';
-
-// Point values for scoring
-const CORRECT_POINT = 10;
-const INCORRECT_POINT = -1;
 
 interface QuizState {
   // Dialog state
@@ -52,7 +50,14 @@ interface QuizState {
   lastPointChange: { value: number; timestamp: number } | null;
 }
 
-interface QuizActions {
+export type PersistedQuizState = Pick<QuizState, 'isInstructionShown'>;
+
+interface PersistedQuiz {
+  state: PersistedQuizState;
+  version: number;
+}
+
+interface QuizAction {
   // Dialog actions
   openDialog: () => void;
   closeDialog: () => void;
@@ -86,7 +91,11 @@ interface QuizActions {
   resetChallenge: () => void;
 }
 
-export type QuizStore = QuizState & QuizActions;
+export type QuizStore = QuizState & QuizAction;
+
+function initPersistedQuizState(): PersistedQuizState {
+  return { isInstructionShown: true };
+}
 
 const initialChallengeState = {
   isChallengeMode: false,
@@ -101,145 +110,172 @@ const initialChallengeState = {
   lastPointChange: null as { value: number; timestamp: number } | null,
 };
 
-const initialState: QuizState = {
+const initialState: Partial<QuizState> = {
   isDialogOpen: false,
   mode: null,
   settings: DEFAULT_QUIZ_SETTINGS,
   isStarted: false,
   isChecked: false,
-  isInstructionShown: true,
   questions: [],
   targets: [],
   score: { correct: 0, total: 0 },
   ...initialChallengeState,
 };
 
-export function createQuizStore() {
-  return createStore<QuizStore>()((set, get) => ({
-    ...initialState,
+export function initQuizState(persistedState?: PersistedQuizState): QuizState {
+  const initPersistedState = persistedState ?? initPersistedQuizState();
+  return { ...initialState, ...initPersistedState } as QuizState;
+}
 
-    // Dialog actions
-    openDialog: () => set({ isDialogOpen: true }),
-    closeDialog: () => set({ isDialogOpen: false }),
+export function createQuizStore(quizState: QuizState) {
+  return createStore<QuizStore>()(
+    persist(
+      (set, get) => ({
+        ...quizState,
 
-    // Mode actions
-    setMode: (mode) => set({ mode }),
+        // Dialog actions
+        openDialog: () => set({ isDialogOpen: true }),
+        closeDialog: () => set({ isDialogOpen: false }),
 
-    // Settings actions
-    setSettings: (settings) => set({ settings }),
-    updateSettings: (partial) =>
-      set((state) => ({
-        settings: { ...state.settings, ...partial },
-      })),
+        // Mode actions
+        setMode: (mode) => set({ mode }),
 
-    // Quiz actions
-    startQuiz: () => set({ isStarted: true, isInstructionShown: true }),
-    setIsChecked: (isChecked) => set({ isChecked }),
-    setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
-    setQuestions: (questions) => set({ questions }),
-    setTargets: (targets) => set({ targets }),
-    setScore: (score) => set({ score }),
+        // Settings actions
+        setSettings: (settings) => set({ settings }),
+        updateSettings: (partial) =>
+          set((state) => ({
+            settings: { ...state.settings, ...partial },
+          })),
 
-    resetQuiz: () =>
-      set({
-        isStarted: false,
-        isChecked: false,
-        questions: [],
-        targets: [],
-        score: { correct: 0, total: 0 },
-      }),
+        // Quiz actions
+        startQuiz: () => set({ isStarted: true }),
+        setIsChecked: (isChecked) => set({ isChecked }),
+        setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
+        setQuestions: (questions) => set({ questions }),
+        setTargets: (targets) => set({ targets }),
+        setScore: (score) => set({ score }),
 
-    resetAll: () => set(initialState),
+        resetQuiz: () =>
+          set({
+            isStarted: false,
+            isChecked: false,
+            questions: [],
+            targets: [],
+            score: { correct: 0, total: 0 },
+          }),
 
-    // Challenge actions
-    enterChallengeMode: () => set({ isChallengeMode: true }),
+        resetAll: () => set(initialState),
 
-    selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
+        // Challenge actions
+        enterChallengeMode: () => set({ isChallengeMode: true }),
 
-    startChallenge: () =>
-      set({
-        isStarted: true,
-        isInstructionShown: true,
-        currentQuestionIndex: 0,
-        challengeStartTime: Date.now(),
-        questionStartTime: Date.now(),
-        questionStat: [],
-        challengeScoring: DEFAULT_CHALLENGE_SCORING,
-        errorItem: [],
-        challengeResult: null,
-      }),
+        selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
 
-    nextChallengeQuestion: () =>
-      set((state) => ({
-        currentQuestionIndex: state.currentQuestionIndex + 1,
-        questionStartTime: Date.now(),
-        isChecked: false,
-        questions: [],
-        targets: [],
-      })),
+        startChallenge: () =>
+          set({
+            isStarted: true,
+            currentQuestionIndex: 0,
+            challengeStartTime: Date.now(),
+            questionStartTime: Date.now(),
+            questionStat: [],
+            challengeScoring: DEFAULT_CHALLENGE_SCORING,
+            errorItem: [],
+            challengeResult: null,
+          }),
 
-    addConnectionScore: (isCorrect) =>
-      set((state) => {
-        const pointChange = isCorrect ? CORRECT_POINT : INCORRECT_POINT;
-        return {
-          challengeScoring: {
-            correctConnection: state.challengeScoring.correctConnection + (isCorrect ? 1 : 0),
-            incorrectConnection: state.challengeScoring.incorrectConnection + (isCorrect ? 0 : 1),
-            totalPoint: state.challengeScoring.totalPoint + pointChange,
-          },
-          lastPointChange: { value: pointChange, timestamp: Date.now() },
-        };
-      }),
+        nextChallengeQuestion: () =>
+          set((state) => ({
+            currentQuestionIndex: state.currentQuestionIndex + 1,
+            questionStartTime: Date.now(),
+            isChecked: false,
+            questions: [],
+            targets: [],
+          })),
 
-    recordQuestionStat: (stat) =>
-      set((state) => ({
-        questionStat: [...state.questionStat, stat],
-      })),
+        addConnectionScore: (isCorrect) =>
+          set((state) => {
+            const pointChange = isCorrect ? CORRECT_POINT : INCORRECT_POINT;
+            return {
+              challengeScoring: {
+                correctConnection: state.challengeScoring.correctConnection + (isCorrect ? 1 : 0),
+                incorrectConnection:
+                  state.challengeScoring.incorrectConnection + (isCorrect ? 0 : 1),
+                totalPoint: state.challengeScoring.totalPoint + pointChange,
+              },
+              lastPointChange: { value: pointChange, timestamp: Date.now() },
+            };
+          }),
 
-    addErrorItem: (item, type, errorType) =>
-      set((state) => {
-        const existing = state.errorItem.find(
-          (e) => e.item === item && e.type === type && e.errorType === errorType,
-        );
-        if (existing) {
-          return {
-            errorItem: state.errorItem.map((e) =>
-              e.item === item && e.type === type && e.errorType === errorType
-                ? { ...e, errorCount: e.errorCount + 1 }
-                : e,
-            ),
-          };
-        }
-        return {
-          errorItem: [...state.errorItem, { item, type, errorType, errorCount: 1 }],
-        };
-      }),
+        recordQuestionStat: (stat) =>
+          set((state) => ({
+            questionStat: [...state.questionStat, stat],
+          })),
 
-    finishChallenge: (totalPossibleConnection, endTime) => {
-      const state = get();
-      const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
-      const perfectQuestion = state.questionStat.filter((s) => s.isPerfect).length;
-      const questionWithError = state.questionStat.length - perfectQuestion;
+        addErrorItem: (item, type, errorType) =>
+          set((state) => {
+            const existing = state.errorItem.find(
+              (e) => e.item === item && e.type === type && e.errorType === errorType,
+            );
+            if (existing) {
+              return {
+                errorItem: state.errorItem.map((e) =>
+                  e.item === item && e.type === type && e.errorType === errorType
+                    ? { ...e, errorCount: e.errorCount + 1 }
+                    : e,
+                ),
+              };
+            }
+            return {
+              errorItem: [...state.errorItem, { item, type, errorType, errorCount: 1 }],
+            };
+          }),
 
-      // Sort weakness by error count descending
-      const sortedWeakness = [...state.errorItem].sort((a, b) => b.errorCount - a.errorCount);
+        finishChallenge: (totalPossibleConnection, endTime) => {
+          const state = get();
+          const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
+          const perfectQuestion = state.questionStat.filter((s) => s.isPerfect).length;
+          const questionWithError = state.questionStat.length - perfectQuestion;
 
-      set({
-        challengeResult: {
-          difficulty: state.challengeDifficulty ?? 'easy',
-          scoring: state.challengeScoring,
-          questionStat: state.questionStat,
-          weakness: sortedWeakness.slice(0, 5), // Top 5 weaknesses
-          totalQuestion: state.questionStat.length,
-          perfectQuestion,
-          questionWithError,
-          totalPossibleConnection,
-          totalTime,
-          completedAt: new Date(),
+          // Sort weakness by error count descending
+          const sortedWeakness = [...state.errorItem].sort((a, b) => b.errorCount - a.errorCount);
+
+          set({
+            challengeResult: {
+              difficulty: state.challengeDifficulty ?? 'easy',
+              scoring: state.challengeScoring,
+              questionStat: state.questionStat,
+              weakness: sortedWeakness.slice(0, 5), // Top 5 weaknesses
+              totalQuestion: state.questionStat.length,
+              perfectQuestion,
+              questionWithError,
+              totalPossibleConnection,
+              totalTime,
+              completedAt: new Date(),
+            },
+          });
         },
-      });
-    },
 
-    resetChallenge: () => set(initialChallengeState),
-  }));
+        resetChallenge: () => set(initialChallengeState),
+      }),
+      {
+        name: QUIZ_STORE_KEY,
+        storage: createJSONStorage(() => cookiesStorage),
+        skipHydration: true,
+        partialize: (state) => ({
+          isInstructionShown: state.isInstructionShown,
+        }),
+      },
+    ),
+  );
+}
+
+// Get persisted quiz store on server-side
+// For client-side, use `useQuizStore` hook instead
+export async function getPersistedQuizStore(): Promise<PersistedQuizState> {
+  const persistedState = await getCookies(QUIZ_STORE_KEY);
+  if (!persistedState) return initPersistedQuizState();
+
+  const { state } = JSON.parse(persistedState) as PersistedQuiz;
+
+  return state;
 }

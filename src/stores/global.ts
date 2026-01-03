@@ -36,7 +36,7 @@ function initPersistedGlobalState(): PersistedGlobalState {
 export function initGlobalState(persistedState?: PersistedGlobalState): GlobalState {
   const initPersistedState = persistedState ?? initPersistedGlobalState();
 
-  return { ...initPersistedState, waitlistStatus: 'idle' };
+  return { waitlistStatus: 'idle', ...initPersistedState };
 }
 
 export function createGlobalStore(globalState: GlobalState) {

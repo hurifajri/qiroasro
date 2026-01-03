@@ -1,4 +1,11 @@
+// Quiz
+// Point values for scoring
+export const CORRECT_POINT = 10;
+export const INCORRECT_POINT = -1;
+
+// Store keys
 export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
+export const QUIZ_STORE_KEY = 'qiroasro_quiz-store';
 
 // Materialized View name
 export const MV_PLAYGROUND_DATA = 'mv_playground_data';
