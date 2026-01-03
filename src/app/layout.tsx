@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { env } from '@/env';
@@ -98,6 +100,8 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
             )}
           </QueryClientProvider>
         </AnalyticsProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
