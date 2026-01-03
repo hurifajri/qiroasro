@@ -15,6 +15,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { DialogFooter } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import type { ChallengeResult } from '../schemas/quiz';
 
@@ -167,10 +168,10 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div ref={resultRef} className="flex flex-col gap-4 bg-background p-2">
+      <div ref={resultRef} className="flex flex-col gap-4 overflow-y-scroll bg-background">
         {/* Badge and Score Header */}
         <motion.div
-          className="flex flex-col items-center gap-2 py-4"
+          className="flex flex-col items-center gap-2"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 200, damping: 15 }}
@@ -305,35 +306,37 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       </div>
 
       {/* Action Buttons */}
-      <motion.div
-        className="flex flex-col gap-2"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
-          {copied ? (
-            <>
-              <CopyIcon />
-              {t('challenge_share_copied')}
-            </>
-          ) : (
-            <>
-              <ShareIcon />
-              {t('challenge_share_result')}
-            </>
-          )}
-        </Button>
-        <div className="flex gap-2">
-          <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
-            {t('back')}
+      <DialogFooter className="fixed right-0 bottom-0 left-0 bg-background pt-0">
+        <motion.div
+          className="flex flex-col gap-2 px-4 py-2"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
+            {copied ? (
+              <>
+                <CopyIcon />
+                {t('challenge_share_copied')}
+              </>
+            ) : (
+              <>
+                <ShareIcon />
+                {t('challenge_share_result')}
+              </>
+            )}
           </Button>
-          <Button size="lg" onClick={onPlayAgain} className="flex-1">
-            <PlayIcon />
-            {t('challenge_play_again')}
-          </Button>
-        </div>
-      </motion.div>
+          <div className="flex gap-2">
+            <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
+              {t('back')}
+            </Button>
+            <Button size="lg" onClick={onPlayAgain} className="flex-1">
+              <PlayIcon />
+              {t('challenge_play_again')}
+            </Button>
+          </div>
+        </motion.div>
+      </DialogFooter>
     </>
   );
 }

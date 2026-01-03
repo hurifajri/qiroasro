@@ -50,14 +50,12 @@ export function Quiz() {
               : 'overflow-y-auto',
           )}
         >
-          {quiz.dialogTitle && (
-            <DialogHeader>
-              <DialogTitle>{quiz.dialogTitle}</DialogTitle>
-              {quiz.dialogDescription && (
-                <DialogDescription>{quiz.dialogDescription}</DialogDescription>
-              )}
-            </DialogHeader>
-          )}
+          <DialogHeader>
+            <DialogTitle>{quiz.dialogTitle}</DialogTitle>
+            {quiz.dialogDescription && (
+              <DialogDescription>{quiz.dialogDescription}</DialogDescription>
+            )}
+          </DialogHeader>
 
           {quiz.screenState.showModeSelection && (
             <QuizModeSelector
