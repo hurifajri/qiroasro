@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { env } from '@/env';
+import { AnalyticsProvider } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
 import { QueryClientProvider } from '@/providers/query-client';
@@ -83,14 +84,20 @@ export default async function RootLayout({ children }: React.PropsWithChildren) 
   return (
     <html lang={locale} className={theme} style={{ colorScheme: theme }} suppressHydrationWarning>
       <body className={cn('font-sans antialiased', outfitFont.variable, amiriFont.variable)}>
-        <QueryClientProvider>
-          <GlobalStoreProvider persistedState={persistedState}>
-            <NextIntlClientProvider>{children}</NextIntlClientProvider>
-          </GlobalStoreProvider>
-          {process.env.NODE_ENV === 'development' && (
-            <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" position="right" />
-          )}
-        </QueryClientProvider>
+        <AnalyticsProvider>
+          <QueryClientProvider>
+            <GlobalStoreProvider persistedState={persistedState}>
+              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            </GlobalStoreProvider>
+            {process.env.NODE_ENV === 'development' && (
+              <ReactQueryDevtools
+                initialIsOpen={false}
+                buttonPosition="top-left"
+                position="right"
+              />
+            )}
+          </QueryClientProvider>
+        </AnalyticsProvider>
       </body>
     </html>
   );
