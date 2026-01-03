@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { toPng } from 'html-to-image';
+import type { LucideIcon } from 'lucide-react';
 import {
   BookOpenIcon,
   CheckCircleIcon,
@@ -13,7 +14,7 @@ import {
   XCircleIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
@@ -73,6 +74,23 @@ function formatTime(ms: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Stats grid item config
+interface StatGridItem {
+  icon: LucideIcon;
+  value: string;
+  labelKey: string;
+  bgClass: string;
+  iconClass: string;
+  valueClass: string;
+}
+
+// Connection stat item config
+interface ConnectionStatItem {
+  value: string;
+  labelKey: string;
+  valueClass: string;
+}
+
 export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: ChallengeResultsProps) {
   const t = useTranslations('playground_page.quiz');
   const resultRef = useRef<HTMLDivElement>(null);
@@ -86,6 +104,67 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       : 0;
 
   const badge = getBadge(accuracy);
+
+  // Stats grid data
+  const statsGridItems: StatGridItem[] = useMemo(
+    () => [
+      {
+        icon: TrophyIcon,
+        value: String(result.scoring.totalPoint),
+        labelKey: 'challenge_total_point',
+        bgClass: 'bg-linear-to-br from-primary/10 to-primary/5',
+        iconClass: 'text-primary',
+        valueClass: 'text-2xl',
+      },
+      {
+        icon: ClockIcon,
+        value: formatTime(result.totalTime),
+        labelKey: 'challenge_total_time',
+        bgClass: 'bg-muted/50',
+        iconClass: 'text-muted-foreground',
+        valueClass: 'text-2xl',
+      },
+      {
+        icon: CheckCircleIcon,
+        value: `${result.perfectQuestion}/${result.totalQuestion}`,
+        labelKey: 'challenge_perfect_question',
+        bgClass: 'bg-green-50 dark:bg-green-950',
+        iconClass: 'text-green-600',
+        valueClass: 'text-xl text-green-700 dark:text-green-400',
+      },
+      {
+        icon: XCircleIcon,
+        value: `${result.questionWithError}/${result.totalQuestion}`,
+        labelKey: 'challenge_question_with_error',
+        bgClass: 'bg-red-50 dark:bg-red-950',
+        iconClass: 'text-red-600',
+        valueClass: 'text-xl text-red-700 dark:text-red-400',
+      },
+    ],
+    [result],
+  );
+
+  // Connection stats data
+  const connectionStats: ConnectionStatItem[] = useMemo(
+    () => [
+      {
+        value: String(result.scoring.correctConnection),
+        labelKey: 'challenge_correct_connection',
+        valueClass: 'text-green-600',
+      },
+      {
+        value: String(result.scoring.incorrectConnection),
+        labelKey: 'challenge_incorrect_connection',
+        valueClass: 'text-red-600',
+      },
+      {
+        value: `${accuracy}%`,
+        labelKey: 'challenge_accuracy',
+        valueClass: '',
+      },
+    ],
+    [result.scoring, accuracy],
+  );
 
   // Generate confetti particles
   const confettiParticle = Array.from({ length: 50 }).map((_, i) => ({
@@ -192,39 +271,16 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          {/* Total Points */}
-          <div className="flex flex-col items-center rounded-lg bg-linear-to-br from-primary/10 to-primary/5 p-3">
-            <TrophyIcon className="mb-1 size-5 text-primary" />
-            <span className="font-bold text-2xl">{result.scoring.totalPoint}</span>
-            <span className="text-muted-foreground text-xs">{t('challenge_total_point')}</span>
-          </div>
-
-          {/* Total Time */}
-          <div className="flex flex-col items-center rounded-lg bg-muted/50 p-3">
-            <ClockIcon className="mb-1 size-5 text-muted-foreground" />
-            <span className="font-bold text-2xl">{formatTime(result.totalTime)}</span>
-            <span className="text-muted-foreground text-xs">{t('challenge_total_time')}</span>
-          </div>
-
-          {/* Perfect Questions */}
-          <div className="flex flex-col items-center rounded-lg bg-green-50 p-3 dark:bg-green-950">
-            <CheckCircleIcon className="mb-1 size-5 text-green-600" />
-            <span className="font-bold text-green-700 text-xl dark:text-green-400">
-              {result.perfectQuestion}/{result.totalQuestion}
-            </span>
-            <span className="text-muted-foreground text-xs">{t('challenge_perfect_question')}</span>
-          </div>
-
-          {/* Questions with Errors */}
-          <div className="flex flex-col items-center rounded-lg bg-red-50 p-3 dark:bg-red-950">
-            <XCircleIcon className="mb-1 size-5 text-red-600" />
-            <span className="font-bold text-red-700 text-xl dark:text-red-400">
-              {result.questionWithError}/{result.totalQuestion}
-            </span>
-            <span className="text-muted-foreground text-xs">
-              {t('challenge_question_with_error')}
-            </span>
-          </div>
+          {statsGridItems.map((stat) => (
+            <div
+              key={stat.labelKey}
+              className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
+            >
+              <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
+              <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
+              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+            </div>
+          ))}
         </motion.div>
 
         {/* Connection Stats */}
@@ -234,28 +290,15 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-green-600 text-lg">
-              {result.scoring.correctConnection}
-            </span>
-            <span className="text-muted-foreground text-xs">
-              {t('challenge_correct_connection')}
-            </span>
-          </div>
-          <div className="h-full w-px bg-border" />
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg text-red-600">
-              {result.scoring.incorrectConnection}
-            </span>
-            <span className="text-muted-foreground text-xs">
-              {t('challenge_incorrect_connection')}
-            </span>
-          </div>
-          <div className="h-full w-px bg-border" />
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-lg">{accuracy}%</span>
-            <span className="text-muted-foreground text-xs">{t('challenge_accuracy')}</span>
-          </div>
+          {connectionStats.map((stat, index) => (
+            <div key={stat.labelKey} className="flex items-center gap-3">
+              {index > 0 && <div className="h-8 w-px bg-border" />}
+              <div className="flex flex-col items-center">
+                <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+              </div>
+            </div>
+          ))}
         </motion.div>
 
         {/* Weakness Analysis */}
