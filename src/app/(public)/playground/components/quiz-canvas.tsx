@@ -23,6 +23,7 @@ interface QuizCanvasProps {
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
+  height: number;
 }
 
 export function QuizCanvas({
@@ -35,6 +36,7 @@ export function QuizCanvas({
   onEdgesChange,
   onConnect,
   isValidConnection,
+  height,
 }: QuizCanvasProps) {
   const { fitView } = useReactFlow();
 
@@ -50,7 +52,7 @@ export function QuizCanvas({
   }, [nodes, fitView]);
 
   return (
-    <div className="h-100">
+    <div style={{ height }}>
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         colorMode={theme}
