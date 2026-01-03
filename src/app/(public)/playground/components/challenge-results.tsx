@@ -5,11 +5,12 @@ import { toPng } from 'html-to-image';
 import type { LucideIcon } from 'lucide-react';
 import {
   BookOpenIcon,
+  BowArrowIcon,
   CheckCircleIcon,
-  ClockIcon,
   CopyIcon,
   PlayIcon,
   ShareIcon,
+  TimerIcon,
   TrophyIcon,
   XCircleIcon,
 } from 'lucide-react';
@@ -97,6 +98,8 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
   const [showConfetti, setShowConfetti] = useState(true);
   const [copied, setCopied] = useState(false);
 
+  console.log('result', result);
+
   // Calculate accuracy
   const accuracy =
     result.totalPossibleConnection > 0
@@ -112,17 +115,17 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         icon: TrophyIcon,
         value: String(result.scoring.totalPoint),
         labelKey: 'challenge_total_point',
-        bgClass: 'bg-linear-to-br from-primary/10 to-primary/5',
-        iconClass: 'text-primary',
-        valueClass: 'text-2xl',
+        bgClass: 'bg-indigo-50 dark:bg-indigo-950',
+        iconClass: 'text-indigo-600',
+        valueClass: 'text-xl text-indigo-700 dark:text-indigo-400',
       },
       {
-        icon: ClockIcon,
+        icon: TimerIcon,
         value: formatTime(result.totalTime),
         labelKey: 'challenge_total_time',
-        bgClass: 'bg-muted/50',
-        iconClass: 'text-muted-foreground',
-        valueClass: 'text-2xl',
+        bgClass: 'bg-cyan-50 dark:bg-cyan-950',
+        iconClass: 'text-cyan-600',
+        valueClass: 'text-xl text-cyan-700 dark:text-cyan-400',
       },
       {
         icon: CheckCircleIcon,
@@ -133,12 +136,12 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         valueClass: 'text-xl text-green-700 dark:text-green-400',
       },
       {
-        icon: XCircleIcon,
-        value: `${result.questionWithError}/${result.totalQuestion}`,
-        labelKey: 'challenge_question_with_error',
-        bgClass: 'bg-red-50 dark:bg-red-950',
-        iconClass: 'text-red-600',
-        valueClass: 'text-xl text-red-700 dark:text-red-400',
+        icon: BowArrowIcon,
+        value: `${accuracy}%`,
+        labelKey: 'challenge_accuracy',
+        bgClass: 'bg-amber-50 dark:bg-amber-950',
+        iconClass: 'text-amber-600',
+        valueClass: 'text-xl text-amber-700 dark:text-amber-400',
       },
     ],
     [result],
@@ -157,13 +160,8 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
         labelKey: 'challenge_incorrect_connection',
         valueClass: 'text-red-600',
       },
-      {
-        value: `${accuracy}%`,
-        labelKey: 'challenge_accuracy',
-        valueClass: '',
-      },
     ],
-    [result.scoring, accuracy],
+    [result.scoring],
   );
 
   // Generate confetti particles
@@ -290,13 +288,10 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          {connectionStats.map((stat, index) => (
-            <div key={stat.labelKey} className="flex items-center gap-3">
-              {index > 0 && <div className="h-8 w-px bg-border" />}
-              <div className="flex flex-col items-center">
-                <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
-                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
-              </div>
+          {connectionStats.map((stat) => (
+            <div key={stat.labelKey} className="flex flex-col items-center">
+              <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
+              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
             </div>
           ))}
         </motion.div>
@@ -309,24 +304,6 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
-            {/* Incorrect connections */}
-            {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
-              <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
-                <div className="mb-1 flex items-center gap-2">
-                  <XCircleIcon className="size-4 text-red-600" />
-                  <span className="font-medium text-red-800 text-sm dark:text-red-200">
-                    {t('challenge_weakness_incorrect')}
-                  </span>
-                </div>
-                <p className="text-red-700 text-sm dark:text-red-300">
-                  {result.weakness
-                    .filter((w) => w.errorType === 'incorrect')
-                    .map((w) => w.item)
-                    .join(', ')}
-                </p>
-              </div>
-            )}
-
             {/* Missed connections */}
             {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
               <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-950">
@@ -339,6 +316,24 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                 <p className="text-amber-700 text-sm dark:text-amber-300">
                   {result.weakness
                     .filter((w) => w.errorType === 'missed')
+                    .map((w) => w.item)
+                    .join(', ')}
+                </p>
+              </div>
+            )}
+
+            {/* Incorrect connections */}
+            {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+                <div className="mb-1 flex items-center gap-2">
+                  <XCircleIcon className="size-4 text-red-600" />
+                  <span className="font-medium text-red-800 text-sm dark:text-red-200">
+                    {t('challenge_weakness_incorrect')}
+                  </span>
+                </div>
+                <p className="text-red-700 text-sm dark:text-red-300">
+                  {result.weakness
+                    .filter((w) => w.errorType === 'incorrect')
                     .map((w) => w.item)
                     .join(', ')}
                 </p>
