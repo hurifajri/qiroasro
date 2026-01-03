@@ -244,7 +244,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div ref={resultRef} className="mb-24 flex flex-col gap-4 overflow-y-auto bg-background">
+      <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background px-4">
         {/* Badge and Score Header */}
         <motion.div
           className="flex flex-col items-center gap-2"
@@ -344,7 +344,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
       {/* Action Buttons */}
       <motion.div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 px-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
