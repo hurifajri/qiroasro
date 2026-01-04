@@ -78,6 +78,7 @@ export function QuizCanvas({
         zoomOnPinch={false}
         zoomOnDoubleClick={false}
         preventScrolling={false}
+        autoPanOnConnect={false}
         connectOnClick={true}
       >
         {/* <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> */}
