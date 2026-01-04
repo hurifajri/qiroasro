@@ -455,7 +455,14 @@ export function Playground() {
               maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
             /> */}
 
-            <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
+            <Background
+              color={theme === 'light' ? 'oklch(0.13 0.028 261.692)' : 'oklch(1 0 0)'}
+              bgColor={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
+              className="rounded-lg"
+              variant={BackgroundVariant.Dots}
+              gap={20}
+              size={1}
+            />
           </ReactFlow>
         </div>
       )}
