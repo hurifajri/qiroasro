@@ -72,7 +72,7 @@ export function QuizContent({
       extraTopOffset -
       gap;
 
-    setCanvasHeight(Math.max(400, availableHeight));
+    setCanvasHeight(availableHeight);
   }, [extraTopOffset]);
 
   useEffect(() => {
