@@ -1,9 +1,6 @@
 'use client';
 
 import { type NodeTypes, ReactFlowProvider } from '@xyflow/react';
-import { TrophyIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -25,57 +22,58 @@ const nodeTypes: NodeTypes = {
 };
 
 export function Quiz() {
-  const t = useTranslations('playground_page.quiz');
   const quiz = useQuiz();
 
-  return (
-    <ReactFlowProvider>
-      <Button
-        id="tour-quiz"
-        size="sm"
-        onClick={quiz.openDialog}
-        className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
-      >
-        <TrophyIcon className="size-4" />
-        {t('trigger')}
-      </Button>
+  // Determine if we need ReactFlow (only when quiz canvas is actually shown)
+  const needsReactFlow = quiz.screenState.showRegularQuiz || quiz.screenState.showChallengeQuiz;
 
-      <Dialog open={quiz.isDialogOpen} onOpenChange={quiz.handleDialogClose}>
-        <DialogContent
+  // Quiz content that may or may not need ReactFlowProvider
+  const quizContent = (
+    <>
+      {quiz.screenState.showModeSelection && (
+        <QuizModeSelector
+          onSelect={quiz.handleModeSelect}
+          onChallengeSelect={quiz.handleChallengeSelect}
+        />
+      )}
+
+      {quiz.isChallengeMode ? (
+        <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
+      ) : (
+        <QuizContentRegular quiz={quiz} nodeTypes={nodeTypes} />
+      )}
+    </>
+  );
+
+  return (
+    <Dialog open={quiz.isDialogOpen} onOpenChange={quiz.handleDialogClose}>
+      <DialogContent
+        className={cn(
+          'flex max-w-full flex-col rounded-none sm:rounded-xl',
+          quiz.isStarted && 'min-h-full min-w-full justify-between sm:min-w-auto',
+          quiz.screenState.showChallengeResults && quiz.challengeResult
+            ? 'overflow-hidden px-0'
+            : 'overflow-y-auto',
+        )}
+      >
+        <DialogHeader
           className={cn(
-            'flex max-w-full flex-col rounded-none sm:rounded-xl',
-            quiz.isStarted && 'min-h-full min-w-full justify-between sm:min-w-auto',
-            quiz.screenState.showChallengeResults && quiz.challengeResult
-              ? 'overflow-hidden px-0'
-              : 'overflow-y-auto',
+            '',
+            quiz.screenState.showChallengeResults && quiz.challengeResult && 'px-4',
           )}
         >
-          <DialogHeader
-            className={cn(
-              '',
-              quiz.screenState.showChallengeResults && quiz.challengeResult && 'px-4',
-            )}
-          >
-            <DialogTitle>{quiz.dialogTitle}</DialogTitle>
-            {quiz.dialogDescription && (
-              <DialogDescription>{quiz.dialogDescription}</DialogDescription>
-            )}
-          </DialogHeader>
-
-          {quiz.screenState.showModeSelection && (
-            <QuizModeSelector
-              onSelect={quiz.handleModeSelect}
-              onChallengeSelect={quiz.handleChallengeSelect}
-            />
+          <DialogTitle>{quiz.dialogTitle}</DialogTitle>
+          {quiz.dialogDescription && (
+            <DialogDescription>{quiz.dialogDescription}</DialogDescription>
           )}
+        </DialogHeader>
 
-          {quiz.isChallengeMode ? (
-            <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
-          ) : (
-            <QuizContentRegular quiz={quiz} nodeTypes={nodeTypes} />
-          )}
-        </DialogContent>
-      </Dialog>
-    </ReactFlowProvider>
+        {/*
+            Performance optimization: Only mount ReactFlowProvider when quiz canvas is shown.
+            This prevents ReactFlow overhead when browsing settings/mode selection.
+          */}
+        {needsReactFlow ? <ReactFlowProvider>{quizContent}</ReactFlowProvider> : quizContent}
+      </DialogContent>
+    </Dialog>
   );
 }
