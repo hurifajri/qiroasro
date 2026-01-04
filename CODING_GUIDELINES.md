@@ -327,6 +327,36 @@ import { GLOBAL_CONSTANTS } from './constants';
 | Page-level | Same page-level | ✅ Relative (`../` or `./`) |
 | Global | Same global | ✅ Relative (`./`) |
 
+### Graph Import Rules
+
+For React Flow (xyflow) components, **always import from `@/components/graph/`** instead of directly from `@xyflow/react`. This ensures:
+- Consistent styling across the application
+- Centralized customization of base components
+- Easier maintenance and updates
+
+```typescript
+// ❌ NEVER import directly from xyflow
+import { Handle, BaseEdge } from '@xyflow/react'; // ❌ NO!
+
+// ✅ Import from graph components
+import { BaseHandle } from '@/components/graph/base-handle';
+import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
+import { FloatingEdge } from '@/components/graph/floating-edge';
+import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
+
+// ✅ Types and hooks can still be imported from xyflow
+import type { NodeProps, Edge, Node, EdgeTypes } from '@xyflow/react';
+import { useReactFlow, useNodesState, useEdgesState } from '@xyflow/react';
+```
+
+| Component Type | Import From |
+|----------------|-------------
+| Handle | `@/components/graph/base-handle` |
+| Node Base | `@/components/graph/base-node` |
+| Edge | `@/components/graph/floating-edge` |
+| Connection Line | `@/components/graph/floating-connection-line` |
+| Types & Hooks | `@xyflow/react` (allowed) |
+
 ---
 
 ## 4. State Management (Zustand)

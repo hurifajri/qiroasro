@@ -3,6 +3,7 @@
 import type { NodeTypes } from '@xyflow/react';
 import { CheckCircle2Icon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
@@ -26,9 +27,81 @@ interface QuizContentChallengeProps {
   nodeTypes: NodeTypes;
 }
 
-export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengeProps) {
+/**
+ * Separate component for quiz content to use refs for measuring
+ */
+function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
+
+  const topContentRef = useRef<HTMLDivElement>(null);
+  const [extraTopOffset, setExtraTopOffset] = useState(0);
+
+  useEffect(() => {
+    const measureTopContent = () => {
+      if (topContentRef.current) {
+        setExtraTopOffset(topContentRef.current.offsetHeight);
+      }
+    };
+
+    measureTopContent();
+
+    const observer = new ResizeObserver(measureTopContent);
+    if (topContentRef.current) {
+      observer.observe(topContentRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      <div ref={topContentRef}>
+        <PointAnimation lastPointChange={quiz.lastPointChange} />
+        <ChallengeProgress
+          currentIndex={quiz.currentQuestionIndex}
+          totalQuestion={TOTAL_CHALLENGE_QUESTION}
+          questionStat={quiz.questionStat}
+        />
+      </div>
+      <QuizContent
+        nodes={quiz.nodes}
+        edges={quiz.edges}
+        nodeTypes={nodeTypes}
+        theme={theme}
+        isChecked={quiz.isChecked}
+        onNodesChange={quiz.onNodesChange}
+        onEdgesChange={quiz.onEdgesChange}
+        onConnect={quiz.onConnect}
+        isValidConnection={quiz.isValidConnection}
+        isChallengeMode
+        extraTopOffset={extraTopOffset}
+        headerContent={
+          <>
+            <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
+            {quiz.challengeTimeRemaining !== null && (
+              <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
+            )}
+          </>
+        }
+      />
+      <DialogFooter className="flex flex-row items-center">
+        <Button
+          size="lg"
+          onClick={quiz.handleChallengeCheckAndNext}
+          disabled={quiz.connectionCount < quiz.requiredConnections || quiz.isChecked}
+          className="flex-1"
+        >
+          <CheckCircle2Icon />
+          {t('check_answer')}
+        </Button>
+      </DialogFooter>
+    </>
+  );
+}
+
+export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengeProps) {
+  const t = useTranslations('playground_page.quiz');
 
   // Step 1: Difficulty Selection
   if (quiz.screenState.showDifficultySelection) {
@@ -81,46 +154,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
 
   // Step 3: Challenge
   if (quiz.screenState.showChallengeQuiz) {
-    return (
-      <>
-        <PointAnimation lastPointChange={quiz.lastPointChange} />
-        <ChallengeProgress
-          currentIndex={quiz.currentQuestionIndex}
-          totalQuestion={TOTAL_CHALLENGE_QUESTION}
-          questionStat={quiz.questionStat}
-        />
-        <QuizContent
-          nodes={quiz.nodes}
-          edges={quiz.edges}
-          nodeTypes={nodeTypes}
-          theme={theme}
-          isChecked={quiz.isChecked}
-          onNodesChange={quiz.onNodesChange}
-          onEdgesChange={quiz.onEdgesChange}
-          onConnect={quiz.onConnect}
-          isValidConnection={quiz.isValidConnection}
-          headerContent={
-            <div className="flex h-12 items-center justify-between gap-2 px-2">
-              <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
-              {quiz.challengeTimeRemaining !== null && (
-                <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
-              )}
-            </div>
-          }
-        />
-        <DialogFooter className="flex flex-row items-center">
-          <Button
-            size="lg"
-            onClick={quiz.handleChallengeCheckAndNext}
-            disabled={quiz.connectionCount < quiz.requiredConnections || quiz.isChecked}
-            className="flex-1"
-          >
-            <CheckCircle2Icon />
-            {t('check_answer')}
-          </Button>
-        </DialogFooter>
-      </>
-    );
+    return <ChallengeQuizContent quiz={quiz} nodeTypes={nodeTypes} />;
   }
 
   // Step 4: Challenge Results

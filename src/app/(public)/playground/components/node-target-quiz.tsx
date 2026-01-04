@@ -43,16 +43,11 @@ export function TargetQuizNode({ data }: NodeProps) {
           />
         </NodeAppendix>
 
+        {/* Full-node handle for Easy Connect - entire node acts as connection handle */}
         <BaseHandle
           type="target"
           position={Position.Left}
-          className={cn(
-            'size-4!',
-            nodeData.mode === 'articulation_point' && 'bg-node-articulation-secondary!',
-            nodeData.mode === 'trait' && 'bg-node-trait-secondary!',
-            nodeData.status === 'correct' && 'bg-green-500!',
-            nodeData.status === 'incorrect' && 'bg-red-500!',
-          )}
+          className="absolute! transform-none! inset-0! h-full! w-full! rounded-lg! border-0! bg-transparent!"
         />
 
         <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">

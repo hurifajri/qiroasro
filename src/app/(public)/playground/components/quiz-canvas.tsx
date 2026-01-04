@@ -1,7 +1,5 @@
-import type { ColorMode, IsValidConnection } from '@xyflow/react';
+import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
 import {
-  Background,
-  BackgroundVariant,
   type Edge,
   type Node,
   type NodeTypes,
@@ -12,6 +10,11 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import { useEffect } from 'react';
+import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
+import { FloatingEdge } from '@/components/graph/floating-edge';
+
+const edgeTypes: EdgeTypes = { floating: FloatingEdge };
+const defaultEdgeOptions = { type: 'floating' };
 
 interface QuizCanvasProps {
   nodes: Node[];
@@ -23,6 +26,7 @@ interface QuizCanvasProps {
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
+  height: number;
 }
 
 export function QuizCanvas({
@@ -35,6 +39,7 @@ export function QuizCanvas({
   onEdgesChange,
   onConnect,
   isValidConnection,
+  height,
 }: QuizCanvasProps) {
   const { fitView } = useReactFlow();
 
@@ -50,7 +55,7 @@ export function QuizCanvas({
   }, [nodes, fitView]);
 
   return (
-    <div className="h-100">
+    <div style={{ height }}>
       <ReactFlow
         proOptions={{ hideAttribution: true }}
         colorMode={theme}
@@ -61,6 +66,9 @@ export function QuizCanvas({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
+        connectionLineComponent={FloatingConnectionLine}
         onConnect={onConnect}
         isValidConnection={isValidConnection}
         nodesDraggable={false}
@@ -70,9 +78,10 @@ export function QuizCanvas({
         zoomOnPinch={false}
         zoomOnDoubleClick={false}
         preventScrolling={false}
+        autoPanOnConnect={false}
         connectOnClick={true}
       >
-        <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
+        {/* <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> */}
       </ReactFlow>
     </div>
   );

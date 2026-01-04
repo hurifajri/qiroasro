@@ -20,14 +20,11 @@ export function LetterQuizNode({ data }: NodeProps) {
         <span className="font-bold text-4xl">{nodeData.symbol}</span>
       </BaseNodeContent>
 
+      {/* Full-node handle for Easy Connect - entire node acts as connection handle */}
       <BaseHandle
         type="source"
         position={Position.Right}
-        className={cn(
-          'size-4! bg-node-letter-secondary!',
-          nodeData.status === 'correct' && 'bg-green-500!',
-          nodeData.status === 'incorrect' && 'bg-red-500!',
-        )}
+        className="absolute! transform-none! inset-0! h-full! w-full! rounded-full! border-0! bg-transparent!"
       />
     </BaseNode>
   );

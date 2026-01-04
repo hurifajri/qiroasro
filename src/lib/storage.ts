@@ -1,8 +1,26 @@
+import Cookies from 'js-cookie';
 import type { StateStorage } from 'zustand/middleware';
-import { deleteCookies, getCookies, setCookies } from './cookies';
 
+/**
+ * Client-side cookies storage for Zustand persist.
+ * Uses js-cookie for synchronous access (works with Zustand persist).
+ * For server-side, use `getCookies` function from src/lib/cookies.ts instead.
+ */
 export const cookiesStorage: StateStorage = {
-  getItem: async (key: string) => (await getCookies(key)) ?? null,
-  setItem: async (key: string, value: string) => await setCookies(key, value),
-  removeItem: async (key: string) => await deleteCookies(key),
+  getItem: (key: string) => {
+    if (window === undefined) return null;
+    return Cookies.get(key) ?? null;
+  },
+  setItem: (key: string, value: string) => {
+    if (window === undefined) return;
+    Cookies.set(key, value, {
+      expires: 365, // 1 year
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+    });
+  },
+  removeItem: (key: string) => {
+    if (window === undefined) return;
+    Cookies.remove(key);
+  },
 };

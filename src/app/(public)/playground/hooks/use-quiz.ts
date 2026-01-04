@@ -163,6 +163,8 @@ export function useQuiz() {
       finishChallenge,
       challengeScoring,
       nextChallengeQuestion,
+      challengeDifficulty,
+      questionStat.filter,
     ],
   );
 

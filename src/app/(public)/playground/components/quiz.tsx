@@ -43,14 +43,19 @@ export function Quiz() {
       <Dialog open={quiz.isDialogOpen} onOpenChange={quiz.handleDialogClose}>
         <DialogContent
           className={cn(
-            'flex max-h-[90vh] max-w-lg flex-col rounded-none sm:rounded-xl',
-            quiz.isStarted && 'min-h-full min-w-full sm:min-w-auto',
+            'flex max-w-full flex-col rounded-none sm:rounded-xl',
+            quiz.isStarted && 'min-h-full min-w-full justify-between sm:min-w-auto',
             quiz.screenState.showChallengeResults && quiz.challengeResult
-              ? 'overflow-hidden'
+              ? 'overflow-hidden px-0'
               : 'overflow-y-auto',
           )}
         >
-          <DialogHeader>
+          <DialogHeader
+            className={cn(
+              '',
+              quiz.screenState.showChallengeResults && quiz.challengeResult && 'px-4',
+            )}
+          >
             <DialogTitle>{quiz.dialogTitle}</DialogTitle>
             {quiz.dialogDescription && (
               <DialogDescription>{quiz.dialogDescription}</DialogDescription>

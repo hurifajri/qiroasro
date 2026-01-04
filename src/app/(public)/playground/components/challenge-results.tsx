@@ -58,12 +58,12 @@ function getBadge(accuracy: number) {
     return { emoji: '🏆', key: 'challenge_badge_perfect', color: 'text-yellow-500' };
   }
   if (accuracy >= 80) {
-    return { emoji: '🥈', key: 'challenge_badge_great', color: 'text-gray-400' };
+    return { emoji: '🥇', key: 'challenge_badge_great', color: 'text-gray-400' };
   }
   if (accuracy >= 60) {
-    return { emoji: '🥉', key: 'challenge_badge_good', color: 'text-amber-600' };
+    return { emoji: '🥈', key: 'challenge_badge_good', color: 'text-amber-600' };
   }
-  return { emoji: '📖', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
+  return { emoji: '🥉', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
 }
 
 // Format time from ms to mm:ss
@@ -244,56 +244,57 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div ref={resultRef} className="mb-24 flex flex-col gap-4 overflow-y-auto bg-background">
-        {/* Badge and Score Header */}
-        <motion.div
-          className="flex flex-col items-center gap-2"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-        >
-          <span className="text-6xl">{badge.emoji}</span>
-          <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 text-sm">
-              {t(`challenge_difficulty_${result.difficulty}`)}
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          className="grid grid-cols-2 gap-3"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          {statsGridItems.map((stat) => (
-            <div
-              key={stat.labelKey}
-              className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
-            >
-              <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
-              <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
-              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+      <div className="h-[calc(100dvh-158px)] overflow-y-auto">
+        <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background p-4">
+          {/* Badge and Score Header */}
+          <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+          >
+            <span className="text-6xl">{badge.emoji}</span>
+            <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <span className="rounded-full bg-muted px-3 py-1 text-sm">
+                {t(`challenge_difficulty_${result.difficulty}`)}
+              </span>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
 
-        {/* Connection Stats */}
-        <motion.div
-          className="flex justify-around rounded-lg border p-3 dark:border-muted"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {connectionStats.map((stat) => (
-            <div key={stat.labelKey} className="flex flex-col items-center">
-              <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
-              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
-            </div>
-          ))}
-        </motion.div>
+          {/* Stats Grid */}
+          <motion.div
+            className="grid grid-cols-2 gap-3"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {statsGridItems.map((stat) => (
+              <div
+                key={stat.labelKey}
+                className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
+              >
+                <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
+                <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Connection Stats */}
+          <motion.div
+            className="flex justify-around rounded-lg border p-3 dark:border-muted"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            {connectionStats.map((stat) => (
+              <div key={stat.labelKey} className="flex flex-col items-center">
+                <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+              </div>
+            ))}
+          </motion.div>
 
         {/* Weakness Analysis */}
         {result.weakness.length > 0 && (
@@ -340,11 +341,12 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             )}
           </motion.div>
         )}
+        </div>
       </div>
 
       {/* Action Buttons */}
       <motion.div
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 px-4"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5 }}
