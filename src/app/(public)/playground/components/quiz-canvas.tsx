@@ -1,7 +1,5 @@
 import type { ColorMode, IsValidConnection } from '@xyflow/react';
 import {
-  Background,
-  BackgroundVariant,
   type Edge,
   type Node,
   type NodeTypes,
@@ -74,7 +72,7 @@ export function QuizCanvas({
         preventScrolling={false}
         connectOnClick={true}
       >
-        <Background variant={BackgroundVariant.Dots} gap={16} size={1} />
+        {/* <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> */}
       </ReactFlow>
     </div>
   );
