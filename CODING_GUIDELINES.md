@@ -9,13 +9,14 @@
 0. [Available Scripts](#0-available-scripts)
 1. [Core Principles](#1-core-principles)
 2. [Naming Conventions](#2-naming-conventions)
-3. [File & Folder Organization](#3-file--folder-organization)
-4. [State Management (Zustand)](#4-state-management-zustand)
-5. [Code Patterns & Best Practices](#5-code-patterns--best-practices)
-6. [SEO, Accessibility & Semantic HTML](#6-seo-accessibility--semantic-html)
+3. [Project Organization](#3-project-organization)
+4. [State Management (Zustand)](#4-state-management)
+5. [Code Patterns and Best Practices](#5-code-patterns-and-best-practices)
+6. [SEO, Accessibility and Semantic HTML](#6-seo-accessibility-and-semantic-html)
 7. [Error Handling](#7-error-handling)
 8. [Testing Guidelines](#8-testing-guidelines)
-9. [Analytics](#9-analytics-posthog)
+9. [Analytics](#9-analytics)
+10. [Quick Reference](#10-quick-reference)
 
 ---
 
@@ -249,7 +250,7 @@ RemoteLetter, RemoteLetterSchema
 
 ---
 
-## 3. File & Folder Organization
+## 3. Project Organization
 
 ### Directory Structure
 
@@ -359,7 +360,7 @@ import { useReactFlow, useNodesState, useEdgesState } from '@xyflow/react';
 
 ---
 
-## 4. State Management (Zustand)
+## 4. State Management
 
 ### Store Structure
 
@@ -475,7 +476,7 @@ export function useAppStore<T>(selector: (store: Store) => T): T {
 
 ---
 
-## 5. Code Patterns & Best Practices
+## 5. Code Patterns and Best Practices
 
 ### Component Patterns
 
@@ -611,7 +612,7 @@ export const QUIZ_CONFIG = {
 
 ---
 
-## 6. SEO, Accessibility & Semantic HTML
+## 6. SEO, Accessibility and Semantic HTML
 
 ### SEO Requirements
 
@@ -849,7 +850,42 @@ describe('transformRemoteLetter', () => {
 
 ---
 
-## Quick Reference
+## 9. Analytics
+
+### Overview
+
+Qiroasro uses **PostHog** for analytics all-in-one:
+- Page views & traffic sources
+- Custom events
+- Session replay
+- Heatmaps
+
+### Environment Variables
+
+```bash
+# .env.local (optional - analytics disabled if not set)
+NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_api_key
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+```
+
+### Custom Event Tracking
+
+```typescript
+import { trackEvent } from '@/lib/analytics';
+
+trackEvent('quiz_started', { mode: 'practice', difficulty: 'easy' });
+trackEvent('quiz_completed', { score: 85, timeSpent: 120 });
+```
+
+### Best Practices
+
+1. **Event Naming**: Use `snake_case` for event names
+2. **Privacy**: Never track PII without consent
+3. **Keep it simple**: Flat properties, no deep nesting
+
+---
+
+## 10. Quick Reference
 
 ### Do's ✅
 
@@ -899,41 +935,6 @@ function generateQuiz(mode: QuizMode): void { ... }
 /** @deprecated Use `newFunction` instead */
 function oldFunction() { ... }
 ```
-
----
-
-## 9. Analytics (PostHog)
-
-### Overview
-
-Qiroasro uses **PostHog** for analytics all-in-one:
-- Page views & traffic sources
-- Custom events
-- Session replay
-- Heatmaps
-
-### Environment Variables
-
-```bash
-# .env.local (optional - analytics disabled if not set)
-NEXT_PUBLIC_POSTHOG_KEY=phc_your_project_api_key
-NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
-```
-
-### Custom Event Tracking
-
-```typescript
-import { trackEvent } from '@/lib/analytics';
-
-trackEvent('quiz_started', { mode: 'practice', difficulty: 'easy' });
-trackEvent('quiz_completed', { score: 85, timeSpent: 120 });
-```
-
-### Best Practices
-
-1. **Event Naming**: Use `snake_case` for event names
-2. **Privacy**: Never track PII without consent
-3. **Keep it simple**: Flat properties, no deep nesting
 
 ---
 
