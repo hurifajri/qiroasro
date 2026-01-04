@@ -11,9 +11,11 @@ import type {
   OnNodesChange,
 } from '@xyflow/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
 import { QuizCanvas } from './quiz-canvas';
 
 interface QuizContentProps {
+  isChallengeMode?: boolean;
   nodes: Node[];
   edges: Edge[];
   nodeTypes: NodeTypes;
@@ -29,6 +31,7 @@ interface QuizContentProps {
 }
 
 export function QuizContent({
+  isChallengeMode = false,
   nodes,
   edges,
   nodeTypes,
@@ -110,7 +113,15 @@ export function QuizContent({
 
   return (
     <div className="flex flex-col gap-2 rounded-lg border">
-      <div ref={headerRef}>{headerContent}</div>
+      <div
+        ref={headerRef}
+        className={cn(
+          'flex h-12 items-center justify-between gap-2 px-2',
+          !isChallengeMode && 'self-end',
+        )}
+      >
+        {headerContent}
+      </div>
       <QuizCanvas
         nodes={nodes}
         edges={edges}

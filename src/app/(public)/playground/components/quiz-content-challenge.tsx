@@ -74,14 +74,15 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
         onEdgesChange={quiz.onEdgesChange}
         onConnect={quiz.onConnect}
         isValidConnection={quiz.isValidConnection}
+        isChallengeMode
         extraTopOffset={extraTopOffset}
         headerContent={
-          <div className="flex h-12 items-center justify-between gap-2 px-2">
+          <>
             <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
             {quiz.challengeTimeRemaining !== null && (
               <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
             )}
-          </div>
+          </>
         }
       />
       <DialogFooter className="flex flex-row items-center">
