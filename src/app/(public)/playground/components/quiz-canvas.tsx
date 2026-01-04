@@ -1,4 +1,4 @@
-import type { ColorMode, IsValidConnection } from '@xyflow/react';
+import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
 import {
   type Edge,
   type Node,
@@ -10,6 +10,11 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import { useEffect } from 'react';
+import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
+import { FloatingEdge } from '@/components/graph/floating-edge';
+
+const edgeTypes: EdgeTypes = { floating: FloatingEdge };
+const defaultEdgeOptions = { type: 'floating' };
 
 interface QuizCanvasProps {
   nodes: Node[];
@@ -61,6 +66,9 @@ export function QuizCanvas({
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
+        connectionLineComponent={FloatingConnectionLine}
         onConnect={onConnect}
         isValidConnection={isValidConnection}
         nodesDraggable={false}
