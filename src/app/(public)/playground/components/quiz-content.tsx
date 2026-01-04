@@ -48,7 +48,7 @@ export function QuizContent({
   const [canvasHeight, setCanvasHeight] = useState<number>(400);
 
   const calculateHeight = useCallback(() => {
-    const headerHeight = headerRef.current?.offsetHeight ?? 0;
+    const headerHeight = headerRef.current?.offsetHeight ?? 48;
 
     // Get dialog header and footer heights by measuring DOM
     // Uses data-slot attributes from dialog.tsx
@@ -60,8 +60,8 @@ export function QuizContent({
 
     // Calculate available height
     const viewportHeight = window.innerHeight;
-    const dialogPadding = 16 * 3; // Dialog top/bottom padding + gap to header and footer
-    const extraTopOffsetGap = 8;
+    const dialogPadding = 16 * 2; // Dialog top/bottom padding
+    const gap = extraTopOffset ? 42 : 26;
 
     const availableHeight =
       viewportHeight -
@@ -70,7 +70,7 @@ export function QuizContent({
       dialogFooterHeight -
       headerHeight -
       extraTopOffset -
-      extraTopOffsetGap;
+      gap;
 
     setCanvasHeight(Math.max(400, availableHeight));
   }, [extraTopOffset]);
