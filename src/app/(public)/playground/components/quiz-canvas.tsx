@@ -1,5 +1,6 @@
 import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
 import {
+  Background,
   type Edge,
   type Node,
   type NodeTypes,
@@ -80,8 +81,13 @@ export function QuizCanvas({
         preventScrolling={false}
         autoPanOnConnect={false}
         connectOnClick={true}
+        className="rounded-lg"
       >
-        {/* <Background variant={BackgroundVariant.Dots} gap={20} size={1} /> */}
+        <Background
+          color={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
+          bgColor={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
+          className="rounded-lg"
+        />
       </ReactFlow>
     </div>
   );
