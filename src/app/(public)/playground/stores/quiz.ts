@@ -116,6 +116,7 @@ export function createQuizStore() {
     ...initialState,
 
     // Dialog actions
+    // trackEvent('quiz_dialog_opened');
     openDialog: () => set({ isDialogOpen: true }),
     closeDialog: () => set({ isDialogOpen: false }),
 

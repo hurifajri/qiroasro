@@ -22,12 +22,7 @@ export function useQuiz() {
   const settings = useQuizStore((s) => s.settings);
   const setSettings = useQuizStore((s) => s.setSettings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
-  const OpenDialog = useQuizStore((s) => s.openDialog);
-
-  const openDialog = useCallback(() => {
-    trackEvent('quiz_dialog_opened');
-    OpenDialog();
-  }, [OpenDialog]);
+  const openDialog = useQuizStore((s) => s.openDialog);
   const isStarted = useQuizStore((s) => s.isStarted);
   const startQuiz = useQuizStore((s) => s.startQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);

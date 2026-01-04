@@ -17,7 +17,7 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { CircleHelpIcon } from 'lucide-react';
+import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -29,6 +29,7 @@ import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
 import { usePlaygroundStore } from '../providers/playground';
+import { useQuizStore } from '../providers/quiz';
 import { getPlaygroundDataOpt } from '../queries/playground';
 import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
@@ -72,6 +73,10 @@ export function Playground() {
   } = usePlaygroundStore(useShallow((s) => s));
 
   const { startTour } = usePlaygroundTour({ theme });
+
+  // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
+  const isQuizStarted = useQuizStore((s) => s.isStarted);
+  const openQuizDialog = useQuizStore((s) => s.openDialog);
 
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
@@ -354,89 +359,108 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   return (
-    <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
-      <ReactFlow
-        proOptions={{ hideAttribution: true }}
-        colorMode={theme}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        onNodeClick={handleNodeClick}
-        onPaneClick={handlePaneClick}
-        connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
-        minZoom={0.1}
-        maxZoom={2}
-        defaultEdgeOptions={{
-          type: computedEdgeType,
-          animated: edgeStyle.isAnimated,
-        }}
-      >
-        <Panel
-          position="top-right"
-          className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
-        >
-          <GraphFilter
-            viewMode={viewMode}
-            layoutMode={layoutMode}
-            hierarchyDirection={hierarchyDirection}
-            edgeStyle={edgeStyle}
-            letters={memoizedLetters}
-            selectedLetterId={selectedLetterId}
-            onViewModeChange={setViewMode}
-            onLayoutModeChange={setLayoutMode}
-            onHierarchyDirectionChange={setHierarchyDirection}
-            onEdgeStyleChange={setEdgeStyle}
-            onLetterSelect={setSelectedLetterId}
-          />
-          <GraphLegend viewMode={viewMode} />
-        </Panel>
-
-        <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
-          <Quiz />
-          <GraphDownload />
-          <Button
-            id="tour-help"
-            variant="outline"
-            size="sm"
-            onClick={startTour}
-            className="bg-background!"
-          >
-            <CircleHelpIcon className="size-4" />
-            {t('tour.help_button')}
-          </Button>
-        </Panel>
-
-        <Panel id="tour-controls" position="bottom-right" className="m-3!">
-          <Controls className="static! m-0!" />
-        </Panel>
-
-        {/* <MiniMap
-            position="bottom-left"
-            nodeColor={(node) => {
-              if (node.type === 'letter') {
-                return '#F59E0B';
-              }
-
-              if (node.type === 'articulationArea' || node.type === 'articulationPoint') {
-                return '#0EA5E9';
-              }
-
-              if (node.type === 'traitGroup' || node.type === 'trait') {
-                return '#8B5CF6';
-              }
-
-              return '#64748b';
+    <>
+      {/*
+        Performance optimization: Unmount ReactFlow canvas when quiz is active.
+        This prevents two ReactFlow instances from running simultaneously,
+        which causes lag on mobile devices.
+      */}
+      {!isQuizStarted && (
+        <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
+          <ReactFlow
+            proOptions={{ hideAttribution: true }}
+            colorMode={theme}
+            fitView
+            fitViewOptions={{ padding: 0.2 }}
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
+            onNodeClick={handleNodeClick}
+            onPaneClick={handlePaneClick}
+            connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
+            minZoom={0.1}
+            maxZoom={2}
+            defaultEdgeOptions={{
+              type: computedEdgeType,
+              animated: edgeStyle.isAnimated,
             }}
-            maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
-          /> */}
+          >
+            <Panel
+              position="top-right"
+              className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
+            >
+              <GraphFilter
+                viewMode={viewMode}
+                layoutMode={layoutMode}
+                hierarchyDirection={hierarchyDirection}
+                edgeStyle={edgeStyle}
+                letters={memoizedLetters}
+                selectedLetterId={selectedLetterId}
+                onViewModeChange={setViewMode}
+                onLayoutModeChange={setLayoutMode}
+                onHierarchyDirectionChange={setHierarchyDirection}
+                onEdgeStyleChange={setEdgeStyle}
+                onLetterSelect={setSelectedLetterId}
+              />
+              <GraphLegend viewMode={viewMode} />
+            </Panel>
 
-        <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
-      </ReactFlow>
-    </div>
+            <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
+              <Button
+                id="tour-quiz"
+                size="sm"
+                onClick={openQuizDialog}
+                className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
+              >
+                <TrophyIcon className="size-4" />
+                {t('quiz.trigger')}
+              </Button>
+              <GraphDownload />
+              <Button
+                id="tour-help"
+                variant="outline"
+                size="sm"
+                onClick={startTour}
+                className="bg-background!"
+              >
+                <CircleHelpIcon className="size-4" />
+                {t('tour.help_button')}
+              </Button>
+            </Panel>
+
+            <Panel id="tour-controls" position="bottom-right" className="m-3!">
+              <Controls className="static! m-0!" />
+            </Panel>
+
+            {/* <MiniMap
+              position="bottom-left"
+              nodeColor={(node) => {
+                if (node.type === 'letter') {
+                  return '#F59E0B';
+                }
+
+                if (node.type === 'articulationArea' || node.type === 'articulationPoint') {
+                  return '#0EA5E9';
+                }
+
+                if (node.type === 'traitGroup' || node.type === 'trait') {
+                  return '#8B5CF6';
+                }
+
+                return '#64748b';
+              }}
+              maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
+            /> */}
+
+            <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
+          </ReactFlow>
+        </div>
+      )}
+      {/* Quiz component rendered outside ReactFlow so it's always accessible */}
+      <Quiz />
+    </>
   );
 }
