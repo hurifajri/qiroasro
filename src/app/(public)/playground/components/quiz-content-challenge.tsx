@@ -109,7 +109,12 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
       <>
         <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
         <DialogFooter>
-          <Button size="lg" variant="outline" onClick={quiz.handleBackToModeSelect}>
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={quiz.handleBackToModeSelect}
+            className="flex-1"
+          >
             {t('back')}
           </Button>
         </DialogFooter>
