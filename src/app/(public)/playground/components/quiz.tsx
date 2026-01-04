@@ -50,7 +50,12 @@ export function Quiz() {
               : 'overflow-y-auto',
           )}
         >
-          <DialogHeader>
+          <DialogHeader
+            className={cn(
+              '',
+              quiz.screenState.showChallengeResults && quiz.challengeResult && 'px-4',
+            )}
+          >
             <DialogTitle>{quiz.dialogTitle}</DialogTitle>
             {quiz.dialogDescription && (
               <DialogDescription>{quiz.dialogDescription}</DialogDescription>

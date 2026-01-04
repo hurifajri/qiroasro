@@ -244,103 +244,105 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background p-4">
-        {/* Badge and Score Header */}
-        <motion.div
-          className="flex flex-col items-center gap-2"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-        >
-          <span className="text-6xl">{badge.emoji}</span>
-          <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="rounded-full bg-muted px-3 py-1 text-sm">
-              {t(`challenge_difficulty_${result.difficulty}`)}
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Stats Grid */}
-        <motion.div
-          className="grid grid-cols-2 gap-3"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          {statsGridItems.map((stat) => (
-            <div
-              key={stat.labelKey}
-              className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
-            >
-              <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
-              <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
-              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+      <div className="h-[calc(100dvh-179px)] overflow-y-auto">
+        <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background p-4">
+          {/* Badge and Score Header */}
+          <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+          >
+            <span className="text-6xl">{badge.emoji}</span>
+            <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <span className="rounded-full bg-muted px-3 py-1 text-sm">
+                {t(`challenge_difficulty_${result.difficulty}`)}
+              </span>
             </div>
-          ))}
-        </motion.div>
+          </motion.div>
 
-        {/* Connection Stats */}
-        <motion.div
-          className="flex justify-around rounded-lg border p-3 dark:border-muted"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          {connectionStats.map((stat) => (
-            <div key={stat.labelKey} className="flex flex-col items-center">
-              <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
-              <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
-            </div>
-          ))}
-        </motion.div>
+          {/* Stats Grid */}
+          <motion.div
+            className="grid grid-cols-2 gap-3"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {statsGridItems.map((stat) => (
+              <div
+                key={stat.labelKey}
+                className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
+              >
+                <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
+                <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Connection Stats */}
+          <motion.div
+            className="flex justify-around rounded-lg border p-3 dark:border-muted"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            {connectionStats.map((stat) => (
+              <div key={stat.labelKey} className="flex flex-col items-center">
+                <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
+                <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Weakness Analysis */}
+        {result.weakness.length > 0 && (
+          <motion.div
+            className="flex flex-col gap-2 px-4"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            {/* Missed connections */}
+            {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
+              <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950">
+                <div className="mb-1 flex items-center gap-2">
+                  <BookOpenIcon className="size-4 text-yellow-600" />
+                  <span className="font-medium text-sm text-yellow-800 dark:text-yellow-200">
+                    {t('challenge_weakness_missed')}
+                  </span>
+                </div>
+                <p className="text-right font-arabic text-xl text-yellow-700 dark:text-yellow-300">
+                  {result.weakness
+                    .filter((w) => w.errorType === 'missed')
+                    .map((w) => w.item)
+                    .join(', ')}
+                </p>
+              </div>
+            )}
+
+            {/* Incorrect connections */}
+            {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
+              <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
+                <div className="mb-1 flex items-center gap-2">
+                  <XCircleIcon className="size-4 text-red-600" />
+                  <span className="font-medium text-red-800 text-sm dark:text-red-200">
+                    {t('challenge_weakness_incorrect')}
+                  </span>
+                </div>
+                <p className="text-right font-arabic text-red-700 text-xl dark:text-red-300">
+                  {result.weakness
+                    .filter((w) => w.errorType === 'incorrect')
+                    .map((w) => w.item)
+                    .join(', ')}
+                </p>
+              </div>
+            )}
+          </motion.div>
+        )}
       </div>
-
-      {/* Weakness Analysis */}
-      {result.weakness.length > 0 && (
-        <motion.div
-          className="flex flex-col gap-2 px-4"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          {/* Missed connections */}
-          {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
-            <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950">
-              <div className="mb-1 flex items-center gap-2">
-                <BookOpenIcon className="size-4 text-yellow-600" />
-                <span className="font-medium text-sm text-yellow-800 dark:text-yellow-200">
-                  {t('challenge_weakness_missed')}
-                </span>
-              </div>
-              <p className="text-right font-arabic text-xl text-yellow-700 dark:text-yellow-300">
-                {result.weakness
-                  .filter((w) => w.errorType === 'missed')
-                  .map((w) => w.item)
-                  .join(', ')}
-              </p>
-            </div>
-          )}
-
-          {/* Incorrect connections */}
-          {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
-              <div className="mb-1 flex items-center gap-2">
-                <XCircleIcon className="size-4 text-red-600" />
-                <span className="font-medium text-red-800 text-sm dark:text-red-200">
-                  {t('challenge_weakness_incorrect')}
-                </span>
-              </div>
-              <p className="text-right font-arabic text-red-700 text-xl dark:text-red-300">
-                {result.weakness
-                  .filter((w) => w.errorType === 'incorrect')
-                  .map((w) => w.item)
-                  .join(', ')}
-              </p>
-            </div>
-          )}
-        </motion.div>
-      )}
 
       {/* Action Buttons */}
       <motion.div
