@@ -58,12 +58,12 @@ function getBadge(accuracy: number) {
     return { emoji: '🏆', key: 'challenge_badge_perfect', color: 'text-yellow-500' };
   }
   if (accuracy >= 80) {
-    return { emoji: '🥈', key: 'challenge_badge_great', color: 'text-gray-400' };
+    return { emoji: '🥇', key: 'challenge_badge_great', color: 'text-gray-400' };
   }
   if (accuracy >= 60) {
-    return { emoji: '🥉', key: 'challenge_badge_good', color: 'text-amber-600' };
+    return { emoji: '🥈', key: 'challenge_badge_good', color: 'text-amber-600' };
   }
-  return { emoji: '📖', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
+  return { emoji: '🥉', key: 'challenge_badge_keep_learning', color: 'text-blue-500' };
 }
 
 // Format time from ms to mm:ss
@@ -244,7 +244,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           ))}
       </AnimatePresence>
 
-      <div className="h-[calc(100dvh-179px)] overflow-y-auto">
+      <div className="h-[calc(100dvh-158px)] overflow-y-auto">
         <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background p-4">
           {/* Badge and Score Header */}
           <motion.div
