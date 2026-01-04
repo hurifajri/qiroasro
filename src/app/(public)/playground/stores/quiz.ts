@@ -1,6 +1,7 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
+import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
   ChallengeDifficulty,
@@ -116,8 +117,10 @@ export function createQuizStore() {
     ...initialState,
 
     // Dialog actions
-    // trackEvent('quiz_dialog_opened');
-    openDialog: () => set({ isDialogOpen: true }),
+    openDialog: () => {
+      trackEvent('quiz_dialog_opened');
+      set({ isDialogOpen: true });
+    },
     closeDialog: () => set({ isDialogOpen: false }),
 
     // Mode actions
