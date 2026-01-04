@@ -295,12 +295,11 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
               </div>
             ))}
           </motion.div>
-        </div>
 
         {/* Weakness Analysis */}
         {result.weakness.length > 0 && (
           <motion.div
-            className="flex flex-col gap-2 px-4"
+            className="flex flex-col gap-2"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -342,6 +341,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
             )}
           </motion.div>
         )}
+        </div>
       </div>
 
       {/* Action Buttons */}
