@@ -1,11 +1,10 @@
 import { type NodeProps, Position } from '@xyflow/react';
-import { memo } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
 import type { LetterQuizNodeData } from '../schemas/node';
 
-export const LetterQuizNode = memo(function LetterQuizNode({ data }: NodeProps) {
+export function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as LetterQuizNodeData;
 
   return (
@@ -29,4 +28,4 @@ export const LetterQuizNode = memo(function LetterQuizNode({ data }: NodeProps) 
       />
     </BaseNode>
   );
-});
+}
