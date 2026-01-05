@@ -21,20 +21,19 @@ import {
 } from '../schemas/quiz';
 
 interface QuizState {
-  // Dialog state
+  // Base state
   isDialogOpen: boolean;
-  // Mode selection
   mode: QuizMode | null;
-  // Settings
-  settings: QuizSettingsValues;
-  // Quiz state
   isStarted: boolean;
   isChecked: boolean;
   isInstructionShown: boolean;
-  // Quiz data
   questions: QuizQuestion[];
   targets: TargetItem[];
+
+  // Regular state
+  settings: QuizSettingsValues;
   score: QuizScoreCount;
+
   // Challenge state
   isChallengeMode: boolean;
   challengeDifficulty: ChallengeDifficulty | null;
@@ -44,30 +43,28 @@ interface QuizState {
   questionStat: ChallengeQuestionStat[];
   challengeScoring: ChallengeScoring;
   challengeResult: ChallengeResult | null;
-  // For weakness tracking
   errorItem: ChallengeWeakness[];
-  // For point animation
   lastPointChange: { value: number; timestamp: number } | null;
 }
 
 interface QuizAction {
-  // Dialog actions
+  // Base actions
   openDialog: () => void;
   closeDialog: () => void;
-  // Mode actions
   setMode: (mode: QuizMode | null) => void;
-  // Settings actions
-  setSettings: (settings: QuizSettingsValues) => void;
-  updateSettings: (partial: Partial<QuizSettingsValues>) => void;
-  // Quiz actions
-  startQuiz: () => void;
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
   setQuestions: (questions: QuizQuestion[]) => void;
   setTargets: (targets: TargetItem[]) => void;
+  resetAll: () => void;
+
+  // Regular actions
+  setSettings: (settings: QuizSettingsValues) => void;
+  updateSettings: (partial: Partial<QuizSettingsValues>) => void;
+  startQuiz: () => void;
   setScore: (score: QuizScoreCount) => void;
   resetQuiz: () => void;
-  resetAll: () => void;
+
   // Challenge actions
   enterChallengeMode: () => void;
   selectChallengeDifficulty: (difficulty: ChallengeDifficulty) => void;
@@ -116,31 +113,27 @@ export function createQuizStore() {
   return createStore<QuizStore>()((set, get) => ({
     ...initialState,
 
-    // Dialog actions
+    // Base actions
     openDialog: () => {
       trackEvent('quiz_dialog_opened');
       set({ isDialogOpen: true });
     },
     closeDialog: () => set({ isDialogOpen: false }),
-
-    // Mode actions
     setMode: (mode) => set({ mode }),
+    setIsChecked: (isChecked) => set({ isChecked }),
+    setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
+    setQuestions: (questions) => set({ questions }),
+    setTargets: (targets) => set({ targets }),
+    resetAll: () => set(initialState),
 
-    // Settings actions
+    // Regular actions
     setSettings: (settings) => set({ settings }),
     updateSettings: (partial) =>
       set((state) => ({
         settings: { ...state.settings, ...partial },
       })),
-
-    // Quiz actions
     startQuiz: () => set({ isStarted: true }),
-    setIsChecked: (isChecked) => set({ isChecked }),
-    setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
-    setQuestions: (questions) => set({ questions }),
-    setTargets: (targets) => set({ targets }),
     setScore: (score) => set({ score }),
-
     resetQuiz: () =>
       set({
         isStarted: false,
@@ -150,13 +143,9 @@ export function createQuizStore() {
         score: { correct: 0, total: 0 },
       }),
 
-    resetAll: () => set(initialState),
-
     // Challenge actions
     enterChallengeMode: () => set({ isChallengeMode: true }),
-
     selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
-
     startChallenge: () =>
       set({
         isStarted: true,
@@ -168,7 +157,6 @@ export function createQuizStore() {
         errorItem: [],
         challengeResult: null,
       }),
-
     nextChallengeQuestion: () =>
       set((state) => ({
         currentQuestionIndex: state.currentQuestionIndex + 1,
@@ -177,7 +165,6 @@ export function createQuizStore() {
         questions: [],
         targets: [],
       })),
-
     addConnectionScore: (isCorrect) =>
       set((state) => {
         const pointChange = isCorrect ? CORRECT_POINT : INCORRECT_POINT;
@@ -190,12 +177,10 @@ export function createQuizStore() {
           lastPointChange: { value: pointChange, timestamp: Date.now() },
         };
       }),
-
     recordQuestionStat: (stat) =>
       set((state) => ({
         questionStat: [...state.questionStat, stat],
       })),
-
     addErrorItem: (item, type, errorType) =>
       set((state) => {
         const existing = state.errorItem.find(
@@ -214,7 +199,6 @@ export function createQuizStore() {
           errorItem: [...state.errorItem, { item, type, errorType, errorCount: 1 }],
         };
       }),
-
     finishChallenge: (totalPossibleConnection, endTime) => {
       const state = get();
       const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
@@ -239,7 +223,6 @@ export function createQuizStore() {
         },
       });
     },
-
     resetChallenge: () => set(initialChallengeState),
   }));
 }
