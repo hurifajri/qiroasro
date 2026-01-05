@@ -17,6 +17,7 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { env } from '@/env';
 import { cn } from '@/lib/utils';
 import type { ChallengeQuizResult } from '../schemas/quiz';
 
@@ -181,8 +182,8 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       difficulty: t(`challenge_difficulty_${result.difficulty}`),
       time: formatTime(result.totalTime),
     });
-
-    const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/playground` : '';
+    const shareUrl = `${env.NEXT_PUBLIC_APP_URL}/playground`;
+    const shareContent = `${shareText}\n${shareUrl}`;
 
     // Try to capture image
     let imageFile: File | undefined;
@@ -190,7 +191,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       try {
         const dataUrl = await toPng(resultRef.current, { cacheBust: true });
         const blob = await fetch(dataUrl).then((res) => res.blob());
-        imageFile = new File([blob], 'challenge-result.png', { type: 'image/png' });
+        imageFile = new File([blob], 'qiroasro-challenge.png', { type: 'image/png' });
       } catch {
         // Image capture failed, continue without image
       }
@@ -199,11 +200,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     // Try Web Share API with image
     if (navigator.share) {
       try {
-        const shareData: ShareData = {
-          title: 'Qiroasro Challenge',
-          text: shareText,
-          url: shareUrl,
-        };
+        const shareData: ShareData = { title: 'Qiroasro Challenge', text: shareContent };
 
         // Add image if supported
         if (imageFile && navigator.canShare?.({ files: [imageFile] })) {
@@ -224,7 +221,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
     // Fallback: copy to clipboard
     try {
-      await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      await navigator.clipboard.writeText(shareContent);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
