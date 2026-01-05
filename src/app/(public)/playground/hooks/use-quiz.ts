@@ -71,7 +71,7 @@ export function useQuiz() {
 
   const currentQuestion = useMemo(() => {
     if (!currentChallengeConfig) return null;
-    return currentChallengeConfig.question[challengeCurrQuestionIdx];
+    return currentChallengeConfig.questions[challengeCurrQuestionIdx];
   }, [currentChallengeConfig, challengeCurrQuestionIdx]);
 
   // Regular timer

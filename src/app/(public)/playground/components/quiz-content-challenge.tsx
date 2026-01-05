@@ -130,7 +130,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           <div className="flex flex-col">
             <p className="font-medium text-sm">
               {`${t('challenge_total_question_count', {
-                count: quiz.currentChallengeConfig.question.length,
+                count: quiz.currentChallengeConfig.questions.length,
               })}. ${t('challenge_seconds_per_question', {
                 seconds: quiz.currentChallengeConfig.timerDuration,
               })}`}

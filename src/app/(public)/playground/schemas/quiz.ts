@@ -119,13 +119,13 @@ export const CHALLENGE_QUIZ_QUESTIONS: ChallengeQuizQuestion[] = [
 
 interface ChallengeQuizLevel {
   timerDuration: number;
-  question: ChallengeQuizQuestion[];
+  questions: ChallengeQuizQuestion[];
 }
 
 export const CHALLENGE_QUIZ_LEVEL: Record<ChallengeQuizDifficulty, ChallengeQuizLevel> = {
-  easy: { timerDuration: 60, question: CHALLENGE_QUIZ_QUESTIONS },
-  medium: { timerDuration: 30, question: CHALLENGE_QUIZ_QUESTIONS },
-  hard: { timerDuration: 10, question: CHALLENGE_QUIZ_QUESTIONS },
+  easy: { timerDuration: 60, questions: CHALLENGE_QUIZ_QUESTIONS },
+  medium: { timerDuration: 30, questions: CHALLENGE_QUIZ_QUESTIONS },
+  hard: { timerDuration: 10, questions: CHALLENGE_QUIZ_QUESTIONS },
 };
 
 export const DEFAULT_CHALLENGE_QUIZ_SCORE: ChallengeQuizScore = {
