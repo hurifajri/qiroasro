@@ -24,8 +24,8 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const t = useTranslations('playground_page.quiz');
 
   const mode = useQuizStore((s) => s.mode);
-  const settings = useQuizStore((s) => s.settings);
-  const setSettings = useQuizStore((s) => s.setSettings);
+  const regularSettings = useQuizStore((s) => s.regularSettings);
+  const setRegularSettings = useQuizStore((s) => s.setRegularSettings);
 
   // Get config for current mode (default to trait if no mode selected)
   const config = mode ? QUIZ_MODE_CONFIG[mode] : QUIZ_MODE_CONFIG.trait;
@@ -37,42 +37,44 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
       if (newValue > 1) {
         // letters > 1 means targets = 1, so multiEdge only valid if letters > 2
         const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
-        setSettings({
-          ...settings,
+        setRegularSettings({
+          ...regularSettings,
           lettersPerQuiz: newValue,
           targetsPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : regularSettings.multiEdge,
         });
       } else {
-        const newTargets = settings.targetsPerQuiz === 1 ? 2 : settings.targetsPerQuiz;
+        const newTargets =
+          regularSettings.targetsPerQuiz === 1 ? 2 : regularSettings.targetsPerQuiz;
         // letters = 1, targets > 1, multiEdge valid if targets > 2
         const shouldResetMultiEdge = newTargets <= 2 || !config.allowMultiEdge;
-        setSettings({
-          ...settings,
+        setRegularSettings({
+          ...regularSettings,
           lettersPerQuiz: newValue,
           targetsPerQuiz: newTargets,
-          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : regularSettings.multiEdge,
         });
       }
     } else {
       if (newValue > 1) {
         // targets > 1 means letters = 1, so multiEdge only valid if targets > 2
         const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
-        setSettings({
-          ...settings,
+        setRegularSettings({
+          ...regularSettings,
           targetsPerQuiz: newValue,
           lettersPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : regularSettings.multiEdge,
         });
       } else {
-        const newLetters = settings.lettersPerQuiz === 1 ? 2 : settings.lettersPerQuiz;
+        const newLetters =
+          regularSettings.lettersPerQuiz === 1 ? 2 : regularSettings.lettersPerQuiz;
         // targets = 1, letters > 1, multiEdge valid if letters > 2
         const shouldResetMultiEdge = newLetters <= 2 || !config.allowMultiEdge;
-        setSettings({
-          ...settings,
+        setRegularSettings({
+          ...regularSettings,
           targetsPerQuiz: newValue,
           lettersPerQuiz: newLetters,
-          multiEdge: shouldResetMultiEdge ? false : settings.multiEdge,
+          multiEdge: shouldResetMultiEdge ? false : regularSettings.multiEdge,
         });
       }
     }
@@ -86,7 +88,8 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   };
 
   const isMultiEdgeDisabled =
-    !config.allowMultiEdge || (settings.lettersPerQuiz <= 2 && settings.targetsPerQuiz <= 2);
+    !config.allowMultiEdge ||
+    (regularSettings.lettersPerQuiz <= 2 && regularSettings.targetsPerQuiz <= 2);
 
   return (
     <Card size="sm">
@@ -108,10 +111,10 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
                 <Label className="text-sm">
                   {t(labelKey, { target: mode === 'articulation_point' ? 'Makhraj' : 'Sifat' })}
                 </Label>
-                <span className="font-medium text-sm">{settings[key]}</span>
+                <span className="font-medium text-sm">{regularSettings[key]}</span>
               </div>
               <Slider
-                value={[settings[key]]}
+                value={[regularSettings[key]]}
                 onValueChange={(v) => handleSliderChange(key, v)}
                 min={sliderRange.min}
                 max={sliderRange.max}
@@ -125,9 +128,11 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           <div className="flex items-center justify-between">
             <Label className="text-sm">{t('regular_multi_edge')}</Label>
             <Switch
-              checked={settings.multiEdge}
+              checked={regularSettings.multiEdge}
               disabled={isMultiEdgeDisabled}
-              onCheckedChange={(checked) => setSettings({ ...settings, multiEdge: checked })}
+              onCheckedChange={(checked) =>
+                setRegularSettings({ ...regularSettings, multiEdge: checked })
+              }
             />
           </div>
         )}
@@ -139,27 +144,29 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               {t('regular_timer_mode')}
             </Label>
             <Switch
-              checked={settings.timerMode}
-              onCheckedChange={(checked) => setSettings({ ...settings, timerMode: checked })}
+              checked={regularSettings.timerMode}
+              onCheckedChange={(checked) =>
+                setRegularSettings({ ...regularSettings, timerMode: checked })
+              }
             />
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <Label className="text-muted-foreground text-sm">{t('regular_timer_duration')}</Label>
-              <span className="font-medium text-sm">{settings.timerDuration}</span>
+              <span className="font-medium text-sm">{regularSettings.timerDuration}</span>
             </div>
             <Slider
-              value={[settings.timerDuration]}
+              value={[regularSettings.timerDuration]}
               onValueChange={(v) =>
-                setSettings({
-                  ...settings,
+                setRegularSettings({
+                  ...regularSettings,
                   timerDuration: Array.isArray(v) ? v[0] : v,
                 })
               }
               min={5}
               max={60}
               step={5}
-              disabled={!settings.timerMode}
+              disabled={!regularSettings.timerMode}
             />
           </div>
         </div>

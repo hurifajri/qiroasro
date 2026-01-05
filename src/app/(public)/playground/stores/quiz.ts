@@ -11,13 +11,13 @@ import type {
   ChallengeWeakness,
   QuizMode,
   QuizQuestion,
-  QuizScoreCount,
+  RegularQuizScore,
   TargetItem,
 } from '../schemas/quiz';
 import {
   DEFAULT_CHALLENGE_SCORING,
   DEFAULT_QUIZ_SETTINGS,
-  type QuizSettingsValues,
+  type RegularQuizSettings,
 } from '../schemas/quiz';
 
 interface QuizState {
@@ -31,8 +31,8 @@ interface QuizState {
   targets: TargetItem[];
 
   // Regular state
-  settings: QuizSettingsValues;
-  score: QuizScoreCount;
+  regularSettings: RegularQuizSettings;
+  regularScore: RegularQuizScore;
 
   // Challenge state
   isChallengeMode: boolean;
@@ -59,11 +59,11 @@ interface QuizAction {
   resetAll: () => void;
 
   // Regular actions
-  setSettings: (settings: QuizSettingsValues) => void;
-  updateSettings: (partial: Partial<QuizSettingsValues>) => void;
-  startQuiz: () => void;
-  setScore: (score: QuizScoreCount) => void;
-  resetQuiz: () => void;
+  setRegularSettings: (settings: RegularQuizSettings) => void;
+  updateRegularSettings: (partial: Partial<RegularQuizSettings>) => void;
+  startRegularQuiz: () => void;
+  setRegularScore: (score: RegularQuizScore) => void;
+  resetRegularQuiz: () => void;
 
   // Challenge actions
   enterChallengeMode: () => void;
@@ -99,13 +99,13 @@ const initialChallengeState = {
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  settings: DEFAULT_QUIZ_SETTINGS,
+  regularSettings: DEFAULT_QUIZ_SETTINGS,
   isStarted: false,
   isChecked: false,
   isInstructionShown: true,
   questions: [],
   targets: [],
-  score: { correct: 0, total: 0 },
+  regularScore: { correct: 0, total: 0 },
   ...initialChallengeState,
 };
 
@@ -127,20 +127,20 @@ export function createQuizStore() {
     resetAll: () => set(initialState),
 
     // Regular actions
-    setSettings: (settings) => set({ settings }),
-    updateSettings: (partial) =>
+    setRegularSettings: (settings) => set({ regularSettings: settings }),
+    updateRegularSettings: (partial) =>
       set((state) => ({
-        settings: { ...state.settings, ...partial },
+        regularSettings: { ...state.regularSettings, ...partial },
       })),
-    startQuiz: () => set({ isStarted: true }),
-    setScore: (score) => set({ score }),
-    resetQuiz: () =>
+    startRegularQuiz: () => set({ isStarted: true }),
+    setRegularScore: (score) => set({ regularScore: score }),
+    resetRegularQuiz: () =>
       set({
         isStarted: false,
         isChecked: false,
         questions: [],
         targets: [],
-        score: { correct: 0, total: 0 },
+        regularScore: { correct: 0, total: 0 },
       }),
 
     // Challenge actions

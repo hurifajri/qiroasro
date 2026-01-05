@@ -369,7 +369,7 @@ import { useReactFlow, useNodesState, useEdgesState } from '@xyflow/react';
 interface QuizState {
   isDialogOpen: boolean;
   mode: QuizMode | null;
-  settings: QuizSettingsValues;
+  settings: RegularQuizSettings;
 }
 
 // 2. Define Actions interface

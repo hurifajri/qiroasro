@@ -19,17 +19,17 @@ export function useQuiz() {
   // Store selectors
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
-  const settings = useQuizStore((s) => s.settings);
-  const setSettings = useQuizStore((s) => s.setSettings);
+  const regularSettings = useQuizStore((s) => s.regularSettings);
+  const setRegularSettings = useQuizStore((s) => s.setRegularSettings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const openDialog = useQuizStore((s) => s.openDialog);
   const isStarted = useQuizStore((s) => s.isStarted);
-  const startQuiz = useQuizStore((s) => s.startQuiz);
+  const startRegularQuiz = useQuizStore((s) => s.startRegularQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);
   const isInstructionShown = useQuizStore((s) => s.isInstructionShown);
   const setIsInstructionShown = useQuizStore((s) => s.setIsInstructionShown);
-  const score = useQuizStore((s) => s.score);
-  const resetQuiz = useQuizStore((s) => s.resetQuiz);
+  const regularScore = useQuizStore((s) => s.regularScore);
+  const resetRegularQuiz = useQuizStore((s) => s.resetRegularQuiz);
   const resetAll = useQuizStore((s) => s.resetAll);
 
   // Challenge state
@@ -85,8 +85,8 @@ export function useQuiz() {
     reset: _resetTimer,
     stop: stopTimer,
   } = useQuizTimer({
-    duration: settings.timerDuration,
-    enabled: settings.timerMode && !isChallengeMode,
+    duration: regularSettings.timerDuration,
+    enabled: regularSettings.timerMode && !isChallengeMode,
     onTimeUp: handleTimeUp,
     isPaused: isChecked,
   });
@@ -188,7 +188,7 @@ export function useQuiz() {
   // Generate challenge question when index changes
   useEffect(() => {
     if (isChallengeMode && isStarted && currentQuestion && !challengeResult) {
-      setSettings({
+      setRegularSettings({
         lettersPerQuiz: currentQuestion.lettersPerQuiz,
         targetsPerQuiz: currentQuestion.targetsPerQuiz,
         multiEdge: currentQuestion.allowMultiEdge,
@@ -211,7 +211,7 @@ export function useQuiz() {
     currentQuestion,
     challengeResult,
     currentChallengeConfig,
-    setSettings,
+    setRegularSettings,
     generateQuiz,
     setMode,
     resetChallengeTimer,
@@ -253,12 +253,12 @@ export function useQuiz() {
 
   const handleStartQuiz = useCallback(() => {
     if (mode) {
-      trackEvent('quiz_started', { mode, settings });
+      trackEvent('quiz_started', { mode, regularSettings });
       generateQuiz(mode);
-      startQuiz();
+      startRegularQuiz();
       startTimer();
     }
-  }, [mode, settings, generateQuiz, startQuiz, startTimer]);
+  }, [mode, regularSettings, generateQuiz, startRegularQuiz, startTimer]);
 
   const handleBackToModeSelect = useCallback(() => {
     setMode(null);
@@ -273,11 +273,11 @@ export function useQuiz() {
   const handleResetQuiz = useCallback(() => {
     setNodes([]);
     setEdges([]);
-    resetQuiz();
+    resetRegularQuiz();
     stopTimer();
     stopChallengeTimer();
     startTimer();
-  }, [setNodes, setEdges, resetQuiz, stopTimer, stopChallengeTimer, startTimer]);
+  }, [setNodes, setEdges, resetRegularQuiz, stopTimer, stopChallengeTimer, startTimer]);
 
   const handleDialogClose = useCallback(
     (open: boolean) => {
@@ -377,15 +377,15 @@ export function useQuiz() {
   return {
     // State
     mode,
-    settings,
-    setSettings,
+    regularSettings,
+    setRegularSettings,
     isDialogOpen,
     openDialog,
     isStarted,
     isChecked,
     isInstructionShown,
     setIsInstructionShown,
-    score,
+    regularScore,
     nodes,
     edges,
     onNodesChange,

@@ -23,7 +23,7 @@ interface UseQuizGeneratorProps {
 
 export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGeneratorProps) {
   // Get settings and state from store
-  const settings = useQuizStore((s) => s.settings);
+  const regularSettings = useQuizStore((s) => s.regularSettings);
   const questions = useQuizStore((s) => s.questions);
   const targets = useQuizStore((s) => s.targets);
   const isChecked = useQuizStore((s) => s.isChecked);
@@ -32,9 +32,9 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   const setQuestions = useQuizStore((s) => s.setQuestions);
   const setTargets = useQuizStore((s) => s.setTargets);
   const setIsChecked = useQuizStore((s) => s.setIsChecked);
-  const setScore = useQuizStore((s) => s.setScore);
+  const setRegularScore = useQuizStore((s) => s.setRegularScore);
 
-  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = settings;
+  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = regularSettings;
 
   // Fetch data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -66,7 +66,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
       setNodes(result.nodes);
       setEdges(result.edges);
       setIsChecked(false);
-      setScore({ correct: 0, total: 0 });
+      setRegularScore({ correct: 0, total: 0 });
     },
     [
       letters,
@@ -82,7 +82,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
       setQuestions,
       setTargets,
       setIsChecked,
-      setScore,
+      setRegularScore,
     ],
   );
 
@@ -137,11 +137,20 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
     const newScore = { correct: correctCount, total: requiredConnections };
-    setScore(newScore);
+    setRegularScore(newScore);
     setIsChecked(true);
 
     return { score: newScore, incorrectItem };
-  }, [questions, edges, targets, setNodes, setEdges, setScore, setIsChecked, requiredConnections]);
+  }, [
+    questions,
+    edges,
+    targets,
+    setNodes,
+    setEdges,
+    setRegularScore,
+    setIsChecked,
+    requiredConnections,
+  ]);
 
   return {
     generateQuiz,

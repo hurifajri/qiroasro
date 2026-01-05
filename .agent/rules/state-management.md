@@ -11,7 +11,7 @@ trigger: always_on
 interface QuizState {
   isDialogOpen: boolean;
   mode: QuizMode | null;
-  settings: QuizSettingsValues;
+  settings: RegularQuizSettings;
 }
 
 // 2. Define Actions interface

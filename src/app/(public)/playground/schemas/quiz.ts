@@ -11,7 +11,7 @@ export interface QuizQuestion {
   targetType: QuizMode;
 }
 
-export interface QuizScoreCount {
+export interface RegularQuizScore {
   correct: number;
   total: number;
 }
@@ -22,7 +22,7 @@ export interface TargetItem {
 }
 
 // Settings per quiz
-export interface QuizSettingsValues {
+export interface RegularQuizSettings {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
@@ -50,7 +50,7 @@ export const QUIZ_MODE_CONFIG: Record<QuizMode, QuizModeConstraints> = {
   },
 };
 
-export const DEFAULT_QUIZ_SETTINGS: QuizSettingsValues = {
+export const DEFAULT_QUIZ_SETTINGS: RegularQuizSettings = {
   lettersPerQuiz: 1,
   targetsPerQuiz: 2,
   multiEdge: false,
