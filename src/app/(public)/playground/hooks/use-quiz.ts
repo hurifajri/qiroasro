@@ -33,7 +33,7 @@ export function useQuiz() {
   const resetAll = useQuizStore((s) => s.resetAll);
 
   // Challenge state
-  const isChallengeMode = useQuizStore((s) => s.isChallengeMode);
+  const isChallenge = useQuizStore((s) => s.isChallenge);
   const enterChallengeMode = useQuizStore((s) => s.enterChallengeMode);
   const challengeDifficulty = useQuizStore((s) => s.challengeDifficulty);
   const selectChallengeDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
@@ -65,9 +65,9 @@ export function useQuiz() {
 
   // Current challenge config
   const currentChallengeConfig = useMemo(() => {
-    if (!isChallengeMode || !challengeDifficulty) return null;
+    if (!isChallenge || !challengeDifficulty) return null;
     return CHALLENGE_MODE_CONFIG[challengeDifficulty];
-  }, [isChallengeMode, challengeDifficulty]);
+  }, [isChallenge, challengeDifficulty]);
 
   const currentQuestion = useMemo(() => {
     if (!currentChallengeConfig) return null;
@@ -86,7 +86,7 @@ export function useQuiz() {
     stop: stopTimer,
   } = useQuizTimer({
     duration: regularSettings.timerDuration,
-    enabled: regularSettings.timerMode && !isChallengeMode,
+    enabled: regularSettings.timerMode && !isChallenge,
     onTimeUp: handleTimeUp,
     isPaused: isChecked,
   });
@@ -179,7 +179,7 @@ export function useQuiz() {
     getElapsedTime,
   } = useQuizTimer({
     duration: currentChallengeConfig?.timerDuration ?? 60,
-    enabled: isChallengeMode && isStarted && !challengeResult,
+    enabled: isChallenge && isStarted && !challengeResult,
     onTimeUp: handleChallengeTimeUp,
     isPaused: isChecked,
     trackElapsedTime: true,
@@ -187,7 +187,7 @@ export function useQuiz() {
 
   // Generate challenge question when index changes
   useEffect(() => {
-    if (isChallengeMode && isStarted && currentQuestion && !challengeResult) {
+    if (isChallenge && isStarted && currentQuestion && !challengeResult) {
       setRegularSettings({
         lettersPerQuiz: currentQuestion.lettersPerQuiz,
         targetsPerQuiz: currentQuestion.targetsPerQuiz,
@@ -205,7 +205,7 @@ export function useQuiz() {
       }
     }
   }, [
-    isChallengeMode,
+    isChallenge,
     isStarted,
     currentQuestionIndex,
     currentQuestion,
@@ -327,22 +327,22 @@ export function useQuiz() {
   // Screen state
   const screenState = useMemo(
     () => ({
-      showModeSelection: !mode && !isChallengeMode,
-      showDifficultySelection: isChallengeMode && !challengeDifficulty,
-      showChallengeReady: isChallengeMode && !!challengeDifficulty && !isStarted,
-      showChallengeResults: isChallengeMode && !!challengeResult,
-      showChallengeQuiz: isChallengeMode && isStarted && !challengeResult,
-      showRegularSettings: !isChallengeMode && !!mode && !isStarted,
-      showRegularQuiz: !isChallengeMode && !!mode && isStarted,
+      showModeSelection: !mode && !isChallenge,
+      showDifficultySelection: isChallenge && !challengeDifficulty,
+      showChallengeReady: isChallenge && !!challengeDifficulty && !isStarted,
+      showChallengeResults: isChallenge && !!challengeResult,
+      showChallengeQuiz: isChallenge && isStarted && !challengeResult,
+      showRegularSettings: !isChallenge && !!mode && !isStarted,
+      showRegularQuiz: !isChallenge && !!mode && isStarted,
     }),
-    [mode, isChallengeMode, challengeDifficulty, isStarted, challengeResult],
+    [mode, isChallenge, challengeDifficulty, isStarted, challengeResult],
   );
 
   const { dialogTitle, dialogDescription } = useMemo(() => {
     let title = t('select_mode');
     let description = t('select_mode_description');
 
-    if (isChallengeMode) {
+    if (isChallenge) {
       if (challengeResult) {
         title = t('challenge_result');
         description = '';
@@ -372,7 +372,7 @@ export function useQuiz() {
     }
 
     return { dialogTitle: title, dialogDescription: description };
-  }, [isChallengeMode, challengeResult, challengeDifficulty, isStarted, mode, t]);
+  }, [isChallenge, challengeResult, challengeDifficulty, isStarted, mode, t]);
 
   return {
     // State
@@ -397,7 +397,7 @@ export function useQuiz() {
     requiredConnections,
 
     // Challenge state
-    isChallengeMode,
+    isChallenge,
     challengeDifficulty,
     currentQuestionIndex,
     questionStat,

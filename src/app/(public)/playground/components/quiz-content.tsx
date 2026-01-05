@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import { QuizCanvas } from './quiz-canvas';
 
 interface QuizContentProps {
-  isChallengeMode?: boolean;
+  isChallenge?: boolean;
   nodes: Node[];
   edges: Edge[];
   nodeTypes: NodeTypes;
@@ -31,7 +31,7 @@ interface QuizContentProps {
 }
 
 export function QuizContent({
-  isChallengeMode = false,
+  isChallenge = false,
   nodes,
   edges,
   nodeTypes,
@@ -117,7 +117,7 @@ export function QuizContent({
         ref={headerRef}
         className={cn(
           'flex h-12 items-center justify-between gap-2 px-2',
-          !isChallengeMode && 'self-end',
+          !isChallenge && 'self-end',
         )}
       >
         {headerContent}

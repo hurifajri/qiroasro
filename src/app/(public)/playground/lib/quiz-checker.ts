@@ -1,5 +1,5 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { QuizQuestion, TargetItem } from '../schemas/quiz';
+import type { QuizQuestion, QuizTarget } from '../schemas/quiz';
 
 export interface IncorrectItem {
   name: string;
@@ -23,7 +23,7 @@ interface CheckAnswersResult {
 export function checkQuizAnswers(
   questions: QuizQuestion[],
   edges: Edge[],
-  displayedTargets: TargetItem[],
+  displayedTargets: QuizTarget[],
 ): CheckAnswersResult {
   let correctCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();

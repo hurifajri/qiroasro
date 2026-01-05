@@ -16,7 +16,7 @@ export interface RegularQuizScore {
   total: number;
 }
 
-export interface TargetItem {
+export interface QuizTarget {
   id: number;
   slug: string;
 }

@@ -74,7 +74,7 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
         onEdgesChange={quiz.onEdgesChange}
         onConnect={quiz.onConnect}
         isValidConnection={quiz.isValidConnection}
-        isChallengeMode
+        isChallenge
         extraTopOffset={extraTopOffset}
         headerContent={
           <>

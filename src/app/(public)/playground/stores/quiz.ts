@@ -11,8 +11,8 @@ import type {
   ChallengeWeakness,
   QuizMode,
   QuizQuestion,
+  QuizTarget,
   RegularQuizScore,
-  TargetItem,
 } from '../schemas/quiz';
 import {
   DEFAULT_CHALLENGE_SCORING,
@@ -28,14 +28,14 @@ interface QuizState {
   isChecked: boolean;
   isInstructionShown: boolean;
   questions: QuizQuestion[];
-  targets: TargetItem[];
+  targets: QuizTarget[];
 
   // Regular state
   regularSettings: RegularQuizSettings;
   regularScore: RegularQuizScore;
 
   // Challenge state
-  isChallengeMode: boolean;
+  isChallenge: boolean;
   challengeDifficulty: ChallengeDifficulty | null;
   currentQuestionIndex: number;
   challengeStartTime: number | null;
@@ -55,7 +55,7 @@ interface QuizAction {
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
   setQuestions: (questions: QuizQuestion[]) => void;
-  setTargets: (targets: TargetItem[]) => void;
+  setTargets: (targets: QuizTarget[]) => void;
   resetAll: () => void;
 
   // Regular actions
@@ -84,7 +84,7 @@ interface QuizAction {
 export type QuizStore = QuizState & QuizAction;
 
 const initialChallengeState = {
-  isChallengeMode: false,
+  isChallenge: false,
   challengeDifficulty: null as ChallengeDifficulty | null,
   currentQuestionIndex: 0,
   challengeStartTime: null as number | null,
@@ -144,7 +144,7 @@ export function createQuizStore() {
       }),
 
     // Challenge actions
-    enterChallengeMode: () => set({ isChallengeMode: true }),
+    enterChallengeMode: () => set({ isChallenge: true }),
     selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
     startChallenge: () =>
       set({
