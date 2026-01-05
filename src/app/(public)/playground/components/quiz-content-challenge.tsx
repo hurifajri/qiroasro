@@ -108,7 +108,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     return (
       <>
         <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
-        <DialogFooter className="rounded-b-none sm:rounded-b-xl">
+        <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
           <Button
             size="lg"
             variant="outline"
