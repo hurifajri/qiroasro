@@ -17,11 +17,12 @@ import {
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { env } from '@/env';
 import { cn } from '@/lib/utils';
-import type { ChallengeResult } from '../schemas/quiz';
+import type { ChallengeQuizResult } from '../schemas/quiz';
 
 interface ChallengeResultsProps {
-  result: ChallengeResult;
+  result: ChallengeQuizResult;
   onPlayAgain: () => void;
   onBackToMenu: () => void;
 }
@@ -100,7 +101,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
   // Calculate accuracy
   const accuracy =
     result.totalPossibleConnection > 0
-      ? Math.round((result.scoring.correctConnection / result.totalPossibleConnection) * 100)
+      ? Math.round((result.score.correctConnection / result.totalPossibleConnection) * 100)
       : 0;
 
   const badge = getBadge(accuracy);
@@ -110,7 +111,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     () => [
       {
         icon: TrophyIcon,
-        value: String(result.scoring.totalPoint),
+        value: String(result.score.totalPoint),
         labelKey: 'challenge_total_point',
         bgClass: 'bg-indigo-50 dark:bg-indigo-950',
         iconClass: 'text-indigo-600',
@@ -148,17 +149,17 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
   const connectionStats: ConnectionStatItem[] = useMemo(
     () => [
       {
-        value: String(result.scoring.correctConnection),
+        value: String(result.score.correctConnection),
         labelKey: 'challenge_correct_connection',
         valueClass: 'text-green-600',
       },
       {
-        value: String(result.scoring.incorrectConnection),
+        value: String(result.score.incorrectConnection),
         labelKey: 'challenge_incorrect_connection',
         valueClass: 'text-red-600',
       },
     ],
-    [result.scoring],
+    [result.score],
   );
 
   // Generate confetti particles
@@ -177,12 +178,12 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
   // Share functionality
   const handleShare = useCallback(async () => {
     const shareText = t('challenge_share_text', {
-      point: result.scoring.totalPoint,
+      point: result.score.totalPoint,
       difficulty: t(`challenge_difficulty_${result.difficulty}`),
       time: formatTime(result.totalTime),
     });
-
-    const shareUrl = typeof window !== 'undefined' ? `${window.location.origin}/playground` : '';
+    const shareUrl = `${env.NEXT_PUBLIC_APP_URL}/playground`;
+    const shareContent = `${shareText}\n${shareUrl}`;
 
     // Try to capture image
     let imageFile: File | undefined;
@@ -190,7 +191,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       try {
         const dataUrl = await toPng(resultRef.current, { cacheBust: true });
         const blob = await fetch(dataUrl).then((res) => res.blob());
-        imageFile = new File([blob], 'challenge-result.png', { type: 'image/png' });
+        imageFile = new File([blob], 'qiroasro-challenge.png', { type: 'image/png' });
       } catch {
         // Image capture failed, continue without image
       }
@@ -199,11 +200,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     // Try Web Share API with image
     if (navigator.share) {
       try {
-        const shareData: ShareData = {
-          title: 'Qiroasro Challenge',
-          text: shareText,
-          url: shareUrl,
-        };
+        const shareData: ShareData = { title: 'Qiroasro Challenge', text: shareContent };
 
         // Add image if supported
         if (imageFile && navigator.canShare?.({ files: [imageFile] })) {
@@ -224,7 +221,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
     // Fallback: copy to clipboard
     try {
-      await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+      await navigator.clipboard.writeText(shareContent);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -295,7 +292,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
           </motion.div>
 
           {/* Weakness Analysis */}
-          {result.weakness.length > 0 && (
+          {result.stats.length > 0 && (
             <motion.div
               className="flex flex-col gap-2"
               initial={{ y: 20, opacity: 0 }}
@@ -303,7 +300,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
               transition={{ delay: 0.4 }}
             >
               {/* Missed connections */}
-              {result.weakness.filter((w) => w.errorType === 'missed').length > 0 && (
+              {result.stats.filter((s) => s.errorType === 'missed').length > 0 && (
                 <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950">
                   <div className="mb-1 flex items-center gap-2">
                     <BookOpenIcon className="size-4 text-yellow-600" />
@@ -312,16 +309,16 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                     </span>
                   </div>
                   <p className="text-right font-arabic text-xl text-yellow-700 dark:text-yellow-300">
-                    {result.weakness
-                      .filter((w) => w.errorType === 'missed')
-                      .map((w) => w.item)
+                    {result.stats
+                      .filter((s) => s.errorType === 'missed')
+                      .map((s) => s.item)
                       .join(', ')}
                   </p>
                 </div>
               )}
 
               {/* Incorrect connections */}
-              {result.weakness.filter((w) => w.errorType === 'incorrect').length > 0 && (
+              {result.stats.filter((s) => s.errorType === 'incorrect').length > 0 && (
                 <div className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950">
                   <div className="mb-1 flex items-center gap-2">
                     <XCircleIcon className="size-4 text-red-600" />
@@ -330,9 +327,9 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
                     </span>
                   </div>
                   <p className="text-right font-arabic text-red-700 text-xl dark:text-red-300">
-                    {result.weakness
-                      .filter((w) => w.errorType === 'incorrect')
-                      .map((w) => w.item)
+                    {result.stats
+                      .filter((s) => s.errorType === 'incorrect')
+                      .map((s) => s.item)
                       .join(', ')}
                   </p>
                 </div>

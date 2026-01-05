@@ -1,7 +1,7 @@
 import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -14,7 +14,10 @@ import { NodeInfoDialog } from './node-info-dialog';
 type ArticulationAreaNodeData = ArticulationArea & BaseNodeData;
 type ArticulationPointNodeData = ArticulationPoint & BaseNodeData;
 
-export function ArticulationAreaNode({ data, selected }: NodeProps) {
+export const ArticulationAreaNode = memo(function ArticulationAreaNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.articulation_area');
   const nodeData = data as ArticulationAreaNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -51,9 +54,12 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});
 
-export function ArticulationPointNode({ data, selected }: NodeProps) {
+export const ArticulationPointNode = memo(function ArticulationPointNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.articulation_point');
   const nodeData = data as ArticulationPointNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -116,4 +122,4 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
       )}
     </>
   );
-}
+});

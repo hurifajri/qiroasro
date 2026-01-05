@@ -4,18 +4,18 @@ import { motion } from 'framer-motion';
 import { CheckIcon, XIcon } from 'lucide-react';
 // import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-import type { ChallengeQuestionStat } from '../schemas/quiz';
+import type { ChallengeQuizQuestionScore } from '../schemas/quiz';
 
 interface ChallengeProgressProps {
   currentIndex: number;
   totalQuestion: number;
-  questionStat: ChallengeQuestionStat[];
+  challengeQuestionScores: ChallengeQuizQuestionScore[];
 }
 
 export function ChallengeProgress({
   currentIndex,
   totalQuestion,
-  questionStat,
+  challengeQuestionScores,
 }: ChallengeProgressProps) {
   // const t = useTranslations('playground_page.quiz');
 
@@ -27,7 +27,7 @@ export function ChallengeProgress({
 
       <div className="flex justify-center gap-1.5">
         {Array.from({ length: totalQuestion }, (_, i) => `question-${i + 1}`).map((key, index) => {
-          const stat = questionStat[index];
+          const stat = challengeQuestionScores[index];
           const isCurrent = index === currentIndex;
           const isPast = index < currentIndex;
           const isPerfect = stat?.isPerfect;

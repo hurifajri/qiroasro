@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
-import { CHALLENGE_QUESTION } from '../schemas/quiz';
+import { CHALLENGE_QUIZ_QUESTIONS } from '../schemas/quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
 import { ChallengeProgress } from './challenge-progress';
 import { ChallengeResults } from './challenge-results';
@@ -18,7 +18,7 @@ import { QuizInstruction } from './quiz-instruction';
 import { QuizScore } from './quiz-score';
 import { QuizTimer } from './quiz-timer';
 
-const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
+const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUIZ_QUESTIONS.length;
 
 type QuizHook = ReturnType<typeof useQuiz>;
 
@@ -57,11 +57,11 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
   return (
     <>
       <div ref={topContentRef}>
-        <PointAnimation lastPointChange={quiz.lastPointChange} />
+        <PointAnimation challengeLastPointChange={quiz.challengeLastPointChange} />
         <ChallengeProgress
-          currentIndex={quiz.currentQuestionIndex}
+          currentIndex={quiz.challengeCurrQuestionIdx}
           totalQuestion={TOTAL_CHALLENGE_QUESTION}
-          questionStat={quiz.questionStat}
+          challengeQuestionScores={quiz.challengeQuestionScores}
         />
       </div>
       <QuizContent
@@ -74,11 +74,11 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
         onEdgesChange={quiz.onEdgesChange}
         onConnect={quiz.onConnect}
         isValidConnection={quiz.isValidConnection}
-        isChallengeMode
+        isChallenge
         extraTopOffset={extraTopOffset}
         headerContent={
           <>
-            <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
+            <QuizScore variant="challenge" totalPoint={quiz.challengeScore.totalPoint} />
             {quiz.challengeTimeRemaining !== null && (
               <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
             )}
@@ -130,7 +130,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
           <div className="flex flex-col">
             <p className="font-medium text-sm">
               {`${t('challenge_total_question_count', {
-                count: quiz.currentChallengeConfig.question.length,
+                count: quiz.currentChallengeConfig.questions.length,
               })}. ${t('challenge_seconds_per_question', {
                 seconds: quiz.currentChallengeConfig.timerDuration,
               })}`}

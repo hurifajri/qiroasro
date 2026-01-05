@@ -6,11 +6,11 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
-import { CHALLENGE_MODE_CONFIG, CHALLENGE_QUESTION, type QuizMode } from '../schemas/quiz';
+import { CHALLENGE_QUIZ_LEVEL, CHALLENGE_QUIZ_QUESTIONS, type QuizMode } from '../schemas/quiz';
 import { useQuizGenerator } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
 
-const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
+const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUIZ_QUESTIONS.length;
 const ANIMATION_DELAY = 150;
 
 export function useQuiz() {
@@ -19,34 +19,34 @@ export function useQuiz() {
   // Store selectors
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
-  const settings = useQuizStore((s) => s.settings);
-  const setSettings = useQuizStore((s) => s.setSettings);
+  const regularSettings = useQuizStore((s) => s.regularSettings);
+  const setRegularSettings = useQuizStore((s) => s.setRegularSettings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const openDialog = useQuizStore((s) => s.openDialog);
   const isStarted = useQuizStore((s) => s.isStarted);
-  const startQuiz = useQuizStore((s) => s.startQuiz);
+  const startRegularQuiz = useQuizStore((s) => s.startRegularQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);
   const isInstructionShown = useQuizStore((s) => s.isInstructionShown);
   const setIsInstructionShown = useQuizStore((s) => s.setIsInstructionShown);
-  const score = useQuizStore((s) => s.score);
-  const resetQuiz = useQuizStore((s) => s.resetQuiz);
+  const regularScore = useQuizStore((s) => s.regularScore);
+  const resetRegularQuiz = useQuizStore((s) => s.resetRegularQuiz);
   const resetAll = useQuizStore((s) => s.resetAll);
 
   // Challenge state
-  const isChallengeMode = useQuizStore((s) => s.isChallengeMode);
-  const enterChallengeMode = useQuizStore((s) => s.enterChallengeMode);
+  const isChallenge = useQuizStore((s) => s.isChallenge);
+  const enterChallenge = useQuizStore((s) => s.enterChallenge);
   const challengeDifficulty = useQuizStore((s) => s.challengeDifficulty);
   const selectChallengeDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
-  const currentQuestionIndex = useQuizStore((s) => s.currentQuestionIndex);
-  const questionStat = useQuizStore((s) => s.questionStat);
-  const challengeScoring = useQuizStore((s) => s.challengeScoring);
+  const challengeCurrQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
+  const challengeQuestionScores = useQuizStore((s) => s.challengeQuestionScores);
+  const challengeScore = useQuizStore((s) => s.challengeScore);
   const challengeResult = useQuizStore((s) => s.challengeResult);
-  const lastPointChange = useQuizStore((s) => s.lastPointChange);
+  const challengeLastPointChange = useQuizStore((s) => s.challengeLastPointChange);
   const startChallenge = useQuizStore((s) => s.startChallenge);
   const nextChallengeQuestion = useQuizStore((s) => s.nextChallengeQuestion);
-  const addConnectionScore = useQuizStore((s) => s.addConnectionScore);
-  const recordQuestionStat = useQuizStore((s) => s.recordQuestionStat);
-  const addErrorItem = useQuizStore((s) => s.addErrorItem);
+  const addConnectionChallengeScore = useQuizStore((s) => s.addConnectionChallengeScore);
+  const recordChallengeQuestionScore = useQuizStore((s) => s.recordChallengeQuestionScore);
+  const addChallengeStat = useQuizStore((s) => s.addChallengeStat);
   const finishChallenge = useQuizStore((s) => s.finishChallenge);
   const resetChallenge = useQuizStore((s) => s.resetChallenge);
 
@@ -65,14 +65,14 @@ export function useQuiz() {
 
   // Current challenge config
   const currentChallengeConfig = useMemo(() => {
-    if (!isChallengeMode || !challengeDifficulty) return null;
-    return CHALLENGE_MODE_CONFIG[challengeDifficulty];
-  }, [isChallengeMode, challengeDifficulty]);
+    if (!isChallenge || !challengeDifficulty) return null;
+    return CHALLENGE_QUIZ_LEVEL[challengeDifficulty];
+  }, [isChallenge, challengeDifficulty]);
 
   const currentQuestion = useMemo(() => {
     if (!currentChallengeConfig) return null;
-    return currentChallengeConfig.question[currentQuestionIndex];
-  }, [currentChallengeConfig, currentQuestionIndex]);
+    return currentChallengeConfig.questions[challengeCurrQuestionIdx];
+  }, [currentChallengeConfig, challengeCurrQuestionIdx]);
 
   // Regular timer
   const handleTimeUp = useCallback(() => {
@@ -85,8 +85,8 @@ export function useQuiz() {
     reset: _resetTimer,
     stop: stopTimer,
   } = useQuizTimer({
-    duration: settings.timerDuration,
-    enabled: settings.timerMode && !isChallengeMode,
+    duration: regularSettings.timerDuration,
+    enabled: regularSettings.timerMode && !isChallenge,
     onTimeUp: handleTimeUp,
     isPaused: isChecked,
   });
@@ -104,10 +104,10 @@ export function useQuiz() {
         timeSpent,
         isPerfect,
       };
-      recordQuestionStat(stat);
+      recordChallengeQuestionScore(stat);
 
       for (const item of incorrectItem) {
-        addErrorItem(item.name, item.type, item.errorType);
+        addChallengeStat(item.name, item.type, item.errorType);
       }
 
       // Animate score changes with delay
@@ -115,11 +115,11 @@ export function useQuiz() {
       // both wrong connections AND missed connections (connections not made before timeout)
       let delay = 0;
       for (let i = 0; i < currentScore.correct; i++) {
-        setTimeout(() => addConnectionScore(true), delay);
+        setTimeout(() => addConnectionChallengeScore(true), delay);
         delay += ANIMATION_DELAY;
       }
       for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-        setTimeout(() => addConnectionScore(false), delay);
+        setTimeout(() => addConnectionChallengeScore(false), delay);
         delay += ANIMATION_DELAY;
       }
 
@@ -127,21 +127,22 @@ export function useQuiz() {
       const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
 
       setTimeout(() => {
-        if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
+        if (challengeCurrQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
           const totalPossible =
-            challengeScoring.correctConnection +
-            challengeScoring.incorrectConnection +
+            challengeScore.correctConnection +
+            challengeScore.incorrectConnection +
             currentScore.total;
           finishChallenge(totalPossible, endTime);
           trackEvent('challenge_completed', {
             difficulty: challengeDifficulty,
             totalPoints:
-              challengeScoring.totalPoint +
+              challengeScore.totalPoint +
               (isPerfect ? currentScore.correct * 2 : currentScore.correct),
             accuracy: Math.round(
-              ((challengeScoring.correctConnection + currentScore.correct) / totalPossible) * 100,
+              ((challengeScore.correctConnection + currentScore.correct) / totalPossible) * 100,
             ),
-            perfectQuestions: questionStat.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
+            perfectQuestions:
+              challengeQuestionScores.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
             totalQuestions: TOTAL_CHALLENGE_QUESTION,
           });
         } else {
@@ -151,15 +152,15 @@ export function useQuiz() {
     },
     [
       checkAnswers,
-      recordQuestionStat,
-      addErrorItem,
-      addConnectionScore,
-      currentQuestionIndex,
+      recordChallengeQuestionScore,
+      addChallengeStat,
+      addConnectionChallengeScore,
+      challengeCurrQuestionIdx,
       finishChallenge,
-      challengeScoring,
+      challengeScore,
       nextChallengeQuestion,
       challengeDifficulty,
-      questionStat.filter,
+      challengeQuestionScores.filter,
     ],
   );
 
@@ -179,7 +180,7 @@ export function useQuiz() {
     getElapsedTime,
   } = useQuizTimer({
     duration: currentChallengeConfig?.timerDuration ?? 60,
-    enabled: isChallengeMode && isStarted && !challengeResult,
+    enabled: isChallenge && isStarted && !challengeResult,
     onTimeUp: handleChallengeTimeUp,
     isPaused: isChecked,
     trackElapsedTime: true,
@@ -187,8 +188,8 @@ export function useQuiz() {
 
   // Generate challenge question when index changes
   useEffect(() => {
-    if (isChallengeMode && isStarted && currentQuestion && !challengeResult) {
-      setSettings({
+    if (isChallenge && isStarted && currentQuestion && !challengeResult) {
+      setRegularSettings({
         lettersPerQuiz: currentQuestion.lettersPerQuiz,
         targetsPerQuiz: currentQuestion.targetsPerQuiz,
         multiEdge: currentQuestion.allowMultiEdge,
@@ -200,18 +201,18 @@ export function useQuiz() {
       setMode(currentQuestion.mode);
       resetChallengeTimer();
 
-      if (currentQuestionIndex === 0) {
+      if (challengeCurrQuestionIdx === 0) {
         startChallengeTimer();
       }
     }
   }, [
-    isChallengeMode,
+    isChallenge,
     isStarted,
-    currentQuestionIndex,
+    challengeCurrQuestionIdx,
     currentQuestion,
     challengeResult,
     currentChallengeConfig,
-    setSettings,
+    setRegularSettings,
     generateQuiz,
     setMode,
     resetChallengeTimer,
@@ -235,11 +236,11 @@ export function useQuiz() {
 
   const handleChallengeSelect = useCallback(() => {
     trackEvent('quiz_mode_selected', { mode: 'challenge' });
-    enterChallengeMode();
-  }, [enterChallengeMode]);
+    enterChallenge();
+  }, [enterChallenge]);
 
   const handleDifficultySelect = useCallback(
-    (difficulty: keyof typeof CHALLENGE_MODE_CONFIG) => {
+    (difficulty: keyof typeof CHALLENGE_QUIZ_LEVEL) => {
       trackEvent('challenge_difficulty_selected', { difficulty });
       selectChallengeDifficulty(difficulty);
     },
@@ -253,12 +254,12 @@ export function useQuiz() {
 
   const handleStartQuiz = useCallback(() => {
     if (mode) {
-      trackEvent('quiz_started', { mode, settings });
+      trackEvent('quiz_started', { mode, regularSettings });
       generateQuiz(mode);
-      startQuiz();
+      startRegularQuiz();
       startTimer();
     }
-  }, [mode, settings, generateQuiz, startQuiz, startTimer]);
+  }, [mode, regularSettings, generateQuiz, startRegularQuiz, startTimer]);
 
   const handleBackToModeSelect = useCallback(() => {
     setMode(null);
@@ -267,17 +268,17 @@ export function useQuiz() {
 
   const handleBackToDifficultySelect = useCallback(() => {
     resetChallenge();
-    enterChallengeMode();
-  }, [resetChallenge, enterChallengeMode]);
+    enterChallenge();
+  }, [resetChallenge, enterChallenge]);
 
   const handleResetQuiz = useCallback(() => {
     setNodes([]);
     setEdges([]);
-    resetQuiz();
+    resetRegularQuiz();
     stopTimer();
     stopChallengeTimer();
     startTimer();
-  }, [setNodes, setEdges, resetQuiz, stopTimer, stopChallengeTimer, startTimer]);
+  }, [setNodes, setEdges, resetRegularQuiz, stopTimer, stopChallengeTimer, startTimer]);
 
   const handleDialogClose = useCallback(
     (open: boolean) => {
@@ -294,7 +295,7 @@ export function useQuiz() {
     setNodes([]);
     setEdges([]);
     resetChallenge();
-    enterChallengeMode();
+    enterChallenge();
     if (challengeDifficulty) {
       selectChallengeDifficulty(challengeDifficulty);
     }
@@ -302,7 +303,7 @@ export function useQuiz() {
     setNodes,
     setEdges,
     resetChallenge,
-    enterChallengeMode,
+    enterChallenge,
     challengeDifficulty,
     selectChallengeDifficulty,
   ]);
@@ -327,22 +328,22 @@ export function useQuiz() {
   // Screen state
   const screenState = useMemo(
     () => ({
-      showModeSelection: !mode && !isChallengeMode,
-      showDifficultySelection: isChallengeMode && !challengeDifficulty,
-      showChallengeReady: isChallengeMode && !!challengeDifficulty && !isStarted,
-      showChallengeResults: isChallengeMode && !!challengeResult,
-      showChallengeQuiz: isChallengeMode && isStarted && !challengeResult,
-      showRegularSettings: !isChallengeMode && !!mode && !isStarted,
-      showRegularQuiz: !isChallengeMode && !!mode && isStarted,
+      showModeSelection: !mode && !isChallenge,
+      showDifficultySelection: isChallenge && !challengeDifficulty,
+      showChallengeReady: isChallenge && !!challengeDifficulty && !isStarted,
+      showChallengeResults: isChallenge && !!challengeResult,
+      showChallengeQuiz: isChallenge && isStarted && !challengeResult,
+      showRegularSettings: !isChallenge && !!mode && !isStarted,
+      showRegularQuiz: !isChallenge && !!mode && isStarted,
     }),
-    [mode, isChallengeMode, challengeDifficulty, isStarted, challengeResult],
+    [mode, isChallenge, challengeDifficulty, isStarted, challengeResult],
   );
 
   const { dialogTitle, dialogDescription } = useMemo(() => {
     let title = t('select_mode');
     let description = t('select_mode_description');
 
-    if (isChallengeMode) {
+    if (isChallenge) {
       if (challengeResult) {
         title = t('challenge_result');
         description = '';
@@ -372,20 +373,20 @@ export function useQuiz() {
     }
 
     return { dialogTitle: title, dialogDescription: description };
-  }, [isChallengeMode, challengeResult, challengeDifficulty, isStarted, mode, t]);
+  }, [isChallenge, challengeResult, challengeDifficulty, isStarted, mode, t]);
 
   return {
     // State
     mode,
-    settings,
-    setSettings,
+    regularSettings,
+    setRegularSettings,
     isDialogOpen,
     openDialog,
     isStarted,
     isChecked,
     isInstructionShown,
     setIsInstructionShown,
-    score,
+    regularScore,
     nodes,
     edges,
     onNodesChange,
@@ -397,13 +398,13 @@ export function useQuiz() {
     requiredConnections,
 
     // Challenge state
-    isChallengeMode,
+    isChallenge,
     challengeDifficulty,
-    currentQuestionIndex,
-    questionStat,
-    challengeScoring,
+    challengeCurrQuestionIdx,
+    challengeQuestionScores,
+    challengeScore,
     challengeResult,
-    lastPointChange,
+    challengeLastPointChange,
     challengeTimeRemaining,
     currentChallengeConfig,
 

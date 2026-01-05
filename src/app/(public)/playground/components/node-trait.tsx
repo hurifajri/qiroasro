@@ -1,7 +1,7 @@
 import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -14,7 +14,7 @@ import { NodeInfoDialog } from './node-info-dialog';
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
 type TraitNodeData = Trait & BaseNodeData;
 
-export function TraitGroupNode({ data, selected }: NodeProps) {
+export const TraitGroupNode = memo(function TraitGroupNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -51,9 +51,9 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});
 
-export function TraitNode({ data, selected }: NodeProps) {
+export const TraitNode = memo(function TraitNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.trait');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -116,4 +116,4 @@ export function TraitNode({ data, selected }: NodeProps) {
       )}
     </>
   );
-}
+});

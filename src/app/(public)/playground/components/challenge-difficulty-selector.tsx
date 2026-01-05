@@ -4,14 +4,14 @@ import { motion } from 'framer-motion';
 import { ClockIcon, FlameIcon, ZapIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { CHALLENGE_MODE_CONFIG, type ChallengeDifficulty } from '../schemas/quiz';
+import { CHALLENGE_QUIZ_LEVEL, type ChallengeQuizDifficulty } from '../schemas/quiz';
 
 interface ChallengeDifficultySelectorProps {
-  onSelect: (difficulty: ChallengeDifficulty) => void;
+  onSelect: (difficulty: ChallengeQuizDifficulty) => void;
 }
 
 const DIFFICULTY_UI_CONFIG: Record<
-  ChallengeDifficulty,
+  ChallengeQuizDifficulty,
   { icon: typeof ClockIcon; color: string; bgColor: string }
 > = {
   easy: { icon: ClockIcon, color: 'text-green-600', bgColor: 'bg-green-50 dark:bg-green-950' },
@@ -22,13 +22,13 @@ const DIFFICULTY_UI_CONFIG: Record<
 export function ChallengeDifficultySelector({ onSelect }: ChallengeDifficultySelectorProps) {
   const t = useTranslations('playground_page.quiz');
 
-  const difficulties: ChallengeDifficulty[] = ['easy', 'medium', 'hard'];
+  const difficulties: ChallengeQuizDifficulty[] = ['easy', 'medium', 'hard'];
 
   return (
     <div className="flex flex-col gap-3">
       {difficulties.map((difficulty, index) => {
         const uiConfig = DIFFICULTY_UI_CONFIG[difficulty];
-        const modeConfig = CHALLENGE_MODE_CONFIG[difficulty];
+        const modeConfig = CHALLENGE_QUIZ_LEVEL[difficulty];
         const Icon = uiConfig.icon;
 
         return (

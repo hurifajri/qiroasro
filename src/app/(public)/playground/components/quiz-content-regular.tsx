@@ -63,8 +63,8 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
           isValidConnection={quiz.isValidConnection}
           headerContent={
             <>
-              {quiz.isChecked && <QuizScore variant="regular" score={quiz.score} />}
-              {quiz.settings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
+              {quiz.isChecked && <QuizScore variant="regular" score={quiz.regularScore} />}
+              {quiz.regularSettings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
                 <QuizTimer timeRemaining={quiz.timeRemaining} />
               )}
             </>

@@ -5,7 +5,7 @@ import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { QuizScoreCount } from '../schemas/quiz';
+import type { RegularQuizScore } from '../schemas/quiz';
 
 interface QuizScoreBaseProps {
   className?: string;
@@ -15,7 +15,7 @@ interface QuizScoreRegularProps extends QuizScoreBaseProps {
   /** Display mode: regular shows correct/incorrect badges */
   variant: 'regular';
   /** Score count for regular mode */
-  score: QuizScoreCount;
+  score: RegularQuizScore;
 }
 
 interface QuizScoreChallengeProps extends QuizScoreBaseProps {

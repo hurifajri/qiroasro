@@ -198,10 +198,10 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply font-sans bg-background text-foreground;
+    @apply font-sans bg-background text-foreground overscroll-x-none!;
   }
   html {
-    @apply font-sans;
+    @apply font-sans overscroll-x-none!;
   }
 }
 
@@ -292,6 +292,11 @@
       0 0 20px oklch(from var(--node-trait) l c h / 38%),
       0 0 40px oklch(from var(--node-trait) l c h / 19%);
   }
+}
+
+/* Prevent iOS swipe-to-navigate gesture from interfering with edge dragging */
+.react-flow {
+  @apply touch-none!;
 }
 
 .react-flow__node-letter.selected > div {

@@ -11,18 +11,18 @@ export interface QuizQuestion {
   targetType: QuizMode;
 }
 
-export interface QuizScoreCount {
-  correct: number;
-  total: number;
-}
-
-export interface TargetItem {
+export interface QuizTarget {
   id: number;
   slug: string;
 }
 
+export interface RegularQuizScore {
+  correct: number;
+  total: number;
+}
+
 // Settings per quiz
-export interface QuizSettingsValues {
+export interface RegularQuizSettings {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
@@ -31,13 +31,13 @@ export interface QuizSettingsValues {
 }
 
 // Config constraints per mode
-export interface QuizModeConstraints {
+interface RegularQuizModeConstraints {
   lettersPerQuiz: { min: number; max: number };
   targetsPerQuiz: { min: number; max: number };
   allowMultiEdge: boolean;
 }
 
-export const QUIZ_MODE_CONFIG: Record<QuizMode, QuizModeConstraints> = {
+export const REGULAR_QUIZ_MODE_CONFIG: Record<QuizMode, RegularQuizModeConstraints> = {
   articulation_point: {
     lettersPerQuiz: { min: 1, max: 5 },
     targetsPerQuiz: { min: 1, max: 5 },
@@ -50,7 +50,7 @@ export const QUIZ_MODE_CONFIG: Record<QuizMode, QuizModeConstraints> = {
   },
 };
 
-export const DEFAULT_QUIZ_SETTINGS: QuizSettingsValues = {
+export const REGULAR_DEFAULT_QUIZ_SETTINGS: RegularQuizSettings = {
   lettersPerQuiz: 1,
   targetsPerQuiz: 2,
   multiEdge: false,
@@ -58,58 +58,53 @@ export const DEFAULT_QUIZ_SETTINGS: QuizSettingsValues = {
   timerDuration: 15,
 };
 
-// Challenge types
-export type ChallengeDifficulty = 'easy' | 'medium' | 'hard';
-
-export interface ChallengeQuestionConfig {
-  mode: QuizMode;
-  lettersPerQuiz: number;
-  targetsPerQuiz: number;
-  allowMultiEdge: boolean;
-}
-
-export interface ChallengeModeConfig {
-  timerDuration: number;
-  question: ChallengeQuestionConfig[];
-}
-
-export interface ChallengeScoring {
-  correctConnection: number;
-  incorrectConnection: number;
-  totalPoint: number;
-}
-
-// Track per-question stats for detailed results
-export interface ChallengeQuestionStat {
-  correctConnection: number;
-  incorrectConnection: number;
-  timeSpent: number;
-  isPerfect: boolean;
-}
-
 // Track weakness for analysis
-export interface ChallengeWeakness {
+export interface ChallengeQuizStat {
   item: string;
   type: 'letter' | 'articulation_point' | 'trait';
   errorType: 'incorrect' | 'missed';
   errorCount: number;
 }
 
-export interface ChallengeResult {
-  difficulty: ChallengeDifficulty;
-  scoring: ChallengeScoring;
-  questionStat: ChallengeQuestionStat[];
-  weakness: ChallengeWeakness[];
+// Challenge types
+export type ChallengeQuizDifficulty = 'easy' | 'medium' | 'hard';
+
+export interface ChallengeQuizScore {
+  correctConnection: number;
+  incorrectConnection: number;
+  totalPoint: number;
+}
+
+// Track per-question stats for detailed results
+export interface ChallengeQuizQuestionScore {
+  correctConnection: number;
+  incorrectConnection: number;
+  timeSpent: number;
+  isPerfect: boolean;
+}
+
+export interface ChallengeQuizResult {
+  difficulty: ChallengeQuizDifficulty;
+  score: ChallengeQuizScore;
+  questionScores: ChallengeQuizQuestionScore[];
+  stats: ChallengeQuizStat[];
   totalQuestion: number;
   perfectQuestion: number;
-  questionWithError: number;
+  questionWithMistake: number;
   totalPossibleConnection: number;
   totalTime: number;
   completedAt: Date;
 }
 
+interface ChallengeQuizQuestion {
+  mode: QuizMode;
+  lettersPerQuiz: number;
+  targetsPerQuiz: number;
+  allowMultiEdge: boolean;
+}
+
 // Questions for Challenge mode (same for all difficulties, only timer differs)
-export const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
+export const CHALLENGE_QUIZ_QUESTIONS: ChallengeQuizQuestion[] = [
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 2, allowMultiEdge: false },
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: false },
   { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: false },
@@ -122,13 +117,18 @@ export const CHALLENGE_QUESTION: ChallengeQuestionConfig[] = [
   { mode: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
 ];
 
-export const CHALLENGE_MODE_CONFIG: Record<ChallengeDifficulty, ChallengeModeConfig> = {
-  easy: { timerDuration: 60, question: CHALLENGE_QUESTION },
-  medium: { timerDuration: 30, question: CHALLENGE_QUESTION },
-  hard: { timerDuration: 10, question: CHALLENGE_QUESTION },
+interface ChallengeQuizLevel {
+  timerDuration: number;
+  questions: ChallengeQuizQuestion[];
+}
+
+export const CHALLENGE_QUIZ_LEVEL: Record<ChallengeQuizDifficulty, ChallengeQuizLevel> = {
+  easy: { timerDuration: 60, questions: CHALLENGE_QUIZ_QUESTIONS },
+  medium: { timerDuration: 30, questions: CHALLENGE_QUIZ_QUESTIONS },
+  hard: { timerDuration: 10, questions: CHALLENGE_QUIZ_QUESTIONS },
 };
 
-export const DEFAULT_CHALLENGE_SCORING: ChallengeScoring = {
+export const DEFAULT_CHALLENGE_QUIZ_SCORE: ChallengeQuizScore = {
   correctConnection: 0,
   incorrectConnection: 0,
   totalPoint: 0,

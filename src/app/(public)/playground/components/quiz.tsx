@@ -37,7 +37,7 @@ export function Quiz() {
         />
       )}
 
-      {quiz.isChallengeMode ? (
+      {quiz.isChallenge ? (
         <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
       ) : (
         <QuizContentRegular quiz={quiz} nodeTypes={nodeTypes} />

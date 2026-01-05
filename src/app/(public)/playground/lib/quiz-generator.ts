@@ -4,7 +4,7 @@ import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
 import type { Trait } from '@/schemas/trait';
 import type { LetterQuiz } from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
-import type { QuizMode, QuizQuestion, TargetItem } from '../schemas/quiz';
+import type { QuizMode, QuizQuestion, QuizTarget } from '../schemas/quiz';
 import { createLetterQuizNode, createTargetQuizNode } from './node';
 
 interface QuizGeneratorData {
@@ -23,7 +23,7 @@ interface QuizSettings {
 
 export interface GeneratedQuizResult {
   questions: QuizQuestion[];
-  targets: TargetItem[];
+  targets: QuizTarget[];
   nodes: Node[];
   edges: Edge[];
   isUnsupported: boolean;
@@ -52,7 +52,7 @@ export function generateQuizData(
 
   const shuffledLetters = [...availableLetters].sort(() => Math.random() - 0.5);
 
-  const allTargets: TargetItem[] =
+  const allTargets: QuizTarget[] =
     mode === 'articulation_point'
       ? articulationPoints.map((ap) => ({ id: ap.id, slug: ap.slug }))
       : traits.filter((t) => validTraitIds.has(t.id)).map((t) => ({ id: t.id, slug: t.slug }));
@@ -78,7 +78,7 @@ export function generateQuizData(
   }
 
   let newQuestions: QuizQuestion[] = [];
-  let selectedTargets: TargetItem[] = [];
+  let selectedTargets: QuizTarget[] = [];
 
   if (isCase1) {
     const result = generateCase1(shuffledLetters, allTargets, getCorrectTargetIds, mode, settings);
@@ -122,7 +122,7 @@ export function generateQuizData(
 // Case 1: Single letter, multiple targets, single answer
 function generateCase1(
   shuffledLetters: Letter[],
-  allTargets: TargetItem[],
+  allTargets: QuizTarget[],
   getCorrectTargetIds: (letter: Letter) => number[],
   mode: QuizMode,
   settings: QuizSettings,
@@ -152,7 +152,7 @@ function generateCase1(
 // Case 2: Single letter, multiple targets, multiple answers
 function generateCase2(
   shuffledLetters: Letter[],
-  allTargets: TargetItem[],
+  allTargets: QuizTarget[],
   getCorrectTargetIds: (letter: Letter) => number[],
   mode: QuizMode,
   settings: QuizSettings,
@@ -183,7 +183,7 @@ function generateCase2(
 // Case 3: Multiple letters, single target, single answer
 function generateCase3(
   shuffledLetters: Letter[],
-  allTargets: TargetItem[],
+  allTargets: QuizTarget[],
   getCorrectTargetIds: (letter: Letter) => number[],
   mode: QuizMode,
   settings: QuizSettings,
@@ -215,7 +215,7 @@ function generateCase3(
 // Case 4: Multiple letters, single target, multiple answers
 function generateCase4(
   shuffledLetters: Letter[],
-  allTargets: TargetItem[],
+  allTargets: QuizTarget[],
   getCorrectTargetIds: (letter: Letter) => number[],
   mode: QuizMode,
   settings: QuizSettings,

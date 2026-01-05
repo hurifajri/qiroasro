@@ -1,7 +1,7 @@
 import { type NodeProps, Position } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -9,7 +9,7 @@ import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
 import type { TargetQuizNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
-export function TargetQuizNode({ data }: NodeProps) {
+export const TargetQuizNode = memo(function TargetQuizNode({ data }: NodeProps) {
   const nodeData = data as TargetQuizNodeData;
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -65,4 +65,4 @@ export function TargetQuizNode({ data }: NodeProps) {
       )}
     </>
   );
-}
+});
