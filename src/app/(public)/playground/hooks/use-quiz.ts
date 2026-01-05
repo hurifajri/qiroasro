@@ -6,11 +6,11 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
-import { CHALLENGE_MODE_CONFIG, CHALLENGE_QUESTION, type QuizMode } from '../schemas/quiz';
+import { CHALLENGE_QUIZ_LEVEL, CHALLENGE_QUIZ_QUESTIONS, type QuizMode } from '../schemas/quiz';
 import { useQuizGenerator } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
 
-const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUESTION.length;
+const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUIZ_QUESTIONS.length;
 const ANIMATION_DELAY = 150;
 
 export function useQuiz() {
@@ -66,7 +66,7 @@ export function useQuiz() {
   // Current challenge config
   const currentChallengeConfig = useMemo(() => {
     if (!isChallenge || !challengeDifficulty) return null;
-    return CHALLENGE_MODE_CONFIG[challengeDifficulty];
+    return CHALLENGE_QUIZ_LEVEL[challengeDifficulty];
   }, [isChallenge, challengeDifficulty]);
 
   const currentQuestion = useMemo(() => {
@@ -240,7 +240,7 @@ export function useQuiz() {
   }, [enterChallenge]);
 
   const handleDifficultySelect = useCallback(
-    (difficulty: keyof typeof CHALLENGE_MODE_CONFIG) => {
+    (difficulty: keyof typeof CHALLENGE_QUIZ_LEVEL) => {
       trackEvent('challenge_difficulty_selected', { difficulty });
       selectChallengeDifficulty(difficulty);
     },

@@ -4,7 +4,7 @@ import { createStore } from 'zustand/vanilla';
 import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
-  ChallengeDifficulty,
+  ChallengeQuizDifficulty,
   ChallengeQuizQuestionScore,
   ChallengeQuizResult,
   ChallengeQuizScore,
@@ -15,8 +15,8 @@ import type {
   RegularQuizScore,
 } from '../schemas/quiz';
 import {
-  DEFAULT_CHALLENGE_SCORING,
-  DEFAULT_QUIZ_SETTINGS,
+  DEFAULT_CHALLENGE_QUIZ_SCORE,
+  REGULAR_DEFAULT_QUIZ_SETTINGS,
   type RegularQuizSettings,
 } from '../schemas/quiz';
 
@@ -36,7 +36,7 @@ interface QuizState {
 
   // Challenge state
   isChallenge: boolean;
-  challengeDifficulty: ChallengeDifficulty | null;
+  challengeDifficulty: ChallengeQuizDifficulty | null;
   challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
   challengeQuestionStartTime: number | null;
@@ -67,7 +67,7 @@ interface QuizAction {
 
   // Challenge actions
   enterChallenge: () => void;
-  selectChallengeDifficulty: (difficulty: ChallengeDifficulty) => void;
+  selectChallengeDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
   startChallenge: () => void;
   nextChallengeQuestion: () => void;
   addConnectionChallengeScore: (isCorrect: boolean) => void;
@@ -85,12 +85,12 @@ export type QuizStore = QuizState & QuizAction;
 
 const initialChallengeState = {
   isChallenge: false,
-  challengeDifficulty: null as ChallengeDifficulty | null,
+  challengeDifficulty: null as ChallengeQuizDifficulty | null,
   challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
   challengeQuestionStartTime: null as number | null,
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
-  challengeScore: DEFAULT_CHALLENGE_SCORING,
+  challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
   challengeResult: null as ChallengeQuizResult | null,
   challengeStats: [] as ChallengeQuizStat[],
   challengeLastPointChange: null as { value: number; timestamp: number } | null,
@@ -99,7 +99,7 @@ const initialChallengeState = {
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  regularSettings: DEFAULT_QUIZ_SETTINGS,
+  regularSettings: REGULAR_DEFAULT_QUIZ_SETTINGS,
   isStarted: false,
   isChecked: false,
   isInstructionShown: true,
@@ -153,7 +153,7 @@ export function createQuizStore() {
         challengeStartTime: Date.now(),
         challengeQuestionStartTime: Date.now(),
         challengeQuestionScores: [],
-        challengeScore: DEFAULT_CHALLENGE_SCORING,
+        challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
         challengeStats: [],
         challengeResult: null,
       }),

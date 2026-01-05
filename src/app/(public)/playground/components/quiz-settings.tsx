@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { useQuizStore } from '../providers/quiz';
-import { QUIZ_MODE_CONFIG } from '../schemas/quiz';
+import { REGULAR_QUIZ_MODE_CONFIG } from '../schemas/quiz';
 
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
 
@@ -28,7 +28,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const setRegularSettings = useQuizStore((s) => s.setRegularSettings);
 
   // Get config for current mode (default to trait if no mode selected)
-  const config = mode ? QUIZ_MODE_CONFIG[mode] : QUIZ_MODE_CONFIG.trait;
+  const config = mode ? REGULAR_QUIZ_MODE_CONFIG[mode] : REGULAR_QUIZ_MODE_CONFIG.trait;
 
   const handleSliderChange = (key: SliderKey, value: number | readonly number[]) => {
     const newValue = Array.isArray(value) ? value[0] : value;

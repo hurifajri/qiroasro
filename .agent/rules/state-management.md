@@ -28,7 +28,7 @@ export type QuizStore = QuizState & QuizActions;
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  settings: DEFAULT_QUIZ_SETTINGS,
+  settings: REGULAR_DEFAULT_QUIZ_SETTINGS,
 };
 
 // 5. Create store
