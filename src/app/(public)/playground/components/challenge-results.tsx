@@ -18,10 +18,10 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import type { ChallengeResult } from '../schemas/quiz';
+import type { ChallengeQuizResult } from '../schemas/quiz';
 
 interface ChallengeResultsProps {
-  result: ChallengeResult;
+  result: ChallengeQuizResult;
   onPlayAgain: () => void;
   onBackToMenu: () => void;
 }

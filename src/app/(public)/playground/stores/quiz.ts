@@ -5,10 +5,10 @@ import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
   ChallengeDifficulty,
-  ChallengeQuestionStat,
-  ChallengeResult,
-  ChallengeScoring,
-  ChallengeWeakness,
+  ChallengeQuizQuestionScore,
+  ChallengeQuizResult,
+  ChallengeQuizScore,
+  ChallengeQuizStat,
   QuizMode,
   QuizQuestion,
   QuizTarget,
@@ -37,14 +37,14 @@ interface QuizState {
   // Challenge state
   isChallenge: boolean;
   challengeDifficulty: ChallengeDifficulty | null;
-  currentQuestionIndex: number;
+  challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
-  questionStartTime: number | null;
-  questionStat: ChallengeQuestionStat[];
-  challengeScoring: ChallengeScoring;
-  challengeResult: ChallengeResult | null;
-  errorItem: ChallengeWeakness[];
-  lastPointChange: { value: number; timestamp: number } | null;
+  challengeQuestionStartTime: number | null;
+  challengeQuestionScores: ChallengeQuizQuestionScore[];
+  challengeScore: ChallengeQuizScore;
+  challengeResult: ChallengeQuizResult | null;
+  challengeStats: ChallengeQuizStat[];
+  challengeLastPointChange: { value: number; timestamp: number } | null;
 }
 
 interface QuizAction {
@@ -66,16 +66,16 @@ interface QuizAction {
   resetRegularQuiz: () => void;
 
   // Challenge actions
-  enterChallengeMode: () => void;
+  enterChallenge: () => void;
   selectChallengeDifficulty: (difficulty: ChallengeDifficulty) => void;
   startChallenge: () => void;
   nextChallengeQuestion: () => void;
-  addConnectionScore: (isCorrect: boolean) => void;
-  recordQuestionStat: (stat: ChallengeQuestionStat) => void;
-  addErrorItem: (
+  addConnectionChallengeScore: (isCorrect: boolean) => void;
+  recordChallengeQuestionScore: (stat: ChallengeQuizQuestionScore) => void;
+  addChallengeStat: (
     item: string,
-    type: ChallengeWeakness['type'],
-    errorType: ChallengeWeakness['errorType'],
+    type: ChallengeQuizStat['type'],
+    errorType: ChallengeQuizStat['errorType'],
   ) => void;
   finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
   resetChallenge: () => void;
@@ -86,14 +86,14 @@ export type QuizStore = QuizState & QuizAction;
 const initialChallengeState = {
   isChallenge: false,
   challengeDifficulty: null as ChallengeDifficulty | null,
-  currentQuestionIndex: 0,
+  challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
-  questionStartTime: null as number | null,
-  questionStat: [] as ChallengeQuestionStat[],
-  challengeScoring: DEFAULT_CHALLENGE_SCORING,
-  challengeResult: null as ChallengeResult | null,
-  errorItem: [] as ChallengeWeakness[],
-  lastPointChange: null as { value: number; timestamp: number } | null,
+  challengeQuestionStartTime: null as number | null,
+  challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
+  challengeScore: DEFAULT_CHALLENGE_SCORING,
+  challengeResult: null as ChallengeQuizResult | null,
+  challengeStats: [] as ChallengeQuizStat[],
+  challengeLastPointChange: null as { value: number; timestamp: number } | null,
 };
 
 const initialState: QuizState = {
@@ -144,51 +144,51 @@ export function createQuizStore() {
       }),
 
     // Challenge actions
-    enterChallengeMode: () => set({ isChallenge: true }),
+    enterChallenge: () => set({ isChallenge: true }),
     selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
     startChallenge: () =>
       set({
         isStarted: true,
-        currentQuestionIndex: 0,
+        challengeCurrQuestionIdx: 0,
         challengeStartTime: Date.now(),
-        questionStartTime: Date.now(),
-        questionStat: [],
-        challengeScoring: DEFAULT_CHALLENGE_SCORING,
-        errorItem: [],
+        challengeQuestionStartTime: Date.now(),
+        challengeQuestionScores: [],
+        challengeScore: DEFAULT_CHALLENGE_SCORING,
+        challengeStats: [],
         challengeResult: null,
       }),
     nextChallengeQuestion: () =>
       set((state) => ({
-        currentQuestionIndex: state.currentQuestionIndex + 1,
-        questionStartTime: Date.now(),
+        challengeCurrQuestionIdx: state.challengeCurrQuestionIdx + 1,
+        challengeQuestionStartTime: Date.now(),
         isChecked: false,
         questions: [],
         targets: [],
       })),
-    addConnectionScore: (isCorrect) =>
+    addConnectionChallengeScore: (isCorrect) =>
       set((state) => {
         const pointChange = isCorrect ? CORRECT_POINT : INCORRECT_POINT;
         return {
-          challengeScoring: {
-            correctConnection: state.challengeScoring.correctConnection + (isCorrect ? 1 : 0),
-            incorrectConnection: state.challengeScoring.incorrectConnection + (isCorrect ? 0 : 1),
-            totalPoint: state.challengeScoring.totalPoint + pointChange,
+          challengeScore: {
+            correctConnection: state.challengeScore.correctConnection + (isCorrect ? 1 : 0),
+            incorrectConnection: state.challengeScore.incorrectConnection + (isCorrect ? 0 : 1),
+            totalPoint: state.challengeScore.totalPoint + pointChange,
           },
-          lastPointChange: { value: pointChange, timestamp: Date.now() },
+          challengeLastPointChange: { value: pointChange, timestamp: Date.now() },
         };
       }),
-    recordQuestionStat: (stat) =>
+    recordChallengeQuestionScore: (stat) =>
       set((state) => ({
-        questionStat: [...state.questionStat, stat],
+        challengeQuestionScores: [...state.challengeQuestionScores, stat],
       })),
-    addErrorItem: (item, type, errorType) =>
+    addChallengeStat: (item, type, errorType) =>
       set((state) => {
-        const existing = state.errorItem.find(
+        const existing = state.challengeStats.find(
           (e) => e.item === item && e.type === type && e.errorType === errorType,
         );
         if (existing) {
           return {
-            errorItem: state.errorItem.map((e) =>
+            challengeStats: state.challengeStats.map((e) =>
               e.item === item && e.type === type && e.errorType === errorType
                 ? { ...e, errorCount: e.errorCount + 1 }
                 : e,
@@ -196,25 +196,25 @@ export function createQuizStore() {
           };
         }
         return {
-          errorItem: [...state.errorItem, { item, type, errorType, errorCount: 1 }],
+          challengeStats: [...state.challengeStats, { item, type, errorType, errorCount: 1 }],
         };
       }),
     finishChallenge: (totalPossibleConnection, endTime) => {
       const state = get();
       const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
-      const perfectQuestion = state.questionStat.filter((s) => s.isPerfect).length;
-      const questionWithError = state.questionStat.length - perfectQuestion;
+      const perfectQuestion = state.challengeQuestionScores.filter((s) => s.isPerfect).length;
+      const questionWithError = state.challengeQuestionScores.length - perfectQuestion;
 
       // Sort weakness by error count descending
-      const sortedWeakness = [...state.errorItem].sort((a, b) => b.errorCount - a.errorCount);
+      const sortedWeakness = [...state.challengeStats].sort((a, b) => b.errorCount - a.errorCount);
 
       set({
         challengeResult: {
           difficulty: state.challengeDifficulty ?? 'easy',
-          scoring: state.challengeScoring,
-          questionStat: state.questionStat,
+          scoring: state.challengeScore,
+          challengeQuestionScores: state.challengeQuestionScores,
           weakness: sortedWeakness.slice(0, 5), // Top 5 weaknesses
-          totalQuestion: state.questionStat.length,
+          totalQuestion: state.challengeQuestionScores.length,
           perfectQuestion,
           questionWithError,
           totalPossibleConnection,

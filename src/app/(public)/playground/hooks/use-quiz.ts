@@ -34,19 +34,19 @@ export function useQuiz() {
 
   // Challenge state
   const isChallenge = useQuizStore((s) => s.isChallenge);
-  const enterChallengeMode = useQuizStore((s) => s.enterChallengeMode);
+  const enterChallenge = useQuizStore((s) => s.enterChallenge);
   const challengeDifficulty = useQuizStore((s) => s.challengeDifficulty);
   const selectChallengeDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
-  const currentQuestionIndex = useQuizStore((s) => s.currentQuestionIndex);
-  const questionStat = useQuizStore((s) => s.questionStat);
-  const challengeScoring = useQuizStore((s) => s.challengeScoring);
+  const challengeCurrQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
+  const challengeQuestionScores = useQuizStore((s) => s.challengeQuestionScores);
+  const challengeScore = useQuizStore((s) => s.challengeScore);
   const challengeResult = useQuizStore((s) => s.challengeResult);
-  const lastPointChange = useQuizStore((s) => s.lastPointChange);
+  const challengeLastPointChange = useQuizStore((s) => s.challengeLastPointChange);
   const startChallenge = useQuizStore((s) => s.startChallenge);
   const nextChallengeQuestion = useQuizStore((s) => s.nextChallengeQuestion);
-  const addConnectionScore = useQuizStore((s) => s.addConnectionScore);
-  const recordQuestionStat = useQuizStore((s) => s.recordQuestionStat);
-  const addErrorItem = useQuizStore((s) => s.addErrorItem);
+  const addConnectionChallengeScore = useQuizStore((s) => s.addConnectionChallengeScore);
+  const recordChallengeQuestionScore = useQuizStore((s) => s.recordChallengeQuestionScore);
+  const addChallengeStat = useQuizStore((s) => s.addChallengeStat);
   const finishChallenge = useQuizStore((s) => s.finishChallenge);
   const resetChallenge = useQuizStore((s) => s.resetChallenge);
 
@@ -71,8 +71,8 @@ export function useQuiz() {
 
   const currentQuestion = useMemo(() => {
     if (!currentChallengeConfig) return null;
-    return currentChallengeConfig.question[currentQuestionIndex];
-  }, [currentChallengeConfig, currentQuestionIndex]);
+    return currentChallengeConfig.question[challengeCurrQuestionIdx];
+  }, [currentChallengeConfig, challengeCurrQuestionIdx]);
 
   // Regular timer
   const handleTimeUp = useCallback(() => {
@@ -104,10 +104,10 @@ export function useQuiz() {
         timeSpent,
         isPerfect,
       };
-      recordQuestionStat(stat);
+      recordChallengeQuestionScore(stat);
 
       for (const item of incorrectItem) {
-        addErrorItem(item.name, item.type, item.errorType);
+        addChallengeStat(item.name, item.type, item.errorType);
       }
 
       // Animate score changes with delay
@@ -115,11 +115,11 @@ export function useQuiz() {
       // both wrong connections AND missed connections (connections not made before timeout)
       let delay = 0;
       for (let i = 0; i < currentScore.correct; i++) {
-        setTimeout(() => addConnectionScore(true), delay);
+        setTimeout(() => addConnectionChallengeScore(true), delay);
         delay += ANIMATION_DELAY;
       }
       for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-        setTimeout(() => addConnectionScore(false), delay);
+        setTimeout(() => addConnectionChallengeScore(false), delay);
         delay += ANIMATION_DELAY;
       }
 
@@ -127,21 +127,22 @@ export function useQuiz() {
       const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
 
       setTimeout(() => {
-        if (currentQuestionIndex >= TOTAL_CHALLENGE_QUESTION - 1) {
+        if (challengeCurrQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
           const totalPossible =
-            challengeScoring.correctConnection +
-            challengeScoring.incorrectConnection +
+            challengeScore.correctConnection +
+            challengeScore.incorrectConnection +
             currentScore.total;
           finishChallenge(totalPossible, endTime);
           trackEvent('challenge_completed', {
             difficulty: challengeDifficulty,
             totalPoints:
-              challengeScoring.totalPoint +
+              challengeScore.totalPoint +
               (isPerfect ? currentScore.correct * 2 : currentScore.correct),
             accuracy: Math.round(
-              ((challengeScoring.correctConnection + currentScore.correct) / totalPossible) * 100,
+              ((challengeScore.correctConnection + currentScore.correct) / totalPossible) * 100,
             ),
-            perfectQuestions: questionStat.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
+            perfectQuestions:
+              challengeQuestionScores.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
             totalQuestions: TOTAL_CHALLENGE_QUESTION,
           });
         } else {
@@ -151,15 +152,15 @@ export function useQuiz() {
     },
     [
       checkAnswers,
-      recordQuestionStat,
-      addErrorItem,
-      addConnectionScore,
-      currentQuestionIndex,
+      recordChallengeQuestionScore,
+      addChallengeStat,
+      addConnectionChallengeScore,
+      challengeCurrQuestionIdx,
       finishChallenge,
-      challengeScoring,
+      challengeScore,
       nextChallengeQuestion,
       challengeDifficulty,
-      questionStat.filter,
+      challengeQuestionScores.filter,
     ],
   );
 
@@ -200,14 +201,14 @@ export function useQuiz() {
       setMode(currentQuestion.mode);
       resetChallengeTimer();
 
-      if (currentQuestionIndex === 0) {
+      if (challengeCurrQuestionIdx === 0) {
         startChallengeTimer();
       }
     }
   }, [
     isChallenge,
     isStarted,
-    currentQuestionIndex,
+    challengeCurrQuestionIdx,
     currentQuestion,
     challengeResult,
     currentChallengeConfig,
@@ -235,8 +236,8 @@ export function useQuiz() {
 
   const handleChallengeSelect = useCallback(() => {
     trackEvent('quiz_mode_selected', { mode: 'challenge' });
-    enterChallengeMode();
-  }, [enterChallengeMode]);
+    enterChallenge();
+  }, [enterChallenge]);
 
   const handleDifficultySelect = useCallback(
     (difficulty: keyof typeof CHALLENGE_MODE_CONFIG) => {
@@ -267,8 +268,8 @@ export function useQuiz() {
 
   const handleBackToDifficultySelect = useCallback(() => {
     resetChallenge();
-    enterChallengeMode();
-  }, [resetChallenge, enterChallengeMode]);
+    enterChallenge();
+  }, [resetChallenge, enterChallenge]);
 
   const handleResetQuiz = useCallback(() => {
     setNodes([]);
@@ -294,7 +295,7 @@ export function useQuiz() {
     setNodes([]);
     setEdges([]);
     resetChallenge();
-    enterChallengeMode();
+    enterChallenge();
     if (challengeDifficulty) {
       selectChallengeDifficulty(challengeDifficulty);
     }
@@ -302,7 +303,7 @@ export function useQuiz() {
     setNodes,
     setEdges,
     resetChallenge,
-    enterChallengeMode,
+    enterChallenge,
     challengeDifficulty,
     selectChallengeDifficulty,
   ]);
@@ -399,11 +400,11 @@ export function useQuiz() {
     // Challenge state
     isChallenge,
     challengeDifficulty,
-    currentQuestionIndex,
-    questionStat,
-    challengeScoring,
+    challengeCurrQuestionIdx,
+    challengeQuestionScores,
+    challengeScore,
     challengeResult,
-    lastPointChange,
+    challengeLastPointChange,
     challengeTimeRemaining,
     currentChallengeConfig,
 

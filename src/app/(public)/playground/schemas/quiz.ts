@@ -73,14 +73,14 @@ export interface ChallengeModeConfig {
   question: ChallengeQuestionConfig[];
 }
 
-export interface ChallengeScoring {
+export interface ChallengeQuizScore {
   correctConnection: number;
   incorrectConnection: number;
   totalPoint: number;
 }
 
 // Track per-question stats for detailed results
-export interface ChallengeQuestionStat {
+export interface ChallengeQuizQuestionScore {
   correctConnection: number;
   incorrectConnection: number;
   timeSpent: number;
@@ -88,18 +88,18 @@ export interface ChallengeQuestionStat {
 }
 
 // Track weakness for analysis
-export interface ChallengeWeakness {
+export interface ChallengeQuizStat {
   item: string;
   type: 'letter' | 'articulation_point' | 'trait';
   errorType: 'incorrect' | 'missed';
   errorCount: number;
 }
 
-export interface ChallengeResult {
+export interface ChallengeQuizResult {
   difficulty: ChallengeDifficulty;
-  scoring: ChallengeScoring;
-  questionStat: ChallengeQuestionStat[];
-  weakness: ChallengeWeakness[];
+  scoring: ChallengeQuizScore;
+  challengeQuestionScores: ChallengeQuizQuestionScore[];
+  weakness: ChallengeQuizStat[];
   totalQuestion: number;
   perfectQuestion: number;
   questionWithError: number;
@@ -128,7 +128,7 @@ export const CHALLENGE_MODE_CONFIG: Record<ChallengeDifficulty, ChallengeModeCon
   hard: { timerDuration: 10, question: CHALLENGE_QUESTION },
 };
 
-export const DEFAULT_CHALLENGE_SCORING: ChallengeScoring = {
+export const DEFAULT_CHALLENGE_SCORING: ChallengeQuizScore = {
   correctConnection: 0,
   incorrectConnection: 0,
   totalPoint: 0,

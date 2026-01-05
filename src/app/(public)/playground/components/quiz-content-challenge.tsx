@@ -57,11 +57,11 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
   return (
     <>
       <div ref={topContentRef}>
-        <PointAnimation lastPointChange={quiz.lastPointChange} />
+        <PointAnimation challengeLastPointChange={quiz.challengeLastPointChange} />
         <ChallengeProgress
-          currentIndex={quiz.currentQuestionIndex}
+          currentIndex={quiz.challengeCurrQuestionIdx}
           totalQuestion={TOTAL_CHALLENGE_QUESTION}
-          questionStat={quiz.questionStat}
+          challengeQuestionScores={quiz.challengeQuestionScores}
         />
       </div>
       <QuizContent
@@ -78,7 +78,7 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
         extraTopOffset={extraTopOffset}
         headerContent={
           <>
-            <QuizScore variant="challenge" totalPoint={quiz.challengeScoring.totalPoint} />
+            <QuizScore variant="challenge" totalPoint={quiz.challengeScore.totalPoint} />
             {quiz.challengeTimeRemaining !== null && (
               <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
             )}
