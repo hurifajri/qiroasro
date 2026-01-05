@@ -1,5 +1,6 @@
 import type { NodeProps } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
+import { memo } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
@@ -9,7 +10,7 @@ import type { BaseNodeData } from '../schemas/node';
 
 type LetterNodeData = Letter & BaseNodeData;
 
-export function LetterNode({ data, selected }: NodeProps) {
+export const LetterNode = memo(function LetterNode({ data, selected }: NodeProps) {
   const t = useTranslations('global.letter');
   const nodeData = data as LetterNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -50,4 +51,4 @@ export function LetterNode({ data, selected }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});

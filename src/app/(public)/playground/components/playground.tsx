@@ -160,10 +160,10 @@ export function Playground() {
         setNodes(nodesWithLayoutInfo);
         setEdges(edgesWithStyle);
 
-        // Fit view after layout
-        setTimeout(() => {
+        // Fit view after layout - use rAF for better timing sync with browser paint
+        requestAnimationFrame(() => {
           fitView({ padding: 0.2, duration: 300 });
-        }, 50);
+        });
       } catch (err) {
         // TODO: handle error
         console.error('Layout error:', err);
@@ -358,6 +358,15 @@ export function Playground() {
     return getEffectiveEdgeType();
   }, [getEffectiveEdgeType]);
 
+  // Memoize default edge options to prevent unnecessary re-renders
+  const defaultEdgeOptions = useMemo(
+    () => ({
+      type: computedEdgeType,
+      animated: edgeStyle.isAnimated,
+    }),
+    [computedEdgeType, edgeStyle.isAnimated],
+  );
+
   return (
     <>
       {/*
@@ -383,10 +392,7 @@ export function Playground() {
             connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
             minZoom={0.1}
             maxZoom={2}
-            defaultEdgeOptions={{
-              type: computedEdgeType,
-              animated: edgeStyle.isAnimated,
-            }}
+            defaultEdgeOptions={defaultEdgeOptions}
           >
             <Panel
               position="top-right"
