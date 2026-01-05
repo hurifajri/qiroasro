@@ -29,7 +29,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
     return (
       <>
         <QuizSettings />
-        <DialogFooter className="flex flex-row items-center">
+        <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
           <Button
             size="lg"
             variant="outline"
@@ -70,7 +70,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
             </>
           }
         />
-        <DialogFooter className="flex-col! gap-4">
+        <DialogFooter className="flex-col! gap-4 rounded-b-none sm:rounded-b-xl">
           {quiz.isInstructionShown && quiz.mode && (
             <QuizInstruction
               quizMode={quiz.mode}

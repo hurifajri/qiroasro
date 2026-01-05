@@ -85,7 +85,7 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
           </>
         }
       />
-      <DialogFooter className="flex flex-row items-center">
+      <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
         <Button
           size="lg"
           onClick={quiz.handleChallengeCheckAndNext}
@@ -108,8 +108,13 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     return (
       <>
         <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
-        <DialogFooter>
-          <Button size="lg" variant="outline" onClick={quiz.handleBackToModeSelect}>
+        <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={quiz.handleBackToModeSelect}
+            className="flex-1"
+          >
             {t('back')}
           </Button>
         </DialogFooter>
@@ -134,7 +139,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
 
           <QuizInstruction quizMode={quiz.mode} />
         </div>
-        <DialogFooter className="flex flex-row items-center">
+        <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
           <Button
             size="lg"
             variant="outline"
