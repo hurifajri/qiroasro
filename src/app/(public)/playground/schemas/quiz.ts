@@ -85,12 +85,12 @@ export interface ChallengeQuizQuestionScore {
 
 export interface ChallengeQuizResult {
   difficulty: ChallengeQuizDifficulty;
-  scoring: ChallengeQuizScore;
-  challengeQuestionScores: ChallengeQuizQuestionScore[];
-  weakness: ChallengeQuizStat[];
+  score: ChallengeQuizScore;
+  questionScores: ChallengeQuizQuestionScore[];
+  stats: ChallengeQuizStat[];
   totalQuestion: number;
   perfectQuestion: number;
-  questionWithError: number;
+  questionWithMistake: number;
   totalPossibleConnection: number;
   totalTime: number;
   completedAt: Date;
