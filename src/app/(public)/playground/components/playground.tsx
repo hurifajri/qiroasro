@@ -20,7 +20,6 @@ import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useShallow } from 'zustand/react/shallow';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
@@ -56,21 +55,21 @@ const edgeTypes: EdgeTypes = {
 export function Playground() {
   const t = useTranslations('playground_page');
   const theme = useGlobalStore((s) => s.theme);
-  const {
-    viewMode,
-    layoutMode,
-    hierarchyDirection,
-    selectedLetterId,
-    selectedNodeId,
-    edgeStyle,
-    setViewMode,
-    setLayoutMode,
-    setHierarchyDirection,
-    setSelectedLetterId,
-    setSelectedNodeId,
-    setEdgeStyle,
-    getEffectiveEdgeType,
-  } = usePlaygroundStore(useShallow((s) => s));
+
+  // Use granular selectors for better performance (avoid re-renders on unrelated state changes)
+  const viewMode = usePlaygroundStore((s) => s.viewMode);
+  const layoutMode = usePlaygroundStore((s) => s.layoutMode);
+  const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
+  const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
+  const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
+  const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+  const setViewMode = usePlaygroundStore((s) => s.setViewMode);
+  const setLayoutMode = usePlaygroundStore((s) => s.setLayoutMode);
+  const setHierarchyDirection = usePlaygroundStore((s) => s.setHierarchyDirection);
+  const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
+  const setSelectedNodeId = usePlaygroundStore((s) => s.setSelectedNodeId);
+  const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
+  const getEffectiveEdgeType = usePlaygroundStore((s) => s.getEffectiveEdgeType);
 
   const { startTour } = usePlaygroundTour({ theme });
 
@@ -160,10 +159,10 @@ export function Playground() {
         setNodes(nodesWithLayoutInfo);
         setEdges(edgesWithStyle);
 
-        // Fit view after layout
-        setTimeout(() => {
+        // Fit view after layout - use requestAnimationFrame for visual transitions
+        requestAnimationFrame(() => {
           fitView({ padding: 0.2, duration: 300 });
-        }, 50);
+        });
       } catch (err) {
         // TODO: handle error
         console.error('Layout error:', err);
@@ -358,6 +357,21 @@ export function Playground() {
     return getEffectiveEdgeType();
   }, [getEffectiveEdgeType]);
 
+  // Memoize defaultEdgeOptions to prevent new object reference on every render
+  const defaultEdgeOptions = useMemo(
+    () => ({
+      type: computedEdgeType,
+      animated: edgeStyle.isAnimated,
+    }),
+    [computedEdgeType, edgeStyle.isAnimated],
+  );
+
+  // Memoize connectionLineComponent to prevent new reference on every render
+  const connectionLineComponent = useMemo(
+    () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
+    [edgeStyle.isFloating],
+  );
+
   return (
     <>
       {/*
@@ -380,13 +394,10 @@ export function Playground() {
             edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
-            connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
+            connectionLineComponent={connectionLineComponent}
             minZoom={0.1}
             maxZoom={2}
-            defaultEdgeOptions={{
-              type: computedEdgeType,
-              animated: edgeStyle.isAnimated,
-            }}
+            defaultEdgeOptions={defaultEdgeOptions}
           >
             <Panel
               position="top-right"

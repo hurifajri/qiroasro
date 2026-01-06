@@ -1,7 +1,7 @@
 import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -14,7 +14,10 @@ import { NodeInfoDialog } from './node-info-dialog';
 type ArticulationAreaNodeData = ArticulationArea & BaseNodeData;
 type ArticulationPointNodeData = ArticulationPoint & BaseNodeData;
 
-export function ArticulationAreaNode({ data, selected }: NodeProps) {
+export const ArticulationAreaNode = memo(function ArticulationAreaNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.articulation_area');
   const nodeData = data as ArticulationAreaNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -29,7 +32,7 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 transition-all duration-300 hover:ring-0',
+        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 transition-transform duration-300 hover:ring-0',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -51,9 +54,12 @@ export function ArticulationAreaNode({ data, selected }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});
 
-export function ArticulationPointNode({ data, selected }: NodeProps) {
+export const ArticulationPointNode = memo(function ArticulationPointNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.articulation_point');
   const nodeData = data as ArticulationPointNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -71,7 +77,7 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text backdrop-blur-sm transition-all duration-300 hover:bg-node-articulation/30 hover:ring-0',
+          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation/20 px-4 py-2 text-node-articulation-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
           ['jauf'].includes(nodeData.slug) && 'border-dashed',
@@ -116,4 +122,4 @@ export function ArticulationPointNode({ data, selected }: NodeProps) {
       )}
     </>
   );
-}
+});

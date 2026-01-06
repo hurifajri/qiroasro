@@ -1,16 +1,17 @@
 import { type NodeProps, Position } from '@xyflow/react';
+import { memo } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
 import type { LetterQuizNodeData } from '../schemas/node';
 
-export function LetterQuizNode({ data }: NodeProps) {
+export const LetterQuizNode = memo(function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as LetterQuizNodeData;
 
   return (
     <BaseNode
       className={cn(
-        'flex size-16 items-center justify-center rounded-full border-0 shadow-lg transition-all duration-300 hover:ring-0',
+        'flex size-16 items-center justify-center rounded-full border-0 hover:ring-0',
         nodeData.isMadd
           ? 'bg-linear-to-br from-node-letter-madd to-node-letter-madd-dark'
           : 'bg-linear-to-br from-node-letter to-node-letter-dark',
@@ -28,4 +29,4 @@ export function LetterQuizNode({ data }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});

@@ -252,7 +252,7 @@
    ReactFlow Custom Styles
    ============================================ */
 
-@keyframes glow-gold {
+/* @keyframes glow-gold {
   0%,
   100% {
     box-shadow:
@@ -292,14 +292,11 @@
       0 0 20px oklch(from var(--node-trait) l c h / 38%),
       0 0 40px oklch(from var(--node-trait) l c h / 19%);
   }
-}
+} */
 
 /* Prevent iOS swipe-to-navigate gesture from interfering with edge dragging */
-.react-flow {
-  @apply touch-none!;
-}
 
-.react-flow__node-letter.selected > div {
+/* .react-flow__node-letter.selected > div {
   animation: glow-gold 2s ease-in-out infinite;
 }
 
@@ -311,4 +308,8 @@
 .react-flow__node-trait-group.selected > div,
 .react-flow__node-trait.selected > div {
   animation: glow-amethyst 2s ease-in-out infinite;
+} */
+
+.react-flow {
+  @apply touch-none!;
 }

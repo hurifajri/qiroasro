@@ -64,7 +64,7 @@ export function GraphFilter({
       id="tour-graph-filter"
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex w-full flex-col gap-2 rounded-lg border backdrop-blur-sm sm:w-72"
+      className="flex w-full flex-col gap-2 rounded-lg border bg-background sm:w-72"
     >
       <CollapsibleTrigger
         className={cn(
