@@ -19,7 +19,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
@@ -54,9 +54,10 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
-  const theme = useGlobalStore((s) => s.theme);
 
-  // Use granular selectors for better performance (avoid re-renders on unrelated state changes)
+  const theme = useGlobalStore((s) => s.theme);
+  const { startTour } = usePlaygroundTour({ theme });
+
   const viewMode = usePlaygroundStore((s) => s.viewMode);
   const layoutMode = usePlaygroundStore((s) => s.layoutMode);
   const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
@@ -71,8 +72,6 @@ export function Playground() {
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
   const getEffectiveEdgeType = usePlaygroundStore((s) => s.getEffectiveEdgeType);
 
-  const { startTour } = usePlaygroundTour({ theme });
-
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
   const isQuizStarted = useQuizStore((s) => s.isStarted);
   const openQuizDialog = useQuizStore((s) => s.openDialog);
@@ -81,10 +80,6 @@ export function Playground() {
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
-
-  // Ref to access current edges without causing effect re-runs
-  const edgesRef = useRef(edges);
-  edgesRef.current = edges;
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -171,55 +166,16 @@ export function Playground() {
 
     updateLayout();
   }, [
-    letters,
-    letterArticulations,
-    letterTraits,
-    articulationAreas,
-    articulationPoints,
-    traits,
-    traitGroups,
     viewMode,
     layoutMode,
     hierarchyDirection,
-    selectedLetterId,
     edgeStyle.isFloating,
-    edgeStyle.isAnimated,
-    setNodes,
-    setEdges,
-    getEffectiveEdgeType,
-    fitView,
+    edgeStyle.shape,
+    selectedLetterId,
   ]);
 
-  // Update edges when edge style changes (without full layout recalc)
-  useEffect(() => {
-    const effectiveEdgeType = getEffectiveEdgeType();
-    setEdges((currentEdges) =>
-      currentEdges.map((edge) => ({
-        ...edge,
-        type: effectiveEdgeType,
-        animated: edgeStyle.isAnimated,
-      })),
-    );
-  }, [edgeStyle, setEdges, getEffectiveEdgeType]);
-
-  // Update nodes with layout info for conditional handle rendering and positioning
-  useEffect(() => {
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => ({
-        ...node,
-        data: {
-          ...node.data,
-          isFloating: edgeStyle.isFloating,
-          layoutMode,
-          hierarchyDirection,
-        },
-      })),
-    );
-  }, [edgeStyle.isFloating, layoutMode, hierarchyDirection, setNodes]);
-
-  // Highlight edges and nodes connected to selected node (2-level traversal with category filtering)
-  useEffect(() => {
-    const allEdges = edgesRef.current;
+  // Compute highlighted nodes and edges during render (derived from state)
+  const { highlightedNodes, highlightedEdges } = useMemo(() => {
     const connectedNodeIds = new Set<string>();
     const connectedEdgeIds = new Set<string>();
 
@@ -246,7 +202,7 @@ export function Playground() {
 
       // Level 1: All direct connections (bidirectional)
       const level1Nodes = new Set<string>();
-      for (const edge of allEdges) {
+      for (const edge of edges) {
         if (edge.source === selectedNodeId) {
           level1Nodes.add(edge.target);
           connectedNodeIds.add(edge.target);
@@ -263,7 +219,7 @@ export function Playground() {
       // - EXCLUDE nodes of same type as selected
       // - If selected is point/trait, also EXCLUDE nodes from different category
       for (const nodeId of level1Nodes) {
-        for (const edge of allEdges) {
+        for (const edge of edges) {
           if (edge.source === nodeId && edge.target !== selectedNodeId) {
             const targetType = getNodeType(edge.target);
             const targetCategory = getCategory(targetType);
@@ -298,42 +254,40 @@ export function Playground() {
       }
     }
 
-    // Update edge styles
-    setEdges((currentEdges) =>
-      currentEdges.map((edge) => {
-        const isConnected = connectedEdgeIds.has(edge.id);
+    // Compute highlighted edges
+    const highlightedEdges = edges.map((edge) => {
+      const isConnected = connectedEdgeIds.has(edge.id);
 
-        return {
-          ...edge,
-          style: {
-            ...edge.style,
-            strokeWidth: isConnected ? 3 : 1,
-            opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
-          },
-          animated: isConnected ? true : edgeStyle.isAnimated,
-        };
-      }),
-    );
+      return {
+        ...edge,
+        style: {
+          ...edge.style,
+          strokeWidth: isConnected ? 3 : 1,
+          opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
+        },
+        animated: isConnected ? true : edgeStyle.isAnimated,
+      };
+    });
 
-    // Update node styles for highlighting
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => {
-        const isSelected = node.id === selectedNodeId;
-        const isConnected = connectedNodeIds.has(node.id);
-        const shouldHighlight = isSelected || isConnected;
+    // Compute highlighted nodes
+    const highlightedNodes = nodes.map((node) => {
+      const isSelected = node.id === selectedNodeId;
+      const isConnected = connectedNodeIds.has(node.id);
+      const shouldHighlight = isSelected || isConnected;
 
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            isHighlighted: shouldHighlight,
-            isConnectedToSelected: isConnected,
-            isDimmed: selectedNodeId ? !shouldHighlight : false,
-          },
-        };
-      }),
-    );
-  }, [selectedNodeId, edgeStyle.isAnimated, setEdges, setNodes]);
+      return {
+        ...node,
+        data: {
+          ...node.data,
+          isHighlighted: shouldHighlight,
+          isConnectedToSelected: isConnected,
+          isDimmed: selectedNodeId ? !shouldHighlight : false,
+        },
+      };
+    });
+
+    return { highlightedNodes, highlightedEdges };
+  }, [nodes, edges, selectedNodeId, edgeStyle.isAnimated]);
 
   // Handle node click - highlight connected edges
   const handleNodeClick = useCallback(
@@ -386,8 +340,8 @@ export function Playground() {
             colorMode={theme}
             fitView
             fitViewOptions={{ padding: 0.2 }}
-            nodes={nodes}
-            edges={edges}
+            nodes={highlightedNodes}
+            edges={highlightedEdges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
