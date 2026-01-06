@@ -312,19 +312,24 @@ export function Playground() {
   }, [getEffectiveEdgeType]);
 
   // Memoize defaultEdgeOptions to prevent new object reference on every render
-  const defaultEdgeOptions = useMemo(
-    () => ({
-      type: computedEdgeType,
-      animated: edgeStyle.isAnimated,
-    }),
-    [computedEdgeType, edgeStyle.isAnimated],
-  );
+  // const defaultEdgeOptions = useMemo(
+  //   () => ({
+  //     type: computedEdgeType,
+  //     animated: edgeStyle.isAnimated,
+  //   }),
+  //   [computedEdgeType, edgeStyle.isAnimated],
+  // );
+  const defaultEdgeOptions = {
+    type: computedEdgeType,
+    animated: edgeStyle.isAnimated,
+  };
 
   // Memoize connectionLineComponent to prevent new reference on every render
-  const connectionLineComponent = useMemo(
-    () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
-    [edgeStyle.isFloating],
-  );
+  // const connectionLineComponent = useMemo(
+  //   () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
+  //   [edgeStyle.isFloating],
+  // );
+  const connectionLineComponent = edgeStyle.isFloating ? FloatingConnectionLine : undefined;
 
   return (
     <>
