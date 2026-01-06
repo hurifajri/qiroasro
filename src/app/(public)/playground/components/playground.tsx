@@ -275,9 +275,10 @@ export function Playground() {
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             connectionLineComponent={connectionLineComponent}
-            minZoom={0.1}
-            maxZoom={2}
+            minZoom={0.3}
+            maxZoom={1.5}
             defaultEdgeOptions={defaultEdgeOptions}
+            onlyRenderVisibleElements
           >
             <Panel
               position="top-right"
