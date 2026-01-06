@@ -155,9 +155,12 @@ export function Playground() {
         setEdges(edgesWithStyle);
 
         // Fit view after layout - use requestAnimationFrame for visual transitions
-        requestAnimationFrame(() => {
+        // requestAnimationFrame(() => {
+        //   fitView({ padding: 0.2, duration: 300 });
+        // });
+        setTimeout(() => {
           fitView({ padding: 0.2, duration: 300 });
-        });
+        }, 50);
       } catch (err) {
         // TODO: handle error
         console.error('Layout error:', err);
