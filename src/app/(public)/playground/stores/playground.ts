@@ -1,5 +1,7 @@
+import type { Edge } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
+import { computeHighlight } from '../lib/edge';
 import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
 
 interface PlaygroundState {
@@ -9,6 +11,9 @@ interface PlaygroundState {
   selectedLetterId: number | undefined;
   selectedNodeId: string | null;
   edgeStyle: EdgeStyleOptions;
+  // Highlight state - computed once when selection changes
+  connectedNodeIds: Set<string>;
+  connectedEdgeIds: Set<string>;
 }
 
 interface PlaygroundAction {
@@ -22,6 +27,8 @@ interface PlaygroundAction {
   setIsAnimated: (isAnimated: boolean) => void;
   setEdgeShape: (shape: EdgeShape) => void;
   getEffectiveEdgeType: () => string;
+  // New: Update highlight state based on selected node and edges
+  updateHighlight: (selectedNodeId: string | null, edges: Edge[]) => void;
 }
 
 export type PlaygroundStore = PlaygroundState & PlaygroundAction;
@@ -38,6 +45,8 @@ export function createPlaygroundStore() {
       isAnimated: false,
       shape: 'default',
     },
+    connectedNodeIds: new Set<string>(),
+    connectedEdgeIds: new Set<string>(),
     setViewMode: (mode) => {
       set({ viewMode: mode });
       if (mode !== 'letter') {
@@ -67,6 +76,10 @@ export function createPlaygroundStore() {
     getEffectiveEdgeType: () => {
       const { edgeStyle } = get();
       return edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
+    },
+    updateHighlight: (selectedNodeId, edges) => {
+      const { connectedNodeIds, connectedEdgeIds } = computeHighlight(selectedNodeId, edges);
+      set({ selectedNodeId, connectedNodeIds, connectedEdgeIds });
     },
   }));
 }

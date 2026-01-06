@@ -64,13 +64,15 @@ export function Playground() {
   const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
   const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
   const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+  const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
+  const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
   const setLayoutMode = usePlaygroundStore((s) => s.setLayoutMode);
   const setHierarchyDirection = usePlaygroundStore((s) => s.setHierarchyDirection);
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
-  const setSelectedNodeId = usePlaygroundStore((s) => s.setSelectedNodeId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
   const getEffectiveEdgeType = usePlaygroundStore((s) => s.getEffectiveEdgeType);
+  const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
   const isQuizStarted = useQuizStore((s) => s.isStarted);
@@ -93,6 +95,7 @@ export function Playground() {
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <perf optimization>
   useEffect(() => {
     const data = {
       letters,
@@ -177,90 +180,10 @@ export function Playground() {
     selectedLetterId,
   ]);
 
-  // Compute highlighted nodes and edges during render (derived from state)
-  const { highlightedNodes, highlightedEdges } = useMemo(() => {
-    const connectedNodeIds = new Set<string>();
-    const connectedEdgeIds = new Set<string>();
-
-    // Helper to get node type prefix
-    const getNodeType = (nodeId: string): string => {
-      if (nodeId.startsWith('letter-')) return 'letter';
-      if (nodeId.startsWith('area-')) return 'area';
-      if (nodeId.startsWith('point-')) return 'point';
-      if (nodeId.startsWith('trait-group-')) return 'traitGroup';
-      if (nodeId.startsWith('trait-')) return 'trait';
-      return 'unknown';
-    };
-
-    // Helper to get category: articulation (area, point) vs trait (trait-group, trait) vs letter
-    const getCategory = (nodeType: string): string => {
-      if (nodeType === 'area' || nodeType === 'point') return 'articulation';
-      if (nodeType === 'traitGroup' || nodeType === 'trait') return 'trait';
-      return 'letter'; // letters are neutral, connect to both
-    };
-
-    if (selectedNodeId) {
-      const selectedType = getNodeType(selectedNodeId);
-      const selectedCategory = getCategory(selectedType);
-
-      // Level 1: All direct connections (bidirectional)
-      const level1Nodes = new Set<string>();
-      for (const edge of edges) {
-        if (edge.source === selectedNodeId) {
-          level1Nodes.add(edge.target);
-          connectedNodeIds.add(edge.target);
-          connectedEdgeIds.add(edge.id);
-        }
-        if (edge.target === selectedNodeId) {
-          level1Nodes.add(edge.source);
-          connectedNodeIds.add(edge.source);
-          connectedEdgeIds.add(edge.id);
-        }
-      }
-
-      // Level 2: Connections of level 1 nodes
-      // - EXCLUDE nodes of same type as selected
-      // - If selected is point/trait, also EXCLUDE nodes from different category
-      for (const nodeId of level1Nodes) {
-        for (const edge of edges) {
-          if (edge.source === nodeId && edge.target !== selectedNodeId) {
-            const targetType = getNodeType(edge.target);
-            const targetCategory = getCategory(targetType);
-
-            // Skip same type
-            if (targetType === selectedType) continue;
-
-            // If selected is point or trait, only allow same category or letters
-            if (selectedCategory !== 'letter') {
-              if (targetCategory !== selectedCategory && targetCategory !== 'letter') continue;
-            }
-
-            connectedNodeIds.add(edge.target);
-            connectedEdgeIds.add(edge.id);
-          }
-          if (edge.target === nodeId && edge.source !== selectedNodeId) {
-            const sourceType = getNodeType(edge.source);
-            const sourceCategory = getCategory(sourceType);
-
-            // Skip same type
-            if (sourceType === selectedType) continue;
-
-            // If selected is point or trait, only allow same category or letters
-            if (selectedCategory !== 'letter') {
-              if (sourceCategory !== selectedCategory && sourceCategory !== 'letter') continue;
-            }
-
-            connectedNodeIds.add(edge.source);
-            connectedEdgeIds.add(edge.id);
-          }
-        }
-      }
-    }
-
-    // Compute highlighted edges
-    const highlightedEdges = edges.map((edge) => {
+  // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
+  const highlightedEdges = useMemo(() => {
+    return edges.map((edge) => {
       const isConnected = connectedEdgeIds.has(edge.id);
-
       return {
         ...edge,
         style: {
@@ -271,13 +194,14 @@ export function Playground() {
         animated: isConnected ? true : edgeStyle.isAnimated,
       };
     });
+  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated]);
 
-    // Compute highlighted nodes
-    const highlightedNodes = nodes.map((node) => {
+  // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
+  const highlightedNodes = useMemo(() => {
+    return nodes.map((node) => {
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
-
       return {
         ...node,
         data: {
@@ -288,23 +212,22 @@ export function Playground() {
         },
       };
     });
+  }, [nodes, connectedNodeIds, selectedNodeId]);
 
-    return { highlightedNodes, highlightedEdges };
-  }, [nodes, edges, selectedNodeId, edgeStyle.isAnimated]);
-
-  // Handle node click - highlight connected edges
+  // Handle node click - update highlight state in store
   const handleNodeClick = useCallback(
     (_event: React.MouseEvent, node: FlowNode) => {
       // Toggle selection: if same node clicked again, deselect
-      setSelectedNodeId(selectedNodeId === node.id ? null : node.id);
+      const newSelectedId = selectedNodeId === node.id ? null : node.id;
+      updateHighlight(newSelectedId, edges);
     },
-    [selectedNodeId, setSelectedNodeId],
+    [selectedNodeId, edges, updateHighlight],
   );
 
   // Handle pane click - clear selection
   const handlePaneClick = useCallback(() => {
-    setSelectedNodeId(null);
-  }, [setSelectedNodeId]);
+    updateHighlight(null, edges);
+  }, [edges, updateHighlight]);
 
   // Memoized letters for filter
   const memoizedLetters = useMemo(() => letters, [letters]);
@@ -322,17 +245,12 @@ export function Playground() {
     }),
     [computedEdgeType, edgeStyle.isAnimated],
   );
-  // const defaultEdgeOptions = {
-  //   type: computedEdgeType,
-  //   animated: edgeStyle.isAnimated,
-  // };
 
   // Memoize connectionLineComponent to prevent new reference on every render
   const connectionLineComponent = useMemo(
     () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
     [edgeStyle.isFloating],
   );
-  // const connectionLineComponent = edgeStyle.isFloating ? FloatingConnectionLine : undefined;
 
   return (
     <>

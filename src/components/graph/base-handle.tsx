@@ -1,10 +1,14 @@
 import { Handle, type HandleProps } from '@xyflow/react';
-import type { ComponentProps } from 'react';
+import { type ComponentProps, memo } from 'react';
 import { cn } from '@/lib/utils';
 
 export type BaseHandleProps = HandleProps;
 
-export function BaseHandle({ className, children, ...props }: ComponentProps<typeof Handle>) {
+export const BaseHandle = memo(function BaseHandle({
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof Handle>) {
   return (
     <Handle
       {...props}
@@ -16,4 +20,4 @@ export function BaseHandle({ className, children, ...props }: ComponentProps<typ
       {children}
     </Handle>
   );
-}
+});
