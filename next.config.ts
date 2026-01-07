@@ -20,6 +20,11 @@ export default withSentryConfig(withNextIntl(nextConfig), {
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
 
+  // Ignore Next.js internal files that don't have sourcemaps
+  sourcemaps: {
+    ignore: ['**/route_client-reference-manifest.js'],
+  },
+
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
 

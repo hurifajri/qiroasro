@@ -19,10 +19,11 @@ import {
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
+import { isMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
@@ -83,6 +84,10 @@ export function Playground() {
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
+
+  // Interaction state for dimming
+  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+  const [isMoving, setIsMoving] = useState(false);
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -188,28 +193,18 @@ export function Playground() {
     selectedLetterId,
   ]);
 
-  // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
-  const highlightedEdges = useMemo(() => {
-    return edges.map((edge) => {
-      const isConnected = connectedEdgeIds.has(edge.id);
-      return {
-        ...edge,
-        style: {
-          ...edge.style,
-          strokeWidth: isConnected ? 3 : 1,
-          opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
-        },
-        animated: isConnected ? true : edgeStyle.isAnimated,
-      };
-    });
-  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated]);
-
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   const highlightedNodes = useMemo(() => {
     return nodes.map((node) => {
+      // Hide during pan/zoom (mobile only for performance)
+      if (isMobile() && isMoving && node.type !== 'letter') {
+        return { ...node, hidden: true };
+      }
+
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
+
       return {
         ...node,
         data: {
@@ -220,7 +215,29 @@ export function Playground() {
         },
       };
     });
-  }, [nodes, connectedNodeIds, selectedNodeId]);
+  }, [nodes, connectedNodeIds, selectedNodeId, isMoving]);
+
+  // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
+  const highlightedEdges = useMemo(() => {
+    return edges.map((edge) => {
+      // Hide during pan/zoom (mobile only for performance)
+      if (isMobile() && isMoving) {
+        return { ...edge, hidden: true };
+      }
+
+      const isConnected = connectedEdgeIds.has(edge.id);
+
+      return {
+        ...edge,
+        style: {
+          ...edge.style,
+          strokeWidth: isConnected ? 3 : 1,
+          opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
+        },
+        animated: isConnected ? true : edgeStyle.isAnimated,
+      };
+    });
+  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving]);
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -255,6 +272,26 @@ export function Playground() {
       updateHighlight(null, edges);
     }, 100);
   }, [edges, updateHighlight]);
+
+  // Handle node drag start
+  const handleNodeDragStart = useCallback((_event: React.MouseEvent, node: FlowNode) => {
+    setDraggingNodeId(node.id);
+  }, []);
+
+  // Handle node drag stop
+  const handleNodeDragStop = useCallback(() => {
+    setDraggingNodeId(null);
+  }, []);
+
+  // Handle pan/zoom start
+  const handleMoveStart = useCallback(() => {
+    setIsMoving(true);
+  }, []);
+
+  // Handle pan/zoom end
+  const handleMoveEnd = useCallback(() => {
+    setIsMoving(false);
+  }, []);
 
   // Memoized letters for filter
   const memoizedLetters = useMemo(() => letters, [letters]);
@@ -301,11 +338,16 @@ export function Playground() {
             edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
+            onNodeDragStart={handleNodeDragStart}
+            onNodeDragStop={handleNodeDragStop}
+            onMoveStart={handleMoveStart}
+            onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
             minZoom={0.1}
             maxZoom={1.5}
             defaultEdgeOptions={defaultEdgeOptions}
-            onlyRenderVisibleElements={!selectedNodeId}
+            onlyRenderVisibleElements
+            edgesFocusable={false}
           >
             <Panel
               position="top-right"
