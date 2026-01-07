@@ -19,7 +19,7 @@ import {
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
@@ -75,6 +75,7 @@ export function Playground() {
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
+  const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const isQuizStarted = useQuizStore((s) => s.isStarted);
   const openQuizDialog = useQuizStore((s) => s.openDialog);
 
@@ -214,19 +215,38 @@ export function Playground() {
     });
   }, [nodes, connectedNodeIds, selectedNodeId]);
 
-  // Handle node click - update highlight state in store
+  // Debounce ref for highlight updates
+  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Handle node click - debounced to prevent rapid highlight recalculations
   const handleNodeClick = useCallback(
     (_event: React.MouseEvent, node: FlowNode) => {
-      // Toggle selection: if same node clicked again, deselect
-      const newSelectedId = selectedNodeId === node.id ? null : node.id;
-      updateHighlight(newSelectedId, edges);
+      // Clear any pending highlight update
+      if (highlightTimeoutRef.current) {
+        clearTimeout(highlightTimeoutRef.current);
+      }
+
+      // Debounce highlight update (100ms)
+      highlightTimeoutRef.current = setTimeout(() => {
+        // Toggle selection: if same node clicked again, deselect
+        const newSelectedId = selectedNodeId === node.id ? null : node.id;
+        updateHighlight(newSelectedId, edges);
+      }, 100);
     },
     [selectedNodeId, edges, updateHighlight],
   );
 
-  // Handle pane click - clear selection
+  // Handle pane click - debounced to clear selection
   const handlePaneClick = useCallback(() => {
-    updateHighlight(null, edges);
+    // Clear any pending highlight update
+    if (highlightTimeoutRef.current) {
+      clearTimeout(highlightTimeoutRef.current);
+    }
+
+    // Debounce highlight update (100ms)
+    highlightTimeoutRef.current = setTimeout(() => {
+      updateHighlight(null, edges);
+    }, 100);
   }, [edges, updateHighlight]);
 
   // Memoized letters for filter
@@ -275,10 +295,10 @@ export function Playground() {
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             connectionLineComponent={connectionLineComponent}
-            minZoom={0.3}
+            minZoom={0.1}
             maxZoom={1.5}
             defaultEdgeOptions={defaultEdgeOptions}
-            onlyRenderVisibleElements
+            onlyRenderVisibleElements={!selectedNodeId}
           >
             <Panel
               position="top-right"
@@ -359,7 +379,7 @@ export function Playground() {
         </div>
       )}
       {/* Quiz component rendered outside ReactFlow so it's always accessible */}
-      <Quiz />
+      {isQuizDialogOpen && <Quiz />}
     </>
   );
 }
