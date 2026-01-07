@@ -212,12 +212,23 @@ export function Playground() {
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
 
+      // Hide non-selected nodes on mobile
+      if (isMobile()) {
+        return {
+          ...node,
+          hidden: selectedNodeId ? !shouldHighlight : false,
+          data: {
+            ...node.data,
+            isHighlighted: shouldHighlight,
+          },
+        };
+      }
+
       return {
         ...node,
         data: {
           ...node.data,
           isHighlighted: shouldHighlight,
-          isConnectedToSelected: isConnected,
           isDimmed: selectedNodeId ? !shouldHighlight : false,
         },
       };
