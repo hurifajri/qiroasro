@@ -376,7 +376,7 @@ export function Playground() {
             onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
             minZoom={isMobile() ? 0.2 : 0.1}
-            maxZoom={isMobile() ? 0.5 : 1}
+            maxZoom={isMobile() ? 0.2 : 1}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
             edgesFocusable={false}
