@@ -9,7 +9,7 @@ import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
 import type { TargetQuizNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
-export const TargetQuizNode = memo(function TargetQuizNode({ data }: NodeProps) {
+export const TargetQuizNode = memo(({ data }: NodeProps) => {
   const nodeData = data as TargetQuizNodeData;
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);

@@ -7,13 +7,7 @@ import { getEdgeParams } from '@/lib/graph';
  * based on the positions of source and target nodes. The edge "floats" around
  * the nodes, connecting at the closest points rather than fixed handles.
  */
-export const FloatingEdge = memo(function FloatingEdge({
-  id,
-  source,
-  target,
-  style,
-  markerEnd,
-}: EdgeProps) {
+export const FloatingEdge = memo(({ id, source, target, style, markerEnd }: EdgeProps) => {
   // Use equality function to prevent re-renders when positions haven't changed
   const { sourceNode, targetNode } = useStore(
     (s) => {

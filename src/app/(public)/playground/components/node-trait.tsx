@@ -14,7 +14,7 @@ import { NodeInfoDialog } from './node-info-dialog';
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
 type TraitNodeData = Trait & BaseNodeData;
 
-export const TraitGroupNode = memo(function TraitGroupNode({ data, selected }: NodeProps) {
+export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -53,7 +53,7 @@ export const TraitGroupNode = memo(function TraitGroupNode({ data, selected }: N
   );
 });
 
-export const TraitNode = memo(function TraitNode({ data, selected }: NodeProps) {
+export const TraitNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.trait');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);

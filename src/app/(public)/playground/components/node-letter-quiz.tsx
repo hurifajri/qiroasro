@@ -5,7 +5,7 @@ import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
 import type { LetterQuizNodeData } from '../schemas/node';
 
-export const LetterQuizNode = memo(function LetterQuizNode({ data }: NodeProps) {
+export const LetterQuizNode = memo(({ data }: NodeProps) => {
   const nodeData = data as LetterQuizNodeData;
 
   return (

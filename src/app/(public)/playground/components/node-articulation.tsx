@@ -14,10 +14,7 @@ import { NodeInfoDialog } from './node-info-dialog';
 type ArticulationAreaNodeData = ArticulationArea & BaseNodeData;
 type ArticulationPointNodeData = ArticulationPoint & BaseNodeData;
 
-export const ArticulationAreaNode = memo(function ArticulationAreaNode({
-  data,
-  selected,
-}: NodeProps) {
+export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.articulation_area');
   const nodeData = data as ArticulationAreaNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -56,10 +53,7 @@ export const ArticulationAreaNode = memo(function ArticulationAreaNode({
   );
 });
 
-export const ArticulationPointNode = memo(function ArticulationPointNode({
-  data,
-  selected,
-}: NodeProps) {
+export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.articulation_point');
   const nodeData = data as ArticulationPointNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
