@@ -86,8 +86,8 @@ export function Playground() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
 
   // Interaction state for dimming
-  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
   const [isMoving, setIsMoving] = useState(false);
+  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -201,6 +201,13 @@ export function Playground() {
         return { ...node, hidden: true };
       }
 
+      // Hide during drag (except the node being dragged)
+      if (isMobile() && draggingNodeId) {
+        const isDragged = node.id === draggingNodeId;
+
+        return { ...node, hidden: !isDragged };
+      }
+
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
@@ -215,13 +222,13 @@ export function Playground() {
         },
       };
     });
-  }, [nodes, connectedNodeIds, selectedNodeId, isMoving]);
+  }, [nodes, connectedNodeIds, selectedNodeId, isMoving, draggingNodeId]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   const highlightedEdges = useMemo(() => {
     return edges.map((edge) => {
-      // Hide during pan/zoom (mobile only for performance)
-      if (isMobile() && isMoving) {
+      // Hide during pan/zoom or drag (mobile only for performance)
+      if (isMobile() && (isMoving || draggingNodeId)) {
         return { ...edge, hidden: true };
       }
 
@@ -237,7 +244,7 @@ export function Playground() {
         animated: isConnected ? true : edgeStyle.isAnimated,
       };
     });
-  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving]);
+  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving, draggingNodeId]);
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
