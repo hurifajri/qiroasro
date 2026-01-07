@@ -245,6 +245,20 @@ export function Playground() {
 
       const isConnected = connectedEdgeIds.has(edge.id);
 
+      // Hide non-selected edges on mobile
+      if (isMobile()) {
+        return {
+          ...edge,
+          hidden: selectedNodeId ? !isConnected : false,
+          style: {
+            ...edge.style,
+            strokeWidth: isConnected ? 3 : 1,
+            opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
+          },
+          animated: isConnected ? true : edgeStyle.isAnimated,
+        };
+      }
+
       return {
         ...edge,
         style: {
@@ -362,7 +376,7 @@ export function Playground() {
             onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
             minZoom={0.1}
-            maxZoom={1.5}
+            maxZoom={1}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
             edgesFocusable={false}
