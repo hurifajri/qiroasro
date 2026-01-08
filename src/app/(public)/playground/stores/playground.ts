@@ -48,7 +48,13 @@ export function createPlaygroundStore() {
     connectedNodeIds: new Set<string>(),
     connectedEdgeIds: new Set<string>(),
     setViewMode: (mode) => {
-      set({ viewMode: mode });
+      set({
+        viewMode: mode,
+        // Reset highlight state when viewMode changes
+        selectedNodeId: null,
+        connectedNodeIds: new Set<string>(),
+        connectedEdgeIds: new Set<string>(),
+      });
       if (mode !== 'letter') {
         set({ selectedLetterId: 1 });
       }
