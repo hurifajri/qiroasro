@@ -92,8 +92,12 @@ export function Playground() {
 
   // Handle viewport changes (pan/zoom) using React Flow's built-in hook
   useOnViewportChange({
-    onStart: useCallback(() => setIsMoving(true), []),
-    onEnd: useCallback(() => setIsMoving(false), []),
+    onChange: useCallback(() => {
+      if (!isMoving) setIsMoving(true);
+    }, [isMoving]),
+    onEnd: useCallback(() => {
+      if (isMoving) setIsMoving(false);
+    }, [isMoving]),
   });
 
   // Fetch data from single consolidated query

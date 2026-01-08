@@ -39,7 +39,6 @@ interface QuizState {
   challengeDifficulty: ChallengeQuizDifficulty | null;
   challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
-  challengeQuestionStartTime: number | null;
   challengeQuestionScores: ChallengeQuizQuestionScore[];
   challengeScore: ChallengeQuizScore;
   challengeResult: ChallengeQuizResult | null;
@@ -50,7 +49,6 @@ interface QuizState {
 interface QuizAction {
   // Base actions
   openDialog: () => void;
-  closeDialog: () => void;
   setMode: (mode: QuizMode | null) => void;
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
@@ -60,7 +58,6 @@ interface QuizAction {
 
   // Regular actions
   setRegularSettings: (settings: RegularQuizSettings) => void;
-  updateRegularSettings: (partial: Partial<RegularQuizSettings>) => void;
   startRegularQuiz: () => void;
   setRegularScore: (score: RegularQuizScore) => void;
   resetRegularQuiz: () => void;
@@ -88,7 +85,6 @@ const initialChallengeState = {
   challengeDifficulty: null as ChallengeQuizDifficulty | null,
   challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
-  challengeQuestionStartTime: null as number | null,
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
   challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
   challengeResult: null as ChallengeQuizResult | null,
@@ -118,7 +114,6 @@ export function createQuizStore() {
       trackEvent('quiz_dialog_opened');
       set({ isDialogOpen: true });
     },
-    closeDialog: () => set({ isDialogOpen: false }),
     setMode: (mode) => set({ mode }),
     setIsChecked: (isChecked) => set({ isChecked }),
     setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
@@ -128,10 +123,6 @@ export function createQuizStore() {
 
     // Regular actions
     setRegularSettings: (settings) => set({ regularSettings: settings }),
-    updateRegularSettings: (partial) =>
-      set((state) => ({
-        regularSettings: { ...state.regularSettings, ...partial },
-      })),
     startRegularQuiz: () => set({ isStarted: true }),
     setRegularScore: (score) => set({ regularScore: score }),
     resetRegularQuiz: () =>
@@ -151,7 +142,6 @@ export function createQuizStore() {
         isStarted: true,
         challengeCurrQuestionIdx: 0,
         challengeStartTime: Date.now(),
-        challengeQuestionStartTime: Date.now(),
         challengeQuestionScores: [],
         challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
         challengeStats: [],
@@ -160,7 +150,6 @@ export function createQuizStore() {
     nextChallengeQuestion: () =>
       set((state) => ({
         challengeCurrQuestionIdx: state.challengeCurrQuestionIdx + 1,
-        challengeQuestionStartTime: Date.now(),
         isChecked: false,
         questions: [],
         targets: [],
