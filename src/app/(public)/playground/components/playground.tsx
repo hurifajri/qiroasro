@@ -14,6 +14,7 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
@@ -88,6 +89,12 @@ export function Playground() {
   // Interaction state for dimming
   const [isMoving, setIsMoving] = useState(false);
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+
+  // Handle viewport changes (pan/zoom) using React Flow's built-in hook
+  useOnViewportChange({
+    onStart: useCallback(() => setIsMoving(true), []),
+    onEnd: useCallback(() => setIsMoving(false), []),
+  });
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -168,7 +175,7 @@ export function Playground() {
         }, 50);
       } catch (err) {
         // Report layout errors to Sentry for debugging
-        if (typeof window !== 'undefined') {
+        if (window !== undefined) {
           import('@sentry/nextjs').then((Sentry) => {
             Sentry.captureException(err, {
               tags: { component: 'playground', action: 'layout_update' },
@@ -190,79 +197,94 @@ export function Playground() {
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
+  // Optimized: only create new objects when values actually change
   const highlightedNodes = useMemo(() => {
+    const isMobileDevice = isMobile();
+
     return nodes.map((node) => {
       // Hide during pan/zoom (mobile only for performance)
-      if (isMobile() && isMoving && node.type !== 'letter') {
+      if (isMobileDevice && isMoving && node.type !== 'letter') {
+        // Only create new object if hidden state changed
+        if (node.hidden === true) return node;
         return { ...node, hidden: true };
       }
 
       // Hide during drag (except the node being dragged)
-      if (isMobile() && draggingNodeId) {
+      if (isMobileDevice && draggingNodeId) {
         const isDragged = node.id === draggingNodeId;
-
-        return { ...node, hidden: !isDragged };
+        const shouldHide = !isDragged;
+        // Only create new object if hidden state changed
+        if (node.hidden === shouldHide) return node;
+        return { ...node, hidden: shouldHide };
       }
 
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
+      const shouldDim = selectedNodeId ? !shouldHighlight : false;
 
-      // Hide non-selected nodes on mobile
-      // if (isMobile()) {
-      //   return {
-      //     ...node,
-      //     hidden: selectedNodeId ? !shouldHighlight : false,
-      //     data: {
-      //       ...node.data,
-      //       isHighlighted: shouldHighlight,
-      //     },
-      //   };
-      // }
+      // Only create new object if highlight/dim state changed
+      const currentHighlight = node.data?.isHighlighted ?? false;
+      const currentDim = node.data?.isDimmed ?? false;
+      if (
+        currentHighlight === shouldHighlight &&
+        currentDim === shouldDim &&
+        node.hidden !== true
+      ) {
+        return node;
+      }
 
       return {
         ...node,
+        hidden: false,
         data: {
           ...node.data,
           isHighlighted: shouldHighlight,
-          isDimmed: selectedNodeId ? !shouldHighlight : false,
+          isDimmed: shouldDim,
         },
       };
     });
   }, [nodes, connectedNodeIds, selectedNodeId, isMoving, draggingNodeId]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
+  // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
+    const isMobileDevice = isMobile();
+    const shouldHideAll = isMobileDevice && (isMoving || draggingNodeId);
+
     return edges.map((edge) => {
       // Hide during pan/zoom or drag (mobile only for performance)
-      if (isMobile() && (isMoving || draggingNodeId)) {
+      if (shouldHideAll) {
+        // Only create new object if hidden state changed
+        if (edge.hidden === true) return edge;
         return { ...edge, hidden: true };
       }
 
       const isConnected = connectedEdgeIds.has(edge.id);
+      const targetStrokeWidth = isConnected ? 3 : 1;
+      const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
+      const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
-      // Hide non-selected edges on mobile
-      // if (isMobile()) {
-      //   return {
-      //     ...edge,
-      //     hidden: selectedNodeId ? !isConnected : false,
-      //     style: {
-      //       ...edge.style,
-      //       strokeWidth: isConnected ? 3 : 1,
-      //       opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
-      //     },
-      //     animated: isConnected ? true : edgeStyle.isAnimated,
-      //   };
-      // }
+      // Only create new object if style changed
+      const currentStyle = edge.style as Record<string, unknown> | undefined;
+      if (
+        edge.hidden !== true &&
+        currentStyle?.strokeWidth === targetStrokeWidth &&
+        currentStyle?.opacity === targetOpacity &&
+        edge.animated === targetAnimated
+      ) {
+        return edge;
+      }
 
       return {
         ...edge,
+        hidden: false,
         style: {
           ...edge.style,
-          strokeWidth: isConnected ? 3 : 1,
-          opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
+          strokeWidth: targetStrokeWidth,
+          opacity: targetOpacity,
         },
-        animated: isConnected ? true : edgeStyle.isAnimated,
+        animated: targetAnimated,
       };
     });
   }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving, draggingNodeId]);
@@ -309,16 +331,6 @@ export function Playground() {
   // Handle node drag stop
   const handleNodeDragStop = useCallback(() => {
     setDraggingNodeId(null);
-  }, []);
-
-  // Handle pan/zoom start
-  const handleMoveStart = useCallback(() => {
-    if (!isMoving) setIsMoving(true);
-  }, [isMoving]);
-
-  // Handle pan/zoom end
-  const handleMoveEnd = useCallback(() => {
-    setIsMoving(false);
   }, []);
 
   // Memoized letters for filter
@@ -368,8 +380,6 @@ export function Playground() {
             onPaneClick={handlePaneClick}
             onNodeDragStart={handleNodeDragStart}
             onNodeDragStop={handleNodeDragStop}
-            onMoveStart={handleMoveStart}
-            onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements

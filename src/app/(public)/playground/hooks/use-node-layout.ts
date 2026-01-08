@@ -1,4 +1,5 @@
 import { Position } from '@xyflow/react';
+import { useCallback } from 'react';
 import type { BaseNodeData } from '../schemas/node';
 
 /**
@@ -20,10 +21,14 @@ export function useNodeLayout(
   const sourcePosition = isVerticalLayout ? Position.Bottom : Position.Right;
 
   // Hide handles: when floating OR when no edge connected
-  const getHandleClass = (hasEdge: boolean) => {
-    if (nodeData.isFloating || !hasEdge) return 'hidden';
-    return `size-2 border-0! ${handleColorClass}`;
-  };
+  // Memoized to prevent new function reference on each render
+  const getHandleClass = useCallback(
+    (hasEdge: boolean) => {
+      if (nodeData.isFloating || !hasEdge) return 'hidden';
+      return `size-2 border-0! ${handleColorClass}`;
+    },
+    [nodeData.isFloating, handleColorClass],
+  );
 
   // Only dim nodes that are not selected and not highlighted
   const isActive = selected || nodeData.isHighlighted;
