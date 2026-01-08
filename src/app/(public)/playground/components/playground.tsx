@@ -163,10 +163,6 @@ export function Playground() {
         setNodes(nodesWithLayoutInfo);
         setEdges(edgesWithStyle);
 
-        // Fit view after layout - use requestAnimationFrame for visual transitions
-        // requestAnimationFrame(() => {
-        //   fitView({ padding: 0.2, duration: 300 });
-        // });
         setTimeout(() => {
           fitView({ padding: 0.2, duration: 300 });
         }, 50);
@@ -213,16 +209,16 @@ export function Playground() {
       const shouldHighlight = isSelected || isConnected;
 
       // Hide non-selected nodes on mobile
-      if (isMobile()) {
-        return {
-          ...node,
-          hidden: selectedNodeId ? !shouldHighlight : false,
-          data: {
-            ...node.data,
-            isHighlighted: shouldHighlight,
-          },
-        };
-      }
+      // if (isMobile()) {
+      //   return {
+      //     ...node,
+      //     hidden: selectedNodeId ? !shouldHighlight : false,
+      //     data: {
+      //       ...node.data,
+      //       isHighlighted: shouldHighlight,
+      //     },
+      //   };
+      // }
 
       return {
         ...node,
@@ -246,18 +242,18 @@ export function Playground() {
       const isConnected = connectedEdgeIds.has(edge.id);
 
       // Hide non-selected edges on mobile
-      if (isMobile()) {
-        return {
-          ...edge,
-          hidden: selectedNodeId ? !isConnected : false,
-          style: {
-            ...edge.style,
-            strokeWidth: isConnected ? 3 : 1,
-            opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
-          },
-          animated: isConnected ? true : edgeStyle.isAnimated,
-        };
-      }
+      // if (isMobile()) {
+      //   return {
+      //     ...edge,
+      //     hidden: selectedNodeId ? !isConnected : false,
+      //     style: {
+      //       ...edge.style,
+      //       strokeWidth: isConnected ? 3 : 1,
+      //       opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
+      //     },
+      //     animated: isConnected ? true : edgeStyle.isAnimated,
+      //   };
+      // }
 
       return {
         ...edge,
@@ -376,9 +372,10 @@ export function Playground() {
             onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
             minZoom={isMobile() ? 0.1 : 0.3}
-            maxZoom={isMobile() ? 0.3 : 1}
+            maxZoom={isMobile() ? 0.2 : 1}
             zoomOnDoubleClick={!isMobile()}
             autoPanOnNodeDrag={!isMobile()}
+            autoPanOnNodeFocus={isMobile()}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
             edgesFocusable={false}
