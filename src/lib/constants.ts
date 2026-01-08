@@ -52,11 +52,21 @@ export const LETTERS = [
   'ـِي',
 ] as const;
 
+export const NODE_TYPES = [
+  'letter',
+  'articulation_area',
+  'articulation_point',
+  'trait_group',
+  'trait',
+] as const;
+
 // Quiz
 export const CORRECT_POINT = 10;
 export const INCORRECT_POINT = -1;
-export const QUIZ_MODES = ['articulation_point', 'trait'] as const;
+export const QUIZ_TYPES = ['regular', 'challenge'] as const;
 export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
+export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
+export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
 // Playground
 export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;

@@ -1,14 +1,23 @@
-import type { QUIZ_MODES, QUIZ_STATUSES } from '@/lib/constants';
+import type {
+  CHALLENGE_QUIZ_DIFFICULTIES,
+  NODE_TYPES,
+  QUIZ_ERROR_TYPES,
+  QUIZ_STATUSES,
+} from '@/lib/constants';
 import type { Letter } from '@/schemas/letter';
 
-export type QuizMode = (typeof QUIZ_MODES)[number];
+export type ChallengeQuizDifficulty = (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
+export type QuizMode = Extract<NodeType, 'articulation_point' | 'trait'>;
+type QuizTargetType = Extract<NodeType, 'articulation_point' | 'trait'>;
+type QuizErrorType = (typeof QUIZ_ERROR_TYPES)[number];
+type NodeType = (typeof NODE_TYPES)[number];
 
 // Quiz question and answer types
 export interface QuizQuestion {
   letter: Letter;
   correctTargetIds: number[];
-  targetType: QuizMode;
+  targetType: QuizTargetType;
 }
 
 export interface QuizTarget {
@@ -50,9 +59,9 @@ export const REGULAR_QUIZ_MODE_CONFIG: Record<QuizMode, RegularQuizModeConstrain
   },
 };
 
-export const REGULAR_DEFAULT_QUIZ_SETTINGS: RegularQuizSettings = {
+export const REGULAR_QUIZ_DEFAULT_SETTINGS: RegularQuizSettings = {
   lettersPerQuiz: 1,
-  targetsPerQuiz: 2,
+  targetsPerQuiz: 3,
   multiEdge: false,
   timerMode: false,
   timerDuration: 15,
@@ -61,13 +70,10 @@ export const REGULAR_DEFAULT_QUIZ_SETTINGS: RegularQuizSettings = {
 // Track weakness for analysis
 export interface ChallengeQuizStat {
   item: string;
-  type: 'letter' | 'articulation_point' | 'trait';
-  errorType: 'incorrect' | 'missed';
+  type: NodeType;
+  errorType: QuizErrorType;
   errorCount: number;
 }
-
-// Challenge types
-export type ChallengeQuizDifficulty = 'easy' | 'medium' | 'hard';
 
 export interface ChallengeQuizScore {
   correctConnection: number;

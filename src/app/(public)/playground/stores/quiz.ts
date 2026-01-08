@@ -16,7 +16,7 @@ import type {
 } from '../schemas/quiz';
 import {
   DEFAULT_CHALLENGE_QUIZ_SCORE,
-  REGULAR_DEFAULT_QUIZ_SETTINGS,
+  REGULAR_QUIZ_DEFAULT_SETTINGS,
   type RegularQuizSettings,
 } from '../schemas/quiz';
 
@@ -95,7 +95,7 @@ const initialChallengeState = {
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  regularSettings: REGULAR_DEFAULT_QUIZ_SETTINGS,
+  regularSettings: REGULAR_QUIZ_DEFAULT_SETTINGS,
   isStarted: false,
   isChecked: false,
   isInstructionShown: true,
