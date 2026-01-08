@@ -213,7 +213,7 @@
       "challenge_weakness_incorrect": "Terjawab tapi belum tepat",
       "challenge_weakness_missed": "Belum terjawab",
       "challenge_share_result": "Bagikan Hasil",
-      "challenge_share_text": "Saya berhasil meraih {point} poin pada Kuis Makhraj/Sifat Huruf (level {difficulty}) dalam {time}! 🎯",
+      "challenge_share_text": "Saya berhasil meraih {point} poin pada Kuis Makhraj dan Sifat Huruf (Level {difficulty}) dalam waktu {minutes} menit {seconds} detik! 🎯",
       "challenge_share_copied": "Tersalin!",
       "challenge_play_again": "Main Lagi",
       "check_answer": "Cek Jawaban",

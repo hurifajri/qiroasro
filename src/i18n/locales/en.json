@@ -213,7 +213,7 @@
       "challenge_weakness_incorrect": "Answered but incorrect",
       "challenge_weakness_missed": "Not answered",
       "challenge_share_result": "Share Result",
-      "challenge_share_text": "I scored {point} points on the Makhraj/Sifat Quiz ({difficulty} Challenge) in {time}! 🎯",
+      "challenge_share_text": "I scored {point} points on the Makhraj and Sifat Quiz ({difficulty} Level) in {minutes} minutes and {seconds} seconds! 🎯",
       "challenge_share_copied": "Copied!",
       "challenge_play_again": "Play Again",
       "check_answer": "Check Answer",

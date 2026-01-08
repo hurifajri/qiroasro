@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import type {
   CHALLENGE_QUIZ_DIFFICULTIES,
   NODE_TYPES,
@@ -67,8 +68,8 @@ export const REGULAR_QUIZ_DEFAULT_SETTINGS: RegularQuizSettings = {
   timerDuration: 15,
 };
 
-// Track weakness for analysis
-export interface ChallengeQuizStat {
+// Track weakness for detailed analysis
+export interface ChallengeQuizAnalytic {
   item: string;
   type: NodeType;
   errorType: QuizErrorType;
@@ -93,7 +94,7 @@ export interface ChallengeQuizResult {
   difficulty: ChallengeQuizDifficulty;
   score: ChallengeQuizScore;
   questionScores: ChallengeQuizQuestionScore[];
-  stats: ChallengeQuizStat[];
+  analytics: ChallengeQuizAnalytic[];
   totalQuestion: number;
   perfectQuestion: number;
   questionWithMistake: number;
@@ -139,3 +140,27 @@ export const DEFAULT_CHALLENGE_QUIZ_SCORE: ChallengeQuizScore = {
   incorrectConnection: 0,
   totalPoint: 0,
 };
+
+// Stats grid item config for challenge results
+export interface ChallengeStatGridItem {
+  icon: LucideIcon;
+  value: string;
+  labelKey: string;
+  bgClass: string;
+  iconClass: string;
+  valueClass: string;
+}
+
+// Connection stat item config
+export interface ChallengeConnectionStatItem {
+  value: string;
+  labelKey: string;
+  valueClass: string;
+}
+
+// Badge configuration
+export interface ChallengeBadgeConfig {
+  emoji: string;
+  key: string;
+  color: string;
+}

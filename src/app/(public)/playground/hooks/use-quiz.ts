@@ -46,7 +46,7 @@ export function useQuiz() {
   const nextChallengeQuestion = useQuizStore((s) => s.nextChallengeQuestion);
   const addConnectionChallengeScore = useQuizStore((s) => s.addConnectionChallengeScore);
   const recordChallengeQuestionScore = useQuizStore((s) => s.recordChallengeQuestionScore);
-  const addChallengeStat = useQuizStore((s) => s.addChallengeStat);
+  const addChallengeAnalytic = useQuizStore((s) => s.addChallengeAnalytic);
   const finishChallenge = useQuizStore((s) => s.finishChallenge);
   const resetChallenge = useQuizStore((s) => s.resetChallenge);
 
@@ -107,7 +107,7 @@ export function useQuiz() {
       recordChallengeQuestionScore(stat);
 
       for (const item of incorrectItem) {
-        addChallengeStat(item.name, item.type, item.errorType);
+        addChallengeAnalytic(item.name, item.type, item.errorType);
       }
 
       // Animate score changes with delay
@@ -153,7 +153,7 @@ export function useQuiz() {
     [
       checkAnswers,
       recordChallengeQuestionScore,
-      addChallengeStat,
+      addChallengeAnalytic,
       addConnectionChallengeScore,
       challengeCurrQuestionIdx,
       finishChallenge,

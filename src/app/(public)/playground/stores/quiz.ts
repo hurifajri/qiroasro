@@ -4,11 +4,11 @@ import { createStore } from 'zustand/vanilla';
 import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
+  ChallengeQuizAnalytic,
   ChallengeQuizDifficulty,
   ChallengeQuizQuestionScore,
   ChallengeQuizResult,
   ChallengeQuizScore,
-  ChallengeQuizStat,
   QuizMode,
   QuizQuestion,
   QuizTarget,
@@ -42,7 +42,7 @@ interface QuizState {
   challengeQuestionScores: ChallengeQuizQuestionScore[];
   challengeScore: ChallengeQuizScore;
   challengeResult: ChallengeQuizResult | null;
-  challengeStats: ChallengeQuizStat[];
+  challengeAnalytics: ChallengeQuizAnalytic[];
   challengeLastPointChange: { value: number; timestamp: number } | null;
 }
 
@@ -69,10 +69,10 @@ interface QuizAction {
   nextChallengeQuestion: () => void;
   addConnectionChallengeScore: (isCorrect: boolean) => void;
   recordChallengeQuestionScore: (stat: ChallengeQuizQuestionScore) => void;
-  addChallengeStat: (
+  addChallengeAnalytic: (
     item: string,
-    type: ChallengeQuizStat['type'],
-    errorType: ChallengeQuizStat['errorType'],
+    type: ChallengeQuizAnalytic['type'],
+    errorType: ChallengeQuizAnalytic['errorType'],
   ) => void;
   finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
   resetChallenge: () => void;
@@ -88,7 +88,7 @@ const initialChallengeState = {
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
   challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
   challengeResult: null as ChallengeQuizResult | null,
-  challengeStats: [] as ChallengeQuizStat[],
+  challengeAnalytics: [] as ChallengeQuizAnalytic[],
   challengeLastPointChange: null as { value: number; timestamp: number } | null,
 };
 
@@ -144,7 +144,7 @@ export function createQuizStore() {
         challengeStartTime: Date.now(),
         challengeQuestionScores: [],
         challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
-        challengeStats: [],
+        challengeAnalytics: [],
         challengeResult: null,
       }),
     nextChallengeQuestion: () =>
@@ -170,14 +170,14 @@ export function createQuizStore() {
       set((state) => ({
         challengeQuestionScores: [...state.challengeQuestionScores, stat],
       })),
-    addChallengeStat: (item, type, errorType) =>
+    addChallengeAnalytic: (item, type, errorType) =>
       set((state) => {
-        const existing = state.challengeStats.find(
+        const existing = state.challengeAnalytics.find(
           (e) => e.item === item && e.type === type && e.errorType === errorType,
         );
         if (existing) {
           return {
-            challengeStats: state.challengeStats.map((e) =>
+            challengeAnalytics: state.challengeAnalytics.map((e) =>
               e.item === item && e.type === type && e.errorType === errorType
                 ? { ...e, errorCount: e.errorCount + 1 }
                 : e,
@@ -185,7 +185,10 @@ export function createQuizStore() {
           };
         }
         return {
-          challengeStats: [...state.challengeStats, { item, type, errorType, errorCount: 1 }],
+          challengeAnalytics: [
+            ...state.challengeAnalytics,
+            { item, type, errorType, errorCount: 1 },
+          ],
         };
       }),
     finishChallenge: (totalPossibleConnection, endTime) => {
@@ -195,14 +198,16 @@ export function createQuizStore() {
       const questionWithMistake = state.challengeQuestionScores.length - perfectQuestion;
 
       // Sort weakness by error count descending
-      const sortedWeakness = [...state.challengeStats].sort((a, b) => b.errorCount - a.errorCount);
+      const sortedAnalytics = [...state.challengeAnalytics].sort(
+        (a, b) => b.errorCount - a.errorCount,
+      );
 
       set({
         challengeResult: {
           difficulty: state.challengeDifficulty ?? 'easy',
           score: state.challengeScore,
           questionScores: state.challengeQuestionScores,
-          stats: sortedWeakness.slice(0, 5), // Top 5 weaknesses
+          analytics: sortedAnalytics.slice(0, 5), // Top 5 weakness
           totalQuestion: state.challengeQuestionScores.length,
           perfectQuestion,
           questionWithMistake,
