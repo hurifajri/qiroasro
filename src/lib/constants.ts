@@ -63,7 +63,6 @@ export const NODE_TYPES = [
 // Quiz
 export const CORRECT_POINT = 10;
 export const INCORRECT_POINT = -1;
-export const QUIZ_TYPES = ['regular', 'challenge'] as const;
 export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
 export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
 export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
