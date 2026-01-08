@@ -313,8 +313,8 @@ export function Playground() {
 
   // Handle pan/zoom start
   const handleMoveStart = useCallback(() => {
-    setIsMoving(true);
-  }, []);
+    if (!isMoving) setIsMoving(true);
+  }, [isMoving]);
 
   // Handle pan/zoom end
   const handleMoveEnd = useCallback(() => {
@@ -371,14 +371,14 @@ export function Playground() {
             onMoveStart={handleMoveStart}
             onMoveEnd={handleMoveEnd}
             connectionLineComponent={connectionLineComponent}
-            minZoom={isMobile() ? 0.1 : 0.3}
-            maxZoom={isMobile() ? 0.2 : 1}
-            zoomOnDoubleClick={!isMobile()}
-            autoPanOnNodeDrag={!isMobile()}
-            autoPanOnNodeFocus={isMobile()}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
             edgesFocusable={false}
+            zoomOnDoubleClick={false}
+            autoPanOnNodeDrag={false}
+            autoPanOnNodeFocus={false}
+            minZoom={isMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
+            maxZoom={isMobile() && viewMode !== 'letter' ? 0.2 : 1}
           >
             <Panel
               position="top-right"
