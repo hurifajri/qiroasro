@@ -1,7 +1,7 @@
 import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -14,7 +14,7 @@ import { NodeInfoDialog } from './node-info-dialog';
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
 type TraitNodeData = Trait & BaseNodeData;
 
-export function TraitGroupNode({ data, selected }: NodeProps) {
+export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -29,7 +29,7 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
   return (
     <BaseNode
       className={cn(
-        'rounded-xl border-0 bg-linear-to-br from-node-trait to-node-trait-dark px-6 py-4 transition-all duration-300 hover:ring-0',
+        'rounded-xl border-0 bg-linear-to-br from-node-trait to-node-trait-dark px-6 py-4 transition-transform duration-300 hover:ring-0',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -51,9 +51,9 @@ export function TraitGroupNode({ data, selected }: NodeProps) {
       />
     </BaseNode>
   );
-}
+});
 
-export function TraitNode({ data, selected }: NodeProps) {
+export const TraitNode = memo(({ data, selected }: NodeProps) => {
   const t = useTranslations('global.trait');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -71,7 +71,7 @@ export function TraitNode({ data, selected }: NodeProps) {
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text backdrop-blur-sm transition-all duration-300 hover:bg-node-trait/30 hover:ring-0',
+          'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
           ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) && 'border-dashed',
@@ -116,4 +116,4 @@ export function TraitNode({ data, selected }: NodeProps) {
       )}
     </>
   );
-}
+});

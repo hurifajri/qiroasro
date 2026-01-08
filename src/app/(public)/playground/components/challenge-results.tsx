@@ -183,7 +183,6 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       time: formatTime(result.totalTime),
     });
     const shareUrl = `${env.NEXT_PUBLIC_APP_URL}/playground`;
-    const shareContent = `${shareText}\n${shareUrl}`;
 
     // Try to capture image
     let imageFile: File | undefined;
@@ -200,7 +199,11 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
     // Try Web Share API with image
     if (navigator.share) {
       try {
-        const shareData: ShareData = { title: 'Qiroasro Challenge', text: shareContent };
+        const shareData: ShareData = {
+          title: 'Qiroasro Challenge',
+          text: shareText,
+          url: shareUrl,
+        };
 
         // Add image if supported
         if (imageFile && navigator.canShare?.({ files: [imageFile] })) {
@@ -221,7 +224,7 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
 
     // Fallback: copy to clipboard
     try {
-      await navigator.clipboard.writeText(shareContent);
+      await navigator.clipboard.writeText(`${shareText}. ${shareUrl}`);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {

@@ -233,6 +233,12 @@
     "development": {
       "more_comprehensive": "Mau yang lebih komprehensif?"
     },
+    "error": {
+      "title": "Terjadi Kesalahan",
+      "description": "Terjadi kesalahan saat memuat halaman. Silakan coba lagi.",
+      "retry": "Coba Lagi",
+      "reload": "Muat Ulang"
+    },
     "tour": {
       "next": "Lanjut",
       "prev": "Kembali",

@@ -14,7 +14,6 @@ export type BaseNodeData = {
   hasSourceEdge?: boolean;
   hasTargetEdge?: boolean;
   isHighlighted?: boolean;
-  isConnectedToSelected?: boolean;
   isDimmed?: boolean;
 };
 

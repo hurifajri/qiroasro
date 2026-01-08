@@ -37,7 +37,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
         className={cn(
           'sticky top-0 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
           isScrolled && !isPlayground ? 'border-b' : '',
-          isPlayground && 'flex-col border-b sm:flex-row',
+          isPlayground && 'border-b',
           className,
         )}
       >

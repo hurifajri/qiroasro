@@ -118,7 +118,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
         id="tour-graph-legend"
         open={isOpen}
         onOpenChange={setIsOpen}
-        className="flex w-48 flex-col gap-2 rounded-lg border backdrop-blur-sm"
+        className="flex w-48 flex-col gap-2 rounded-lg border bg-background"
       >
         <CollapsibleTrigger
           className={cn(

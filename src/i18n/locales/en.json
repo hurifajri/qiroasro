@@ -233,6 +233,12 @@
     "development": {
       "more_comprehensive": "Do you want more comprehensive?"
     },
+    "error": {
+      "title": "Something went wrong",
+      "description": "An error occurred while loading the playground. Please try again.",
+      "retry": "Try Again",
+      "reload": "Reload Page"
+    },
     "tour": {
       "next": "Next",
       "prev": "Previous",

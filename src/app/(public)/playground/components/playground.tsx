@@ -14,16 +14,17 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
+import { isMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
@@ -55,26 +56,28 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
-  const theme = useGlobalStore((s) => s.theme);
-  const {
-    viewMode,
-    layoutMode,
-    hierarchyDirection,
-    selectedLetterId,
-    selectedNodeId,
-    edgeStyle,
-    setViewMode,
-    setLayoutMode,
-    setHierarchyDirection,
-    setSelectedLetterId,
-    setSelectedNodeId,
-    setEdgeStyle,
-    getEffectiveEdgeType,
-  } = usePlaygroundStore(useShallow((s) => s));
 
+  const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
 
+  const viewMode = usePlaygroundStore((s) => s.viewMode);
+  const layoutMode = usePlaygroundStore((s) => s.layoutMode);
+  const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
+  const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
+  const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
+  const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+  const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
+  const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
+  const setViewMode = usePlaygroundStore((s) => s.setViewMode);
+  const setLayoutMode = usePlaygroundStore((s) => s.setLayoutMode);
+  const setHierarchyDirection = usePlaygroundStore((s) => s.setHierarchyDirection);
+  const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
+  const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
+  const getEffectiveEdgeType = usePlaygroundStore((s) => s.getEffectiveEdgeType);
+  const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
+
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
+  const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const isQuizStarted = useQuizStore((s) => s.isStarted);
   const openQuizDialog = useQuizStore((s) => s.openDialog);
 
@@ -83,9 +86,15 @@ export function Playground() {
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
 
-  // Ref to access current edges without causing effect re-runs
-  const edgesRef = useRef(edges);
-  edgesRef.current = edges;
+  // Interaction state for dimming
+  const [isMoving, setIsMoving] = useState(false);
+  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+
+  // Handle viewport changes (pan/zoom) using React Flow's built-in hook
+  useOnViewportChange({
+    onStart: useCallback(() => setIsMoving(true), []),
+    onEnd: useCallback(() => setIsMoving(false), []),
+  });
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -99,6 +108,7 @@ export function Playground() {
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <perf optimization>
   useEffect(() => {
     const data = {
       letters,
@@ -160,195 +170,168 @@ export function Playground() {
         setNodes(nodesWithLayoutInfo);
         setEdges(edgesWithStyle);
 
-        // Fit view after layout
         setTimeout(() => {
           fitView({ padding: 0.2, duration: 300 });
         }, 50);
       } catch (err) {
-        // TODO: handle error
-        console.error('Layout error:', err);
+        // Report layout errors to Sentry for debugging
+        if (window !== undefined) {
+          import('@sentry/nextjs').then((Sentry) => {
+            Sentry.captureException(err, {
+              tags: { component: 'playground', action: 'layout_update' },
+              extra: { viewMode, layoutMode, hierarchyDirection, selectedLetterId },
+            });
+          });
+        }
       }
     }
 
     updateLayout();
   }, [
-    letters,
-    letterArticulations,
-    letterTraits,
-    articulationAreas,
-    articulationPoints,
-    traits,
-    traitGroups,
     viewMode,
     layoutMode,
     hierarchyDirection,
-    selectedLetterId,
     edgeStyle.isFloating,
-    edgeStyle.isAnimated,
-    setNodes,
-    setEdges,
-    getEffectiveEdgeType,
-    fitView,
+    edgeStyle.shape,
+    selectedLetterId,
   ]);
 
-  // Update edges when edge style changes (without full layout recalc)
-  useEffect(() => {
-    const effectiveEdgeType = getEffectiveEdgeType();
-    setEdges((currentEdges) =>
-      currentEdges.map((edge) => ({
-        ...edge,
-        type: effectiveEdgeType,
-        animated: edgeStyle.isAnimated,
-      })),
-    );
-  }, [edgeStyle, setEdges, getEffectiveEdgeType]);
+  // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
+  // Optimized: only create new objects when values actually change
+  const highlightedNodes = useMemo(() => {
+    const isMobileDevice = isMobile();
 
-  // Update nodes with layout info for conditional handle rendering and positioning
-  useEffect(() => {
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => ({
+    return nodes.map((node) => {
+      // Hide during pan/zoom (mobile only for performance)
+      if (isMobileDevice && isMoving && node.type !== 'letter') {
+        // Only create new object if hidden state changed
+        if (node.hidden === true) return node;
+        return { ...node, hidden: true };
+      }
+
+      // Hide during drag (except the node being dragged)
+      if (isMobileDevice && draggingNodeId) {
+        const isDragged = node.id === draggingNodeId;
+        const shouldHide = !isDragged;
+        // Only create new object if hidden state changed
+        if (node.hidden === shouldHide) return node;
+        return { ...node, hidden: shouldHide };
+      }
+
+      const isSelected = node.id === selectedNodeId;
+      const isConnected = connectedNodeIds.has(node.id);
+      const shouldHighlight = isSelected || isConnected;
+      const shouldDim = selectedNodeId ? !shouldHighlight : false;
+
+      // Only create new object if highlight/dim state changed
+      const currentHighlight = node.data?.isHighlighted ?? false;
+      const currentDim = node.data?.isDimmed ?? false;
+      if (
+        currentHighlight === shouldHighlight &&
+        currentDim === shouldDim &&
+        node.hidden !== true
+      ) {
+        return node;
+      }
+
+      return {
         ...node,
+        hidden: false,
         data: {
           ...node.data,
-          isFloating: edgeStyle.isFloating,
-          layoutMode,
-          hierarchyDirection,
+          isHighlighted: shouldHighlight,
+          isDimmed: shouldDim,
         },
-      })),
-    );
-  }, [edgeStyle.isFloating, layoutMode, hierarchyDirection, setNodes]);
+      };
+    });
+  }, [nodes, connectedNodeIds, selectedNodeId, isMoving, draggingNodeId]);
 
-  // Highlight edges and nodes connected to selected node (2-level traversal with category filtering)
-  useEffect(() => {
-    const allEdges = edgesRef.current;
-    const connectedNodeIds = new Set<string>();
-    const connectedEdgeIds = new Set<string>();
+  // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
+  // Optimized: only create new objects when values actually change
+  const highlightedEdges = useMemo(() => {
+    const isMobileDevice = isMobile();
+    const shouldHideAll = isMobileDevice && (isMoving || draggingNodeId);
 
-    // Helper to get node type prefix
-    const getNodeType = (nodeId: string): string => {
-      if (nodeId.startsWith('letter-')) return 'letter';
-      if (nodeId.startsWith('area-')) return 'area';
-      if (nodeId.startsWith('point-')) return 'point';
-      if (nodeId.startsWith('trait-group-')) return 'traitGroup';
-      if (nodeId.startsWith('trait-')) return 'trait';
-      return 'unknown';
-    };
-
-    // Helper to get category: articulation (area, point) vs trait (trait-group, trait) vs letter
-    const getCategory = (nodeType: string): string => {
-      if (nodeType === 'area' || nodeType === 'point') return 'articulation';
-      if (nodeType === 'traitGroup' || nodeType === 'trait') return 'trait';
-      return 'letter'; // letters are neutral, connect to both
-    };
-
-    if (selectedNodeId) {
-      const selectedType = getNodeType(selectedNodeId);
-      const selectedCategory = getCategory(selectedType);
-
-      // Level 1: All direct connections (bidirectional)
-      const level1Nodes = new Set<string>();
-      for (const edge of allEdges) {
-        if (edge.source === selectedNodeId) {
-          level1Nodes.add(edge.target);
-          connectedNodeIds.add(edge.target);
-          connectedEdgeIds.add(edge.id);
-        }
-        if (edge.target === selectedNodeId) {
-          level1Nodes.add(edge.source);
-          connectedNodeIds.add(edge.source);
-          connectedEdgeIds.add(edge.id);
-        }
+    return edges.map((edge) => {
+      // Hide during pan/zoom or drag (mobile only for performance)
+      if (shouldHideAll) {
+        // Only create new object if hidden state changed
+        if (edge.hidden === true) return edge;
+        return { ...edge, hidden: true };
       }
 
-      // Level 2: Connections of level 1 nodes
-      // - EXCLUDE nodes of same type as selected
-      // - If selected is point/trait, also EXCLUDE nodes from different category
-      for (const nodeId of level1Nodes) {
-        for (const edge of allEdges) {
-          if (edge.source === nodeId && edge.target !== selectedNodeId) {
-            const targetType = getNodeType(edge.target);
-            const targetCategory = getCategory(targetType);
+      const isConnected = connectedEdgeIds.has(edge.id);
+      const targetStrokeWidth = isConnected ? 3 : 1;
+      const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
+      const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
-            // Skip same type
-            if (targetType === selectedType) continue;
-
-            // If selected is point or trait, only allow same category or letters
-            if (selectedCategory !== 'letter') {
-              if (targetCategory !== selectedCategory && targetCategory !== 'letter') continue;
-            }
-
-            connectedNodeIds.add(edge.target);
-            connectedEdgeIds.add(edge.id);
-          }
-          if (edge.target === nodeId && edge.source !== selectedNodeId) {
-            const sourceType = getNodeType(edge.source);
-            const sourceCategory = getCategory(sourceType);
-
-            // Skip same type
-            if (sourceType === selectedType) continue;
-
-            // If selected is point or trait, only allow same category or letters
-            if (selectedCategory !== 'letter') {
-              if (sourceCategory !== selectedCategory && sourceCategory !== 'letter') continue;
-            }
-
-            connectedNodeIds.add(edge.source);
-            connectedEdgeIds.add(edge.id);
-          }
-        }
+      // Only create new object if style changed
+      const currentStyle = edge.style as Record<string, unknown> | undefined;
+      if (
+        edge.hidden !== true &&
+        currentStyle?.strokeWidth === targetStrokeWidth &&
+        currentStyle?.opacity === targetOpacity &&
+        edge.animated === targetAnimated
+      ) {
+        return edge;
       }
-    }
 
-    // Update edge styles
-    setEdges((currentEdges) =>
-      currentEdges.map((edge) => {
-        const isConnected = connectedEdgeIds.has(edge.id);
+      return {
+        ...edge,
+        hidden: false,
+        style: {
+          ...edge.style,
+          strokeWidth: targetStrokeWidth,
+          opacity: targetOpacity,
+        },
+        animated: targetAnimated,
+      };
+    });
+  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving, draggingNodeId]);
 
-        return {
-          ...edge,
-          style: {
-            ...edge.style,
-            strokeWidth: isConnected ? 3 : 1,
-            opacity: selectedNodeId ? (isConnected ? 1 : 0.2) : 1,
-          },
-          animated: isConnected ? true : edgeStyle.isAnimated,
-        };
-      }),
-    );
+  // Debounce ref for highlight updates
+  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // Update node styles for highlighting
-    setNodes((currentNodes) =>
-      currentNodes.map((node) => {
-        const isSelected = node.id === selectedNodeId;
-        const isConnected = connectedNodeIds.has(node.id);
-        const shouldHighlight = isSelected || isConnected;
-
-        return {
-          ...node,
-          data: {
-            ...node.data,
-            isHighlighted: shouldHighlight,
-            isConnectedToSelected: isConnected,
-            isDimmed: selectedNodeId ? !shouldHighlight : false,
-          },
-        };
-      }),
-    );
-  }, [selectedNodeId, edgeStyle.isAnimated, setEdges, setNodes]);
-
-  // Handle node click - highlight connected edges
+  // Handle node click - debounced to prevent rapid highlight recalculations
   const handleNodeClick = useCallback(
     (_event: React.MouseEvent, node: FlowNode) => {
-      // Toggle selection: if same node clicked again, deselect
-      setSelectedNodeId(selectedNodeId === node.id ? null : node.id);
+      // Clear any pending highlight update
+      if (highlightTimeoutRef.current) {
+        clearTimeout(highlightTimeoutRef.current);
+      }
+
+      // Debounce highlight update (100ms)
+      highlightTimeoutRef.current = setTimeout(() => {
+        // Toggle selection: if same node clicked again, deselect
+        const newSelectedId = selectedNodeId === node.id ? null : node.id;
+        updateHighlight(newSelectedId, edges);
+      }, 100);
     },
-    [selectedNodeId, setSelectedNodeId],
+    [selectedNodeId, edges, updateHighlight],
   );
 
-  // Handle pane click - clear selection
+  // Handle pane click - debounced to clear selection
   const handlePaneClick = useCallback(() => {
-    setSelectedNodeId(null);
-  }, [setSelectedNodeId]);
+    // Clear any pending highlight update
+    if (highlightTimeoutRef.current) {
+      clearTimeout(highlightTimeoutRef.current);
+    }
+
+    // Debounce highlight update (100ms)
+    highlightTimeoutRef.current = setTimeout(() => {
+      updateHighlight(null, edges);
+    }, 100);
+  }, [edges, updateHighlight]);
+
+  // Handle node drag start
+  const handleNodeDragStart = useCallback((_event: React.MouseEvent, node: FlowNode) => {
+    setDraggingNodeId(node.id);
+  }, []);
+
+  // Handle node drag stop
+  const handleNodeDragStop = useCallback(() => {
+    setDraggingNodeId(null);
+  }, []);
 
   // Memoized letters for filter
   const memoizedLetters = useMemo(() => letters, [letters]);
@@ -358,6 +341,21 @@ export function Playground() {
     return getEffectiveEdgeType();
   }, [getEffectiveEdgeType]);
 
+  // Memoize defaultEdgeOptions to prevent new object reference on every render
+  const defaultEdgeOptions = useMemo(
+    () => ({
+      type: computedEdgeType,
+      animated: edgeStyle.isAnimated,
+    }),
+    [computedEdgeType, edgeStyle.isAnimated],
+  );
+
+  // Memoize connectionLineComponent to prevent new reference on every render
+  const connectionLineComponent = useMemo(
+    () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
+    [edgeStyle.isFloating],
+  );
+
   return (
     <>
       {/*
@@ -366,27 +364,31 @@ export function Playground() {
         which causes lag on mobile devices.
       */}
       {!isQuizStarted && (
-        <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
+        <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
             proOptions={{ hideAttribution: true }}
             colorMode={theme}
             fitView
             fitViewOptions={{ padding: 0.2 }}
-            nodes={nodes}
-            edges={edges}
+            nodes={highlightedNodes}
+            edges={highlightedEdges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
-            connectionLineComponent={edgeStyle.isFloating ? FloatingConnectionLine : undefined}
-            minZoom={0.1}
-            maxZoom={2}
-            defaultEdgeOptions={{
-              type: computedEdgeType,
-              animated: edgeStyle.isAnimated,
-            }}
+            onNodeDragStart={handleNodeDragStart}
+            onNodeDragStop={handleNodeDragStop}
+            connectionLineComponent={connectionLineComponent}
+            defaultEdgeOptions={defaultEdgeOptions}
+            onlyRenderVisibleElements
+            edgesFocusable={false}
+            zoomOnDoubleClick={false}
+            autoPanOnNodeDrag={false}
+            autoPanOnNodeFocus={false}
+            minZoom={isMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
+            maxZoom={isMobile() && viewMode !== 'letter' ? 0.2 : 1}
           >
             <Panel
               position="top-right"
@@ -467,7 +469,7 @@ export function Playground() {
         </div>
       )}
       {/* Quiz component rendered outside ReactFlow so it's always accessible */}
-      <Quiz />
+      {isQuizDialogOpen && <Quiz />}
     </>
   );
 }

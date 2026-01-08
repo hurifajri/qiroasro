@@ -1,7 +1,7 @@
 import { type NodeProps, Position } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
@@ -9,7 +9,7 @@ import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
 import type { TargetQuizNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
-export function TargetQuizNode({ data }: NodeProps) {
+export const TargetQuizNode = memo(({ data }: NodeProps) => {
   const nodeData = data as TargetQuizNodeData;
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -21,7 +21,7 @@ export function TargetQuizNode({ data }: NodeProps) {
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:ring-0',
+          'rounded-lg border-2 px-4 py-2 hover:ring-0',
           nodeData.mode === 'articulation_point' &&
             'border-node-articulation/50 bg-node-articulation/20 text-node-articulation-text',
           nodeData.mode === 'trait' && 'border-node-trait/50 bg-node-trait/20 text-node-trait-text',
@@ -65,4 +65,4 @@ export function TargetQuizNode({ data }: NodeProps) {
       )}
     </>
   );
-}
+});
