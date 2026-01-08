@@ -39,7 +39,6 @@ interface QuizState {
   challengeDifficulty: ChallengeQuizDifficulty | null;
   challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
-  challengeQuestionStartTime: number | null;
   challengeQuestionScores: ChallengeQuizQuestionScore[];
   challengeScore: ChallengeQuizScore;
   challengeResult: ChallengeQuizResult | null;
@@ -88,7 +87,6 @@ const initialChallengeState = {
   challengeDifficulty: null as ChallengeQuizDifficulty | null,
   challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
-  challengeQuestionStartTime: null as number | null,
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
   challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
   challengeResult: null as ChallengeQuizResult | null,
@@ -151,7 +149,6 @@ export function createQuizStore() {
         isStarted: true,
         challengeCurrQuestionIdx: 0,
         challengeStartTime: Date.now(),
-        challengeQuestionStartTime: Date.now(),
         challengeQuestionScores: [],
         challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
         challengeStats: [],
@@ -160,7 +157,6 @@ export function createQuizStore() {
     nextChallengeQuestion: () =>
       set((state) => ({
         challengeCurrQuestionIdx: state.challengeCurrQuestionIdx + 1,
-        challengeQuestionStartTime: Date.now(),
         isChecked: false,
         questions: [],
         targets: [],
