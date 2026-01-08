@@ -49,7 +49,6 @@ interface QuizState {
 interface QuizAction {
   // Base actions
   openDialog: () => void;
-  closeDialog: () => void;
   setMode: (mode: QuizMode | null) => void;
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
@@ -59,7 +58,6 @@ interface QuizAction {
 
   // Regular actions
   setRegularSettings: (settings: RegularQuizSettings) => void;
-  updateRegularSettings: (partial: Partial<RegularQuizSettings>) => void;
   startRegularQuiz: () => void;
   setRegularScore: (score: RegularQuizScore) => void;
   resetRegularQuiz: () => void;
@@ -116,7 +114,6 @@ export function createQuizStore() {
       trackEvent('quiz_dialog_opened');
       set({ isDialogOpen: true });
     },
-    closeDialog: () => set({ isDialogOpen: false }),
     setMode: (mode) => set({ mode }),
     setIsChecked: (isChecked) => set({ isChecked }),
     setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
@@ -126,10 +123,6 @@ export function createQuizStore() {
 
     // Regular actions
     setRegularSettings: (settings) => set({ regularSettings: settings }),
-    updateRegularSettings: (partial) =>
-      set((state) => ({
-        regularSettings: { ...state.regularSettings, ...partial },
-      })),
     startRegularQuiz: () => set({ isStarted: true }),
     setRegularScore: (score) => set({ regularScore: score }),
     resetRegularQuiz: () =>
