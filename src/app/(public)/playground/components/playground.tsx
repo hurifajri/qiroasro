@@ -364,7 +364,7 @@ export function Playground() {
         which causes lag on mobile devices.
       */}
       {!isQuizStarted && (
-        <div id="tour-canvas" className="h-[calc(100dvh-85px)] sm:h-[calc(100dvh-49px)]">
+        <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
             proOptions={{ hideAttribution: true }}
             colorMode={theme}
