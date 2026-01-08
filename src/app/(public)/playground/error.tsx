@@ -26,14 +26,14 @@ export default function PlaygroundError({ error, reset }: PlaygroundErrorProps) 
       },
       extra: {
         digest: error.digest,
-        pathname: typeof window !== 'undefined' ? window.location.pathname : undefined,
-        userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
+        pathname: window !== undefined ? window.location.pathname : undefined,
+        userAgent: navigator !== undefined ? navigator.userAgent : undefined,
       },
     });
   }, [error]);
 
   return (
-    <div className="flex h-[calc(100dvh-85px)] flex-col items-center justify-center gap-4 p-4 sm:h-[calc(100dvh-49px)]">
+    <div className="flex h-[calc(100dvh-49px)] flex-col items-center justify-center gap-4 p-4">
       <div className="text-center">
         <h2 className="font-semibold text-foreground text-xl">{t('title')}</h2>
         <p className="mt-2 text-muted-foreground">{t('description')}</p>
