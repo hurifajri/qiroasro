@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { applyResultsToEdges, applyResultsToNodes, checkQuizAnswers } from '../lib/quiz-checker';
 import {
   calculateRequiredConnections,
@@ -113,19 +113,15 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   );
 
   // Derived state
-  const connectionCount = useMemo(() => edges.length, [edges]);
-  const letterCount = useMemo(() => nodes.filter((n) => n.type === 'letterQuiz').length, [nodes]);
-  const targetCount = useMemo(() => nodes.filter((n) => n.type === 'targetQuiz').length, [nodes]);
+  const connectionCount = edges.length;
+  const letterCount = nodes.filter((n) => n.type === 'letterQuiz').length;
+  const targetCount = nodes.filter((n) => n.type === 'targetQuiz').length;
 
-  const requiredConnections = useMemo(
-    () =>
-      calculateRequiredConnections(letterCount, targetCount, {
-        lettersPerQuiz,
-        targetsPerQuiz,
-        multiEdge,
-      }),
-    [letterCount, targetCount, multiEdge, lettersPerQuiz, targetsPerQuiz],
-  );
+  const requiredConnections = calculateRequiredConnections(letterCount, targetCount, {
+    lettersPerQuiz,
+    targetsPerQuiz,
+    multiEdge,
+  });
 
   // Check answers - returns the score and incorrect items for caller to use
   const checkAnswers = useCallback(() => {

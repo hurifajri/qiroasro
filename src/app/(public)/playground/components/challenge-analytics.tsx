@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { BookOpenIcon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useMemo } from 'react';
 import type { ChallengeQuizAnalytic } from '../schemas/quiz';
 
 interface ChallengeAnalyticsProps {
@@ -13,15 +12,8 @@ interface ChallengeAnalyticsProps {
 export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
   const t = useTranslations('playground_page.quiz');
 
-  const missedItems = useMemo(
-    () => analytics.filter((a) => a.errorType === 'missed').map((a) => a.item),
-    [analytics],
-  );
-
-  const incorrectItems = useMemo(
-    () => analytics.filter((a) => a.errorType === 'incorrect').map((a) => a.item),
-    [analytics],
-  );
+  const missedItems = analytics.filter((a) => a.errorType === 'missed').map((a) => a.item);
+  const incorrectItems = analytics.filter((a) => a.errorType === 'incorrect').map((a) => a.item);
 
   if (analytics.length === 0) return null;
 

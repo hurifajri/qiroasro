@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CONFETTI_COLORS = [
   '#FFD700',
@@ -42,16 +42,16 @@ function ConfettiParticle({ delay, x, color, rotation }: ConfettiParticleProps) 
 }
 
 function useConfettiParticles() {
-  return useMemo(() => {
-    const width = window !== undefined ? window.innerWidth : 500;
-    return Array.from({ length: CONFETTI_COUNT }).map((_, i) => ({
-      id: i,
-      delay: Math.random() * 0.5,
-      x: Math.random() * width,
-      color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-      rotation: Math.random() * 720 - 360,
-    }));
-  }, []);
+  const width = window !== undefined ? window.innerWidth : 500;
+  const confettiParticles = Array.from({ length: CONFETTI_COUNT }).map((_, i) => ({
+    id: i,
+    delay: Math.random() * 0.5,
+    x: Math.random() * width,
+    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+    rotation: Math.random() * 720 - 360,
+  }));
+
+  return confettiParticles;
 }
 
 export function ChallengeConfetti() {

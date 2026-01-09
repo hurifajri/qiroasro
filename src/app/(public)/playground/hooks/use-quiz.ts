@@ -88,19 +88,17 @@ export function useQuiz() {
   }, [setNodes, setEdges, resetAll]);
 
   // Screen state
-  const screenState = useMemo(
-    () => ({
-      showModeSelection: !mode && !isChallenge,
-      showDifficultySelection: isChallenge && !challengeDifficulty,
-      showChallengeReady: isChallenge && !!challengeDifficulty && !isStarted,
-      showChallengeResults: isChallenge && !!challengeResult,
-      showChallengeQuiz: isChallenge && isStarted && !challengeResult,
-      showPracticeSettings: !isChallenge && !!mode && !isStarted,
-      showPracticeQuiz: !isChallenge && !!mode && isStarted,
-    }),
-    [mode, isChallenge, challengeDifficulty, isStarted, challengeResult],
-  );
+  const screenState = {
+    showModeSelection: !mode && !isChallenge,
+    showDifficultySelection: isChallenge && !challengeDifficulty,
+    showChallengeReady: isChallenge && !!challengeDifficulty && !isStarted,
+    showChallengeResults: isChallenge && !!challengeResult,
+    showChallengeQuiz: isChallenge && isStarted && !challengeResult,
+    showPracticeSettings: !isChallenge && !!mode && !isStarted,
+    showPracticeQuiz: !isChallenge && !!mode && isStarted,
+  };
 
+  // TODO: Refactor this
   const { dialogTitle, dialogDescription } = useMemo(() => {
     let title = t('select_mode');
     let description = t('select_mode_description');

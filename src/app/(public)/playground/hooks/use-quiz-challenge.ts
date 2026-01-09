@@ -1,7 +1,7 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
 import { CHALLENGE_QUIZ_LEVEL, CHALLENGE_QUIZ_QUESTIONS } from '../schemas/quiz';
@@ -45,15 +45,9 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
   const resetChallenge = useQuizStore((s) => s.resetChallenge);
 
   // Current challenge config
-  const currentChallengeConfig = useMemo(() => {
-    if (!isChallenge || !challengeDifficulty) return null;
-    return CHALLENGE_QUIZ_LEVEL[challengeDifficulty];
-  }, [isChallenge, challengeDifficulty]);
-
-  const currentQuestion = useMemo(() => {
-    if (!currentChallengeConfig) return null;
-    return currentChallengeConfig.questions[challengeCurrQuestionIdx];
-  }, [currentChallengeConfig, challengeCurrQuestionIdx]);
+  // TODO: Refactor this
+  const currentChallengeConfig = CHALLENGE_QUIZ_LEVEL[challengeDifficulty || 'easy'];
+  const currentQuestion = currentChallengeConfig.questions[challengeCurrQuestionIdx];
 
   // Shared function to process challenge answer (used by both timeout and manual check)
   const processChallengeAnswer = useCallback(() => {
