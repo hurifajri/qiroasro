@@ -82,7 +82,6 @@ export function useQuiz() {
   const {
     timeRemaining,
     start: startTimer,
-    reset: _resetTimer,
     stop: stopTimer,
   } = useQuizTimer({
     duration: practiceSettings.timerDuration,

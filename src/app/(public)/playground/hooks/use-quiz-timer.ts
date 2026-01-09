@@ -37,10 +37,8 @@ export function useQuizTimer({
   enabled,
   onTimeUp,
   isPaused = false,
-  trackElapsedTime = false,
 }: UseQuizTimerOptions): UseQuizTimerReturn {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
-  const [_startTime, setStartTime] = useState<number | null>(null);
   const hasCalledTimeUpRef = useRef(false);
   const onTimeUpRef = useRef(onTimeUp);
 
@@ -54,26 +52,19 @@ export function useQuizTimer({
   const start = useCallback(() => {
     if (enabled) {
       setTimeRemaining(duration);
-      if (trackElapsedTime) {
-        setStartTime(Date.now());
-      }
       hasCalledTimeUpRef.current = false;
     }
-  }, [enabled, duration, trackElapsedTime]);
+  }, [enabled, duration]);
 
   const reset = useCallback(() => {
     if (enabled) {
       setTimeRemaining(duration);
-      if (trackElapsedTime) {
-        setStartTime(Date.now());
-      }
       hasCalledTimeUpRef.current = false;
     }
-  }, [enabled, duration, trackElapsedTime]);
+  }, [enabled, duration]);
 
   const stop = useCallback(() => {
     setTimeRemaining(null);
-    setStartTime(null);
     hasCalledTimeUpRef.current = false;
   }, []);
 
