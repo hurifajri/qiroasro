@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { memo, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const CONFETTI_COLORS = [
   '#FFD700',
@@ -22,12 +22,7 @@ interface ConfettiParticleProps {
   rotation: number;
 }
 
-const ConfettiParticle = memo(function ConfettiParticle({
-  delay,
-  x,
-  color,
-  rotation,
-}: ConfettiParticleProps) {
+function ConfettiParticle({ delay, x, color, rotation }: ConfettiParticleProps) {
   return (
     <motion.div
       className="pointer-events-none fixed z-50"
@@ -44,7 +39,7 @@ const ConfettiParticle = memo(function ConfettiParticle({
       <div className="size-3 rounded-sm" style={{ backgroundColor: color }} />
     </motion.div>
   );
-});
+}
 
 function useConfettiParticles() {
   return useMemo(() => {

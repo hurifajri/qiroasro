@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import { CopyIcon, PlayIcon, ShareIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { memo, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { env } from '@/env';
 import { parseDuration } from '@/lib/utils';
@@ -17,7 +17,7 @@ interface ChallengeActionsProps {
   onBackToMenu: () => void;
 }
 
-export const ChallengeActions = memo(function ChallengeActions({
+export function ChallengeActions({
   result,
   resultRef,
   onPlayAgain,
@@ -109,4 +109,4 @@ export const ChallengeActions = memo(function ChallengeActions({
       </div>
     </motion.div>
   );
-});
+}

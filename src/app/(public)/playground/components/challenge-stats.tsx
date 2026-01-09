@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { BowArrowIcon, CheckCircleIcon, TimerIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { memo, useMemo } from 'react';
+import { useMemo } from 'react';
 import { cn, parseDuration } from '@/lib/utils';
 import type {
   ChallengeConnectionStatItem,
@@ -16,10 +16,7 @@ interface ChallengeStatsProps {
   accuracy: number;
 }
 
-export const ChallengeStats = memo(function ChallengeStats({
-  result,
-  accuracy,
-}: ChallengeStatsProps) {
+export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
   const t = useTranslations('playground_page.quiz');
   const duration = parseDuration(result.totalTime);
 
@@ -114,4 +111,4 @@ export const ChallengeStats = memo(function ChallengeStats({
       </motion.div>
     </>
   );
-});
+}

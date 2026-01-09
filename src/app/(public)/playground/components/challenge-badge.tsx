@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { memo } from 'react';
 import { cn } from '@/lib/utils';
 import { getBadge } from '../lib/challenge-results';
 import type { ChallengeQuizDifficulty } from '../schemas/quiz';
@@ -12,10 +11,7 @@ interface ChallengeBadgeProps {
   accuracy: number;
 }
 
-export const ChallengeBadge = memo(function ChallengeBadge({
-  difficulty,
-  accuracy,
-}: ChallengeBadgeProps) {
+export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
   const t = useTranslations('playground_page.quiz');
   const badge = getBadge(accuracy);
 
@@ -35,4 +31,4 @@ export const ChallengeBadge = memo(function ChallengeBadge({
       </div>
     </motion.div>
   );
-});
+}
