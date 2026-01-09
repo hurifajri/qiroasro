@@ -110,7 +110,6 @@ export function useQuizPractice({
 
     // Timer controls (for use in parent)
     stopTimer,
-    setMode,
     resetPracticeQuiz,
   };
 }

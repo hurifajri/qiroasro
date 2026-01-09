@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
+import { useQuizStore } from '../providers/quiz';
 import { QuizContent } from './quiz-content';
 import { QuizInstruction } from './quiz-instruction';
 import { QuizScore } from './quiz-score';
@@ -24,18 +25,19 @@ export function QuizContentPractice({ quiz, nodeTypes }: QuizContentPracticeProp
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
+  const setMode = useQuizStore((s) => s.setMode);
+
+  function handleBackToModeSelect() {
+    setMode(null);
+  }
+
   // Step 1: Settings
   if (quiz.screenState.showPracticeSettings) {
     return (
       <>
         <QuizSettings />
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={quiz.handleBackToModeSelect}
-            className="flex-1"
-          >
+          <Button size="lg" variant="outline" onClick={handleBackToModeSelect} className="flex-1">
             {t('back')}
           </Button>
           <Button size="lg" onClick={quiz.handleStartQuiz} className="flex-1">

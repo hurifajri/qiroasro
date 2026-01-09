@@ -242,6 +242,5 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
 
     // Timer controls (for use in parent)
     stopChallengeTimer,
-    resetChallenge,
   };
 }

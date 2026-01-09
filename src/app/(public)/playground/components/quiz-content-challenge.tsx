@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
 import type { useQuiz } from '../hooks/use-quiz';
+import { useQuizStore } from '../providers/quiz';
 import { CHALLENGE_QUIZ_QUESTIONS } from '../schemas/quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
 import { ChallengeProgress } from './challenge-progress';
@@ -30,7 +31,7 @@ interface QuizContentChallengeProps {
 /**
  * Separate component for quiz content to use refs for measuring
  */
-function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }) {
+function Challenge({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
@@ -103,18 +104,21 @@ function ChallengeQuizContent({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: 
 export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengeProps) {
   const t = useTranslations('playground_page.quiz');
 
+  const setMode = useQuizStore((s) => s.setMode);
+  const resetChallenge = useQuizStore((s) => s.resetChallenge);
+
+  function handleBackToModeSelect() {
+    setMode(null);
+    resetChallenge();
+  }
+
   // Step 1: Difficulty Selection
   if (quiz.screenState.showDifficultySelection) {
     return (
       <>
         <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={quiz.handleBackToModeSelect}
-            className="flex-1"
-          >
+          <Button size="lg" variant="outline" onClick={handleBackToModeSelect} className="flex-1">
             {t('back')}
           </Button>
         </DialogFooter>
@@ -159,7 +163,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
 
   // Step 3: Challenge
   if (quiz.screenState.showChallengeQuiz) {
-    return <ChallengeQuizContent quiz={quiz} nodeTypes={nodeTypes} />;
+    return <Challenge quiz={quiz} nodeTypes={nodeTypes} />;
   }
 
   // Step 4: Challenge Results

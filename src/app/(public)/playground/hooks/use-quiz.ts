@@ -45,7 +45,6 @@ export function useQuiz() {
     handlePlayAgainChallenge,
     handleChallengeCheckAndNext,
     stopChallengeTimer,
-    resetChallenge,
   } = challenge;
 
   // Practice hook
@@ -65,14 +64,7 @@ export function useQuiz() {
     checkAnswers,
     generateQuiz,
     stopTimer,
-    setMode,
   } = practice;
-
-  // Combined handlers
-  const handleBackToModeSelect = useCallback(() => {
-    setMode(null);
-    resetChallenge();
-  }, [setMode, resetChallenge]);
 
   const handleResetQuiz = useCallback(() => {
     practiceResetQuiz(stopChallengeTimer);
@@ -184,7 +176,6 @@ export function useQuiz() {
     handleDifficultySelect,
     handleStartChallenge,
     handleStartQuiz,
-    handleBackToModeSelect,
     handleBackToDifficultySelect,
     handleResetQuiz,
     handleDialogClose,
