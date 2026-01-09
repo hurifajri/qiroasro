@@ -122,7 +122,6 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
     enabled: isChallenge && isStarted && !challengeResult,
     onTimeUp: handleChallengeTimeUp,
     isPaused: isChecked,
-    trackElapsedTime: true,
   });
 
   // Generate challenge question when index changes

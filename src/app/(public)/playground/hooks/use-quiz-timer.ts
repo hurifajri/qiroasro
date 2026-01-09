@@ -11,8 +11,6 @@ export interface UseQuizTimerOptions {
   onTimeUp?: () => void;
   /** Whether timer is paused */
   isPaused?: boolean;
-  /** Whether to track elapsed time (for challenge mode scoring) */
-  trackElapsedTime?: boolean;
 }
 
 export interface UseQuizTimerReturn {
