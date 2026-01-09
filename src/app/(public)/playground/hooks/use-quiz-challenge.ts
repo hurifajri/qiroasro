@@ -1,7 +1,7 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
 import { CHALLENGE_QUIZ_LEVEL, CHALLENGE_QUIZ_QUESTIONS } from '../schemas/quiz';
@@ -50,7 +50,7 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
   const currentQuestion = currentChallengeConfig.questions[challengeCurrQuestionIdx];
 
   // Shared function to process challenge answer (used by both timeout and manual check)
-  const processChallengeAnswer = useCallback(() => {
+  function processChallengeAnswer() {
     // Call checkAnswers to update edge colors (blue/red)
     const { score: currentScore, incorrectItem } = checkAnswers();
     const isPerfect = currentScore.correct === currentScore.total;
@@ -105,23 +105,12 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
         nextChallengeQuestion();
       }
     }, animationDuration);
-  }, [
-    checkAnswers,
-    recordChallengeQuestionScore,
-    addChallengeAnalytic,
-    addConnectionChallengeScore,
-    challengeCurrQuestionIdx,
-    finishChallenge,
-    challengeScore,
-    nextChallengeQuestion,
-    challengeDifficulty,
-    challengeQuestionScores.filter,
-  ]);
+  }
 
   // Challenge timer - when time runs out
-  const handleChallengeTimeUp = useCallback(() => {
+  function handleChallengeTimeUp() {
     processChallengeAnswer();
-  }, [processChallengeAnswer]);
+  }
 
   const {
     timeRemaining: challengeTimeRemaining,
@@ -170,34 +159,31 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
   ]);
 
   // Handlers
-  const handleChallengeCheckAndNext = useCallback(() => {
+  function handleChallengeCheckAndNext() {
     processChallengeAnswer();
-  }, [processChallengeAnswer]);
+  }
 
-  const handleChallengeSelect = useCallback(() => {
+  function handleChallengeSelect() {
     trackEvent('quiz_mode_selected', { mode: 'challenge' });
     enterChallenge();
-  }, [enterChallenge]);
+  }
 
-  const handleDifficultySelect = useCallback(
-    (difficulty: keyof typeof CHALLENGE_QUIZ_LEVEL) => {
-      trackEvent('challenge_difficulty_selected', { difficulty });
-      selectChallengeDifficulty(difficulty);
-    },
-    [selectChallengeDifficulty],
-  );
+  function handleDifficultySelect(difficulty: keyof typeof CHALLENGE_QUIZ_LEVEL) {
+    trackEvent('challenge_difficulty_selected', { difficulty });
+    selectChallengeDifficulty(difficulty);
+  }
 
-  const handleStartChallenge = useCallback(() => {
+  function handleStartChallenge() {
     trackEvent('challenge_started', { difficulty: challengeDifficulty });
     startChallenge();
-  }, [startChallenge, challengeDifficulty]);
+  }
 
-  const handleBackToDifficultySelect = useCallback(() => {
+  function handleBackToDifficultySelect() {
     resetChallenge();
     enterChallenge();
-  }, [resetChallenge, enterChallenge]);
+  }
 
-  const handlePlayAgainChallenge = useCallback(() => {
+  function handlePlayAgainChallenge() {
     setNodes([]);
     setEdges([]);
     resetChallenge();
@@ -205,14 +191,7 @@ export function useQuizChallenge({ setNodes, setEdges, generator }: UseQuizChall
     if (challengeDifficulty) {
       selectChallengeDifficulty(challengeDifficulty);
     }
-  }, [
-    setNodes,
-    setEdges,
-    resetChallenge,
-    enterChallenge,
-    challengeDifficulty,
-    selectChallengeDifficulty,
-  ]);
+  }
 
   return {
     // Challenge state

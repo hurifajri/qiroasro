@@ -1,7 +1,6 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { useCallback } from 'react';
 import { trackEvent } from '@/lib/analytics';
 import { useQuizStore } from '../providers/quiz';
 import type { QuizMode } from '../schemas/quiz';
@@ -35,9 +34,11 @@ export function useQuizPractice({
   const resetPracticeQuiz = useQuizStore((s) => s.resetPracticeQuiz);
 
   // Practice timer
-  const handleTimeUp = useCallback(() => {
-    if (!isChecked) checkAnswers();
-  }, [isChecked, checkAnswers]);
+  function handleTimeUp() {
+    if (isChecked) return;
+
+    checkAnswers();
+  }
 
   const {
     timeRemaining,
@@ -51,44 +52,38 @@ export function useQuizPractice({
   });
 
   // Handlers
-  const handleModeSelect = useCallback(
-    (selectedMode: QuizMode) => {
-      trackEvent('quiz_mode_selected', { mode: selectedMode });
-      setMode(selectedMode);
-    },
-    [setMode],
-  );
+  function handleModeSelect(selectedMode: QuizMode) {
+    trackEvent('quiz_mode_selected', { mode: selectedMode });
+    setMode(selectedMode);
+  }
 
-  const handleStartQuiz = useCallback(() => {
-    if (mode) {
-      trackEvent('quiz_started', { mode, practiceSettings });
-      generateQuiz(mode);
-      startPracticeQuiz();
-      startTimer();
-    }
-  }, [mode, practiceSettings, generateQuiz, startPracticeQuiz, startTimer]);
+  function handleStartQuiz() {
+    if (!mode) return;
 
-  const handleResetQuiz = useCallback(
-    (stopChallengeTimer: () => void) => {
-      setNodes([]);
-      setEdges([]);
-      resetPracticeQuiz();
-      stopTimer();
-      stopChallengeTimer();
-      startTimer();
-    },
-    [setNodes, setEdges, resetPracticeQuiz, stopTimer, startTimer],
-  );
+    trackEvent('quiz_started', { mode, practiceSettings });
+    generateQuiz(mode);
+    startPracticeQuiz();
+    startTimer();
+  }
 
-  const handlePlayAgainPractice = useCallback(() => {
-    if (mode) {
-      setNodes([]);
-      setEdges([]);
-      stopTimer();
-      generateQuiz(mode);
-      startTimer();
-    }
-  }, [mode, setNodes, setEdges, stopTimer, generateQuiz, startTimer]);
+  function handleResetQuiz(stopChallengeTimer: () => void) {
+    setNodes([]);
+    setEdges([]);
+    resetPracticeQuiz();
+    stopTimer();
+    stopChallengeTimer();
+    startTimer();
+  }
+
+  function handlePlayAgainPractice() {
+    if (!mode) return;
+
+    setNodes([]);
+    setEdges([]);
+    stopTimer();
+    generateQuiz(mode);
+    startTimer();
+  }
 
   return {
     // Practice state

@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
-import { useCallback } from 'react';
 import { applyResultsToEdges, applyResultsToNodes, checkQuizAnswers } from '../lib/quiz-checker';
 import {
   calculateRequiredConnections,
@@ -47,70 +46,48 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   const traits = playgroundData?.traits ?? [];
 
   // Generate quiz questions and nodes
-  const generateQuiz = useCallback(
-    (mode: QuizMode) => {
-      const result = generateQuizData(
-        mode,
-        { letters, letterArticulations, letterTraits, articulationPoints, traits },
-        { lettersPerQuiz, targetsPerQuiz, multiEdge },
-      );
+  function generateQuiz(mode: QuizMode) {
+    const result = generateQuizData(
+      mode,
+      { letters, letterArticulations, letterTraits, articulationPoints, traits },
+      { lettersPerQuiz, targetsPerQuiz, multiEdge },
+    );
 
-      if (result.isUnsupported) {
-        setQuestions([]);
-        setTargets([]);
-        setNodes([]);
-        setEdges([]);
-        return;
-      }
+    if (result.isUnsupported) {
+      setQuestions([]);
+      setTargets([]);
+      setNodes([]);
+      setEdges([]);
+      return;
+    }
 
-      setQuestions(result.questions);
-      setTargets(result.targets);
-      setNodes(result.nodes);
-      setEdges(result.edges);
-      setIsChecked(false);
-      setPracticeScore({ correct: 0, total: 0 });
-    },
-    [
-      letters,
-      letterArticulations,
-      letterTraits,
-      articulationPoints,
-      traits,
+    setQuestions(result.questions);
+    setTargets(result.targets);
+    setNodes(result.nodes);
+    setEdges(result.edges);
+    setIsChecked(false);
+    setPracticeScore({ correct: 0, total: 0 });
+  }
+
+  // Validate connection
+  function isValidConnection(connection: Edge | Connection) {
+    return isValidQuizConnection(connection);
+  }
+
+  // Handle new connection
+  function onConnect(connection: Connection) {
+    if (isChecked) return;
+
+    const newEdges = handleQuizConnection(connection, edges, nodes, {
       lettersPerQuiz,
       targetsPerQuiz,
       multiEdge,
-      setNodes,
-      setEdges,
-      setQuestions,
-      setTargets,
-      setIsChecked,
-      setPracticeScore,
-    ],
-  );
+    });
 
-  // Validate connection
-  const isValidConnection = useCallback(
-    (connection: Edge | Connection) => isValidQuizConnection(connection),
-    [],
-  );
-
-  // Handle new connection
-  const onConnect = useCallback(
-    (connection: Connection) => {
-      if (isChecked) return;
-
-      const newEdges = handleQuizConnection(connection, edges, nodes, {
-        lettersPerQuiz,
-        targetsPerQuiz,
-        multiEdge,
-      });
-
-      if (newEdges) {
-        setEdges(newEdges);
-      }
-    },
-    [edges, isChecked, setEdges, nodes, lettersPerQuiz, targetsPerQuiz, multiEdge],
-  );
+    if (newEdges) {
+      setEdges(newEdges);
+    }
+  }
 
   // Derived state
   const connectionCount = edges.length;
@@ -124,7 +101,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   });
 
   // Check answers - returns the score and incorrect items for caller to use
-  const checkAnswers = useCallback(() => {
+  function checkAnswers() {
     const { correctCount, letterResults, targetResults, incorrectItem } = checkQuizAnswers(
       questions,
       edges,
@@ -139,16 +116,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     setIsChecked(true);
 
     return { score: newScore, incorrectItem };
-  }, [
-    questions,
-    edges,
-    targets,
-    setNodes,
-    setEdges,
-    setPracticeScore,
-    setIsChecked,
-    requiredConnections,
-  ]);
+  }
 
   return {
     generateQuiz,

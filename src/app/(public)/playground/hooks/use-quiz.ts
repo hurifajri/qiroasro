@@ -3,7 +3,7 @@
 import type { Edge, Node } from '@xyflow/react';
 import { useEdgesState, useNodesState } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useQuizStore } from '../providers/quiz';
 import { useQuizChallenge } from './use-quiz-challenge';
 import { useQuizGenerator } from './use-quiz-generator';
@@ -66,26 +66,23 @@ export function useQuiz() {
     stopTimer,
   } = practice;
 
-  const handleResetQuiz = useCallback(() => {
+  function handleResetQuiz() {
     practiceResetQuiz(stopChallengeTimer);
-  }, [practiceResetQuiz, stopChallengeTimer]);
+  }
 
-  const handleDialogClose = useCallback(
-    (open: boolean) => {
-      if (!open) {
-        resetAll();
-        stopTimer();
-        stopChallengeTimer();
-      }
-    },
-    [resetAll, stopTimer, stopChallengeTimer],
-  );
+  function handleDialogClose(open: boolean) {
+    if (open) return;
 
-  const handleBackToMenu = useCallback(() => {
+    resetAll();
+    stopTimer();
+    stopChallengeTimer();
+  }
+
+  function handleBackToMenu() {
     setNodes([]);
     setEdges([]);
     resetAll();
-  }, [setNodes, setEdges, resetAll]);
+  }
 
   // Screen state
   const screenState = {

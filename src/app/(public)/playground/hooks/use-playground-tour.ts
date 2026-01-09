@@ -4,7 +4,7 @@ import type { ColorMode } from '@xyflow/react';
 import { type Driver, type DriveStep, driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const TOUR_STORAGE_KEY = 'playground-tour-completed';
 
@@ -17,15 +17,15 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
   const driverRef = useRef<Driver | null>(null);
 
   // Helper to check if an element is visible in DOM
-  const isElementVisible = useCallback((selector: string): boolean => {
+  function isElementVisible(selector: string): boolean {
     const element = document.querySelector(selector);
     if (!element) return false;
     const style = window.getComputedStyle(element);
     return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
-  }, []);
+  }
 
   // Helper to apply eye-catching highlight effect
-  const flashElement = useCallback((element: Element | null) => {
+  function flashElement(element: Element | null) {
     if (!element) return;
 
     // const el = element.parentElement as HTMLElement;
@@ -45,9 +45,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       el.style.borderRadius = originalStyles.borderRadius;
       el.style.border = originalStyles.border;
     }, 500);
-  }, []);
+  }
 
-  const getTourSteps = useCallback((): DriveStep[] => {
+  function getTourSteps(): DriveStep[] {
     return [
       {
         popover: {
@@ -257,9 +257,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         },
       },
     ];
-  }, [t, isElementVisible, flashElement]);
+  }
 
-  const startTour = useCallback(() => {
+  function startTour() {
     // Destroy existing driver if any
     if (driverRef.current) {
       driverRef.current.destroy();
@@ -285,9 +285,10 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
     driverRef.current = driverInstance;
     driverInstance.drive();
-  }, [t, getTourSteps, theme]);
+  }
 
   // Auto-start tour on first visit
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <unnecessary dependency>
   useEffect(() => {
     const hasSeenTour = localStorage.getItem(TOUR_STORAGE_KEY);
     if (!hasSeenTour) {
@@ -298,7 +299,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
       return () => clearTimeout(timer);
     }
-  }, [startTour]);
+  }, []);
 
   // Cleanup on unmount
   useEffect(() => {

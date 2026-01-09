@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import { CopyIcon, PlayIcon, ShareIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { env } from '@/env';
 import { parseDuration } from '@/lib/utils';
@@ -26,7 +26,7 @@ export function ChallengeActions({
   const t = useTranslations('playground_page.quiz');
   const [copied, setCopied] = useState(false);
 
-  const handleShare = useCallback(async () => {
+  async function handleShare() {
     const duration = parseDuration(result.totalTime);
     const shareText = t('challenge_share_text', {
       point: result.score.totalPoint,
@@ -76,7 +76,7 @@ export function ChallengeActions({
     } catch {
       // Clipboard failed
     }
-  }, [result, resultRef, t]);
+  }
 
   return (
     <motion.div

@@ -10,7 +10,7 @@ import type {
   OnEdgesChange,
   OnNodesChange,
 } from '@xyflow/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { QuizCanvas } from './quiz-canvas';
 
@@ -47,7 +47,7 @@ export function QuizContent({
   const headerRef = useRef<HTMLDivElement>(null);
   const [canvasHeight, setCanvasHeight] = useState<number>(400);
 
-  const calculateHeight = useCallback(() => {
+  function calculateHeight() {
     const headerHeight = headerRef.current?.offsetHeight ?? 48;
 
     // Get dialog header and footer heights by measuring DOM
@@ -73,8 +73,9 @@ export function QuizContent({
       gap;
 
     setCanvasHeight(availableHeight);
-  }, [extraTopOffset]);
+  }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <unnecessary dependency>
   useEffect(() => {
     // Calculate on mount
     calculateHeight();
@@ -109,7 +110,7 @@ export function QuizContent({
       mutationObserver.disconnect();
       window.removeEventListener('resize', calculateHeight);
     };
-  }, [calculateHeight]);
+  }, []);
 
   return (
     <div className="flex flex-col gap-2 rounded-lg border">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export interface UseQuizTimerOptions {
   /** Timer duration in seconds */
@@ -49,24 +49,24 @@ export function useQuizTimer({
 
   const isRunning = timeRemaining !== null && timeRemaining > 0 && !isPaused;
 
-  const start = useCallback(() => {
-    if (enabled) {
-      setTimeRemaining(duration);
-      hasCalledTimeUpRef.current = false;
-    }
-  }, [enabled, duration]);
+  function start() {
+    if (!enabled) return;
 
-  const reset = useCallback(() => {
-    if (enabled) {
-      setTimeRemaining(duration);
-      hasCalledTimeUpRef.current = false;
-    }
-  }, [enabled, duration]);
+    setTimeRemaining(duration);
+    hasCalledTimeUpRef.current = false;
+  }
 
-  const stop = useCallback(() => {
+  function reset() {
+    if (!enabled) return;
+
+    setTimeRemaining(duration);
+    hasCalledTimeUpRef.current = false;
+  }
+
+  function stop() {
     setTimeRemaining(null);
     hasCalledTimeUpRef.current = false;
-  }, []);
+  }
 
   // Countdown effect
   useEffect(() => {

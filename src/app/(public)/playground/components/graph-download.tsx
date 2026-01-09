@@ -4,7 +4,7 @@ import { getViewportForBounds, useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { DownloadIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 const IMAGE_WIDTH = 1920;
@@ -15,11 +15,11 @@ export function GraphDownload() {
   const { getNodes, getNodesBounds } = useReactFlow();
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const downloadImage = useCallback(() => {
+  async function downloadImage() {
+    setIsDownloading(true);
+
     const nodes = getNodes();
     if (nodes.length === 0) return;
-
-    setIsDownloading(true);
 
     // Get the viewport element
     const viewportElement = document.querySelector('.react-flow__viewport') as HTMLElement;
@@ -39,7 +39,7 @@ export function GraphDownload() {
       0.2, // padding
     );
 
-    toPng(viewportElement, {
+    const dataUrl = await toPng(viewportElement, {
       backgroundColor: 'transparent',
       width: IMAGE_WIDTH,
       height: IMAGE_HEIGHT,
@@ -48,18 +48,14 @@ export function GraphDownload() {
         height: `${IMAGE_HEIGHT}px`,
         transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
-    })
-      .then((dataUrl) => {
-        const a = document.createElement('a');
-        a.setAttribute('download', `qiroasro-graph-${Date.now()}.png`);
-        a.setAttribute('href', dataUrl);
-        a.click();
-        setIsDownloading(false);
-      })
-      .catch(() => {
-        setIsDownloading(false);
-      });
-  }, [getNodes, getNodesBounds]);
+    });
+
+    const a = document.createElement('a');
+    a.setAttribute('download', `qiroasro-graph-${Date.now()}.png`);
+    a.setAttribute('href', dataUrl);
+    a.click();
+    setIsDownloading(false);
+  }
 
   return (
     <Button
