@@ -30,7 +30,7 @@ export const ChallengeAnalytics = memo(function ChallengeAnalytics({
   return (
     <motion.div
       className="flex flex-col gap-2"
-      initial={{ y: 20, opacity: 0 }}
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.4 }}
     >

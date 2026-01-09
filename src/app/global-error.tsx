@@ -5,7 +5,11 @@ import NextError from 'next/error';
 import { useEffect } from 'react';
 import { useGlobalStore } from '@/providers/global';
 
-export default function GlobalError({ error }: { error: Error & { digest?: string } }) {
+type GlobalErrorProps = Readonly<{
+  error: Error & { digest?: string };
+}>;
+
+export default function GlobalError({ error }: GlobalErrorProps) {
   const locale = useGlobalStore((s) => s.locale);
 
   useEffect(() => {

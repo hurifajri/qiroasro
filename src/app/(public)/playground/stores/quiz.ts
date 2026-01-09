@@ -195,7 +195,6 @@ export function createQuizStore() {
       const state = get();
       const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
       const perfectQuestion = state.challengeQuestionScores.filter((s) => s.isPerfect).length;
-      const questionWithMistake = state.challengeQuestionScores.length - perfectQuestion;
 
       // Sort weakness by error count descending
       const sortedAnalytics = [...state.challengeAnalytics].sort(
@@ -210,7 +209,6 @@ export function createQuizStore() {
           analytics: sortedAnalytics.slice(0, 5), // Top 5 weakness
           totalQuestion: state.challengeQuestionScores.length,
           perfectQuestion,
-          questionWithMistake,
           totalPossibleConnection,
           totalTime,
           completedAt: new Date(),

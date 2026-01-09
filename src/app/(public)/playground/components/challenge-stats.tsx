@@ -82,7 +82,7 @@ export const ChallengeStats = memo(function ChallengeStats({
       {/* Stats Grid */}
       <motion.div
         className="grid grid-cols-2 gap-3"
-        initial={{ y: 20, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
@@ -101,7 +101,7 @@ export const ChallengeStats = memo(function ChallengeStats({
       {/* Connection Stats */}
       <motion.div
         className="flex justify-around rounded-lg border p-3 dark:border-muted"
-        initial={{ y: 20, opacity: 0 }}
+        initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.3 }}
       >

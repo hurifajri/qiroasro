@@ -97,7 +97,6 @@ export interface ChallengeQuizResult {
   analytics: ChallengeQuizAnalytic[];
   totalQuestion: number;
   perfectQuestion: number;
-  questionWithMistake: number;
   totalPossibleConnection: number;
   totalTime: number;
   completedAt: Date;
