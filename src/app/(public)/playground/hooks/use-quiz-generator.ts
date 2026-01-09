@@ -21,6 +21,8 @@ interface UseQuizGeneratorProps {
   setEdges: React.Dispatch<React.SetStateAction<Edge[]>>;
 }
 
+export type UseQuizGeneratorReturn = ReturnType<typeof useQuizGenerator>;
+
 export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGeneratorProps) {
   // Get settings and state from store
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
