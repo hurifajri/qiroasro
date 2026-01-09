@@ -16,7 +16,7 @@ export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
       <CardHeader className="px-0">
         <CardTitle className="flex items-center gap-1 text-sm">
           <InfoIcon className="size-4" />
-          {t('regular_instruction_title')}
+          {t('practice_instruction_title')}
         </CardTitle>
         {!!onClose && (
           <CardAction>
@@ -27,7 +27,7 @@ export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
       <CardContent className="px-0">
         <p className="text-sm">
           {quizMode
-            ? t('regular_instruction_description', {
+            ? t('practice_instruction_description', {
                 target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
               })
             : t('challenge_instruction_description')}

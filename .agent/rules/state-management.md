@@ -11,7 +11,7 @@ trigger: always_on
 interface QuizState {
   isDialogOpen: boolean;
   mode: QuizMode | null;
-  settings: RegularQuizSettings;
+  settings: PracticeQuizSettings;
 }
 
 // 2. Define Actions interface
@@ -28,7 +28,7 @@ export type QuizStore = QuizState & QuizActions;
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  settings: REGULAR_QUIZ_DEFAULT_SETTINGS,
+  settings: Practice_QUIZ_DEFAULT_SETTINGS,
 };
 
 // 5. Create store

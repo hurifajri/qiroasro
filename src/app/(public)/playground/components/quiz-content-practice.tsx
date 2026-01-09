@@ -15,17 +15,17 @@ import { QuizTimer } from './quiz-timer';
 
 type QuizHook = ReturnType<typeof useQuiz>;
 
-interface QuizContentRegularProps {
+interface QuizContentPracticeProps {
   quiz: QuizHook;
   nodeTypes: NodeTypes;
 }
 
-export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps) {
+export function QuizContentPractice({ quiz, nodeTypes }: QuizContentPracticeProps) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
   // Step 1: Settings
-  if (quiz.screenState.showRegularSettings) {
+  if (quiz.screenState.showPracticeSettings) {
     return (
       <>
         <QuizSettings />
@@ -48,7 +48,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
   }
 
   // Step 2: Quiz
-  if (quiz.screenState.showRegularQuiz) {
+  if (quiz.screenState.showPracticeQuiz) {
     return (
       <>
         <QuizContent
@@ -63,10 +63,10 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
           isValidConnection={quiz.isValidConnection}
           headerContent={
             <>
-              {quiz.isChecked && <QuizScore variant="regular" score={quiz.regularScore} />}
-              {quiz.regularSettings.timerMode && quiz.timeRemaining !== null && !quiz.isChecked && (
-                <QuizTimer timeRemaining={quiz.timeRemaining} />
-              )}
+              {quiz.isChecked && <QuizScore variant="practice" score={quiz.practiceScore} />}
+              {quiz.practiceSettings.timerMode &&
+                quiz.timeRemaining !== null &&
+                !quiz.isChecked && <QuizTimer timeRemaining={quiz.timeRemaining} />}
             </>
           }
         />
@@ -88,7 +88,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
               {t('change_mode')}
             </Button>
             {quiz.isChecked ? (
-              <Button size="lg" onClick={quiz.handlePlayAgainRegular} className="sm:flex-1">
+              <Button size="lg" onClick={quiz.handlePlayAgainPractice} className="sm:flex-1">
                 <RefreshCwIcon />
                 {t('try_again')}
               </Button>

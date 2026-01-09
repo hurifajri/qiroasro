@@ -26,13 +26,13 @@ export interface QuizTarget {
   slug: string;
 }
 
-export interface RegularQuizScore {
+export interface PracticeQuizScore {
   correct: number;
   total: number;
 }
 
 // Settings per quiz
-export interface RegularQuizSettings {
+export interface PracticeQuizSettings {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
@@ -41,13 +41,13 @@ export interface RegularQuizSettings {
 }
 
 // Config constraints per mode
-interface RegularQuizModeConstraints {
+interface PracticeQuizModeConstraints {
   lettersPerQuiz: { min: number; max: number };
   targetsPerQuiz: { min: number; max: number };
   allowMultiEdge: boolean;
 }
 
-export const REGULAR_QUIZ_MODE_CONFIG: Record<QuizMode, RegularQuizModeConstraints> = {
+export const PRACTICE_QUIZ_MODE_CONFIG: Record<QuizMode, PracticeQuizModeConstraints> = {
   articulation_point: {
     lettersPerQuiz: { min: 1, max: 5 },
     targetsPerQuiz: { min: 1, max: 5 },
@@ -60,7 +60,7 @@ export const REGULAR_QUIZ_MODE_CONFIG: Record<QuizMode, RegularQuizModeConstrain
   },
 };
 
-export const REGULAR_QUIZ_DEFAULT_SETTINGS: RegularQuizSettings = {
+export const PRACTICE_QUIZ_DEFAULT_SETTINGS: PracticeQuizSettings = {
   lettersPerQuiz: 1,
   targetsPerQuiz: 3,
   multiEdge: false,

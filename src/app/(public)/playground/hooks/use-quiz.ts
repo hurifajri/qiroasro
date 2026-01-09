@@ -19,17 +19,17 @@ export function useQuiz() {
   // Store selectors
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
-  const regularSettings = useQuizStore((s) => s.regularSettings);
-  const setRegularSettings = useQuizStore((s) => s.setRegularSettings);
+  const practiceSettings = useQuizStore((s) => s.practiceSettings);
+  const setPracticeSettings = useQuizStore((s) => s.setPracticeSettings);
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const openDialog = useQuizStore((s) => s.openDialog);
   const isStarted = useQuizStore((s) => s.isStarted);
-  const startRegularQuiz = useQuizStore((s) => s.startRegularQuiz);
+  const startPracticeQuiz = useQuizStore((s) => s.startPracticeQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);
   const isInstructionShown = useQuizStore((s) => s.isInstructionShown);
   const setIsInstructionShown = useQuizStore((s) => s.setIsInstructionShown);
-  const regularScore = useQuizStore((s) => s.regularScore);
-  const resetRegularQuiz = useQuizStore((s) => s.resetRegularQuiz);
+  const practiceScore = useQuizStore((s) => s.practiceScore);
+  const resetPracticeQuiz = useQuizStore((s) => s.resetPracticeQuiz);
   const resetAll = useQuizStore((s) => s.resetAll);
 
   // Challenge state
@@ -74,7 +74,7 @@ export function useQuiz() {
     return currentChallengeConfig.questions[challengeCurrQuestionIdx];
   }, [currentChallengeConfig, challengeCurrQuestionIdx]);
 
-  // Regular timer
+  // Practice timer
   const handleTimeUp = useCallback(() => {
     if (!isChecked) checkAnswers();
   }, [isChecked, checkAnswers]);
@@ -85,8 +85,8 @@ export function useQuiz() {
     reset: _resetTimer,
     stop: stopTimer,
   } = useQuizTimer({
-    duration: regularSettings.timerDuration,
-    enabled: regularSettings.timerMode && !isChallenge,
+    duration: practiceSettings.timerDuration,
+    enabled: practiceSettings.timerMode && !isChallenge,
     onTimeUp: handleTimeUp,
     isPaused: isChecked,
   });
@@ -181,7 +181,7 @@ export function useQuiz() {
   // Generate challenge question when index changes
   useEffect(() => {
     if (isChallenge && isStarted && currentQuestion && !challengeResult) {
-      setRegularSettings({
+      setPracticeSettings({
         lettersPerQuiz: currentQuestion.lettersPerQuiz,
         targetsPerQuiz: currentQuestion.targetsPerQuiz,
         multiEdge: currentQuestion.allowMultiEdge,
@@ -204,7 +204,7 @@ export function useQuiz() {
     currentQuestion,
     challengeResult,
     currentChallengeConfig,
-    setRegularSettings,
+    setPracticeSettings,
     generateQuiz,
     setMode,
     resetChallengeTimer,
@@ -245,12 +245,12 @@ export function useQuiz() {
 
   const handleStartQuiz = useCallback(() => {
     if (mode) {
-      trackEvent('quiz_started', { mode, regularSettings });
+      trackEvent('quiz_started', { mode, practiceSettings });
       generateQuiz(mode);
-      startRegularQuiz();
+      startPracticeQuiz();
       startTimer();
     }
-  }, [mode, regularSettings, generateQuiz, startRegularQuiz, startTimer]);
+  }, [mode, practiceSettings, generateQuiz, startPracticeQuiz, startTimer]);
 
   const handleBackToModeSelect = useCallback(() => {
     setMode(null);
@@ -265,11 +265,11 @@ export function useQuiz() {
   const handleResetQuiz = useCallback(() => {
     setNodes([]);
     setEdges([]);
-    resetRegularQuiz();
+    resetPracticeQuiz();
     stopTimer();
     stopChallengeTimer();
     startTimer();
-  }, [setNodes, setEdges, resetRegularQuiz, stopTimer, stopChallengeTimer, startTimer]);
+  }, [setNodes, setEdges, resetPracticeQuiz, stopTimer, stopChallengeTimer, startTimer]);
 
   const handleDialogClose = useCallback(
     (open: boolean) => {
@@ -305,8 +305,8 @@ export function useQuiz() {
     resetAll();
   }, [setNodes, setEdges, resetAll]);
 
-  // Handler for "Try Again" button in regular mode
-  const handlePlayAgainRegular = useCallback(() => {
+  // Handler for "Try Again" button in practice mode
+  const handlePlayAgainPractice = useCallback(() => {
     if (mode) {
       setNodes([]);
       setEdges([]);
@@ -324,8 +324,8 @@ export function useQuiz() {
       showChallengeReady: isChallenge && !!challengeDifficulty && !isStarted,
       showChallengeResults: isChallenge && !!challengeResult,
       showChallengeQuiz: isChallenge && isStarted && !challengeResult,
-      showRegularSettings: !isChallenge && !!mode && !isStarted,
-      showRegularQuiz: !isChallenge && !!mode && isStarted,
+      showPracticeSettings: !isChallenge && !!mode && !isStarted,
+      showPracticeQuiz: !isChallenge && !!mode && isStarted,
     }),
     [mode, isChallenge, challengeDifficulty, isStarted, challengeResult],
   );
@@ -345,19 +345,19 @@ export function useQuiz() {
         description = '';
       } else {
         title = t('mode_challenge');
-        description = mode ? t('regular_description', { mode: 'makhraj/sifat' }) : '';
+        description = mode ? t('practice_description', { mode: 'makhraj/sifat' }) : '';
       }
     } else if (mode) {
       if (!isStarted) {
-        title = t('regular_settings');
-        description = t('regular_settings_description', {
+        title = t('practice_settings');
+        description = t('practice_settings_description', {
           mode: mode === 'articulation_point' ? 'makharijul huruf' : 'sifatul huruf',
         });
       } else {
-        title = t('regular_title', {
+        title = t('practice_title', {
           mode: mode === 'articulation_point' ? 'Makharijul Huruf' : 'Sifatul Huruf',
         });
-        description = t('regular_description', {
+        description = t('practice_description', {
           mode: mode === 'articulation_point' ? 'makhraj' : 'sifat',
         });
       }
@@ -369,15 +369,15 @@ export function useQuiz() {
   return {
     // State
     mode,
-    regularSettings,
-    setRegularSettings,
+    practiceSettings,
+    setPracticeSettings,
     isDialogOpen,
     openDialog,
     isStarted,
     isChecked,
     isInstructionShown,
     setIsInstructionShown,
-    regularScore,
+    practiceScore,
     nodes,
     edges,
     onNodesChange,
@@ -412,7 +412,7 @@ export function useQuiz() {
     handlePlayAgainChallenge,
     handleBackToMenu,
     handleChallengeCheckAndNext,
-    handlePlayAgainRegular,
+    handlePlayAgainPractice,
     checkAnswers,
     generateQuiz,
 

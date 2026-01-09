@@ -30,7 +30,7 @@ export interface UseQuizTimerReturn {
 
 /**
  * A reusable hook for countdown timer functionality.
- * Used for quiz time limits in both regular and challenge modes.
+ * Used for quiz time limits in both practice and challenge modes.
  */
 export function useQuizTimer({
   duration,
@@ -40,7 +40,7 @@ export function useQuizTimer({
   trackElapsedTime = false,
 }: UseQuizTimerOptions): UseQuizTimerReturn {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
-  const [startTime, setStartTime] = useState<number | null>(null);
+  const [_startTime, setStartTime] = useState<number | null>(null);
   const hasCalledTimeUpRef = useRef(false);
   const onTimeUpRef = useRef(onTimeUp);
 

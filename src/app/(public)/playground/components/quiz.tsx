@@ -13,7 +13,7 @@ import { useQuiz } from '../hooks/use-quiz';
 import { LetterQuizNode } from './node-letter-quiz';
 import { TargetQuizNode } from './node-target-quiz';
 import { QuizContentChallenge } from './quiz-content-challenge';
-import { QuizContentRegular } from './quiz-content-regular';
+import { QuizContentPractice } from './quiz-content-practice';
 import { QuizModeSelector } from './quiz-mode-selector';
 
 const nodeTypes: NodeTypes = {
@@ -25,7 +25,7 @@ export function Quiz() {
   const quiz = useQuiz();
 
   // Determine if we need ReactFlow (only when quiz canvas is actually shown)
-  const needsReactFlow = quiz.screenState.showRegularQuiz || quiz.screenState.showChallengeQuiz;
+  const needsReactFlow = quiz.screenState.showPracticeQuiz || quiz.screenState.showChallengeQuiz;
 
   // Quiz content that may or may not need ReactFlowProvider
   const quizContent = (
@@ -40,7 +40,7 @@ export function Quiz() {
       {quiz.isChallenge ? (
         <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
       ) : (
-        <QuizContentRegular quiz={quiz} nodeTypes={nodeTypes} />
+        <QuizContentPractice quiz={quiz} nodeTypes={nodeTypes} />
       )}
     </>
   );

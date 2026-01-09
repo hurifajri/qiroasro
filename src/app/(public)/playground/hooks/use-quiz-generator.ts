@@ -23,7 +23,7 @@ interface UseQuizGeneratorProps {
 
 export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGeneratorProps) {
   // Get settings and state from store
-  const regularSettings = useQuizStore((s) => s.regularSettings);
+  const practiceSettings = useQuizStore((s) => s.practiceSettings);
   const questions = useQuizStore((s) => s.questions);
   const targets = useQuizStore((s) => s.targets);
   const isChecked = useQuizStore((s) => s.isChecked);
@@ -32,9 +32,9 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   const setQuestions = useQuizStore((s) => s.setQuestions);
   const setTargets = useQuizStore((s) => s.setTargets);
   const setIsChecked = useQuizStore((s) => s.setIsChecked);
-  const setRegularScore = useQuizStore((s) => s.setRegularScore);
+  const setPracticeScore = useQuizStore((s) => s.setPracticeScore);
 
-  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = regularSettings;
+  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = practiceSettings;
 
   // Fetch data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -66,7 +66,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
       setNodes(result.nodes);
       setEdges(result.edges);
       setIsChecked(false);
-      setRegularScore({ correct: 0, total: 0 });
+      setPracticeScore({ correct: 0, total: 0 });
     },
     [
       letters,
@@ -82,7 +82,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
       setQuestions,
       setTargets,
       setIsChecked,
-      setRegularScore,
+      setPracticeScore,
     ],
   );
 
@@ -137,7 +137,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
     const newScore = { correct: correctCount, total: requiredConnections };
-    setRegularScore(newScore);
+    setPracticeScore(newScore);
     setIsChecked(true);
 
     return { score: newScore, incorrectItem };
@@ -147,7 +147,7 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
     targets,
     setNodes,
     setEdges,
-    setRegularScore,
+    setPracticeScore,
     setIsChecked,
     requiredConnections,
   ]);

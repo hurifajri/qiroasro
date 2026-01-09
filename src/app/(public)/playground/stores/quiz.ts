@@ -9,15 +9,15 @@ import type {
   ChallengeQuizQuestionScore,
   ChallengeQuizResult,
   ChallengeQuizScore,
+  PracticeQuizScore,
   QuizMode,
   QuizQuestion,
   QuizTarget,
-  RegularQuizScore,
 } from '../schemas/quiz';
 import {
   DEFAULT_CHALLENGE_QUIZ_SCORE,
-  REGULAR_QUIZ_DEFAULT_SETTINGS,
-  type RegularQuizSettings,
+  PRACTICE_QUIZ_DEFAULT_SETTINGS,
+  type PracticeQuizSettings,
 } from '../schemas/quiz';
 
 interface QuizState {
@@ -30,9 +30,9 @@ interface QuizState {
   questions: QuizQuestion[];
   targets: QuizTarget[];
 
-  // Regular state
-  regularSettings: RegularQuizSettings;
-  regularScore: RegularQuizScore;
+  // Practice state
+  practiceSettings: PracticeQuizSettings;
+  practiceScore: PracticeQuizScore;
 
   // Challenge state
   isChallenge: boolean;
@@ -56,11 +56,11 @@ interface QuizAction {
   setTargets: (targets: QuizTarget[]) => void;
   resetAll: () => void;
 
-  // Regular actions
-  setRegularSettings: (settings: RegularQuizSettings) => void;
-  startRegularQuiz: () => void;
-  setRegularScore: (score: RegularQuizScore) => void;
-  resetRegularQuiz: () => void;
+  // Practice actions
+  setPracticeSettings: (settings: PracticeQuizSettings) => void;
+  startPracticeQuiz: () => void;
+  setPracticeScore: (score: PracticeQuizScore) => void;
+  resetPracticeQuiz: () => void;
 
   // Challenge actions
   enterChallenge: () => void;
@@ -95,13 +95,13 @@ const initialChallengeState = {
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  regularSettings: REGULAR_QUIZ_DEFAULT_SETTINGS,
+  practiceSettings: PRACTICE_QUIZ_DEFAULT_SETTINGS,
   isStarted: false,
   isChecked: false,
   isInstructionShown: true,
   questions: [],
   targets: [],
-  regularScore: { correct: 0, total: 0 },
+  practiceScore: { correct: 0, total: 0 },
   ...initialChallengeState,
 };
 
@@ -121,17 +121,17 @@ export function createQuizStore() {
     setTargets: (targets) => set({ targets }),
     resetAll: () => set(initialState),
 
-    // Regular actions
-    setRegularSettings: (settings) => set({ regularSettings: settings }),
-    startRegularQuiz: () => set({ isStarted: true }),
-    setRegularScore: (score) => set({ regularScore: score }),
-    resetRegularQuiz: () =>
+    // Practice actions
+    setPracticeSettings: (settings) => set({ practiceSettings: settings }),
+    startPracticeQuiz: () => set({ isStarted: true }),
+    setPracticeScore: (score) => set({ practiceScore: score }),
+    resetPracticeQuiz: () =>
       set({
         isStarted: false,
         isChecked: false,
         questions: [],
         targets: [],
-        regularScore: { correct: 0, total: 0 },
+        practiceScore: { correct: 0, total: 0 },
       }),
 
     // Challenge actions

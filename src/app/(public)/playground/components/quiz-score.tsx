@@ -5,17 +5,17 @@ import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { RegularQuizScore } from '../schemas/quiz';
+import type { PracticeQuizScore } from '../schemas/quiz';
 
 interface QuizScoreBaseProps {
   className?: string;
 }
 
-interface QuizScoreRegularProps extends QuizScoreBaseProps {
-  /** Display mode: regular shows correct/incorrect badges */
-  variant: 'regular';
-  /** Score count for regular mode */
-  score: RegularQuizScore;
+interface QuizScorePracticeProps extends QuizScoreBaseProps {
+  /** Display mode: practice shows correct/incorrect badges */
+  variant: 'practice';
+  /** Score count for practice mode */
+  score: PracticeQuizScore;
 }
 
 interface QuizScoreChallengeProps extends QuizScoreBaseProps {
@@ -25,7 +25,7 @@ interface QuizScoreChallengeProps extends QuizScoreBaseProps {
   totalPoint: number;
 }
 
-export type QuizScoreProps = QuizScoreRegularProps | QuizScoreChallengeProps;
+export type QuizScoreProps = QuizScorePracticeProps | QuizScoreChallengeProps;
 
 const successStyles = 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-500';
 
@@ -72,7 +72,7 @@ export function QuizScore(props: QuizScoreProps) {
     return <ChallengeScore totalPoint={props.totalPoint} />;
   }
 
-  // Regular mode - correct/incorrect badges
+  // Practice mode - correct/incorrect badges
   const { score } = props;
   const isAllCorrect = score.correct === score.total;
   const incorrect = score.total - score.correct;
