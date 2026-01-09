@@ -92,92 +92,84 @@ export function useQuiz() {
   });
 
   // Shared function to process challenge answer (used by both timeout and manual check)
-  const processChallengeAnswer = useCallback(
-    (timeSpent: number) => {
-      // Call checkAnswers to update edge colors (blue/red)
-      const { score: currentScore, incorrectItem } = checkAnswers();
-      const isPerfect = currentScore.correct === currentScore.total;
+  const processChallengeAnswer = useCallback(() => {
+    // Call checkAnswers to update edge colors (blue/red)
+    const { score: currentScore, incorrectItem } = checkAnswers();
+    const isPerfect = currentScore.correct === currentScore.total;
 
-      const stat = {
-        correctConnection: currentScore.correct,
-        incorrectConnection: currentScore.total - currentScore.correct,
-        timeSpent,
-        isPerfect,
-      };
-      recordChallengeQuestionScore(stat);
+    const stat = {
+      correctConnection: currentScore.correct,
+      incorrectConnection: currentScore.total - currentScore.correct,
+      isPerfect,
+    };
+    recordChallengeQuestionScore(stat);
 
-      for (const item of incorrectItem) {
-        addChallengeAnalytic(item.name, item.type, item.errorType);
+    for (const item of incorrectItem) {
+      addChallengeAnalytic(item.name, item.type, item.errorType);
+    }
+
+    // Animate score changes with delay
+    // Note: currentScore.total is requiredConnections, so (total - correct) already includes
+    // both wrong connections AND missed connections (connections not made before timeout)
+    let delay = 0;
+    for (let i = 0; i < currentScore.correct; i++) {
+      setTimeout(() => addConnectionChallengeScore(true), delay);
+      delay += ANIMATION_DELAY;
+    }
+    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
+      setTimeout(() => addConnectionChallengeScore(false), delay);
+      delay += ANIMATION_DELAY;
+    }
+
+    const endTime = Date.now();
+    const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
+
+    setTimeout(() => {
+      if (challengeCurrQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
+        const totalPossible =
+          challengeScore.correctConnection +
+          challengeScore.incorrectConnection +
+          currentScore.total;
+        finishChallenge(totalPossible, endTime);
+        trackEvent('challenge_completed', {
+          difficulty: challengeDifficulty,
+          totalPoints:
+            challengeScore.totalPoint +
+            (isPerfect ? currentScore.correct * 2 : currentScore.correct),
+          accuracy: Math.round(
+            ((challengeScore.correctConnection + currentScore.correct) / totalPossible) * 100,
+          ),
+          perfectQuestions:
+            challengeQuestionScores.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
+          totalQuestions: TOTAL_CHALLENGE_QUESTION,
+        });
+      } else {
+        nextChallengeQuestion();
       }
-
-      // Animate score changes with delay
-      // Note: currentScore.total is requiredConnections, so (total - correct) already includes
-      // both wrong connections AND missed connections (connections not made before timeout)
-      let delay = 0;
-      for (let i = 0; i < currentScore.correct; i++) {
-        setTimeout(() => addConnectionChallengeScore(true), delay);
-        delay += ANIMATION_DELAY;
-      }
-      for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
-        setTimeout(() => addConnectionChallengeScore(false), delay);
-        delay += ANIMATION_DELAY;
-      }
-
-      const endTime = Date.now();
-      const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
-
-      setTimeout(() => {
-        if (challengeCurrQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
-          const totalPossible =
-            challengeScore.correctConnection +
-            challengeScore.incorrectConnection +
-            currentScore.total;
-          finishChallenge(totalPossible, endTime);
-          trackEvent('challenge_completed', {
-            difficulty: challengeDifficulty,
-            totalPoints:
-              challengeScore.totalPoint +
-              (isPerfect ? currentScore.correct * 2 : currentScore.correct),
-            accuracy: Math.round(
-              ((challengeScore.correctConnection + currentScore.correct) / totalPossible) * 100,
-            ),
-            perfectQuestions:
-              challengeQuestionScores.filter((q) => q.isPerfect).length + (isPerfect ? 1 : 0),
-            totalQuestions: TOTAL_CHALLENGE_QUESTION,
-          });
-        } else {
-          nextChallengeQuestion();
-        }
-      }, animationDuration);
-    },
-    [
-      checkAnswers,
-      recordChallengeQuestionScore,
-      addChallengeAnalytic,
-      addConnectionChallengeScore,
-      challengeCurrQuestionIdx,
-      finishChallenge,
-      challengeScore,
-      nextChallengeQuestion,
-      challengeDifficulty,
-      challengeQuestionScores.filter,
-    ],
-  );
+    }, animationDuration);
+  }, [
+    checkAnswers,
+    recordChallengeQuestionScore,
+    addChallengeAnalytic,
+    addConnectionChallengeScore,
+    challengeCurrQuestionIdx,
+    finishChallenge,
+    challengeScore,
+    nextChallengeQuestion,
+    challengeDifficulty,
+    challengeQuestionScores.filter,
+  ]);
 
   // Challenge timer - when time runs out
   const handleChallengeTimeUp = useCallback(() => {
-    const timeSpent = currentChallengeConfig?.timerDuration
-      ? currentChallengeConfig.timerDuration * 1000
-      : 0;
-    processChallengeAnswer(timeSpent);
-  }, [currentChallengeConfig, processChallengeAnswer]);
+    processChallengeAnswer();
+  }, [processChallengeAnswer]);
 
   const {
     timeRemaining: challengeTimeRemaining,
     start: startChallengeTimer,
     reset: resetChallengeTimer,
     stop: stopChallengeTimer,
-    getElapsedTime,
   } = useQuizTimer({
     duration: currentChallengeConfig?.timerDuration ?? 60,
     enabled: isChallenge && isStarted && !challengeResult,
@@ -222,9 +214,8 @@ export function useQuiz() {
   // Handlers
   // Handler for manual check button click
   const handleChallengeCheckAndNext = useCallback(() => {
-    const timeSpent = getElapsedTime();
-    processChallengeAnswer(timeSpent);
-  }, [getElapsedTime, processChallengeAnswer]);
+    processChallengeAnswer();
+  }, [processChallengeAnswer]);
 
   const handleModeSelect = useCallback(
     (selectedMode: QuizMode) => {

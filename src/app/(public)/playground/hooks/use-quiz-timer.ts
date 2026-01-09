@@ -26,8 +26,6 @@ export interface UseQuizTimerReturn {
   reset: () => void;
   /** Stop timer completely */
   stop: () => void;
-  /** Get elapsed time in milliseconds since start (only available if trackElapsedTime is true) */
-  getElapsedTime: () => number;
 }
 
 /**
@@ -79,11 +77,6 @@ export function useQuizTimer({
     hasCalledTimeUpRef.current = false;
   }, []);
 
-  const getElapsedTime = useCallback(() => {
-    if (!startTime) return 0;
-    return Date.now() - startTime;
-  }, [startTime]);
-
   // Countdown effect
   useEffect(() => {
     if (timeRemaining === null || isPaused) return;
@@ -110,6 +103,5 @@ export function useQuizTimer({
     start,
     reset,
     stop,
-    getElapsedTime,
   };
 }

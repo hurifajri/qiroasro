@@ -86,7 +86,6 @@ export interface ChallengeQuizScore {
 export interface ChallengeQuizQuestionScore {
   correctConnection: number;
   incorrectConnection: number;
-  timeSpent: number;
   isPerfect: boolean;
 }
 
