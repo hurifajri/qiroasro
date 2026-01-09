@@ -27,24 +27,6 @@ export function Quiz() {
   // Determine if we need ReactFlow (only when quiz canvas is actually shown)
   const needsReactFlow = quiz.screenState.showPracticeQuiz || quiz.screenState.showChallengeQuiz;
 
-  // Quiz content that may or may not need ReactFlowProvider
-  const quizContent = (
-    <>
-      {quiz.screenState.showModeSelection && (
-        <QuizModeSelector
-          onSelect={quiz.handleModeSelect}
-          onChallengeSelect={quiz.handleChallengeSelect}
-        />
-      )}
-
-      {quiz.isChallenge ? (
-        <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
-      ) : (
-        <QuizContentPractice quiz={quiz} nodeTypes={nodeTypes} />
-      )}
-    </>
-  );
-
   return (
     <Dialog open={quiz.isDialogOpen} onOpenChange={quiz.handleDialogClose}>
       <DialogContent
@@ -68,11 +50,26 @@ export function Quiz() {
           )}
         </DialogHeader>
 
+        {quiz.screenState.showModeSelection && (
+          <QuizModeSelector
+            onSelect={quiz.handleModeSelect}
+            onChallengeSelect={quiz.handleChallengeSelect}
+          />
+        )}
+
         {/*
             Performance optimization: Only mount ReactFlowProvider when quiz canvas is shown.
             This prevents ReactFlow overhead when browsing settings/mode selection.
           */}
-        {needsReactFlow ? <ReactFlowProvider>{quizContent}</ReactFlowProvider> : quizContent}
+        {needsReactFlow && (
+          <ReactFlowProvider>
+            {quiz.isChallenge ? (
+              <QuizContentChallenge quiz={quiz} nodeTypes={nodeTypes} />
+            ) : (
+              <QuizContentPractice quiz={quiz} nodeTypes={nodeTypes} />
+            )}
+          </ReactFlowProvider>
+        )}
       </DialogContent>
     </Dialog>
   );
