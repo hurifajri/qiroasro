@@ -282,7 +282,7 @@ export function useQuiz() {
     [resetAll, stopTimer, stopChallengeTimer],
   );
 
-  const handlePlayAgain = useCallback(() => {
+  const handlePlayAgainChallenge = useCallback(() => {
     setNodes([]);
     setEdges([]);
     resetChallenge();
@@ -306,7 +306,7 @@ export function useQuiz() {
   }, [setNodes, setEdges, resetAll]);
 
   // Handler for "Try Again" button in regular mode
-  const handleTryAgain = useCallback(() => {
+  const handlePlayAgainRegular = useCallback(() => {
     if (mode) {
       setNodes([]);
       setEdges([]);
@@ -409,10 +409,10 @@ export function useQuiz() {
     handleBackToDifficultySelect,
     handleResetQuiz,
     handleDialogClose,
-    handlePlayAgain,
+    handlePlayAgainChallenge,
     handleBackToMenu,
     handleChallengeCheckAndNext,
-    handleTryAgain,
+    handlePlayAgainRegular,
     checkAnswers,
     generateQuiz,
 

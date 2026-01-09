@@ -88,7 +88,7 @@ export function QuizContentRegular({ quiz, nodeTypes }: QuizContentRegularProps)
               {t('change_mode')}
             </Button>
             {quiz.isChecked ? (
-              <Button size="lg" onClick={quiz.handleTryAgain} className="sm:flex-1">
+              <Button size="lg" onClick={quiz.handlePlayAgainRegular} className="sm:flex-1">
                 <RefreshCwIcon />
                 {t('try_again')}
               </Button>

@@ -167,7 +167,7 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
     return (
       <ChallengeResults
         result={quiz.challengeResult}
-        onPlayAgain={quiz.handlePlayAgain}
+        onPlayAgain={quiz.handlePlayAgainChallenge}
         onBackToMenu={quiz.handleBackToMenu}
       />
     );
