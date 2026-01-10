@@ -35,7 +35,10 @@ import { getPlaygroundDataOpt } from '../queries/playground';
 import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
-import { ArticulationAreaNode, ArticulationPointNode } from './node-articulation';
+import {
+  ArticulationAreaNode,
+  ArticulationPointNode,
+} from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
 import { Quiz } from './quiz';
@@ -70,10 +73,14 @@ export function Playground() {
   const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
   const setLayoutMode = usePlaygroundStore((s) => s.setLayoutMode);
-  const setHierarchyDirection = usePlaygroundStore((s) => s.setHierarchyDirection);
+  const setHierarchyDirection = usePlaygroundStore(
+    (s) => s.setHierarchyDirection,
+  );
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
-  const getEffectiveEdgeType = usePlaygroundStore((s) => s.getEffectiveEdgeType);
+  const getEffectiveEdgeType = usePlaygroundStore(
+    (s) => s.getEffectiveEdgeType,
+  );
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
@@ -127,12 +134,15 @@ export function Playground() {
     async function updateLayout() {
       try {
         // Generate nodes and edges (without positions)
-        const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
-          viewMode,
-          layoutMode,
-          hierarchyDirection,
-          selectedId: selectedLetterId,
-        });
+        const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(
+          data,
+          {
+            viewMode,
+            layoutMode,
+            hierarchyDirection,
+            selectedId: selectedLetterId,
+          },
+        );
 
         // Apply layout based on mode
         let layoutedNodes: FlowNode[];
@@ -183,7 +193,12 @@ export function Playground() {
           import('@sentry/nextjs').then((Sentry) => {
             Sentry.captureException(err, {
               tags: { component: 'playground', action: 'layout_update' },
-              extra: { viewMode, layoutMode, hierarchyDirection, selectedLetterId },
+              extra: {
+                viewMode,
+                layoutMode,
+                hierarchyDirection,
+                selectedLetterId,
+              },
             });
           });
         }
@@ -291,10 +306,19 @@ export function Playground() {
         animated: targetAnimated,
       };
     });
-  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated, isMoving, draggingNodeId]);
+  }, [
+    edges,
+    connectedEdgeIds,
+    selectedNodeId,
+    edgeStyle.isAnimated,
+    isMoving,
+    draggingNodeId,
+  ]);
 
   // Debounce ref for highlight updates
-  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   // Handle node click - debounced to prevent rapid highlight recalculations
   const handleNodeClick = useCallback(
@@ -328,9 +352,12 @@ export function Playground() {
   }, [edges, updateHighlight]);
 
   // Handle node drag start
-  const handleNodeDragStart = useCallback((_event: React.MouseEvent, node: FlowNode) => {
-    setDraggingNodeId(node.id);
-  }, []);
+  const handleNodeDragStart = useCallback(
+    (_event: React.MouseEvent, node: FlowNode) => {
+      setDraggingNodeId(node.id);
+    },
+    [],
+  );
 
   // Handle node drag stop
   const handleNodeDragStop = useCallback(() => {
@@ -414,7 +441,10 @@ export function Playground() {
               <GraphLegend viewMode={viewMode} />
             </Panel>
 
-            <Panel position="bottom-left" className="m-0! flex flex-col items-start gap-2 p-3">
+            <Panel
+              position="bottom-left"
+              className="m-0! flex flex-col items-start gap-2 p-3"
+            >
               <Button
                 id="tour-quiz"
                 size="sm"
@@ -462,8 +492,12 @@ export function Playground() {
             /> */}
 
             <Background
-              color={theme === 'light' ? 'oklch(0.13 0.028 261.692)' : 'oklch(1 0 0)'}
-              bgColor={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
+              color={
+                theme === 'light' ? 'oklch(0.13 0.028 261.692)' : 'oklch(1 0 0)'
+              }
+              bgColor={
+                theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
+              }
               className="rounded-lg"
               variant={BackgroundVariant.Dots}
               gap={20}

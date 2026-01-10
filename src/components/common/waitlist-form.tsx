@@ -1,6 +1,12 @@
 'use client';
 
-import { CheckCircle2Icon, Loader2Icon, MailCheckIcon, MailIcon, XCircleIcon } from 'lucide-react';
+import {
+  CheckCircle2Icon,
+  Loader2Icon,
+  MailCheckIcon,
+  MailIcon,
+  XCircleIcon,
+} from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -12,7 +18,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
 import { useWaitlist } from '@/hooks/use-waitlist';
 import { cn } from '@/lib/utils';
@@ -23,7 +33,11 @@ interface WaitlistFormProps {
   isPlain?: boolean;
 }
 
-export function WaitlistForm({ source, className, isPlain = false }: WaitlistFormProps) {
+export function WaitlistForm({
+  source,
+  className,
+  isPlain = false,
+}: WaitlistFormProps) {
   const t = useTranslations('global');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -98,7 +112,8 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
                       <InputGroup
                         className={cn(
                           'h-12',
-                          field.state.meta.errors.length > 0 && 'border-red-500',
+                          field.state.meta.errors.length > 0 &&
+                            'border-red-500',
                         )}
                       >
                         <InputGroupAddon>
@@ -117,7 +132,9 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
                         />
                       </InputGroup>
                       {field.state.meta.errors.length > 0 && (
-                        <p className="text-red-500 text-sm">{field.state.meta.errors.join(', ')}</p>
+                        <p className="text-red-500 text-sm">
+                          {field.state.meta.errors.join(', ')}
+                        </p>
                       )}
                     </div>
                   )}
@@ -164,7 +181,10 @@ export function WaitlistForm({ source, className, isPlain = false }: WaitlistFor
 
       {/* Verification Success Dialog */}
       {waitlistStatus === 'verified' && (
-        <Dialog open={waitlistStatus === 'verified'} onOpenChange={() => setWaitlistStatus('idle')}>
+        <Dialog
+          open={waitlistStatus === 'verified'}
+          onOpenChange={() => setWaitlistStatus('idle')}
+        >
           <DialogContent className="border border-lime-500">
             <DialogHeader className="flex flex-row items-center gap-2">
               <MailCheckIcon className="text-lime-600" />

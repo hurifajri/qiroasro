@@ -42,7 +42,9 @@ export function ChallengeActions({
       try {
         const dataUrl = await toPng(resultRef.current, { cacheBust: true });
         const blob = await fetch(dataUrl).then((res) => res.blob());
-        imageFile = new File([blob], 'qiroasro-challenge.png', { type: 'image/png' });
+        imageFile = new File([blob], 'qiroasro-challenge.png', {
+          type: 'image/png',
+        });
       } catch {
         // Image capture failed, continue without image
       }
@@ -85,7 +87,12 @@ export function ChallengeActions({
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.5 }}
     >
-      <Button size="lg" variant="outline" onClick={handleShare} className="w-full">
+      <Button
+        size="lg"
+        variant="outline"
+        onClick={handleShare}
+        className="w-full"
+      >
         {copied ? (
           <>
             <CopyIcon />
@@ -99,7 +106,12 @@ export function ChallengeActions({
         )}
       </Button>
       <div className="flex gap-2">
-        <Button size="lg" variant="outline" onClick={onBackToMenu} className="flex-1">
+        <Button
+          size="lg"
+          variant="outline"
+          onClick={onBackToMenu}
+          className="flex-1"
+        >
           {t('back')}
         </Button>
         <Button size="lg" onClick={onPlayAgain} className="flex-1">

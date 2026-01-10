@@ -2,11 +2,16 @@
 
 import { createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
-import { createPlaygroundStore, type PlaygroundStore } from '../stores/playground';
+import {
+  createPlaygroundStore,
+  type PlaygroundStore,
+} from '../stores/playground';
 
 type PlaygroundStoreApi = ReturnType<typeof createPlaygroundStore>;
 
-const PlaygroundStoreContext = createContext<PlaygroundStoreApi | undefined>(undefined);
+const PlaygroundStoreContext = createContext<PlaygroundStoreApi | undefined>(
+  undefined,
+);
 
 export function PlaygroundStoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<PlaygroundStoreApi>(undefined);
@@ -15,15 +20,21 @@ export function PlaygroundStoreProvider({ children }: React.PropsWithChildren) {
   const store = storeRef.current;
 
   return (
-    <PlaygroundStoreContext.Provider value={store}>{children}</PlaygroundStoreContext.Provider>
+    <PlaygroundStoreContext.Provider value={store}>
+      {children}
+    </PlaygroundStoreContext.Provider>
   );
 }
 
-export function usePlaygroundStore<T>(selector: (store: PlaygroundStore) => T): T {
+export function usePlaygroundStore<T>(
+  selector: (store: PlaygroundStore) => T,
+): T {
   const playgroundStoreContext = useContext(PlaygroundStoreContext);
 
   if (!playgroundStoreContext) {
-    throw new Error(`usePlaygroundStore must be used within PlaygroundStoreProvider`);
+    throw new Error(
+      `usePlaygroundStore must be used within PlaygroundStoreProvider`,
+    );
   }
 
   return useStore(playgroundStoreContext, selector);

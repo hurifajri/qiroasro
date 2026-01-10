@@ -12,7 +12,10 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
-export function ZoomSelect({ className, ...props }: Omit<PanelProps, 'children'>) {
+export function ZoomSelect({
+  className,
+  ...props
+}: Omit<PanelProps, 'children'>) {
   const { zoomTo, fitView } = useReactFlow();
 
   const handleZoomChange = useCallback(
@@ -35,7 +38,11 @@ export function ZoomSelect({ className, ...props }: Omit<PanelProps, 'children'>
     const levels = [];
     const zoomIncrement = 50;
 
-    for (let i = Math.ceil(minZoom * 100); i <= Math.floor(maxZoom * 100); i += zoomIncrement) {
+    for (
+      let i = Math.ceil(minZoom * 100);
+      i <= Math.floor(maxZoom * 100);
+      i += zoomIncrement
+    ) {
       levels.push((i / 100).toString());
     }
 
@@ -43,7 +50,10 @@ export function ZoomSelect({ className, ...props }: Omit<PanelProps, 'children'>
   });
 
   return (
-    <Panel className={cn('flex bg-primary-foreground text-foreground', className)} {...props}>
+    <Panel
+      className={cn('flex bg-primary-foreground text-foreground', className)}
+      {...props}
+    >
       <Select onValueChange={handleZoomChange}>
         <SelectTrigger className="w-35 bg-primary-foreground">
           <SelectValue />

@@ -12,7 +12,10 @@ interface ConnectionValidatorOptions {
 export function isValidQuizConnection(connection: Edge | Connection): boolean {
   const sourceId = connection.source;
   const targetId = connection.target;
-  return Boolean(sourceId?.startsWith('letter-quiz-') && targetId?.startsWith('target-quiz-'));
+  return Boolean(
+    sourceId?.startsWith('letter-quiz-') &&
+      targetId?.startsWith('target-quiz-'),
+  );
 }
 
 /**
@@ -32,7 +35,9 @@ export function handleQuizConnection(
 
   if (multiEdge) {
     if (lettersPerQuiz === 1 && targetsPerQuiz > 1) {
-      const connectionExists = edges.some((e) => e.target === connection.target);
+      const connectionExists = edges.some(
+        (e) => e.target === connection.target,
+      );
       if (connectionExists) return null;
       const targetNodes = nodes.filter((n) => n.type === 'targetQuiz');
       const maxEdges = targetNodes.length - 1;
@@ -40,7 +45,9 @@ export function handleQuizConnection(
     }
 
     if (lettersPerQuiz > 1 && targetsPerQuiz === 1) {
-      const connectionExists = edges.some((e) => e.source === connection.source);
+      const connectionExists = edges.some(
+        (e) => e.source === connection.source,
+      );
       if (connectionExists) return null;
       const letterNodes = nodes.filter((n) => n.type === 'letterQuiz');
       const maxEdges = letterNodes.length - 1;
@@ -78,7 +85,10 @@ export function handleQuizConnection(
 export function calculateRequiredConnections(
   letterCount: number,
   targetCount: number,
-  options: Pick<ConnectionValidatorOptions, 'lettersPerQuiz' | 'targetsPerQuiz' | 'multiEdge'>,
+  options: Pick<
+    ConnectionValidatorOptions,
+    'lettersPerQuiz' | 'targetsPerQuiz' | 'multiEdge'
+  >,
 ): number {
   const { lettersPerQuiz, targetsPerQuiz, multiEdge } = options;
 

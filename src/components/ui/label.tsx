@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 function Label({ className, ...props }: React.ComponentProps<'label'>) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: <3rd party component>
+    // biome-ignore lint/a11y/noLabelWithoutControl: <3rd party>
     <label
       data-slot="label"
       className={cn(

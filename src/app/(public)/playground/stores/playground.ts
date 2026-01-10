@@ -60,7 +60,8 @@ export function createPlaygroundStore() {
       }
     },
     setLayoutMode: (mode) => set({ layoutMode: mode }),
-    setHierarchyDirection: (direction) => set({ hierarchyDirection: direction }),
+    setHierarchyDirection: (direction) =>
+      set({ hierarchyDirection: direction }),
     setSelectedLetterId: (id) => set({ selectedLetterId: id }),
     setSelectedNodeId: (id) => set({ selectedNodeId: id }),
     setEdgeStyle: (style) =>
@@ -84,7 +85,10 @@ export function createPlaygroundStore() {
       return edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
     },
     updateHighlight: (selectedNodeId, edges) => {
-      const { connectedNodeIds, connectedEdgeIds } = computeHighlight(selectedNodeId, edges);
+      const { connectedNodeIds, connectedEdgeIds } = computeHighlight(
+        selectedNodeId,
+        edges,
+      );
       set({ selectedNodeId, connectedNodeIds, connectedEdgeIds });
     },
   }));

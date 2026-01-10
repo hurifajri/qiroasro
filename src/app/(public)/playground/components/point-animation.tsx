@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface PointAnimationProps {
-  challengeLastPointChange: { value: number; timestamp: number } | null;
+  lastPointChange: { value: number; timestamp: number } | null;
 }
 
 interface AnimationItem {
@@ -13,21 +13,21 @@ interface AnimationItem {
   id: string;
 }
 
-export function PointAnimation({ challengeLastPointChange }: PointAnimationProps) {
+export function PointAnimation({ lastPointChange }: PointAnimationProps) {
   const [queue, setQueue] = useState<AnimationItem[]>([]);
   const lastProcessedTimestamp = useRef<number>(0);
 
   // Add new animation to queue when challengeLastPointChange changes
   useEffect(() => {
     if (
-      challengeLastPointChange &&
-      challengeLastPointChange.timestamp > lastProcessedTimestamp.current
+      lastPointChange &&
+      lastPointChange.timestamp > lastProcessedTimestamp.current
     ) {
-      lastProcessedTimestamp.current = challengeLastPointChange.timestamp;
-      const id = `${challengeLastPointChange.timestamp}-${Math.random()}`;
-      setQueue((prev) => [...prev, { value: challengeLastPointChange.value, id }]);
+      lastProcessedTimestamp.current = lastPointChange.timestamp;
+      const id = `${lastPointChange.timestamp}-${Math.random()}`;
+      setQueue((prev) => [...prev, { value: lastPointChange.value, id }]);
     }
-  }, [challengeLastPointChange]);
+  }, [lastPointChange]);
 
   // Auto-cleanup after animation duration
   useEffect(() => {

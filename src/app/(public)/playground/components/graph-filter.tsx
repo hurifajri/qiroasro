@@ -14,7 +14,11 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import {
   Select,
@@ -23,7 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { EDGE_SHAPES, HIERARCHY_DIRECTIONS, LAYOUT_MODES, VIEW_MODES } from '@/lib/constants';
+import {
+  EDGE_SHAPES,
+  HIERARCHY_DIRECTIONS,
+  LAYOUT_MODES,
+  VIEW_MODES,
+} from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter } from '@/schemas/letter';
@@ -136,7 +145,10 @@ export function GraphFilter({
 
             {/* Hierarchy Direction Toggle (only visible in hierarchical mode) */}
             {layoutMode === 'hierarchical' && (
-              <li id="tour-hierarchy-direction" className="flex items-center gap-2">
+              <li
+                id="tour-hierarchy-direction"
+                className="flex items-center gap-2"
+              >
                 <CompassIcon className="size-4 text-muted-foreground" />
                 <ButtonGroup className="flex-1">
                   {HIERARCHY_DIRECTIONS.map((direction) => (
@@ -170,7 +182,9 @@ export function GraphFilter({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })}
+                onClick={() =>
+                  onEdgeStyleChange({ isFloating: !edgeStyle.isFloating })
+                }
                 className={cn(
                   'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                   edgeStyle.isFloating
@@ -188,9 +202,14 @@ export function GraphFilter({
                 <SplineIcon className="size-4 text-muted-foreground" />
                 <Select
                   value={t(`edge.shape.${edgeStyle.shape}`)}
-                  onValueChange={(value) => onEdgeStyleChange({ shape: value as EdgeShape })}
+                  onValueChange={(value) =>
+                    onEdgeStyleChange({ shape: value as EdgeShape })
+                  }
                 >
-                  <SelectTrigger size="sm" className="flex-1 text-muted-foreground">
+                  <SelectTrigger
+                    size="sm"
+                    className="flex-1 text-muted-foreground"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

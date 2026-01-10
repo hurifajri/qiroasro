@@ -1,5 +1,10 @@
 import { CircleQuestionMarkIcon } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 type NodeInfoDialogProps = {
   label: string;
@@ -12,7 +17,12 @@ type NodeInfoDialogProps = {
  * Reusable dialog component for displaying node information.
  * Used by TraitNode and ArticulationPointNode.
  */
-export function NodeInfoDialog({ label, description, open, onOpenChange }: NodeInfoDialogProps) {
+export function NodeInfoDialog({
+  label,
+  description,
+  open,
+  onOpenChange,
+}: NodeInfoDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>

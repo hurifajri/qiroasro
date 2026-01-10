@@ -1,8 +1,17 @@
 import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import type { ViewMode } from '../schemas/graph';
 
@@ -10,13 +19,19 @@ interface GraphLegendProps {
   viewMode: ViewMode;
 }
 
-type LegendId = 'articulationMuhaqqaq' | 'articulationMuqaddar' | 'traitLazimah' | 'traitAridhah';
+type LegendId =
+  | 'articulationMuhaqqaq'
+  | 'articulationMuqaddar'
+  | 'traitLazimah'
+  | 'traitAridhah';
 
 export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(null);
+  const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(
+    null,
+  );
 
   const legends = [
     ...(['all', 'articulation', 'letter'].includes(viewMode)
@@ -33,7 +48,8 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {
             id: 'articulationMuhaqqaq',
             label: t('articulation_muhaqqaq'),
-            color: 'border-2 border-node-articulation/50 bg-node-articulation/20',
+            color:
+              'border-2 border-node-articulation/50 bg-node-articulation/20',
             hasInfo: true,
           },
         ]
@@ -43,7 +59,8 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {
             id: 'articulationMuqaddar',
             label: t('articulation_muqaddar'),
-            color: 'border-2 border-dashed border-node-articulation/50 bg-node-articulation/20',
+            color:
+              'border-2 border-dashed border-node-articulation/50 bg-node-articulation/20',
             hasInfo: true,
           },
         ]
@@ -72,7 +89,8 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           {
             id: 'traitAridhah',
             label: t('trait_aridhah'),
-            color: 'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
+            color:
+              'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
             hasInfo: true,
           },
         ]
@@ -133,7 +151,12 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
           <ul className="flex flex-col gap-2">
             {legends.map((legend, index) => (
               <li className="flex items-center gap-2" key={legend.id}>
-                <div className={cn('size-4 rounded-full bg-linear-to-br', legend.color)} />
+                <div
+                  className={cn(
+                    'size-4 rounded-full bg-linear-to-br',
+                    legend.color,
+                  )}
+                />
                 <span className="flex flex-1 items-center justify-between text-muted-foreground text-xs">
                   {legend.label}
                   {legend.hasInfo && (

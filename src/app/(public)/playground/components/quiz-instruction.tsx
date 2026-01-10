@@ -1,14 +1,20 @@
 import { InfoIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { QuizMode } from '../schemas/quiz';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import type { QuizType } from '../schemas/quiz';
 
 interface QuizInstructionProps {
-  quizMode: QuizMode | null;
+  quizType: QuizType | null;
   onClose?: () => void;
 }
 
-export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
+export function QuizInstruction({ quizType, onClose }: QuizInstructionProps) {
   const t = useTranslations('playground_page.quiz');
 
   return (
@@ -26,9 +32,9 @@ export function QuizInstruction({ quizMode, onClose }: QuizInstructionProps) {
       </CardHeader>
       <CardContent className="px-0">
         <p className="text-sm">
-          {quizMode
+          {quizType
             ? t('practice_instruction_description', {
-                target: quizMode === 'articulation_point' ? 'makhraj' : 'sifat',
+                target: quizType === 'articulation_point' ? 'makhraj' : 'sifat',
               })
             : t('challenge_instruction_description')}
         </p>

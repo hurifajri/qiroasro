@@ -11,7 +11,11 @@ interface UseWaitlistOptions {
   onError?: () => void;
 }
 
-export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) {
+export function useWaitlist({
+  source,
+  onSuccess,
+  onError,
+}: UseWaitlistOptions) {
   const t = useTranslations('global');
   const locale = useLocale();
 

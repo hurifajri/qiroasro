@@ -28,12 +28,22 @@ export function LabeledHandle({
   return (
     <div
       title={title}
-      className={cn('relative flex items-center', flexDirections[position], className)}
+      className={cn(
+        'relative flex items-center',
+        flexDirections[position],
+        className,
+      )}
       ref={ref}
     >
-      <BaseHandle position={position} className={handleClassName} {...handleProps} />
+      <BaseHandle
+        position={position}
+        className={handleClassName}
+        {...handleProps}
+      />
       {/** biome-ignore lint/a11y/noLabelWithoutControl: <3rd party component> */}
-      <label className={cn('px-3 text-foreground', labelClassName)}>{title}</label>
+      <label className={cn('px-3 text-foreground', labelClassName)}>
+        {title}
+      </label>
     </div>
   );
 }

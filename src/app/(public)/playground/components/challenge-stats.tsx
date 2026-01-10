@@ -1,7 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BowArrowIcon, CheckCircleIcon, TimerIcon, TrophyIcon } from 'lucide-react';
+import {
+  BowArrowIcon,
+  CheckCircleIcon,
+  TimerIcon,
+  TrophyIcon,
+} from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { cn, parseDuration } from '@/lib/utils';
 import type {
@@ -79,11 +84,18 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
         {statsGridItems.map((stat) => (
           <div
             key={stat.labelKey}
-            className={cn('flex flex-col items-center rounded-lg p-3', stat.bgClass)}
+            className={cn(
+              'flex flex-col items-center rounded-lg p-3',
+              stat.bgClass,
+            )}
           >
             <stat.icon className={cn('mb-1 size-5', stat.iconClass)} />
-            <span className={cn('font-bold', stat.valueClass)}>{stat.value}</span>
-            <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+            <span className={cn('font-bold', stat.valueClass)}>
+              {stat.value}
+            </span>
+            <span className="text-muted-foreground text-xs">
+              {t(stat.labelKey)}
+            </span>
           </div>
         ))}
       </motion.div>
@@ -97,8 +109,12 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
       >
         {connectionStats.map((stat) => (
           <div key={stat.labelKey} className="flex flex-col items-center">
-            <span className={cn('font-semibold text-lg', stat.valueClass)}>{stat.value}</span>
-            <span className="text-muted-foreground text-xs">{t(stat.labelKey)}</span>
+            <span className={cn('font-semibold text-lg', stat.valueClass)}>
+              {stat.value}
+            </span>
+            <span className="text-muted-foreground text-xs">
+              {t(stat.labelKey)}
+            </span>
           </div>
         ))}
       </motion.div>

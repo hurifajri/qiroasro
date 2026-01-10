@@ -1,7 +1,6 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
-import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
   ChallengeQuizAnalytic,
@@ -13,6 +12,7 @@ import type {
   QuizMode,
   QuizQuestion,
   QuizTarget,
+  QuizType,
 } from '../schemas/quiz';
 import {
   DEFAULT_CHALLENGE_QUIZ_SCORE,
@@ -24,6 +24,7 @@ interface QuizState {
   // Base state
   isDialogOpen: boolean;
   mode: QuizMode | null;
+  type: QuizType | null;
   isStarted: boolean;
   isChecked: boolean;
   isInstructionShown: boolean;
@@ -35,7 +36,6 @@ interface QuizState {
   practiceScore: PracticeQuizScore;
 
   // Challenge state
-  isChallenge: boolean;
   challengeDifficulty: ChallengeQuizDifficulty | null;
   challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
@@ -49,7 +49,8 @@ interface QuizState {
 interface QuizAction {
   // Base actions
   openDialog: () => void;
-  setMode: (mode: QuizMode | null) => void;
+  setMode: (mode: QuizMode) => void;
+  setType: (type: QuizType | null) => void;
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
   setQuestions: (questions: QuizQuestion[]) => void;
@@ -58,12 +59,11 @@ interface QuizAction {
 
   // Practice actions
   setPracticeSettings: (settings: PracticeQuizSettings) => void;
-  startPracticeQuiz: () => void;
+  startPractice: () => void;
   setPracticeScore: (score: PracticeQuizScore) => void;
-  resetPracticeQuiz: () => void;
+  resetPractice: () => void;
 
   // Challenge actions
-  enterChallenge: () => void;
   selectChallengeDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
   startChallenge: () => void;
   nextChallengeQuestion: () => void;
@@ -81,7 +81,6 @@ interface QuizAction {
 export type QuizStore = QuizState & QuizAction;
 
 const initialChallengeState = {
-  isChallenge: false,
   challengeDifficulty: null as ChallengeQuizDifficulty | null,
   challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
@@ -95,6 +94,7 @@ const initialChallengeState = {
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
+  type: null,
   practiceSettings: PRACTICE_QUIZ_DEFAULT_SETTINGS,
   isStarted: false,
   isChecked: false,
@@ -111,10 +111,10 @@ export function createQuizStore() {
 
     // Base actions
     openDialog: () => {
-      trackEvent('quiz_dialog_opened');
       set({ isDialogOpen: true });
     },
-    setMode: (mode) => set({ mode }),
+    setMode: (mode: QuizMode) => set({ mode }),
+    setType: (type) => set({ type }),
     setIsChecked: (isChecked) => set({ isChecked }),
     setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
     setQuestions: (questions) => set({ questions }),
@@ -123,9 +123,9 @@ export function createQuizStore() {
 
     // Practice actions
     setPracticeSettings: (settings) => set({ practiceSettings: settings }),
-    startPracticeQuiz: () => set({ isStarted: true }),
+    startPractice: () => set({ isStarted: true }),
     setPracticeScore: (score) => set({ practiceScore: score }),
-    resetPracticeQuiz: () =>
+    resetPractice: () =>
       set({
         isStarted: false,
         isChecked: false,
@@ -135,8 +135,8 @@ export function createQuizStore() {
       }),
 
     // Challenge actions
-    enterChallenge: () => set({ isChallenge: true }),
-    selectChallengeDifficulty: (difficulty) => set({ challengeDifficulty: difficulty }),
+    selectChallengeDifficulty: (difficulty) =>
+      set({ challengeDifficulty: difficulty }),
     startChallenge: () =>
       set({
         isStarted: true,
@@ -159,11 +159,16 @@ export function createQuizStore() {
         const pointChange = isCorrect ? CORRECT_POINT : INCORRECT_POINT;
         return {
           challengeScore: {
-            correctConnection: state.challengeScore.correctConnection + (isCorrect ? 1 : 0),
-            incorrectConnection: state.challengeScore.incorrectConnection + (isCorrect ? 0 : 1),
+            correctConnection:
+              state.challengeScore.correctConnection + (isCorrect ? 1 : 0),
+            incorrectConnection:
+              state.challengeScore.incorrectConnection + (isCorrect ? 0 : 1),
             totalPoint: state.challengeScore.totalPoint + pointChange,
           },
-          challengeLastPointChange: { value: pointChange, timestamp: Date.now() },
+          challengeLastPointChange: {
+            value: pointChange,
+            timestamp: Date.now(),
+          },
         };
       }),
     recordChallengeQuestionScore: (stat) =>
@@ -173,7 +178,8 @@ export function createQuizStore() {
     addChallengeAnalytic: (item, type, errorType) =>
       set((state) => {
         const existing = state.challengeAnalytics.find(
-          (e) => e.item === item && e.type === type && e.errorType === errorType,
+          (e) =>
+            e.item === item && e.type === type && e.errorType === errorType,
         );
         if (existing) {
           return {
@@ -193,8 +199,12 @@ export function createQuizStore() {
       }),
     finishChallenge: (totalPossibleConnection, endTime) => {
       const state = get();
-      const totalTime = state.challengeStartTime ? endTime - state.challengeStartTime : 0;
-      const perfectQuestion = state.challengeQuestionScores.filter((s) => s.isPerfect).length;
+      const totalTime = state.challengeStartTime
+        ? endTime - state.challengeStartTime
+        : 0;
+      const perfectQuestion = state.challengeQuestionScores.filter(
+        (s) => s.isPerfect,
+      ).length;
 
       // Sort weakness by error count descending
       const sortedAnalytics = [...state.challengeAnalytics].sort(

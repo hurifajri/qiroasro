@@ -21,7 +21,11 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
     const element = document.querySelector(selector);
     if (!element) return false;
     const style = window.getComputedStyle(element);
-    return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+    return (
+      style.display !== 'none' &&
+      style.visibility !== 'hidden' &&
+      style.opacity !== '0'
+    );
   }
 
   // Helper to apply eye-catching highlight effect
@@ -95,7 +99,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
             // Check if settings panel content is visible (user has opened it)
             if (!isElementVisible('#tour-letter-selector')) {
               // Flash the trigger to indicate user needs to click it
-              const buttons = document.querySelectorAll('#tour-view-mode button');
+              const buttons = document.querySelectorAll(
+                '#tour-view-mode button',
+              );
               const trigger = buttons[buttons.length - 1];
               flashElement(trigger);
               return;
@@ -120,7 +126,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
             // Check if settings panel content is visible (user has opened it)
             if (!isElementVisible('#tour-hierarchy-direction')) {
               // Flash the trigger to indicate user needs to click it
-              const buttons = document.querySelectorAll('#tour-layout-mode button');
+              const buttons = document.querySelectorAll(
+                '#tour-layout-mode button',
+              );
               const trigger = buttons[buttons.length - 1];
               flashElement(trigger);
               return;
@@ -135,7 +143,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.hierarchy_direction.title'),
           description: t('steps.hierarchy_direction.description'),
           onNextClick: () => {
-            const buttons = document.querySelectorAll('#tour-hierarchy-direction button');
+            const buttons = document.querySelectorAll(
+              '#tour-hierarchy-direction button',
+            );
             const lastButton = buttons[buttons.length - 1];
 
             // Check if last button (Horizontal) is active by checking for active styling class

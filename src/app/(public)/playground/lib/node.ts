@@ -1,5 +1,8 @@
 import type { Node } from '@xyflow/react';
-import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
+import type {
+  ArticulationArea,
+  ArticulationPoint,
+} from '@/schemas/articulation';
 import type { Letter } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 import type { LetterQuiz } from '../schemas/letter';

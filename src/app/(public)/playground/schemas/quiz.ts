@@ -3,14 +3,16 @@ import type {
   CHALLENGE_QUIZ_DIFFICULTIES,
   NODE_TYPES,
   QUIZ_ERROR_TYPES,
+  QUIZ_MODES,
   QUIZ_STATUSES,
 } from '@/lib/constants';
 import type { Letter } from '@/schemas/letter';
 
-export type ChallengeQuizDifficulty = (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];
+export type ChallengeQuizDifficulty =
+  (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
-export type QuizMode = Extract<NodeType, 'articulation_point' | 'trait'>;
-type QuizTargetType = Extract<NodeType, 'articulation_point' | 'trait'>;
+export type QuizMode = (typeof QUIZ_MODES)[number];
+export type QuizType = Extract<NodeType, 'articulation_point' | 'trait'>;
 type QuizErrorType = (typeof QUIZ_ERROR_TYPES)[number];
 type NodeType = (typeof NODE_TYPES)[number];
 
@@ -18,7 +20,7 @@ type NodeType = (typeof NODE_TYPES)[number];
 export interface QuizQuestion {
   letter: Letter;
   correctTargetIds: number[];
-  targetType: QuizTargetType;
+  targetType: QuizType;
 }
 
 export interface QuizTarget {
@@ -40,14 +42,17 @@ export interface PracticeQuizSettings {
   timerDuration: number; // in seconds
 }
 
-// Config constraints per mode
-interface PracticeQuizModeConstraints {
+// Config constraints per type
+interface PracticeQuizTypeConstraints {
   lettersPerQuiz: { min: number; max: number };
   targetsPerQuiz: { min: number; max: number };
   allowMultiEdge: boolean;
 }
 
-export const PRACTICE_QUIZ_MODE_CONFIG: Record<QuizMode, PracticeQuizModeConstraints> = {
+export const PRACTICE_QUIZ_TYPE_CONFIG: Record<
+  QuizType,
+  PracticeQuizTypeConstraints
+> = {
   articulation_point: {
     lettersPerQuiz: { min: 1, max: 5 },
     targetsPerQuiz: { min: 1, max: 5 },
@@ -102,24 +107,49 @@ export interface ChallengeQuizResult {
 }
 
 interface ChallengeQuizQuestion {
-  mode: QuizMode;
+  type: QuizType;
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   allowMultiEdge: boolean;
 }
 
-// Questions for Challenge mode (same for all difficulties, only timer differs)
+// Questions for Challenge type (same for all difficulties, only timer differs)
 export const CHALLENGE_QUIZ_QUESTIONS: ChallengeQuizQuestion[] = [
-  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 2, allowMultiEdge: false },
-  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: false },
-  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: false },
-  { mode: 'articulation_point', lettersPerQuiz: 1, targetsPerQuiz: 5, allowMultiEdge: false },
-  { mode: 'articulation_point', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: false },
-  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: true },
-  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: true },
-  { mode: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 5, allowMultiEdge: true },
-  { mode: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
-  { mode: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
+  {
+    type: 'articulation_point',
+    lettersPerQuiz: 1,
+    targetsPerQuiz: 2,
+    allowMultiEdge: false,
+  },
+  {
+    type: 'articulation_point',
+    lettersPerQuiz: 1,
+    targetsPerQuiz: 3,
+    allowMultiEdge: false,
+  },
+  {
+    type: 'articulation_point',
+    lettersPerQuiz: 1,
+    targetsPerQuiz: 4,
+    allowMultiEdge: false,
+  },
+  {
+    type: 'articulation_point',
+    lettersPerQuiz: 1,
+    targetsPerQuiz: 5,
+    allowMultiEdge: false,
+  },
+  {
+    type: 'articulation_point',
+    lettersPerQuiz: 5,
+    targetsPerQuiz: 1,
+    allowMultiEdge: false,
+  },
+  { type: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 3, allowMultiEdge: true },
+  { type: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 4, allowMultiEdge: true },
+  { type: 'trait', lettersPerQuiz: 1, targetsPerQuiz: 5, allowMultiEdge: true },
+  { type: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
+  { type: 'trait', lettersPerQuiz: 5, targetsPerQuiz: 1, allowMultiEdge: true },
 ];
 
 interface ChallengeQuizLevel {
@@ -127,7 +157,10 @@ interface ChallengeQuizLevel {
   questions: ChallengeQuizQuestion[];
 }
 
-export const CHALLENGE_QUIZ_LEVEL: Record<ChallengeQuizDifficulty, ChallengeQuizLevel> = {
+export const CHALLENGE_QUIZ_LEVEL: Record<
+  ChallengeQuizDifficulty,
+  ChallengeQuizLevel
+> = {
   easy: { timerDuration: 60, questions: CHALLENGE_QUIZ_QUESTIONS },
   medium: { timerDuration: 30, questions: CHALLENGE_QUIZ_QUESTIONS },
   hard: { timerDuration: 10, questions: CHALLENGE_QUIZ_QUESTIONS },

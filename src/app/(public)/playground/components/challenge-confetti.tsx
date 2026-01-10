@@ -22,7 +22,12 @@ interface ConfettiParticleProps {
   rotation: number;
 }
 
-function ConfettiParticle({ delay, x, color, rotation }: ConfettiParticleProps) {
+function ConfettiParticle({
+  delay,
+  x,
+  color,
+  rotation,
+}: ConfettiParticleProps) {
   return (
     <motion.div
       className="pointer-events-none fixed z-50"
@@ -43,13 +48,16 @@ function ConfettiParticle({ delay, x, color, rotation }: ConfettiParticleProps) 
 
 function useConfettiParticles() {
   const width = window !== undefined ? window.innerWidth : 500;
-  const confettiParticles = Array.from({ length: CONFETTI_COUNT }).map((_, i) => ({
-    id: i,
-    delay: Math.random() * 0.5,
-    x: Math.random() * width,
-    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-    rotation: Math.random() * 720 - 360,
-  }));
+  const confettiParticles = Array.from({ length: CONFETTI_COUNT }).map(
+    (_, i) => ({
+      id: i,
+      delay: Math.random() * 0.5,
+      x: Math.random() * width,
+      color:
+        CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+      rotation: Math.random() * 720 - 360,
+    }),
+  );
 
   return confettiParticles;
 }
@@ -59,7 +67,10 @@ export function ChallengeConfetti() {
   const particles = useConfettiParticles();
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowConfetti(false), CONFETTI_DURATION_MS);
+    const timer = setTimeout(
+      () => setShowConfetti(false),
+      CONFETTI_DURATION_MS,
+    );
     return () => clearTimeout(timer);
   }, []);
 

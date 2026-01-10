@@ -1,39 +1,31 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { trackEvent } from '@/lib/analytics';
+import type { Dispatch, SetStateAction } from 'react';
 import { useQuizStore } from '../providers/quiz';
-import type { QuizMode } from '../schemas/quiz';
 import type { UseQuizGeneratorReturn } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
 
 interface UseQuizPracticeOptions {
-  setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
-  setEdges: React.Dispatch<React.SetStateAction<Edge[]>>;
+  setNodes: Dispatch<SetStateAction<Node[]>>;
+  setEdges: Dispatch<SetStateAction<Edge[]>>;
   generator: UseQuizGeneratorReturn;
-  isChallenge: boolean;
 }
 
 export function useQuizPractice({
   setNodes,
   setEdges,
   generator,
-  isChallenge,
 }: UseQuizPracticeOptions) {
   const { generateQuiz, checkAnswers } = generator;
 
-  // Store selectors
+  const type = useQuizStore((s) => s.type);
   const mode = useQuizStore((s) => s.mode);
-  const setMode = useQuizStore((s) => s.setMode);
-  const practiceSettings = useQuizStore((s) => s.practiceSettings);
-  const setPracticeSettings = useQuizStore((s) => s.setPracticeSettings);
-  const isStarted = useQuizStore((s) => s.isStarted);
-  const startPracticeQuiz = useQuizStore((s) => s.startPracticeQuiz);
   const isChecked = useQuizStore((s) => s.isChecked);
-  const practiceScore = useQuizStore((s) => s.practiceScore);
-  const resetPracticeQuiz = useQuizStore((s) => s.resetPracticeQuiz);
+  const settings = useQuizStore((s) => s.practiceSettings);
+  const start = useQuizStore((s) => s.startPractice);
+  const reset = useQuizStore((s) => s.resetPractice);
 
-  // Practice timer
   function handleTimeUp() {
     if (isChecked) return;
 
@@ -45,66 +37,43 @@ export function useQuizPractice({
     start: startTimer,
     stop: stopTimer,
   } = useQuizTimer({
-    duration: practiceSettings.timerDuration,
-    enabled: practiceSettings.timerMode && !isChallenge,
+    duration: settings.timerDuration,
+    enabled: settings.timerMode && mode === 'practice',
     onTimeUp: handleTimeUp,
     isPaused: isChecked,
   });
 
-  // Handlers
-  function handleModeSelect(selectedMode: QuizMode) {
-    trackEvent('quiz_mode_selected', { mode: selectedMode });
-    setMode(selectedMode);
-  }
+  function handleStart() {
+    if (!type) return;
 
-  function handleStartQuiz() {
-    if (!mode) return;
-
-    trackEvent('quiz_started', { mode, practiceSettings });
-    generateQuiz(mode);
-    startPracticeQuiz();
+    generateQuiz(type);
+    start();
     startTimer();
   }
 
-  function handleResetQuiz(stopChallengeTimer: () => void) {
+  function handleReset() {
     setNodes([]);
     setEdges([]);
-    resetPracticeQuiz();
+    reset();
     stopTimer();
-    stopChallengeTimer();
     startTimer();
   }
 
-  function handlePlayAgainPractice() {
-    if (!mode) return;
+  function handlePlayAgain() {
+    if (!type) return;
 
     setNodes([]);
     setEdges([]);
     stopTimer();
-    generateQuiz(mode);
+    generateQuiz(type);
     startTimer();
   }
 
   return {
-    // Practice state
-    mode,
-    practiceSettings,
-    setPracticeSettings,
-    isStarted,
-    isChecked,
-    practiceScore,
-    timeRemaining,
-
-    // Practice handlers
-    handleModeSelect,
-    handleStartQuiz,
-    handleResetQuiz,
-    handlePlayAgainPractice,
-    checkAnswers,
-    generateQuiz,
-
-    // Timer controls (for use in parent)
+    handleStart,
+    handleReset,
+    handlePlayAgain,
     stopTimer,
-    resetPracticeQuiz,
+    timeRemaining,
   };
 }

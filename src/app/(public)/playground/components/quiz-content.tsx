@@ -12,15 +12,15 @@ import type {
 } from '@xyflow/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import type { QuizMode } from '../schemas/quiz';
 import { QuizCanvas } from './quiz-canvas';
 
 interface QuizContentProps {
-  isChallenge?: boolean;
+  mode: QuizMode;
   nodes: Node[];
   edges: Edge[];
   nodeTypes: NodeTypes;
   theme: ColorMode;
-  isChecked: boolean;
   onNodesChange: OnNodesChange<Node>;
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
@@ -31,12 +31,11 @@ interface QuizContentProps {
 }
 
 export function QuizContent({
-  isChallenge = false,
+  mode,
   nodes,
   edges,
   nodeTypes,
   theme,
-  isChecked,
   onNodesChange,
   onEdgesChange,
   onConnect,
@@ -55,8 +54,10 @@ export function QuizContent({
     const dialogHeader = document.querySelector('[data-slot="dialog-header"]');
     const dialogFooter = document.querySelector('[data-slot="dialog-footer"]');
 
-    const dialogHeaderHeight = dialogHeader?.getBoundingClientRect().height ?? 42;
-    const dialogFooterHeight = dialogFooter?.getBoundingClientRect().height ?? 185;
+    const dialogHeaderHeight =
+      dialogHeader?.getBoundingClientRect().height ?? 42;
+    const dialogFooterHeight =
+      dialogFooter?.getBoundingClientRect().height ?? 185;
 
     // Calculate available height
     const viewportHeight = window.innerHeight;
@@ -117,7 +118,7 @@ export function QuizContent({
         ref={headerRef}
         className={cn(
           'flex h-12 items-center justify-between gap-2 px-2',
-          !isChallenge && 'self-end',
+          mode === 'practice' && 'self-end',
         )}
       >
         {headerContent}
@@ -127,7 +128,6 @@ export function QuizContent({
         edges={edges}
         nodeTypes={nodeTypes}
         theme={theme}
-        isChecked={isChecked}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}

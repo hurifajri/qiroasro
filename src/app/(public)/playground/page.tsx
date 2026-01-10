@@ -1,4 +1,8 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';

@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { useQuizStore } from '../providers/quiz';
-import { PRACTICE_QUIZ_MODE_CONFIG } from '../schemas/quiz';
+import { PRACTICE_QUIZ_TYPE_CONFIG } from '../schemas/quiz';
 
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
 
@@ -23,14 +23,19 @@ interface QuizSettingsProps {
 export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const t = useTranslations('playground_page.quiz');
 
-  const mode = useQuizStore((s) => s.mode);
+  const type = useQuizStore((s) => s.type);
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
   const setPracticeSettings = useQuizStore((s) => s.setPracticeSettings);
 
-  // Get config for current mode (default to trait if no mode selected)
-  const config = mode ? PRACTICE_QUIZ_MODE_CONFIG[mode] : PRACTICE_QUIZ_MODE_CONFIG.trait;
+  // Get config for current type (default to trait if no type selected)
+  const config = type
+    ? PRACTICE_QUIZ_TYPE_CONFIG[type]
+    : PRACTICE_QUIZ_TYPE_CONFIG.trait;
 
-  const handleSliderChange = (key: SliderKey, value: number | readonly number[]) => {
+  const handleSliderChange = (
+    key: SliderKey,
+    value: number | readonly number[],
+  ) => {
     const newValue = Array.isArray(value) ? value[0] : value;
 
     if (key === 'lettersPerQuiz') {
@@ -45,7 +50,9 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
         });
       } else {
         const newTargets =
-          practiceSettings.targetsPerQuiz === 1 ? 2 : practiceSettings.targetsPerQuiz;
+          practiceSettings.targetsPerQuiz === 1
+            ? 2
+            : practiceSettings.targetsPerQuiz;
         // letters = 1, targets > 1, multiEdge valid if targets > 2
         const shouldResetMultiEdge = newTargets <= 2 || !config.allowMultiEdge;
         setPracticeSettings({
@@ -67,7 +74,9 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
         });
       } else {
         const newLetters =
-          practiceSettings.lettersPerQuiz === 1 ? 2 : practiceSettings.lettersPerQuiz;
+          practiceSettings.lettersPerQuiz === 1
+            ? 2
+            : practiceSettings.lettersPerQuiz;
         // targets = 1, letters > 1, multiEdge valid if letters > 2
         const shouldResetMultiEdge = newLetters <= 2 || !config.allowMultiEdge;
         setPracticeSettings({
@@ -89,7 +98,8 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
 
   const isMultiEdgeDisabled =
     !config.allowMultiEdge ||
-    (practiceSettings.lettersPerQuiz <= 2 && practiceSettings.targetsPerQuiz <= 2);
+    (practiceSettings.lettersPerQuiz <= 2 &&
+      practiceSettings.targetsPerQuiz <= 2);
 
   return (
     <Card size="sm">
@@ -109,9 +119,13 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
             <div key={key} className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <Label className="text-sm">
-                  {t(labelKey, { target: mode === 'articulation_point' ? 'Makhraj' : 'Sifat' })}
+                  {t(labelKey, {
+                    target: type === 'articulation_point' ? 'Makhraj' : 'Sifat',
+                  })}
                 </Label>
-                <span className="font-medium text-sm">{practiceSettings[key]}</span>
+                <span className="font-medium text-sm">
+                  {practiceSettings[key]}
+                </span>
               </div>
               <Slider
                 value={[practiceSettings[key]]}
@@ -124,7 +138,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           );
         })}
 
-        {mode === 'trait' && (
+        {type === 'trait' && (
           <div className="flex items-center justify-between">
             <Label className="text-sm">{t('practice_multi_edge')}</Label>
             <Switch
@@ -155,7 +169,9 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               <Label className="text-muted-foreground text-sm">
                 {t('practice_timer_duration')}
               </Label>
-              <span className="font-medium text-sm">{practiceSettings.timerDuration}</span>
+              <span className="font-medium text-sm">
+                {practiceSettings.timerDuration}
+              </span>
             </div>
             <Slider
               value={[practiceSettings.timerDuration]}

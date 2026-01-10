@@ -11,7 +11,12 @@ import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
 import { WaitlistForm } from '@/components/common/waitlist-form';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { cn } from '@/lib/utils';
@@ -82,7 +87,10 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
       </header>
 
       {isWaitlistDialogOpen && (
-        <Dialog open={isWaitlistDialogOpen} onOpenChange={setIsWaitlistDialogOpen}>
+        <Dialog
+          open={isWaitlistDialogOpen}
+          onOpenChange={setIsWaitlistDialogOpen}
+        >
           <DialogContent>
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />

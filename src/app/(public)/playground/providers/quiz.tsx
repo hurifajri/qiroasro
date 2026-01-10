@@ -14,7 +14,11 @@ export function QuizStoreProvider({ children }: React.PropsWithChildren) {
 
   const store = storeRef.current;
 
-  return <QuizStoreContext.Provider value={store}>{children}</QuizStoreContext.Provider>;
+  return (
+    <QuizStoreContext.Provider value={store}>
+      {children}
+    </QuizStoreContext.Provider>
+  );
 }
 
 export function useQuizStore<T>(selector: (store: QuizStore) => T): T {

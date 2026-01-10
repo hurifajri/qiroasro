@@ -2,7 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
-import { applyResultsToEdges, applyResultsToNodes, checkQuizAnswers } from '../lib/quiz-checker';
+import {
+  applyResultsToEdges,
+  applyResultsToNodes,
+  checkQuizAnswers,
+} from '../lib/quiz-checker';
 import {
   calculateRequiredConnections,
   handleQuizConnection,
@@ -11,7 +15,7 @@ import {
 import { generateQuizData } from '../lib/quiz-generator';
 import { useQuizStore } from '../providers/quiz';
 import { getPlaygroundDataOpt } from '../queries/playground';
-import type { QuizMode } from '../schemas/quiz';
+import type { QuizType } from '../schemas/quiz';
 
 interface UseQuizGeneratorProps {
   nodes: Node[];
@@ -22,7 +26,12 @@ interface UseQuizGeneratorProps {
 
 export type UseQuizGeneratorReturn = ReturnType<typeof useQuizGenerator>;
 
-export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGeneratorProps) {
+export function useQuizGenerator({
+  nodes,
+  edges,
+  setNodes,
+  setEdges,
+}: UseQuizGeneratorProps) {
   // Get settings and state from store
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
   const questions = useQuizStore((s) => s.questions);
@@ -46,10 +55,16 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   const traits = playgroundData?.traits ?? [];
 
   // Generate quiz questions and nodes
-  function generateQuiz(mode: QuizMode) {
+  function generateQuiz(type: QuizType) {
     const result = generateQuizData(
-      mode,
-      { letters, letterArticulations, letterTraits, articulationPoints, traits },
+      type,
+      {
+        letters,
+        letterArticulations,
+        letterTraits,
+        articulationPoints,
+        traits,
+      },
       { lettersPerQuiz, targetsPerQuiz, multiEdge },
     );
 
@@ -94,21 +109,24 @@ export function useQuizGenerator({ nodes, edges, setNodes, setEdges }: UseQuizGe
   const letterCount = nodes.filter((n) => n.type === 'letterQuiz').length;
   const targetCount = nodes.filter((n) => n.type === 'targetQuiz').length;
 
-  const requiredConnections = calculateRequiredConnections(letterCount, targetCount, {
-    lettersPerQuiz,
-    targetsPerQuiz,
-    multiEdge,
-  });
+  const requiredConnections = calculateRequiredConnections(
+    letterCount,
+    targetCount,
+    {
+      lettersPerQuiz,
+      targetsPerQuiz,
+      multiEdge,
+    },
+  );
 
   // Check answers - returns the score and incorrect items for caller to use
   function checkAnswers() {
-    const { correctCount, letterResults, targetResults, incorrectItem } = checkQuizAnswers(
-      questions,
-      edges,
-      targets,
-    );
+    const { correctCount, letterResults, targetResults, incorrectItem } =
+      checkQuizAnswers(questions, edges, targets);
 
-    setNodes((currentNodes) => applyResultsToNodes(currentNodes, letterResults, targetResults));
+    setNodes((currentNodes) =>
+      applyResultsToNodes(currentNodes, letterResults, targetResults),
+    );
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
     const newScore = { correct: correctCount, total: requiredConnections };

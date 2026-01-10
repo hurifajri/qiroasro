@@ -29,11 +29,21 @@ interface WaitlistRequest {
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as WaitlistRequest;
-    const { email, locale = 'id', source = 'homepage', utmSource, utmMedium, utmCampaign } = body;
+    const {
+      email,
+      locale = 'id',
+      source = 'homepage',
+      utmSource,
+      utmMedium,
+      utmCampaign,
+    } = body;
 
     // Validate email
     if (!email || !emailRegex.test(email)) {
-      return NextResponse.json({ success: false, message_code: 'invalid_email' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, message_code: 'invalid_email' },
+        { status: 400 },
+      );
     }
 
     const supabase = getSupabaseClient();
@@ -61,13 +71,19 @@ export async function POST(request: NextRequest) {
       // Update verification token to a new one
       const { data: updated, error: updateError } = await supabase
         .from('waitlist')
-        .update({ verification_token: crypto.randomUUID(), updated_at: new Date().toISOString() })
+        .update({
+          verification_token: crypto.randomUUID(),
+          updated_at: new Date().toISOString(),
+        })
         .eq('id', existing.id)
         .select('verification_token')
         .single();
 
       if (updateError) {
-        return NextResponse.json({ success: false, message_code: 'update_error' }, { status: 500 });
+        return NextResponse.json(
+          { success: false, message_code: 'update_error' },
+          { status: 500 },
+        );
       }
 
       verificationToken = updated.verification_token;
@@ -95,7 +111,10 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        return NextResponse.json({ success: false, message_code: 'insert_error' }, { status: 500 });
+        return NextResponse.json(
+          { success: false, message_code: 'insert_error' },
+          { status: 500 },
+        );
       }
 
       verificationToken = newEntry.verification_token;
@@ -116,11 +135,17 @@ export async function POST(request: NextRequest) {
     });
 
     if (emailError) {
-      return NextResponse.json({ success: false, message_code: 'email_error' }, { status: 500 });
+      return NextResponse.json(
+        { success: false, message_code: 'email_error' },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json({ success: false, message_code: 'internal_error' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message_code: 'internal_error' },
+      { status: 500 },
+    );
   }
 }

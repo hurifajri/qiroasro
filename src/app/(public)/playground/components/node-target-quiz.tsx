@@ -14,7 +14,7 @@ export function TargetQuizNode({ data }: NodeProps) {
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = kebabToSpaced(nodeData.slug);
-  const description = t(`${nodeData.mode}.${localeKey}`);
+  const description = t(`${nodeData.type}.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
@@ -22,9 +22,10 @@ export function TargetQuizNode({ data }: NodeProps) {
       <BaseNode
         className={cn(
           'rounded-lg border-2 px-4 py-2 hover:ring-0',
-          nodeData.mode === 'articulation_point' &&
+          nodeData.type === 'articulation_point' &&
             'border-node-articulation/50 bg-node-articulation/20 text-node-articulation-text',
-          nodeData.mode === 'trait' && 'border-node-trait/50 bg-node-trait/20 text-node-trait-text',
+          nodeData.type === 'trait' &&
+            'border-node-trait/50 bg-node-trait/20 text-node-trait-text',
         )}
       >
         <NodeAppendix
@@ -37,8 +38,9 @@ export function TargetQuizNode({ data }: NodeProps) {
             }}
             className={cn(
               'nodrag size-5 cursor-pointer',
-              nodeData.mode === 'trait' && 'text-node-trait/50',
-              nodeData.mode === 'articulation_point' && 'text-node-articulation/50',
+              nodeData.type === 'trait' && 'text-node-trait/50',
+              nodeData.type === 'articulation_point' &&
+                'text-node-articulation/50',
             )}
           />
         </NodeAppendix>

@@ -14,7 +14,12 @@ function Slider({
   ...props
 }: SliderPrimitive.Root.Props) {
   const values = useMemo(
-    () => (Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]),
+    () =>
+      Array.isArray(value)
+        ? value
+        : Array.isArray(defaultValue)
+          ? defaultValue
+          : [min, max],
     [value, defaultValue, min, max],
   );
 
@@ -47,7 +52,7 @@ function Slider({
         {Array.from({ length: values.length }, (_, index) => (
           <SliderPrimitive.Thumb
             data-slot="slider-thumb"
-            // biome-ignore lint/suspicious/noArrayIndexKey: <3rd party component>
+            // biome-ignore lint/suspicious/noArrayIndexKey: <3rd party>
             key={index}
             className="after:-inset-2 relative block size-3 shrink-0 select-none rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] after:absolute hover:ring-[3px] focus-visible:outline-hidden focus-visible:ring-[3px] active:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
           />

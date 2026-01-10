@@ -43,12 +43,18 @@ export function checkQuizAnswers(
     );
 
     for (const connection of letterConnections) {
-      const targetIdNum = Number.parseInt(connection.target.replace('target-quiz-', ''), 10);
+      const targetIdNum = Number.parseInt(
+        connection.target.replace('target-quiz-', ''),
+        10,
+      );
       const isCorrect = validCorrectTargetIds.includes(targetIdNum);
       const status = isCorrect ? 'correct' : 'incorrect';
 
       const currentLetterStatus = letterResults.get(letterId);
-      if (!currentLetterStatus || (isCorrect && currentLetterStatus === 'incorrect')) {
+      if (
+        !currentLetterStatus ||
+        (isCorrect && currentLetterStatus === 'incorrect')
+      ) {
         letterResults.set(letterId, status);
       }
       targetResults.set(connection.target, status);
@@ -108,10 +114,19 @@ export function applyResultsToNodes(
 /**
  * Apply answer results to edges - returns updated edges array.
  */
-export function applyResultsToEdges(edges: Edge[], questions: QuizQuestion[]): Edge[] {
+export function applyResultsToEdges(
+  edges: Edge[],
+  questions: QuizQuestion[],
+): Edge[] {
   return edges.map((edge) => {
-    const letterIdNum = Number.parseInt(edge.source.replace('letter-quiz-', ''), 10);
-    const targetIdNum = Number.parseInt(edge.target.replace('target-quiz-', ''), 10);
+    const letterIdNum = Number.parseInt(
+      edge.source.replace('letter-quiz-', ''),
+      10,
+    );
+    const targetIdNum = Number.parseInt(
+      edge.target.replace('target-quiz-', ''),
+      10,
+    );
     const question = questions.find((q) => q.letter.id === letterIdNum);
     const isCorrect = question?.correctTargetIds.includes(targetIdNum) || false;
 

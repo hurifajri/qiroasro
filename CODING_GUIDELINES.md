@@ -314,7 +314,7 @@ import type { Letter } from '@/schemas/letter';
 // ✅ Import within same page-level (relative import)
 // Inside src/app/(public)/playground/components/quiz.tsx
 import { useQuizStore } from '../providers/quiz';
-import type { QuizMode } from '../schemas/quiz';
+import type { QuizType } from '../schemas/quiz';
 import { QuizCanvas } from './quiz-canvas';
 
 // ✅ Import within same global level (relative import)

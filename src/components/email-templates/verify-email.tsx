@@ -21,7 +21,6 @@ interface VerifyEmailTemplateProps {
 }
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
-// const SOCIAL_MEDIA_HANDLE = env.NEXT_PUBLIC_SOCIAL_MEDIA_HANDLE;
 
 const translations = {
   id: {
@@ -46,7 +45,10 @@ const translations = {
   },
 };
 
-export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEmailTemplateProps) {
+export function VerifyEmailTemplate({
+  verificationUrl,
+  locale = 'id',
+}: VerifyEmailTemplateProps) {
   const t = translations[locale];
 
   return (
@@ -100,7 +102,9 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
             <Text className="text-base leading-7">{t.greeting}</Text>
             <Text className="text-base leading-7">{t.message_1}</Text>
             <Text className="text-base leading-7">{t.message_2}</Text>
-            <Text className="font-bold text-base leading-7">{t.verification}</Text>
+            <Text className="font-bold text-base leading-7">
+              {t.verification}
+            </Text>
             <Section className="text-center">
               <Link
                 href={verificationUrl}

@@ -1,4 +1,9 @@
-import { BaseEdge, EdgeLabelRenderer, type EdgeProps, getBezierPath } from '@xyflow/react';
+import {
+  BaseEdge,
+  EdgeLabelRenderer,
+  type EdgeProps,
+  getBezierPath,
+} from '@xyflow/react';
 import type { ReactNode } from 'react';
 
 export function ButtonEdge({

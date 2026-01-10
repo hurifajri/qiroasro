@@ -6,7 +6,12 @@ import { getCookies } from '@/lib/cookies';
 import { cookiesStorage } from '@/lib/storage';
 
 export type Locale = 'en' | 'id';
-export type WaitlistStatus = 'idle' | 'success' | 'verified' | 'already_verified' | 'error';
+export type WaitlistStatus =
+  | 'idle'
+  | 'success'
+  | 'verified'
+  | 'already_verified'
+  | 'error';
 
 export interface GlobalState {
   locale: Locale;
@@ -33,7 +38,9 @@ function initPersistedGlobalState(): PersistedGlobalState {
   return { locale: 'id', theme: 'light' };
 }
 
-export function initGlobalState(persistedState?: PersistedGlobalState): GlobalState {
+export function initGlobalState(
+  persistedState?: PersistedGlobalState,
+): GlobalState {
   const initPersistedState = persistedState ?? initPersistedGlobalState();
 
   return { waitlistStatus: 'idle', ...initPersistedState };

@@ -12,22 +12,19 @@ interface QuizScoreBaseProps {
 }
 
 interface QuizScorePracticeProps extends QuizScoreBaseProps {
-  /** Display mode: practice shows correct/incorrect badges */
-  variant: 'practice';
-  /** Score count for practice mode */
+  mode: 'practice';
   score: PracticeQuizScore;
 }
 
 interface QuizScoreChallengeProps extends QuizScoreBaseProps {
-  /** Display mode: challenge shows total points */
-  variant: 'challenge';
-  /** Total points for challenge mode */
+  mode: 'challenge';
   totalPoint: number;
 }
 
 export type QuizScoreProps = QuizScorePracticeProps | QuizScoreChallengeProps;
 
-const successStyles = 'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-500';
+const successStyles =
+  'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-500';
 
 /** Challenge mode score display with calendar flip animation */
 function ChallengeScore({ totalPoint }: { totalPoint: number }) {
@@ -68,7 +65,7 @@ export function QuizScore(props: QuizScoreProps) {
   const t = useTranslations('playground_page.quiz');
 
   // Challenge mode - animated point display
-  if (props.variant === 'challenge') {
+  if (props.mode === 'challenge') {
     return <ChallengeScore totalPoint={props.totalPoint} />;
   }
 
@@ -81,15 +78,23 @@ export function QuizScore(props: QuizScoreProps) {
   return (
     <div className={cn('flex items-center gap-1', props.className)}>
       {!isIncorrectSingleAnswer && (
-        <Badge variant="default" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', successStyles)}>
+        <Badge
+          variant="default"
+          className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', successStyles)}
+        >
           <CheckCircle2Icon />
           <span className="font-semibold text-base">
-            {isAllCorrect ? t('all_correct') : t('correct_score', { correct: score.correct })}
+            {isAllCorrect
+              ? t('all_correct')
+              : t('correct_score', { correct: score.correct })}
           </span>
         </Badge>
       )}
       {!isAllCorrect && (
-        <Badge variant="destructive" className={cn('gap-2 px-3 py-4 [&>svg]:size-5!')}>
+        <Badge
+          variant="destructive"
+          className={cn('gap-2 px-3 py-4 [&>svg]:size-5!')}
+        >
           <XCircleIcon />
           <span className="font-semibold text-base">
             {isIncorrectSingleAnswer

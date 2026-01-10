@@ -1,15 +1,26 @@
 'use client';
 
-import type { NodeTypes } from '@xyflow/react';
+import type {
+  Edge,
+  IsValidConnection,
+  Node,
+  NodeTypes,
+  OnConnect,
+  OnEdgesChange,
+  OnNodesChange,
+} from '@xyflow/react';
 import { CheckCircle2Icon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
-import type { useQuiz } from '../hooks/use-quiz';
 import { useQuizStore } from '../providers/quiz';
-import { CHALLENGE_QUIZ_QUESTIONS } from '../schemas/quiz';
+import {
+  CHALLENGE_QUIZ_LEVEL,
+  CHALLENGE_QUIZ_QUESTIONS,
+  type ChallengeQuizDifficulty,
+} from '../schemas/quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
 import { ChallengeProgress } from './challenge-progress';
 import { ChallengeResults } from './challenge-results';
@@ -21,19 +32,52 @@ import { QuizTimer } from './quiz-timer';
 
 const TOTAL_CHALLENGE_QUESTION = CHALLENGE_QUIZ_QUESTIONS.length;
 
-type QuizHook = ReturnType<typeof useQuiz>;
-
-interface QuizContentChallengeProps {
-  quiz: QuizHook;
+type ChallengeProps = {
+  nodes: Node[];
+  edges: Edge[];
   nodeTypes: NodeTypes;
-}
+  onNodesChange: OnNodesChange<Node>;
+  onEdgesChange: OnEdgesChange<Edge>;
+  onConnect: OnConnect;
+  isValidConnection: IsValidConnection;
+  connectionCount: number;
+  requiredConnections: number;
+  timeRemaining: number | null;
+  handleCheckAndNext: () => void;
+};
+
+type QuizContentChallengeProps = ChallengeProps & {
+  handleSelectDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
+  handleStart: () => void;
+  handleBack: () => void;
+  handleBackToMenu: () => void;
+  handlePlayAgain: () => void;
+};
 
 /**
  * Separate component for quiz content to use refs for measuring
  */
-function Challenge({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }) {
+function Challenge({
+  nodes,
+  nodeTypes,
+  edges,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  isValidConnection,
+  connectionCount,
+  requiredConnections,
+  timeRemaining,
+  handleCheckAndNext,
+}: ChallengeProps) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
+
+  const isChecked = useQuizStore((s) => s.isChecked);
+  const currQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
+  const questionScores = useQuizStore((s) => s.challengeQuestionScores);
+  const score = useQuizStore((s) => s.challengeScore);
+  const lastPointChange = useQuizStore((s) => s.challengeLastPointChange);
 
   const topContentRef = useRef<HTMLDivElement>(null);
   const [extraTopOffset, setExtraTopOffset] = useState(0);
@@ -58,30 +102,29 @@ function Challenge({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }
   return (
     <>
       <div ref={topContentRef}>
-        <PointAnimation challengeLastPointChange={quiz.challengeLastPointChange} />
+        <PointAnimation lastPointChange={lastPointChange} />
         <ChallengeProgress
-          currentIndex={quiz.challengeCurrQuestionIdx}
+          currQuestionIdx={currQuestionIdx}
           totalQuestion={TOTAL_CHALLENGE_QUESTION}
-          challengeQuestionScores={quiz.challengeQuestionScores}
+          questionScores={questionScores}
         />
       </div>
       <QuizContent
-        nodes={quiz.nodes}
-        edges={quiz.edges}
+        mode="challenge"
+        nodes={nodes}
         nodeTypes={nodeTypes}
+        edges={edges}
         theme={theme}
-        isChecked={quiz.isChecked}
-        onNodesChange={quiz.onNodesChange}
-        onEdgesChange={quiz.onEdgesChange}
-        onConnect={quiz.onConnect}
-        isValidConnection={quiz.isValidConnection}
-        isChallenge
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        isValidConnection={isValidConnection}
         extraTopOffset={extraTopOffset}
         headerContent={
           <>
-            <QuizScore variant="challenge" totalPoint={quiz.challengeScore.totalPoint} />
-            {quiz.challengeTimeRemaining !== null && (
-              <QuizTimer timeRemaining={quiz.challengeTimeRemaining} />
+            <QuizScore mode="challenge" totalPoint={score.totalPoint} />
+            {timeRemaining !== null && (
+              <QuizTimer timeRemaining={timeRemaining} />
             )}
           </>
         }
@@ -89,8 +132,8 @@ function Challenge({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }
       <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
         <Button
           size="lg"
-          onClick={quiz.handleChallengeCheckAndNext}
-          disabled={quiz.connectionCount < quiz.requiredConnections || quiz.isChecked}
+          onClick={handleCheckAndNext}
+          disabled={connectionCount < requiredConnections || isChecked}
           className="flex-1"
         >
           <CheckCircle2Icon />
@@ -101,24 +144,50 @@ function Challenge({ quiz, nodeTypes }: { quiz: QuizHook; nodeTypes: NodeTypes }
   );
 }
 
-export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengeProps) {
+export function QuizContentChallenge({
+  nodes,
+  edges,
+  nodeTypes,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  isValidConnection,
+  connectionCount,
+  requiredConnections,
+  timeRemaining,
+  handleSelectDifficulty,
+  handleStart,
+  handleCheckAndNext,
+  handleBack,
+  handleBackToMenu,
+  handlePlayAgain,
+}: QuizContentChallengeProps) {
   const t = useTranslations('playground_page.quiz');
 
-  const setMode = useQuizStore((s) => s.setMode);
-  const resetChallenge = useQuizStore((s) => s.resetChallenge);
+  const type = useQuizStore((s) => s.type);
+  const setType = useQuizStore((s) => s.setType);
+  const isStarted = useQuizStore((s) => s.isStarted);
+  const reset = useQuizStore((s) => s.resetChallenge);
+  const result = useQuizStore((s) => s.challengeResult);
+  const difficulty = useQuizStore((s) => s.challengeDifficulty);
 
   function handleBackToModeSelect() {
-    setMode(null);
-    resetChallenge();
+    setType(null);
+    reset();
   }
 
   // Step 1: Difficulty Selection
-  if (quiz.screenState.showDifficultySelection) {
+  if (!difficulty) {
     return (
       <>
-        <ChallengeDifficultySelector onSelect={quiz.handleDifficultySelect} />
+        <ChallengeDifficultySelector onSelect={handleSelectDifficulty} />
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
-          <Button size="lg" variant="outline" onClick={handleBackToModeSelect} className="flex-1">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={handleBackToModeSelect}
+            className="flex-1"
+          >
             {t('back')}
           </Button>
         </DialogFooter>
@@ -127,32 +196,34 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
   }
 
   // Step 2: Challenge instructions
-  if (quiz.screenState.showChallengeReady && quiz.currentChallengeConfig) {
+  if (difficulty && !isStarted) {
+    const currentChallengeConfig = CHALLENGE_QUIZ_LEVEL[difficulty];
+
     return (
       <>
         <div className="flex flex-col gap-2">
           <div className="flex flex-col">
             <p className="font-medium text-sm">
               {`${t('challenge_total_question_count', {
-                count: quiz.currentChallengeConfig.questions.length,
+                count: currentChallengeConfig.questions.length,
               })}. ${t('challenge_seconds_per_question', {
-                seconds: quiz.currentChallengeConfig.timerDuration,
+                seconds: currentChallengeConfig.timerDuration,
               })}`}
             </p>
           </div>
 
-          <QuizInstruction quizMode={quiz.mode} />
+          <QuizInstruction quizType={type} />
         </div>
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
           <Button
             size="lg"
             variant="outline"
-            onClick={quiz.handleBackToDifficultySelect}
+            onClick={handleBack}
             className="flex-1"
           >
             {t('back')}
           </Button>
-          <Button size="lg" onClick={quiz.handleStartChallenge} className="flex-1">
+          <Button size="lg" onClick={handleStart} className="flex-1">
             <PlayIcon />
             {t('start_quiz')}
           </Button>
@@ -162,17 +233,31 @@ export function QuizContentChallenge({ quiz, nodeTypes }: QuizContentChallengePr
   }
 
   // Step 3: Challenge
-  if (quiz.screenState.showChallengeQuiz) {
-    return <Challenge quiz={quiz} nodeTypes={nodeTypes} />;
+  if (isStarted && !result) {
+    return (
+      <Challenge
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        isValidConnection={isValidConnection}
+        connectionCount={connectionCount}
+        requiredConnections={requiredConnections}
+        timeRemaining={timeRemaining}
+        handleCheckAndNext={handleCheckAndNext}
+      />
+    );
   }
 
   // Step 4: Challenge Results
-  if (quiz.screenState.showChallengeResults && quiz.challengeResult) {
+  if (result) {
     return (
       <ChallengeResults
-        result={quiz.challengeResult}
-        onPlayAgain={quiz.handlePlayAgainChallenge}
-        onBackToMenu={quiz.handleBackToMenu}
+        result={result}
+        onPlayAgain={handlePlayAgain}
+        onBackToMenu={handleBackToMenu}
       />
     );
   }

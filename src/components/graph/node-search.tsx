@@ -1,4 +1,9 @@
-import { type BuiltInEdge, type Node, type PanelProps, useReactFlow } from '@xyflow/react';
+import {
+  type BuiltInEdge,
+  type Node,
+  type PanelProps,
+  useReactFlow,
+} from '@xyflow/react';
 import { useCallback, useState } from 'react';
 import {
   Command,
@@ -35,7 +40,9 @@ export function NodeSearchInternal({
     (searchString: string) => {
       const nodes = getNodes();
       return nodes.filter((node) =>
-        (node.data.label as string).toLowerCase().includes(searchString.toLowerCase()),
+        (node.data.label as string)
+          .toLowerCase()
+          .includes(searchString.toLowerCase()),
       );
     },
     [getNodes],
@@ -55,7 +62,9 @@ export function NodeSearchInternal({
 
   const defaultOnSelectNode = useCallback(
     (node: Node) => {
-      setNodes((nodes) => nodes.map((n) => (n.id === node.id ? { ...n, selected: true } : n)));
+      setNodes((nodes) =>
+        nodes.map((n) => (n.id === node.id ? { ...n, selected: true } : n)),
+      );
       fitView({ nodes: [node], duration: 500 });
     },
     [fitView, setNodes],
@@ -100,10 +109,18 @@ export function NodeSearchInternal({
   );
 }
 
-export function NodeSearch({ className, onSearch, onSelectNode, ...props }: NodeSearchProps) {
+export function NodeSearch({
+  className,
+  onSearch,
+  onSelectNode,
+  ...props
+}: NodeSearchProps) {
   const [open, setOpen] = useState(false);
   return (
-    <Command shouldFilter={false} className="rounded-lg border shadow-md md:min-w-112.5">
+    <Command
+      shouldFilter={false}
+      className="rounded-lg border shadow-md md:min-w-112.5"
+    >
       <NodeSearchInternal
         className={className}
         onSearch={onSearch}

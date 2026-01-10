@@ -6,7 +6,10 @@ import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
 import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
-import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
+import type {
+  ArticulationArea,
+  ArticulationPoint,
+} from '@/schemas/articulation';
 import { useNodeLayout } from '../hooks/use-node-layout';
 import type { BaseNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
@@ -20,11 +23,8 @@ export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
 
-  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
-    nodeData,
-    'bg-node-articulation-secondary!',
-    selected,
-  );
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
+    useNodeLayout(nodeData, 'bg-node-articulation-secondary!', selected);
 
   return (
     <BaseNode
@@ -61,11 +61,8 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
   const description = t(localeKey);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
-    nodeData,
-    'bg-node-articulation-secondary!',
-    selected,
-  );
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
+    useNodeLayout(nodeData, 'bg-node-articulation-secondary!', selected);
 
   return (
     <>

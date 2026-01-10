@@ -1,5 +1,8 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { ArticulationArea, ArticulationPoint } from '@/schemas/articulation';
+import type {
+  ArticulationArea,
+  ArticulationPoint,
+} from '@/schemas/articulation';
 import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
 import type { Trait, TraitGroup } from '@/schemas/trait';
@@ -34,7 +37,10 @@ interface GraphView {
   edges: Edge[];
 }
 
-export function generateGraphFromData(data: GraphData, options: GenerateGraphOptions): GraphView {
+export function generateGraphFromData(
+  data: GraphData,
+  options: GenerateGraphOptions,
+): GraphView {
   const { viewMode, selectedId } = options;
 
   switch (viewMode) {
@@ -301,7 +307,9 @@ function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
   }
 
   // Find related traits
-  const relatedTraitRels = data.letterTraits.filter((rel) => rel.letterId === selectedId);
+  const relatedTraitRels = data.letterTraits.filter(
+    (rel) => rel.letterId === selectedId,
+  );
 
   for (const rel of relatedTraitRels) {
     const trait = data.traits.find((t) => t.id === rel.traitId);

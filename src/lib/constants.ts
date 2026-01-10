@@ -63,6 +63,7 @@ export const NODE_TYPES = [
 // Quiz
 export const CORRECT_POINT = 10;
 export const INCORRECT_POINT = -1;
+export const QUIZ_MODES = ['practice', 'challenge'] as const;
 export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
 export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
 export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
@@ -71,4 +72,9 @@ export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
 export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
 export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
-export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'] as const;
+export const EDGE_SHAPES = [
+  'default',
+  'straight',
+  'step',
+  'smoothstep',
+] as const;

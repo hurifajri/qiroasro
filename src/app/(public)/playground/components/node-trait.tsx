@@ -20,11 +20,8 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
 
-  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
-    nodeData,
-    'bg-node-trait-secondary!',
-    selected,
-  );
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
+    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
 
   return (
     <BaseNode
@@ -61,11 +58,8 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
   const description = t(localeKey);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } = useNodeLayout(
-    nodeData,
-    'bg-node-trait-secondary!',
-    selected,
-  );
+  const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
+    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
 
   return (
     <>
@@ -74,7 +68,8 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
           'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
-          ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) && 'border-dashed',
+          ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) &&
+            'border-dashed',
         )}
       >
         <NodeAppendix

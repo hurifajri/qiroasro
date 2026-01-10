@@ -7,15 +7,15 @@ import { cn } from '@/lib/utils';
 import type { ChallengeQuizQuestionScore } from '../schemas/quiz';
 
 interface ChallengeProgressProps {
-  currentIndex: number;
+  currQuestionIdx: number;
   totalQuestion: number;
-  challengeQuestionScores: ChallengeQuizQuestionScore[];
+  questionScores: ChallengeQuizQuestionScore[];
 }
 
 export function ChallengeProgress({
-  currentIndex,
+  currQuestionIdx,
   totalQuestion,
-  challengeQuestionScores,
+  questionScores,
 }: ChallengeProgressProps) {
   // const t = useTranslations('playground_page.quiz');
 
@@ -26,10 +26,13 @@ export function ChallengeProgress({
       </span> */}
 
       <div className="flex justify-center gap-1.5">
-        {Array.from({ length: totalQuestion }, (_, i) => `question-${i + 1}`).map((key, index) => {
-          const stat = challengeQuestionScores[index];
-          const isCurrent = index === currentIndex;
-          const isPast = index < currentIndex;
+        {Array.from(
+          { length: totalQuestion },
+          (_, i) => `question-${i + 1}`,
+        ).map((key, index) => {
+          const stat = questionScores[index];
+          const isCurrent = index === currQuestionIdx;
+          const isPast = index < currQuestionIdx;
           const isPerfect = stat?.isPerfect;
 
           return (
@@ -37,10 +40,15 @@ export function ChallengeProgress({
               key={key}
               className={cn(
                 'flex size-6 items-center justify-center rounded-full border-2 font-medium text-xs transition-all',
-                isCurrent && 'scale-110 border-primary bg-primary text-primary-foreground',
-                isPast && isPerfect && 'border-green-500 bg-green-500 text-white',
+                isCurrent &&
+                  'scale-110 border-primary bg-primary text-primary-foreground',
+                isPast &&
+                  isPerfect &&
+                  'border-green-500 bg-green-500 text-white',
                 isPast && !isPerfect && 'border-red-500 bg-red-500 text-white',
-                !isCurrent && !isPast && 'border-muted-foreground/30 bg-muted/50',
+                !isCurrent &&
+                  !isPast &&
+                  'border-muted-foreground/30 bg-muted/50',
               )}
               initial={isCurrent ? { scale: 0.8 } : false}
               animate={isCurrent ? { scale: 1.1 } : { scale: 1 }}

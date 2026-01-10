@@ -1,12 +1,19 @@
 'use client';
 
-import type { NodeTypes } from '@xyflow/react';
+import type {
+  Edge,
+  IsValidConnection,
+  Node,
+  NodeTypes,
+  OnConnect,
+  OnEdgesChange,
+  OnNodesChange,
+} from '@xyflow/react';
 import { CheckCircle2Icon, PlayIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useGlobalStore } from '@/providers/global';
-import type { useQuiz } from '../hooks/use-quiz';
 import { useQuizStore } from '../providers/quiz';
 import { QuizContent } from './quiz-content';
 import { QuizInstruction } from './quiz-instruction';
@@ -14,33 +21,70 @@ import { QuizScore } from './quiz-score';
 import { QuizSettings } from './quiz-settings';
 import { QuizTimer } from './quiz-timer';
 
-type QuizHook = ReturnType<typeof useQuiz>;
-
 interface QuizContentPracticeProps {
-  quiz: QuizHook;
+  nodes: Node[];
+  edges: Edge[];
   nodeTypes: NodeTypes;
+  onNodesChange: OnNodesChange<Node>;
+  onEdgesChange: OnEdgesChange<Edge>;
+  onConnect: OnConnect;
+  isValidConnection: IsValidConnection;
+  connectionCount: number;
+  requiredConnections: number;
+  timeRemaining: number | null;
+  handleStart: () => void;
+  handleReset: () => void;
+  handlePlayAgain: () => void;
+  handleCheckAnswers: () => void;
 }
 
-export function QuizContentPractice({ quiz, nodeTypes }: QuizContentPracticeProps) {
+export function QuizContentPractice({
+  nodes,
+  edges,
+  nodeTypes,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  isValidConnection,
+  connectionCount,
+  requiredConnections,
+  timeRemaining,
+  handleStart,
+  handleReset,
+  handlePlayAgain,
+  handleCheckAnswers,
+}: QuizContentPracticeProps) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
 
-  const setMode = useQuizStore((s) => s.setMode);
+  const type = useQuizStore((s) => s.type);
+  const setType = useQuizStore((s) => s.setType);
+  const isStarted = useQuizStore((s) => s.isStarted);
+  const isChecked = useQuizStore((s) => s.isChecked);
+  const isInstructionShown = useQuizStore((s) => s.isInstructionShown);
+  const setIsInstructionShown = useQuizStore((s) => s.setIsInstructionShown);
+  const settings = useQuizStore((s) => s.practiceSettings);
+  const score = useQuizStore((s) => s.practiceScore);
 
   function handleBackToModeSelect() {
-    setMode(null);
+    setType(null);
   }
 
   // Step 1: Settings
-  if (quiz.screenState.showPracticeSettings) {
+  if (type && !isStarted) {
     return (
       <>
         <QuizSettings />
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
-          <Button size="lg" variant="outline" onClick={handleBackToModeSelect} className="flex-1">
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={handleBackToModeSelect}
+            className="flex-1"
+          >
             {t('back')}
           </Button>
-          <Button size="lg" onClick={quiz.handleStartQuiz} className="flex-1">
+          <Button size="lg" onClick={handleStart} className="flex-1">
             <PlayIcon />
             {t('start_quiz')}
           </Button>
@@ -50,55 +94,55 @@ export function QuizContentPractice({ quiz, nodeTypes }: QuizContentPracticeProp
   }
 
   // Step 2: Quiz
-  if (quiz.screenState.showPracticeQuiz) {
+  if (type && isStarted) {
     return (
       <>
         <QuizContent
-          nodes={quiz.nodes}
-          edges={quiz.edges}
+          mode="practice"
+          nodes={nodes}
+          edges={edges}
           nodeTypes={nodeTypes}
           theme={theme}
-          isChecked={quiz.isChecked}
-          onNodesChange={quiz.onNodesChange}
-          onEdgesChange={quiz.onEdgesChange}
-          onConnect={quiz.onConnect}
-          isValidConnection={quiz.isValidConnection}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          isValidConnection={isValidConnection}
           headerContent={
             <>
-              {quiz.isChecked && <QuizScore variant="practice" score={quiz.practiceScore} />}
-              {quiz.practiceSettings.timerMode &&
-                quiz.timeRemaining !== null &&
-                !quiz.isChecked && <QuizTimer timeRemaining={quiz.timeRemaining} />}
+              {isChecked && <QuizScore mode="practice" score={score} />}
+              {settings.timerMode && timeRemaining !== null && !isChecked && (
+                <QuizTimer timeRemaining={timeRemaining} />
+              )}
             </>
           }
         />
         <DialogFooter className="flex-col! gap-4 rounded-b-none sm:rounded-b-xl">
-          {quiz.isInstructionShown && quiz.mode && (
+          {isInstructionShown && type && (
             <QuizInstruction
-              quizMode={quiz.mode}
-              onClose={() => quiz.setIsInstructionShown(false)}
+              quizType={type}
+              onClose={() => setIsInstructionShown(false)}
             />
           )}
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <Button
               size="lg"
               variant="outline"
-              onClick={quiz.handleResetQuiz}
+              onClick={handleReset}
               className="sm:flex-1"
             >
               <RefreshCwIcon />
               {t('change_mode')}
             </Button>
-            {quiz.isChecked ? (
-              <Button size="lg" onClick={quiz.handlePlayAgainPractice} className="sm:flex-1">
+            {isChecked ? (
+              <Button size="lg" onClick={handlePlayAgain} className="sm:flex-1">
                 <RefreshCwIcon />
                 {t('try_again')}
               </Button>
             ) : (
               <Button
                 size="lg"
-                onClick={quiz.checkAnswers}
-                disabled={quiz.connectionCount < quiz.requiredConnections}
+                onClick={handleCheckAnswers}
+                disabled={connectionCount < requiredConnections}
                 className="sm:flex-1"
               >
                 <CheckCircle2Icon />

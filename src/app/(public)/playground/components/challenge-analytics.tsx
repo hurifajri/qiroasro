@@ -12,8 +12,12 @@ interface ChallengeAnalyticsProps {
 export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
   const t = useTranslations('playground_page.quiz');
 
-  const missedItems = analytics.filter((a) => a.errorType === 'missed').map((a) => a.item);
-  const incorrectItems = analytics.filter((a) => a.errorType === 'incorrect').map((a) => a.item);
+  const missedItems = analytics
+    .filter((a) => a.errorType === 'missed')
+    .map((a) => a.item);
+  const incorrectItems = analytics
+    .filter((a) => a.errorType === 'incorrect')
+    .map((a) => a.item);
 
   if (analytics.length === 0) return null;
 

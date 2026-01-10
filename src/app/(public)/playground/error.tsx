@@ -23,7 +23,10 @@ interface PlaygroundErrorProps {
  * Error boundary for the playground route.
  * Captures errors and reports them to Sentry with playground-specific context.
  */
-export default function PlaygroundError({ error, reset }: PlaygroundErrorProps) {
+export default function PlaygroundError({
+  error,
+  reset,
+}: PlaygroundErrorProps) {
   const t = useTranslations('playground_page.error');
 
   useEffect(() => {
@@ -53,7 +56,9 @@ export default function PlaygroundError({ error, reset }: PlaygroundErrorProps) 
         </CardHeader>
         <CardContent className="min-w-sm">
           {error.digest && (
-            <p className="mt-1 font-mono text-muted-foreground text-xs">Error ID: {error.digest}</p>
+            <p className="mt-1 font-mono text-muted-foreground text-xs">
+              Error ID: {error.digest}
+            </p>
           )}
         </CardContent>
         <CardFooter className="flex items-center justify-end gap-2">

@@ -70,7 +70,10 @@ export function AnalyticsProvider({ children }: React.PropsWithChildren) {
  * @example
  * trackEvent('quiz_completed', { score: 85, difficulty: 'hard' });
  */
-export function trackEvent(eventName: string, properties?: Record<string, unknown>) {
+export function trackEvent(
+  eventName: string,
+  properties?: Record<string, unknown>,
+) {
   if (typeof window !== 'undefined' && POSTHOG_KEY) {
     posthog.capture(eventName, properties);
   }
@@ -83,7 +86,10 @@ export function trackEvent(eventName: string, properties?: Record<string, unknow
  * @example
  * identifyUser('user-123', { email: 'user@example.com' });
  */
-export function identifyUser(userId: string, properties?: Record<string, unknown>) {
+export function identifyUser(
+  userId: string,
+  properties?: Record<string, unknown>,
+) {
   if (typeof window !== 'undefined' && POSTHOG_KEY) {
     posthog.identify(userId, properties);
   }

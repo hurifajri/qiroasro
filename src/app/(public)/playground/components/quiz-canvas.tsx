@@ -13,6 +13,7 @@ import {
 import { useEffect } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
+import { useQuizStore } from '../providers/quiz';
 
 const edgeTypes: EdgeTypes = { floating: FloatingEdge };
 const defaultEdgeOptions = { type: 'floating' };
@@ -22,7 +23,6 @@ interface QuizCanvasProps {
   edges: Edge[];
   nodeTypes: NodeTypes;
   theme: ColorMode;
-  isChecked: boolean;
   onNodesChange: OnNodesChange<Node>;
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
@@ -35,7 +35,6 @@ export function QuizCanvas({
   edges,
   nodeTypes,
   theme,
-  isChecked,
   onNodesChange,
   onEdgesChange,
   onConnect,
@@ -43,6 +42,8 @@ export function QuizCanvas({
   height,
 }: QuizCanvasProps) {
   const { fitView } = useReactFlow();
+
+  const isChecked = useQuizStore((s) => s.isChecked);
 
   // Auto-fit when nodes change (new question loaded)
   useEffect(() => {
@@ -84,8 +85,12 @@ export function QuizCanvas({
         className="rounded-lg"
       >
         <Background
-          color={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
-          bgColor={theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'}
+          color={
+            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
+          }
+          bgColor={
+            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
+          }
           className="rounded-lg"
         />
       </ReactFlow>

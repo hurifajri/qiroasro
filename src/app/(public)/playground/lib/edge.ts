@@ -53,7 +53,11 @@ export function computeHighlight(selectedNodeId: string | null, edges: Edge[]) {
 
         if (targetType === selectedType) continue;
         if (selectedCategory !== 'letter') {
-          if (targetCategory !== selectedCategory && targetCategory !== 'letter') continue;
+          if (
+            targetCategory !== selectedCategory &&
+            targetCategory !== 'letter'
+          )
+            continue;
         }
 
         connectedNodeIds.add(edge.target);
@@ -65,7 +69,11 @@ export function computeHighlight(selectedNodeId: string | null, edges: Edge[]) {
 
         if (sourceType === selectedType) continue;
         if (selectedCategory !== 'letter') {
-          if (sourceCategory !== selectedCategory && sourceCategory !== 'letter') continue;
+          if (
+            sourceCategory !== selectedCategory &&
+            sourceCategory !== 'letter'
+          )
+            continue;
         }
 
         connectedNodeIds.add(edge.source);

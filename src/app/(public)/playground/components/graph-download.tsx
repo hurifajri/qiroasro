@@ -22,7 +22,9 @@ export function GraphDownload() {
     if (nodes.length === 0) return;
 
     // Get the viewport element
-    const viewportElement = document.querySelector('.react-flow__viewport') as HTMLElement;
+    const viewportElement = document.querySelector(
+      '.react-flow__viewport',
+    ) as HTMLElement;
     if (!viewportElement) {
       setIsDownloading(false);
       return;

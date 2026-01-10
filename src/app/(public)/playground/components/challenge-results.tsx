@@ -15,7 +15,11 @@ interface ChallengeResultsProps {
   onBackToMenu: () => void;
 }
 
-export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: ChallengeResultsProps) {
+export function ChallengeResults({
+  result,
+  onPlayAgain,
+  onBackToMenu,
+}: ChallengeResultsProps) {
   const resultRef = useRef<HTMLDivElement>(null);
   const accuracy = calculateAccuracy(
     result.score.correctConnection,
@@ -27,7 +31,10 @@ export function ChallengeResults({ result, onPlayAgain, onBackToMenu }: Challeng
       <ChallengeConfetti />
 
       <div className="h-[calc(100dvh-158px)] overflow-y-auto">
-        <div ref={resultRef} className="flex flex-col gap-4 overflow-y-auto bg-background p-4">
+        <div
+          ref={resultRef}
+          className="flex flex-col gap-4 overflow-y-auto bg-background p-4"
+        >
           <ChallengeBadge difficulty={result.difficulty} accuracy={accuracy} />
           <ChallengeStats result={result} accuracy={accuracy} />
           <ChallengeAnalytics analytics={result.analytics} />

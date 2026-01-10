@@ -7,8 +7,11 @@ import { useTranslations } from 'next-intl';
 import { WaitlistForm } from '@/components/common/waitlist-form';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { trackEvent } from '@/lib/analytics';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 const containerVariants = {
@@ -40,7 +43,6 @@ export function Home() {
   const router = useRouter();
 
   const handleClickExplore = () => {
-    trackEvent('explore_clicked', { source: 'home_page' });
     router.push('/playground');
   };
 
@@ -76,7 +78,10 @@ export function Home() {
               Delesign Graphics&nbsp;
             </a>
             on&nbsp;
-            <a href="https://iconscout.com" className="font-size-sm text-underline">
+            <a
+              href="https://iconscout.com"
+              className="font-size-sm text-underline"
+            >
               IconScout&nbsp;
             </a>
           </TooltipContent>
@@ -95,7 +100,10 @@ export function Home() {
           </motion.h2>
 
           {/* Subtitle */}
-          <motion.p variants={itemVariants} className="text-lg text-muted-foreground">
+          <motion.p
+            variants={itemVariants}
+            className="text-lg text-muted-foreground"
+          >
             {t('development.subtitle')}
           </motion.p>
 

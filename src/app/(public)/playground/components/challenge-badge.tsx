@@ -23,7 +23,9 @@ export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
       transition={{ type: 'spring', stiffness: 200, damping: 15 }}
     >
       <span className="text-6xl">{badge.emoji}</span>
-      <span className={cn('font-bold text-2xl', badge.color)}>{t(badge.key)}</span>
+      <span className={cn('font-bold text-2xl', badge.color)}>
+        {t(badge.key)}
+      </span>
       <div className="flex items-center gap-2 text-muted-foreground">
         <span className="rounded-full bg-muted px-3 py-1 text-sm">
           {t(`challenge_difficulty_${difficulty}`)}
