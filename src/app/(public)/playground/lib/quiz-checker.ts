@@ -7,11 +7,11 @@ export interface IncorrectItem {
   errorType: 'incorrect' | 'missed';
 }
 
-interface CheckAnswersResult {
+interface CalculateAnswerResult {
   correctCount: number;
   letterResults: Map<string, 'correct' | 'incorrect'>;
   targetResults: Map<string, 'correct' | 'incorrect'>;
-  incorrectItem: IncorrectItem[];
+  incorrectItems: IncorrectItem[];
 }
 
 /**
@@ -20,15 +20,15 @@ interface CheckAnswersResult {
  * @param edges - User's connections/answers
  * @param displayedTargets - Targets that are actually displayed on screen (for filtering)
  */
-export function checkQuizAnswers(
+export function calculateAnswer(
   questions: QuizQuestion[],
   edges: Edge[],
   displayedTargets: QuizTarget[],
-): CheckAnswersResult {
+): CalculateAnswerResult {
   let correctCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
-  const incorrectItem: IncorrectItem[] = [];
+  const incorrectItems: IncorrectItem[] = [];
 
   // Get set of displayed target IDs for fast lookup
   const displayedTargetIds = new Set(displayedTargets.map((t) => t.id));
@@ -63,7 +63,7 @@ export function checkQuizAnswers(
         correctCount++;
       } else {
         // Track incorrect connection - letter connected to wrong target
-        incorrectItem.push({
+        incorrectItems.push({
           name: question.letter.symbol,
           type: 'letter',
           errorType: 'incorrect',
@@ -78,7 +78,7 @@ export function checkQuizAnswers(
     for (const correctId of validCorrectTargetIds) {
       if (!answeredTargets.includes(correctId)) {
         // Track missed connection - should have been connected but wasn't
-        incorrectItem.push({
+        incorrectItems.push({
           name: question.letter.symbol,
           type: 'letter',
           errorType: 'missed',
@@ -87,7 +87,7 @@ export function checkQuizAnswers(
     }
   }
 
-  return { correctCount, letterResults, targetResults, incorrectItem };
+  return { correctCount, letterResults, targetResults, incorrectItems };
 }
 
 /**

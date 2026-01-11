@@ -59,7 +59,7 @@ export function useQuizChallenge({
     addChallengeTimeSpent(timeSpent);
 
     // Call checkAnswer to update edge colors (blue/red)
-    const { score: currentScore, incorrectItem } = checkAnswer();
+    const { score: currentScore, incorrectItems } = checkAnswer();
     const isPerfect = currentScore.correct === currentScore.total;
 
     const stat = {
@@ -69,7 +69,7 @@ export function useQuizChallenge({
     };
     recordQuestionScore(stat);
 
-    for (const item of incorrectItem) {
+    for (const item of incorrectItems) {
       addAnalytic(item.name, item.type, item.errorType);
     }
 

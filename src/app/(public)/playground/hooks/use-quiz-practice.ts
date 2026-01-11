@@ -25,27 +25,12 @@ export function useQuizPractice({
   const settings = useQuizStore((s) => s.practiceSettings);
   const start = useQuizStore((s) => s.startPractice);
   const reset = useQuizStore((s) => s.resetPractice);
-
-  function handleTimeUp() {
-    if (isChecked) return;
-
-    checkAnswer();
-  }
-
-  const {
-    timeRemaining,
-    start: startTimer,
-    stop: stopTimer,
-  } = useQuizTimer({
-    duration: settings.timerDuration,
-    enabled: settings.timerMode && mode === 'practice',
-    onTimeUp: handleTimeUp,
-    isPaused: isChecked,
-  });
+  const setPracticeScore = useQuizStore((s) => s.setPracticeScore);
 
   function handleStart() {
     if (!type) return;
 
+    setPracticeScore({ correct: 0, total: 0 });
     generateQuiz(type);
     startTimer();
     start();
@@ -57,6 +42,7 @@ export function useQuizPractice({
     stopTimer();
     setNodes([]);
     setEdges([]);
+    setPracticeScore({ correct: 0, total: 0 });
     generateQuiz(type);
     startTimer();
   }
@@ -68,10 +54,29 @@ export function useQuizPractice({
     reset();
   }
 
+  function handleCheckAnswer() {
+    if (isChecked) return;
+
+    const { score } = checkAnswer();
+    setPracticeScore(score);
+  }
+
+  const {
+    timeRemaining,
+    start: startTimer,
+    stop: stopTimer,
+  } = useQuizTimer({
+    duration: settings.timerDuration,
+    enabled: settings.timerMode && mode === 'practice',
+    onTimeUp: handleCheckAnswer,
+    isPaused: isChecked,
+  });
+
   return {
     handleStart,
     handlePlayAgain,
     handleChangeMode,
+    handleCheckAnswer,
     stopTimer,
     timeRemaining,
   };

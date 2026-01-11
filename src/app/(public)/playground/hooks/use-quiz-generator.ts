@@ -6,7 +6,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import {
   applyResultsToEdges,
   applyResultsToNodes,
-  checkQuizAnswers,
+  calculateAnswer,
 } from '../lib/quiz-checker';
 import {
   calculateRequiredConnection,
@@ -45,7 +45,6 @@ export function useQuizGenerator({
   const setQuestions = useQuizStore((s) => s.setQuestions);
   const setTargets = useQuizStore((s) => s.setTargets);
   const setIsChecked = useQuizStore((s) => s.setIsChecked);
-  const setPracticeScore = useQuizStore((s) => s.setPracticeScore);
 
   // Derive quiz config based on mode
   const lettersPerQuiz =
@@ -96,7 +95,6 @@ export function useQuizGenerator({
     setNodes(result.nodes);
     setEdges(result.edges);
     setIsChecked(false);
-    setPracticeScore({ correct: 0, total: 0 });
   }
 
   // Validate connection
@@ -135,8 +133,8 @@ export function useQuizGenerator({
 
   // Check answer - returns the score and incorrect items for caller to use
   function checkAnswer() {
-    const { correctCount, letterResults, targetResults, incorrectItem } =
-      checkQuizAnswers(questions, edges, targets);
+    const { correctCount, letterResults, targetResults, incorrectItems } =
+      calculateAnswer(questions, edges, targets);
 
     setNodes((currentNodes) =>
       applyResultsToNodes(currentNodes, letterResults, targetResults),
@@ -144,10 +142,9 @@ export function useQuizGenerator({
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
     const newScore = { correct: correctCount, total: requiredConnection };
-    setPracticeScore(newScore);
     setIsChecked(true);
 
-    return { score: newScore, incorrectItem };
+    return { score: newScore, incorrectItems };
   }
 
   return {

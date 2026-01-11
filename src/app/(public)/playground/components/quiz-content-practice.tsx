@@ -34,7 +34,7 @@ interface QuizContentPracticeProps {
   handleStart: () => void;
   handleChangeMode: () => void;
   handlePlayAgain: () => void;
-  handleCheckAnswers: () => void;
+  handleCheckAnswer: () => void;
 }
 
 export function QuizContentPractice({
@@ -50,7 +50,7 @@ export function QuizContentPractice({
   handleStart,
   handleChangeMode,
   handlePlayAgain,
-  handleCheckAnswers,
+  handleCheckAnswer,
 }: QuizContentPracticeProps) {
   const t = useTranslations('playground_page.quiz');
   const theme = useGlobalStore((s) => s.theme);
@@ -141,7 +141,7 @@ export function QuizContentPractice({
             ) : (
               <Button
                 size="lg"
-                onClick={handleCheckAnswers}
+                onClick={handleCheckAnswer}
                 disabled={edges.length < requiredConnection}
                 className="sm:flex-1"
               >

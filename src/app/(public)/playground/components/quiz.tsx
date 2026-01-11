@@ -49,12 +49,12 @@ export function Quiz() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
   const generator = useQuizGenerator({ nodes, edges, setNodes, setEdges });
-  const { checkAnswer, onConnect, requiredConnection, isValidConnection } =
-    generator;
+  const { onConnect, requiredConnection, isValidConnection } = generator;
 
   // Practice hook
   const practice = useQuizPractice({ setNodes, setEdges, generator });
   const {
+    handleCheckAnswer: handleCheckAnswerPractice,
     handleStart: handleStartPractice,
     handlePlayAgain: handlePlayAgainPractice,
     handleChangeMode: handleChangeModePractice,
@@ -164,9 +164,9 @@ export function Quiz() {
               requiredConnection={requiredConnection}
               timeRemaining={timeRemainingPractice}
               handleStart={handleStartPractice}
+              handleCheckAnswer={handleCheckAnswerPractice}
               handleChangeMode={handleChangeModePractice}
               handlePlayAgain={handlePlayAgainPractice}
-              handleCheckAnswers={checkAnswer}
             />
           )}
 
