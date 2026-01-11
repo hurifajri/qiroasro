@@ -173,15 +173,15 @@
     },
     "quiz": {
       "trigger": "Mulai Kuis",
-      "select_mode": "Jenis Kuis",
-      "select_mode_description": "Pilih jenis kuis yang ingin dikerjakan",
+      "select_mode_title": "Jenis Kuis",
+      "select_mode_description": "Pilih jenis kuis yang ingin dimainkan",
       "mode_articulation_point": "Kuis Makhraj",
       "mode_trait": "Kuis Sifat",
       "mode_challenge": "Challenge",
       "practice_title": "Kuis {type}",
       "practice_description": "Pasangkan huruf dengan {type} yang tepat",
-      "practice_settings": "Pengaturan Kuis",
-      "practice_settings_description": "Sesuaikan konfigurasi untuk kuis {type}",
+      "practice_settings_title": "Pengaturan Kuis",
+      "practice_settings_description": "Sesuaikan pengaturan untuk kuis {type}",
       "practice_letters_per_quiz": "Jumlah Huruf",
       "practice_targets_per_quiz": "Jumlah {target}",
       "practice_multi_edge": "Multi Jawaban",
@@ -190,7 +190,11 @@
       "practice_instruction_title": "Petunjuk",
       "practice_instruction_description": "Hubungkan huruf dengan {target} yang sesuai. Tarik garis atau klik pada keduanya untuk memasangkan.",
       "challenge_instruction_description": "Hubungkan huruf dengan makhraj/sifat yang sesuai. Tarik garis atau klik pada keduanya untuk memasangkan. Soal 1-5 hanya membutuhkan 1 garis koneksi. Soal selanjutnya membutuhkan koneksi lebih dari 1 garis (bisa 2, 3, atau 4).",
-      "challenge_select_difficulty": "Pilih Tingkat Kesulitan",
+      "challenge_select_difficulty_title": "Tingkat Kesulitan",
+      "challenge_select_difficulty_description": "Pilih tingkat kesulitan yang sesuai",
+      "challenge_confirm_title": "Konfirmasi Challenge",
+      "challenge_title": "Challenge",
+      "challenge_description": "Pasangkan huruf dengan {type} yang tepat",
       "challenge_difficulty_easy": "Mudah",
       "challenge_difficulty_medium": "Sedang",
       "challenge_difficulty_hard": "Syulit",
@@ -198,7 +202,6 @@
       "challenge_total_question_count": "Total {count} soal",
       "challenge_question_of": "Soal {current} dari {total}",
       "challenge_point": "poin",
-      "challenge_result": "Hasil Challenge",
       "challenge_total_time": "Total Waktu",
       "challenge_total_point": "Total Poin",
       "challenge_perfect_question": "Soal Sempurna",
@@ -299,8 +302,8 @@
           "description": "Klik tombol ini untuk mengunduh gambar graph."
         },
         "quiz": {
-          "title": "Quiz",
-          "description": "Klik tombol ini untuk mencoba beberapa contoh quiz."
+          "title": "Kuis",
+          "description": "Klik tombol ini untuk mencoba beberapa contoh kuis."
         },
         "locale_selector": {
           "title": "Pilih Bahasa",

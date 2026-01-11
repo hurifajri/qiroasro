@@ -95,27 +95,12 @@ export function Quiz() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <t won't change>
   const { dialogTitle, dialogDescription } = useMemo(() => {
-    let title = t('select_mode');
+    let title = t('select_mode_title');
     let description = t('select_mode_description');
 
-    if (mode === 'challenge') {
-      if (challengeResult) {
-        title = t('challenge_result');
-        description = '';
-      } else if (!challengeDifficulty) {
-        title = t('challenge_select_difficulty');
-      } else if (!isStarted) {
-        title = t('mode_challenge');
-        description = '';
-      } else {
-        title = t('mode_challenge');
-        description = type
-          ? t('practice_description', { type: 'makhraj/sifat' })
-          : '';
-      }
-    } else if (mode === 'practice' && type) {
+    if (mode === 'practice') {
       if (!isStarted) {
-        title = t('practice_settings');
+        title = t('practice_settings_title');
         description = t('practice_settings_description', {
           type:
             type === 'articulation_point'
@@ -133,6 +118,20 @@ export function Quiz() {
           type: type === 'articulation_point' ? 'makhraj' : 'sifat',
         });
       }
+    } else if (mode === 'challenge') {
+      if (!challengeDifficulty) {
+        title = t('challenge_select_difficulty_title');
+        description = t('challenge_select_difficulty_description');
+      } else if (!isStarted) {
+        title = t('challenge_confirm_title');
+        description = '';
+      } else if (isStarted && !challengeResult) {
+        title = t('challenge_title');
+        description = t('challenge_description', { type: 'makhraj/sifat' });
+      } else if (challengeResult) {
+        title = '';
+        description = '';
+      }
     }
 
     return { dialogTitle: title, dialogDescription: description };
@@ -149,14 +148,19 @@ export function Quiz() {
             : 'overflow-y-auto',
         )}
       >
-        <DialogHeader
-          className={cn('', mode === 'challenge' && challengeResult && 'px-4')}
-        >
-          <DialogTitle>{dialogTitle}</DialogTitle>
-          {dialogDescription && (
-            <DialogDescription>{dialogDescription}</DialogDescription>
-          )}
-        </DialogHeader>
+        {dialogTitle && (
+          <DialogHeader
+            className={cn(
+              '',
+              mode === 'challenge' && challengeResult && 'px-4',
+            )}
+          >
+            <DialogTitle>{dialogTitle}</DialogTitle>
+            {dialogDescription && (
+              <DialogDescription>{dialogDescription}</DialogDescription>
+            )}
+          </DialogHeader>
+        )}
 
         {!mode && !type && <QuizModeSelector />}
 

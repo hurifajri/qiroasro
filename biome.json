@@ -12,7 +12,12 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "useSortedKeys": {
+          "options": {
+            "sortOrder": "natural"
+          }
+        }
       }
     }
   },

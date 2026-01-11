@@ -2,6 +2,7 @@
   "css.lint.universalSelector": "ignore",
   "css.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
+    "source.action.useSortedKeys.biome": "explicit",
     "source.addMissingImports": "never",
     "source.fixAll.biome": "always",
     "source.organizeImports.biome": "always",
