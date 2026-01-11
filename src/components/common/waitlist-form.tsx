@@ -7,7 +7,7 @@ import {
   MailIcon,
   XCircleIcon,
 } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
 import { useWaitlist } from '@/hooks/use-waitlist';
+import { useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
 interface WaitlistFormProps {

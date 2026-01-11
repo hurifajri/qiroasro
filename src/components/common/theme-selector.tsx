@@ -2,8 +2,8 @@
 
 import type { ColorMode } from '@xyflow/react';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useRouter } from '@/i18n/navigation';
 import { useGlobalStore } from '@/providers/global';
 
 type ThemeSelectorProps = Readonly<{
