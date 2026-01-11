@@ -47,12 +47,17 @@ export function useQuizChallenge({
   const setChallengeCurrQuestion = useQuizStore(
     (s) => s.setChallengeCurrQuestion,
   );
+  const addChallengeTimeSpent = useQuizStore((s) => s.addChallengeTimeSpent);
 
   const currentConfig = CHALLENGE_QUIZ_LEVEL[difficulty ?? 'easy'];
   const currentQuestion = currentConfig.questions[currQuestionIdx];
 
   // Shared function to process challenge answer (used by both timeout and manual check)
-  function processAnswer() {
+  function processAnswer(currentTimeRemaining: number | null) {
+    // Calculate time spent on this question from timer
+    const timeSpent = currentConfig.timerDuration - (currentTimeRemaining ?? 0);
+    addChallengeTimeSpent(timeSpent);
+
     // Call checkAnswer to update edge colors (blue/red)
     const { score: currentScore, incorrectItem } = checkAnswer();
     const isPerfect = currentScore.correct === currentScore.total;
@@ -81,7 +86,6 @@ export function useQuizChallenge({
       delay += ANIMATION_DELAY;
     }
 
-    const endTime = Date.now();
     const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
 
     setTimeout(() => {
@@ -90,7 +94,7 @@ export function useQuizChallenge({
           score.correctConnection +
           score.incorrectConnection +
           currentScore.total;
-        finish(totalPossible, endTime);
+        finish(totalPossible);
       } else {
         nextQuestion();
       }
@@ -100,7 +104,8 @@ export function useQuizChallenge({
   function handleTimeUp() {
     if (isChecked) return;
 
-    processAnswer();
+    // When timer runs out, timeRemaining is 0
+    processAnswer(0);
   }
 
   const {
@@ -140,7 +145,7 @@ export function useQuizChallenge({
 
   // Handlers
   function handleCheckAndNext() {
-    processAnswer();
+    processAnswer(timeRemaining);
   }
 
   function handlePlayAgain() {

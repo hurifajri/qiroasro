@@ -40,7 +40,7 @@ interface QuizState {
   challengeDifficulty: ChallengeQuizDifficulty | null;
   challengeCurrQuestion: ChallengeQuizQuestion | null;
   challengeCurrQuestionIdx: number;
-  challengeStartTime: number | null;
+  challengeTotalTime: number;
   challengeQuestionScores: ChallengeQuizQuestionScore[];
   challengeScore: ChallengeQuizScore;
   challengeResult: ChallengeQuizResult | null;
@@ -78,8 +78,9 @@ interface QuizAction {
     type: ChallengeQuizAnalytic['type'],
     errorType: ChallengeQuizAnalytic['errorType'],
   ) => void;
-  finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
+  finishChallenge: (totalPossibleConnection: number) => void;
   setChallengeCurrQuestion: (question: ChallengeQuizQuestion | null) => void;
+  addChallengeTimeSpent: (timeSpent: number) => void;
   resetChallenge: () => void;
 }
 
@@ -89,7 +90,7 @@ const initialChallengeState = {
   challengeDifficulty: null as ChallengeQuizDifficulty | null,
   challengeCurrQuestion: null as ChallengeQuizQuestion | null,
   challengeCurrQuestionIdx: 0,
-  challengeStartTime: null as number | null,
+  challengeTotalTime: 0,
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
   challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
   challengeResult: null as ChallengeQuizResult | null,
@@ -149,7 +150,7 @@ export function createQuizStore() {
       set({
         isStarted: true,
         challengeCurrQuestionIdx: 0,
-        challengeStartTime: Date.now(),
+        challengeTotalTime: 0,
         challengeQuestionScores: [],
         challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
         challengeAnalytics: [],
@@ -205,11 +206,8 @@ export function createQuizStore() {
           ],
         };
       }),
-    finishChallenge: (totalPossibleConnection, endTime) => {
+    finishChallenge: (totalPossibleConnection) => {
       const state = get();
-      const totalTime = state.challengeStartTime
-        ? endTime - state.challengeStartTime
-        : 0;
       const perfectQuestion = state.challengeQuestionScores.filter(
         (s) => s.isPerfect,
       ).length;
@@ -224,17 +222,21 @@ export function createQuizStore() {
           difficulty: state.challengeDifficulty ?? 'easy',
           score: state.challengeScore,
           questionScores: state.challengeQuestionScores,
-          analytics: sortedAnalytics.slice(0, 5), // Top 5 weakness
+          analytics: sortedAnalytics,
           totalQuestion: state.challengeQuestionScores.length,
           perfectQuestion,
           totalPossibleConnection,
-          totalTime,
+          totalTime: state.challengeTotalTime * 1000, // Convert to ms for consistency
           completedAt: new Date(),
         },
       });
     },
     setChallengeCurrQuestion: (question) =>
       set({ challengeCurrQuestion: question }),
+    addChallengeTimeSpent: (timeSpent) =>
+      set((state) => ({
+        challengeTotalTime: state.challengeTotalTime + timeSpent,
+      })),
     resetChallenge: () =>
       set({
         ...initialChallengeState,
