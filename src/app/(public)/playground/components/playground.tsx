@@ -187,21 +187,8 @@ export function Playground() {
         setTimeout(() => {
           fitView({ padding: 0.2, duration: 300 });
         }, 50);
-      } catch (err) {
-        // Report layout errors to Sentry for debugging
-        if (window !== undefined) {
-          import('@sentry/nextjs').then((Sentry) => {
-            Sentry.captureException(err, {
-              tags: { component: 'playground', action: 'layout_update' },
-              extra: {
-                viewMode,
-                layoutMode,
-                hierarchyDirection,
-                selectedLetterId,
-              },
-            });
-          });
-        }
+      } catch (error) {
+        console.error('Update Layout Error', error);
       }
     }
 

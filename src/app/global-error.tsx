@@ -1,6 +1,5 @@
 'use client';
 
-import * as Sentry from '@sentry/nextjs';
 import NextError from 'next/error';
 import { useEffect } from 'react';
 import { useGlobalStore } from '@/providers/global';
@@ -13,7 +12,7 @@ export default function GlobalError({ error }: GlobalErrorProps) {
   const locale = useGlobalStore((s) => s.locale);
 
   useEffect(() => {
-    Sentry.captureException(error);
+    console.error('Global Error', error);
   }, [error]);
 
   return (

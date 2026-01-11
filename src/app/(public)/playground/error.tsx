@@ -1,6 +1,5 @@
 'use client';
 
-import * as Sentry from '@sentry/nextjs';
 import { TriangleAlertIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
@@ -19,10 +18,6 @@ interface PlaygroundErrorProps {
   reset: () => void;
 }
 
-/**
- * Error boundary for the playground route.
- * Captures errors and reports them to Sentry with playground-specific context.
- */
 export default function PlaygroundError({
   error,
   reset,
@@ -30,18 +25,7 @@ export default function PlaygroundError({
   const t = useTranslations('playground_page.error');
 
   useEffect(() => {
-    // Report error to Sentry with playground context
-    Sentry.captureException(error, {
-      tags: {
-        component: 'playground',
-        error_boundary: 'route',
-      },
-      extra: {
-        digest: error.digest,
-        pathname: window !== undefined ? window.location.pathname : undefined,
-        userAgent: navigator !== undefined ? navigator.userAgent : undefined,
-      },
-    });
+    console.error('Playground Error', error);
   }, [error]);
 
   return (
