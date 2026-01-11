@@ -1,11 +1,11 @@
 import type { ColorMode } from '@xyflow/react';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
-import { GLOBAL_STORE_KEY } from '@/lib/constants';
+import { GLOBAL_STORE_KEY, type LOCALES } from '@/lib/constants';
 import { getCookies } from '@/lib/cookies';
 import { cookiesStorage } from '@/lib/storage';
 
-export type Locale = 'en' | 'id';
+export type Locale = (typeof LOCALES)[number];
 export type WaitlistStatus =
   | 'idle'
   | 'success'
