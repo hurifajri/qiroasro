@@ -8,7 +8,8 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { env } from '@/env';
-import { routing } from '@/i18n/routing';
+import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
+import { type Locale, routing } from '@/i18n/routing';
 import { AnalyticsProvider } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
@@ -31,7 +32,7 @@ const APP_URL = env.NEXT_PUBLIC_APP_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('global.metadata');
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
 
   return {
     metadataBase: new URL(APP_URL),
@@ -54,8 +55,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       siteName: APP_NAME,
-      locale: locale === 'id' ? 'id_ID' : 'en_US',
-      alternateLocale: locale === 'id' ? 'en_US' : 'id_ID',
+      locale: getOgLocale(locale),
+      alternateLocale: getAlternateOgLocale(locale),
       images: [
         { url: '/qiroasro-og.png', width: 1200, height: 630, alt: APP_NAME },
       ],

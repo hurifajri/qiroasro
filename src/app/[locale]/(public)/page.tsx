@@ -1,5 +1,11 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  getAlternateLanguages,
+  getLocalePath,
+  getOgLocale,
+} from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import { Home } from './components/home';
 
 type HomePageProps = {
@@ -16,13 +22,13 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: locale === 'id' ? '/' : '/en/',
-      languages: { id: '/', en: '/en/' },
+      canonical: getLocalePath('/', locale as Locale),
+      languages: getAlternateLanguages('/'),
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
-      locale: locale === 'id' ? 'id_ID' : 'en_US',
+      locale: getOgLocale(locale as Locale),
     },
   };
 }

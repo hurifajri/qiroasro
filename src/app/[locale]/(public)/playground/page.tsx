@@ -6,6 +6,12 @@ import {
 import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  getAlternateLanguages,
+  getLocalePath,
+  getOgLocale,
+} from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
 import { QuizStoreProvider } from './providers/quiz';
@@ -28,13 +34,13 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: locale === 'id' ? '/playground' : '/en/playground',
-      languages: { id: '/playground', en: '/en/playground' },
+      canonical: getLocalePath('/playground', locale as Locale),
+      languages: getAlternateLanguages('/playground'),
     },
     openGraph: {
       title: t('title'),
       description: t('description'),
-      locale: locale === 'id' ? 'id_ID' : 'en_US',
+      locale: getOgLocale(locale as Locale),
     },
   };
 }

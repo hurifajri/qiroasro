@@ -16,7 +16,8 @@ export const COLUMN_SORT_ORDER = 'sort_order';
 // Materialized View name
 export const MV_PLAYGROUND_DATA = 'mv_playground_data';
 
-export const LOCALES = ['en', 'id'] as const;
+export const LOCALES = ['id', 'en'] as const;
+export const PAGES = ['/', '/playground'] as const;
 
 // Nodes
 export const LETTERS = [
