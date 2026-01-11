@@ -1,9 +1,9 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { VerifyEmailTemplate } from '@/components/email-templates/verify-email';
 import { env } from '@/env';
+import type { Locale } from '@/i18n/routing';
 import { getResendClient } from '@/lib/resend';
 import { getSupabaseClient } from '@/lib/supabase';
-import type { Locale } from '@/stores/global';
 
 // export const runtime = 'edge';
 

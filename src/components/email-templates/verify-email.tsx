@@ -13,7 +13,7 @@ import {
   Text,
 } from '@react-email/components';
 import { env } from '@/env';
-import type { Locale } from '@/stores/global';
+import type { Locale } from '@/i18n/routing';
 
 interface VerifyEmailTemplateProps {
   verificationUrl: string;

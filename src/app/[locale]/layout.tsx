@@ -4,9 +4,11 @@ import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { env } from '@/env';
+import { routing } from '@/i18n/routing';
 import { AnalyticsProvider } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
@@ -74,6 +76,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -81,11 +87,24 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
+type RootLayoutProps = React.PropsWithChildren & {
+  params: Promise<{ locale: string }>;
+};
+
 export default async function RootLayout({
   children,
-}: React.PropsWithChildren) {
+  params,
+}: RootLayoutProps) {
   const persistedState = await getPersistedGlobalStore();
-  const { locale, theme } = persistedState;
+  const { theme } = persistedState;
+  const { locale } = await params;
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   return (
     <html

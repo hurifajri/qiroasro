@@ -3,8 +3,6 @@
 import type { ColorMode } from '@xyflow/react';
 import { CircleQuestionMarkIcon, MailIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { LocaleSelector } from '@/components/common/locale-selector';
@@ -19,16 +17,15 @@ import {
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
+import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { Locale } from '@/stores/global';
 
 interface PublicHeaderProps {
-  locale: Locale;
   theme: ColorMode;
   className?: string;
 }
 
-export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
+export function PublicHeader({ theme, className }: PublicHeaderProps) {
   const t = useTranslations('global');
   const isScrolled = useIsScrolled();
   const [isWaitlistDialogOpen, setIsWaitlistDialogOpen] = useState(false);
@@ -67,7 +64,7 @@ export function PublicHeader({ locale, theme, className }: PublicHeaderProps) {
         </Link>
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <LocaleSelector locale={locale} />
+            <LocaleSelector />
             <ThemeSelector theme={theme} />
           </div>
           {isPlayground && (

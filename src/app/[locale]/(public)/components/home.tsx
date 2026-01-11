@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { RocketIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { WaitlistForm } from '@/components/common/waitlist-form';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
@@ -12,6 +11,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
 const containerVariants = {

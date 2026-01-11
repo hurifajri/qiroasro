@@ -1,15 +1,25 @@
 'use client';
 
 import NextError from 'next/error';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { useGlobalStore } from '@/providers/global';
+import { routing } from '@/i18n/routing';
 
 type GlobalErrorProps = Readonly<{
   error: Error & { digest?: string };
 }>;
 
 export default function GlobalError({ error }: GlobalErrorProps) {
-  const locale = useGlobalStore((s) => s.locale);
+  const pathname = usePathname();
+
+  // Extract locale from pathname (e.g., '/en/page' -> 'en')
+  // Falls back to defaultLocale for paths like '/page' (no locale prefix)
+  const pathSegment = pathname?.split('/')[1] ?? '';
+  const locale = routing.locales.includes(
+    pathSegment as (typeof routing.locales)[number],
+  )
+    ? pathSegment
+    : routing.defaultLocale;
 
   useEffect(() => {
     console.error('Global Error', error);

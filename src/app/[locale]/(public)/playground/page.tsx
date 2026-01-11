@@ -5,22 +5,31 @@ import {
 } from '@tanstack/react-query';
 import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Playground } from './components/playground';
 import { PlaygroundStoreProvider } from './providers/playground';
 import { QuizStoreProvider } from './providers/quiz';
 import { getPlaygroundDataOpt } from './queries/playground';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('playground_page.metadata');
-  const locale = await getLocale();
+type PlaygroundPageProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({
+  params,
+}: PlaygroundPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: 'playground_page.metadata',
+  });
 
   return {
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: '/playground',
-      languages: { id: '/playground', en: '/playground' },
+      canonical: locale === 'id' ? '/playground' : '/en/playground',
+      languages: { id: '/playground', en: '/en/playground' },
     },
     openGraph: {
       title: t('title'),
@@ -30,7 +39,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function PlaygroundPage() {
+export default async function PlaygroundPage({ params }: PlaygroundPageProps) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   const t = await getTranslations('playground_page');
 
   const queryClient = new QueryClient();

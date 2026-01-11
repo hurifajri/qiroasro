@@ -6,15 +6,11 @@ export default async function PublicLayout({
   children,
 }: React.PropsWithChildren) {
   const persistedState = await getPersistedGlobalStore();
-  const { locale, theme } = persistedState;
-
-  // TODO: add authentication redirect once session is implemented
-  // const session = await getSession();
-  // if (session) redirect('/');
+  const { theme } = persistedState;
 
   return (
     <>
-      <PublicHeader locale={locale} theme={theme} />
+      <PublicHeader theme={theme} />
       <main>{children}</main>
     </>
   );
