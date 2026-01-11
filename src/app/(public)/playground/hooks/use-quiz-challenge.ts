@@ -34,7 +34,6 @@ export function useQuizChallenge({
   const difficulty = useQuizStore((s) => s.challengeDifficulty);
   const selectDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
   const currQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
-  const score = useQuizStore((s) => s.challengeScore);
   const result = useQuizStore((s) => s.challengeResult);
   const nextQuestion = useQuizStore((s) => s.nextChallengeQuestion);
   const addConnectionScore = useQuizStore((s) => s.addConnectionChallengeScore);
@@ -90,11 +89,7 @@ export function useQuizChallenge({
 
     setTimeout(() => {
       if (currQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
-        const totalPossible =
-          score.correctConnection +
-          score.incorrectConnection +
-          currentScore.total;
-        finish(totalPossible);
+        finish();
       } else {
         nextQuestion();
       }

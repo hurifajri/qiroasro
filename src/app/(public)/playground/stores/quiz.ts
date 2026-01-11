@@ -78,7 +78,7 @@ interface QuizAction {
     type: ChallengeQuizAnalytic['type'],
     errorType: ChallengeQuizAnalytic['errorType'],
   ) => void;
-  finishChallenge: (totalPossibleConnection: number) => void;
+  finishChallenge: () => void;
   setChallengeCurrQuestion: (question: ChallengeQuizQuestion | null) => void;
   addChallengeTimeSpent: (timeSpent: number) => void;
   resetChallenge: () => void;
@@ -206,11 +206,16 @@ export function createQuizStore() {
           ],
         };
       }),
-    finishChallenge: (totalPossibleConnection) => {
+    finishChallenge: () => {
       const state = get();
       const perfectQuestion = state.challengeQuestionScores.filter(
         (s) => s.isPerfect,
       ).length;
+
+      // Calculate total possible connections from score
+      const totalPossibleConnection =
+        state.challengeScore.correctConnection +
+        state.challengeScore.incorrectConnection;
 
       // Sort weakness by error count descending
       const sortedAnalytics = [...state.challengeAnalytics].sort(
