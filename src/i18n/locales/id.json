@@ -2,7 +2,9 @@
   "global": {
     "metadata": {
       "title": "Aplikasi Tajwid Berbasis Graph Pertama",
-      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung."
+      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung.",
+      "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
+      "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
     "letter": {
       "hamzah": "Hamzah",
@@ -11,21 +13,21 @@
       "tsa": "Tsa",
       "jim": "Jim",
       "ha_wasath": "Ha'",
-      "kha": "Kho",
+      "kha": "Kha",
       "dal": "Dal",
       "dhal": "Dzal",
-      "ra": "Ro",
+      "ra": "Ra",
       "zay": "Zay",
       "sin": "Sin",
       "shin": "Syin",
-      "shad": "Shod",
-      "dhad": "Dhod",
-      "tha": "Tho",
-      "zha": "Zho",
+      "shad": "Shad",
+      "dhad": "Dhad",
+      "tha": "Tha",
+      "zha": "Zha",
       "ayn": "'Ain",
-      "ghain": "Ghoin",
+      "ghain": "Ghain",
       "fa": "Fa",
-      "qaf": "Qof",
+      "qaf": "Qaf",
       "kaf": "Kaf",
       "lam": "Lam",
       "mim": "Mim",
@@ -42,13 +44,13 @@
       "al_jauf": "Rongga",
       "al_halq": "Tenggorokan",
       "al_lisan": "Lidah",
-      "asy_syafatain": "Dua bibir",
-      "al_khaisyum": "Pangkal hidung"
+      "asy_syafatain": "Dua Bibir",
+      "al_khaisyum": "Pangkal Hidung"
     },
     "articulation_point": {
       "jauf": "Rongga (mulut dan tenggorokan).",
       "aqsha_halq": "Tenggorokan bagian bawah (terjauh dari rongga mulut), tepatnya pada pangkal pita suara (laring).",
-      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisaanul mizmar).",
+      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisanul mizmar).",
       "adna_halq": "Tenggorokan bagian atas (terdekat dari rongga mulut), yakni pertemuan antara akar lidah dengan uvula (anak tekak).",
       "aqsha_lisan": "Pangkal lidah menempel pada langit-langit bagian lunak.",
       "aqsha_lisan_asfal": "Pangkal lidah (sedikit di bawah makhraj Qaf) menempel pada pertemuan langit-langit bagian lunak dan keras.",
@@ -65,13 +67,13 @@
       "khaisyum": "Rongga hidung (pangkal hidung), tempat keluarnya suara dengung (ghunnah) yang dimiliki oleh huruf Nun dan Mim."
     },
     "trait_group": {
-      "nafas": "Aliran udara",
-      "shaut": "Aliran suara",
-      "ittijah_shaut": "Arah suara",
-      "inhishar_shaut": "Gumpalan suara",
-      "khiffah_nuthq": "Kemudahan pengucapan",
-      "munfaridah": "Sifat khusus",
-      "siman_shaut": "Sifat aridhoh"
+      "nafas": "Aliran Udara",
+      "shaut": "Aliran Suara",
+      "ittijah_shaut": "Arah Suara",
+      "inhishar_shaut": "Gumpalan Suara",
+      "khiffah_nuthq": "Kemudahan Pengucapan",
+      "munfaridah": "Sifat Khusus",
+      "siman_shaut": "Sifat Aridhah"
     },
     "trait": {
       "jahr": "Tertahannya udara (jelas).",
@@ -212,7 +214,7 @@
       "challenge_badge_great": "Mumtaz",
       "challenge_badge_good": "Jayyid Jiddan",
       "challenge_badge_keep_learning": "Jayyid",
-      "challenge_weakness_analysis": "Analisa",
+      "challenge_weakness_analysis": "Analisis",
       "challenge_weakness_incorrect": "Terjawab tapi belum tepat",
       "challenge_weakness_missed": "Belum terjawab",
       "challenge_share_result": "Bagikan Hasil",
@@ -271,7 +273,7 @@
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
-          "description": "Masya Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
+          "description": "Masyaa Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
         },
         "layout_mode": {
           "title": "Mode Tata Letak",
@@ -307,7 +309,7 @@
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia dan Inggris."
+          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia, Inggris, dan Turki."
         },
         "theme_selector": {
           "title": "Pilih Tema",
@@ -323,7 +325,7 @@
         },
         "end": {
           "title": "Selesai",
-          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum"
+          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum."
         }
       }
     }

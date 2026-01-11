@@ -43,6 +43,16 @@ const translations = {
     expiry: 'This link will expire in 24 hours.',
     ignore: `Please ignore this email if you did not sign up.`,
   },
+  tr: {
+    title: 'E-posta Doğrulama',
+    greeting: 'Selamün Aleyküm,',
+    message_1: `${APP_NAME} bekleme listesine katıldığınız için Cezakümullahu hayran kesiran. İnşallah, uygulama resmi olarak yayınlandığında ve kullanıma hazır olduğunda sizi bilgilendireceğiz.`,
+    message_2: `Bu uygulamanın bir hocanın yerini almak için oluşturulmadığını önemle belirtmek isteriz. Talakki ve Müşafehe usulüyle bir hocadan öğrenmek, Sünnete uygun olan asıl yöntemdir. Umudumuz, bu uygulamanın Tecvid öğrenmemizi kolaylaştıracak bir vesile olmasıdır. Allah geliştirme sürecini bereketli ve kolay kılsın.`,
+    verification: `Uygulama yayınlandığında sizinle iletişime geçebilmemiz için lütfen aşağıdaki düğmeye tıklayarak e-postanızı doğrulayın.`,
+    button: 'E-postayı Doğrula',
+    expiry: 'Bu bağlantı 24 saat içinde geçerliliğini yitirecektir.',
+    ignore: `Kayıt olmadıysanız lütfen bu e-postayı dikkate almayın.`,
+  },
 };
 
 export function VerifyEmailTemplate({

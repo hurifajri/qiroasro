@@ -16,6 +16,10 @@ import { GlobalStoreProvider } from '@/providers/global';
 import { QueryClientProvider } from '@/providers/query-client';
 import { getPersistedGlobalStore } from '@/stores/global';
 
+type RootLayoutProps = React.PropsWithChildren & {
+  params: Promise<{ locale: string }>;
+};
+
 const outfitFont = Outfit({
   variable: '--font-outfit',
   subsets: ['latin'],
@@ -31,25 +35,14 @@ const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('global.metadata');
   const locale = (await getLocale()) as Locale;
+  const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
   return {
     metadataBase: new URL(APP_URL),
-    title: {
-      template: `%s | ${APP_NAME}`,
-      default: t('title'),
-    },
+    title: { template: `%s | ${APP_NAME}`, default: t('title') },
     description: t('description'),
-    keywords: [
-      'tajweed',
-      'tajwid',
-      'makharijul huruf',
-      'sifatul huruf',
-      'quran',
-      'arabic',
-      'learn quran',
-    ],
+    keywords: t('keywords').split(','),
     authors: [{ name: APP_NAME }],
     creator: APP_NAME,
     openGraph: {
@@ -61,10 +54,7 @@ export async function generateMetadata(): Promise<Metadata> {
         { url: '/qiroasro-og.png', width: 1200, height: 630, alt: APP_NAME },
       ],
     },
-    twitter: {
-      card: 'summary_large_image',
-      images: ['/qiroasro-og.png'],
-    },
+    twitter: { card: 'summary_large_image', images: ['/qiroasro-og.png'] },
     icons: {
       icon: [
         { url: '/favicon.ico', sizes: 'any' },
@@ -88,10 +78,6 @@ export const viewport: Viewport = {
   userScalable: true,
 };
 
-type RootLayoutProps = React.PropsWithChildren & {
-  params: Promise<{ locale: string }>;
-};
-
 export default async function RootLayout({
   children,
   params,
@@ -106,6 +92,8 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
   return (
     <html
@@ -135,6 +123,39 @@ export default async function RootLayout({
             )}
           </QueryClientProvider>
         </AnalyticsProvider>
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <safe>
+          dangerouslySetInnerHTML={{
+            // biome-ignore lint/style/useNamingConvention: <cant change this>
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebApplication',
+              name: APP_NAME,
+              url: APP_URL,
+              applicationCategory: [
+                'EducationalApplication',
+                'ReferenceApplication',
+              ],
+              operatingSystem: 'Web Browser',
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              author: {
+                '@type': 'Organization',
+                name: APP_NAME,
+                url: APP_URL,
+              },
+              description: t('description'),
+              featureList: t('feature_list').split(','),
+              keywords: t('keywords'),
+              inLanguage: locale,
+              availableLanguage: routing.locales,
+            }),
+          }}
+        />
         <Analytics />
         <SpeedInsights />
       </body>

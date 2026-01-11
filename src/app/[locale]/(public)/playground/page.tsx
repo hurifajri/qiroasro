@@ -17,13 +17,15 @@ import { PlaygroundStoreProvider } from './providers/playground';
 import { QuizStoreProvider } from './providers/quiz';
 import { getPlaygroundDataOpt } from './queries/playground';
 
-type PlaygroundPageProps = {
+type GenerateMetadataProps = {
   params: Promise<{ locale: string }>;
 };
 
+type PlaygroundPageProps = GenerateMetadataProps;
+
 export async function generateMetadata({
   params,
-}: PlaygroundPageProps): Promise<Metadata> {
+}: GenerateMetadataProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -49,7 +51,7 @@ export default async function PlaygroundPage({ params }: PlaygroundPageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const t = await getTranslations('playground_page');
+  const t = await getTranslations({ locale, namespace: 'playground_page' });
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(getPlaygroundDataOpt());

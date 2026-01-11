@@ -16,7 +16,29 @@ export const COLUMN_SORT_ORDER = 'sort_order';
 // Materialized View name
 export const MV_PLAYGROUND_DATA = 'mv_playground_data';
 
-export const LOCALES = ['id', 'en'] as const;
+export const LOCALES = [
+  'id',
+  'en',
+  'tr',
+  // 'ms',
+  // 'fr',
+  // 'es',
+  // 'de',
+  // 'nl',
+  // 'it',
+  // 'pt',
+  // 'ru',
+  // 'sw',
+  // 'ar',
+  // 'so',
+  // 'ha',
+  // 'ur',
+  // 'fa',
+  // 'bn',
+  // 'zh',
+  // 'hi',
+  // 'ko',
+] as const;
 export const PAGES = ['/', '/playground'] as const;
 
 // Nodes

@@ -73,7 +73,7 @@ export function GraphFilter({
       id="tour-graph-filter"
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex w-full flex-col gap-2 rounded-lg border bg-background sm:w-72"
+      className="flex w-full flex-col gap-2 rounded-lg border bg-background sm:w-96"
     >
       <CollapsibleTrigger
         className={cn(
@@ -89,7 +89,7 @@ export function GraphFilter({
           <ul className="flex flex-col gap-2">
             {/* View Mode */}
             <li id="tour-view-mode" className="flex items-center gap-2">
-              <FilterIcon className="size-4 text-muted-foreground" />
+              <FilterIcon className="size-4 shrink-0 text-muted-foreground" />
               <ButtonGroup className="flex-1">
                 {VIEW_MODES.map((mode) => (
                   <Button

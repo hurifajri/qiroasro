@@ -10,6 +10,25 @@ export const LOCALE_CONFIG: Record<
 > = {
   id: { flag: '🇮🇩', name: 'Indonesia', ogLocale: 'id_ID' },
   en: { flag: '🇺🇸', name: 'English', ogLocale: 'en_US' },
+  tr: { flag: '🇹🇷', name: 'Türkçe', ogLocale: 'tr_TR' },
+  // ms: { flag: '🇲🇾', name: 'Melayu', ogLocale: 'ms_MY' },
+  // fr: { flag: '🇫🇷', name: 'Français', ogLocale: 'fr_FR' },
+  // es: { flag: '🇪🇸', name: 'Español', ogLocale: 'es_ES' },
+  // de: { flag: '🇩🇪', name: 'Deutsch', ogLocale: 'de_DE' },
+  // nl: { flag: '🇳🇱', name: 'Nederlands', ogLocale: 'nl_NL' },
+  // it: { flag: '🇮🇹', name: 'Italiano', ogLocale: 'it_IT' },
+  // pt: { flag: '🇧🇷', name: 'Português', ogLocale: 'pt_BR' },
+  // ru: { flag: '🇷🇺', name: 'Русский', ogLocale: 'ru_RU' },
+  // sw: { flag: '🇹🇿', name: 'Kiswahili', ogLocale: 'sw_TZ' },
+  // so: { flag: '🇸🇴', name: 'Soomaali', ogLocale: 'so_SO' },
+  // ha: { flag: '🇳🇬', name: 'Hausa', ogLocale: 'ha_NG' },
+  // ar: { flag: '🇸🇦', name: 'العربية', ogLocale: 'ar_SA' },
+  // ur: { flag: '🇵🇰', name: 'اردو', ogLocale: 'ur_PK' },
+  // fa: { flag: '🇮🇷', name: 'فارسی', ogLocale: 'fa_IR' },
+  // bn: { flag: '🇧🇩', name: 'বাংলা', ogLocale: 'bn_BD' },
+  // zh: { flag: '🇨🇳', name: '中文', ogLocale: 'zh_CN' },
+  // hi: { flag: '🇮🇳', name: 'हिन्दी', ogLocale: 'hi_IN' },
+  // ko: { flag: '🇰🇷', name: '한국어', ogLocale: 'ko_KR' },
 };
 
 /**

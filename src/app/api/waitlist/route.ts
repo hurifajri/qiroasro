@@ -15,6 +15,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const translations = {
   id: { subject: `Verifikasi Email - ${env.NEXT_PUBLIC_APP_NAME}` },
   en: { subject: `Verify Your Email - ${env.NEXT_PUBLIC_APP_NAME}` },
+  tr: { subject: `E-posta Doğrulama - ${env.NEXT_PUBLIC_APP_NAME}` },
 };
 
 interface WaitlistRequest {
