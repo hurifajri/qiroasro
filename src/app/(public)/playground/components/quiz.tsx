@@ -64,7 +64,6 @@ export function Quiz() {
     handleStart: handleStartChallenge,
     handleCheckAndNext: handleCheckAndNextChallenge,
     handlePlayAgain: handlePlayAgainChallenge,
-    handleBack: handleBackChallenge,
     stopTimer: stopTimerChallenge,
     timeRemaining: timeRemainingChallenge,
   } = challenge;
@@ -180,7 +179,6 @@ export function Quiz() {
               handleSelectDifficulty={handleSelectDifficultyChallenge}
               handleStart={handleStartChallenge}
               handleCheckAndNext={handleCheckAndNextChallenge}
-              handleBack={handleBackChallenge}
               handleBackToMenu={handleBackToMenu}
               handlePlayAgain={handlePlayAgainChallenge}
             />

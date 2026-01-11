@@ -152,11 +152,6 @@ export function useQuizChallenge({
     start();
   }
 
-  function handleBack() {
-    reset();
-    setMode('challenge');
-  }
-
   function handlePlayAgain() {
     setNodes([]);
     setEdges([]);
@@ -171,7 +166,6 @@ export function useQuizChallenge({
     handleSelectDifficulty,
     handleStart,
     handleCheckAndNext,
-    handleBack,
     handlePlayAgain,
     stopTimer,
     timeRemaining,

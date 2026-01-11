@@ -58,6 +58,7 @@ export function QuizContentPractice({
   const theme = useGlobalStore((s) => s.theme);
 
   const type = useQuizStore((s) => s.type);
+  const setMode = useQuizStore((s) => s.setMode);
   const setType = useQuizStore((s) => s.setType);
   const isStarted = useQuizStore((s) => s.isStarted);
   const isChecked = useQuizStore((s) => s.isChecked);
@@ -66,7 +67,8 @@ export function QuizContentPractice({
   const settings = useQuizStore((s) => s.practiceSettings);
   const score = useQuizStore((s) => s.practiceScore);
 
-  function handleBackToModeSelect() {
+  function handleBackToSelectMode() {
+    setMode(null);
     setType(null);
   }
 
@@ -79,7 +81,7 @@ export function QuizContentPractice({
           <Button
             size="lg"
             variant="outline"
-            onClick={handleBackToModeSelect}
+            onClick={handleBackToSelectMode}
             className="flex-1"
           >
             {t('back')}

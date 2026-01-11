@@ -49,7 +49,6 @@ type ChallengeProps = {
 type QuizContentChallengeProps = ChallengeProps & {
   handleSelectDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
   handleStart: () => void;
-  handleBack: () => void;
   handleBackToMenu: () => void;
   handlePlayAgain: () => void;
 };
@@ -158,22 +157,26 @@ export function QuizContentChallenge({
   handleSelectDifficulty,
   handleStart,
   handleCheckAndNext,
-  handleBack,
   handleBackToMenu,
   handlePlayAgain,
 }: QuizContentChallengeProps) {
   const t = useTranslations('playground_page.quiz');
 
   const type = useQuizStore((s) => s.type);
+  const setMode = useQuizStore((s) => s.setMode);
   const setType = useQuizStore((s) => s.setType);
+  const selectDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
   const isStarted = useQuizStore((s) => s.isStarted);
-  const reset = useQuizStore((s) => s.resetChallenge);
   const result = useQuizStore((s) => s.challengeResult);
   const difficulty = useQuizStore((s) => s.challengeDifficulty);
 
-  function handleBackToModeSelect() {
+  function handleBackToSelectMode() {
+    setMode(null);
     setType(null);
-    reset();
+  }
+
+  function handleBackToSelectDifficulty() {
+    selectDifficulty(null);
   }
 
   // Step 1: Difficulty Selection
@@ -185,7 +188,7 @@ export function QuizContentChallenge({
           <Button
             size="lg"
             variant="outline"
-            onClick={handleBackToModeSelect}
+            onClick={handleBackToSelectMode}
             className="flex-1"
           >
             {t('back')}
@@ -218,7 +221,7 @@ export function QuizContentChallenge({
           <Button
             size="lg"
             variant="outline"
-            onClick={handleBack}
+            onClick={handleBackToSelectDifficulty}
             className="flex-1"
           >
             {t('back')}

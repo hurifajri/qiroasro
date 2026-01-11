@@ -47,16 +47,8 @@ export function useQuizPractice({
     if (!type) return;
 
     generateQuiz(type);
+    startTimer();
     start();
-    startTimer();
-  }
-
-  function handleReset() {
-    setNodes([]);
-    setEdges([]);
-    reset();
-    stopTimer();
-    startTimer();
   }
 
   function handlePlayAgain() {
@@ -69,10 +61,18 @@ export function useQuizPractice({
     startTimer();
   }
 
+  function handleReset() {
+    setNodes([]);
+    setEdges([]);
+    reset();
+    stopTimer();
+    startTimer();
+  }
+
   return {
     handleStart,
-    handleReset,
     handlePlayAgain,
+    handleReset,
     stopTimer,
     timeRemaining,
   };

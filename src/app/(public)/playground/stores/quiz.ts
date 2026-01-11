@@ -49,7 +49,7 @@ interface QuizState {
 interface QuizAction {
   // Base actions
   openDialog: () => void;
-  setMode: (mode: QuizMode) => void;
+  setMode: (mode: QuizMode | null) => void;
   setType: (type: QuizType | null) => void;
   setIsChecked: (isChecked: boolean) => void;
   setIsInstructionShown: (isShown: boolean) => void;
@@ -64,7 +64,9 @@ interface QuizAction {
   resetPractice: () => void;
 
   // Challenge actions
-  selectChallengeDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
+  selectChallengeDifficulty: (
+    difficulty: ChallengeQuizDifficulty | null,
+  ) => void;
   startChallenge: () => void;
   nextChallengeQuestion: () => void;
   addConnectionChallengeScore: (isCorrect: boolean) => void;
@@ -113,7 +115,7 @@ export function createQuizStore() {
     openDialog: () => {
       set({ isDialogOpen: true });
     },
-    setMode: (mode: QuizMode) => set({ mode }),
+    setMode: (mode) => set({ mode }),
     setType: (type) => set({ type }),
     setIsChecked: (isChecked) => set({ isChecked }),
     setIsInstructionShown: (isInstructionShown) => set({ isInstructionShown }),
@@ -127,6 +129,8 @@ export function createQuizStore() {
     setPracticeScore: (score) => set({ practiceScore: score }),
     resetPractice: () =>
       set({
+        mode: null,
+        type: null,
         isStarted: false,
         isChecked: false,
         questions: [],
