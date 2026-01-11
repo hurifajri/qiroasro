@@ -5,6 +5,7 @@ import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
   ChallengeQuizAnalytic,
   ChallengeQuizDifficulty,
+  ChallengeQuizQuestion,
   ChallengeQuizQuestionScore,
   ChallengeQuizResult,
   ChallengeQuizScore,
@@ -37,6 +38,7 @@ interface QuizState {
 
   // Challenge state
   challengeDifficulty: ChallengeQuizDifficulty | null;
+  challengeCurrQuestion: ChallengeQuizQuestion | null;
   challengeCurrQuestionIdx: number;
   challengeStartTime: number | null;
   challengeQuestionScores: ChallengeQuizQuestionScore[];
@@ -77,6 +79,7 @@ interface QuizAction {
     errorType: ChallengeQuizAnalytic['errorType'],
   ) => void;
   finishChallenge: (totalPossibleConnection: number, endTime: number) => void;
+  setChallengeCurrQuestion: (question: ChallengeQuizQuestion | null) => void;
   resetChallenge: () => void;
 }
 
@@ -84,6 +87,7 @@ export type QuizStore = QuizState & QuizAction;
 
 const initialChallengeState = {
   challengeDifficulty: null as ChallengeQuizDifficulty | null,
+  challengeCurrQuestion: null as ChallengeQuizQuestion | null,
   challengeCurrQuestionIdx: 0,
   challengeStartTime: null as number | null,
   challengeQuestionScores: [] as ChallengeQuizQuestionScore[],
@@ -229,6 +233,8 @@ export function createQuizStore() {
         },
       });
     },
+    setChallengeCurrQuestion: (question) =>
+      set({ challengeCurrQuestion: question }),
     resetChallenge: () =>
       set({
         ...initialChallengeState,

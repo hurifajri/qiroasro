@@ -44,6 +44,9 @@ export function useQuizChallenge({
   const addAnalytic = useQuizStore((s) => s.addChallengeAnalytic);
   const finish = useQuizStore((s) => s.finishChallenge);
   const reset = useQuizStore((s) => s.resetChallenge);
+  const setChallengeCurrQuestion = useQuizStore(
+    (s) => s.setChallengeCurrQuestion,
+  );
 
   const currentConfig = CHALLENGE_QUIZ_LEVEL[difficulty ?? 'easy'];
   const currentQuestion = currentConfig.questions[currQuestionIdx];
@@ -115,6 +118,7 @@ export function useQuizChallenge({
   // Generate challenge question when index changes
   useEffect(() => {
     if (mode === 'challenge' && isStarted && currentQuestion && !result) {
+      setChallengeCurrQuestion(currentQuestion);
       generateQuiz(currentQuestion.type);
       setType(currentQuestion.type);
       resetTimer();
@@ -131,6 +135,7 @@ export function useQuizChallenge({
     setType,
     resetTimer,
     startTimer,
+    setChallengeCurrQuestion,
   ]);
 
   // Handlers

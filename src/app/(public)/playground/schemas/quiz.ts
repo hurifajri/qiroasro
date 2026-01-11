@@ -106,7 +106,7 @@ export interface ChallengeQuizResult {
   completedAt: Date;
 }
 
-interface ChallengeQuizQuestion {
+export interface ChallengeQuizQuestion {
   type: QuizType;
   lettersPerQuiz: number;
   targetsPerQuiz: number;

@@ -37,6 +37,8 @@ export function useQuizGenerator({
   const questions = useQuizStore((s) => s.questions);
   const targets = useQuizStore((s) => s.targets);
   const isChecked = useQuizStore((s) => s.isChecked);
+  const mode = useQuizStore((s) => s.mode);
+  const challengeCurrQuestion = useQuizStore((s) => s.challengeCurrQuestion);
 
   // Get store actions
   const setQuestions = useQuizStore((s) => s.setQuestions);
@@ -44,7 +46,19 @@ export function useQuizGenerator({
   const setIsChecked = useQuizStore((s) => s.setIsChecked);
   const setPracticeScore = useQuizStore((s) => s.setPracticeScore);
 
-  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = practiceSettings;
+  // Derive quiz config based on mode
+  const lettersPerQuiz =
+    mode === 'challenge' && challengeCurrQuestion
+      ? challengeCurrQuestion.lettersPerQuiz
+      : practiceSettings.lettersPerQuiz;
+  const targetsPerQuiz =
+    mode === 'challenge' && challengeCurrQuestion
+      ? challengeCurrQuestion.targetsPerQuiz
+      : practiceSettings.targetsPerQuiz;
+  const multiEdge =
+    mode === 'challenge' && challengeCurrQuestion
+      ? challengeCurrQuestion.allowMultiEdge
+      : practiceSettings.multiEdge;
 
   // Fetch data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
