@@ -42,6 +42,9 @@ export function calculateAnswer(
       displayedTargetIds.has(id),
     );
 
+    // Track if this letter has any incorrect connection
+    let hasIncorrectConnection = false;
+
     for (const connection of letterConnections) {
       const targetIdNum = Number.parseInt(
         connection.target.replace('target-quiz-', ''),
@@ -62,6 +65,7 @@ export function calculateAnswer(
       if (isCorrect) {
         correctCount++;
       } else {
+        hasIncorrectConnection = true;
         // Track incorrect connection - letter connected to wrong target
         incorrectItems.push({
           name: question.letter.symbol,
@@ -72,17 +76,20 @@ export function calculateAnswer(
     }
 
     // Check for missed correct connections (unanswered) - only for displayed targets
-    const answeredTargets = letterConnections.map((c) =>
-      Number.parseInt(c.target.replace('target-quiz-', ''), 10),
-    );
-    for (const correctId of validCorrectTargetIds) {
-      if (!answeredTargets.includes(correctId)) {
-        // Track missed connection - should have been connected but wasn't
-        incorrectItems.push({
-          name: question.letter.symbol,
-          type: 'letter',
-          errorType: 'missed',
-        });
+    // Skip if letter already has an incorrect connection (Option C logic)
+    if (!hasIncorrectConnection) {
+      const answeredTargets = letterConnections.map((c) =>
+        Number.parseInt(c.target.replace('target-quiz-', ''), 10),
+      );
+      for (const correctId of validCorrectTargetIds) {
+        if (!answeredTargets.includes(correctId)) {
+          // Track missed connection - should have been connected but wasn't
+          incorrectItems.push({
+            name: question.letter.symbol,
+            type: 'letter',
+            errorType: 'missed',
+          });
+        }
       }
     }
   }
