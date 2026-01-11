@@ -4,14 +4,11 @@ import { motion } from 'framer-motion';
 import { ClockIcon, FlameIcon, ZapIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
+import { useQuizStore } from '../providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
   type ChallengeQuizDifficulty,
 } from '../schemas/quiz';
-
-interface ChallengeDifficultySelectorProps {
-  onSelect: (difficulty: ChallengeQuizDifficulty) => void;
-}
 
 const DIFFICULTY_UI_CONFIG: Record<
   ChallengeQuizDifficulty,
@@ -34,10 +31,10 @@ const DIFFICULTY_UI_CONFIG: Record<
   },
 };
 
-export function ChallengeDifficultySelector({
-  onSelect,
-}: ChallengeDifficultySelectorProps) {
+export function ChallengeDifficultySelector() {
   const t = useTranslations('playground_page.quiz');
+
+  const selectDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
 
   const difficulties: ChallengeQuizDifficulty[] = ['easy', 'medium', 'hard'];
 
@@ -56,7 +53,7 @@ export function ChallengeDifficultySelector({
             transition={{ delay: index * 0.1 }}
           >
             <Button
-              onClick={() => onSelect(difficulty)}
+              onClick={() => selectDifficulty(difficulty)}
               variant="outline"
               className={`h-auto w-full flex-col gap-1 py-4 ${uiConfig.bgColor}`}
             >

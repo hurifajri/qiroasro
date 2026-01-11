@@ -19,7 +19,6 @@ import { useQuizStore } from '../providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
   CHALLENGE_QUIZ_QUESTIONS,
-  type ChallengeQuizDifficulty,
 } from '../schemas/quiz';
 import { ChallengeDifficultySelector } from './challenge-difficulty-selector';
 import { ChallengeProgress } from './challenge-progress';
@@ -47,8 +46,6 @@ type ChallengeProps = {
 };
 
 type QuizContentChallengeProps = ChallengeProps & {
-  handleSelectDifficulty: (difficulty: ChallengeQuizDifficulty) => void;
-  handleStart: () => void;
   handleBackToMenu: () => void;
   handlePlayAgain: () => void;
 };
@@ -154,8 +151,6 @@ export function QuizContentChallenge({
   connectionCount,
   requiredConnections,
   timeRemaining,
-  handleSelectDifficulty,
-  handleStart,
   handleCheckAndNext,
   handleBackToMenu,
   handlePlayAgain,
@@ -166,6 +161,7 @@ export function QuizContentChallenge({
   const setMode = useQuizStore((s) => s.setMode);
   const setType = useQuizStore((s) => s.setType);
   const selectDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
+  const start = useQuizStore((s) => s.startChallenge);
   const isStarted = useQuizStore((s) => s.isStarted);
   const result = useQuizStore((s) => s.challengeResult);
   const difficulty = useQuizStore((s) => s.challengeDifficulty);
@@ -183,7 +179,7 @@ export function QuizContentChallenge({
   if (!difficulty) {
     return (
       <>
-        <ChallengeDifficultySelector onSelect={handleSelectDifficulty} />
+        <ChallengeDifficultySelector />
         <DialogFooter className="flex flex-row items-center rounded-b-none sm:rounded-b-xl">
           <Button
             size="lg"
@@ -226,7 +222,7 @@ export function QuizContentChallenge({
           >
             {t('back')}
           </Button>
-          <Button size="lg" onClick={handleStart} className="flex-1">
+          <Button size="lg" onClick={start} className="flex-1">
             <PlayIcon />
             {t('start_quiz')}
           </Button>

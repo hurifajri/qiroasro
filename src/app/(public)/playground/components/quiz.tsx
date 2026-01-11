@@ -60,8 +60,6 @@ export function Quiz() {
   // Challenge hook
   const challenge = useQuizChallenge({ setNodes, setEdges, generator });
   const {
-    handleSelectDifficulty: handleSelectDifficultyChallenge,
-    handleStart: handleStartChallenge,
     handleCheckAndNext: handleCheckAndNextChallenge,
     handlePlayAgain: handlePlayAgainChallenge,
     stopTimer: stopTimerChallenge,
@@ -176,8 +174,6 @@ export function Quiz() {
               connectionCount={connectionCount}
               requiredConnections={requiredConnections}
               timeRemaining={timeRemainingChallenge}
-              handleSelectDifficulty={handleSelectDifficultyChallenge}
-              handleStart={handleStartChallenge}
               handleCheckAndNext={handleCheckAndNextChallenge}
               handleBackToMenu={handleBackToMenu}
               handlePlayAgain={handlePlayAgainChallenge}

@@ -26,7 +26,6 @@ export function useQuizChallenge({
 }: UseQuizChallengeOptions) {
   const { generateQuiz, checkAnswers } = generator;
 
-  // Store selectors
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
   const isChecked = useQuizStore((s) => s.isChecked);
@@ -37,7 +36,6 @@ export function useQuizChallenge({
   const currQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
   const score = useQuizStore((s) => s.challengeScore);
   const result = useQuizStore((s) => s.challengeResult);
-  const start = useQuizStore((s) => s.startChallenge);
   const nextQuestion = useQuizStore((s) => s.nextChallengeQuestion);
   const addConnectionScore = useQuizStore((s) => s.addConnectionChallengeScore);
   const recordQuestionScore = useQuizStore(
@@ -47,7 +45,6 @@ export function useQuizChallenge({
   const finish = useQuizStore((s) => s.finishChallenge);
   const reset = useQuizStore((s) => s.resetChallenge);
 
-  // Current challenge config
   const currentConfig = CHALLENGE_QUIZ_LEVEL[difficulty ?? 'easy'];
   const currentQuestion = currentConfig.questions[currQuestionIdx];
 
@@ -97,8 +94,9 @@ export function useQuizChallenge({
     }, animationDuration);
   }
 
-  // Challenge timer - when time runs out
   function handleTimeUp() {
+    if (isChecked) return;
+
     processAnswer();
   }
 
@@ -121,9 +119,7 @@ export function useQuizChallenge({
       setType(currentQuestion.type);
       resetTimer();
 
-      if (currQuestionIdx === 0) {
-        startTimer();
-      }
+      if (currQuestionIdx === 0) startTimer();
     }
   }, [
     mode,
@@ -142,29 +138,15 @@ export function useQuizChallenge({
     processAnswer();
   }
 
-  function handleSelectDifficulty(
-    difficulty: keyof typeof CHALLENGE_QUIZ_LEVEL,
-  ) {
-    selectDifficulty(difficulty);
-  }
-
-  function handleStart() {
-    start();
-  }
-
   function handlePlayAgain() {
     setNodes([]);
     setEdges([]);
     reset();
     setMode('challenge');
-    if (difficulty) {
-      selectDifficulty(difficulty);
-    }
+    if (difficulty) selectDifficulty(difficulty);
   }
 
   return {
-    handleSelectDifficulty,
-    handleStart,
     handleCheckAndNext,
     handlePlayAgain,
     stopTimer,
