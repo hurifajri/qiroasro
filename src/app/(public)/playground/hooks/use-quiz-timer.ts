@@ -16,8 +16,6 @@ export interface UseQuizTimerOptions {
 export interface UseQuizTimerReturn {
   /** Current time remaining in seconds, null if not started */
   timeRemaining: number | null;
-  /** Whether timer is currently running */
-  isRunning: boolean;
   /** Start the timer */
   start: () => void;
   /** Reset timer to initial duration */
@@ -45,8 +43,6 @@ export function useQuizTimer({
     onTimeUpRef.current = onTimeUp;
   }, [onTimeUp]);
 
-  const isRunning = timeRemaining !== null && timeRemaining > 0 && !isPaused;
-
   function start() {
     if (!enabled) return;
 
@@ -62,6 +58,8 @@ export function useQuizTimer({
   }
 
   function stop() {
+    if (!enabled) return;
+
     setTimeRemaining(null);
     hasCalledTimeUpRef.current = false;
   }
@@ -87,10 +85,9 @@ export function useQuizTimer({
   }, [timeRemaining, isPaused]);
 
   return {
-    timeRemaining,
-    isRunning,
     start,
-    reset,
     stop,
+    reset,
+    timeRemaining,
   };
 }

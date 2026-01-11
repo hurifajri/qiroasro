@@ -27,6 +27,22 @@ export function useQuizPractice({
   const reset = useQuizStore((s) => s.resetPractice);
   const setPracticeScore = useQuizStore((s) => s.setPracticeScore);
 
+  function handleCheckAnswer() {
+    const { score } = checkAnswer();
+    setPracticeScore(score);
+  }
+
+  const {
+    start: startTimer,
+    stop: stopTimer,
+    timeRemaining,
+  } = useQuizTimer({
+    duration: settings.timerDuration,
+    enabled: mode === 'practice' && settings.timerMode,
+    onTimeUp: handleCheckAnswer,
+    isPaused: isChecked,
+  });
+
   function handleStart() {
     if (!type) return;
 
@@ -53,24 +69,6 @@ export function useQuizPractice({
     setEdges([]);
     reset();
   }
-
-  function handleCheckAnswer() {
-    if (isChecked) return;
-
-    const { score } = checkAnswer();
-    setPracticeScore(score);
-  }
-
-  const {
-    timeRemaining,
-    start: startTimer,
-    stop: stopTimer,
-  } = useQuizTimer({
-    duration: settings.timerDuration,
-    enabled: settings.timerMode && mode === 'practice',
-    onTimeUp: handleCheckAnswer,
-    isPaused: isChecked,
-  });
 
   return {
     handleStart,

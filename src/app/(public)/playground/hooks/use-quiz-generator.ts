@@ -11,7 +11,6 @@ import {
 import {
   calculateRequiredConnection,
   handleQuizConnection,
-  isValidQuizConnection,
 } from '../lib/quiz-connection';
 import { generateQuizData } from '../lib/quiz-generator';
 import { useQuizStore } from '../providers/quiz';
@@ -99,7 +98,12 @@ export function useQuizGenerator({
 
   // Validate connection
   function isValidConnection(connection: Edge | Connection) {
-    return isValidQuizConnection(connection);
+    const sourceId = connection.source;
+    const targetId = connection.target;
+    const isLetterQuiz = sourceId.startsWith('letter-quiz-');
+    const isTargetQuiz = targetId.startsWith('target-quiz-');
+
+    return isLetterQuiz && isTargetQuiz;
   }
 
   // Handle new connection
@@ -133,6 +137,8 @@ export function useQuizGenerator({
 
   // Check answer - returns the score and incorrect items for caller to use
   function checkAnswer() {
+    setIsChecked(true);
+
     const { correctCount, letterResults, targetResults, incorrectItems } =
       calculateAnswer(questions, edges, targets);
 
@@ -141,10 +147,9 @@ export function useQuizGenerator({
     );
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
-    const newScore = { correct: correctCount, total: requiredConnection };
-    setIsChecked(true);
+    const score = { correct: correctCount, total: requiredConnection };
 
-    return { score: newScore, incorrectItems };
+    return { score, incorrectItems };
   }
 
   return {

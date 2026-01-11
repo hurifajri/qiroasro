@@ -51,10 +51,41 @@ export function useQuizChallenge({
   const currentConfig = CHALLENGE_QUIZ_LEVEL[difficulty ?? 'easy'];
   const currentQuestion = currentConfig.questions[currQuestionIdx];
 
+  function handleCheckAndNext() {
+    processAnswer();
+  }
+
+  const {
+    start: startTimer,
+    stop: stopTimer,
+    reset: resetTimer,
+    timeRemaining,
+  } = useQuizTimer({
+    duration: currentConfig.timerDuration,
+    enabled: mode === 'challenge' && isStarted && !result,
+    onTimeUp: handleCheckAndNext,
+    isPaused: isChecked,
+  });
+
+  function handlePlayAgain() {
+    setNodes([]);
+    setEdges([]);
+    reset();
+    setMode('challenge');
+    if (difficulty) selectDifficulty(difficulty);
+  }
+
+  function handleChangeMode() {
+    stopTimer();
+    setNodes([]);
+    setEdges([]);
+    reset();
+  }
+
   // Shared function to process challenge answer (used by both timeout and manual check)
-  function processAnswer(currentTimeRemaining: number | null) {
+  function processAnswer() {
     // Calculate time spent on this question from timer
-    const timeSpent = currentConfig.timerDuration - (currentTimeRemaining ?? 0);
+    const timeSpent = currentConfig.timerDuration - (timeRemaining ?? 0);
     addChallengeTimeSpent(timeSpent);
 
     // Call checkAnswer to update edge colors (blue/red)
@@ -96,25 +127,6 @@ export function useQuizChallenge({
     }, animationDuration);
   }
 
-  function handleTimeUp() {
-    if (isChecked) return;
-
-    // When timer runs out, timeRemaining is 0
-    processAnswer(0);
-  }
-
-  const {
-    timeRemaining,
-    start: startTimer,
-    reset: resetTimer,
-    stop: stopTimer,
-  } = useQuizTimer({
-    duration: currentConfig.timerDuration,
-    enabled: mode === 'challenge' && isStarted && !result,
-    onTimeUp: handleTimeUp,
-    isPaused: isChecked,
-  });
-
   // Generate challenge question when index changes
   useEffect(() => {
     if (mode === 'challenge' && isStarted && currentQuestion && !result) {
@@ -137,26 +149,6 @@ export function useQuizChallenge({
     startTimer,
     setChallengeCurrQuestion,
   ]);
-
-  // Handlers
-  function handleCheckAndNext() {
-    processAnswer(timeRemaining);
-  }
-
-  function handlePlayAgain() {
-    setNodes([]);
-    setEdges([]);
-    reset();
-    setMode('challenge');
-    if (difficulty) selectDifficulty(difficulty);
-  }
-
-  function handleChangeMode() {
-    stopTimer();
-    setNodes([]);
-    setEdges([]);
-    reset();
-  }
 
   return {
     handleCheckAndNext,

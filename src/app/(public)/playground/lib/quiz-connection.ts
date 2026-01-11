@@ -7,18 +7,6 @@ interface ConnectionValidatorOptions {
 }
 
 /**
- * Validates if a connection between quiz nodes is valid.
- */
-export function isValidQuizConnection(connection: Edge | Connection): boolean {
-  const sourceId = connection.source;
-  const targetId = connection.target;
-  return Boolean(
-    sourceId?.startsWith('letter-quiz-') &&
-      targetId?.startsWith('target-quiz-'),
-  );
-}
-
-/**
  * Handles new connection logic for quiz.
  * Returns updated edges array or null if connection should be rejected.
  */
