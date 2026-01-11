@@ -152,7 +152,7 @@ export function Quiz() {
         {!mode && !type && <QuizModeSelector />}
 
         <ReactFlowProvider>
-          {mode === 'practice' ? (
+          {mode === 'practice' && (
             <QuizContentPractice
               nodes={nodes}
               nodeTypes={nodeTypes}
@@ -168,7 +168,9 @@ export function Quiz() {
               handlePlayAgain={handlePlayAgainPractice}
               handleCheckAnswers={checkAnswer}
             />
-          ) : (
+          )}
+
+          {mode === 'challenge' && (
             <QuizContentChallenge
               nodes={nodes}
               nodeTypes={nodeTypes}
