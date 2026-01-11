@@ -49,13 +49,18 @@ export function Quiz() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
   const generator = useQuizGenerator({ nodes, edges, setNodes, setEdges });
+  const { checkAnswer, onConnect, requiredConnection, isValidConnection } =
+    generator;
+
+  // Practice hook
+  const practice = useQuizPractice({ setNodes, setEdges, generator });
   const {
-    checkAnswers,
-    onConnect,
-    requiredConnections,
-    isValidConnection,
-    connectionCount,
-  } = generator;
+    handleStart: handleStartPractice,
+    handlePlayAgain: handlePlayAgainPractice,
+    handleChangeMode: handleChangeModePractice,
+    stopTimer: stopTimerPractice,
+    timeRemaining: timeRemainingPractice,
+  } = practice;
 
   // Challenge hook
   const challenge = useQuizChallenge({ setNodes, setEdges, generator });
@@ -67,22 +72,12 @@ export function Quiz() {
     timeRemaining: timeRemainingChallenge,
   } = challenge;
 
-  // Practice hook
-  const practice = useQuizPractice({ setNodes, setEdges, generator });
-  const {
-    handleStart: handleStartPractice,
-    handleChangeMode: handleChangeModePractice,
-    handlePlayAgain: handlePlayAgainPractice,
-    stopTimer: stopTimerPractice,
-    timeRemaining: timeRemainingPractice,
-  } = practice;
-
   function handleCloseDialog(open: boolean) {
     if (open) return;
 
-    resetAll();
     stopTimerPractice();
     stopTimerChallenge();
+    resetAll();
   }
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <t won't change>
@@ -157,23 +152,7 @@ export function Quiz() {
         {!mode && !type && <QuizModeSelector />}
 
         <ReactFlowProvider>
-          {mode === 'challenge' ? (
-            <QuizContentChallenge
-              nodes={nodes}
-              nodeTypes={nodeTypes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              isValidConnection={isValidConnection}
-              connectionCount={connectionCount}
-              requiredConnections={requiredConnections}
-              timeRemaining={timeRemainingChallenge}
-              handleCheckAndNext={handleCheckAndNextChallenge}
-              handleChangeMode={handleChangeModeChallenge}
-              handlePlayAgain={handlePlayAgainChallenge}
-            />
-          ) : (
+          {mode === 'practice' ? (
             <QuizContentPractice
               nodes={nodes}
               nodeTypes={nodeTypes}
@@ -182,13 +161,27 @@ export function Quiz() {
               onEdgesChange={onEdgesChange}
               onConnect={onConnect}
               isValidConnection={isValidConnection}
-              connectionCount={connectionCount}
-              requiredConnections={requiredConnections}
+              requiredConnection={requiredConnection}
               timeRemaining={timeRemainingPractice}
               handleStart={handleStartPractice}
               handleChangeMode={handleChangeModePractice}
               handlePlayAgain={handlePlayAgainPractice}
-              handleCheckAnswers={checkAnswers}
+              handleCheckAnswers={checkAnswer}
+            />
+          ) : (
+            <QuizContentChallenge
+              nodes={nodes}
+              nodeTypes={nodeTypes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              isValidConnection={isValidConnection}
+              requiredConnection={requiredConnection}
+              timeRemaining={timeRemainingChallenge}
+              handleCheckAndNext={handleCheckAndNextChallenge}
+              handleChangeMode={handleChangeModeChallenge}
+              handlePlayAgain={handlePlayAgainChallenge}
             />
           )}
         </ReactFlowProvider>

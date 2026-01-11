@@ -24,7 +24,7 @@ export function useQuizChallenge({
   setEdges,
   generator,
 }: UseQuizChallengeOptions) {
-  const { generateQuiz, checkAnswers } = generator;
+  const { generateQuiz, checkAnswer } = generator;
 
   const mode = useQuizStore((s) => s.mode);
   const setMode = useQuizStore((s) => s.setMode);
@@ -53,8 +53,8 @@ export function useQuizChallenge({
 
   // Shared function to process challenge answer (used by both timeout and manual check)
   function processAnswer() {
-    // Call checkAnswers to update edge colors (blue/red)
-    const { score: currentScore, incorrectItem } = checkAnswers();
+    // Call checkAnswer to update edge colors (blue/red)
+    const { score: currentScore, incorrectItem } = checkAnswer();
     const isPerfect = currentScore.correct === currentScore.total;
 
     const stat = {
@@ -69,7 +69,7 @@ export function useQuizChallenge({
     }
 
     // Animate score changes with delay
-    // Note: currentScore.total is requiredConnections, so (total - correct) already includes
+    // Note: currentScore.total is requiredConnection, so (total - correct) already includes
     // both wrong connections AND missed connections (connections not made before timeout)
     let delay = 0;
     for (let i = 0; i < currentScore.correct; i++) {

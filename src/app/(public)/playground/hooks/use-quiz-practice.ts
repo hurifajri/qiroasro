@@ -17,7 +17,7 @@ export function useQuizPractice({
   setEdges,
   generator,
 }: UseQuizPracticeOptions) {
-  const { generateQuiz, checkAnswers } = generator;
+  const { generateQuiz, checkAnswer } = generator;
 
   const type = useQuizStore((s) => s.type);
   const mode = useQuizStore((s) => s.mode);
@@ -29,7 +29,7 @@ export function useQuizPractice({
   function handleTimeUp() {
     if (isChecked) return;
 
-    checkAnswers();
+    checkAnswer();
   }
 
   const {

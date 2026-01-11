@@ -39,8 +39,7 @@ type ChallengeProps = {
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
-  connectionCount: number;
-  requiredConnections: number;
+  requiredConnection: number;
   timeRemaining: number | null;
   handleCheckAndNext: () => void;
 };
@@ -61,8 +60,7 @@ function Challenge({
   onEdgesChange,
   onConnect,
   isValidConnection,
-  connectionCount,
-  requiredConnections,
+  requiredConnection,
   timeRemaining,
   handleCheckAndNext,
 }: ChallengeProps) {
@@ -129,7 +127,7 @@ function Challenge({
         <Button
           size="lg"
           onClick={handleCheckAndNext}
-          disabled={connectionCount < requiredConnections || isChecked}
+          disabled={edges.length < requiredConnection || isChecked}
           className="flex-1"
         >
           <CheckCircle2Icon />
@@ -148,8 +146,7 @@ export function QuizContentChallenge({
   onEdgesChange,
   onConnect,
   isValidConnection,
-  connectionCount,
-  requiredConnections,
+  requiredConnection,
   timeRemaining,
   handleCheckAndNext,
   handleChangeMode,
@@ -242,8 +239,7 @@ export function QuizContentChallenge({
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         isValidConnection={isValidConnection}
-        connectionCount={connectionCount}
-        requiredConnections={requiredConnections}
+        requiredConnection={requiredConnection}
         timeRemaining={timeRemaining}
         handleCheckAndNext={handleCheckAndNext}
       />

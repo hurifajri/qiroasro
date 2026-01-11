@@ -82,7 +82,7 @@ export function handleQuizConnection(
 /**
  * Calculates the required number of connections for the quiz.
  */
-export function calculateRequiredConnections(
+export function calculateRequiredConnection(
   letterCount: number,
   targetCount: number,
   options: Pick<

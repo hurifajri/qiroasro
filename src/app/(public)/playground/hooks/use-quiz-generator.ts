@@ -2,13 +2,14 @@
 
 import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
+import type { Dispatch, SetStateAction } from 'react';
 import {
   applyResultsToEdges,
   applyResultsToNodes,
   checkQuizAnswers,
 } from '../lib/quiz-checker';
 import {
-  calculateRequiredConnections,
+  calculateRequiredConnection,
   handleQuizConnection,
   isValidQuizConnection,
 } from '../lib/quiz-connection';
@@ -20,8 +21,8 @@ import type { QuizType } from '../schemas/quiz';
 interface UseQuizGeneratorProps {
   nodes: Node[];
   edges: Edge[];
-  setNodes: React.Dispatch<React.SetStateAction<Node[]>>;
-  setEdges: React.Dispatch<React.SetStateAction<Edge[]>>;
+  setNodes: Dispatch<SetStateAction<Node[]>>;
+  setEdges: Dispatch<SetStateAction<Edge[]>>;
 }
 
 export type UseQuizGeneratorReturn = ReturnType<typeof useQuizGenerator>;
@@ -119,11 +120,10 @@ export function useQuizGenerator({
   }
 
   // Derived state
-  const connectionCount = edges.length;
   const letterCount = nodes.filter((n) => n.type === 'letterQuiz').length;
   const targetCount = nodes.filter((n) => n.type === 'targetQuiz').length;
 
-  const requiredConnections = calculateRequiredConnections(
+  const requiredConnection = calculateRequiredConnection(
     letterCount,
     targetCount,
     {
@@ -133,8 +133,8 @@ export function useQuizGenerator({
     },
   );
 
-  // Check answers - returns the score and incorrect items for caller to use
-  function checkAnswers() {
+  // Check answer - returns the score and incorrect items for caller to use
+  function checkAnswer() {
     const { correctCount, letterResults, targetResults, incorrectItem } =
       checkQuizAnswers(questions, edges, targets);
 
@@ -143,7 +143,7 @@ export function useQuizGenerator({
     );
     setEdges((currentEdges) => applyResultsToEdges(currentEdges, questions));
 
-    const newScore = { correct: correctCount, total: requiredConnections };
+    const newScore = { correct: correctCount, total: requiredConnection };
     setPracticeScore(newScore);
     setIsChecked(true);
 
@@ -152,10 +152,9 @@ export function useQuizGenerator({
 
   return {
     generateQuiz,
-    isValidConnection,
+    checkAnswer,
     onConnect,
-    checkAnswers,
-    connectionCount,
-    requiredConnections,
+    requiredConnection,
+    isValidConnection,
   };
 }

@@ -29,8 +29,7 @@ interface QuizContentPracticeProps {
   onEdgesChange: OnEdgesChange<Edge>;
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
-  connectionCount: number;
-  requiredConnections: number;
+  requiredConnection: number;
   timeRemaining: number | null;
   handleStart: () => void;
   handleChangeMode: () => void;
@@ -46,8 +45,7 @@ export function QuizContentPractice({
   onEdgesChange,
   onConnect,
   isValidConnection,
-  connectionCount,
-  requiredConnections,
+  requiredConnection,
   timeRemaining,
   handleStart,
   handleChangeMode,
@@ -144,7 +142,7 @@ export function QuizContentPractice({
               <Button
                 size="lg"
                 onClick={handleCheckAnswers}
-                disabled={connectionCount < requiredConnections}
+                disabled={edges.length < requiredConnection}
                 className="sm:flex-1"
               >
                 <CheckCircle2Icon />
