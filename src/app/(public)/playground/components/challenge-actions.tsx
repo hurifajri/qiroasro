@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { toPng } from 'html-to-image';
-import { CopyIcon, PlayIcon, ShareIcon } from 'lucide-react';
+import { CopyIcon, PlayIcon, RefreshCwIcon, ShareIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -14,14 +14,14 @@ interface ChallengeActionsProps {
   result: ChallengeQuizResult;
   resultRef: React.RefObject<HTMLDivElement | null>;
   onPlayAgain: () => void;
-  onBackToMenu: () => void;
+  onChangeMode: () => void;
 }
 
 export function ChallengeActions({
   result,
   resultRef,
   onPlayAgain,
-  onBackToMenu,
+  onChangeMode,
 }: ChallengeActionsProps) {
   const t = useTranslations('playground_page.quiz');
   const [copied, setCopied] = useState(false);
@@ -109,10 +109,11 @@ export function ChallengeActions({
         <Button
           size="lg"
           variant="outline"
-          onClick={onBackToMenu}
+          onClick={onChangeMode}
           className="flex-1"
         >
-          {t('back')}
+          <RefreshCwIcon />
+          {t('change_mode')}
         </Button>
         <Button size="lg" onClick={onPlayAgain} className="flex-1">
           <PlayIcon />

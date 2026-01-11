@@ -62,6 +62,7 @@ export function Quiz() {
   const {
     handleCheckAndNext: handleCheckAndNextChallenge,
     handlePlayAgain: handlePlayAgainChallenge,
+    handleChangeMode: handleChangeModeChallenge,
     stopTimer: stopTimerChallenge,
     timeRemaining: timeRemainingChallenge,
   } = challenge;
@@ -70,7 +71,7 @@ export function Quiz() {
   const practice = useQuizPractice({ setNodes, setEdges, generator });
   const {
     handleStart: handleStartPractice,
-    handleReset: handleResetPractice,
+    handleChangeMode: handleChangeModePractice,
     handlePlayAgain: handlePlayAgainPractice,
     stopTimer: stopTimerPractice,
     timeRemaining: timeRemainingPractice,
@@ -82,12 +83,6 @@ export function Quiz() {
     resetAll();
     stopTimerPractice();
     stopTimerChallenge();
-  }
-
-  function handleBackToMenu() {
-    setNodes([]);
-    setEdges([]);
-    resetAll();
   }
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <t won't change>
@@ -175,7 +170,7 @@ export function Quiz() {
               requiredConnections={requiredConnections}
               timeRemaining={timeRemainingChallenge}
               handleCheckAndNext={handleCheckAndNextChallenge}
-              handleBackToMenu={handleBackToMenu}
+              handleChangeMode={handleChangeModeChallenge}
               handlePlayAgain={handlePlayAgainChallenge}
             />
           ) : (
@@ -191,7 +186,7 @@ export function Quiz() {
               requiredConnections={requiredConnections}
               timeRemaining={timeRemainingPractice}
               handleStart={handleStartPractice}
-              handleReset={handleResetPractice}
+              handleChangeMode={handleChangeModePractice}
               handlePlayAgain={handlePlayAgainPractice}
               handleCheckAnswers={checkAnswers}
             />

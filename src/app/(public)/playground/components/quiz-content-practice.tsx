@@ -33,7 +33,7 @@ interface QuizContentPracticeProps {
   requiredConnections: number;
   timeRemaining: number | null;
   handleStart: () => void;
-  handleReset: () => void;
+  handleChangeMode: () => void;
   handlePlayAgain: () => void;
   handleCheckAnswers: () => void;
 }
@@ -50,7 +50,7 @@ export function QuizContentPractice({
   requiredConnections,
   timeRemaining,
   handleStart,
-  handleReset,
+  handleChangeMode,
   handlePlayAgain,
   handleCheckAnswers,
 }: QuizContentPracticeProps) {
@@ -129,7 +129,7 @@ export function QuizContentPractice({
             <Button
               size="lg"
               variant="outline"
-              onClick={handleReset}
+              onClick={handleChangeMode}
               className="sm:flex-1"
             >
               <RefreshCwIcon />

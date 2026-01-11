@@ -12,13 +12,13 @@ import { ChallengeStats } from './challenge-stats';
 interface ChallengeResultsProps {
   result: ChallengeQuizResult;
   onPlayAgain: () => void;
-  onBackToMenu: () => void;
+  onChangeMode: () => void;
 }
 
 export function ChallengeResults({
   result,
   onPlayAgain,
-  onBackToMenu,
+  onChangeMode,
 }: ChallengeResultsProps) {
   const resultRef = useRef<HTMLDivElement>(null);
   const accuracy = calculateAccuracy(
@@ -45,7 +45,7 @@ export function ChallengeResults({
         result={result}
         resultRef={resultRef}
         onPlayAgain={onPlayAgain}
-        onBackToMenu={onBackToMenu}
+        onChangeMode={onChangeMode}
       />
     </>
   );

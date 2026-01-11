@@ -54,25 +54,24 @@ export function useQuizPractice({
   function handlePlayAgain() {
     if (!type) return;
 
+    stopTimer();
     setNodes([]);
     setEdges([]);
-    stopTimer();
     generateQuiz(type);
     startTimer();
   }
 
-  function handleReset() {
+  function handleChangeMode() {
+    stopTimer();
     setNodes([]);
     setEdges([]);
     reset();
-    stopTimer();
-    startTimer();
   }
 
   return {
     handleStart,
     handlePlayAgain,
-    handleReset,
+    handleChangeMode,
     stopTimer,
     timeRemaining,
   };

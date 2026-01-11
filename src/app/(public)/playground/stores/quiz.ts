@@ -229,6 +229,15 @@ export function createQuizStore() {
         },
       });
     },
-    resetChallenge: () => set(initialChallengeState),
+    resetChallenge: () =>
+      set({
+        ...initialChallengeState,
+        mode: null,
+        type: null,
+        isStarted: false,
+        isChecked: false,
+        questions: [],
+        targets: [],
+      }),
   }));
 }

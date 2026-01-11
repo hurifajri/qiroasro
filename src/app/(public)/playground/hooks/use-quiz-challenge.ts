@@ -146,9 +146,17 @@ export function useQuizChallenge({
     if (difficulty) selectDifficulty(difficulty);
   }
 
+  function handleChangeMode() {
+    stopTimer();
+    setNodes([]);
+    setEdges([]);
+    reset();
+  }
+
   return {
     handleCheckAndNext,
     handlePlayAgain,
+    handleChangeMode,
     stopTimer,
     timeRemaining,
   };

@@ -46,7 +46,7 @@ type ChallengeProps = {
 };
 
 type QuizContentChallengeProps = ChallengeProps & {
-  handleBackToMenu: () => void;
+  handleChangeMode: () => void;
   handlePlayAgain: () => void;
 };
 
@@ -152,7 +152,7 @@ export function QuizContentChallenge({
   requiredConnections,
   timeRemaining,
   handleCheckAndNext,
-  handleBackToMenu,
+  handleChangeMode,
   handlePlayAgain,
 }: QuizContentChallengeProps) {
   const t = useTranslations('playground_page.quiz');
@@ -256,7 +256,7 @@ export function QuizContentChallenge({
       <ChallengeResults
         result={result}
         onPlayAgain={handlePlayAgain}
-        onBackToMenu={handleBackToMenu}
+        onChangeMode={handleChangeMode}
       />
     );
   }
