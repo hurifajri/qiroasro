@@ -227,7 +227,6 @@ export function createQuizStore() {
           perfectQuestion,
           totalPossibleConnection,
           totalTime: state.challengeTotalTime * 1000, // Convert to ms for consistency
-          completedAt: new Date(),
         },
       });
     },

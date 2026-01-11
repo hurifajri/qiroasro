@@ -103,7 +103,6 @@ export interface ChallengeQuizResult {
   perfectQuestion: number;
   totalPossibleConnection: number;
   totalTime: number;
-  completedAt: Date;
 }
 
 export interface ChallengeQuizQuestion {

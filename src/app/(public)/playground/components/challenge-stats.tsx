@@ -27,7 +27,7 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
   const statsGridItems: ChallengeStatGridItem[] = [
     {
       icon: TrophyIcon,
-      value: String(result.score.totalPoint),
+      value: `${result.score.totalPoint}`,
       labelKey: 'challenge_total_point',
       bgClass: 'bg-indigo-50 dark:bg-indigo-950',
       iconClass: 'text-indigo-600',
@@ -61,12 +61,12 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
 
   const connectionStats: ChallengeConnectionStatItem[] = [
     {
-      value: String(result.score.correctConnection),
+      value: `${result.score.correctConnection}`,
       labelKey: 'challenge_correct_connection',
       valueClass: 'text-green-600',
     },
     {
-      value: String(result.score.incorrectConnection),
+      value: `${result.score.incorrectConnection}`,
       labelKey: 'challenge_incorrect_connection',
       valueClass: 'text-red-600',
     },
