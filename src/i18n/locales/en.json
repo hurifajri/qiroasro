@@ -348,7 +348,7 @@
       "data_collected": {
         "title": "Data We Collect",
         "description": "We collect anonymous usage data to improve the app experience, including:",
-        "items": "Page views and navigation,Quiz interactions,Feature usage patterns"
+        "items": "Page views and navigation,Quiz interactions,Feature usage patterns,Waitlist form submissions"
       },
       "purpose": {
         "title": "Purpose",

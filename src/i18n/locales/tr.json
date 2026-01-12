@@ -348,7 +348,7 @@
       "data_collected": {
         "title": "Topladığımız Veriler",
         "description": "Uygulama deneyimini iyileştirmek için anonim kullanım verileri topluyoruz:",
-        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım kalıpları"
+        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım kalıpları,Bekleme listesi form gönderimleri"
       },
       "purpose": {
         "title": "Amaç",
