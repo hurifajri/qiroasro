@@ -1,7 +1,11 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
+import { useLocale } from 'next-intl';
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
+import type { Locale } from '@/i18n/routing';
+import { trackEvent } from '@/lib/analytics';
+import { useGlobalStore } from '@/providers/global';
 import { useQuizStore } from '../providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -24,6 +28,9 @@ export function useQuizChallenge({
   setEdges,
   generator,
 }: UseQuizChallengeOptions) {
+  const locale = useLocale() as Locale;
+  const theme = useGlobalStore((s) => s.theme);
+
   const { generateQuiz, checkAnswer } = generator;
 
   const mode = useQuizStore((s) => s.mode);
@@ -68,11 +75,15 @@ export function useQuizChallenge({
   });
 
   function handlePlayAgain() {
+    if (!difficulty) return;
+
+    trackEvent('challenge_retry', { locale, theme, difficulty });
+
     setNodes([]);
     setEdges([]);
     reset();
     setMode('challenge');
-    if (difficulty) selectDifficulty(difficulty);
+    selectDifficulty(difficulty);
   }
 
   function handleChangeMode() {
@@ -120,7 +131,7 @@ export function useQuizChallenge({
 
     setTimeout(() => {
       if (currQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
-        finish();
+        finish({ locale, theme });
       } else {
         nextQuestion();
       }
@@ -135,9 +146,14 @@ export function useQuizChallenge({
       setType(currentQuestion.type);
       resetTimer();
 
-      if (currQuestionIdx === 0) startTimer();
+      if (currQuestionIdx === 0 && difficulty) {
+        trackEvent('challenge_started', { locale, theme, difficulty });
+        startTimer();
+      }
     }
   }, [
+    locale,
+    theme,
     mode,
     isStarted,
     currQuestionIdx,
@@ -148,6 +164,7 @@ export function useQuizChallenge({
     resetTimer,
     startTimer,
     setChallengeCurrQuestion,
+    difficulty,
   ]);
 
   return {
