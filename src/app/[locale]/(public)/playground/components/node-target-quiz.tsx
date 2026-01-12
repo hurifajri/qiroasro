@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
-import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { TargetQuizNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
@@ -13,8 +13,8 @@ export function TargetQuizNode({ data }: NodeProps) {
   const nodeData = data as TargetQuizNodeData;
   const t = useTranslations('global');
   const localeKey = kebabToSnakeCase(nodeData.slug);
-  const label = kebabToSpaced(nodeData.slug);
-  const description = t(`${nodeData.type}.${localeKey}`);
+  const label = t(`${nodeData.type}.${localeKey}`);
+  const description = t(`${nodeData.type}_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (

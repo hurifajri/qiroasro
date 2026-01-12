@@ -5,7 +5,7 @@ import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
-import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type {
   ArticulationArea,
   ArticulationPoint,
@@ -54,11 +54,11 @@ export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
 });
 
 export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
-  const t = useTranslations('global.articulation_point');
+  const t = useTranslations('global');
   const nodeData = data as ArticulationPointNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
-  const label = kebabToSpaced(nodeData.slug);
-  const description = t(localeKey);
+  const label = t(`articulation_point.${localeKey}`);
+  const description = t(`articulation_point_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =

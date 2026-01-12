@@ -5,7 +5,7 @@ import { memo, useState } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
-import { cn, kebabToSnakeCase, kebabToSpaced } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { Trait, TraitGroup } from '@/schemas/trait';
 import { useNodeLayout } from '../hooks/use-node-layout';
 import type { BaseNodeData } from '../schemas/node';
@@ -51,11 +51,11 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
 });
 
 export const TraitNode = memo(({ data, selected }: NodeProps) => {
-  const t = useTranslations('global.trait');
+  const t = useTranslations('global');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
-  const label = kebabToSpaced(nodeData.slug);
-  const description = t(localeKey);
+  const label = t(`trait.${localeKey}`);
+  const description = t(`trait_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
