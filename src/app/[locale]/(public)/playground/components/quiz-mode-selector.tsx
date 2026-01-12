@@ -1,19 +1,29 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
+import { useGlobalStore } from '@/providers/global';
 import { useQuizStore } from '../providers/quiz';
 import type { QuizMode, QuizType } from '../schemas/quiz';
 
 export function QuizModeSelector() {
   const t = useTranslations('playground_page.quiz');
+  const locale = useLocale();
+  const theme = useGlobalStore((s) => s.theme);
 
   const setMode = useQuizStore((s) => s.setMode);
   const setType = useQuizStore((s) => s.setType);
 
   function handleSelect(mode: QuizMode, type?: QuizType) {
+    trackEvent('quiz_mode_selected', {
+      locale,
+      theme,
+      mode,
+      type: type || null,
+    });
     setMode(mode);
     if (type) setType(type);
   }
