@@ -54,6 +54,25 @@
       "al_khaisyum": "Pangkal Hidung"
     },
     "articulation_point": {
+      "jauf": "Al-Jauf",
+      "aqsha_halq": "Aqsha Al-Halq",
+      "wasath_halq": "Wasath Al-Halq",
+      "adna_halq": "Adna Al-Halq",
+      "aqsha_lisan": "Aqsha Al-Lisan",
+      "aqsha_lisan_asfal": "Aqsha Al-Lisan (Asfal)",
+      "wasath_lisan": "Wasath Al-Lisan",
+      "hafah_lisan": "Hafah Al-Lisan",
+      "adna_hafah_lisan": "Adna Hafah Al-Lisan",
+      "tharaf_lisan": "Tharaf Al-Lisan",
+      "tharaf_lisan_zhahr_adkhal": "Tharaf Al-Lisan (Zhahr)",
+      "tharaf_lisan_ulya_tsanaya": "Tharaf Al-Lisan & Ushul Ats-Tsanaya",
+      "tharaf_lisan_tsanaya_sufla": "Tharaf Al-Lisan & Ats-Tsanaya As-Sufla",
+      "tharaf_lisan_athraf_tsanaya_ulya": "Tharaf Al-Lisan & Athraf Ats-Tsanaya",
+      "bathn_syafah": "Bathn Asy-Syafah",
+      "syafatain": "Asy-Syafatain",
+      "khaisyum": "Al-Khaisyum"
+    },
+    "articulation_point_description": {
       "jauf": "Rongga (mulut dan tenggorokan).",
       "aqsha_halq": "Tenggorokan bagian bawah (terjauh dari rongga mulut), tepatnya pada pangkal pita suara (laring).",
       "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisanul mizmar).",
