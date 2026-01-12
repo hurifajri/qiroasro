@@ -6,6 +6,12 @@
       "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
+    "consent": {
+      "message": "Kami menggunakan analitik untuk meningkatkan pengalaman Anda.",
+      "accept": "Terima",
+      "reject": "Tolak",
+      "privacy_link": "Kebijakan Privasi"
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -327,6 +333,34 @@
           "title": "Selesai",
           "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum."
         }
+      }
+    }
+  },
+  "privacy_page": {
+    "metadata": {
+      "title": "Kebijakan Privasi",
+      "description": "Pelajari bagaimana Qiroasro mengumpulkan dan menggunakan data Anda untuk meningkatkan pengalaman belajar."
+    },
+    "title": "Kebijakan Privasi",
+    "last_updated": "Terakhir diperbarui: Januari 2026",
+    "intro": "Di Qiroasro, kami menghormati privasi Anda. Kebijakan ini menjelaskan data apa yang kami kumpulkan dan bagaimana kami menggunakannya.",
+    "sections": {
+      "data_collected": {
+        "title": "Data yang Kami Kumpulkan",
+        "description": "Kami mengumpulkan data penggunaan anonim untuk meningkatkan pengalaman aplikasi, termasuk:",
+        "items": "Tampilan halaman dan navigasi,Interaksi kuis,Pola penggunaan fitur"
+      },
+      "purpose": {
+        "title": "Tujuan",
+        "description": "Kami menggunakan data ini hanya untuk memahami bagaimana pengguna berinteraksi dengan aplikasi dan untuk meningkatkan fitur. Kami tidak menjual atau membagikan data Anda kepada pihak ketiga."
+      },
+      "opt_out": {
+        "title": "Pilihan Anda",
+        "description": "Anda dapat menolak pelacakan analitik saat diminta. Jika sudah menerima, Anda dapat menghapus data browser untuk mengatur ulang preferensi."
+      },
+      "contact": {
+        "title": "Kontak",
+        "description": "Jika ada pertanyaan tentang kebijakan ini, silakan hubungi kami di privacy@qiroasro.com"
       }
     }
   }

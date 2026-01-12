@@ -109,20 +109,21 @@ export default async function RootLayout({
           amiriFont.variable,
         )}
       >
-        <AnalyticsProvider>
-          <QueryClientProvider>
-            <GlobalStoreProvider persistedState={persistedState}>
-              <NextIntlClientProvider>{children}</NextIntlClientProvider>
-            </GlobalStoreProvider>
-            {process.env.NODE_ENV === 'development' && (
-              <ReactQueryDevtools
-                initialIsOpen={false}
-                buttonPosition="top-left"
-                position="right"
-              />
-            )}
-          </QueryClientProvider>
-        </AnalyticsProvider>
+        <QueryClientProvider>
+          <GlobalStoreProvider persistedState={persistedState}>
+            <NextIntlClientProvider>
+              <AnalyticsProvider>{children}</AnalyticsProvider>
+            </NextIntlClientProvider>
+          </GlobalStoreProvider>
+          {process.env.NODE_ENV === 'development' && (
+            <ReactQueryDevtools
+              initialIsOpen={false}
+              buttonPosition="top-left"
+              position="right"
+            />
+          )}
+        </QueryClientProvider>
+
         <script
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: <safe>

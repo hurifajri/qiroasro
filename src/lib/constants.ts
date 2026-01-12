@@ -1,5 +1,6 @@
 // Store keys
 export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
+export const CONSENT_STORAGE_KEY = 'analytics_consent';
 
 // Table name
 export const TABLE_LETTERS = 'hij_letters';
