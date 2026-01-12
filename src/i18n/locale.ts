@@ -55,12 +55,15 @@ export function getLocalePath(pathname: string, locale: Locale): string {
 }
 
 /**
- * Get all locale paths for alternates metadata
+ * Get all locale paths for alternates metadata (includes x-default)
  */
 export function getAlternateLanguages(
   pathname: string,
 ): Record<string, string> {
-  return Object.fromEntries(
-    routing.locales.map((l) => [l, getLocalePath(pathname, l)]),
-  );
+  return {
+    ...Object.fromEntries(
+      routing.locales.map((l) => [l, getLocalePath(pathname, l)]),
+    ),
+    'x-default': getLocalePath(pathname, 'en'),
+  };
 }

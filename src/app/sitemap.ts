@@ -14,12 +14,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: page === '/' ? 1 : 0.8,
       alternates: {
-        languages: Object.fromEntries(
-          routing.locales.map((l) => [
-            l,
-            `${APP_URL}${getLocalePath(page, l as Locale)}`,
-          ]),
-        ),
+        languages: {
+          ...Object.fromEntries(
+            routing.locales.map((l) => [
+              l,
+              `${APP_URL}${getLocalePath(page, l as Locale)}`,
+            ]),
+          ),
+          'x-default': `${APP_URL}${getLocalePath(page, 'en')}`,
+        },
       },
     })),
   );
