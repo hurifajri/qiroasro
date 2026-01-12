@@ -3,15 +3,27 @@
 import { getViewportForBounds, useReactFlow } from '@xyflow/react';
 import { toPng } from 'html-to-image';
 import { DownloadIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics';
+import { useGlobalStore } from '@/providers/global';
+import { usePlaygroundStore } from '../providers/playground';
 
 const IMAGE_WIDTH = 1920;
 const IMAGE_HEIGHT = 1080;
 
 export function GraphDownload() {
   const t = useTranslations('playground_page.download');
+  const locale = useLocale();
+  const theme = useGlobalStore((s) => s.theme);
+
+  // Graph settings for snapshot tracking
+  const viewMode = usePlaygroundStore((s) => s.viewMode);
+  const layoutMode = usePlaygroundStore((s) => s.layoutMode);
+  const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
+  const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+
   const { getNodes, getNodesBounds } = useReactFlow();
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -50,6 +62,19 @@ export function GraphDownload() {
         height: `${IMAGE_HEIGHT}px`,
         transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
+    });
+
+    // Track download with graph settings snapshot
+    trackEvent('graph_downloaded', {
+      locale,
+      theme,
+      view_mode: viewMode,
+      layout_mode: layoutMode,
+      hierarchy_direction:
+        layoutMode === 'hierarchical' ? hierarchyDirection : null,
+      edge_type: edgeStyle.isFloating ? 'floating' : 'fixed',
+      edge_shape: !edgeStyle.isFloating ? edgeStyle.shape : null,
+      edge_animated: edgeStyle.isAnimated,
     });
 
     const a = document.createElement('a');
