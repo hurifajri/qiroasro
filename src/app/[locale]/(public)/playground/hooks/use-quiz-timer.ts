@@ -1,0 +1,93 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+export interface UseQuizTimerOptions {
+  /** Timer duration in seconds */
+  duration: number;
+  /** Whether timer is enabled */
+  enabled: boolean;
+  /** Callback when timer reaches zero */
+  onTimeUp?: () => void;
+  /** Whether timer is paused */
+  isPaused?: boolean;
+}
+
+export interface UseQuizTimerReturn {
+  /** Current time remaining in seconds, null if not started */
+  timeRemaining: number | null;
+  /** Start the timer */
+  start: () => void;
+  /** Reset timer to initial duration */
+  reset: () => void;
+  /** Stop timer completely */
+  stop: () => void;
+}
+
+/**
+ * A reusable hook for countdown timer functionality.
+ * Used for quiz time limits in both practice and challenge modes.
+ */
+export function useQuizTimer({
+  duration,
+  enabled,
+  onTimeUp,
+  isPaused = false,
+}: UseQuizTimerOptions): UseQuizTimerReturn {
+  const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
+  const hasCalledTimeUpRef = useRef(false);
+  const onTimeUpRef = useRef(onTimeUp);
+
+  // Keep onTimeUp ref updated to prevent stale closure issues
+  useEffect(() => {
+    onTimeUpRef.current = onTimeUp;
+  }, [onTimeUp]);
+
+  function start() {
+    if (!enabled) return;
+
+    setTimeRemaining(duration);
+    hasCalledTimeUpRef.current = false;
+  }
+
+  function reset() {
+    if (!enabled) return;
+
+    setTimeRemaining(duration);
+    hasCalledTimeUpRef.current = false;
+  }
+
+  function stop() {
+    if (!enabled) return;
+
+    setTimeRemaining(null);
+    hasCalledTimeUpRef.current = false;
+  }
+
+  // Countdown effect
+  useEffect(() => {
+    if (timeRemaining === null || isPaused) return;
+
+    if (timeRemaining <= 0) {
+      // Only call onTimeUp once per timer cycle
+      if (!hasCalledTimeUpRef.current) {
+        hasCalledTimeUpRef.current = true;
+        onTimeUpRef.current?.();
+      }
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => (prev !== null ? prev - 1 : null));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeRemaining, isPaused]);
+
+  return {
+    start,
+    stop,
+    reset,
+    timeRemaining,
+  };
+}

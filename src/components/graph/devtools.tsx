@@ -12,7 +12,13 @@ import {
   ViewportPortal,
   type XYPosition,
 } from '@xyflow/react';
-import { type Dispatch, type SetStateAction, useCallback, useEffect, useState } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 export const ViewportLogger = () => {
@@ -62,7 +68,9 @@ export const ChangeLogger = ({ limit = 20 }: ChangeLoggerProps) => {
   // Memoize the callback for handling node changes
   const handleNodeChanges: OnNodesChange = useCallback(
     (newChanges: NodeChange[]) => {
-      setChanges((prevChanges) => [...newChanges, ...prevChanges].slice(0, limit));
+      setChanges((prevChanges) =>
+        [...newChanges, ...prevChanges].slice(0, limit),
+      );
     },
     [limit],
   );
@@ -80,8 +88,10 @@ export const ChangeLogger = ({ limit = 20 }: ChangeLoggerProps) => {
       {changes.length === 0 ? (
         <NoChanges />
       ) : (
-        // biome-ignore lint/suspicious/noArrayIndexKey: <3rd party component>
-        changes.map((change, index) => <ChangeInfo key={index} change={change} />)
+        changes.map((change, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: <3rd party>
+          <ChangeInfo key={index} change={change} />
+        ))
       )}
     </>
   );

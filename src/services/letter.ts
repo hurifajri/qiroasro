@@ -38,5 +38,9 @@ export function getLetterArticulations(): Promise<LetterArticulation[]> {
 }
 
 export function getLetterTraits(): Promise<LetterTrait[]> {
-  return fetchFromTable(TABLE_LETTER_TRAITS, RemoteLetterTraitsSchema, transformRemoteLetterTraits);
+  return fetchFromTable(
+    TABLE_LETTER_TRAITS,
+    RemoteLetterTraitsSchema,
+    transformRemoteLetterTraits,
+  );
 }

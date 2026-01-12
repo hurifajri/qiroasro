@@ -20,7 +20,9 @@ interface UseScrollPositionOptions {
  * @param options - Configuration options
  * @returns The current scroll position { x, y }
  */
-export function useScrollPosition(options: UseScrollPositionOptions = {}): ScrollPosition {
+export function useScrollPosition(
+  options: UseScrollPositionOptions = {},
+): ScrollPosition {
   const { throttleMs = 0 } = options;
   const [scrollPosition, setScrollPosition] = useState<ScrollPosition>({
     x: 0,

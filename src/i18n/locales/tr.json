@@ -1,0 +1,367 @@
+{
+  "global": {
+    "metadata": {
+      "title": "İlk Grafik Tabanlı Tecvid Uygulaması",
+      "description": "Etkileşimli bilgi grafikleriyle Mahreç ve Sıfatları öğrenin. Tecvid kurallarını birbirine bağlı düğümler olarak görselleştiren ilk uygulama.",
+      "feature_list": "Etkileşimli bilgi grafikleri,Test modu,Çoklu dil desteği",
+      "keywords": "tecvid,tajweed,mahreç,mahreçler,sıfat,kuran,kuran öğrenme,arapça harfler,elifba"
+    },
+    "consent": {
+      "message": "Deneyiminizi iyileştirmek için analitik kullanıyoruz.",
+      "accept": "Kabul Et",
+      "reject": "Reddet",
+      "privacy_link": "Gizlilik Politikası"
+    },
+    "letter": {
+      "hamzah": "Hemze",
+      "ba": "Be",
+      "ta": "Te",
+      "tsa": "Se (Peltek)",
+      "jim": "Cim",
+      "ha_wasath": "Ha",
+      "kha": "Hı",
+      "dal": "Dal",
+      "dhal": "Zel (Peltek)",
+      "ra": "Ra",
+      "zay": "Ze",
+      "sin": "Sin",
+      "shin": "Şın",
+      "shad": "Sad",
+      "dhad": "Dad",
+      "tha": "Tı",
+      "zha": "Zı",
+      "ayn": "Ayın",
+      "ghain": "Gayın",
+      "fa": "Fe",
+      "qaf": "Kaf",
+      "kaf": "Kef",
+      "lam": "Lam",
+      "mim": "Mim",
+      "nun": "Nun",
+      "waw": "Vav",
+      "ha_aqsha": "He",
+      "lam_alif": "Lamelif",
+      "ya": "Ye",
+      "alif_madd": "Elif (Uzatma)",
+      "waw_madd": "Vav (Uzatma)",
+      "ya_madd": "Ye (Uzatma)"
+    },
+    "articulation_area": {
+      "al_jauf": "Cevf (Ağız ve Boğaz Boşluğu)",
+      "al_halq": "Halk (Boğaz)",
+      "al_lisan": "Lisan (Dil)",
+      "asy_syafatain": "Şefeteyn (Dudaklar)",
+      "al_khaisyum": "Hayşum (Geniz)"
+    },
+    "articulation_point": {
+      "jauf": "Ağız ve boğazın içindeki boşluk.",
+      "aqsha_halq": "Boğazın en alt kısmı (ağza en uzak), ses tellerinin bulunduğu bölge.",
+      "wasath_halq": "Boğazın orta kısmı, epiglot (gırtlak kapağı) hizası.",
+      "adna_halq": "Boğazın en üst kısmı (ağza en yakın), dil kökü ile küçük dilin birleştiği yer.",
+      "aqsha_lisan": "Dil kökünün üst damağın yumuşak kısmına değmesiyle çıkar.",
+      "aqsha_lisan_asfal": "Dil kökünün (Kaf mahrecinin biraz altı) yumuşak ve sert damağın birleştiği yere değmesiyle çıkar.",
+      "wasath_lisan": "Dilin ortasının üst damağa yükselmesi. (Cim harfinde yapışır; Şın ve Ye harflerinde yapışmadan yaklaşır).",
+      "hafah_lisan": "Dilin yan tarafının (kökten uca kadar) üst azı dişlerinin iç duvarına (sağ, sol veya her ikisi) basmasıyla çıkar.",
+      "adna_hafah_lisan": "Dil kenarının (Dad mahrecinin bittiği yerden uca kadar) üst ön dişlerin diş etlerine yakın damağa değmesiyle çıkar.",
+      "tharaf_lisan": "Dil ucunun, üst ön dişlerin diş etlerine yakın damağa değmesiyle çıkar (Lam mahrecinin biraz altı).",
+      "tharaf_lisan_zhahr_adkhal": "Dil ucunun, dil sırtına doğru hafifçe kıvrılarak damağa değmesi (Nun mahrecine yakın).",
+      "tharaf_lisan_ulya_tsanaya": "Dil ucunun üst ön dişlerin diplerine değmesiyle çıkar.",
+      "tharaf_lisan_tsanaya_sufla": "Dil ucunun alt ön dişlerin üzerine (değmeden) konumlanması.",
+      "tharaf_lisan_athraf_tsanaya_ulya": "Dil ucunun üst ön dişlerin kesici uçlarına değmesiyle çıkar.",
+      "bathn_syafah": "Alt dudağın içinin üst ön dişlerin uçlarına değmesiyle çıkar.",
+      "syafatain": "İki dudak. (Vav için dudaklar öne uzatılır; Be için kapanır; Mim için gunneli olarak kapanır).",
+      "khaisyum": "Geniz boşluğu (burun kökü), Nun ve Mim harflerindeki Gunne sesinin çıktığı yer."
+    },
+    "trait_group": {
+      "nafas": "Nefes Akışı",
+      "shaut": "Ses Akışı",
+      "ittijah_shaut": "Sesin Yönü",
+      "inhishar_shaut": "Sesin Sıkışması",
+      "khiffah_nuthq": "Telaffuz Kolaylığı",
+      "munfaridah": "Zıddı Olmayan Sıfatlar",
+      "siman_shaut": "Arızi Sıfatlar"
+    },
+    "trait": {
+      "jahr": "Nefes akışının kesilmesi (sesin net ve güçlü çıkması).",
+      "hams": "Nefesin akması (sesin zayıf ve fısıltılı çıkması).",
+      "syiddah": "Ses akışının kesilmesi (kuvvetli).",
+      "rakhawah": "Sesin akması (yumuşak).",
+      "tawassuth": "Sesin ne tam akması ne de tam kesilmesi (orta dereceli akış).",
+      "istila": "Dil kökünün damağa doğru yükselmesi (kalınlaşma).",
+      "istifal": "Dil kökünün aşağıda kalması (incelme).",
+      "itbaq": "Dilin üst damağa yapışması veya çok yaklaşması, sesin ağız içinde hapsolması.",
+      "infitah": "Dil ile damak arasının açık olması.",
+      "idzlaq": "Harfin dil ucu veya dudaktan kolayca ve çabuk çıkması.",
+      "ishmat": "Harfin telaffuzunun ağır ve zor olması.",
+      "safir": "Islık benzeri keskin bir ses.",
+      "qalqalah": "Mahreçte sarsıntı veya titreme (vurgulu ton).",
+      "lin": "Yumuşaklık. (Vav veya Ye harfi cezimli, öncesi üstün olduğunda).",
+      "inhiraf": "Sapma. (Lam harfinde dilin yanlarına, Ra harfinde dilin arkasına doğru sesin sapması).",
+      "takrir": "Dil ucunun hafifçe titremesi (Ra harfinde).",
+      "tafasyi": "Sesin ve havanın ağız içinde yayılması.",
+      "istithalah": "Sesin ve mahrecin uzaması (Dad harfinde).",
+      "ghunnah": "Genizden gelen inilti/vınlama sesi.",
+      "tafkhim": "Harfin kalın okunması (İsti'la sıfatı olan 7 harf).",
+      "tarqiq": "Harfin ince okunması.",
+      "others": "Henüz eklenmemiş bazı özellikler var, inşallah yakında eklenecek."
+    },
+    "development": {
+      "waitlist": "Bekleme Listesi",
+      "more_comprehensive": "Daha kapsamlısını mı arıyorsunuz?",
+      "reminder_title": "Uygulama hazır olduğunda haber ver",
+      "reminder_cta": "Listeye Katıl",
+      "reminder_playground_cta": "Playground'a Git",
+      "reminder_success": "Doğrulama e-postası gönderildi! Lütfen gelen kutunuzu kontrol edin.",
+      "reminder_verified": "E-posta başarıyla doğrulandı",
+      "reminder_verified_message": "Uygulama hazır olduğunda size e-posta ile haber vereceğiz inşallah. Uygulamanın önizlemesi için Playground sayfasını ziyaret edebilirsiniz.",
+      "reminder_already_verified": "E-posta adresi zaten doğrulanmış.",
+      "reminder_error": "Bir hata oluştu. Lütfen tekrar deneyin.",
+      "reminder_invalid_email": "Geçersiz e-posta adresi",
+      "reminder_email_required": "E-posta adresi gereklidir"
+    }
+  },
+  "home_page": {
+    "metadata": {
+      "title": "İlk Grafik Tabanlı Tecvid Uygulaması",
+      "description": "Etkileşimli grafiklerle Tecvid'de ustalaşın. Düğüm tabanlı görselleştirmelerle Mahreç ve Sıfatları öğrenin."
+    },
+    "title": "Qiroasro - İlk Grafik Tabanlı Tecvid Uygulaması",
+    "development": {
+      "title": "Geliştirme Aşamasında",
+      "subtitle": "Etkileşimli bir tecvid öğrenme uygulaması geliştiriyoruz. Allah'ın kolaylaştırması için dualarınızı bekleriz. Amin...",
+      "playground_cta": "Örneği İncele"
+    }
+  },
+  "playground_page": {
+    "metadata": {
+      "title": "Etkileşimli Tecvid Grafiği",
+      "description": "Etkileşimli grafik görselleştirmesi ile Mahreç ve Sıfatları keşfedin. Harflerin çıkış noktaları ve özellikleriyle nasıl bağlantılı olduğunu görün."
+    },
+    "title": "Playground - Etkileşimli Tecvid Grafiği",
+    "filter": {
+      "title": "Ayarlar",
+      "view_mode": {
+        "all": "Tümü",
+        "articulation": "Mahreç",
+        "trait": "Sıfat",
+        "letter": "Harf"
+      },
+      "layout_mode": {
+        "radial": "Radyal (Dairesel)",
+        "hierarchical": "Hiyerarşik",
+        "direction": {
+          "vertical": "Dikey",
+          "horizontal": "Yatay"
+        }
+      },
+      "edge": {
+        "dynamic": "Dinamik Çizgi",
+        "shape": {
+          "default": "Bezier (Eğri)",
+          "straight": "Düz",
+          "step": "Basamak",
+          "smoothstep": "Yumuşak Basamak"
+        }
+      }
+    },
+    "legend": {
+      "title": "Gösterge",
+      "articulation_area": "Genel Mahreç Bölgesi",
+      "articulation_muhaqqaq": "Mahreç-i Muhakkak",
+      "articulation_muhaqqaq_description": "Belirli bir yere (boğaz, dil veya dudak) dayanan mahreç.",
+      "articulation_muqaddar": "Mahreç-i Mukadder",
+      "articulation_muqaddar_description": "Belirli bir yere dayanmayan, dolayısıyla çıkış noktası tam olarak tayin edilemeyen mahreç.",
+      "trait_group": "Sıfat Grubu",
+      "trait_lazimah": "Sıfat-ı Lazime",
+      "trait_lazimah_description": "Sıfat-ı Lazime, harften hiçbir zaman ayrılmayan kalıcı sıfatlardır.",
+      "trait_aridhah": "Sıfat-ı Arıza",
+      "trait_aridhah_description": "Sıfat-ı Arıza, harfte sadece belirli durumlarda bulunan geçici sıfatlardır.",
+      "letter": "Harf",
+      "letterMadd": "Med (Uzatma) Harfi"
+    },
+    "quiz": {
+      "trigger": "Teste Başla",
+      "select_mode_title": "Test Türü",
+      "select_mode_description": "Oynamak istediğiniz test türünü seçin",
+      "mode_articulation_point": "Mahreç Testi",
+      "mode_trait": "Sıfat Testi",
+      "mode_challenge": "Meydan Okuma",
+      "practice_title": "{type} Testi",
+      "practice_description": "Harfi doğru {type} ile eşleştir",
+      "practice_settings_title": "Test Ayarları",
+      "practice_settings_description": "{type} testi için ayarları düzenle",
+      "practice_letters_per_quiz": "Harf Sayısı",
+      "practice_targets_per_quiz": "{target} Sayısı",
+      "practice_multi_edge": "Çoklu Cevap",
+      "practice_timer_mode": "Zamanlayıcı Modu",
+      "practice_timer_duration": "Süre (Saniye)",
+      "practice_instruction_title": "Talimatlar",
+      "practice_instruction_description": "Harfi uygun {target} ile birleştirin. Çizgi çekin veya eşleştirmek için her iki öğeye tıklayın.",
+      "challenge_instruction_description": "Harfi doğru mahreç/sıfat ile birleştirin. 1-5. sorular sadece 1 bağlantı gerektirir. Sonraki sorular birden fazla bağlantı (2, 3 veya 4 çizgi) gerektirir.",
+      "challenge_select_difficulty_title": "Zorluk Seviyesi",
+      "challenge_select_difficulty_description": "Meydan okuma zorluk seviyesini seçin",
+      "challenge_confirm_title": "Meydan Okumayı Onayla",
+      "challenge_title": "Meydan Okuma",
+      "challenge_description": "Harfi doğru {type} ile eşleştir",
+      "challenge_difficulty_easy": "Kolay",
+      "challenge_difficulty_medium": "Orta",
+      "challenge_difficulty_hard": "Zor",
+      "challenge_seconds_per_question": "Soru başına {seconds} saniye",
+      "challenge_total_question_count": "Toplam {count} soru",
+      "challenge_question_of": "Soru {current} / {total}",
+      "challenge_point": "puan",
+      "challenge_total_time": "Toplam Süre",
+      "challenge_total_point": "Toplam Puan",
+      "challenge_perfect_question": "Kusursuz Sorular",
+      "challenge_correct_connection": "Doğru",
+      "challenge_incorrect_connection": "Yanlış",
+      "challenge_accuracy": "Doğruluk",
+      "challenge_badge_perfect": "Mümtaz (Yüksek)",
+      "challenge_badge_great": "Mümtaz",
+      "challenge_badge_good": "Ceyyid Cidden",
+      "challenge_badge_keep_learning": "Ceyyid",
+      "challenge_weakness_analysis": "Analiz",
+      "challenge_weakness_incorrect": "Cevaplandı ama yanlış",
+      "challenge_weakness_missed": "Cevaplanmadı",
+      "challenge_share_result": "Sonucu Paylaş",
+      "challenge_share_text": "Mahreç ve Sıfat Testinde ({difficulty} Seviye) {minutes} dakika {seconds} saniyede {point} puan aldım! 🎯",
+      "challenge_share_copied": "Kopyalandı!",
+      "challenge_play_again": "Tekrar Oyna",
+      "check_answer": "Cevabı Kontrol Et",
+      "try_again": "Tekrar Dene",
+      "change_mode": "Modu Değiştir",
+      "all_correct": "Mükemmel!",
+      "correct_score": "{correct} Doğru",
+      "incorrect_score": "{incorrect} Yanlış",
+      "incorrect_single_answer": "Devam et!",
+      "back": "Geri",
+      "start_quiz": "Teste Başla"
+    },
+    "download": {
+      "trigger": "Görüntüyü İndir",
+      "downloading": "İndiriliyor..."
+    },
+    "development": {
+      "more_comprehensive": "Daha kapsamlısını mı istiyorsunuz?"
+    },
+    "error": {
+      "title": "Bir hata oluştu",
+      "description": "Sayfa yüklenirken bir hata oluştu. Lütfen tekrar deneyin.",
+      "retry": "Tekrar Dene",
+      "reload": "Yenile"
+    },
+    "tour": {
+      "next": "İleri",
+      "prev": "Geri",
+      "done": "Tamam!",
+      "help_button": "Rehber",
+      "of": "/",
+      "steps": {
+        "welcome": {
+          "title": "Selamun Aleyküm!",
+          "description": "Tecvid Playground'a hoş geldiniz. Allah bu etkileşimli görselleştirme ile tecvid ilmini öğrenmenizi kolaylaştırsın. Bismillah diyerek başlayalım..."
+        },
+        "canvas": {
+          "title": "Etkileşimli Alan",
+          "description": "Burası harfler, mahreçler ve sıfatlar arasındaki ilişkileri keşfedebileceğiniz ana alandır. Lütfen ekrandaki herhangi bir harfe, mahrece veya sıfata tıklayın."
+        },
+        "controls": {
+          "title": "Görünüm Kontrolleri",
+          "description": "Yakınlaştırmak için fare tekerleğini veya +/- düğmelerini, kaydırmak için sürüklemeyi, grafiği ortalamak için kare simgesini ve düzeni kilitlemek için kilit simgesini kullanın."
+        },
+        "graph_filter": {
+          "title": "Ayarlar Paneli",
+          "description": "Buradan grafik görünümünü ihtiyaçlarınıza göre ayarlayabilirsiniz. Ayarlar panelini açmak için lütfen tıklayın."
+        },
+        "view_mode": {
+          "title": "Görünüm Modu",
+          "description": "Neyi görüntülemek istediğinizi seçin: Tümü, Sadece Mahreç, Sadece Sıfat veya belirli bir Harfe odaklanma. Devam etmek için lütfen 'Harf'e tıklayın."
+        },
+        "letter_selector": {
+          "title": "Harf Seçimi",
+          "description": "Maşallah, keşfedilecek 29 Kur'an harfi var. Mahreç ve Sıfatlarını detaylı görmek için bir harf seçin."
+        },
+        "layout_mode": {
+          "title": "Düzen Modu",
+          "description": "Radyal (güneş gibi dairesel) veya Hiyerarşik (ağaç gibi katmanlı) düzen arasında seçim yapın. Lütfen Hiyerarşik modu deneyin."
+        },
+        "hierarchy_direction": {
+          "title": "Hiyerarşi Yönü",
+          "description": "Akış yönünü ayarlayın: Dikey (yukarıdan aşağıya) veya Yatay (soldan sağa). Lütfen Yatay'ı seçin."
+        },
+        "edge_style": {
+          "title": "Çizgi Stili",
+          "description": "Düğüm pozisyonlarını takip eden dinamik çizgileri etkinleştirin veya statik çizgi şekillerini seçmek için devre dışı bırakın."
+        },
+        "edge_shape": {
+          "title": "Çizgi Şekli",
+          "description": "Bağlantı çizgisi şeklini seçin: Bezier (yumuşak eğri), Düz, Basamak veya Yumuşak Basamak."
+        },
+        "graph_legend": {
+          "title": "Renk Göstergesi",
+          "description": "Bu panel her düğüm renginin anlamını açıklar. Devam etmek için lütfen paneli açın."
+        },
+        "legend_detail": {
+          "title": "Detaylı Bilgi",
+          "description": "Daha detaylı açıklamaları okumak için bu simgeye tıklayabilirsiniz."
+        },
+        "download": {
+          "title": "Görüntüyü İndir",
+          "description": "Grafiğin görüntüsünü indirmek için bu butona tıklayın."
+        },
+        "quiz": {
+          "title": "Test",
+          "description": "Bazı test örneklerini denemek için bu butona tıklayın."
+        },
+        "locale_selector": {
+          "title": "Dil Seçimi",
+          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın. Şu anda Endonezyaca, İngilizce ve Türkçe mevcuttur."
+        },
+        "theme_selector": {
+          "title": "Tema Seçimi",
+          "description": "Uygulamayı açık veya koyu modda kullanmak için buradan tema seçin."
+        },
+        "waitlist": {
+          "title": "Bekleme Listesi",
+          "description": "Uygulama hazır olduğunda size haber verebilmemiz için bu butona tıklayarak bekleme listesine katılın inşallah."
+        },
+        "help": {
+          "title": "Yardım",
+          "description": "Rehberi yeniden başlatmak için bu butona tıklayın."
+        },
+        "end": {
+          "title": "Tamamladık!",
+          "description": "Bu rehberi takip ettiğiniz için teşekkürler. Lütfen keşfetmeye devam edin. Allah razı olsun."
+        }
+      }
+    }
+  },
+  "privacy_page": {
+    "metadata": {
+      "title": "Gizlilik Politikası",
+      "description": "Qiroasro'nun öğrenme deneyiminizi iyileştirmek için verilerinizi nasıl topladığını ve kullandığını öğrenin."
+    },
+    "title": "Gizlilik Politikası",
+    "last_updated": "Son güncelleme: Ocak 2026",
+    "intro": "Qiroasro olarak gizliliğinize önem veriyoruz. Bu politika, hangi verileri topladığımızı ve bunları nasıl kullandığımızı açıklar.",
+    "sections": {
+      "data_collected": {
+        "title": "Topladığımız Veriler",
+        "description": "Uygulama deneyimini iyileştirmek için anonim kullanım verileri topluyoruz, bunlar şunları içerir:",
+        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım alışkanlıkları,Bekleme listesi kayıtları"
+      },
+      "purpose": {
+        "title": "Amaç",
+        "description": "Bu verileri yalnızca kullanıcıların uygulamayla nasıl etkileşime girdiğini anlamak ve özellikleri geliştirmek için kullanıyoruz. Verilerinizi üçüncü taraflara satmıyoruz veya paylaşmıyoruz."
+      },
+      "opt_out": {
+        "title": "Seçenekleriniz",
+        "description": "Size sorulduğunda analitik takibini reddedebilirsiniz. Daha önce kabul ettiyseniz, tercihinizi sıfırlamak için tarayıcı verilerinizi temizleyebilirsiniz."
+      },
+      "contact": {
+        "title": "İletişim",
+        "description": "Bu politika hakkında sorularınız varsa, lütfen privacy@qiroasro.com adresinden bize ulaşın."
+      }
+    }
+  }
+}

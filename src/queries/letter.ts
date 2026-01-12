@@ -1,5 +1,9 @@
 import { queryOptions } from '@tanstack/react-query';
-import { getLetterArticulations, getLetters, getLetterTraits } from '@/services/letter';
+import {
+  getLetterArticulations,
+  getLetters,
+  getLetterTraits,
+} from '@/services/letter';
 
 const lettersKey = {
   all: ['letters'],

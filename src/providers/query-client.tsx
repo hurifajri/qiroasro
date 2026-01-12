@@ -32,5 +32,9 @@ function getQueryClient() {
 export function QueryClientProvider({ children }: React.PropsWithChildren) {
   const queryClient = getQueryClient();
 
-  return <ReactQueryClientProvider client={queryClient}>{children}</ReactQueryClientProvider>;
+  return (
+    <ReactQueryClientProvider client={queryClient}>
+      {children}
+    </ReactQueryClientProvider>
+  );
 }

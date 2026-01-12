@@ -35,6 +35,8 @@ export async function fetchFromTable<Schema extends z.ZodType, Result>(
     const parsed = schema.parse(data);
     return transform(parsed);
   } catch (parseError) {
-    throw parseError instanceof Error ? parseError : new Error('Failed to parse data');
+    throw parseError instanceof Error
+      ? parseError
+      : new Error('Failed to parse data');
   }
 }

@@ -1,6 +1,12 @@
 'use client';
 
-import { Panel, type PanelProps, useReactFlow, useStore, useViewport } from '@xyflow/react';
+import {
+  Panel,
+  type PanelProps,
+  useReactFlow,
+  useStore,
+  useViewport,
+} from '@xyflow/react';
 import { Maximize, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -28,9 +34,16 @@ export function ZoomSlider({
       {...props}
     >
       <div
-        className={cn('flex gap-1', orientation === 'horizontal' ? 'flex-row' : 'flex-col-reverse')}
+        className={cn(
+          'flex gap-1',
+          orientation === 'horizontal' ? 'flex-row' : 'flex-col-reverse',
+        )}
       >
-        <Button variant="ghost" size="icon" onClick={() => zoomOut({ duration: 300 })}>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => zoomOut({ duration: 300 })}
+        >
           <Minus className="h-4 w-4" />
         </Button>
         <Slider
@@ -40,20 +53,33 @@ export function ZoomSlider({
           min={minZoom}
           max={maxZoom}
           step={0.01}
-          onValueChange={(values) => zoomTo(Array.isArray(values) ? values[0] : values)}
+          onValueChange={(values) =>
+            zoomTo(Array.isArray(values) ? values[0] : values)
+          }
         />
-        <Button variant="ghost" size="icon" onClick={() => zoomIn({ duration: 300 })}>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => zoomIn({ duration: 300 })}
+        >
           <Plus className="h-4 w-4" />
         </Button>
       </div>
       <Button
-        className={cn('tabular-nums', orientation === 'horizontal' ? 'w-35 min-w-10' : 'size-10')}
+        className={cn(
+          'tabular-nums',
+          orientation === 'horizontal' ? 'w-35 min-w-10' : 'size-10',
+        )}
         variant="ghost"
         onClick={() => zoomTo(1, { duration: 300 })}
       >
         {(100 * zoom).toFixed(0)}%
       </Button>
-      <Button variant="ghost" size="icon" onClick={() => fitView({ duration: 300 })}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => fitView({ duration: 300 })}
+      >
         <Maximize className="h-4 w-4" />
       </Button>
     </Panel>

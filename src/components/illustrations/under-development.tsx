@@ -8,7 +8,9 @@ interface UnderDevelopmentIllustrationProps {
   className?: string;
 }
 
-export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllustrationProps) {
+export function UnderDevelopmentIllustration({
+  className,
+}: UnderDevelopmentIllustrationProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +62,10 @@ export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllu
         d="M746 335.2c0-25.5 20.6-46.1 46.1-46.1h292V135.4h-584v476.4c0 8.5 6.9 15.4 15.4 15.4H746zm123-122.9h30.7V243H869zm-61.5 0h30.7V243h-30.7zm-61.5 0h30.7V243H746zm-61.4 368.8h-123v-30.7h123zm0-61.5h-123v-30.7h123zm0-61.4h-123v-30.7h123zm0-61.5h-123V366h123zm0-61.5h-123v-30.7h123zm0-92.2v-30.7h30.7V243z"
         opacity="0.19"
       />
-      <path fill="#fcd2b1" d="m866.3 767.1.6-16.2 11.5 3.5 2.2 20.2s-11 .7-14.3-7.5" />
+      <path
+        fill="#fcd2b1"
+        d="m866.3 767.1.6-16.2 11.5 3.5 2.2 20.2s-11 .7-14.3-7.5"
+      />
       <path
         fill="#0e538c"
         d="M867.3 767.2c2.7 1.1 7.2 2.1 12.8.8l-.7-4.6s3.2 1.9 4 6.1c.8 4.1 1 3 6.2 6.2 5.3 3.2 4.9 10.4 4.9 10.4l-39.2-1s-1.1-7.9 6-16.3c1.4-1.8 3.9-2.5 6-1.6"
@@ -77,12 +82,18 @@ export function UnderDevelopmentIllustration({ className }: UnderDevelopmentIllu
         fill="#d3d3d3"
         d="M795.9 784.3h100.2v11.5H795.9zm-21.4 79.4h107.7v11.5H774.5zm-9.7 76.8h107.7V952H764.8z"
       />
-      <path fill="#d3d3d3" d="M754 1016.9h-12l88.4-415.8h6.7zm125.3 0h-12l70.1-427.5 5.9 2.8z" />
+      <path
+        fill="#d3d3d3"
+        d="M754 1016.9h-12l88.4-415.8h6.7zm125.3 0h-12l70.1-427.5 5.9 2.8z"
+      />
       <path
         fill="#f7f7f7"
         d="m855 1016.9 64.5-415.1-89.1-.7-88.4 415.8h-13.8L818 589.4h119.4l-66.3 427.5H853"
       />
-      <path fill="#fcd2b1" d="m814.5 767.1.6-16.2 11.5 3.5 2.2 20.2c-.1 0-11 .7-14.3-7.5" />
+      <path
+        fill="#fcd2b1"
+        d="m814.5 767.1.6-16.2 11.5 3.5 2.2 20.2c-.1 0-11 .7-14.3-7.5"
+      />
       <path
         fill="#ffe3ca"
         d="M928 401.6s28.5-2.1 31.9-15.3 2.8-48.8 2.8-48.8h9.9s6.8 33.1 6.4 48.8-19.5 42.5-51 40.8c-31.4-1.7 0-25.5 0-25.5"

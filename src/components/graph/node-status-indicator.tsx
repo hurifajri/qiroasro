@@ -10,7 +10,11 @@ export type NodeStatusIndicatorProps = {
   children: ReactNode;
 };
 
-export const SpinnerLoadingIndicator = ({ children }: { children: ReactNode }) => {
+export const SpinnerLoadingIndicator = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   return (
     <div className="relative">
       <StatusBorder className="border-blue-700/40">{children}</StatusBorder>
@@ -25,7 +29,11 @@ export const SpinnerLoadingIndicator = ({ children }: { children: ReactNode }) =
   );
 };
 
-export const BorderLoadingIndicator = ({ children }: { children: ReactNode }) => {
+export const BorderLoadingIndicator = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   return (
     <>
       <div className="-top-px -left-px absolute h-[calc(100%+2px)] w-[calc(100%+2px)]">
@@ -55,7 +63,13 @@ export const BorderLoadingIndicator = ({ children }: { children: ReactNode }) =>
   );
 };
 
-const StatusBorder = ({ children, className }: { children: ReactNode; className?: string }) => {
+const StatusBorder = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   return (
     <>
       <div
@@ -85,7 +99,9 @@ export const NodeStatusIndicator = ({
           return <>{children}</>;
       }
     case 'success':
-      return <StatusBorder className="border-emerald-600">{children}</StatusBorder>;
+      return (
+        <StatusBorder className="border-emerald-600">{children}</StatusBorder>
+      );
     case 'error':
       return <StatusBorder className="border-red-400">{children}</StatusBorder>;
     default:

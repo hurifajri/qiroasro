@@ -5,16 +5,19 @@ import { GLOBAL_STORE_KEY } from '@/lib/constants';
 import { getCookies } from '@/lib/cookies';
 import { cookiesStorage } from '@/lib/storage';
 
-export type Locale = 'en' | 'id';
-export type WaitlistStatus = 'idle' | 'success' | 'verified' | 'already_verified' | 'error';
+export type WaitlistStatus =
+  | 'idle'
+  | 'success'
+  | 'verified'
+  | 'already_verified'
+  | 'error';
 
 export interface GlobalState {
-  locale: Locale;
   theme: ColorMode;
   waitlistStatus: WaitlistStatus;
 }
 
-export type PersistedGlobalState = Pick<GlobalState, 'locale' | 'theme'>;
+export type PersistedGlobalState = Pick<GlobalState, 'theme'>;
 
 interface PersistedGlobal {
   state: PersistedGlobalState;
@@ -22,7 +25,6 @@ interface PersistedGlobal {
 }
 
 interface GlobalAction {
-  setLocale: (locale: Locale) => void;
   setTheme: (theme: ColorMode) => void;
   setWaitlistStatus: (status: WaitlistStatus) => void;
 }
@@ -30,10 +32,12 @@ interface GlobalAction {
 export type GlobalStore = GlobalState & GlobalAction;
 
 function initPersistedGlobalState(): PersistedGlobalState {
-  return { locale: 'id', theme: 'light' };
+  return { theme: 'light' };
 }
 
-export function initGlobalState(persistedState?: PersistedGlobalState): GlobalState {
+export function initGlobalState(
+  persistedState?: PersistedGlobalState,
+): GlobalState {
   const initPersistedState = persistedState ?? initPersistedGlobalState();
 
   return { waitlistStatus: 'idle', ...initPersistedState };
@@ -44,7 +48,6 @@ export function createGlobalStore(globalState: GlobalState) {
     persist(
       (set) => ({
         ...globalState,
-        setLocale: (locale) => set(() => ({ locale })),
         setTheme: (theme) => set(() => ({ theme })),
         setWaitlistStatus: (status) => set(() => ({ waitlistStatus: status })),
       }),
@@ -53,7 +56,6 @@ export function createGlobalStore(globalState: GlobalState) {
         storage: createJSONStorage(() => cookiesStorage),
         skipHydration: true,
         partialize: (state) => ({
-          locale: state.locale,
           theme: state.theme,
         }),
       },

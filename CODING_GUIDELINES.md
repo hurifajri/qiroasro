@@ -314,7 +314,7 @@ import type { Letter } from '@/schemas/letter';
 // ✅ Import within same page-level (relative import)
 // Inside src/app/(public)/playground/components/quiz.tsx
 import { useQuizStore } from '../providers/quiz';
-import type { QuizMode } from '../schemas/quiz';
+import type { QuizType } from '../schemas/quiz';
 import { QuizCanvas } from './quiz-canvas';
 
 // ✅ Import within same global level (relative import)
@@ -370,7 +370,7 @@ import { useReactFlow, useNodesState, useEdgesState } from '@xyflow/react';
 interface QuizState {
   isDialogOpen: boolean;
   mode: QuizMode | null;
-  settings: RegularQuizSettings;
+  settings: PracticeQuizSettings;
 }
 
 // 2. Define Actions interface
@@ -387,7 +387,7 @@ export type QuizStore = QuizState & QuizActions;
 const initialState: QuizState = {
   isDialogOpen: false,
   mode: null,
-  settings: REGULAR_DEFAULT_QUIZ_SETTINGS,
+  settings: PRACTICE_QUIZ_DEFAULT_SETTINGS,
 };
 
 // 5. Create store

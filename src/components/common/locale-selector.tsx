@@ -1,38 +1,42 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { useGlobalStore } from '@/providers/global';
-import type { Locale } from '@/stores/global';
+import { useLocale } from 'next-intl';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { LOCALE_CONFIG } from '@/i18n/locale';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { type Locale, routing } from '@/i18n/routing';
 
-type LocaleSelectorProps = Readonly<{
-  locale: Locale;
-}>;
-
-export function LocaleSelector({ locale }: LocaleSelectorProps) {
+export function LocaleSelector() {
+  const locale = useLocale() as Locale;
   const router = useRouter();
-  const setLocale = useGlobalStore((s) => s.setLocale);
-  const storeLocale = useGlobalStore((s) => s.locale);
+  const pathname = usePathname();
+  const currentConfig = LOCALE_CONFIG[locale];
 
-  // Use store value (client) after hydration, fallback to server prop
-  const currentLocale = storeLocale ?? locale;
-
-  const handleLocaleChange = () => {
-    const newLocale = currentLocale === 'en' ? 'id' : 'en';
-    setLocale(newLocale);
-    // Refresh to re-render server components with new locale from cookies
-    router.refresh();
+  const handleLocaleChange = (newLocale: Locale) => {
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
-    <Button
-      id="tour-locale-selector"
-      className="rounded-full text-muted-foreground uppercase"
-      onClick={handleLocaleChange}
-      size="icon"
-      variant="outline"
-    >
-      {currentLocale}
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        id="tour-locale-selector"
+        className="size-8 rounded-full border border-border bg-background text-xl hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
+      >
+        {currentConfig.flag}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {routing.locales.map((l) => (
+          <DropdownMenuItem key={l} onClick={() => handleLocaleChange(l)}>
+            <span className="mr-2">{LOCALE_CONFIG[l].flag}</span>
+            {LOCALE_CONFIG[l].name}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useForm } from '@tanstack/react-form';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCallback } from 'react';
+import { trackEvent } from '@/lib/analytics';
 import { emailRegex } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 
@@ -12,10 +12,15 @@ interface UseWaitlistOptions {
   onError?: () => void;
 }
 
-export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) {
+export function useWaitlist({
+  source,
+  onSuccess,
+  onError,
+}: UseWaitlistOptions) {
   const t = useTranslations('global');
   const locale = useLocale();
 
+  const theme = useGlobalStore((s) => s.theme);
   const waitlistStatus = useGlobalStore((s) => s.waitlistStatus);
   const setWaitlistStatus = useGlobalStore((s) => s.setWaitlistStatus);
 
@@ -43,6 +48,7 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
           return;
         }
 
+        trackEvent('waitlist_submitted', { locale, theme, source });
         setWaitlistStatus('success');
         form.reset();
         onSuccess?.();
@@ -53,29 +59,27 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
     },
   });
 
-  const handleUrlParams = useCallback(
-    (searchParams: URLSearchParams) => {
-      const status = searchParams.get('waitlist_status');
-      if (status === 'success') {
-        setWaitlistStatus('verified');
-      } else if (status === 'already_verified') {
-        setWaitlistStatus('already_verified');
-      } else if (status === 'error') {
-        setWaitlistStatus('error');
-      }
+  function handleUrlParams(searchParams: URLSearchParams) {
+    const status = searchParams.get('waitlist_status');
+    if (status === 'success') {
+      trackEvent('waitlist_verified', { locale, theme, source });
+      setWaitlistStatus('verified');
+    } else if (status === 'already_verified') {
+      setWaitlistStatus('already_verified');
+    } else if (status === 'error') {
+      setWaitlistStatus('error');
+    }
 
-      // Clear URL params after reading
-      if (status) {
-        const newUrl = new URL(window.location.href);
-        newUrl.searchParams.delete('waitlist_status');
-        newUrl.searchParams.delete('locale');
-        window.history.replaceState({}, '', newUrl.toString());
-      }
-    },
-    [setWaitlistStatus],
-  );
+    // Clear URL params after reading
+    if (status) {
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete('waitlist_status');
+      newUrl.searchParams.delete('locale');
+      window.history.replaceState({}, '', newUrl.toString());
+    }
+  }
 
-  const getStatusMessage = useCallback((): string | null => {
+  function getStatusMessage(): string | null {
     switch (waitlistStatus) {
       case 'success':
         return t('development.reminder_success');
@@ -86,9 +90,9 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
       default:
         return null;
     }
-  }, [waitlistStatus, t]);
+  }
 
-  const getStatusColor = useCallback((): string => {
+  function getStatusColor(): string {
     switch (waitlistStatus) {
       case 'success':
       case 'verified':
@@ -99,16 +103,13 @@ export function useWaitlist({ source, onSuccess, onError }: UseWaitlistOptions) 
       default:
         return '';
     }
-  }, [waitlistStatus]);
+  }
 
-  const validateEmail = useCallback(
-    (value: string): string | undefined => {
-      if (!value) return t('development.reminder_email_required');
-      if (!emailRegex.test(value)) return t('development.reminder_invalid_email');
-      return undefined;
-    },
-    [t],
-  );
+  function validateEmail(value: string): string | undefined {
+    if (!value) return t('development.reminder_email_required');
+    if (!emailRegex.test(value)) return t('development.reminder_invalid_email');
+    return undefined;
+  }
 
   return {
     form,

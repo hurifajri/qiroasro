@@ -1,4 +1,8 @@
-import type { RemoteLetter, RemoteLetterArticulation, RemoteLetterTrait } from '@/schemas/letter';
+import type {
+  RemoteLetter,
+  RemoteLetterArticulation,
+  RemoteLetterTrait,
+} from '@/schemas/letter';
 
 function transformRemoteLetter(remoteLetter: RemoteLetter) {
   return {
@@ -14,7 +18,9 @@ export function transformRemoteLetters(remoteLetters: RemoteLetter[]) {
   return remoteLetters.map((letter) => transformRemoteLetter(letter));
 }
 
-function transformRemoteLetterArticulation(remoteLetterArticulation: RemoteLetterArticulation) {
+function transformRemoteLetterArticulation(
+  remoteLetterArticulation: RemoteLetterArticulation,
+) {
   return {
     isPrimary: remoteLetterArticulation.is_primary,
     letterId: remoteLetterArticulation.letter_id,
@@ -38,6 +44,10 @@ function transformRemoteLetterTrait(remoteLetterTrait: RemoteLetterTrait) {
   };
 }
 
-export function transformRemoteLetterTraits(remoteLetterTraits: RemoteLetterTrait[]) {
-  return remoteLetterTraits.map((letterTrait) => transformRemoteLetterTrait(letterTrait));
+export function transformRemoteLetterTraits(
+  remoteLetterTraits: RemoteLetterTrait[],
+) {
+  return remoteLetterTraits.map((letterTrait) =>
+    transformRemoteLetterTrait(letterTrait),
+  );
 }

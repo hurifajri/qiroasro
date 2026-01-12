@@ -12,7 +12,12 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": "on",
+        "useSortedKeys": {
+          "options": {
+            "sortOrder": "natural"
+          }
+        }
       }
     }
   },
@@ -23,7 +28,7 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 100
+    "lineWidth": 80
   },
   "linter": {
     "enabled": true,

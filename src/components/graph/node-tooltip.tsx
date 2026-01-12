@@ -60,8 +60,10 @@ export function NodeTooltipTrigger(props: ComponentProps<'div'>) {
     [props, hideTooltip],
   );
 
-  // biome-ignore lint/a11y/noStaticElementInteractions: <3rd party component>
-  return <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props} />;
+  return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: <3rd party>
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} {...props} />
+  );
 }
 
 /* TOOLTIP CONTENT ---------------------------------------------------------- */
@@ -70,7 +72,12 @@ export function NodeTooltipTrigger(props: ComponentProps<'div'>) {
 //  * A component that displays the tooltip content based on visibility context.
 //  */
 
-export function NodeTooltipContent({ children, position, className, ...props }: NodeToolbarProps) {
+export function NodeTooltipContent({
+  children,
+  position,
+  className,
+  ...props
+}: NodeToolbarProps) {
   const tooltipContext = useContext(TooltipContext);
   if (!tooltipContext) {
     throw new Error('NodeTooltipContent must be used within NodeTooltip');
@@ -81,7 +88,10 @@ export function NodeTooltipContent({ children, position, className, ...props }: 
     <div>
       <NodeToolbar
         isVisible={isVisible}
-        className={cn('rounded-sm bg-primary p-2 text-primary-foreground', className)}
+        className={cn(
+          'rounded-sm bg-primary p-2 text-primary-foreground',
+          className,
+        )}
         tabIndex={0}
         position={position}
         {...props}

@@ -13,7 +13,7 @@ import {
   Text,
 } from '@react-email/components';
 import { env } from '@/env';
-import type { Locale } from '@/stores/global';
+import type { Locale } from '@/i18n/routing';
 
 interface VerifyEmailTemplateProps {
   verificationUrl: string;
@@ -21,7 +21,6 @@ interface VerifyEmailTemplateProps {
 }
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
-// const SOCIAL_MEDIA_HANDLE = env.NEXT_PUBLIC_SOCIAL_MEDIA_HANDLE;
 
 const translations = {
   id: {
@@ -44,9 +43,22 @@ const translations = {
     expiry: 'This link will expire in 24 hours.',
     ignore: `Please ignore this email if you did not sign up.`,
   },
+  tr: {
+    title: 'E-posta Doğrulama',
+    greeting: 'Selamün Aleyküm,',
+    message_1: `${APP_NAME} bekleme listesine katıldığınız için Cezakümullahu hayran kesiran. İnşallah, uygulama resmi olarak yayınlandığında ve kullanıma hazır olduğunda sizi bilgilendireceğiz.`,
+    message_2: `Bu uygulamanın bir hocanın yerini almak için oluşturulmadığını önemle belirtmek isteriz. Talakki ve Müşafehe usulüyle bir hocadan öğrenmek, Sünnete uygun olan asıl yöntemdir. Umudumuz, bu uygulamanın Tecvid öğrenmemizi kolaylaştıracak bir vesile olmasıdır. Allah geliştirme sürecini bereketli ve kolay kılsın.`,
+    verification: `Uygulama yayınlandığında sizinle iletişime geçebilmemiz için lütfen aşağıdaki düğmeye tıklayarak e-postanızı doğrulayın.`,
+    button: 'E-postayı Doğrula',
+    expiry: 'Bu bağlantı 24 saat içinde geçerliliğini yitirecektir.',
+    ignore: `Kayıt olmadıysanız lütfen bu e-postayı dikkate almayın.`,
+  },
 };
 
-export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEmailTemplateProps) {
+export function VerifyEmailTemplate({
+  verificationUrl,
+  locale = 'id',
+}: VerifyEmailTemplateProps) {
   const t = translations[locale];
 
   return (
@@ -100,7 +112,9 @@ export function VerifyEmailTemplate({ verificationUrl, locale = 'id' }: VerifyEm
             <Text className="text-base leading-7">{t.greeting}</Text>
             <Text className="text-base leading-7">{t.message_1}</Text>
             <Text className="text-base leading-7">{t.message_2}</Text>
-            <Text className="font-bold text-base leading-7">{t.verification}</Text>
+            <Text className="font-bold text-base leading-7">
+              {t.verification}
+            </Text>
             <Section className="text-center">
               <Link
                 href={verificationUrl}

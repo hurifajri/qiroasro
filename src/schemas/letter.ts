@@ -36,9 +36,13 @@ const LetterArticulationSchema = z.object({
   sortOrder: z.number().int(),
 });
 
-export const RemoteLetterArticulationsSchema = z.array(RemoteLetterArticulationSchema);
+export const RemoteLetterArticulationsSchema = z.array(
+  RemoteLetterArticulationSchema,
+);
 
-export type RemoteLetterArticulation = z.infer<typeof RemoteLetterArticulationSchema>;
+export type RemoteLetterArticulation = z.infer<
+  typeof RemoteLetterArticulationSchema
+>;
 export type LetterArticulation = z.infer<typeof LetterArticulationSchema>;
 
 export const RemoteLetterTraitSchema = z.object({

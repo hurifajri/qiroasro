@@ -2,8 +2,8 @@
 
 import type { ColorMode } from '@xyflow/react';
 import { MoonIcon, SunIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { useRouter } from '@/i18n/navigation';
 import { useGlobalStore } from '@/providers/global';
 
 type ThemeSelectorProps = Readonly<{
@@ -33,7 +33,11 @@ export function ThemeSelector({ theme }: ThemeSelectorProps) {
       size="icon"
       variant="outline"
     >
-      {currentTheme === 'light' ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
+      {currentTheme === 'light' ? (
+        <SunIcon className="size-5" />
+      ) : (
+        <MoonIcon className="size-5" />
+      )}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

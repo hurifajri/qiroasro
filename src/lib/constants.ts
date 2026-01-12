@@ -1,5 +1,6 @@
 // Store keys
 export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
+export const CONSENT_STORAGE_KEY = 'analytics_consent';
 
 // Table name
 export const TABLE_LETTERS = 'hij_letters';
@@ -15,6 +16,31 @@ export const COLUMN_SORT_ORDER = 'sort_order';
 
 // Materialized View name
 export const MV_PLAYGROUND_DATA = 'mv_playground_data';
+
+export const LOCALES = [
+  'id',
+  'en',
+  'tr',
+  // 'ms',
+  // 'fr',
+  // 'es',
+  // 'de',
+  // 'nl',
+  // 'it',
+  // 'pt',
+  // 'ru',
+  // 'sw',
+  // 'ar',
+  // 'so',
+  // 'ha',
+  // 'ur',
+  // 'fa',
+  // 'bn',
+  // 'zh',
+  // 'hi',
+  // 'ko',
+] as const;
+export const PAGES = ['/', '/playground'] as const;
 
 // Nodes
 export const LETTERS = [
@@ -52,14 +78,29 @@ export const LETTERS = [
   'ـِي',
 ] as const;
 
-// Quiz
-export const CORRECT_POINT = 10;
-export const INCORRECT_POINT = -1;
-export const QUIZ_MODES = ['articulation_point', 'trait'] as const;
-export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
+export const NODE_TYPES = [
+  'letter',
+  'articulation_area',
+  'articulation_point',
+  'trait_group',
+  'trait',
+] as const;
 
 // Playground
 export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
 export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
 export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
-export const EDGE_SHAPES = ['default', 'straight', 'step', 'smoothstep'] as const;
+export const EDGE_SHAPES = [
+  'default',
+  'straight',
+  'step',
+  'smoothstep',
+] as const;
+
+// Quiz
+export const CORRECT_POINT = 10;
+export const INCORRECT_POINT = -1;
+export const QUIZ_MODES = ['practice', 'challenge'] as const;
+export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
+export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
+export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;

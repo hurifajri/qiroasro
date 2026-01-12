@@ -2,7 +2,15 @@
   "global": {
     "metadata": {
       "title": "Aplikasi Tajwid Berbasis Graph Pertama",
-      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung."
+      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung.",
+      "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
+      "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
+    },
+    "consent": {
+      "message": "Kami menggunakan analitik untuk meningkatkan pengalaman Anda.",
+      "accept": "Terima",
+      "reject": "Tolak",
+      "privacy_link": "Kebijakan Privasi"
     },
     "letter": {
       "hamzah": "Hamzah",
@@ -11,21 +19,21 @@
       "tsa": "Tsa",
       "jim": "Jim",
       "ha_wasath": "Ha'",
-      "kha": "Kho",
+      "kha": "Kha",
       "dal": "Dal",
       "dhal": "Dzal",
-      "ra": "Ro",
+      "ra": "Ra",
       "zay": "Zay",
       "sin": "Sin",
       "shin": "Syin",
-      "shad": "Shod",
-      "dhad": "Dhod",
-      "tha": "Tho",
-      "zha": "Zho",
+      "shad": "Shad",
+      "dhad": "Dhad",
+      "tha": "Tha",
+      "zha": "Zha",
       "ayn": "'Ain",
-      "ghain": "Ghoin",
+      "ghain": "Ghain",
       "fa": "Fa",
-      "qaf": "Qof",
+      "qaf": "Qaf",
       "kaf": "Kaf",
       "lam": "Lam",
       "mim": "Mim",
@@ -42,13 +50,13 @@
       "al_jauf": "Rongga",
       "al_halq": "Tenggorokan",
       "al_lisan": "Lidah",
-      "asy_syafatain": "Dua bibir",
-      "al_khaisyum": "Pangkal hidung"
+      "asy_syafatain": "Dua Bibir",
+      "al_khaisyum": "Pangkal Hidung"
     },
     "articulation_point": {
       "jauf": "Rongga (mulut dan tenggorokan).",
       "aqsha_halq": "Tenggorokan bagian bawah (terjauh dari rongga mulut), tepatnya pada pangkal pita suara (laring).",
-      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisaanul mizmar).",
+      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisanul mizmar).",
       "adna_halq": "Tenggorokan bagian atas (terdekat dari rongga mulut), yakni pertemuan antara akar lidah dengan uvula (anak tekak).",
       "aqsha_lisan": "Pangkal lidah menempel pada langit-langit bagian lunak.",
       "aqsha_lisan_asfal": "Pangkal lidah (sedikit di bawah makhraj Qaf) menempel pada pertemuan langit-langit bagian lunak dan keras.",
@@ -65,13 +73,13 @@
       "khaisyum": "Rongga hidung (pangkal hidung), tempat keluarnya suara dengung (ghunnah) yang dimiliki oleh huruf Nun dan Mim."
     },
     "trait_group": {
-      "nafas": "Aliran udara",
-      "shaut": "Aliran suara",
-      "ittijah_shaut": "Arah suara",
-      "inhishar_shaut": "Gumpalan suara",
-      "khiffah_nuthq": "Kemudahan pengucapan",
-      "munfaridah": "Sifat khusus",
-      "siman_shaut": "Sifat aridhoh"
+      "nafas": "Aliran Udara",
+      "shaut": "Aliran Suara",
+      "ittijah_shaut": "Arah Suara",
+      "inhishar_shaut": "Gumpalan Suara",
+      "khiffah_nuthq": "Kemudahan Pengucapan",
+      "munfaridah": "Sifat Khusus",
+      "siman_shaut": "Sifat Aridhah"
     },
     "trait": {
       "jahr": "Tertahannya udara (jelas).",
@@ -173,24 +181,28 @@
     },
     "quiz": {
       "trigger": "Mulai Kuis",
-      "select_mode": "Jenis Kuis",
-      "select_mode_description": "Pilih jenis kuis yang ingin dikerjakan",
+      "select_mode_title": "Jenis Kuis",
+      "select_mode_description": "Pilih jenis kuis yang ingin dimainkan",
       "mode_articulation_point": "Kuis Makhraj",
       "mode_trait": "Kuis Sifat",
       "mode_challenge": "Challenge",
-      "regular_title": "Kuis {mode}",
-      "regular_description": "Pasangkan huruf dengan {mode} yang tepat",
-      "regular_settings": "Pengaturan Kuis",
-      "regular_settings_description": "Sesuaikan konfigurasi untuk kuis {mode}",
-      "regular_letters_per_quiz": "Jumlah Huruf",
-      "regular_targets_per_quiz": "Jumlah {target}",
-      "regular_multi_edge": "Multi Jawaban",
-      "regular_timer_mode": "Mode Waktu",
-      "regular_timer_duration": "Durasi (Detik)",
-      "regular_instruction_title": "Petunjuk",
-      "regular_instruction_description": "Hubungkan huruf dengan {target} yang sesuai. Tarik garis atau klik pada keduanya untuk memasangkan.",
+      "practice_title": "Kuis {type}",
+      "practice_description": "Pasangkan huruf dengan {type} yang tepat",
+      "practice_settings_title": "Pengaturan Kuis",
+      "practice_settings_description": "Sesuaikan pengaturan untuk kuis {type}",
+      "practice_letters_per_quiz": "Jumlah Huruf",
+      "practice_targets_per_quiz": "Jumlah {target}",
+      "practice_multi_edge": "Multi Jawaban",
+      "practice_timer_mode": "Mode Waktu",
+      "practice_timer_duration": "Durasi (Detik)",
+      "practice_instruction_title": "Petunjuk",
+      "practice_instruction_description": "Hubungkan huruf dengan {target} yang sesuai. Tarik garis atau klik pada keduanya untuk memasangkan.",
       "challenge_instruction_description": "Hubungkan huruf dengan makhraj/sifat yang sesuai. Tarik garis atau klik pada keduanya untuk memasangkan. Soal 1-5 hanya membutuhkan 1 garis koneksi. Soal selanjutnya membutuhkan koneksi lebih dari 1 garis (bisa 2, 3, atau 4).",
-      "challenge_select_difficulty": "Pilih Tingkat Kesulitan",
+      "challenge_select_difficulty_title": "Tingkat Kesulitan",
+      "challenge_select_difficulty_description": "Pilih tingkat kesulitan yang sesuai",
+      "challenge_confirm_title": "Konfirmasi Challenge",
+      "challenge_title": "Challenge",
+      "challenge_description": "Pasangkan huruf dengan {type} yang tepat",
       "challenge_difficulty_easy": "Mudah",
       "challenge_difficulty_medium": "Sedang",
       "challenge_difficulty_hard": "Syulit",
@@ -198,7 +210,6 @@
       "challenge_total_question_count": "Total {count} soal",
       "challenge_question_of": "Soal {current} dari {total}",
       "challenge_point": "poin",
-      "challenge_result": "Hasil Challenge",
       "challenge_total_time": "Total Waktu",
       "challenge_total_point": "Total Poin",
       "challenge_perfect_question": "Soal Sempurna",
@@ -209,11 +220,11 @@
       "challenge_badge_great": "Mumtaz",
       "challenge_badge_good": "Jayyid Jiddan",
       "challenge_badge_keep_learning": "Jayyid",
-      "challenge_weakness_analysis": "Analisa",
+      "challenge_weakness_analysis": "Analisis",
       "challenge_weakness_incorrect": "Terjawab tapi belum tepat",
       "challenge_weakness_missed": "Belum terjawab",
       "challenge_share_result": "Bagikan Hasil",
-      "challenge_share_text": "Saya berhasil meraih {point} poin pada Kuis Makhraj/Sifat Huruf (level {difficulty}) dalam {time}! 🎯",
+      "challenge_share_text": "Saya berhasil meraih {point} poin pada Kuis Makhraj dan Sifat Huruf (Level {difficulty}) dalam waktu {minutes} menit {seconds} detik! 🎯",
       "challenge_share_copied": "Tersalin!",
       "challenge_play_again": "Main Lagi",
       "check_answer": "Cek Jawaban",
@@ -268,7 +279,7 @@
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
-          "description": "Masya Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
+          "description": "Masyaa Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
         },
         "layout_mode": {
           "title": "Mode Tata Letak",
@@ -299,12 +310,12 @@
           "description": "Klik tombol ini untuk mengunduh gambar graph."
         },
         "quiz": {
-          "title": "Quiz",
-          "description": "Klik tombol ini untuk mencoba beberapa contoh quiz."
+          "title": "Kuis",
+          "description": "Klik tombol ini untuk mencoba beberapa contoh kuis."
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia dan Inggris."
+          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia, Inggris, dan Turki."
         },
         "theme_selector": {
           "title": "Pilih Tema",
@@ -320,8 +331,36 @@
         },
         "end": {
           "title": "Selesai",
-          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum"
+          "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk melanjutkannya. Barakallahu fiikum."
         }
+      }
+    }
+  },
+  "privacy_page": {
+    "metadata": {
+      "title": "Kebijakan Privasi",
+      "description": "Pelajari bagaimana Qiroasro mengumpulkan dan menggunakan data Anda untuk meningkatkan pengalaman belajar."
+    },
+    "title": "Kebijakan Privasi",
+    "last_updated": "Terakhir diperbarui: Januari 2026",
+    "intro": "Di Qiroasro, kami menghormati privasi Anda. Kebijakan ini menjelaskan data apa yang kami kumpulkan dan bagaimana kami menggunakannya.",
+    "sections": {
+      "data_collected": {
+        "title": "Data yang Kami Kumpulkan",
+        "description": "Kami mengumpulkan data penggunaan anonim untuk meningkatkan pengalaman aplikasi, termasuk:",
+        "items": "Tampilan halaman dan navigasi,Interaksi kuis,Pola penggunaan fitur,Data pendaftaran waitlist"
+      },
+      "purpose": {
+        "title": "Tujuan",
+        "description": "Kami menggunakan data ini hanya untuk memahami bagaimana pengguna berinteraksi dengan aplikasi dan untuk meningkatkan fitur. Kami tidak menjual atau membagikan data Anda kepada pihak ketiga."
+      },
+      "opt_out": {
+        "title": "Pilihan Anda",
+        "description": "Anda dapat menolak pelacakan analitik saat diminta. Jika sudah menerima, Anda dapat menghapus data browser untuk mengatur ulang preferensi."
+      },
+      "contact": {
+        "title": "Kontak",
+        "description": "Jika ada pertanyaan tentang kebijakan ini, silakan hubungi kami di privacy@qiroasro.com"
       }
     }
   }

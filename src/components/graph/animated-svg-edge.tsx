@@ -1,5 +1,10 @@
 import type { Edge, EdgeProps, Position } from '@xyflow/react';
-import { BaseEdge, getBezierPath, getSmoothStepPath, getStraightPath } from '@xyflow/react';
+import {
+  BaseEdge,
+  getBezierPath,
+  getSmoothStepPath,
+  getStraightPath,
+} from '@xyflow/react';
 import type React from 'react';
 
 export type AnimatedSvgEdge = Edge<{
