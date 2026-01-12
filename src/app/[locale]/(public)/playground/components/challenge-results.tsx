@@ -30,7 +30,7 @@ export function ChallengeResults({
     <>
       <ChallengeConfetti />
 
-      <div className="h-[calc(100dvh-158px)] overflow-y-auto">
+      <div className="h-[calc(100dvh-128px)] overflow-y-auto">
         <div
           ref={resultRef}
           className="flex flex-col gap-4 overflow-y-auto bg-background p-4"
