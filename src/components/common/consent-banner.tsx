@@ -37,7 +37,7 @@ export function ConsentBanner() {
               </p>
             </CardContent>
 
-            <CardFooter className="flex items-center gap-2 border-none">
+            <CardFooter className="flex items-center gap-2 border-none bg-background/95">
               <Button
                 variant="outline"
                 size="sm"
