@@ -348,7 +348,7 @@
       "data_collected": {
         "title": "Data yang Kami Kumpulkan",
         "description": "Kami mengumpulkan data penggunaan anonim untuk meningkatkan pengalaman aplikasi, termasuk:",
-        "items": "Tampilan halaman dan navigasi,Interaksi kuis,Pola penggunaan fitur,Pengiriman formulir waitlist"
+        "items": "Tampilan halaman dan navigasi,Interaksi kuis,Pola penggunaan fitur,Data pendaftaran waitlist"
       },
       "purpose": {
         "title": "Tujuan",

@@ -343,12 +343,12 @@
     },
     "title": "Gizlilik Politikası",
     "last_updated": "Son güncelleme: Ocak 2026",
-    "intro": "Qiroasro'da gizliliğinize saygı duyuyoruz. Bu politika hangi verileri topladığımızı ve nasıl kullandığımızı açıklar.",
+    "intro": "Qiroasro olarak gizliliğinize önem veriyoruz. Bu politika, hangi verileri topladığımızı ve bunları nasıl kullandığımızı açıklar.",
     "sections": {
       "data_collected": {
         "title": "Topladığımız Veriler",
-        "description": "Uygulama deneyimini iyileştirmek için anonim kullanım verileri topluyoruz:",
-        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım kalıpları,Bekleme listesi form gönderimleri"
+        "description": "Uygulama deneyimini iyileştirmek için anonim kullanım verileri topluyoruz, bunlar şunları içerir:",
+        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım alışkanlıkları,Bekleme listesi kayıtları"
       },
       "purpose": {
         "title": "Amaç",
@@ -356,11 +356,11 @@
       },
       "opt_out": {
         "title": "Seçenekleriniz",
-        "description": "İstendiğinde analitik takibini reddedebilirsiniz. Zaten kabul ettiyseniz, tercihinizi sıfırlamak için tarayıcı verilerinizi temizleyebilirsiniz."
+        "description": "Size sorulduğunda analitik takibini reddedebilirsiniz. Daha önce kabul ettiyseniz, tercihinizi sıfırlamak için tarayıcı verilerinizi temizleyebilirsiniz."
       },
       "contact": {
         "title": "İletişim",
-        "description": "Bu politika hakkında sorularınız varsa, lütfen privacy@qiroasro.com adresinden bize ulaşın"
+        "description": "Bu politika hakkında sorularınız varsa, lütfen privacy@qiroasro.com adresinden bize ulaşın."
       }
     }
   }
