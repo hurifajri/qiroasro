@@ -5,6 +5,7 @@ import { type Driver, type DriveStep, driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
+import { useConsent } from '@/hooks/use-consent';
 
 const TOUR_STORAGE_KEY = 'playground-tour-completed';
 
@@ -15,6 +16,7 @@ interface UsePlaygroundTourProps {
 export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
   const t = useTranslations('playground_page.tour');
   const driverRef = useRef<Driver | null>(null);
+  const { hasConsented } = useConsent();
 
   // Helper to check if an element is visible in DOM
   function isElementVisible(selector: string): boolean {
@@ -297,9 +299,12 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
     driverInstance.drive();
   }
 
-  // Auto-start tour on first visit
+  // Auto-start tour on first visit (after consent is decided)
   // biome-ignore lint/correctness/useExhaustiveDependencies: <unnecessary dependency>
   useEffect(() => {
+    // Wait until consent is decided (not null)
+    if (hasConsented === null) return;
+
     const hasSeenTour = localStorage.getItem(TOUR_STORAGE_KEY);
     if (!hasSeenTour) {
       // Small delay to ensure elements are rendered
@@ -309,7 +314,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [hasConsented]);
 
   // Cleanup on unmount
   useEffect(() => {

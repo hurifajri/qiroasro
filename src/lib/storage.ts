@@ -8,11 +8,11 @@ import type { StateStorage } from 'zustand/middleware';
  */
 export const cookiesStorage: StateStorage = {
   getItem: (key: string) => {
-    if (window === undefined) return null;
+    if (typeof window === 'undefined') return null;
     return Cookies.get(key) ?? null;
   },
   setItem: (key: string, value: string) => {
-    if (window === undefined) return;
+    if (typeof window === 'undefined') return;
     Cookies.set(key, value, {
       expires: 365, // 1 year
       sameSite: 'lax',
@@ -20,7 +20,7 @@ export const cookiesStorage: StateStorage = {
     });
   },
   removeItem: (key: string) => {
-    if (window === undefined) return;
+    if (typeof window === 'undefined') return;
     Cookies.remove(key);
   },
 };
