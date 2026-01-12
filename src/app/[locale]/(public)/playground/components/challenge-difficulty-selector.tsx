@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion';
 import { ClockIcon, FlameIcon, ZapIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
+import { trackEvent } from '@/lib/analytics';
+import { useGlobalStore } from '@/providers/global';
 import { useQuizStore } from '../providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -33,8 +35,15 @@ const DIFFICULTY_UI_CONFIG: Record<
 
 export function ChallengeDifficultySelector() {
   const t = useTranslations('playground_page.quiz');
+  const locale = useLocale();
+  const theme = useGlobalStore((s) => s.theme);
 
   const selectDifficulty = useQuizStore((s) => s.selectChallengeDifficulty);
+
+  function handleSelectDifficulty(difficulty: ChallengeQuizDifficulty) {
+    trackEvent('challenge_difficulty_selected', { locale, theme, difficulty });
+    selectDifficulty(difficulty);
+  }
 
   const difficulties: ChallengeQuizDifficulty[] = ['easy', 'medium', 'hard'];
 
@@ -53,7 +62,7 @@ export function ChallengeDifficultySelector() {
             transition={{ delay: index * 0.1 }}
           >
             <Button
-              onClick={() => selectDifficulty(difficulty)}
+              onClick={() => handleSelectDifficulty(difficulty)}
               variant="outline"
               className={`h-auto w-full flex-col gap-1 py-4 ${uiConfig.bgColor}`}
             >

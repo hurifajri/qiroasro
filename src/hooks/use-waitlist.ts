@@ -2,6 +2,7 @@
 
 import { useForm } from '@tanstack/react-form';
 import { useLocale, useTranslations } from 'next-intl';
+import { trackEvent } from '@/lib/analytics';
 import { emailRegex } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 
@@ -19,6 +20,7 @@ export function useWaitlist({
   const t = useTranslations('global');
   const locale = useLocale();
 
+  const theme = useGlobalStore((s) => s.theme);
   const waitlistStatus = useGlobalStore((s) => s.waitlistStatus);
   const setWaitlistStatus = useGlobalStore((s) => s.setWaitlistStatus);
 
@@ -46,6 +48,7 @@ export function useWaitlist({
           return;
         }
 
+        trackEvent('waitlist_submitted', { locale, theme, source });
         setWaitlistStatus('success');
         form.reset();
         onSuccess?.();
@@ -59,6 +62,7 @@ export function useWaitlist({
   function handleUrlParams(searchParams: URLSearchParams) {
     const status = searchParams.get('waitlist_status');
     if (status === 'success') {
+      trackEvent('waitlist_verified', { locale, theme, source });
       setWaitlistStatus('verified');
     } else if (status === 'already_verified') {
       setWaitlistStatus('already_verified');

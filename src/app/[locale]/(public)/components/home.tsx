@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RocketIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { WaitlistForm } from '@/components/common/waitlist-form';
 import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
@@ -12,7 +12,9 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useRouter } from '@/i18n/navigation';
+import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
+import { useGlobalStore } from '@/providers/global';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,9 +42,12 @@ const itemVariants = {
 
 export function Home() {
   const t = useTranslations('home_page');
+  const locale = useLocale();
   const router = useRouter();
+  const theme = useGlobalStore((s) => s.theme);
 
   const handleClickExplore = () => {
+    trackEvent('explore_playground_clicked', { locale, theme });
     router.push('/playground');
   };
 
