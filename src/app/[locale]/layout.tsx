@@ -35,7 +35,7 @@ const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const locale = (await getLocale()) as Locale;
+  const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
   return {
@@ -48,8 +48,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       siteName: APP_NAME,
-      locale: getOgLocale(locale),
-      alternateLocale: getAlternateOgLocale(locale),
+      locale: getOgLocale(locale as Locale),
+      alternateLocale: getAlternateOgLocale(locale as Locale),
       images: [
         { url: '/qiroasro-og.png', width: 1200, height: 630, alt: APP_NAME },
       ],
