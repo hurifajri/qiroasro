@@ -37,6 +37,8 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
+
+  // Enable static rendering
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'home_page' });

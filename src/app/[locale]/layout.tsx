@@ -82,16 +82,16 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
+  const { locale } = await params;
   const persistedState = await getPersistedGlobalStore();
   const { theme } = persistedState;
-  const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 

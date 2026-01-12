@@ -49,6 +49,8 @@ export async function generateMetadata({
 
 export default async function PlaygroundPage({ params }: PlaygroundPageProps) {
   const { locale } = await params;
+
+  // Enable static rendering
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'playground_page' });
