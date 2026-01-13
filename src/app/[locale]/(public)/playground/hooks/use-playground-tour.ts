@@ -1,8 +1,7 @@
 'use client';
 
 import type { ColorMode } from '@xyflow/react';
-import { type Driver, type DriveStep, driver } from 'driver.js';
-import 'driver.js/dist/driver.css';
+import type { Driver, DriveStep } from 'driver.js';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
 import { useConsent } from '@/hooks/use-consent';
@@ -271,11 +270,17 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
     ];
   }
 
-  function startTour() {
+  async function startTour() {
     // Destroy existing driver if any
     if (driverRef.current) {
       driverRef.current.destroy();
     }
+
+    // Lazy load driver.js and its CSS
+    const [{ driver }] = await Promise.all([
+      import('driver.js'),
+      import('driver.js/dist/driver.css'),
+    ]);
 
     const driverInstance = driver({
       showProgress: true,

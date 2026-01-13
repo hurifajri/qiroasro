@@ -1,6 +1,5 @@
 'use client';
 
-import { toPng } from 'html-to-image';
 import { CopyIcon, PlayIcon, RefreshCwIcon, ShareIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useLocale, useTranslations } from 'next-intl';
@@ -44,6 +43,8 @@ export function ChallengeActions({
     let imageFile: File | undefined;
     if (resultRef.current) {
       try {
+        // Lazy load html-to-image
+        const { toPng } = await import('html-to-image');
         const dataUrl = await toPng(resultRef.current, { cacheBust: true });
         const blob = await fetch(dataUrl).then((res) => res.blob());
         imageFile = new File([blob], 'qiroasro-challenge.png', {

@@ -1,7 +1,6 @@
 'use client';
 
 import { getViewportForBounds, useReactFlow } from '@xyflow/react';
-import { toPng } from 'html-to-image';
 import { DownloadIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -52,6 +51,9 @@ export function GraphDownload() {
       2, // max zoom
       0.2, // padding
     );
+
+    // Lazy load html-to-image
+    const { toPng } = await import('html-to-image');
 
     const dataUrl = await toPng(viewportElement, {
       backgroundColor: 'transparent',
