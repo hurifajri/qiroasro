@@ -201,9 +201,9 @@ export function Playground() {
       setNodes(nodesWithLayoutInfo);
       setEdges(edgesWithStyle);
 
-      requestAnimationFrame(() => {
+      setTimeout(() => {
         fitView({ padding: 0.2, duration: 300 });
-      });
+      }, 50);
     }
 
     updateLayout();
