@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import type { z } from 'zod';
+import { type GenericSchema, type InferOutput, parse } from 'valibot';
 import { env } from '@/env';
 
 export function getSupabaseClient() {
@@ -17,10 +17,10 @@ export function getSupabaseClient() {
  * Generic helper to fetch data from a Supabase table with schema validation and transformation.
  * Eliminates repeated fetch patterns across services.
  */
-export async function fetchFromTable<Schema extends z.ZodType, Result>(
+export async function fetchFromTable<Schema extends GenericSchema, Result>(
   table: string,
   schema: Schema,
-  transform: (data: z.infer<Schema>) => Result,
+  transform: (data: InferOutput<Schema>) => Result,
   orderBy?: string,
 ): Promise<Result> {
   const supabase = getSupabaseClient();
@@ -32,7 +32,7 @@ export async function fetchFromTable<Schema extends z.ZodType, Result>(
   if (error) throw new Error(error.message);
 
   try {
-    const parsed = schema.parse(data);
+    const parsed = parse(schema, data);
     return transform(parsed);
   } catch (parseError) {
     throw parseError instanceof Error

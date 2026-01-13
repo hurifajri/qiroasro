@@ -1,61 +1,74 @@
-import * as z from 'zod';
+import {
+  array,
+  boolean,
+  type InferOutput,
+  integer,
+  minLength,
+  number,
+  object,
+  omit,
+  picklist,
+  pipe,
+  string,
+} from 'valibot';
 import { LETTERS } from '@/lib/constants';
 
-export const RemoteLetterSchema = z.object({
-  id: z.number().int(),
-  slug: z.string().min(1),
-  symbol: z.enum(LETTERS),
-  is_madd: z.boolean(),
-  sort_order: z.number().int(),
+export const RemoteLetterSchema = object({
+  id: pipe(number(), integer()),
+  slug: pipe(string(), minLength(1)),
+  symbol: picklist(LETTERS),
+  is_madd: boolean(),
+  sort_order: pipe(number(), integer()),
 });
 
-const LetterSchema = z
-  .object({
-    ...RemoteLetterSchema.shape,
-    isMadd: z.boolean(),
-    sortOrder: z.number().int(),
-  })
-  .omit({ is_madd: true, sort_order: true });
+const LetterSchema = omit(
+  object({
+    ...RemoteLetterSchema.entries,
+    isMadd: boolean(),
+    sortOrder: pipe(number(), integer()),
+  }),
+  ['is_madd', 'sort_order'],
+);
 
-export const RemoteLettersSchema = z.array(RemoteLetterSchema);
+export const RemoteLettersSchema = array(RemoteLetterSchema);
 
-export type RemoteLetter = z.infer<typeof RemoteLetterSchema>;
-export type Letter = z.infer<typeof LetterSchema>;
+export type RemoteLetter = InferOutput<typeof RemoteLetterSchema>;
+export type Letter = InferOutput<typeof LetterSchema>;
 
-export const RemoteLetterArticulationSchema = z.object({
-  letter_id: z.number().int(),
-  point_id: z.number().int(),
-  is_primary: z.boolean(),
-  sort_order: z.number().int(),
+export const RemoteLetterArticulationSchema = object({
+  letter_id: pipe(number(), integer()),
+  point_id: pipe(number(), integer()),
+  is_primary: boolean(),
+  sort_order: pipe(number(), integer()),
 });
 
-const LetterArticulationSchema = z.object({
-  isPrimary: z.boolean(),
-  letterId: z.number().int(),
-  pointId: z.number().int(),
-  sortOrder: z.number().int(),
+const LetterArticulationSchema = object({
+  isPrimary: boolean(),
+  letterId: pipe(number(), integer()),
+  pointId: pipe(number(), integer()),
+  sortOrder: pipe(number(), integer()),
 });
 
-export const RemoteLetterArticulationsSchema = z.array(
+export const RemoteLetterArticulationsSchema = array(
   RemoteLetterArticulationSchema,
 );
 
-export type RemoteLetterArticulation = z.infer<
+export type RemoteLetterArticulation = InferOutput<
   typeof RemoteLetterArticulationSchema
 >;
-export type LetterArticulation = z.infer<typeof LetterArticulationSchema>;
+export type LetterArticulation = InferOutput<typeof LetterArticulationSchema>;
 
-export const RemoteLetterTraitSchema = z.object({
-  letter_id: z.number().int(),
-  trait_id: z.number().int(),
+export const RemoteLetterTraitSchema = object({
+  letter_id: pipe(number(), integer()),
+  trait_id: pipe(number(), integer()),
 });
 
-const LetterTraitSchema = z.object({
-  letterId: z.number().int(),
-  traitId: z.number().int(),
+const LetterTraitSchema = object({
+  letterId: pipe(number(), integer()),
+  traitId: pipe(number(), integer()),
 });
 
-export const RemoteLetterTraitsSchema = z.array(RemoteLetterTraitSchema);
+export const RemoteLetterTraitsSchema = array(RemoteLetterTraitSchema);
 
-export type RemoteLetterTrait = z.infer<typeof RemoteLetterTraitSchema>;
-export type LetterTrait = z.infer<typeof LetterTraitSchema>;
+export type RemoteLetterTrait = InferOutput<typeof RemoteLetterTraitSchema>;
+export type LetterTrait = InferOutput<typeof LetterTraitSchema>;

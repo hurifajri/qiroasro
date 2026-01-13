@@ -1,19 +1,20 @@
-import { createEnv } from '@t3-oss/env-nextjs';
-import { z } from 'zod';
+import { createEnv } from '@t3-oss/env-core';
+import { minLength, optional, pipe, string, url } from 'valibot';
 
 export const env = createEnv({
   server: {
-    RESEND_API_KEY: z.string().min(1),
+    RESEND_API_KEY: pipe(string(), minLength(1)),
   },
+  clientPrefix: 'NEXT_PUBLIC_',
   client: {
-    NEXT_PUBLIC_APP_NAME: z.string().min(1),
-    NEXT_PUBLIC_APP_URL: z.url().min(1),
-    NEXT_PUBLIC_NOREPLY_EMAIL: z.string().min(1),
-    NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
-    NEXT_PUBLIC_SUPABASE_KEY: z.string().min(1),
+    NEXT_PUBLIC_APP_NAME: pipe(string(), minLength(1)),
+    NEXT_PUBLIC_APP_URL: pipe(string(), url(), minLength(1)),
+    NEXT_PUBLIC_NOREPLY_EMAIL: pipe(string(), minLength(1)),
+    NEXT_PUBLIC_SUPABASE_URL: pipe(string(), minLength(1)),
+    NEXT_PUBLIC_SUPABASE_KEY: pipe(string(), minLength(1)),
     // Analytics (optional)
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_KEY: optional(string()),
+    NEXT_PUBLIC_POSTHOG_HOST: optional(string()),
   },
   runtimeEnv: {
     RESEND_API_KEY: process.env.RESEND_API_KEY,

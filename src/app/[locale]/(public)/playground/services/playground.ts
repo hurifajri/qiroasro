@@ -1,3 +1,4 @@
+import { parse } from 'valibot';
 import { MV_PLAYGROUND_DATA } from '@/lib/constants';
 import { getSupabaseClient } from '@/lib/supabase';
 import { transformRemotePlaygroundData } from '../models/playground';
@@ -16,7 +17,7 @@ export async function getPlaygroundData(): Promise<PlaygroundData> {
 
     if (error) throw new Error(error.message);
 
-    const remoteData = RemotePlaygroundDataSchema.parse(data?.data);
+    const remoteData = parse(RemotePlaygroundDataSchema, data?.data);
     const playgroundData = transformRemotePlaygroundData(remoteData);
 
     return playgroundData;
