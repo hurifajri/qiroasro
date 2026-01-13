@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
+import * as m from 'motion/react-m';
 import { cn } from '@/lib/utils';
 
 interface UnderDevelopmentIllustrationProps {
@@ -20,7 +19,7 @@ export function UnderDevelopmentIllustration({
     >
       <title>Under Development</title>
       {/* Blue gear - bottom left (behind) - rotates left */}
-      <motion.g
+      <m.g
         animate={{ rotate: -360 }}
         transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
         style={{ transformOrigin: '420px 720px' }}
@@ -33,7 +32,7 @@ export function UnderDevelopmentIllustration({
           fill="oklch(0.7 0.16 280)"
           d="M393.7 722c1.3-13.5 13.3-23.3 26.8-22s23.3 13.3 22 26.8-13.3 23.3-26.8 22-23.3-13.3-22-26.8"
         />
-      </motion.g>
+      </m.g>
       <ellipse
         cx="914"
         cy="1005.2"
@@ -145,7 +144,7 @@ export function UnderDevelopmentIllustration({
       />
       <path fill="#161616" d="M867.2 529.7H905v3.2h-37.8z" opacity="0.32" />
       {/* Orange gear - bottom left - rotates right */}
-      <motion.g
+      <m.g
         animate={{ rotate: 360 }}
         transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
         style={{ transformOrigin: '500px 845px' }}
@@ -158,9 +157,9 @@ export function UnderDevelopmentIllustration({
           fill="oklch(0.75 0.14 230)"
           d="M464.4 845.2c-1.5-17.9 11.8-33.6 29.6-35.1 17.9-1.5 33.6 11.8 35.1 29.6 1.5 17.9-11.8 33.6-29.6 35.1-17.9 1.5-33.6-11.7-35.1-29.6"
         />
-      </motion.g>
+      </m.g>
       {/* Blue gear - center bottom - rotates left */}
-      <motion.g
+      <m.g
         animate={{ rotate: -360 }}
         transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
         style={{ transformOrigin: '665px 765px' }}
@@ -173,9 +172,9 @@ export function UnderDevelopmentIllustration({
           fill="oklch(0.7 0.16 280)"
           d="M620.9 772.6c-12.3-19.7-6.3-45.7 13.5-58s45.7-6.3 58 13.5c12.3 19.7 6.3 45.7-13.5 58-19.7 12.3-45.7 6.3-58-13.5"
         />
-      </motion.g>
+      </m.g>
       {/* Orange gear - top right - rotates right */}
-      <motion.g
+      <m.g
         animate={{ rotate: 360 }}
         transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
         style={{ transformOrigin: '1475px 280px' }}
@@ -188,9 +187,9 @@ export function UnderDevelopmentIllustration({
           fill="oklch(0.75 0.14 230)"
           d="M1502.8 306c-18.4 13.6-44.2 9.7-57.8-8.7s-9.7-44.2 8.7-57.8 44.2-9.7 57.8 8.7c13.6 18.3 9.7 44.2-8.7 57.8"
         />
-      </motion.g>
+      </m.g>
       {/* Blue gear - top right large - rotates left */}
-      <motion.g
+      <m.g
         animate={{ rotate: -360 }}
         transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
         style={{ transformOrigin: '1270px 155px' }}
@@ -203,7 +202,7 @@ export function UnderDevelopmentIllustration({
           fill="oklch(0.7 0.16 280)"
           d="M1319.5 184.9c-13.2 26.5-45.4 37.4-71.9 24.2s-37.4-45.4-24.2-71.9 45.4-37.4 71.9-24.2c26.6 13.1 37.4 45.3 24.2 71.9"
         />
-      </motion.g>
+      </m.g>
     </svg>
   );
 }

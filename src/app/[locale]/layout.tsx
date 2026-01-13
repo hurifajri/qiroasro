@@ -13,6 +13,7 @@ import { type Locale, routing } from '@/i18n/routing';
 import { AnalyticsProvider } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
+import { MotionProvider } from '@/providers/motion';
 import { QueryClientProvider } from '@/providers/query-client';
 import { getPersistedGlobalStore } from '@/stores/global';
 
@@ -23,12 +24,16 @@ type RootLayoutProps = React.PropsWithChildren & {
 const outfitFont = Outfit({
   variable: '--font-outfit',
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 });
 
 const amiriFont = Amiri({
   variable: '--font-amiri',
   weight: ['400', '700'],
   subsets: ['arabic'],
+  display: 'swap',
+  preload: true,
 });
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
@@ -74,8 +79,6 @@ export function generateStaticParams() {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: true,
 };
 
 export default async function RootLayout({
@@ -112,7 +115,9 @@ export default async function RootLayout({
         <QueryClientProvider>
           <GlobalStoreProvider persistedState={persistedState}>
             <NextIntlClientProvider>
-              <AnalyticsProvider>{children}</AnalyticsProvider>
+              <AnalyticsProvider>
+                <MotionProvider>{children}</MotionProvider>
+              </AnalyticsProvider>
             </NextIntlClientProvider>
           </GlobalStoreProvider>
           {process.env.NODE_ENV === 'development' && (

@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ClockIcon, FlameIcon, ZapIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
 import { useLocale, useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { trackEvent } from '@/lib/analytics';
@@ -55,7 +55,7 @@ export function ChallengeDifficultySelector() {
         const Icon = uiConfig.icon;
 
         return (
-          <motion.div
+          <m.div
             key={difficulty}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ export function ChallengeDifficultySelector() {
                 })}
               </span>
             </Button>
-          </motion.div>
+          </m.div>
         );
       })}
     </div>

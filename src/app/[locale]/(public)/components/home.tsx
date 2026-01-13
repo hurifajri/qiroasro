@@ -1,10 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { RocketIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
+import dynamic from 'next/dynamic';
 import { useLocale, useTranslations } from 'next-intl';
-import { WaitlistForm } from '@/components/common/waitlist-form';
-import { UnderDevelopmentIllustration } from '@/components/illustrations/under-development';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Tooltip,
@@ -15,6 +14,40 @@ import { useRouter } from '@/i18n/navigation';
 import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
+
+/**
+ * Lazy load heavy SVG illustration with Framer Motion animations.
+ * This defers ~13KB of SVG code until after initial paint.
+ */
+const UnderDevelopmentIllustration = dynamic(
+  () =>
+    import('@/components/illustrations/under-development').then(
+      (mod) => mod.UnderDevelopmentIllustration,
+    ),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="h-auto w-full max-w-md animate-pulse rounded-lg bg-muted md:max-w-none"
+        style={{ aspectRatio: '1920/1080' }}
+      />
+    ),
+  },
+);
+
+/**
+ * Lazy load WaitlistForm - appears below the fold, not critical for first paint.
+ */
+const WaitlistForm = dynamic(
+  () =>
+    import('@/components/common/waitlist-form').then((mod) => mod.WaitlistForm),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-24 w-full animate-pulse rounded-lg bg-muted" />
+    ),
+  },
+);
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,14 +85,14 @@ export function Home() {
   };
 
   return (
-    <motion.div
+    <m.div
       className="mx-auto mt-8 flex max-w-7xl flex-col gap-4 p-4 sm:mt-32 sm:flex-row"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       {/* SVG Illustration */}
-      <motion.div
+      <m.div
         variants={itemVariants}
         className="flex flex-1 shrink-0 items-center justify-center"
       >
@@ -91,48 +124,46 @@ export function Home() {
             </a>
           </TooltipContent>
         </Tooltip>
-      </motion.div>
+      </m.div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col gap-12">
         <div className="flex flex-col items-start gap-4">
           {/* Title */}
-          <motion.h2
+          <m.h2
             variants={itemVariants}
             className="bg-linear-to-r from-accent-violet via-accent-sky to-accent-amber bg-clip-text font-bold text-4xl text-transparent"
           >
             {t('development.title')}
-          </motion.h2>
+          </m.h2>
 
           {/* Subtitle */}
-          <motion.p
+          <m.p
             variants={itemVariants}
             className="text-lg text-muted-foreground"
           >
             {t('development.subtitle')}
-          </motion.p>
+          </m.p>
 
           {/* Playground Button */}
-          <motion.button
+          <m.button
             onClick={handleClickExplore}
             variants={itemVariants}
-            whileHover={{ scale: 1.005 }}
-            whileTap={{ scale: 0.95 }}
             className={cn(
               buttonVariants({ size: 'lg' }),
-              'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:shadow-accent-sky/30 hover:shadow-xl',
+              'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:scale-[1.005] hover:shadow-accent-sky/30 hover:shadow-xl active:scale-95',
             )}
           >
             <RocketIcon className="size-5" />
             {t('development.playground_cta')}
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Waitlist Form */}
-        <motion.div variants={itemVariants}>
+        <m.div variants={itemVariants}>
           <WaitlistForm source="home_page" />
-        </motion.div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

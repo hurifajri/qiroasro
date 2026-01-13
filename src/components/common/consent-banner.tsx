@@ -1,6 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
@@ -17,7 +18,7 @@ export function ConsentBanner() {
   return (
     <AnimatePresence>
       {shouldShow && (
-        <motion.div
+        <m.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
@@ -51,7 +52,7 @@ export function ConsentBanner() {
               </Button>
             </CardFooter>
           </Card>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

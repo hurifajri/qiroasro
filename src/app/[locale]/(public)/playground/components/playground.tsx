@@ -17,6 +17,7 @@ import {
   useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
+import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
@@ -33,7 +34,6 @@ import { generateGraphFromData } from '../lib/graph';
 import { usePlaygroundStore } from '../providers/playground';
 import { useQuizStore } from '../providers/quiz';
 import { getPlaygroundDataOpt } from '../queries/playground';
-import { GraphDownload } from './graph-download';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
 import {
@@ -42,7 +42,21 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
-import { Quiz } from './quiz';
+
+/**
+ * Lazy load Quiz component - only shown when dialog is open
+ */
+const Quiz = dynamic(() => import('./quiz').then((mod) => mod.Quiz), {
+  ssr: false,
+});
+
+/**
+ * Lazy load GraphDownload - not critical for initial render
+ */
+const GraphDownload = dynamic(
+  () => import('./graph-download').then((mod) => mod.GraphDownload),
+  { ssr: false },
+);
 
 // Register custom node types
 const nodeTypes: NodeTypes = {
@@ -139,64 +153,57 @@ export function Playground() {
     };
 
     async function updateLayout() {
-      try {
-        // Generate nodes and edges (without positions)
-        const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(
-          data,
-          {
-            viewMode,
-            layoutMode,
-            hierarchyDirection,
-            selectedId: selectedLetterId,
-          },
-        );
+      // Generate nodes and edges (without positions)
+      const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
+        viewMode,
+        layoutMode,
+        hierarchyDirection,
+        selectedId: selectedLetterId,
+      });
 
-        // Apply layout based on mode
-        let layoutedNodes: FlowNode[];
-        if (layoutMode === 'radial') {
-          layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
-        } else {
-          layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
-            direction: hierarchyDirection,
-            nodeSpacing: 60,
-            layerSpacing: viewMode === 'letter' ? 200 : 600,
-          });
-        }
-
-        // Calculate which nodes have source/target edges
-        const nodesWithSourceEdge = new Set(newEdges.map((e) => e.source));
-        const nodesWithTargetEdge = new Set(newEdges.map((e) => e.target));
-
-        // Add layout info to node data for conditional handle rendering
-        const nodesWithLayoutInfo = layoutedNodes.map((node) => ({
-          ...node,
-          data: {
-            ...node.data,
-            isFloating: edgeStyle.isFloating,
-            layoutMode,
-            hierarchyDirection,
-            hasSourceEdge: nodesWithSourceEdge.has(node.id),
-            hasTargetEdge: nodesWithTargetEdge.has(node.id),
-          },
-        }));
-
-        // Apply edge type based on current edgeStyle
-        const effectiveEdgeType = getEffectiveEdgeType();
-        const edgesWithStyle = newEdges.map((edge) => ({
-          ...edge,
-          type: effectiveEdgeType,
-          animated: edgeStyle.isAnimated,
-        }));
-
-        setNodes(nodesWithLayoutInfo);
-        setEdges(edgesWithStyle);
-
-        setTimeout(() => {
-          fitView({ padding: 0.2, duration: 300 });
-        }, 50);
-      } catch (error) {
-        console.error('Update Layout Error', error);
+      // Apply layout based on mode
+      let layoutedNodes: FlowNode[];
+      if (layoutMode === 'radial') {
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
+      } else {
+        layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
+          direction: hierarchyDirection,
+          nodeSpacing: 60,
+          layerSpacing: viewMode === 'letter' ? 200 : 600,
+        });
       }
+
+      // Calculate which nodes have source/target edges
+      const nodesWithSourceEdge = new Set(newEdges.map((e) => e.source));
+      const nodesWithTargetEdge = new Set(newEdges.map((e) => e.target));
+
+      // Add layout info to node data for conditional handle rendering
+      const nodesWithLayoutInfo = layoutedNodes.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          isFloating: edgeStyle.isFloating,
+          layoutMode,
+          hierarchyDirection,
+          hasSourceEdge: nodesWithSourceEdge.has(node.id),
+          hasTargetEdge: nodesWithTargetEdge.has(node.id),
+        },
+      }));
+
+      // Apply edge type based on current edgeStyle
+      const effectiveEdgeType = getEffectiveEdgeType();
+      const edgesWithStyle = newEdges.map((edge) => ({
+        ...edge,
+        type: effectiveEdgeType,
+        animated: edgeStyle.isAnimated,
+      }));
+
+      setNodes(nodesWithLayoutInfo);
+      setEdges(edgesWithStyle);
+
+      requestAnimationFrame(() => {
+        fitView({ padding: 0.2, duration: 300 });
+      });
     }
 
     updateLayout();

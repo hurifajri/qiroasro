@@ -2,14 +2,13 @@
 
 import NextError from 'next/error';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
 import { routing } from '@/i18n/routing';
 
-type GlobalErrorProps = Readonly<{
-  error: Error & { digest?: string };
-}>;
+// type GlobalErrorProps = Readonly<{
+//   error: Error & { digest?: string };
+// }>;
 
-export default function GlobalError({ error }: GlobalErrorProps) {
+export default function GlobalError() {
   const pathname = usePathname();
 
   // Extract locale from pathname (e.g., '/en/page' -> 'en')
@@ -20,10 +19,6 @@ export default function GlobalError({ error }: GlobalErrorProps) {
   )
     ? pathSegment
     : routing.defaultLocale;
-
-  useEffect(() => {
-    console.error('Global Error', error);
-  }, [error]);
 
   return (
     <html lang={locale}>

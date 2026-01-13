@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { toPng } from 'html-to-image';
 import { CopyIcon, PlayIcon, RefreshCwIcon, ShareIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -99,7 +99,7 @@ export function ChallengeActions({
   }
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col gap-2 px-4"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -138,6 +138,6 @@ export function ChallengeActions({
           {t('challenge_play_again')}
         </Button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

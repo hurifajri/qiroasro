@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { getBadge } from '../lib/challenge-results';
@@ -16,7 +16,7 @@ export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
   const badge = getBadge(accuracy);
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col items-center gap-2"
       initial={{ scale: 0.5, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
@@ -31,6 +31,6 @@ export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
           {t(`challenge_difficulty_${difficulty}`)}
         </span>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

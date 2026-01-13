@@ -1,62 +1,30 @@
 'use client';
 
-import posthog from 'posthog-js';
-import { PostHogProvider as PhProvider } from 'posthog-js/react';
-import { useEffect } from 'react';
-import { ConsentBanner } from '@/components/common/consent-banner';
+import dynamic from 'next/dynamic';
 import { env } from '@/env';
-import { useConsent } from '@/hooks/use-consent';
 
-/**
- * PostHog API key from dashboard
- */
 const POSTHOG_KEY = env.NEXT_PUBLIC_POSTHOG_KEY;
-
-/**
- * PostHog host URL (default: https://app.posthog.com for US, https://eu.posthog.com for EU)
- */
 const POSTHOG_HOST = env.NEXT_PUBLIC_POSTHOG_HOST;
 
 /**
- * Initialize PostHog and handle consent changes
+ * Dynamically import PostHog to defer loading and reduce TBT.
+ * ssr: false ensures it only loads on client after hydration.
  */
-function PostHogInit() {
-  const { hasConsented } = useConsent();
+const PostHogLoader = dynamic(() => import('@/providers/posthog'), {
+  ssr: false,
+});
 
-  useEffect(() => {
-    if (!POSTHOG_KEY || !POSTHOG_HOST) return;
-
-    // Initialize PostHog (always, but with opt-out by default)
-    if (!posthog.__loaded) {
-      posthog.init(POSTHOG_KEY, {
-        api_host: POSTHOG_HOST,
-        person_profiles: 'identified_only',
-        capture_pageview: false, // Manually capture based on consent
-        capture_pageleave: false,
-        persistence: 'localStorage',
-        autocapture: false, // Disable until consent
-        enable_recording_console_log: false,
-        opt_out_capturing_by_default: true, // GDPR: opt-out by default
-        loaded: (posthog) => {
-          if (process.env.NODE_ENV === 'development') {
-            posthog.debug();
-          }
-        },
-      });
-    }
-
-    // Handle consent state changes
-    if (hasConsented === true) {
-      posthog.opt_in_capturing();
-      posthog.capture('$pageview'); // Capture initial pageview after consent
-    } else if (hasConsented === false) {
-      posthog.opt_out_capturing();
-    }
-    // hasConsented === null: waiting for user decision, keep opted out
-  }, [hasConsented]);
-
-  return null;
-}
+/**
+ * Lazy load consent banner to defer until after initial hydration.
+ * The banner is not critical for first paint.
+ */
+const ConsentBanner = dynamic(
+  () =>
+    import('@/components/common/consent-banner').then(
+      (mod) => mod.ConsentBanner,
+    ),
+  { ssr: false },
+);
 
 /**
  * PostHog provider component with consent management.
@@ -71,12 +39,23 @@ export function AnalyticsProvider({ children }: React.PropsWithChildren) {
   }
 
   return (
-    <PhProvider client={posthog}>
-      <PostHogInit />
+    <PostHogLoader>
       <ConsentBanner />
       {children}
-    </PhProvider>
+    </PostHogLoader>
   );
+}
+
+/**
+ * Get PostHog instance lazily (only when needed).
+ * Returns null if not in browser or PostHog is not configured.
+ */
+async function getPostHog() {
+  if (typeof window === 'undefined' || !POSTHOG_KEY) {
+    return null;
+  }
+  const posthog = (await import('posthog-js')).default;
+  return posthog;
 }
 
 /**
@@ -92,7 +71,9 @@ export function trackEvent(
   properties?: Record<string, unknown>,
 ) {
   if (typeof window !== 'undefined' && POSTHOG_KEY) {
-    posthog.capture(eventName, properties);
+    getPostHog().then((posthog) => {
+      posthog?.capture(eventName, properties);
+    });
   }
 }
 
@@ -108,7 +89,9 @@ export function identifyUser(
   properties?: Record<string, unknown>,
 ) {
   if (typeof window !== 'undefined' && POSTHOG_KEY) {
-    posthog.identify(userId, properties);
+    getPostHog().then((posthog) => {
+      posthog?.identify(userId, properties);
+    });
   }
 }
 
@@ -117,6 +100,8 @@ export function identifyUser(
  */
 export function resetUser() {
   if (typeof window !== 'undefined' && POSTHOG_KEY) {
-    posthog.reset();
+    getPostHog().then((posthog) => {
+      posthog?.reset();
+    });
   }
 }

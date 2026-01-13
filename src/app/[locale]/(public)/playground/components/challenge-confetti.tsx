@@ -1,6 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useEffect, useState } from 'react';
 
 const CONFETTI_COLORS = [
@@ -29,7 +30,7 @@ function ConfettiParticle({
   rotation,
 }: ConfettiParticleProps) {
   return (
-    <motion.div
+    <m.div
       className="pointer-events-none fixed z-50"
       initial={{ y: -20, x, opacity: 1, rotate: 0 }}
       animate={{
@@ -42,7 +43,7 @@ function ConfettiParticle({
       style={{ left: x }}
     >
       <div className="size-3 rounded-sm" style={{ backgroundColor: color }} />
-    </motion.div>
+    </m.div>
   );
 }
 

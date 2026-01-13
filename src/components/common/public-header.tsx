@@ -2,23 +2,46 @@
 
 import type { ColorMode } from '@xyflow/react';
 import { CircleQuestionMarkIcon, MailIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
-import { WaitlistForm } from '@/components/common/waitlist-form';
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
+/**
+ * Lazy load Dialog components - only needed when user clicks waitlist button
+ */
+const Dialog = dynamic(
+  () => import('@/components/ui/dialog').then((mod) => mod.Dialog),
+  { ssr: false },
+);
+const DialogContent = dynamic(
+  () => import('@/components/ui/dialog').then((mod) => mod.DialogContent),
+  { ssr: false },
+);
+const DialogHeader = dynamic(
+  () => import('@/components/ui/dialog').then((mod) => mod.DialogHeader),
+  { ssr: false },
+);
+const DialogTitle = dynamic(
+  () => import('@/components/ui/dialog').then((mod) => mod.DialogTitle),
+  { ssr: false },
+);
+
+/**
+ * Lazy load WaitlistForm - only needed when dialog is open
+ */
+const WaitlistForm = dynamic(
+  () =>
+    import('@/components/common/waitlist-form').then((mod) => mod.WaitlistForm),
+  { ssr: false },
+);
 
 interface PublicHeaderProps {
   theme: ColorMode;
@@ -50,7 +73,7 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
               alt="Qiroasro Logo"
               width={96}
               height={28}
-              loading="eager"
+              priority
             />
           ) : (
             <Image
@@ -58,7 +81,7 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
               alt="Qiroasro Logo"
               width={96}
               height={28}
-              loading="eager"
+              priority
             />
           )}
         </Link>

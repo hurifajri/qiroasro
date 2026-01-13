@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import {
   BowArrowIcon,
   CheckCircleIcon,
   TimerIcon,
   TrophyIcon,
 } from 'lucide-react';
+import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import { cn, parseDuration } from '@/lib/utils';
 import type {
@@ -75,7 +75,7 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
   return (
     <>
       {/* Stats Grid */}
-      <motion.div
+      <m.div
         className="grid grid-cols-2 gap-3"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -98,10 +98,10 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
             </span>
           </div>
         ))}
-      </motion.div>
+      </m.div>
 
       {/* Connection Stats */}
-      <motion.div
+      <m.div
         className="flex justify-around rounded-lg border p-3 dark:border-muted"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -117,7 +117,7 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
             </span>
           </div>
         ))}
-      </motion.div>
+      </m.div>
     </>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -44,7 +45,7 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
   return (
     <AnimatePresence mode="popLayout">
       {queue.slice(0, 5).map((item, index) => (
-        <motion.div
+        <m.div
           key={item.id}
           className={cn(
             'pointer-events-none fixed z-50 font-bold text-3xl',
@@ -64,7 +65,7 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {item.value > 0 ? `+${item.value}` : item.value}
-        </motion.div>
+        </m.div>
       ))}
     </AnimatePresence>
   );

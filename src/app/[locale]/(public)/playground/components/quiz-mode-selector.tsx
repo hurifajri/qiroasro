@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import * as m from 'motion/react-m';
 import { useLocale, useTranslations } from 'next-intl';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { trackEvent } from '@/lib/analytics';
@@ -49,7 +49,7 @@ export function QuizModeSelector() {
       </Button>
 
       {/* Challenge button with pulse animation */}
-      <motion.button
+      <m.button
         onClick={() => handleSelect('challenge')}
         className={cn(
           buttonVariants({ variant: 'outline' }),
@@ -64,15 +64,15 @@ export function QuizModeSelector() {
         }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <motion.span
+        <m.span
           className="text-5xl"
           animate={{ rotate: [0, -10, 10, -10, 0] }}
           transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
         >
           🏆
-        </motion.span>
+        </m.span>
         {t('mode_challenge')}
-      </motion.button>
+      </m.button>
     </div>
   );
 }

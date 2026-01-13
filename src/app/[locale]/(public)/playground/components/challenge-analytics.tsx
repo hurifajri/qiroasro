@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { BookOpenIcon, XCircleIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import type { ChallengeQuizAnalytic } from '../schemas/quiz';
 
@@ -22,7 +22,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
   if (analytics.length === 0) return null;
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col gap-2"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -57,6 +57,6 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
           </p>
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 }
