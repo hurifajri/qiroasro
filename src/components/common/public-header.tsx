@@ -74,6 +74,7 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
               width={96}
               height={28}
               priority
+              fetchPriority="high"
             />
           ) : (
             <Image
@@ -82,6 +83,7 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
               width={96}
               height={28}
               priority
+              fetchPriority="high"
             />
           )}
         </Link>
