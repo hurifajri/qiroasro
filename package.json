@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "next experimental-analyze",
     "start": "next start",
     "format": "biome format --write",
     "check": "biome check --write --unsafe",
