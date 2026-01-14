@@ -2,15 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-// import { Analytics } from '@vercel/analytics/next';
-// import { SpeedInsights } from '@vercel/speed-insights/next';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { env } from '@/env';
 import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
-// import { AnalyticsProvider } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
 import { MotionProvider } from '@/providers/motion';
@@ -115,9 +112,7 @@ export default async function RootLayout({
         <QueryClientProvider>
           <GlobalStoreProvider persistedState={persistedState}>
             <NextIntlClientProvider>
-              {/* <AnalyticsProvider> */}
               <MotionProvider>{children}</MotionProvider>
-              {/* </AnalyticsProvider> */}
             </NextIntlClientProvider>
           </GlobalStoreProvider>
           {process.env.NODE_ENV === 'development' && (
@@ -162,8 +157,6 @@ export default async function RootLayout({
             }),
           }}
         />
-        {/* <Analytics />
-        <SpeedInsights /> */}
       </body>
     </html>
   );

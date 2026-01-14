@@ -20,12 +20,11 @@ import {
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
-import { trackEvent } from '@/lib/analytics';
 import { isMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { useGlobalStore } from '@/providers/global';
@@ -74,7 +73,6 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
-  const locale = useLocale();
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
@@ -105,9 +103,9 @@ export function Playground() {
   const openQuizDialog = useQuizStore((s) => s.openDialog);
 
   const handleOpenQuizDialog = useCallback(() => {
-    trackEvent('quiz_dialog_opened', { locale, theme });
+    // trackEvent('quiz_dialog_opened', { locale, theme });
     openQuizDialog();
-  }, [locale, theme, openQuizDialog]);
+  }, [openQuizDialog]);
 
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();

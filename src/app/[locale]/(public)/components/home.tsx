@@ -3,7 +3,7 @@
 import { RocketIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
 import dynamic from 'next/dynamic';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Tooltip,
@@ -11,9 +11,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useRouter } from '@/i18n/navigation';
-import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 
 /**
  * Lazy load heavy SVG illustration with Framer Motion animations.
@@ -75,12 +73,10 @@ const itemVariants = {
 
 export function Home() {
   const t = useTranslations('home_page');
-  const locale = useLocale();
   const router = useRouter();
-  const theme = useGlobalStore((s) => s.theme);
 
   const handleClickExplore = () => {
-    trackEvent('explore_playground_clicked', { locale, theme });
+    // trackEvent('explore_playground_clicked', { locale, theme });
     router.push('/playground');
   };
 

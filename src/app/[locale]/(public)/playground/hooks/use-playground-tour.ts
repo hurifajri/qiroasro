@@ -4,9 +4,41 @@ import type { ColorMode } from '@xyflow/react';
 import type { Driver, DriveStep } from 'driver.js';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
-import { useConsent } from '@/hooks/use-consent';
 
-const TOUR_STORAGE_KEY = 'playground-tour-completed';
+// Helper to check if an element is visible in DOM
+function isElementVisible(selector: string): boolean {
+  const element = document.querySelector(selector);
+  if (!element) return false;
+  const style = window.getComputedStyle(element);
+  return (
+    style.display !== 'none' &&
+    style.visibility !== 'hidden' &&
+    style.opacity !== '0'
+  );
+}
+
+// Helper to apply eye-catching highlight effect
+function flashElement(element: Element | null) {
+  if (!element) return;
+
+  // const el = element.parentElement as HTMLElement;
+  const el = element as HTMLElement;
+  if (!el) return;
+  const originalStyles = {
+    borderRadius: el.style.borderRadius,
+    border: el.style.border,
+  };
+
+  // Apply red highlight with border radius
+  el.style.borderRadius = '4px';
+  el.style.border = '1px solid red';
+
+  // Reset after 1.5 seconds
+  setTimeout(() => {
+    el.style.borderRadius = originalStyles.borderRadius;
+    el.style.border = originalStyles.border;
+  }, 500);
+}
 
 interface UsePlaygroundTourProps {
   theme: ColorMode;
@@ -15,42 +47,6 @@ interface UsePlaygroundTourProps {
 export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
   const t = useTranslations('playground_page.tour');
   const driverRef = useRef<Driver | null>(null);
-  const { hasConsented } = useConsent();
-
-  // Helper to check if an element is visible in DOM
-  function isElementVisible(selector: string): boolean {
-    const element = document.querySelector(selector);
-    if (!element) return false;
-    const style = window.getComputedStyle(element);
-    return (
-      style.display !== 'none' &&
-      style.visibility !== 'hidden' &&
-      style.opacity !== '0'
-    );
-  }
-
-  // Helper to apply eye-catching highlight effect
-  function flashElement(element: Element | null) {
-    if (!element) return;
-
-    // const el = element.parentElement as HTMLElement;
-    const el = element as HTMLElement;
-    if (!el) return;
-    const originalStyles = {
-      borderRadius: el.style.borderRadius,
-      border: el.style.border,
-    };
-
-    // Apply red highlight with border radius
-    el.style.borderRadius = '4px';
-    el.style.border = '1px solid red';
-
-    // Reset after 1.5 seconds
-    setTimeout(() => {
-      el.style.borderRadius = originalStyles.borderRadius;
-      el.style.border = originalStyles.border;
-    }, 500);
-  }
 
   function getTourSteps(): DriveStep[] {
     return [
@@ -295,31 +291,11 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       popoverClass: 'driverjs-theme',
       overlayColor: theme === 'dark' ? 'white' : 'black',
       steps: getTourSteps(),
-      onDestroyed: () => {
-        localStorage.setItem(TOUR_STORAGE_KEY, 'true');
-      },
     });
 
     driverRef.current = driverInstance;
     driverInstance.drive();
   }
-
-  // Auto-start tour on first visit (after consent is decided)
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <unnecessary dependency>
-  useEffect(() => {
-    // Wait until consent is decided (not null)
-    if (hasConsented === null) return;
-
-    const hasSeenTour = localStorage.getItem(TOUR_STORAGE_KEY);
-    if (!hasSeenTour) {
-      // Small delay to ensure elements are rendered
-      const timer = setTimeout(() => {
-        startTour();
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-  }, [hasConsented]);
 
   // Cleanup on unmount
   useEffect(() => {

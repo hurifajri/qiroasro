@@ -2,13 +2,11 @@
 
 import { CopyIcon, PlayIcon, RefreshCwIcon, ShareIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { env } from '@/env';
-import { trackEvent } from '@/lib/analytics';
 import { parseDuration } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 import type { ChallengeQuizResult } from '../schemas/quiz';
 
 interface ChallengeActionsProps {
@@ -25,8 +23,6 @@ export function ChallengeActions({
   onChangeMode,
 }: ChallengeActionsProps) {
   const t = useTranslations('playground_page.quiz');
-  const locale = useLocale();
-  const theme = useGlobalStore((s) => s.theme);
   const [copied, setCopied] = useState(false);
 
   async function handleShare() {
@@ -69,13 +65,13 @@ export function ChallengeActions({
         }
 
         await navigator.share(shareData);
-        trackEvent('challenge_result_shared', {
-          locale,
-          theme,
-          difficulty: result.difficulty,
-          score: result.score.totalPoint,
-          share_method: 'native',
-        });
+        // trackEvent('challenge_result_shared', {
+        //   locale,
+        //   theme,
+        //   difficulty: result.difficulty,
+        //   score: result.score.totalPoint,
+        //   share_method: 'native',
+        // });
         return;
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
@@ -85,13 +81,13 @@ export function ChallengeActions({
     // Fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(`${shareText}. ${shareUrl}`);
-      trackEvent('challenge_result_shared', {
-        locale,
-        theme,
-        difficulty: result.difficulty,
-        score: result.score.totalPoint,
-        share_method: 'clipboard',
-      });
+      // trackEvent('challenge_result_shared', {
+      //   locale,
+      //   theme,
+      //   difficulty: result.difficulty,
+      //   score: result.score.totalPoint,
+      //   share_method: 'clipboard',
+      // });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {

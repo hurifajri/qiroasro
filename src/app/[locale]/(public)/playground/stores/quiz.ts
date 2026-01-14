@@ -1,9 +1,6 @@
 'use client';
 
-import type { ColorMode } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
-import type { Locale } from '@/i18n/routing';
-import { trackEvent } from '@/lib/analytics';
 import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
 import type {
   ChallengeQuizAnalytic,
@@ -81,7 +78,7 @@ interface QuizAction {
     type: ChallengeQuizAnalytic['type'],
     errorType: ChallengeQuizAnalytic['errorType'],
   ) => void;
-  finishChallenge: (options: { locale: Locale; theme: ColorMode }) => void;
+  finishChallenge: () => void;
   setChallengeCurrQuestion: (question: ChallengeQuizQuestion | null) => void;
   addChallengeTimeSpent: (timeSpent: number) => void;
   resetChallenge: () => void;
@@ -209,7 +206,7 @@ export function createQuizStore() {
           ],
         };
       }),
-    finishChallenge: ({ locale, theme }) => {
+    finishChallenge: () => {
       const state = get();
       const perfectQuestion = state.challengeQuestionScores.filter(
         (s) => s.isPerfect,
@@ -237,15 +234,15 @@ export function createQuizStore() {
       };
 
       // Track challenge completion
-      trackEvent('challenge_completed', {
-        locale,
-        theme,
-        difficulty: result.difficulty,
-        score: result.score.totalPoint,
-        time_spent: result.totalTime,
-        correct_total: result.score.correctConnection,
-        incorrect_total: result.score.incorrectConnection,
-      });
+      // trackEvent('challenge_completed', {
+      //   locale,
+      //   theme,
+      //   difficulty: result.difficulty,
+      //   score: result.score.totalPoint,
+      //   time_spent: result.totalTime,
+      //   correct_total: result.score.correctConnection,
+      //   incorrect_total: result.score.incorrectConnection,
+      // });
 
       set({ challengeResult: result });
     },
