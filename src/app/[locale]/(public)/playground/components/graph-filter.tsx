@@ -201,7 +201,7 @@ export function GraphFilter({
               <li id="tour-edge-shape" className="flex items-center gap-2">
                 <SplineIcon className="size-4 text-muted-foreground" />
                 <Select
-                  value={t(`edge.shape.${edgeStyle.shape}`)}
+                  value={edgeStyle.shape}
                   onValueChange={(value) =>
                     onEdgeStyleChange({ shape: value as EdgeShape })
                   }
