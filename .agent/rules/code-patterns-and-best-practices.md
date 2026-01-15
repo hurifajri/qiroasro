@@ -75,23 +75,16 @@ export function useCustomHook(options: UseHookOptions): UseHookReturn {
 
 ```typescript
 // services/entity.ts
+'use server'; // ✅ Server Action
+
+import { db } from '@/lib/db';
+import { entities } from '@/db/schema';
+
 export async function getEntities(): Promise<Entity[]> {
-  try {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_NAME)
-      .select('*')
-      .order(COLUMN_SORT_ORDER);
-
-    if (error) throw new Error(error.message);
-
-    const remoteEntities = RemoteEntitiesSchema.parse(data);
-    return transformRemoteEntities(remoteEntities);
-  } catch (error) {
-    // Proper error handling
-    throw error;  // Let React Query handle it
-  }
+  // Drizzle queries run on the server
+  return db.select().from(entities).orderBy(entities.sortOrder);
 }
+
 ```
 
 ### Query Options Pattern
@@ -120,9 +113,6 @@ export function getEntitiesOpt() {
 
 // Storage keys
 export const GLOBAL_STORE_KEY = 'app_global-store';
-
-// Table names
-export const TABLE_LETTERS = 'letters';
 
 // Enum-like constants (use as const for type inference)
 export const VIEW_MODES = ['all', 'filter', 'search'] as const;

@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { array, type InferOutput, object } from 'valibot';
 import {
   type ArticulationArea,
   type ArticulationPoint,
@@ -21,17 +21,19 @@ import {
 } from '@/schemas/trait';
 
 // Reuse existing remote schemas for the MV response
-export const RemotePlaygroundDataSchema = z.object({
-  letters: z.array(RemoteLetterSchema),
-  articulation_areas: z.array(RemoteArticulationAreaSchema),
-  articulation_points: z.array(RemoteArticulationPointSchema),
-  trait_groups: z.array(RemoteTraitGroupSchema),
-  traits: z.array(RemoteTraitSchema),
-  letter_articulations: z.array(RemoteLetterArticulationSchema),
-  letter_traits: z.array(RemoteLetterTraitSchema),
+export const RemotePlaygroundDataSchema = object({
+  letters: array(RemoteLetterSchema),
+  articulation_areas: array(RemoteArticulationAreaSchema),
+  articulation_points: array(RemoteArticulationPointSchema),
+  trait_groups: array(RemoteTraitGroupSchema),
+  traits: array(RemoteTraitSchema),
+  letter_articulations: array(RemoteLetterArticulationSchema),
+  letter_traits: array(RemoteLetterTraitSchema),
 });
 
-export type RemotePlaygroundData = z.infer<typeof RemotePlaygroundDataSchema>;
+export type RemotePlaygroundData = InferOutput<
+  typeof RemotePlaygroundDataSchema
+>;
 
 // Reuse existing transformed types
 export interface PlaygroundData {

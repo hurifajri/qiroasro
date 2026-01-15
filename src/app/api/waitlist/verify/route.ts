@@ -1,6 +1,8 @@
+import { eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
+import { waitlist } from '@/db/schema';
 import { env } from '@/env';
-import { getSupabaseClient } from '@/lib/supabase';
+import { db } from '@/lib/db';
 
 // export const runtime = 'edge';
 
@@ -13,38 +15,35 @@ export async function GET(request: NextRequest) {
       return redirectWithMessage('error');
     }
 
-    const supabase = getSupabaseClient();
-
     // Find the waitlist entry by token
-    const { data: entry, error: findError } = await supabase
-      .from('waitlist')
-      .select('id, email, status, locale')
-      .eq('verification_token', token)
-      .single();
+    const entry = await db.query.waitlist.findFirst({
+      where: (table, { eq }) => eq(table.verificationToken, token),
+      columns: {
+        id: true,
+        email: true,
+        status: true,
+        locale: true,
+      },
+    });
 
-    if (findError || !entry) {
+    if (!entry) {
       return redirectWithMessage('error');
     }
 
     if (entry.status === 'verified') {
-      return redirectWithMessage('already_verified', entry.locale);
+      return redirectWithMessage('already_verified', entry.locale || 'id');
     }
 
     // Update status to verified
-    const { error: updateError } = await supabase
-      .from('waitlist')
-      .update({
+    await db
+      .update(waitlist)
+      .set({
         status: 'verified',
-        verified_at: new Date().toISOString(),
-        // Keep verification_token so we can show 'already_verified' if user clicks again
+        verifiedAt: new Date(),
       })
-      .eq('id', entry.id);
+      .where(eq(waitlist.id, entry.id));
 
-    if (updateError) {
-      return redirectWithMessage('error');
-    }
-
-    return redirectWithMessage('success', entry.locale);
+    return redirectWithMessage('success', entry.locale || 'id');
   } catch {
     return redirectWithMessage('error');
   }

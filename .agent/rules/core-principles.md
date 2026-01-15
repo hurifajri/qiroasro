@@ -32,24 +32,17 @@ const topTen = sortByScoreDesc(withScores).slice(0, 10);
 ```typescript
 // ❌ Repeated logic
 // In component A
-const supabase = getSupabaseClient();
-const { data, error } = await supabase.from('letters').select('*').order('sort_order');
-if (error) throw new Error(error.message);
+const data = await db.select().from(letters).orderBy(letters.sortOrder);
 
 // In component B (same pattern repeated)
-const supabase = getSupabaseClient();
-const { data, error } = await supabase.from('traits').select('*').order('sort_order');
-if (error) throw new Error(error.message);
+const data = await db.select().from(traits).orderBy(traits.sortOrder);
 
-// ✅ DRY - create a generic service
-async function fetchFromTable<T>(table: string, orderBy?: string): Promise<T[]> {
-  const supabase = getSupabaseClient();
-  let query = supabase.from(table).select('*');
-  if (orderBy) query = query.order(orderBy);
-  const { data, error } = await query;
-  if (error) throw new Error(error.message);
-  return data as T[];
+// ✅ DRY - create a generic service or simply use Drizzle's expressive API
+// Since Drizzle is already concise, we often don't need a wrapper unless logic is complex
+export async function getSortedItems<T extends PgTable>(table: T) {
+  return db.select().from(table).orderBy(table.sortOrder);
 }
+
 ```
 
 ### SOLID Principles

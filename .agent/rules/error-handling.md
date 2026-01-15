@@ -7,23 +7,19 @@ trigger: always_on
 ### Service Layer
 
 ```typescript
-// ✅ Proper error handling
+// ✅ Proper error handling for Server Actions
+'use server';
+
 export async function getLetters(): Promise<Letter[]> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from(TABLE_LETTERS).select('*');
-
-  if (error) {
-    console.error('[getLetters] Supabase error:', error);
-    throw new Error(`Failed to fetch letters: ${error.message}`);
-  }
-
   try {
-    return RemoteLettersSchema.parse(data).map(transformRemoteLetter);
-  } catch (parseError) {
-    console.error('[getLetters] Parse error:', parseError);
-    throw new Error('Invalid data format received from server');
+    return await db.select().from(letters).orderBy(letters.sortOrder);
+  } catch (error) {
+    console.error('[getLetters] DB Error:', error);
+    // Throw error or safe fallback depending on requirement
+    throw new Error('Failed to fetch letters from database');
   }
 }
+
 ```
 
 ### Component Layer

@@ -1,10 +1,7 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { useLocale } from 'next-intl';
 import type { Dispatch, SetStateAction } from 'react';
-import { trackEvent } from '@/lib/analytics';
-import { useGlobalStore } from '@/providers/global';
 import { useQuizStore } from '../providers/quiz';
 import type { UseQuizGeneratorReturn } from './use-quiz-generator';
 import { useQuizTimer } from './use-quiz-timer';
@@ -20,9 +17,6 @@ export function useQuizPractice({
   setEdges,
   generator,
 }: UseQuizPracticeOptions) {
-  const locale = useLocale();
-  const theme = useGlobalStore((s) => s.theme);
-
   const { generateQuiz, checkAnswer } = generator;
 
   const type = useQuizStore((s) => s.type);
@@ -37,13 +31,13 @@ export function useQuizPractice({
     if (!type) return;
 
     const { score } = checkAnswer();
-    trackEvent('practice_quiz_checked', {
-      locale,
-      theme,
-      type,
-      correct: score.correct,
-      total: score.total,
-    });
+    // trackEvent('practice_quiz_checked', {
+    //   locale,
+    //   theme,
+    //   type,
+    //   correct: score.correct,
+    //   total: score.total,
+    // });
     setPracticeScore(score);
   }
 
@@ -61,16 +55,16 @@ export function useQuizPractice({
   function handleStart() {
     if (!type) return;
 
-    trackEvent('practice_quiz_started', {
-      locale,
-      theme,
-      type,
-      letter_count: settings.lettersPerQuiz,
-      target_count: settings.targetsPerQuiz,
-      multi_answer: settings.multiEdge,
-      timer_mode: settings.timerMode,
-      timer_duration: settings.timerDuration,
-    });
+    // trackEvent('practice_quiz_started', {
+    //   locale,
+    //   theme,
+    //   type,
+    //   letter_count: settings.lettersPerQuiz,
+    //   target_count: settings.targetsPerQuiz,
+    //   multi_answer: settings.multiEdge,
+    //   timer_mode: settings.timerMode,
+    //   timer_duration: settings.timerDuration,
+    // });
 
     setPracticeScore({ correct: 0, total: 0 });
     generateQuiz(type);
@@ -81,7 +75,7 @@ export function useQuizPractice({
   function handlePlayAgain() {
     if (!type) return;
 
-    trackEvent('practice_quiz_retry', { locale, theme, type });
+    // trackEvent('practice_quiz_retry', { locale, theme, type });
 
     stopTimer();
     setNodes([]);

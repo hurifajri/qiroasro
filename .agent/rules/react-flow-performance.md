@@ -72,22 +72,6 @@ return (
 );
 ```
 
-### Use requestAnimationFrame for Visual Updates
-
-For visual transitions like `fitView()`, use `requestAnimationFrame` instead of `setTimeout`:
-
-```typescript
-// ✅ Sync with browser paint cycle
-requestAnimationFrame(() => {
-  fitView({ padding: 0.2, duration: 300 });
-});
-
-// ❌ Arbitrary delay
-setTimeout(() => {
-  fitView({ padding: 0.2, duration: 300 });
-}, 50);
-```
-
 ### Performance Checklist
 
 - [ ] All custom node components wrapped with `React.memo()`

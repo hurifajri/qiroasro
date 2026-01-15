@@ -1,45 +1,58 @@
-import * as z from 'zod';
+import {
+  array,
+  boolean,
+  type InferOutput,
+  integer,
+  minLength,
+  number,
+  object,
+  omit,
+  pipe,
+  string,
+} from 'valibot';
 
-export const RemoteTraitSchema = z.object({
-  id: z.number().int(),
-  group_id: z.number().int(),
-  slug: z.string().min(1),
-  is_middle_trait: z.boolean(),
-  sort_order: z.number().int(),
+export const RemoteTraitSchema = object({
+  id: pipe(number(), integer()),
+  group_id: pipe(number(), integer()),
+  slug: pipe(string(), minLength(1)),
+  is_middle_trait: boolean(),
+  sort_order: pipe(number(), integer()),
 });
 
-const TraitSchema = z
-  .object({
-    ...RemoteTraitSchema.shape,
-    groupId: z.number().int(),
-    isMiddleTrait: z.boolean(),
-    sortOrder: z.number().int(),
-  })
-  .omit({ group_id: true, is_middle_trait: true, sort_order: true });
+const TraitSchema = omit(
+  object({
+    ...RemoteTraitSchema.entries,
+    groupId: pipe(number(), integer()),
+    isMiddleTrait: boolean(),
+    sortOrder: pipe(number(), integer()),
+  }),
+  ['group_id', 'is_middle_trait', 'sort_order'],
+);
 
-export const RemoteTraitsSchema = z.array(RemoteTraitSchema);
+export const RemoteTraitsSchema = array(RemoteTraitSchema);
 
-export type RemoteTrait = z.infer<typeof RemoteTraitSchema>;
-export type Trait = z.infer<typeof TraitSchema>;
+export type RemoteTrait = InferOutput<typeof RemoteTraitSchema>;
+export type Trait = InferOutput<typeof TraitSchema>;
 
-export const RemoteTraitGroupSchema = z.object({
-  id: z.number().int(),
-  slug: z.string().min(1),
-  is_lazimah: z.boolean(),
-  has_middle_trait: z.boolean(),
-  sort_order: z.number().int(),
+export const RemoteTraitGroupSchema = object({
+  id: pipe(number(), integer()),
+  slug: pipe(string(), minLength(1)),
+  is_lazimah: boolean(),
+  has_middle_trait: boolean(),
+  sort_order: pipe(number(), integer()),
 });
 
-const TraitGroupSchema = z
-  .object({
-    ...RemoteTraitGroupSchema.shape,
-    isLazimah: z.boolean(),
-    hasMiddleTrait: z.boolean(),
-    sortOrder: z.number().int(),
-  })
-  .omit({ is_lazimah: true, has_middle_trait: true, sort_order: true });
+const TraitGroupSchema = omit(
+  object({
+    ...RemoteTraitGroupSchema.entries,
+    isLazimah: boolean(),
+    hasMiddleTrait: boolean(),
+    sortOrder: pipe(number(), integer()),
+  }),
+  ['is_lazimah', 'has_middle_trait', 'sort_order'],
+);
 
-export const RemoteTraitGroupsSchema = z.array(RemoteTraitGroupSchema);
+export const RemoteTraitGroupsSchema = array(RemoteTraitGroupSchema);
 
-export type RemoteTraitGroup = z.infer<typeof RemoteTraitGroupSchema>;
-export type TraitGroup = z.infer<typeof TraitGroupSchema>;
+export type RemoteTraitGroup = InferOutput<typeof RemoteTraitGroupSchema>;
+export type TraitGroup = InferOutput<typeof TraitGroupSchema>;

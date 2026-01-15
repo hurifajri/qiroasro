@@ -8,7 +8,7 @@ import {
   useEdgesState,
   useNodesState,
 } from '@xyflow/react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import {
   Dialog,
@@ -17,9 +17,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 import { useQuizChallenge } from '../hooks/use-quiz-challenge';
 import { useQuizGenerator } from '../hooks/use-quiz-generator';
 import { useQuizPractice } from '../hooks/use-quiz-practice';
@@ -37,14 +35,11 @@ const nodeTypes: NodeTypes = {
 
 export function Quiz() {
   const t = useTranslations('playground_page.quiz');
-  const locale = useLocale();
-  const theme = useGlobalStore((s) => s.theme);
 
   const isDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const mode = useQuizStore((s) => s.mode);
   const type = useQuizStore((s) => s.type);
   const isStarted = useQuizStore((s) => s.isStarted);
-  const isChecked = useQuizStore((s) => s.isChecked);
   const resetAll = useQuizStore((s) => s.resetAll);
   const challengeDifficulty = useQuizStore((s) => s.challengeDifficulty);
   const challengeResult = useQuizStore((s) => s.challengeResult);
@@ -81,12 +76,12 @@ export function Quiz() {
     if (open) return;
 
     // Determine if quiz was completed based on current state
-    const completed =
-      mode === 'practice'
-        ? isChecked
-        : mode === 'challenge' && !!challengeResult;
+    // const completed =
+    //   mode === 'practice'
+    //     ? isChecked
+    //     : mode === 'challenge' && !!challengeResult;
 
-    trackEvent('quiz_dialog_closed', { locale, theme, mode, completed });
+    // trackEvent('quiz_dialog_closed', { locale, theme, mode, completed });
 
     stopTimerPractice();
     stopTimerChallenge();

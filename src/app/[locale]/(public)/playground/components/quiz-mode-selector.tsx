@@ -1,29 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useLocale, useTranslations } from 'next-intl';
+import * as m from 'motion/react-m';
+import { useTranslations } from 'next-intl';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { trackEvent } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 import { useQuizStore } from '../providers/quiz';
 import type { QuizMode, QuizType } from '../schemas/quiz';
 
 export function QuizModeSelector() {
   const t = useTranslations('playground_page.quiz');
-  const locale = useLocale();
-  const theme = useGlobalStore((s) => s.theme);
 
   const setMode = useQuizStore((s) => s.setMode);
   const setType = useQuizStore((s) => s.setType);
 
   function handleSelect(mode: QuizMode, type?: QuizType) {
-    trackEvent('quiz_mode_selected', {
-      locale,
-      theme,
-      mode,
-      type: type || null,
-    });
+    // trackEvent('quiz_mode_selected', {
+    //   locale,
+    //   theme,
+    //   mode,
+    //   type: type || null,
+    // });
     setMode(mode);
     if (type) setType(type);
   }
@@ -49,7 +45,7 @@ export function QuizModeSelector() {
       </Button>
 
       {/* Challenge button with pulse animation */}
-      <motion.button
+      <m.button
         onClick={() => handleSelect('challenge')}
         className={cn(
           buttonVariants({ variant: 'outline' }),
@@ -64,15 +60,15 @@ export function QuizModeSelector() {
         }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <motion.span
+        <m.span
           className="text-5xl"
           animate={{ rotate: [0, -10, 10, -10, 0] }}
           transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
         >
           🏆
-        </motion.span>
+        </m.span>
         {t('mode_challenge')}
-      </motion.button>
+      </m.button>
     </div>
   );
 }

@@ -378,33 +378,5 @@
         }
       }
     }
-  },
-  "privacy_page": {
-    "metadata": {
-      "title": "Privacy Policy",
-      "description": "Learn how Qiroasro collects and uses your data to improve the learning experience."
-    },
-    "title": "Privacy Policy",
-    "last_updated": "Last updated: January 2026",
-    "intro": "At Qiroasro, we respect your privacy. This policy explains what data we collect and how we use it.",
-    "sections": {
-      "data_collected": {
-        "title": "Data We Collect",
-        "description": "We collect anonymous usage data to improve the app experience, including:",
-        "items": "Page views and navigation,Quiz interactions,Feature usage patterns,Waitlist form submissions"
-      },
-      "purpose": {
-        "title": "Purpose",
-        "description": "We use this data solely to understand how users interact with the app and to improve features. We do not sell or share your data with third parties."
-      },
-      "opt_out": {
-        "title": "Your Choices",
-        "description": "You can reject analytics tracking when prompted. If you've already accepted, you can clear your browser data to reset your preference."
-      },
-      "contact": {
-        "title": "Contact",
-        "description": "If you have questions about this policy, please contact us at privacy@qiroasro.com"
-      }
-    }
   }
 }

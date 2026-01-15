@@ -1,7 +1,8 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
+import { AnimatePresence } from 'motion/react';
+import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -45,7 +46,7 @@ function ChallengeScore({ totalPoint }: { totalPoint: number }) {
       )}
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={totalPoint}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -53,7 +54,7 @@ function ChallengeScore({ totalPoint }: { totalPoint: number }) {
           transition={{ duration: 0.2, ease: 'easeOut' }}
         >
           {totalPoint}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
       &nbsp;
       <span>{t('challenge_point', { count: totalPoint })}</span>

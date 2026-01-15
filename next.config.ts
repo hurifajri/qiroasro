@@ -4,6 +4,34 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
+
+  // Enable source maps for better debugging
+  productionBrowserSourceMaps: true,
+
+  async headers() {
+    return [
+      {
+        // Cache static assets (images, fonts) for 1 year
+        source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Cache Next.js static chunks
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const withNextIntl = createNextIntlPlugin();

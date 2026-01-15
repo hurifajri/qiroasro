@@ -2,7 +2,6 @@
 
 import { TriangleAlertIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -23,10 +22,6 @@ export default function PlaygroundError({
   reset,
 }: PlaygroundErrorProps) {
   const t = useTranslations('playground_page.error');
-
-  useEffect(() => {
-    console.error('Playground Error', error);
-  }, [error]);
 
   return (
     <div className="flex h-[calc(100dvh-49px)] flex-col items-center justify-center p-4">

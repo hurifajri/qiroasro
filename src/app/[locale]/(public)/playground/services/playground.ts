@@ -1,5 +1,8 @@
-import { MV_PLAYGROUND_DATA } from '@/lib/constants';
-import { getSupabaseClient } from '@/lib/supabase';
+'use server';
+
+import { parse } from 'valibot';
+import { mvPlaygroundData } from '@/db/schema';
+import { db } from '@/lib/db';
 import { transformRemotePlaygroundData } from '../models/playground';
 import {
   type PlaygroundData,
@@ -8,22 +11,16 @@ import {
 
 export async function getPlaygroundData(): Promise<PlaygroundData> {
   try {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(MV_PLAYGROUND_DATA)
-      .select('data')
-      .single();
+    const result = await db
+      .select({ data: mvPlaygroundData.data })
+      .from(mvPlaygroundData);
+    const data = result[0]?.data;
 
-    if (error) throw new Error(error.message);
-
-    const remoteData = RemotePlaygroundDataSchema.parse(data?.data);
+    const remoteData = parse(RemotePlaygroundDataSchema, data);
     const playgroundData = transformRemotePlaygroundData(remoteData);
 
     return playgroundData;
-  } catch (error) {
-    // TODO: handle error
-    console.error(error);
-
+  } catch {
     return {
       letters: [],
       articulationAreas: [],

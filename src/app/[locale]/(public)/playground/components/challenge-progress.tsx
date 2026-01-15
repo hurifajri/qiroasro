@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { CheckIcon, XIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
 // import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import type { ChallengeQuizQuestionScore } from '../schemas/quiz';
@@ -36,7 +36,7 @@ export function ChallengeProgress({
           const isPerfect = stat?.isPerfect;
 
           return (
-            <motion.div
+            <m.div
               key={key}
               className={cn(
                 'flex size-6 items-center justify-center rounded-full border-2 font-medium text-xs transition-all',
@@ -63,7 +63,7 @@ export function ChallengeProgress({
               ) : (
                 index + 1
               )}
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

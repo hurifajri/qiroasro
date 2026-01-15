@@ -1,15 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { toPng } from 'html-to-image';
 import { CopyIcon, PlayIcon, RefreshCwIcon, ShareIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import * as m from 'motion/react-m';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { env } from '@/env';
-import { trackEvent } from '@/lib/analytics';
 import { parseDuration } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 import type { ChallengeQuizResult } from '../schemas/quiz';
 
 interface ChallengeActionsProps {
@@ -26,8 +23,6 @@ export function ChallengeActions({
   onChangeMode,
 }: ChallengeActionsProps) {
   const t = useTranslations('playground_page.quiz');
-  const locale = useLocale();
-  const theme = useGlobalStore((s) => s.theme);
   const [copied, setCopied] = useState(false);
 
   async function handleShare() {
@@ -44,6 +39,8 @@ export function ChallengeActions({
     let imageFile: File | undefined;
     if (resultRef.current) {
       try {
+        // Lazy load html-to-image
+        const { toPng } = await import('html-to-image');
         const dataUrl = await toPng(resultRef.current, { cacheBust: true });
         const blob = await fetch(dataUrl).then((res) => res.blob());
         imageFile = new File([blob], 'qiroasro-challenge.png', {
@@ -68,13 +65,13 @@ export function ChallengeActions({
         }
 
         await navigator.share(shareData);
-        trackEvent('challenge_result_shared', {
-          locale,
-          theme,
-          difficulty: result.difficulty,
-          score: result.score.totalPoint,
-          share_method: 'native',
-        });
+        // trackEvent('challenge_result_shared', {
+        //   locale,
+        //   theme,
+        //   difficulty: result.difficulty,
+        //   score: result.score.totalPoint,
+        //   share_method: 'native',
+        // });
         return;
       } catch (err) {
         if ((err as Error).name === 'AbortError') return;
@@ -84,13 +81,13 @@ export function ChallengeActions({
     // Fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(`${shareText}. ${shareUrl}`);
-      trackEvent('challenge_result_shared', {
-        locale,
-        theme,
-        difficulty: result.difficulty,
-        score: result.score.totalPoint,
-        share_method: 'clipboard',
-      });
+      // trackEvent('challenge_result_shared', {
+      //   locale,
+      //   theme,
+      //   difficulty: result.difficulty,
+      //   score: result.score.totalPoint,
+      //   share_method: 'clipboard',
+      // });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -99,7 +96,7 @@ export function ChallengeActions({
   }
 
   return (
-    <motion.div
+    <m.div
       className="flex flex-col gap-2 px-4"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -138,6 +135,6 @@ export function ChallengeActions({
           {t('challenge_play_again')}
         </Button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

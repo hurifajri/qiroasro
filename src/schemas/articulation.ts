@@ -1,49 +1,62 @@
-import * as z from 'zod';
+import {
+  array,
+  boolean,
+  type InferOutput,
+  integer,
+  minLength,
+  number,
+  object,
+  omit,
+  pipe,
+  string,
+} from 'valibot';
 
-export const RemoteArticulationAreaSchema = z.object({
-  id: z.number().int(),
-  slug: z.string().min(1),
-  is_muhaqqaq: z.boolean(),
-  sort_order: z.number().int(),
+export const RemoteArticulationAreaSchema = object({
+  id: pipe(number(), integer()),
+  slug: pipe(string(), minLength(1)),
+  is_muhaqqaq: boolean(),
+  sort_order: pipe(number(), integer()),
 });
 
-const ArticulationAreaSchema = z
-  .object({
-    ...RemoteArticulationAreaSchema.shape,
-    isMuhaqqaq: z.boolean(),
-    sortOrder: z.number().int(),
-  })
-  .omit({ is_muhaqqaq: true, sort_order: true });
+const ArticulationAreaSchema = omit(
+  object({
+    ...RemoteArticulationAreaSchema.entries,
+    isMuhaqqaq: boolean(),
+    sortOrder: pipe(number(), integer()),
+  }),
+  ['is_muhaqqaq', 'sort_order'],
+);
 
-export const RemoteArticulationAreasSchema = z.array(
+export const RemoteArticulationAreasSchema = array(
   RemoteArticulationAreaSchema,
 );
 
-export type RemoteArticulationArea = z.infer<
+export type RemoteArticulationArea = InferOutput<
   typeof RemoteArticulationAreaSchema
 >;
-export type ArticulationArea = z.infer<typeof ArticulationAreaSchema>;
+export type ArticulationArea = InferOutput<typeof ArticulationAreaSchema>;
 
-export const RemoteArticulationPointSchema = z.object({
-  id: z.number().int(),
-  area_id: z.number().int(),
-  slug: z.string().min(1),
-  sort_order: z.number().int(),
+export const RemoteArticulationPointSchema = object({
+  id: pipe(number(), integer()),
+  area_id: pipe(number(), integer()),
+  slug: pipe(string(), minLength(1)),
+  sort_order: pipe(number(), integer()),
 });
 
-const ArticulationPointSchema = z
-  .object({
-    ...RemoteArticulationPointSchema.shape,
-    areaId: z.number().int(),
-    sortOrder: z.number().int(),
-  })
-  .omit({ area_id: true, sort_order: true });
+const ArticulationPointSchema = omit(
+  object({
+    ...RemoteArticulationPointSchema.entries,
+    areaId: pipe(number(), integer()),
+    sortOrder: pipe(number(), integer()),
+  }),
+  ['area_id', 'sort_order'],
+);
 
-export const RemoteArticulationPointsSchema = z.array(
+export const RemoteArticulationPointsSchema = array(
   RemoteArticulationPointSchema,
 );
 
-export type RemoteArticulationPoint = z.infer<
+export type RemoteArticulationPoint = InferOutput<
   typeof RemoteArticulationPointSchema
 >;
-export type ArticulationPoint = z.infer<typeof ArticulationPointSchema>;
+export type ArticulationPoint = InferOutput<typeof ArticulationPointSchema>;
