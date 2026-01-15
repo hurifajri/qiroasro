@@ -1,21 +1,5 @@
 // Store keys
 export const GLOBAL_STORE_KEY = 'qiroasro_global-store';
-export const CONSENT_STORAGE_KEY = 'analytics_consent';
-
-// Table name
-export const TABLE_LETTERS = 'hij_letters';
-export const TABLE_LETTER_ARTICULATIONS = 'hij_letter_articulations';
-export const TABLE_LETTER_TRAITS = 'hij_letter_traits';
-export const TABLE_ARTICULATION_AREAS = 'hij_articulation_areas';
-export const TABLE_ARTICULATION_POINTS = 'hij_articulation_points';
-export const TABLE_TRAITS = 'hij_traits';
-export const TABLE_TRAIT_GROUPS = 'hij_trait_groups';
-
-// Column name
-export const COLUMN_SORT_ORDER = 'sort_order';
-
-// Materialized View name
-export const MV_PLAYGROUND_DATA = 'mv_playground_data';
 
 export const LOCALES = [
   'id',

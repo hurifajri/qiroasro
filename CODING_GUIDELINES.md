@@ -82,24 +82,17 @@ const topTen = sortByScoreDesc(withScores).slice(0, 10);
 ```typescript
 // ❌ Repeated logic
 // In component A
-const supabase = getSupabaseClient();
-const { data, error } = await supabase.from('letters').select('*').order('sort_order');
-if (error) throw new Error(error.message);
+const data = await db.select().from(letters).orderBy(letters.sortOrder);
 
 // In component B (same pattern repeated)
-const supabase = getSupabaseClient();
-const { data, error } = await supabase.from('traits').select('*').order('sort_order');
-if (error) throw new Error(error.message);
+const data = await db.select().from(traits).orderBy(traits.sortOrder);
 
-// ✅ DRY - create a generic service
-async function fetchFromTable<T>(table: string, orderBy?: string): Promise<T[]> {
-  const supabase = getSupabaseClient();
-  let query = supabase.from(table).select('*');
-  if (orderBy) query = query.order(orderBy);
-  const { data, error } = await query;
-  if (error) throw new Error(error.message);
-  return data as T[];
+// ✅ DRY - create a generic service or simply use Drizzle's expressive API
+// Since Drizzle is already concise, we often don't need a wrapper unless logic is complex
+export async function getSortedItems<T extends PgTable>(table: T) {
+  return db.select().from(table).orderBy(table.sortOrder);
 }
+
 ```
 
 ### SOLID Principles
@@ -550,23 +543,16 @@ export function useCustomHook(options: UseHookOptions): UseHookReturn {
 
 ```typescript
 // services/entity.ts
+'use server'; // ✅ Server Action
+
+import { db } from '@/lib/db';
+import { entities } from '@/db/schema';
+
 export async function getEntities(): Promise<Entity[]> {
-  try {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from(TABLE_NAME)
-      .select('*')
-      .order(COLUMN_SORT_ORDER);
-
-    if (error) throw new Error(error.message);
-
-    const remoteEntities = RemoteEntitiesSchema.parse(data);
-    return transformRemoteEntities(remoteEntities);
-  } catch (error) {
-    // Proper error handling
-    throw error;  // Let React Query handle it
-  }
+  // Drizzle queries run on the server
+  return db.select().from(entities).orderBy(entities.sortOrder);
 }
+
 ```
 
 ### Query Options Pattern
@@ -595,9 +581,6 @@ export function getEntitiesOpt() {
 
 // Storage keys
 export const GLOBAL_STORE_KEY = 'app_global-store';
-
-// Table names
-export const TABLE_LETTERS = 'letters';
 
 // Enum-like constants (use as const for type inference)
 export const VIEW_MODES = ['all', 'filter', 'search'] as const;
@@ -717,23 +700,19 @@ export const viewport: Viewport = {
 ### Service Layer
 
 ```typescript
-// ✅ Proper error handling
+// ✅ Proper error handling for Server Actions
+'use server';
+
 export async function getLetters(): Promise<Letter[]> {
-  const supabase = getSupabaseClient();
-  const { data, error } = await supabase.from(TABLE_LETTERS).select('*');
-
-  if (error) {
-    console.error('[getLetters] Supabase error:', error);
-    throw new Error(`Failed to fetch letters: ${error.message}`);
-  }
-
   try {
-    return RemoteLettersSchema.parse(data).map(transformRemoteLetter);
-  } catch (parseError) {
-    console.error('[getLetters] Parse error:', parseError);
-    throw new Error('Invalid data format received from server');
+    return await db.select().from(letters).orderBy(letters.sortOrder);
+  } catch (error) {
+    console.error('[getLetters] DB Error:', error);
+    // Throw error or safe fallback depending on requirement
+    throw new Error('Failed to fetch letters from database');
   }
 }
+
 ```
 
 ### Component Layer

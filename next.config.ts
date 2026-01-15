@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
 
-  experimental: {
-    // Optimize barrel exports for better tree-shaking
-    optimizePackageImports: ['motion', '@xyflow/react', '@xyflow/system'],
-  },
-
   // Enable source maps for better debugging
   productionBrowserSourceMaps: true,
 

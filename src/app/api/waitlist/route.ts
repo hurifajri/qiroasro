@@ -1,9 +1,11 @@
+import { eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { VerifyEmailTemplate } from '@/components/email-templates/verify-email';
+import { waitlist } from '@/db/schema';
 import { env } from '@/env';
 import type { Locale } from '@/i18n/routing';
+import { db } from '@/lib/db';
 import { getResendClient } from '@/lib/resend';
-import { getSupabaseClient } from '@/lib/supabase';
 
 // export const runtime = 'edge';
 
@@ -47,16 +49,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = getSupabaseClient();
-
     // Check if email already exists
-    const { data: existing } = await supabase
-      .from('waitlist')
-      .select('id, status, verification_token')
-      .eq('email', email.toLowerCase().trim())
-      .single();
+    const existing = await db.query.waitlist.findFirst({
+      where: (table, { eq }) => eq(table.email, email.toLowerCase().trim()),
+      columns: {
+        id: true,
+        status: true,
+        verificationToken: true,
+      },
+    });
 
-    let verificationToken: string;
+    let verificationToken: string | null = null;
 
     if (existing) {
       if (existing.status === 'verified') {
@@ -67,43 +70,46 @@ export async function POST(request: NextRequest) {
       }
 
       // Resend verification email for pending status
-      verificationToken = existing.verification_token;
+      verificationToken = existing.verificationToken;
+
+      const newVerificationToken = crypto.randomUUID();
 
       // Update verification token to a new one
-      const { data: updated, error: updateError } = await supabase
-        .from('waitlist')
-        .update({
-          verification_token: crypto.randomUUID(),
-          updated_at: new Date().toISOString(),
+      const updated = await db
+        .update(waitlist)
+        .set({
+          verificationToken: newVerificationToken,
+          updatedAt: new Date(),
         })
-        .eq('id', existing.id)
-        .select('verification_token')
-        .single();
+        .where(eq(waitlist.id, existing.id))
+        .returning({ verificationToken: waitlist.verificationToken });
 
-      if (updateError) {
+      if (!updated.length) {
         return NextResponse.json(
           { success: false, message_code: 'update_error' },
           { status: 500 },
         );
       }
 
-      verificationToken = updated.verification_token;
+      verificationToken = updated[0].verificationToken;
     } else {
       // Insert new entry
-      const { data: newEntry, error: insertError } = await supabase
-        .from('waitlist')
-        .insert({
-          email: email.toLowerCase().trim(),
-          locale,
-          source,
-          utm_source: utmSource,
-          utm_medium: utmMedium,
-          utm_campaign: utmCampaign,
-        })
-        .select('verification_token')
-        .single();
+      try {
+        const newEntry = await db
+          .insert(waitlist)
+          .values({
+            email: email.toLowerCase().trim(),
+            locale,
+            source,
+            utmSource,
+            utmMedium,
+            utmCampaign,
+          })
+          .returning({ verificationToken: waitlist.verificationToken });
 
-      if (insertError) {
+        verificationToken = newEntry[0].verificationToken;
+      } catch (err) {
+        const insertError = err as { code?: string };
         // Handle unique constraint violation
         if (insertError.code === '23505') {
           return NextResponse.json(
@@ -117,8 +123,13 @@ export async function POST(request: NextRequest) {
           { status: 500 },
         );
       }
+    }
 
-      verificationToken = newEntry.verification_token;
+    if (!verificationToken) {
+      return NextResponse.json(
+        { success: false, message_code: 'insert_error' },
+        { status: 500 },
+      );
     }
 
     // Build verification URL
