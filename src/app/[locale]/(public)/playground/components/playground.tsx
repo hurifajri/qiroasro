@@ -330,6 +330,7 @@ export function Playground() {
     edgeStyle.isAnimated,
     isMoving,
     draggingNodeId,
+    viewMode,
   ]);
 
   // Debounce ref for highlight updates
