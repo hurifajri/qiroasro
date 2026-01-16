@@ -20,13 +20,16 @@ import {
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import { isMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
+import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
@@ -73,6 +76,8 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
@@ -396,6 +401,7 @@ export function Playground() {
       {!isQuizStarted && (
         <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
+            dir={dir}
             proOptions={{ hideAttribution: true }}
             colorMode={theme}
             fitView
@@ -421,10 +427,14 @@ export function Playground() {
             maxZoom={isMobile() && viewMode !== 'letter' ? 0.2 : 1}
           >
             <Panel
-              position="top-right"
-              className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
+              position={dir === 'ltr' ? 'top-left' : 'top-right'}
+              className={cn(
+                'm-0! flex w-full flex-col gap-2 p-3 sm:w-auto',
+                dir === 'rtl' && 'items-end',
+              )}
             >
               <GraphFilter
+                dir={dir}
                 viewMode={viewMode}
                 layoutMode={layoutMode}
                 hierarchyDirection={hierarchyDirection}
@@ -437,15 +447,19 @@ export function Playground() {
                 onEdgeStyleChange={setEdgeStyle}
                 onLetterSelect={setSelectedLetterId}
               />
-              <GraphLegend viewMode={viewMode} />
+              <GraphLegend dir={dir} viewMode={viewMode} />
             </Panel>
 
             <Panel
-              position="bottom-left"
-              className="m-0! flex flex-col items-start gap-2 p-3"
+              position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
+              className={cn(
+                'm-0! flex flex-col gap-2 p-3',
+                dir === 'ltr' ? 'items-start' : 'items-end',
+              )}
             >
               <Button
                 id="tour-quiz"
+                dir={dir}
                 size="sm"
                 onClick={handleOpenQuizDialog}
                 className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
@@ -456,6 +470,7 @@ export function Playground() {
               <GraphDownload />
               <Button
                 id="tour-help"
+                dir={dir}
                 variant="outline"
                 size="sm"
                 onClick={startTour}
@@ -466,7 +481,11 @@ export function Playground() {
               </Button>
             </Panel>
 
-            <Panel id="tour-controls" position="bottom-right" className="m-3!">
+            <Panel
+              id="tour-controls"
+              position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
+              className="m-3!"
+            >
               <Controls className="static! m-0!" />
             </Panel>
 

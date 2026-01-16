@@ -10,7 +10,7 @@ import {
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -27,8 +27,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { getLocaleDir } from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
@@ -41,6 +39,7 @@ import type { Letter } from '@/schemas/letter';
 import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
 
 interface GraphFilterProps {
+  dir: 'ltr' | 'rtl';
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
@@ -55,6 +54,7 @@ interface GraphFilterProps {
 }
 
 export function GraphFilter({
+  dir,
   viewMode,
   layoutMode,
   hierarchyDirection,
@@ -68,8 +68,6 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const locale = useLocale() as Locale;
-  const dir = getLocaleDir(locale);
   const [isOpen, setIsOpen] = useState(false);
 
   return (

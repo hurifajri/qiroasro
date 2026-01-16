@@ -5,6 +5,7 @@ import type { Driver, DriveStep } from 'driver.js';
 import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
 import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 
 // Helper to check if an element is visible in DOM
 function isElementVisible(selector: string): boolean {

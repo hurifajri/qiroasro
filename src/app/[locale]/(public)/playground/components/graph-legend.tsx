@@ -1,5 +1,5 @@
 import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import {
   Collapsible,
@@ -12,12 +12,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { getLocaleDir } from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import type { ViewMode } from '../schemas/graph';
 
 interface GraphLegendProps {
+  dir: 'ltr' | 'rtl';
   viewMode: ViewMode;
 }
 
@@ -27,10 +26,8 @@ type LegendId =
   | 'traitLazimah'
   | 'traitAridhah';
 
-export function GraphLegend({ viewMode }: GraphLegendProps) {
+export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
-  const locale = useLocale() as Locale;
-  const dir = getLocaleDir(locale);
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(

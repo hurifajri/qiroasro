@@ -2,15 +2,19 @@
 
 import { getViewportForBounds, useReactFlow } from '@xyflow/react';
 import { DownloadIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 
 const IMAGE_WIDTH = 1920;
 const IMAGE_HEIGHT = 1080;
 
 export function GraphDownload() {
   const t = useTranslations('playground_page.download');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
 
   const { getNodes, getNodesBounds } = useReactFlow();
   const [isDownloading, setIsDownloading] = useState(false);
@@ -78,6 +82,7 @@ export function GraphDownload() {
   return (
     <Button
       id="tour-download-image"
+      dir={dir}
       variant="outline"
       size="sm"
       onClick={downloadImage}
