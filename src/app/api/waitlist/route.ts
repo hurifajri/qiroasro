@@ -18,8 +18,8 @@ const translations = {
   id: { subject: `Verifikasi Email - ${env.NEXT_PUBLIC_APP_NAME}` },
   en: { subject: `Verify Your Email - ${env.NEXT_PUBLIC_APP_NAME}` },
   tr: { subject: `E-posta Doğrulama - ${env.NEXT_PUBLIC_APP_NAME}` },
-  ms: { subject: `Pengesahan Emel - ${env.NEXT_PUBLIC_APP_NAME}` },
-  ar: { subject: `تأكيد البريد الإلكتروني - ${env.NEXT_PUBLIC_APP_NAME}` },
+  ms: { subject: `Pengesahan E-mel - ${env.NEXT_PUBLIC_APP_NAME}` },
+  ar: { subject: `التحقق من البريد الإلكتروني - ${env.NEXT_PUBLIC_APP_NAME}` },
 };
 
 interface WaitlistRequest {
