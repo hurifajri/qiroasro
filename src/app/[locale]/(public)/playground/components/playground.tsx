@@ -27,7 +27,7 @@ import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { isMobile } from '@/lib/device';
+import { getIsMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
@@ -222,18 +222,18 @@ export function Playground() {
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedNodes = useMemo(() => {
-    const isMobileDevice = isMobile();
+    const isMobile = getIsMobile();
 
     return nodes.map((node) => {
       // Hide during pan/zoom (mobile only for performance)
-      if (isMobileDevice && isMoving && node.type !== 'letter') {
+      if (isMobile && isMoving && node.type !== 'letter') {
         // Only create new object if hidden state changed
         if (node.hidden === true) return node;
         return { ...node, hidden: true };
       }
 
       // Hide during drag (except the node being dragged)
-      if (isMobileDevice && draggingNodeId) {
+      if (isMobile && draggingNodeId) {
         const isDragged = node.id === draggingNodeId;
         const shouldHide = !isDragged;
         // Only create new object if hidden state changed
@@ -272,8 +272,8 @@ export function Playground() {
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
-    const isMobileDevice = isMobile();
-    const shouldHideAll = isMobileDevice && (isMoving || draggingNodeId);
+    const isMobile = getIsMobile();
+    const shouldHideAll = isMobile && (isMoving || draggingNodeId);
 
     return edges.map((edge) => {
       // Hide during pan/zoom or drag (mobile only for performance)
@@ -423,8 +423,8 @@ export function Playground() {
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={isMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
-            maxZoom={isMobile() && viewMode !== 'letter' ? 0.2 : 1}
+            minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
+            maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
