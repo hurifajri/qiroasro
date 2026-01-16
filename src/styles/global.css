@@ -216,7 +216,7 @@
 }
 
 .driverjs-theme.driver-popover {
-  @apply bg-background text-foreground border border-border shadow-lg;
+  @apply bg-background text-foreground border border-border shadow-lg rounded-xl p-4;
 }
 
 .driverjs-theme.driver-popover * {
