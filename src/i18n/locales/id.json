@@ -357,7 +357,7 @@
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan. Saat ini tersedia bahasa Indonesia, Inggris, dan Turki."
+          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan."
         },
         "theme_selector": {
           "title": "Pilih Tema",

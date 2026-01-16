@@ -357,7 +357,7 @@
         },
         "locale_selector": {
           "title": "Dil Seçimi",
-          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın. Şu anda Endonezyaca, İngilizce ve Türkçe mevcuttur."
+          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın."
         },
         "theme_selector": {
           "title": "Tema Seçimi",
