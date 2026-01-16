@@ -94,11 +94,12 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
+  const dir = getLocaleDir(locale);
 
   return (
     <html
       lang={locale}
-      dir={getLocaleDir(locale as Locale)}
+      dir={dir}
       className={theme}
       style={{ colorScheme: theme }}
       suppressHydrationWarning
