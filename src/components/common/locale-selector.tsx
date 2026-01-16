@@ -7,12 +7,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LOCALE_CONFIG } from '@/i18n/locale';
+import { getLocaleDir, LOCALE_CONFIG } from '@/i18n/locale';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 
 export function LocaleSelector() {
   const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
   const router = useRouter();
   const pathname = usePathname();
   const currentConfig = LOCALE_CONFIG[locale];
@@ -22,7 +23,7 @@ export function LocaleSelector() {
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu dir={dir}>
       <DropdownMenuTrigger
         id="tour-locale-selector"
         className="size-8 rounded-full border border-border bg-background text-xl hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50"

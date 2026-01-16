@@ -17,7 +17,7 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
   const label = `(${t(localeKey)})`;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
-    useNodeLayout(nodeData, 'bg-node-letter-secondary!', selected);
+    useNodeLayout(nodeData, 'bg-node-letter-handle!', selected);
 
   return (
     <BaseNode

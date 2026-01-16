@@ -1,0 +1,381 @@
+{
+  "global": {
+    "metadata": {
+      "title": "أول تطبيق للتجويد القائم على الرسم البياني",
+      "description": "تعلم مخارج الحروف وصفاتها من خلال الرسوم البيانية التفاعلية. التطبيق الأول الذي يصور قواعد التجويد كعقد مترابطة.",
+      "feature_list": "رسوم بيانية تفاعلية,وضع الاختبار,دعم متعدد اللغات",
+      "keywords": "تجويد,مخارج الحروف,صفات الحروف,قرآن,تعلم القرآن,حروف الهجاء"
+    },
+    "letter": {
+      "hamzah": "همزة",
+      "ba": "باء",
+      "ta": "تاء",
+      "tsa": "ثاء",
+      "jim": "جيم",
+      "ha_wasath": "حاء",
+      "kha": "خاء",
+      "dal": "دال",
+      "dhal": "ذال",
+      "ra": "راء",
+      "zay": "زاي",
+      "sin": "سين",
+      "shin": "شين",
+      "shad": "صاد",
+      "dhad": "ضاد",
+      "tha": "طاء",
+      "zha": "ظاء",
+      "ayn": "عين",
+      "ghain": "غين",
+      "fa": "فاء",
+      "qaf": "قاف",
+      "kaf": "كاف",
+      "lam": "لام",
+      "mim": "ميم",
+      "nun": "نون",
+      "waw": "واو",
+      "ha_aqsha": "هاء",
+      "lam_alif": "لام ألف",
+      "ya": "ياء",
+      "alif_madd": "ألف مدية",
+      "waw_madd": "واو مدية",
+      "ya_madd": "ياء مدية"
+    },
+    "articulation_area": {
+      "al_jauf": "الجوف",
+      "al_halq": "الحلق",
+      "al_lisan": "اللسان",
+      "asy_syafatain": "الشفتان",
+      "al_khaisyum": "الخيشوم"
+    },
+    "articulation_point": {
+      "jauf": "الجوف",
+      "aqsha_halq": "أقصى الحلق",
+      "wasath_halq": "وسط الحلق",
+      "adna_halq": "أدنى الحلق",
+      "aqsha_lisan": "أقصى اللسان",
+      "aqsha_lisan_asfal": "أقصى اللسان (أسفل)",
+      "wasath_lisan": "وسط اللسان",
+      "hafah_lisan": "حافة اللسان",
+      "adna_hafah_lisan": "أدنى حافة اللسان",
+      "tharaf_lisan": "طرف اللسان",
+      "tharaf_lisan_zhahr_adkhal": "طرف اللسان (ظهر)",
+      "tharaf_lisan_ulya_tsanaya": "طرف اللسان وأصول الثنايا",
+      "tharaf_lisan_tsanaya_sufla": "طرف اللسان والثنايا السفلى",
+      "tharaf_lisan_athraf_tsanaya_ulya": "طرف اللسان وأطراف الثنايا",
+      "bathn_syafah": "بطن الشفة",
+      "syafatain": "الشفتان",
+      "khaisyum": "الخيشوم"
+    },
+    "articulation_point_description": {
+      "jauf": "الخلاء الداخل في الفم والحلق.",
+      "aqsha_halq": "أقصى الحلق (أبعده عن الفم)، وتحديداً عند الأحبال الصوتية.",
+      "wasath_halq": "وسط الحلق، وتحديداً عند لسان المزمار.",
+      "adna_halq": "أدنى الحلق (أقربه إلى الفم)، عند جذر اللسان مع اللهاة.",
+      "aqsha_lisan": "أقصى اللسان مما يلي الحلق مع ما يحاذيه من الحنك الأعلى (المنطقة الرخوة).",
+      "aqsha_lisan_asfal": "أقصى اللسان (أسفل مخرج القاف قليلاً) مع ما يحاذيه من الحنك الأعلى (المنطقة الرخوة والصلبة).",
+      "wasath_lisan": "وسط اللسان مع ما يحاذيه من الحنك الأعلى.",
+      "hafah_lisan": "إحدى حافتي اللسان أو كلاهما مع ما يحاذيه من الأضراس العليا.",
+      "adna_hafah_lisan": "أدنى حافة اللسان إلى منتهاها مع ما يحاذيها من لثة الأسنان العليا.",
+      "tharaf_lisan": "طرف اللسان مع ما يحاذيه من لثة الأسنان العليا (تحت مخرج اللام قليلاً).",
+      "tharaf_lisan_zhahr_adkhal": "طرف اللسان مع ما يحاذيه من لثة الأسنان العليا (قريباً من مخرج النون) ويدخل إلى ظهر اللسان.",
+      "tharaf_lisan_ulya_tsanaya": "طرف اللسان مع أصول الثنايا العليا.",
+      "tharaf_lisan_tsanaya_sufla": "طرف اللسان مع ما فوق الثنايا السفلى (مع إبقاء فرجة قليلة).",
+      "tharaf_lisan_athraf_tsanaya_ulya": "طرف اللسان مع أطراف الثنايا العليا.",
+      "bathn_syafah": "بطن الشفة السفلى مع أطراف الثنايا العليا.",
+      "syafatain": "ما بين الشفتين (بانطباقهما للباء والميم، وبانضمامهما للواو).",
+      "khaisyum": "خرق الأنف المنجذب إلى داخل الفم (مخرج الغنة)."
+    },
+    "trait_group": {
+      "nafas": "جريان النفس",
+      "shaut": "جريان الصوت",
+      "ittijah_shaut": "اتجاه الصوت",
+      "inhishar_shaut": "انحصار الصوت",
+      "khiffah_nuthq": "خفة النطق",
+      "munfaridah": "صفات لا ضد لها",
+      "siman_shaut": "صفات عارضة"
+    },
+    "trait": {
+      "jahr": "الجهر",
+      "hams": "الهمس",
+      "syiddah": "الشدة",
+      "rakhawah": "الرخاوة",
+      "tawassuth": "التوسط / البينية",
+      "istila": "الاستعلاء",
+      "istifal": "الاستفال",
+      "itbaq": "الإطباق",
+      "infitah": "الانفتاح",
+      "idzlaq": "الإذلاق",
+      "ishmat": "الإصمات",
+      "safir": "الصفير",
+      "qalqalah": "القلقلة",
+      "lin": "اللين",
+      "inhiraf": "الانحراف",
+      "takrir": "التكرير",
+      "tafasyi": "التفشي",
+      "istithalah": "الاستطالة",
+      "ghunnah": "الغنة",
+      "tafkhim": "التفخيم",
+      "tarqiq": "الترقيق",
+      "others": "أخرى"
+    },
+    "trait_description": {
+      "jahr": "انحباس جريان النفس لقوة الاعتماد على المخرج.",
+      "hams": "جريان النفس عند النطق بالحرف لضعف الاعتماد على المخرج.",
+      "syiddah": "انحباس جريان الصوت لقوة الاعتماد على المخرج.",
+      "rakhawah": "جريان الصوت مع الحرف لضعف الاعتماد على المخرج.",
+      "tawassuth": "اعتدال الصوت عند النطق بالحرف (بين الشدة والرخاوة).",
+      "istila": "ارتفاع أقصى اللسان إلى الحنك الأعلى.",
+      "istifal": "انخفاض أقصى اللسان عن الحنك الأعلى.",
+      "itbaq": "إلصاق طائفة من اللسان بالحنك الأعلى.",
+      "infitah": "تجافي (ابتعاد) اللسان عن الحنك الأعلى.",
+      "idzlaq": "خفة الحرف وسرعة النطق به لخروجه من ذلق اللسان أو الشفة.",
+      "ishmat": "ثقل الحرف لامتناعه من الانفراد بالأصول.",
+      "safir": "صوت زائد يشبه صوت الطائر يخرج من بين الثنايا وطرف اللسان.",
+      "qalqalah": "اضطراب المخرج عند النطق بالحرف ساكناً حتى يسمع له نبرة قوية.",
+      "lin": "إخراج الحرف بسهولة وعدم كلفة (الواو والياء الساكنتان المفتوح ما قبلهما).",
+      "inhiraf": "ميل الحرف بعد خروجه إلى مخرج غيره.",
+      "takrir": "ارتعاد رأس اللسان عند النطق بالحرف.",
+      "tafasyi": "انتشار الهواء في الفم عند النطق بالحرف.",
+      "istithalah": "امتداد الصوت من أول حافة اللسان إلى آخرها.",
+      "ghunnah": "صوت لذيذ يخرج من الخيشوم لا عمل لللسان فيه.",
+      "tafkhim": "سمن يعتري الحرف فيمتلئ الفم بصداه.",
+      "tarqiq": "نحول يعتري الحرف فلا يمتلئ الفم بصداه.",
+      "others": "بعض الصفات لم تضف بعد، سيتم إضافتها قريباً إن شاء الله."
+    },
+    "development": {
+      "email_placeholder": "البريد الإلكتروني",
+      "waitlist": "قائمة الانتظار",
+      "more_comprehensive": "هل تريد المزيد من التفاصيل؟",
+      "reminder_title": "أخبرني عندما يكون التطبيق متاحاً",
+      "reminder_cta": "انضم للقائمة",
+      "reminder_playground_cta": "اذهب إلى ساحة التجربة",
+      "reminder_success": "تم إرسال بريد التحقق! يرجى التحقق من صندوق الوارد.",
+      "reminder_verified": "تم التحقق من البريد الإلكتروني بنجاح",
+      "reminder_verified_message": "سنقوم بإعلامك عبر البريد الإلكتروني عندما يصبح التطبيق متاحاً إن شاء الله.",
+      "reminder_already_verified": "تم التحقق من بريدك الإلكتروني مسبقاً.",
+      "reminder_error": "حدث خطأ ما. حاول مرة اخرى.",
+      "reminder_invalid_email": "البريد الإلكتروني غير صالح",
+      "reminder_email_required": "البريد الإلكتروني مطلوب"
+    }
+  },
+  "home_page": {
+    "metadata": {
+      "title": "أول تطبيق للتجويد القائم على الرسم البياني",
+      "description": "أتقن التجويد من خلال الرسوم البيانية التفاعلية. تعلم مخارج وصفات الحروف عبر اتصالات بصرية."
+    },
+    "title": "Qiroasro - أول تطبيق للتجويد القائم على الرسم البياني",
+    "development": {
+      "title": "قيد التطوير",
+      "subtitle": "نحن حاليا نطور تطبيقاً تفاعلياً لتعلم التجويد. نسألكم الدعاء، عسى الله أن ييسر لنا. آمين...",
+      "playground_cta": "استكشف النموذج"
+    }
+  },
+  "playground_page": {
+    "metadata": {
+      "title": "رسم بياني تفاعلي للتجويد",
+      "description": "استكشف مخارج الحروف وصفاتها من خلال تصور بياني تفاعلي."
+    },
+    "title": "ساحة التجربة - رسم بياني تفاعلي",
+    "filter": {
+      "title": "الإعدادات",
+      "view_mode": {
+        "all": "الكل",
+        "articulation": "المخرج",
+        "trait": "الصفة",
+        "letter": "الحرف"
+      },
+      "layout_mode": {
+        "radial": "دائري",
+        "hierarchical": "هرمي",
+        "direction": {
+          "vertical": "عمودي",
+          "horizontal": "أفقي"
+        }
+      },
+      "edge": {
+        "dynamic": "خط ديناميكي",
+        "shape": {
+          "default": "منحني",
+          "straight": "مستقيم",
+          "step": "متدرج",
+          "smoothstep": "متدرج ناعم"
+        }
+      }
+    },
+    "legend": {
+      "title": "المفتاح",
+      "articulation_area": "منطقة المخرج",
+      "articulation_muhaqqaq": "مخرج محقق",
+      "articulation_muhaqqaq_description": "المخرج الذي يعتمد على جزء معين من أجزاء الحلق أو اللسان أو الشفتين.",
+      "articulation_muqaddar": "مخرج مقدر",
+      "articulation_muqaddar_description": "المخرج الذي لا يعتمد على جزء معين، بحيث لا يمكن تحديد نقطة خروجه بدقة.",
+      "trait_group": "مجموعة الصفات",
+      "trait_lazimah": "صفة لازمة",
+      "trait_lazimah_description": "الصفة اللازمة هي التي تلازم الحرف في كل أحواله.",
+      "trait_aridhah": "صفة عارضة",
+      "trait_aridhah_description": "الصفة العارضة هي التي تعرض للحرف في أحوال معينة وتفارقه في أخرى.",
+      "letter": "حرف",
+      "letterMadd": "حرف مد"
+    },
+    "quiz": {
+      "trigger": "بدء الاختبار",
+      "select_mode_title": "نوع الاختبار",
+      "select_mode_description": "اختر نوع الاختبار الذي تريد إجراءه",
+      "mode_articulation_point": "اختبار المخارج",
+      "mode_trait": "اختبار الصفات",
+      "mode_challenge": "تحدي",
+      "practice_title_articulation_point": "اختبار مخارج الحروف",
+      "practice_title_trait": "اختبار صفات الحروف",
+      "practice_description_articulation_point": "طابق الحرف بالمخرج الصحيح",
+      "practice_description_trait": "طابق الحرف بالصفة الصحيحة",
+      "practice_settings_title": "إعدادات الاختبار",
+      "practice_settings_description_articulation_point": "ضبط إعدادات اختبار مخارج الحروف",
+      "practice_settings_description_trait": "ضبط إعدادات اختبار صفات الحروف",
+      "practice_letters_per_quiz": "عدد الحروف",
+      "practice_targets_per_quiz_articulation_point": "عدد المخارج",
+      "practice_targets_per_quiz_trait": "عدد الصفات",
+      "practice_multi_edge": "إجابات متعددة",
+      "practice_timer_mode": "وضع المؤقت",
+      "practice_timer_duration": "المدة (ثواني)",
+      "practice_instruction_title": "التعليمات",
+      "practice_instruction_description_articulation_point": "صل الحرف بالمخرج المناسب. ارسم خطاً أو انقر فوق كلا العنصرين للمطابقة.",
+      "practice_instruction_description_trait": "صل الحرف بالصفة المناسبة. ارسم خطاً أو انقر فوق كلا العنصرين للمطابقة.",
+      "challenge_instruction_description": "صل الحرف بالمخرج والصفة المناسبة. ارسم خطاً أو انقر فوق كلا العنصرين للمطابقة. الأسئلة 1-5 تتطلب اتصالاً واحداً فقط. الأسئلة التالية تتطلب أكثر من اتصال واحد (2 أو 3 أو 4 خطوط).",
+      "challenge_select_difficulty_title": "مستوى الصعوبة",
+      "challenge_select_difficulty_description": "اختر مستوى الصعوبة",
+      "challenge_confirm_title": "تأكيد التحدي",
+      "challenge_title": "التحدي",
+      "challenge_description": "طابق الحرف بالمخرج والصفة الصحيحة",
+      "challenge_difficulty_easy": "سهل",
+      "challenge_difficulty_medium": "متوسط",
+      "challenge_difficulty_hard": "صعب",
+      "challenge_seconds_per_question": "{seconds} ثانية لكل سؤال",
+      "challenge_total_question_count": "إجمالي {count} سؤال",
+      "challenge_question_of": "السؤال {current} من {total}",
+      "challenge_point": "نقطة",
+      "challenge_total_time": "الوقت الكلي",
+      "challenge_total_point": "مجموع النقاط",
+      "challenge_perfect_question": "أسئلة مثالية",
+      "challenge_correct_connection": "صحيح",
+      "challenge_incorrect_connection": "خطأ",
+      "challenge_accuracy": "الدقة",
+      "challenge_badge_perfect": "ممتاز مرتفع",
+      "challenge_badge_great": "ممتاز",
+      "challenge_badge_good": "جيد جداً",
+      "challenge_badge_keep_learning": "جيد",
+      "challenge_weakness_analysis": "تحليل",
+      "challenge_weakness_incorrect": "تمت الإجابة ولكن غير صحيح",
+      "challenge_weakness_missed": "لم يتم الرد",
+      "challenge_share_result": "شارك النتيجة",
+      "challenge_share_text": "لقد حصلت على {point} نقطة في اختبار المخارج والصفات (مستوى {difficulty}) في {minutes} دقيقة و {seconds} ثانية! 🎯",
+      "challenge_share_copied": "تم النسخ!",
+      "challenge_play_again": "العب مرة أخرى",
+      "check_answer": "تحقق من الإجابة",
+      "try_again": "حاول مرة أخرى",
+      "change_mode": "تغيير الوضع",
+      "all_correct": "ممتاز!",
+      "correct_score": "صحيح {correct}",
+      "incorrect_score": "خطأ {incorrect}",
+      "incorrect_single_answer": "استمر!",
+      "back": "رجوع",
+      "start_quiz": "بدء الاختبار"
+    },
+    "download": {
+      "trigger": "تحميل الصورة",
+      "downloading": "جاري التحميل..."
+    },
+    "development": {
+      "more_comprehensive": "هل تريد المزيد؟"
+    },
+    "error": {
+      "title": "حدث خطأ",
+      "description": "حدث خطأ أثناء تحميل الصفحة. يرجى المحاولة مرة أخرى.",
+      "retry": "حاول مرة أخرى",
+      "reload": "إعادة تحميل"
+    },
+    "tour": {
+      "next": "التالي",
+      "prev": "السابق",
+      "done": "تم!",
+      "help_button": "دليل",
+      "steps": {
+        "welcome": {
+          "title": "السلام عليكم!",
+          "description": "مرحباً بكم في ساحة تجربة التجويد. يسر الله لكم تعلم علم التجويد من خلال هذا التصور التفاعلي. لنبدأ باسم الله..."
+        },
+        "canvas": {
+          "title": "المنطقة التفاعلية",
+          "description": "هذه هي المنطقة الرئيسية لاستكشاف العلاقات بين الحروف والمخارج والصفات. يرجى محاولة النقر فوق أي حرف أو مخرج أو صفة تظهر على الشاشة."
+        },
+        "controls": {
+          "title": "أدوات التحكم بالعرض",
+          "description": "استخدم التمرير أو أزرار +/- للتكبير، والسحب للتحرك، ورمز المربع لتوسط الرسم البياني، ورمز القفل لتثبيت التخطيط."
+        },
+        "graph_filter": {
+          "title": "لوحة الإعدادات",
+          "description": "هنا لضبط عرض الرسم البياني حسب الحاجة. يرجى النقر لفتح لوحة الإعدادات."
+        },
+        "view_mode": {
+          "title": "وضع العرض",
+          "description": "اختر ما تريد عرضه: الكل، المخارج فقط، الصفات فقط، أو التركيز على حرف معين."
+        },
+        "letter_selector": {
+          "title": "اختيار الحروف الهجائية",
+          "description": "ما شاء الله، هناك 29 حرفاً هجائياً يمكن استكشافها. اختر حرفاً واحداً لرؤية مخرجه وصفاته بالتفصيل."
+        },
+        "layout_mode": {
+          "title": "وضع التخطيط",
+          "description": "اختر بين التخطيط الدائري (مثل الشمس) أو الهرمي (مثل الشجرة). يرجى تجربة الوضع الهرمي."
+        },
+        "hierarchy_direction": {
+          "title": "اتجاه الهرم",
+          "description": "اضبط اتجاه التدفق: عمودي (من أعلى لأسفل) أو أفقي (من اليسار لليمين). يرجى اختيار أفقي."
+        },
+        "edge_style": {
+          "title": "نمط خط الاتصال",
+          "description": "قم بتمكين الخطوط الديناميكية التي تتبع مواقع العقد، أو قم بتعطيلها لاختيار أشكال خطوط ثابتة."
+        },
+        "edge_shape": {
+          "title": "شكل خط الاتصال",
+          "description": "اختر شكل خط الاتصال: منحني، مستقيم، متدرج، أو متدرج ناعم."
+        },
+        "graph_legend": {
+          "title": "مفتاح الألوان",
+          "description": "تشرح هذه اللوحة معنى لون كل عقدة. يرجى الفتح للمتابعة."
+        },
+        "legend_detail": {
+          "title": "معلومات مفصلة",
+          "description": "يمكن النقر فوق هذا الرمز لقراءة المزيد من الشروحات التفصيلية."
+        },
+        "download": {
+          "title": "تحميل الصورة",
+          "description": "انقر فوق هذا الزر لتنزيل صورة الرسم البياني."
+        },
+        "quiz": {
+          "title": "اختبار",
+          "description": "انقر فوق هذا الزر لتجربة بعض نماذج الاختبارات."
+        },
+        "locale_selector": {
+          "title": "اختر اللغة",
+          "description": "اختر اللغة لاستخدام التطبيق باللغة المطلوبة."
+        },
+        "theme_selector": {
+          "title": "اختر السمة",
+          "description": "اختر السمة لاستخدام التطبيق في الوضع الفاتح أو الداكن."
+        },
+        "waitlist": {
+          "title": "قائمة الانتظار",
+          "description": "انقر هنا للانضمام إلى قائمة الانتظار حتى نتمكن من إعلامك عند توفر التطبيق إن شاء الله."
+        },
+        "help": {
+          "title": "مساعدة",
+          "description": "انقر هنا لإعادة تشغيل دليل الصفحة."
+        },
+        "end": {
+          "title": "انتهينا",
+          "description": "شكراً لمتابعة هذا الدليل. يرجى الاستمرار في الاستكشاف. بارك الله فيكم."
+        }
+      }
+    }
+  }
+}

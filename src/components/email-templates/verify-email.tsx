@@ -13,7 +13,9 @@ import {
   Text,
 } from '@react-email/components';
 import { env } from '@/env';
+import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 
 interface VerifyEmailTemplateProps {
   verificationUrl: string;
@@ -53,6 +55,26 @@ const translations = {
     expiry: 'Bu bağlantı 24 saat içinde geçerliliğini yitirecektir.',
     ignore: `Kayıt olmadıysanız lütfen bu e-postayı dikkate almayın.`,
   },
+  ms: {
+    title: 'Pengesahan E-mel',
+    greeting: 'Assalamualaikum,',
+    message_1: `Jazakumullahu khairan katsiran kerana menyertai senarai menunggu ${APP_NAME}. Insya-Allah, kami akan memaklumkan anda sebaik sahaja aplikasi ini dilancarkan secara rasmi dan sedia untuk digunakan.`,
+    message_2: `Ingin kami tegaskan bahawa aplikasi ini tidak dicipta untuk menggantikan peranan seorang guru. Kaedah talaqqi dan musyafahah bersama guru kekal sebagai cara utama sebagaimana yang disunnahkan. Harapan kami, aplikasi ini dapat menjadi wasilah yang memudahkan kita semua dalam mempelajari ilmu tajwid. Semoga Allah memberkati dan mempermudahkan proses pembangunannya.`,
+    verification: `Sila klik butang di bawah untuk mengesahkan e-mel agar kami dapat menghubungi anda apabila aplikasi dilancarkan nanti.`,
+    button: 'Sahkan E-mel',
+    expiry: 'Pautan ini akan tamat tempoh dalam masa 24 jam.',
+    ignore: `Abaikan e-mel ini sekiranya anda tidak mendaftar.`,
+  },
+  ar: {
+    title: 'التحقق من البريد الإلكتروني',
+    greeting: 'السلام عليكم،',
+    message_1: `جزاكم الله خيراً كثيراً لانضمامكم إلى قائمة الانتظار في ${APP_NAME}. إن شاء الله، سنقوم بإعلامكم بمجرد إطلاق التطبيق رسمياً وجاهزيته للاستخدام.`,
+    message_2: `نود التأكيد على أن هذا التطبيق لم يتم إنشاؤه ليحل محل دور المعلم. تظل طريقتا التلقي والمشافهة مع المعلم هما الأساس والأصل كما ورد في السنة. أملنا أن يكون هذا التطبيق وسيلة لتسهيل تعلم علم التجويد لنا جميعاً. نسأل الله أن يبارك في عملية التطوير وييسرها.`,
+    verification: `يرجى النقر على الزر أدناه للتحقق من بريدك الإلكتروني حتى نتمكن من التواصل معك عند الإطلاق.`,
+    button: 'التحقق من البريد الإلكتروني',
+    expiry: 'ستنتهي صلاحية هذا الرابط خلال 24 ساعة.',
+    ignore: `يرجى تجاهل هذا البريد الإلكتروني إذا لم تقم بالتسجيل.`,
+  },
 };
 
 export function VerifyEmailTemplate({
@@ -60,13 +82,20 @@ export function VerifyEmailTemplate({
   locale = 'id',
 }: VerifyEmailTemplateProps) {
   const t = translations[locale];
+  const dir = getLocaleDir(locale);
 
   return (
-    <Html lang={locale}>
+    <Html lang={locale} dir={dir}>
       <Head />
       <Tailwind>
-        <Body className="font-sans">
-          <Container>
+        <Body
+          className={cn(
+            'font-sans',
+            dir === 'rtl' ? 'text-right' : 'text-left',
+          )}
+          dir={dir}
+        >
+          <Container dir={dir}>
             {/* Header */}
             {/* <Section className="py-10">
               <Row>

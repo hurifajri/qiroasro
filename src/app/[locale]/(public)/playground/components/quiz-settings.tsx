@@ -1,11 +1,13 @@
 'use client';
 
 import { SettingsIcon, TimerIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import { useQuizStore } from '../providers/quiz';
 import { PRACTICE_QUIZ_TYPE_CONFIG } from '../schemas/quiz';
 
@@ -22,6 +24,8 @@ interface QuizSettingsProps {
 
 export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const t = useTranslations('playground_page.quiz');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
 
   const type = useQuizStore((s) => s.type);
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
@@ -119,15 +123,16 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
             <div key={key} className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <Label className="text-sm">
-                  {t(labelKey, {
-                    target: type === 'articulation_point' ? 'Makhraj' : 'Sifat',
-                  })}
+                  {key === 'lettersPerQuiz'
+                    ? t(labelKey)
+                    : t(`${labelKey}_${type}`)}
                 </Label>
                 <span className="font-medium text-sm">
                   {practiceSettings[key]}
                 </span>
               </div>
               <Slider
+                dir={dir}
                 value={[practiceSettings[key]]}
                 onValueChange={(v) => handleSliderChange(key, v)}
                 min={sliderRange.min}
@@ -142,6 +147,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           <div className="flex items-center justify-between">
             <Label className="text-sm">{t('practice_multi_edge')}</Label>
             <Switch
+              dir={dir}
               checked={practiceSettings.multiEdge}
               disabled={isMultiEdgeDisabled}
               onCheckedChange={(checked) =>
@@ -158,6 +164,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               {t('practice_timer_mode')}
             </Label>
             <Switch
+              dir={dir}
               checked={practiceSettings.timerMode}
               onCheckedChange={(checked) =>
                 setPracticeSettings({ ...practiceSettings, timerMode: checked })
@@ -174,6 +181,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               </span>
             </div>
             <Slider
+              dir={dir}
               value={[practiceSettings.timerDuration]}
               onValueChange={(v) =>
                 setPracticeSettings({

@@ -6,12 +6,6 @@
       "feature_list": "Etkileşimli bilgi grafikleri,Test modu,Çoklu dil desteği",
       "keywords": "tecvid,tajweed,mahreç,mahreçler,sıfat,kuran,kuran öğrenme,arapça harfler,elifba"
     },
-    "consent": {
-      "message": "Deneyiminizi iyileştirmek için analitik kullanıyoruz.",
-      "accept": "Kabul Et",
-      "reject": "Reddet",
-      "privacy_link": "Gizlilik Politikası"
-    },
     "letter": {
       "hamzah": "Hemze",
       "ba": "Be",
@@ -149,6 +143,7 @@
       "others": "Henüz eklenmemiş bazı özellikler var, inşallah yakında eklenecek."
     },
     "development": {
+      "email_placeholder": "E-posta",
       "waitlist": "Bekleme Listesi",
       "more_comprehensive": "Daha kapsamlısını mı arıyorsunuz?",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
@@ -229,23 +224,28 @@
       "mode_articulation_point": "Mahreç Testi",
       "mode_trait": "Sıfat Testi",
       "mode_challenge": "Meydan Okuma",
-      "practice_title": "{type} Testi",
-      "practice_description": "Harfi doğru {type} ile eşleştir",
+      "practice_title_articulation_point": "Mahreç Testi",
+      "practice_title_trait": "Sıfat Testi",
+      "practice_description_articulation_point": "Harfi doğru mahreç ile eşleştir",
+      "practice_description_trait": "Harfi doğru sıfat ile eşleştir",
       "practice_settings_title": "Test Ayarları",
-      "practice_settings_description": "{type} testi için ayarları düzenle",
+      "practice_settings_description_articulation_point": "Mahreç testi için ayarları düzenle",
+      "practice_settings_description_trait": "Sıfat testi için ayarları düzenle",
       "practice_letters_per_quiz": "Harf Sayısı",
-      "practice_targets_per_quiz": "{target} Sayısı",
+      "practice_targets_per_quiz_articulation_point": "Mahreç Sayısı",
+      "practice_targets_per_quiz_trait": "Sıfat Sayısı",
       "practice_multi_edge": "Çoklu Cevap",
       "practice_timer_mode": "Zamanlayıcı Modu",
       "practice_timer_duration": "Süre (Saniye)",
       "practice_instruction_title": "Talimatlar",
-      "practice_instruction_description": "Harfi uygun {target} ile birleştirin. Çizgi çekin veya eşleştirmek için her iki öğeye tıklayın.",
-      "challenge_instruction_description": "Harfi doğru mahreç/sıfat ile birleştirin. 1-5. sorular sadece 1 bağlantı gerektirir. Sonraki sorular birden fazla bağlantı (2, 3 veya 4 çizgi) gerektirir.",
+      "practice_instruction_description_articulation_point": "Harfi uygun mahreç ile birleştirin. Çizgi çekin veya eşleştirmek için her iki öğeye tıklayın.",
+      "practice_instruction_description_trait": "Harfi uygun sıfat ile birleştirin. Çizgi çekin veya eşleştirmek için her iki öğeye tıklayın.",
+      "challenge_instruction_description": "Harfi uygun mahreç ve sıfat ile birleştirin. Çizgi çekin veya eşleştirmek için her iki öğeye tıklayın. 1-5. sorular sadece 1 bağlantı gerektirir. Sonraki sorular birden fazla bağlantı (2, 3 veya 4 çizgi) gerektirir.",
       "challenge_select_difficulty_title": "Zorluk Seviyesi",
       "challenge_select_difficulty_description": "Meydan okuma zorluk seviyesini seçin",
       "challenge_confirm_title": "Meydan Okumayı Onayla",
       "challenge_title": "Meydan Okuma",
-      "challenge_description": "Harfi doğru {type} ile eşleştir",
+      "challenge_description": "Harfi doğru mahreç ve sıfat ile eşleştir",
       "challenge_difficulty_easy": "Kolay",
       "challenge_difficulty_medium": "Orta",
       "challenge_difficulty_hard": "Zor",
@@ -298,7 +298,6 @@
       "prev": "Geri",
       "done": "Tamam!",
       "help_button": "Rehber",
-      "of": "/",
       "steps": {
         "welcome": {
           "title": "Selamun Aleyküm!",
@@ -358,7 +357,7 @@
         },
         "locale_selector": {
           "title": "Dil Seçimi",
-          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın. Şu anda Endonezyaca, İngilizce ve Türkçe mevcuttur."
+          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın."
         },
         "theme_selector": {
           "title": "Tema Seçimi",
@@ -376,34 +375,6 @@
           "title": "Tamamladık!",
           "description": "Bu rehberi takip ettiğiniz için teşekkürler. Lütfen keşfetmeye devam edin. Allah razı olsun."
         }
-      }
-    }
-  },
-  "privacy_page": {
-    "metadata": {
-      "title": "Gizlilik Politikası",
-      "description": "Qiroasro'nun öğrenme deneyiminizi iyileştirmek için verilerinizi nasıl topladığını ve kullandığını öğrenin."
-    },
-    "title": "Gizlilik Politikası",
-    "last_updated": "Son güncelleme: Ocak 2026",
-    "intro": "Qiroasro olarak gizliliğinize önem veriyoruz. Bu politika, hangi verileri topladığımızı ve bunları nasıl kullandığımızı açıklar.",
-    "sections": {
-      "data_collected": {
-        "title": "Topladığımız Veriler",
-        "description": "Uygulama deneyimini iyileştirmek için anonim kullanım verileri topluyoruz, bunlar şunları içerir:",
-        "items": "Sayfa görüntülemeleri ve gezinme,Test etkileşimleri,Özellik kullanım alışkanlıkları,Bekleme listesi kayıtları"
-      },
-      "purpose": {
-        "title": "Amaç",
-        "description": "Bu verileri yalnızca kullanıcıların uygulamayla nasıl etkileşime girdiğini anlamak ve özellikleri geliştirmek için kullanıyoruz. Verilerinizi üçüncü taraflara satmıyoruz veya paylaşmıyoruz."
-      },
-      "opt_out": {
-        "title": "Seçenekleriniz",
-        "description": "Size sorulduğunda analitik takibini reddedebilirsiniz. Daha önce kabul ettiyseniz, tercihinizi sıfırlamak için tarayıcı verilerinizi temizleyebilirsiniz."
-      },
-      "contact": {
-        "title": "İletişim",
-        "description": "Bu politika hakkında sorularınız varsa, lütfen privacy@qiroasro.com adresinden bize ulaşın."
       }
     }
   }

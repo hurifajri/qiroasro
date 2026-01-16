@@ -20,13 +20,16 @@ import {
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
 import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
-import { isMobile } from '@/lib/device';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
+import { getIsMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
+import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
@@ -73,6 +76,8 @@ const edgeTypes: EdgeTypes = {
 
 export function Playground() {
   const t = useTranslations('playground_page');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
@@ -217,18 +222,23 @@ export function Playground() {
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedNodes = useMemo(() => {
-    const isMobileDevice = isMobile();
+    const isMobile = getIsMobile();
 
     return nodes.map((node) => {
       // Hide during pan/zoom (mobile only for performance)
-      if (isMobileDevice && isMoving && node.type !== 'letter') {
+      if (
+        isMobile &&
+        isMoving &&
+        node.type !== 'letter' &&
+        viewMode !== 'letter'
+      ) {
         // Only create new object if hidden state changed
         if (node.hidden === true) return node;
         return { ...node, hidden: true };
       }
 
       // Hide during drag (except the node being dragged)
-      if (isMobileDevice && draggingNodeId) {
+      if (isMobile && draggingNodeId && viewMode !== 'letter') {
         const isDragged = node.id === draggingNodeId;
         const shouldHide = !isDragged;
         // Only create new object if hidden state changed
@@ -262,13 +272,21 @@ export function Playground() {
         },
       };
     });
-  }, [nodes, connectedNodeIds, selectedNodeId, isMoving, draggingNodeId]);
+  }, [
+    nodes,
+    connectedNodeIds,
+    selectedNodeId,
+    isMoving,
+    draggingNodeId,
+    viewMode,
+  ]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
-    const isMobileDevice = isMobile();
-    const shouldHideAll = isMobileDevice && (isMoving || draggingNodeId);
+    const isMobile = getIsMobile();
+    const shouldHideAll =
+      isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
 
     return edges.map((edge) => {
       // Hide during pan/zoom or drag (mobile only for performance)
@@ -312,6 +330,7 @@ export function Playground() {
     edgeStyle.isAnimated,
     isMoving,
     draggingNodeId,
+    viewMode,
   ]);
 
   // Debounce ref for highlight updates
@@ -396,6 +415,7 @@ export function Playground() {
       {!isQuizStarted && (
         <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
+            dir={dir}
             proOptions={{ hideAttribution: true }}
             colorMode={theme}
             fitView
@@ -417,14 +437,18 @@ export function Playground() {
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={isMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
-            maxZoom={isMobile() && viewMode !== 'letter' ? 0.2 : 1}
+            minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
+            maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
           >
             <Panel
-              position="top-right"
-              className="m-0! flex w-full flex-col items-end gap-2 p-3 sm:w-auto"
+              position={dir === 'ltr' ? 'top-left' : 'top-right'}
+              className={cn(
+                'm-0! flex w-full flex-col gap-2 p-3 sm:w-auto',
+                dir === 'rtl' && 'items-end',
+              )}
             >
               <GraphFilter
+                dir={dir}
                 viewMode={viewMode}
                 layoutMode={layoutMode}
                 hierarchyDirection={hierarchyDirection}
@@ -437,15 +461,19 @@ export function Playground() {
                 onEdgeStyleChange={setEdgeStyle}
                 onLetterSelect={setSelectedLetterId}
               />
-              <GraphLegend viewMode={viewMode} />
+              <GraphLegend dir={dir} viewMode={viewMode} />
             </Panel>
 
             <Panel
-              position="bottom-left"
-              className="m-0! flex flex-col items-start gap-2 p-3"
+              position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
+              className={cn(
+                'm-0! flex flex-col gap-2 p-3',
+                dir === 'ltr' ? 'items-start' : 'items-end',
+              )}
             >
               <Button
                 id="tour-quiz"
+                dir={dir}
                 size="sm"
                 onClick={handleOpenQuizDialog}
                 className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
@@ -456,6 +484,7 @@ export function Playground() {
               <GraphDownload />
               <Button
                 id="tour-help"
+                dir={dir}
                 variant="outline"
                 size="sm"
                 onClick={startTour}
@@ -466,7 +495,11 @@ export function Playground() {
               </Button>
             </Panel>
 
-            <Panel id="tour-controls" position="bottom-right" className="m-3!">
+            <Panel
+              id="tour-controls"
+              position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
+              className="m-3!"
+            >
               <Controls className="static! m-0!" />
             </Panel>
 

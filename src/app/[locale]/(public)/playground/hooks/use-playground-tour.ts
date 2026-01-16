@@ -2,8 +2,10 @@
 
 import type { ColorMode } from '@xyflow/react';
 import type { Driver, DriveStep } from 'driver.js';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useRef } from 'react';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 
 // Helper to check if an element is visible in DOM
 function isElementVisible(selector: string): boolean {
@@ -46,6 +48,8 @@ interface UsePlaygroundTourProps {
 
 export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
   const t = useTranslations('playground_page.tour');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
   const driverRef = useRef<Driver | null>(null);
 
   function getTourSteps(): DriveStep[] {
@@ -280,7 +284,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
     const driverInstance = driver({
       showProgress: true,
-      progressText: `{{current}} ${t('of')} {{total}}`,
+      progressText: `{{current}} / {{total}}`,
       animate: true,
       allowClose: true,
       stagePadding: 8,
@@ -288,7 +292,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       nextBtnText: t('next'),
       prevBtnText: t('prev'),
       doneBtnText: t('done'),
-      popoverClass: 'driverjs-theme',
+      popoverClass: `driverjs-theme ${dir === 'rtl' ? 'driverjs-rtl' : ''}`,
       overlayColor: theme === 'dark' ? 'white' : 'black',
       steps: getTourSteps(),
     });

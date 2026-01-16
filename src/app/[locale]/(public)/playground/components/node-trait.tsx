@@ -21,7 +21,7 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   const label = t(localeKey);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
-    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
+    useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
     <BaseNode
@@ -59,30 +59,32 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
-    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
+    useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
+          'rounded-lg border-2 border-node-trait/50 bg-node-trait-secondary px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
           ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) &&
             'border-dashed',
         )}
       >
-        <NodeAppendix
-          position="top"
-          className="-right-2.5 top-3.5 w-auto rounded-full border-none p-0"
-        >
-          <CircleQuestionMarkIcon
-            onClick={() => {
-              setIsDialogOpen(true);
-            }}
-            className="nodrag size-5 cursor-pointer text-node-trait/50"
-          />
-        </NodeAppendix>
+        {isActive && (
+          <NodeAppendix
+            position="top"
+            className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-trait-secondary p-0"
+          >
+            <CircleQuestionMarkIcon
+              onClick={() => {
+                setIsDialogOpen(true);
+              }}
+              className="nodrag size-5 cursor-pointer text-node-trait/50"
+            />
+          </NodeAppendix>
+        )}
 
         <BaseHandle
           type="target"

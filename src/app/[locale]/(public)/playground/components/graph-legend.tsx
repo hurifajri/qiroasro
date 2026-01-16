@@ -9,6 +9,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -16,6 +17,7 @@ import { cn } from '@/lib/utils';
 import type { ViewMode } from '../schemas/graph';
 
 interface GraphLegendProps {
+  dir: 'ltr' | 'rtl';
   viewMode: ViewMode;
 }
 
@@ -25,7 +27,7 @@ type LegendId =
   | 'traitLazimah'
   | 'traitAridhah';
 
-export function GraphLegend({ viewMode }: GraphLegendProps) {
+export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -134,6 +136,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     <>
       <Collapsible
         id="tour-graph-legend"
+        dir={dir}
         open={isOpen}
         onOpenChange={setIsOpen}
         className="flex w-48 flex-col gap-2 rounded-lg border bg-background"
@@ -186,6 +189,9 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
               <DialogTitle>{legendInfo[selectedLegendId].title}</DialogTitle>
+              <DialogDescription className="sr-only">
+                {legendInfo[selectedLegendId].description}
+              </DialogDescription>
             </DialogHeader>
             <p>{legendInfo[selectedLegendId].description}</p>
           </DialogContent>

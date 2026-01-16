@@ -6,12 +6,6 @@
       "feature_list": "Interactive knowledge graphs,Quiz mode,Multi-language support",
       "keywords": "tajweed,tajwid,makharijul huruf,sifatul huruf,quran,learn quran,hijaiyyah letters,arabic"
     },
-    "consent": {
-      "message": "We use analytics to improve your experience.",
-      "accept": "Accept",
-      "reject": "Reject",
-      "privacy_link": "Privacy Policy"
-    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -149,6 +143,7 @@
       "others": "Some characteristics have not been added yet; inshaa Allah, they will be added soon."
     },
     "development": {
+      "email_placeholder": "Email",
       "waitlist": "Waitlist",
       "more_comprehensive": "Looking for more details?",
       "reminder_title": "Notify me when the app is available",
@@ -229,23 +224,28 @@
       "mode_articulation_point": "Articulation",
       "mode_trait": "Characteristics",
       "mode_challenge": "Challenge",
-      "practice_title": "{type} Quiz",
-      "practice_description": "Match the letter with the correct {type}",
+      "practice_title_articulation_point": "Articulation Points Quiz",
+      "practice_title_trait": "Characteristics Quiz",
+      "practice_description_articulation_point": "Match the letter with the correct articulation point",
+      "practice_description_trait": "Match the letter with the correct characteristic",
       "practice_settings_title": "Quiz Settings",
-      "practice_settings_description": "Adjust settings for {type} quiz",
+      "practice_settings_description_articulation_point": "Adjust settings for the Articulation Points quiz",
+      "practice_settings_description_trait": "Adjust settings for the Characteristics quiz",
       "practice_letters_per_quiz": "Number of Letters",
-      "practice_targets_per_quiz": "Number of {target}s",
+      "practice_targets_per_quiz_articulation_point": "Number of Articulations",
+      "practice_targets_per_quiz_trait": "Number of Characteristics",
       "practice_multi_edge": "Multi-Answer",
       "practice_timer_mode": "Timer Mode",
       "practice_timer_duration": "Duration (Seconds)",
       "practice_instruction_title": "Instructions",
-      "practice_instruction_description": "Connect the letter to the correct {target}. Draw a line or click both items to pair them.",
-      "challenge_instruction_description": "Connect the letter to the correct articulation/characteristic. Questions 1-5 require 1 connection. Subsequent questions require multiple connections (2, 3, or 4 lines).",
+      "practice_instruction_description_articulation_point": "Connect the letter to the correct articulation point. Draw a line or click both items to pair them.",
+      "practice_instruction_description_trait": "Connect the letter to the correct characteristic. Draw a line or click both items to pair them.",
+      "challenge_instruction_description": "Connect the letter to the correct articulation point and characteristic. Draw a line or click both items to pair them. Questions 1-5 require only 1 connection. Subsequent questions require multiple connections (2, 3, or 4 lines).",
       "challenge_select_difficulty_title": "Difficulty",
       "challenge_select_difficulty_description": "Select difficulty level",
       "challenge_confirm_title": "Confirm Challenge",
       "challenge_title": "Challenge",
-      "challenge_description": "Match the letter with the correct {type}",
+      "challenge_description": "Match the letter with the correct articulation point and characteristic",
       "challenge_difficulty_easy": "Easy",
       "challenge_difficulty_medium": "Medium",
       "challenge_difficulty_hard": "Hard",
@@ -298,7 +298,6 @@
       "prev": "Previous",
       "done": "Got it!",
       "help_button": "Guide",
-      "of": "of",
       "steps": {
         "welcome": {
           "title": "Assalamualaikum!",
@@ -358,7 +357,7 @@
         },
         "locale_selector": {
           "title": "Language",
-          "description": "Select your preferred language. Currently available in Indonesian, English, and Turkish."
+          "description": "Select your preferred language."
         },
         "theme_selector": {
           "title": "Theme",

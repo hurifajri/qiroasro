@@ -23,14 +23,19 @@ export function TargetQuizNode({ data }: NodeProps) {
         className={cn(
           'rounded-lg border-2 px-4 py-2 hover:ring-0',
           nodeData.type === 'articulation_point' &&
-            'border-node-articulation/50 bg-node-articulation/20 text-node-articulation-text',
+            'border-node-articulation/50 bg-node-articulation-secondary text-node-articulation-text',
           nodeData.type === 'trait' &&
-            'border-node-trait/50 bg-node-trait/20 text-node-trait-text',
+            'border-node-trait/50 bg-node-trait-secondary text-node-trait-text',
         )}
       >
         <NodeAppendix
           position="top"
-          className="-right-2.5 top-3.5 w-auto rounded-full border-none p-0"
+          className={cn(
+            '-right-2.5 top-3.5 w-auto rounded-full border-none p-0',
+            nodeData.type === 'trait' && 'bg-node-trait-secondary',
+            nodeData.type === 'articulation_point' &&
+              'bg-node-articulation-secondary',
+          )}
         >
           <CircleQuestionMarkIcon
             onClick={() => {

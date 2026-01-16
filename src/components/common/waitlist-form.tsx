@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -39,7 +40,7 @@ export function WaitlistForm({
   className,
   isPlain = false,
 }: WaitlistFormProps) {
-  const t = useTranslations('global');
+  const t = useTranslations('global.development');
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -89,7 +90,7 @@ export function WaitlistForm({
           {!isPlain && (
             <span className="inline-block size-2 shrink-0 animate-pulse rounded-full bg-accent-amber text-lg" />
           )}
-          <Label htmlFor="email">{t('development.reminder_title')}</Label>
+          <Label htmlFor="email">{t('reminder_title')}</Label>
         </div>
         {/* Reminder Form */}
         <form
@@ -123,7 +124,7 @@ export function WaitlistForm({
                         <InputGroupInput
                           id="email"
                           type="email"
-                          placeholder="Email"
+                          placeholder={t('email_placeholder')}
                           name={field.name}
                           value={field.state.value}
                           onBlur={field.handleBlur}
@@ -158,7 +159,7 @@ export function WaitlistForm({
                   {isSubmitting ? (
                     <Loader2Icon className="size-5 animate-spin" />
                   ) : (
-                    t('development.reminder_cta')
+                    t('reminder_cta')
                   )}
                 </Button>
               )}
@@ -190,17 +191,20 @@ export function WaitlistForm({
             <DialogHeader className="flex flex-row items-center gap-2">
               <MailCheckIcon className="text-lime-600" />
               <DialogTitle className="font-semibold text-lg">
-                {t('development.reminder_verified')}
+                {t('reminder_verified')}
               </DialogTitle>
+              <DialogDescription className="sr-only">
+                {t('reminder_verified_message')}
+              </DialogDescription>
             </DialogHeader>
-            <p>{t('development.reminder_verified_message')}</p>
+            <p>{t('reminder_verified_message')}</p>
             <DialogFooter>
               <Button
                 size="lg"
                 onClick={handleClickPlayground}
                 className="h-12 cursor-pointer bg-linear-to-r from-lime-500 to-lime-600 px-6 text-base text-white"
               >
-                {t('development.reminder_playground_cta')}
+                {t('reminder_playground_cta')}
               </Button>
             </DialogFooter>
           </DialogContent>

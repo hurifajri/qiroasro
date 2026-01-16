@@ -40,26 +40,25 @@
 
   /* Node Colors - Letter (Gold/Amber) */
   --node-letter: oklch(0.79 0.17 75);
-  --node-letter-secondary: oklch(0.87 0.12 85);
+  --node-letter-handle: oklch(0.87 0.12 85);
   --node-letter-dark: oklch(0.68 0.17 55);
   --node-letter-madd: oklch(0.63 0.24 28);
   --node-letter-madd-dark: oklch(0.55 0.23 25);
   --node-letter-text: oklch(1 0 0);
-  --node-letter-text-light: oklch(1 0 0);
 
   /* Node Colors - Articulation (Azure/Sky) */
   --node-articulation: oklch(0.68 0.16 230);
-  --node-articulation-secondary: oklch(0.75 0.14 230);
+  --node-articulation-secondary: oklch(0.9284 0.039 221.13);
+  --node-articulation-handle: oklch(0.75 0.14 230);
   --node-articulation-dark: oklch(0.58 0.16 230);
   --node-articulation-text: oklch(0.45 0.12 230);
-  --node-articulation-text-light: oklch(0.92 0.04 230);
 
   /* Node Colors - Trait (Amethyst/Purple) */
   --node-trait: oklch(0.58 0.22 280);
-  --node-trait-secondary: oklch(0.7 0.16 280);
+  --node-trait-secondary: oklch(0.9144 0.0407 288.63);
+  --node-trait-handle: oklch(0.7 0.16 280);
   --node-trait-dark: oklch(0.52 0.24 280);
   --node-trait-text: oklch(0.45 0.18 280);
-  --node-trait-text-light: oklch(0.92 0.04 280);
 }
 
 .dark {
@@ -97,26 +96,25 @@
 
   /* Node Colors - Letter (Gold/Amber) - slightly brighter for dark mode */
   --node-letter: oklch(0.82 0.17 75);
-  --node-letter-secondary: oklch(0.89 0.12 85);
+  --node-letter-handle: oklch(0.89 0.12 85);
   --node-letter-dark: oklch(0.72 0.17 55);
   --node-letter-madd: oklch(0.66 0.24 28);
   --node-letter-madd-dark: oklch(0.58 0.23 25);
   --node-letter-text: oklch(1 0 0);
-  --node-letter-text-light: oklch(1 0 0);
 
   /* Node Colors - Articulation (Azure/Sky) - slightly brighter for dark mode */
   --node-articulation: oklch(0.72 0.16 230);
-  --node-articulation-secondary: oklch(0.78 0.14 230);
+  --node-articulation-secondary: oklch(0.2705 0.0574 237.52);
+  --node-articulation-handle: oklch(0.78 0.14 230);
   --node-articulation-dark: oklch(0.62 0.16 230);
   --node-articulation-text: oklch(0.92 0.04 230);
-  --node-articulation-text-light: oklch(0.92 0.04 230);
 
   /* Node Colors - Trait (Amethyst/Purple) - slightly brighter for dark mode */
   --node-trait: oklch(0.62 0.22 280);
-  --node-trait-secondary: oklch(0.74 0.16 280);
+  --node-trait-secondary: oklch(0.245 0.0724 277.41);
+  --node-trait-handle: oklch(0.74 0.16 280);
   --node-trait-dark: oklch(0.56 0.24 280);
   --node-trait-text: oklch(0.92 0.04 280);
-  --node-trait-text-light: oklch(0.92 0.04 280);
 }
 
 @theme inline {
@@ -163,26 +161,25 @@
 
   /* Node Colors - Letter (Gold/Amber) */
   --color-node-letter: var(--node-letter);
-  --color-node-letter-secondary: var(--node-letter-secondary);
+  --color-node-letter-handle: var(--node-letter-handle);
   --color-node-letter-dark: var(--node-letter-dark);
   --color-node-letter-madd: var(--node-letter-madd);
   --color-node-letter-madd-dark: var(--node-letter-madd-dark);
   --color-node-letter-text: var(--node-letter-text);
-  --color-node-letter-text-light: var(--node-letter-text-light);
 
   /* Node Colors - Articulation (Azure/Sky) */
   --color-node-articulation: var(--node-articulation);
   --color-node-articulation-secondary: var(--node-articulation-secondary);
+  --color-node-articulation-handle: var(--node-articulation-handle);
   --color-node-articulation-dark: var(--node-articulation-dark);
   --color-node-articulation-text: var(--node-articulation-text);
-  --color-node-articulation-text-light: var(--node-articulation-text-light);
 
   /* Node Colors - Trait (Amethyst/Purple) */
   --color-node-trait: var(--node-trait);
   --color-node-trait-secondary: var(--node-trait-secondary);
+  --color-node-trait-handle: var(--node-trait-handle);
   --color-node-trait-dark: var(--node-trait-dark);
   --color-node-trait-text: var(--node-trait-text);
-  --color-node-trait-text-light: var(--node-trait-text-light);
 
   /* Accent Colors */
   --color-accent-violet: var(--node-trait);
@@ -190,7 +187,7 @@
   --color-accent-sky: var(--node-articulation);
   --color-accent-sky-dark: var(--node-articulation-dark);
   --color-accent-amber: var(--node-letter);
-  --color-accent-amber-light: var(--node-letter-secondary);
+  --color-accent-amber-light: var(--node-letter-handle);
 }
 
 @layer base {
@@ -216,7 +213,7 @@
 }
 
 .driverjs-theme.driver-popover {
-  @apply bg-background text-foreground border border-border shadow-lg;
+  @apply bg-background text-foreground border border-border shadow-lg rounded-xl p-4;
 }
 
 .driverjs-theme.driver-popover * {
@@ -248,68 +245,18 @@
   @apply text-muted-foreground hover:text-foreground;
 }
 
-/* ============================================
-   ReactFlow Custom Styles
-   ============================================ */
-
-/* @keyframes glow-gold {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-letter) l c h / 25%),
-      0 0 20px oklch(from var(--node-letter) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-letter) l c h / 38%),
-      0 0 40px oklch(from var(--node-letter) l c h / 19%);
-  }
+.driverjs-theme.driverjs-rtl {
+  direction: rtl;
 }
 
-@keyframes glow-azure {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-articulation) l c h / 25%),
-      0 0 20px oklch(from var(--node-articulation) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-articulation) l c h / 38%),
-      0 0 40px oklch(from var(--node-articulation) l c h / 19%);
-  }
+.driverjs-theme.driverjs-rtl .driver-popover-close-btn {
+  right: unset;
+  @apply left-0;
 }
 
-@keyframes glow-amethyst {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-trait) l c h / 25%),
-      0 0 20px oklch(from var(--node-trait) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-trait) l c h / 38%),
-      0 0 40px oklch(from var(--node-trait) l c h / 19%);
-  }
-} */
-
-/* Prevent iOS swipe-to-navigate gesture from interfering with edge dragging */
-
-/* .react-flow__node-letter.selected > div {
-  animation: glow-gold 2s ease-in-out infinite;
-}
-
-.react-flow__node-articulation-area.selected > div,
-.react-flow__node-articulation-point.selected > div {
-  animation: glow-azure 2s ease-in-out infinite;
-}
-
-.react-flow__node-trait-group.selected > div,
-.react-flow__node-trait.selected > div {
-  animation: glow-amethyst 2s ease-in-out infinite;
-} */
-
-.react-flow {
-  @apply touch-none!;
+.driverjs-theme.driverjs-rtl
+  .driver-popover-footer
+  .driver-popover-navigation-btns
+  .driver-popover-next-btn {
+  @apply ml-0 mr-1;
 }
