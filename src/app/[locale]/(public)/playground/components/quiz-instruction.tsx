@@ -33,9 +33,7 @@ export function QuizInstruction({ quizType, onClose }: QuizInstructionProps) {
       <CardContent className="px-0">
         <p className="text-sm">
           {quizType
-            ? t('practice_instruction_description', {
-                target: quizType === 'articulation_point' ? 'makhraj' : 'sifat',
-              })
+            ? t(`practice_instruction_description_${quizType}`)
             : t('challenge_instruction_description')}
         </p>
       </CardContent>
