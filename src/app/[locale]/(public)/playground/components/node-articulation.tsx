@@ -76,7 +76,7 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
       >
         <NodeAppendix
           position="top"
-          className="-right-2.5 top-3.5 w-auto rounded-full border-none p-0"
+          className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-articulation-secondary p-0"
         >
           <CircleQuestionMarkIcon
             onClick={() => {
