@@ -21,7 +21,7 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   const label = t(localeKey);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
-    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
+    useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
     <BaseNode
@@ -59,13 +59,13 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
-    useNodeLayout(nodeData, 'bg-node-trait-secondary!', selected);
+    useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 border-node-trait/50 bg-node-trait/20 px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
+          'rounded-lg border-2 border-node-trait/50 bg-node-trait-secondary px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
           ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) &&
