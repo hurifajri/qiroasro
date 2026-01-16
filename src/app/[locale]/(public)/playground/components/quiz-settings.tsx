@@ -132,6 +132,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
                 </span>
               </div>
               <Slider
+                dir={dir}
                 value={[practiceSettings[key]]}
                 onValueChange={(v) => handleSliderChange(key, v)}
                 min={sliderRange.min}
@@ -180,6 +181,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               </span>
             </div>
             <Slider
+              dir={dir}
               value={[practiceSettings.timerDuration]}
               onValueChange={(v) =>
                 setPracticeSettings({
