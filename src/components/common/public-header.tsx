@@ -9,30 +9,17 @@ import { useState } from 'react';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-
-/**
- * Lazy load Dialog components - only needed when user clicks waitlist button
- */
-const Dialog = dynamic(
-  () => import('@/components/ui/dialog').then((mod) => mod.Dialog),
-  { ssr: false },
-);
-const DialogContent = dynamic(
-  () => import('@/components/ui/dialog').then((mod) => mod.DialogContent),
-  { ssr: false },
-);
-const DialogHeader = dynamic(
-  () => import('@/components/ui/dialog').then((mod) => mod.DialogHeader),
-  { ssr: false },
-);
-const DialogTitle = dynamic(
-  () => import('@/components/ui/dialog').then((mod) => mod.DialogTitle),
-  { ssr: false },
-);
 
 /**
  * Lazy load WaitlistForm - only needed when dialog is open
@@ -117,6 +104,9 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
               <DialogTitle>{t('development.more_comprehensive')}</DialogTitle>
+              <DialogDescription className="sr-only">
+                {t('development.more_comprehensive')}
+              </DialogDescription>
             </DialogHeader>
             <WaitlistForm source="public_header" isPlain />
           </DialogContent>

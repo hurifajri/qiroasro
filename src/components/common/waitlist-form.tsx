@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -192,6 +193,9 @@ export function WaitlistForm({
               <DialogTitle className="font-semibold text-lg">
                 {t('reminder_verified')}
               </DialogTitle>
+              <DialogDescription className="sr-only">
+                {t('reminder_verified_message')}
+              </DialogDescription>
             </DialogHeader>
             <p>{t('reminder_verified_message')}</p>
             <DialogFooter>

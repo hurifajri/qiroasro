@@ -139,8 +139,12 @@ export function Quiz() {
             )}
           >
             <DialogTitle>{dialogTitle}</DialogTitle>
-            {dialogDescription && (
+            {dialogDescription ? (
               <DialogDescription>{dialogDescription}</DialogDescription>
+            ) : (
+              <DialogDescription className="sr-only">
+                {dialogTitle}
+              </DialogDescription>
             )}
           </DialogHeader>
         )}

@@ -2,6 +2,7 @@ import { CircleQuestionMarkIcon } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -29,6 +30,9 @@ export function NodeInfoDialog({
         <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2 capitalize">
           <CircleQuestionMarkIcon className="text-muted-foreground" />
           <DialogTitle>{label}</DialogTitle>
+          <DialogDescription className="sr-only">
+            {description}
+          </DialogDescription>
         </DialogHeader>
         <p>{description}</p>
       </DialogContent>

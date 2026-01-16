@@ -9,6 +9,7 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -188,6 +189,9 @@ export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
             <DialogHeader className="-mx-4 flex flex-row items-center gap-2 border-b px-4 pb-2">
               <CircleQuestionMarkIcon className="text-muted-foreground" />
               <DialogTitle>{legendInfo[selectedLegendId].title}</DialogTitle>
+              <DialogDescription className="sr-only">
+                {legendInfo[selectedLegendId].description}
+              </DialogDescription>
             </DialogHeader>
             <p>{legendInfo[selectedLegendId].description}</p>
           </DialogContent>
