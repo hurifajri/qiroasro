@@ -96,12 +96,7 @@ export function Quiz() {
     if (mode === 'practice') {
       if (!isStarted) {
         title = t('practice_settings_title');
-        description = t('practice_settings_description', {
-          type:
-            type === 'articulation_point'
-              ? 'makharijul huruf'
-              : 'sifatul huruf',
-        });
+        description = t(`practice_settings_description_${type}`);
       } else {
         title = t('practice_title', {
           type:
