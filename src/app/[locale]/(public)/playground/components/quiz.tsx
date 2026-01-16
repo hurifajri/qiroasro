@@ -98,15 +98,8 @@ export function Quiz() {
         title = t('practice_settings_title');
         description = t(`practice_settings_description_${type}`);
       } else {
-        title = t('practice_title', {
-          type:
-            type === 'articulation_point'
-              ? 'Makharijul Huruf'
-              : 'Sifatul Huruf',
-        });
-        description = t('practice_description', {
-          type: type === 'articulation_point' ? 'makhraj' : 'sifat',
-        });
+        title = t(`practice_title_${type}`);
+        description = t(`practice_description_${type}`);
       }
     } else if (mode === 'challenge') {
       if (!challengeDifficulty) {
@@ -117,7 +110,7 @@ export function Quiz() {
         description = '';
       } else if (isStarted && !challengeResult) {
         title = t('challenge_title');
-        description = t('challenge_description', { type: 'makhraj/sifat' });
+        description = t('challenge_description');
       } else if (challengeResult) {
         title = '';
         description = '';
