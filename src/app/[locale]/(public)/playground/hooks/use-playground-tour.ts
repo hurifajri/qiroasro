@@ -280,7 +280,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
     const driverInstance = driver({
       showProgress: true,
-      progressText: `{{current}} ${t('of')} {{total}}`,
+      progressText: `{{current}} / {{total}}`,
       animate: true,
       allowClose: true,
       stagePadding: 8,

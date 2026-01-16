@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { env } from '@/env';
-import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
+import { getAlternateOgLocale, getLocaleDir, getOgLocale } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
@@ -98,6 +98,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      dir={getLocaleDir(locale as Locale)}
       className={theme}
       style={{ colorScheme: theme }}
       suppressHydrationWarning
