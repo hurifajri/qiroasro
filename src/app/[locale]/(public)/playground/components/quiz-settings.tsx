@@ -119,9 +119,9 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
             <div key={key} className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <Label className="text-sm">
-                  {t(labelKey, {
-                    target: type === 'articulation_point' ? 'Makhraj' : 'Sifat',
-                  })}
+                  {key === 'lettersPerQuiz'
+                    ? t(labelKey)
+                    : t(`${labelKey}_${type}`)}
                 </Label>
                 <span className="font-medium text-sm">
                   {practiceSettings[key]}
