@@ -44,7 +44,7 @@ export function QuizContent({
   extraTopOffset = 0,
 }: QuizContentProps) {
   const headerRef = useRef<HTMLDivElement>(null);
-  const [canvasHeight, setCanvasHeight] = useState<number>(0);
+  const [canvasHeight, setCanvasHeight] = useState<number>(634);
 
   const calculateHeight = useCallback(() => {
     const headerHeight = headerRef.current?.offsetHeight ?? 0;
@@ -111,7 +111,7 @@ export function QuizContent({
   }, [calculateHeight]);
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border">
+    <div className="flex flex-col gap-2 rounded-lg border-2">
       <div
         ref={headerRef}
         className={cn(
