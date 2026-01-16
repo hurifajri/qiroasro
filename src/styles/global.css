@@ -248,68 +248,18 @@
   @apply text-muted-foreground hover:text-foreground;
 }
 
-/* ============================================
-   ReactFlow Custom Styles
-   ============================================ */
-
-/* @keyframes glow-gold {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-letter) l c h / 25%),
-      0 0 20px oklch(from var(--node-letter) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-letter) l c h / 38%),
-      0 0 40px oklch(from var(--node-letter) l c h / 19%);
-  }
+.driverjs-theme.driverjs-rtl {
+  direction: rtl;
 }
 
-@keyframes glow-azure {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-articulation) l c h / 25%),
-      0 0 20px oklch(from var(--node-articulation) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-articulation) l c h / 38%),
-      0 0 40px oklch(from var(--node-articulation) l c h / 19%);
-  }
+.driverjs-theme.driverjs-rtl .driver-popover-close-btn {
+  right: unset;
+  @apply left-0;
 }
 
-@keyframes glow-amethyst {
-  0%,
-  100% {
-    box-shadow:
-      0 0 10px oklch(from var(--node-trait) l c h / 25%),
-      0 0 20px oklch(from var(--node-trait) l c h / 12%);
-  }
-  50% {
-    box-shadow:
-      0 0 20px oklch(from var(--node-trait) l c h / 38%),
-      0 0 40px oklch(from var(--node-trait) l c h / 19%);
-  }
-} */
-
-/* Prevent iOS swipe-to-navigate gesture from interfering with edge dragging */
-
-/* .react-flow__node-letter.selected > div {
-  animation: glow-gold 2s ease-in-out infinite;
-}
-
-.react-flow__node-articulation-area.selected > div,
-.react-flow__node-articulation-point.selected > div {
-  animation: glow-azure 2s ease-in-out infinite;
-}
-
-.react-flow__node-trait-group.selected > div,
-.react-flow__node-trait.selected > div {
-  animation: glow-amethyst 2s ease-in-out infinite;
-} */
-
-.react-flow {
-  @apply touch-none!;
+.driverjs-theme.driverjs-rtl
+  .driver-popover-footer
+  .driver-popover-navigation-btns
+  .driver-popover-next-btn {
+  @apply ml-0 mr-1;
 }

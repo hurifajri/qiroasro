@@ -6,12 +6,6 @@
       "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
-    "consent": {
-      "message": "Kami menggunakan analitik untuk meningkatkan pengalaman Anda.",
-      "accept": "Terima",
-      "reject": "Tolak",
-      "privacy_link": "Kebijakan Privasi"
-    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
