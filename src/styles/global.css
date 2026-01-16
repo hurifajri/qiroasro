@@ -48,14 +48,14 @@
 
   /* Node Colors - Articulation (Azure/Sky) */
   --node-articulation: oklch(0.68 0.16 230);
-  --node-articulation-secondary: #cceefa;
+  --node-articulation-secondary: oklch(0.9284 0.039 221.13);
   --node-articulation-handle: oklch(0.75 0.14 230);
   --node-articulation-dark: oklch(0.58 0.16 230);
   --node-articulation-text: oklch(0.45 0.12 230);
 
   /* Node Colors - Trait (Amethyst/Purple) */
   --node-trait: oklch(0.58 0.22 280);
-  --node-trait-secondary: #e1dffd;
+  --node-trait-secondary: oklch(0.9144 0.0407 288.63);
   --node-trait-handle: oklch(0.7 0.16 280);
   --node-trait-dark: oklch(0.52 0.24 280);
   --node-trait-text: oklch(0.45 0.18 280);
@@ -104,14 +104,14 @@
 
   /* Node Colors - Articulation (Azure/Sky) - slightly brighter for dark mode */
   --node-articulation: oklch(0.72 0.16 230);
-  --node-articulation-secondary: #022a3f;
+  --node-articulation-secondary: oklch(0.2705 0.0574 237.52);
   --node-articulation-handle: oklch(0.78 0.14 230);
   --node-articulation-dark: oklch(0.62 0.16 230);
   --node-articulation-text: oklch(0.92 0.04 230);
 
   /* Node Colors - Trait (Amethyst/Purple) - slightly brighter for dark mode */
   --node-trait: oklch(0.62 0.22 280);
-  --node-trait-secondary: #191b42;
+  --node-trait-secondary: oklch(0.245 0.0724 277.41);
   --node-trait-handle: oklch(0.74 0.16 280);
   --node-trait-dark: oklch(0.56 0.24 280);
   --node-trait-text: oklch(0.92 0.04 280);
