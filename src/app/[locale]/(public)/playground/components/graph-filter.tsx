@@ -95,7 +95,7 @@ export function GraphFilter({
             {/* View Mode */}
             <li id="tour-view-mode" className="flex items-center gap-2">
               <FilterIcon className="size-4 shrink-0 text-muted-foreground" />
-              <ButtonGroup className="flex-1">
+              <ButtonGroup dir={dir} className="flex-1">
                 {VIEW_MODES.map((mode) => (
                   <Button
                     key={mode}
@@ -123,7 +123,7 @@ export function GraphFilter({
             {/* Layout Mode */}
             <li id="tour-layout-mode" className="flex items-center gap-2">
               <LayoutGridIcon className="size-4 text-muted-foreground" />
-              <ButtonGroup className="flex-1">
+              <ButtonGroup dir={dir} className="flex-1">
                 {LAYOUT_MODES.map((mode) => (
                   <Button
                     key={mode}
@@ -155,7 +155,7 @@ export function GraphFilter({
                 className="flex items-center gap-2"
               >
                 <CompassIcon className="size-4 text-muted-foreground" />
-                <ButtonGroup className="flex-1">
+                <ButtonGroup dir={dir} className="flex-1">
                   {HIERARCHY_DIRECTIONS.map((direction) => (
                     <Button
                       key={direction}
@@ -185,6 +185,7 @@ export function GraphFilter({
             <li id="tour-edge-style" className="flex items-center gap-2">
               <LinkIcon className="size-4 text-muted-foreground" />
               <Button
+                dir={dir}
                 variant="outline"
                 size="sm"
                 onClick={() =>
@@ -206,6 +207,7 @@ export function GraphFilter({
               <li id="tour-edge-shape" className="flex items-center gap-2">
                 <SplineIcon className="size-4 text-muted-foreground" />
                 <Select
+                  dir={dir}
                   value={edgeStyle.shape}
                   onValueChange={(value) =>
                     onEdgeStyleChange({ shape: value as EdgeShape })
@@ -232,6 +234,7 @@ export function GraphFilter({
           {/* Letter Selector (only visible in letter mode) */}
           {viewMode === 'letter' && (
             <ScrollArea
+              dir={dir}
               id="tour-letter-selector"
               className="w-full whitespace-nowrap rounded-lg border"
             >
