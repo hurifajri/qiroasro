@@ -149,6 +149,7 @@
       "others": "Some characteristics have not been added yet; inshaa Allah, they will be added soon."
     },
     "development": {
+      "email_placeholder": "Email",
       "waitlist": "Waitlist",
       "more_comprehensive": "Looking for more details?",
       "reminder_title": "Notify me when the app is available",

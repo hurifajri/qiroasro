@@ -149,6 +149,7 @@
       "others": "Henüz eklenmemiş bazı özellikler var, inşallah yakında eklenecek."
     },
     "development": {
+      "email_placeholder": "E-posta",
       "waitlist": "Bekleme Listesi",
       "more_comprehensive": "Daha kapsamlısını mı arıyorsunuz?",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
