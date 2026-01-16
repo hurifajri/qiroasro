@@ -10,7 +10,7 @@ import {
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -27,6 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
@@ -66,11 +68,14 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Collapsible
       id="tour-graph-filter"
+      dir={dir}
       open={isOpen}
       onOpenChange={setIsOpen}
       className="flex w-full flex-col gap-2 rounded-lg border bg-background sm:w-96"

@@ -1,5 +1,5 @@
 import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import {
   Collapsible,
@@ -12,6 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { getLocaleDir } from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import type { ViewMode } from '../schemas/graph';
 
@@ -27,6 +29,8 @@ type LegendId =
 
 export function GraphLegend({ viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
+  const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
   const [isOpen, setIsOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(
@@ -134,6 +138,7 @@ export function GraphLegend({ viewMode }: GraphLegendProps) {
     <>
       <Collapsible
         id="tour-graph-legend"
+        dir={dir}
         open={isOpen}
         onOpenChange={setIsOpen}
         className="flex w-48 flex-col gap-2 rounded-lg border bg-background"
