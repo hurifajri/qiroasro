@@ -226,14 +226,19 @@ export function Playground() {
 
     return nodes.map((node) => {
       // Hide during pan/zoom (mobile only for performance)
-      if (isMobile && isMoving && node.type !== 'letter') {
+      if (
+        isMobile &&
+        isMoving &&
+        node.type !== 'letter' &&
+        viewMode !== 'letter'
+      ) {
         // Only create new object if hidden state changed
         if (node.hidden === true) return node;
         return { ...node, hidden: true };
       }
 
       // Hide during drag (except the node being dragged)
-      if (isMobile && draggingNodeId) {
+      if (isMobile && draggingNodeId && viewMode !== 'letter') {
         const isDragged = node.id === draggingNodeId;
         const shouldHide = !isDragged;
         // Only create new object if hidden state changed
@@ -267,13 +272,21 @@ export function Playground() {
         },
       };
     });
-  }, [nodes, connectedNodeIds, selectedNodeId, isMoving, draggingNodeId]);
+  }, [
+    nodes,
+    connectedNodeIds,
+    selectedNodeId,
+    isMoving,
+    draggingNodeId,
+    viewMode,
+  ]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
     const isMobile = getIsMobile();
-    const shouldHideAll = isMobile && (isMoving || draggingNodeId);
+    const shouldHideAll =
+      isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
 
     return edges.map((edge) => {
       // Hide during pan/zoom or drag (mobile only for performance)
