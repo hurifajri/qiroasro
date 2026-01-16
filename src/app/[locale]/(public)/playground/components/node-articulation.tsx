@@ -74,17 +74,19 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
           ['jauf'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
-        <NodeAppendix
-          position="top"
-          className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-articulation-secondary p-0"
-        >
-          <CircleQuestionMarkIcon
-            onClick={() => {
-              setIsDialogOpen(true);
-            }}
-            className="nodrag size-5 cursor-pointer text-node-articulation/50"
-          />
-        </NodeAppendix>
+        {isActive && (
+          <NodeAppendix
+            position="top"
+            className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-articulation-secondary p-0"
+          >
+            <CircleQuestionMarkIcon
+              onClick={() => {
+                setIsDialogOpen(true);
+              }}
+              className="nodrag size-5 cursor-pointer text-node-articulation/50"
+            />
+          </NodeAppendix>
+        )}
 
         <BaseHandle
           type="target"

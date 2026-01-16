@@ -72,17 +72,19 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
             'border-dashed',
         )}
       >
-        <NodeAppendix
-          position="top"
-          className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-trait-secondary p-0"
-        >
-          <CircleQuestionMarkIcon
-            onClick={() => {
-              setIsDialogOpen(true);
-            }}
-            className="nodrag size-5 cursor-pointer text-node-trait/50"
-          />
-        </NodeAppendix>
+        {isActive && (
+          <NodeAppendix
+            position="top"
+            className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-trait-secondary p-0"
+          >
+            <CircleQuestionMarkIcon
+              onClick={() => {
+                setIsDialogOpen(true);
+              }}
+              className="nodrag size-5 cursor-pointer text-node-trait/50"
+            />
+          </NodeAppendix>
+        )}
 
         <BaseHandle
           type="target"
