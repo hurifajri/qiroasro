@@ -81,12 +81,22 @@ export function GraphFilter({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Get a new searchParams string by merging the current
-  // searchParams with a provided key/value pair
-  const createQueryString = useCallback(
+  // Update query params and clean up dependent params
+  const updateQueryParams = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
+
+      // Clean up dependent params based on what's being changed
+      if (name === PARAM_VIEW && value !== 'letter') {
+        // Remove letter param when switching away from letter view
+        params.delete(PARAM_LETTER);
+      }
+
+      if (name === PARAM_LAYOUT && value === 'radial') {
+        // Remove direction param when switching to radial layout
+        params.delete(PARAM_DIRECTION);
+      }
 
       return params.toString();
     },
@@ -125,7 +135,7 @@ export function GraphFilter({
                     onClick={() => {
                       onViewModeChange(mode);
                       router.push(
-                        `${pathname}?${createQueryString(PARAM_VIEW, mode)}`,
+                        `${pathname}?${updateQueryParams(PARAM_VIEW, mode)}`,
                       );
                     }}
                     className={cn(
@@ -156,7 +166,7 @@ export function GraphFilter({
                         onLetterSelect(1);
                       }
                       router.push(
-                        `${pathname}?${createQueryString(PARAM_LAYOUT, mode)}`,
+                        `${pathname}?${updateQueryParams(PARAM_LAYOUT, mode)}`,
                       );
                     }}
                     className={cn(
@@ -193,7 +203,7 @@ export function GraphFilter({
                       onClick={() => {
                         onHierarchyDirectionChange(direction);
                         router.push(
-                          `${pathname}?${createQueryString(PARAM_DIRECTION, direction)}`,
+                          `${pathname}?${updateQueryParams(PARAM_DIRECTION, direction)}`,
                         );
                       }}
                       className={cn(
@@ -246,7 +256,7 @@ export function GraphFilter({
                   onValueChange={(value) => {
                     onEdgeStyleChange({ shape: value as EdgeShape });
                     router.push(
-                      `${pathname}?${createQueryString(PARAM_SHAPE, value)}`,
+                      `${pathname}?${updateQueryParams(PARAM_SHAPE, value)}`,
                     );
                   }}
                 >
@@ -284,7 +294,7 @@ export function GraphFilter({
                     onClick={() => {
                       onLetterSelect(letter.id);
                       router.push(
-                        `${pathname}?${createQueryString(PARAM_LETTER, letter.id.toString())}`,
+                        `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
                       );
                     }}
                     className={cn(
