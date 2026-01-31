@@ -6,7 +6,6 @@ import {
   CompassIcon,
   FilterIcon,
   LayoutGridIcon,
-  LinkIcon,
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
@@ -180,7 +179,7 @@ export function GraphFilter({
             )}
 
             {/* Edge Type */}
-            <li id="tour-edge-style" className="flex items-center gap-2">
+            {/* <li id="tour-edge-style" className="flex items-center gap-2">
               <LinkIcon className="size-4 text-muted-foreground" />
               <Button
                 dir={dir}
@@ -198,7 +197,7 @@ export function GraphFilter({
               >
                 {t('edge.dynamic')}
               </Button>
-            </li>
+            </li> */}
 
             {/* Edge Shape Selector - only visible when floating is OFF */}
             {!edgeStyle.isFloating && (

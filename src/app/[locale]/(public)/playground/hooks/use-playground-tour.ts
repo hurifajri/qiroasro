@@ -163,23 +163,23 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           },
         },
       },
-      {
-        element: '#tour-edge-style',
-        popover: {
-          title: t('steps.edge_style.title'),
-          description: t('steps.edge_style.description'),
-          onNextClick: () => {
-            // Check if settings panel content is visible (user has opened it)
-            if (!isElementVisible('#tour-edge-shape')) {
-              // Flash the trigger to indicate user needs to click it
-              const trigger = document.querySelector('#tour-edge-style button');
-              flashElement(trigger);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
-        },
-      },
+      // {
+      //   element: '#tour-edge-style',
+      //   popover: {
+      //     title: t('steps.edge_style.title'),
+      //     description: t('steps.edge_style.description'),
+      //     onNextClick: () => {
+      //       // Check if settings panel content is visible (user has opened it)
+      //       if (!isElementVisible('#tour-edge-shape')) {
+      //         // Flash the trigger to indicate user needs to click it
+      //         const trigger = document.querySelector('#tour-edge-style button');
+      //         flashElement(trigger);
+      //         return;
+      //       }
+      //       driverRef.current?.moveNext();
+      //     },
+      //   },
+      // },
       {
         element: '#tour-edge-shape',
         popover: {

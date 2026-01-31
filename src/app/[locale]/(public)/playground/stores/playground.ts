@@ -41,7 +41,7 @@ export function createPlaygroundStore() {
     selectedLetterId: 1,
     selectedNodeId: null,
     edgeStyle: {
-      isFloating: true,
+      isFloating: false,
       isAnimated: false,
       shape: 'default',
     },
