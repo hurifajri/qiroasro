@@ -31,6 +31,7 @@ import { getIsMobile } from '@/lib/device';
 import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
+import { usePlaygroundParams } from '../hooks/use-playground-params';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
 import { generateGraphFromData } from '../lib/graph';
 import { usePlaygroundStore } from '../providers/playground';
@@ -101,6 +102,22 @@ export function Playground() {
     (s) => s.getEffectiveEdgeType,
   );
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
+
+  // Sync playground settings with URL query params
+  usePlaygroundParams({
+    currentSettings: {
+      viewMode,
+      layoutMode,
+      hierarchyDirection,
+      edgeShape: edgeStyle.shape,
+      selectedLetterId: selectedLetterId ?? 1,
+    },
+    onViewModeChange: setViewMode,
+    onLayoutModeChange: setLayoutMode,
+    onHierarchyDirectionChange: setHierarchyDirection,
+    onEdgeShapeChange: (shape) => setEdgeStyle({ shape }),
+    onLetterSelect: setSelectedLetterId,
+  });
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
   const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
