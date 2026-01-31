@@ -38,6 +38,7 @@ export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+        isConnectable={false}
       />
 
       <BaseNodeContent className="select-none p-0 font-semibold text-node-letter-text text-sm capitalize">
@@ -48,6 +49,7 @@ export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+        isConnectable={false}
       />
     </BaseNode>
   );
@@ -77,7 +79,7 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
         {isActive && (
           <NodeAppendix
             position="top"
-            className="-right-2.5 top-3.5 w-auto rounded-full border-none bg-node-articulation-secondary p-0"
+            className="top-3.5 -right-2.5 w-auto rounded-full border-none bg-node-articulation-secondary p-0"
           >
             <CircleQuestionMarkIcon
               onClick={() => {
@@ -92,6 +94,7 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
           type="target"
           position={targetPosition}
           className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+          isConnectable={false}
         />
 
         <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">
@@ -102,6 +105,7 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
           type="source"
           position={sourcePosition}
           className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+          isConnectable={false}
         />
       </BaseNode>
 

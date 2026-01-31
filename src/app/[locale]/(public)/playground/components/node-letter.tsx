@@ -34,6 +34,7 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+        isConnectable={false}
       />
 
       <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
@@ -45,6 +46,7 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+        isConnectable={false}
       />
     </BaseNode>
   );

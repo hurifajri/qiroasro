@@ -31,7 +31,7 @@ export function TargetQuizNode({ data }: NodeProps) {
         <NodeAppendix
           position="top"
           className={cn(
-            '-right-2.5 top-3.5 w-auto rounded-full border-none p-0',
+            'top-3.5 -right-2.5 w-auto rounded-full border-none p-0',
             nodeData.type === 'trait' && 'bg-node-trait-secondary',
             nodeData.type === 'articulation_point' &&
               'bg-node-articulation-secondary',
