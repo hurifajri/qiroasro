@@ -4,7 +4,7 @@ import { LOCALES } from '@/lib/constants';
 export const routing = defineRouting({
   locales: LOCALES,
   defaultLocale: 'id',
-  localePrefix: 'as-needed',
+  localePrefix: 'always',
   localeDetection: true,
   alternateLinks: true,
 });

@@ -525,7 +525,7 @@ export function Playground() {
 
             <Background
               color={
-                theme === 'light' ? 'oklch(0.13 0.028 261.692)' : 'oklch(1 0 0)'
+                theme === 'light' ? 'oklch(0 0 0 / 0.8)' : 'oklch(1 0 0 / 0.5)'
               }
               bgColor={
                 theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
