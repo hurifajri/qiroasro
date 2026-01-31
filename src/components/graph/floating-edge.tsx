@@ -51,7 +51,16 @@ export const FloatingEdge = memo(
     });
 
     return (
-      <g className="react-flow__connection">
+      <g className="react-flow__edge">
+        {/* Invisible wider path for easier click interaction */}
+        <path
+          d={path}
+          fill="none"
+          strokeWidth={20}
+          stroke="transparent"
+          style={{ pointerEvents: 'stroke' }}
+          className="react-flow__edge-interaction"
+        />
         <path
           id={id}
           className="react-flow__edge-path"
