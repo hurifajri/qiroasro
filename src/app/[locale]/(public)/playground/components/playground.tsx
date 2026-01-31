@@ -110,7 +110,7 @@ export function Playground() {
       layoutMode,
       hierarchyDirection,
       edgeShape: edgeStyle.shape,
-      selectedLetterId: selectedLetterId ?? 1,
+      selectedLetterId,
     },
     onViewModeChange: setViewMode,
     onLayoutModeChange: setLayoutMode,

@@ -8,7 +8,7 @@ interface PlaygroundState {
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
-  selectedLetterId: number | undefined;
+  selectedLetterId: number;
   selectedNodeId: string | null;
   edgeStyle: EdgeStyleOptions;
   // Highlight state - computed once when selection changes
@@ -55,9 +55,6 @@ export function createPlaygroundStore() {
         connectedNodeIds: new Set<string>(),
         connectedEdgeIds: new Set<string>(),
       });
-      if (mode !== 'letter') {
-        set({ selectedLetterId: 1 });
-      }
     },
     setLayoutMode: (mode) => set({ layoutMode: mode }),
     setHierarchyDirection: (direction) =>

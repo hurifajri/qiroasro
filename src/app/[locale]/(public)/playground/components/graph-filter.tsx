@@ -53,7 +53,7 @@ interface GraphFilterProps {
   hierarchyDirection: HierarchyDirection;
   edgeStyle: EdgeStyleOptions;
   letters: Letter[];
-  selectedLetterId?: number;
+  selectedLetterId: number;
   onViewModeChange: (mode: ViewMode) => void;
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
@@ -152,6 +152,9 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => {
                       onLayoutModeChange(mode);
+                      if (viewMode !== 'letter') {
+                        onLetterSelect(1);
+                      }
                       router.push(
                         `${pathname}?${createQueryString(PARAM_LAYOUT, mode)}`,
                       );
