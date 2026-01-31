@@ -134,6 +134,7 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => {
                       onViewModeChange(mode);
+                      if (mode !== 'letter') onLetterSelect(1);
                       router.push(
                         `${pathname}?${updateQueryParams(PARAM_VIEW, mode)}`,
                       );
@@ -162,9 +163,8 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => {
                       onLayoutModeChange(mode);
-                      if (viewMode !== 'letter') {
-                        onLetterSelect(1);
-                      }
+                      if (mode !== 'hierarchical')
+                        onHierarchyDirectionChange('vertical');
                       router.push(
                         `${pathname}?${updateQueryParams(PARAM_LAYOUT, mode)}`,
                       );
