@@ -88,14 +88,24 @@ export function GraphFilter({
       params.set(name, value);
 
       // Clean up dependent params based on what's being changed
-      if (name === PARAM_VIEW && value !== 'letter') {
-        // Remove letter param when switching away from letter view
-        params.delete(PARAM_LETTER);
+      if (name === PARAM_VIEW) {
+        if (value === 'letter') {
+          // Auto-set letter=1 when switching to letter view
+          params.set(PARAM_LETTER, '1');
+        } else {
+          // Remove letter param when switching away from letter view
+          params.delete(PARAM_LETTER);
+        }
       }
 
-      if (name === PARAM_LAYOUT && value === 'radial') {
-        // Remove direction param when switching to radial layout
-        params.delete(PARAM_DIRECTION);
+      if (name === PARAM_LAYOUT) {
+        // Auto-set direction when switching to hierarchical layout
+        if (value === 'hierarchical') {
+          params.set(PARAM_DIRECTION, 'vertical');
+        } else {
+          // Remove direction param when switching to radial layout
+          params.delete(PARAM_DIRECTION);
+        }
       }
 
       return params.toString();
