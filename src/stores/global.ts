@@ -1,9 +1,11 @@
 import type { ColorMode } from '@xyflow/react';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
-import { GLOBAL_STORE_KEY } from '@/lib/constants';
-import { getCookies } from '@/lib/cookies';
-import { cookiesStorage } from '@/lib/storage';
+import { cookiesStorage } from '@/lib/cookies-client';
+import { getCookies } from '@/lib/cookies-server';
+
+// Store keys
+const GLOBAL_STORE_KEY = 'qiroasro_global-store';
 
 export type WaitlistStatus =
   | 'idle'
