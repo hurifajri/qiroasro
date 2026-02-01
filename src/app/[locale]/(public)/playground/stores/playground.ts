@@ -35,9 +35,9 @@ export type PlaygroundStore = PlaygroundState & PlaygroundAction;
 
 export function createPlaygroundStore() {
   return createStore<PlaygroundStore>()((set, get) => ({
-    viewMode: 'all',
-    layoutMode: 'radial',
-    hierarchyDirection: 'vertical',
+    viewMode: 'letter',
+    layoutMode: 'hierarchical',
+    hierarchyDirection: 'horizontal',
     selectedLetterId: 1,
     selectedNodeId: null,
     edgeStyle: {

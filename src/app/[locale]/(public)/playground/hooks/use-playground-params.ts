@@ -67,7 +67,6 @@ export interface UsePlaygroundParamsOptions {
 /**
  * Hook to sync playground settings with URL query params.
  * - On mount: reads query params and updates store if valid
- * - On store change: updates URL query params
  */
 export function usePlaygroundParams({
   currentSettings,

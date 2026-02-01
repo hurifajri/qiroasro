@@ -71,9 +71,9 @@ export const NODE_TYPES = [
 ] as const;
 
 // Playground
-export const VIEW_MODES = ['all', 'articulation', 'trait', 'letter'] as const;
-export const LAYOUT_MODES = ['radial', 'hierarchical'] as const;
-export const HIERARCHY_DIRECTIONS = ['vertical', 'horizontal'] as const;
+export const VIEW_MODES = ['letter', 'articulation', 'trait', 'all'] as const;
+export const LAYOUT_MODES = ['hierarchical', 'radial'] as const;
+export const HIERARCHY_DIRECTIONS = ['horizontal', 'vertical'] as const;
 export const EDGE_SHAPES = [
   'default',
   'straight',
