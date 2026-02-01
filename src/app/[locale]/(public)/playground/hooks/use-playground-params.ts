@@ -6,17 +6,19 @@ import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
   LAYOUT_MODES,
-  VIEW_MODES,
-} from '@/lib/constants';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
-import {
   PARAM_DIRECTION,
   PARAM_LAYOUT,
   PARAM_LETTER,
   PARAM_SHAPE,
   PARAM_VIEW,
+  VIEW_MODES,
 } from '../lib/constants';
-import type { EdgeShape, ViewMode } from '../schemas/graph';
+import type {
+  EdgeShape,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 
 // Type guards for validation
 function isValidViewMode(value: string | null): value is ViewMode {

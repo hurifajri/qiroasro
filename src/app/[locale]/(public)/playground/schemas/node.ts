@@ -1,5 +1,5 @@
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
-import type { Letter } from '@/schemas/letter';
+import type { HierarchyDirection, LayoutMode } from '../schemas/graph';
+import type { Letter } from './letter';
 import type { QuizStatus, QuizType } from './quiz';
 
 /**

@@ -12,8 +12,8 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import { useCallback, useEffect } from 'react';
-import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
-import { FloatingEdge } from '@/components/graph/floating-edge';
+import { FloatingConnectionLine } from '../components/ui/floating-connection-line';
+import { FloatingEdge } from '../components/ui/floating-edge';
 import { useQuizStore } from '../providers/quiz';
 
 const edgeTypes: EdgeTypes = { floating: FloatingEdge };

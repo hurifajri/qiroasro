@@ -4,8 +4,8 @@ import { memo } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
-import type { Letter } from '@/schemas/letter';
 import { useNodeLayout } from '../hooks/use-node-layout';
+import type { Letter } from '../schemas/letter';
 import type { BaseNodeData } from '../schemas/node';
 
 type LetterNodeData = Letter & BaseNodeData;

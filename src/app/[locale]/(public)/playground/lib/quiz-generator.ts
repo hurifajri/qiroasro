@@ -1,10 +1,18 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { ArticulationPoint } from '@/schemas/articulation';
-import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
-import type { Trait } from '@/schemas/trait';
-import type { LetterQuiz } from '../schemas/letter';
+import type { ArticulationPoint } from '../schemas/articulation';
+import type {
+  Letter,
+  LetterArticulation,
+  LetterTrait,
+} from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
-import type { QuizQuestion, QuizTarget, QuizType } from '../schemas/quiz';
+import type {
+  QuizLetter,
+  QuizQuestion,
+  QuizTarget,
+  QuizType,
+} from '../schemas/quiz';
+import type { Trait } from '../schemas/trait';
 import { createLetterQuizNode, createTargetQuizNode } from './node';
 
 interface QuizGeneratorData {
@@ -145,7 +153,7 @@ export function generateQuizData(
   }
 
   const letterNodes: Node[] = newQuestions.map((q, index) => {
-    const letter: LetterQuiz = { ...q.letter, status: 'none' };
+    const letter: QuizLetter = { ...q.letter, status: 'none' };
     const position = { x: 50, y: 30 + index * 70 };
     return createLetterQuizNode(letter, position);
   });

@@ -22,18 +22,19 @@ import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
-import { FloatingEdge } from '@/components/graph/floating-edge';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { getIsMobile } from '@/lib/device';
-import { applyHierarchicalLayout, applyRadialLayout } from '@/lib/graph';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../hooks/use-playground-params';
 import { usePlaygroundTour } from '../hooks/use-playground-tour';
-import { generateGraphFromData } from '../lib/graph';
+import { generateGraphFromData } from '../lib/graph-generator';
+import {
+  applyHierarchicalLayout,
+  applyRadialLayout,
+} from '../lib/graph-layout';
 import { usePlaygroundStore } from '../providers/playground';
 import { useQuizStore } from '../providers/quiz';
 import { getPlaygroundDataOpt } from '../queries/playground';
@@ -45,6 +46,8 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
+import { FloatingConnectionLine } from './ui/floating-connection-line';
+import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open

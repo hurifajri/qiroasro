@@ -5,11 +5,12 @@ import type {
   QUIZ_ERROR_TYPES,
   QUIZ_MODES,
   QUIZ_STATUSES,
-} from '@/lib/constants';
-import type { Letter } from '@/schemas/letter';
+} from '../lib/constants';
+import type { Letter } from './letter';
 
 export type ChallengeQuizDifficulty =
   (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];
+export type QuizLetter = Letter & { status: QuizStatus };
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 export type QuizMode = (typeof QUIZ_MODES)[number];
 export type QuizType = Extract<NodeType, 'articulation_point' | 'trait'>;

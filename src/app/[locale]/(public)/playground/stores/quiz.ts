@@ -1,7 +1,7 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
-import { CORRECT_POINT, INCORRECT_POINT } from '@/lib/constants';
+import { CORRECT_POINT, INCORRECT_POINT } from '../lib/constants';
 import type {
   ChallengeQuizAnalytic,
   ChallengeQuizDifficulty,

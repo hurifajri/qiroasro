@@ -6,9 +6,9 @@ import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
-import type { Trait, TraitGroup } from '@/schemas/trait';
 import { useNodeLayout } from '../hooks/use-node-layout';
 import type { BaseNodeData } from '../schemas/node';
+import type { Trait, TraitGroup } from '../schemas/trait';
 import { NodeInfoDialog } from './node-info-dialog';
 
 type TraitGroupNodeData = TraitGroup & BaseNodeData;

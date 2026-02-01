@@ -8,7 +8,8 @@ import {
 } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
-import { cn, parseDuration } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { parseDuration } from '../lib/utils';
 import type {
   ChallengeConnectionStatItem,
   ChallengeQuizResult,

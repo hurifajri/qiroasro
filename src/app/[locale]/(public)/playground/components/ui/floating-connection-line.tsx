@@ -3,7 +3,7 @@ import {
   getBezierPath,
   type InternalNode,
 } from '@xyflow/react';
-import { getEdgeParams } from '@/lib/graph';
+import { getEdgeParams } from '../../lib/graph-layout';
 
 /**
  * Floating Connection Line component - shows a dynamic line while connecting nodes.

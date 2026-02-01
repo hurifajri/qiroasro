@@ -1,8 +1,13 @@
 import type { Edge } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
 import { computeHighlight } from '../lib/edge';
-import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
+import type {
+  EdgeShape,
+  EdgeStyleOptions,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 
 interface PlaygroundState {
   viewMode: ViewMode;

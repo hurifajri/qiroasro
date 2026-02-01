@@ -5,7 +5,7 @@ import {
   Position,
   type XYPosition,
 } from '@xyflow/react';
-import type { HierarchyDirection } from '@/schemas/graph';
+import type { HierarchyDirection } from '../schemas/graph';
 
 interface HierarchicalLayoutOptions {
   direction: HierarchyDirection;

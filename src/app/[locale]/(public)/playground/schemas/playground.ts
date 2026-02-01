@@ -4,7 +4,7 @@ import {
   type ArticulationPoint,
   RemoteArticulationAreaSchema,
   RemoteArticulationPointSchema,
-} from '@/schemas/articulation';
+} from './articulation';
 import {
   type Letter,
   type LetterArticulation,
@@ -12,13 +12,13 @@ import {
   RemoteLetterArticulationSchema,
   RemoteLetterSchema,
   RemoteLetterTraitSchema,
-} from '@/schemas/letter';
+} from './letter';
 import {
   RemoteTraitGroupSchema,
   RemoteTraitSchema,
   type Trait,
   type TraitGroup,
-} from '@/schemas/trait';
+} from './trait';
 
 // Reuse existing remote schemas for the MV response
 export const RemotePlaygroundDataSchema = object({

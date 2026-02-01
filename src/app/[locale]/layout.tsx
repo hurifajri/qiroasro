@@ -1,7 +1,7 @@
-import type { Metadata, Viewport } from 'next';
-import { Amiri, Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import type { Metadata, Viewport } from 'next';
+import { Amiri, Outfit } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';

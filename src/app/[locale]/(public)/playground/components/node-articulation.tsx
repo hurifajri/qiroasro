@@ -6,11 +6,11 @@ import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
+import { useNodeLayout } from '../hooks/use-node-layout';
 import type {
   ArticulationArea,
   ArticulationPoint,
-} from '@/schemas/articulation';
-import { useNodeLayout } from '../hooks/use-node-layout';
+} from '../schemas/articulation';
 import type { BaseNodeData } from '../schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
