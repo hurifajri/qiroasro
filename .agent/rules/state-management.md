@@ -73,6 +73,51 @@ export function useAppStore<T>(selector: (store: Store) => T): T {
 }
 ```
 
+### Persisted Store Pattern
+
+For stores that need to persist data (e.g. to cookies/localStorage), use `persist` middleware and handle rehydration in the provider.
+
+```typescript
+// src/stores/global.ts
+export function createGlobalStore(globalState: GlobalState) {
+  return createStore<GlobalStore>()(
+    persist(
+      (set) => ({
+        ...globalState,
+        // actions...
+      }),
+      {
+        name: 'app-storage-key',
+        storage: createJSONStorage(() => cookiesStorage), // or localStorage
+        skipHydration: true,
+        partialize: (state) => ({ theme: state.theme }), // Select fields to persist
+      },
+    ),
+  );
+}
+```
+
+```typescript
+// src/providers/global.tsx
+export function GlobalStoreProvider({ children }: Props) {
+  const storeRef = useRef<GlobalStoreApi>(undefined);
+  storeRef.current ??= createGlobalStore(initGlobalState());
+
+  const store = storeRef.current;
+
+  // Rehydrate on mount
+  useEffect(() => {
+    void store.persist.rehydrate();
+  }, [store]);
+
+  return (
+    <GlobalContext.Provider value={store}>
+      {children}
+    </GlobalContext.Provider>
+  );
+}
+```
+
 ### Best Practices
 
 1. **Avoid useState when Zustand store exists**:

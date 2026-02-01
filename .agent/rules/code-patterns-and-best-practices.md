@@ -77,14 +77,27 @@ export function useCustomHook(options: UseHookOptions): UseHookReturn {
 // services/entity.ts
 'use server'; // ✅ Server Action
 
+import { parse } from 'valibot';
 import { db } from '@/lib/db';
 import { entities } from '@/db/schema';
+import { RemoteEntitySchema, type Entity } from '@/schemas/entity';
+import { transformRemoteEntity } from '@/models/entity';
 
 export async function getEntities(): Promise<Entity[]> {
-  // Drizzle queries run on the server
-  return db.select().from(entities).orderBy(entities.sortOrder);
-}
+  try {
+    // Drizzle queries run on the server
+    const result = await db.select().from(entities).orderBy(entities.sortOrder);
 
+    // Validate and transform
+    return result.map(item => {
+      const remote = parse(RemoteEntitySchema, item);
+      return transformRemoteEntity(remote);
+    });
+  } catch (error) {
+    console.error('Failed to fetch entities:', error);
+    return []; // Return empty or throw based on requirements
+  }
+}
 ```
 
 ### Query Options Pattern
@@ -124,6 +137,29 @@ export const QUIZ_CONFIG = {
   MAX_QUESTIONS: 10,
   DEFAULT_TIMER: 30,
 } as const;
+```
+
+### Environment Variables Pattern
+
+```typescript
+// src/env.ts
+import { createEnv } from '@t3-oss/env-nextjs';
+import { minLength, pipe, string, url } from 'valibot';
+
+export const env = createEnv({
+  server: {
+    DATABASE_URL: pipe(string(), minLength(1)),
+    RESEND_API_KEY: pipe(string(), minLength(1)),
+  },
+  client: {
+    NEXT_PUBLIC_APP_URL: pipe(string(), url(), minLength(1)),
+  },
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  },
+});
 ```
 
 ---

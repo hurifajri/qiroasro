@@ -16,7 +16,7 @@ src/
 │   │   ├── models/        # Data transformers
 │   │   ├── providers/     # React context providers
 │   │   ├── queries/       # TanStack Query options
-│   │   ├── schemas/       # Zod schemas & types
+│   │   ├── schemas/       # Valibot schemas & types
 │   │   ├── services/      # API/data services
 │   │   └── stores/        # Zustand stores
 │   └── api/               # API routes
@@ -24,7 +24,9 @@ src/
 │   ├── common/            # Shared components
 │   ├── ui/                # UI primitives (shadcn/ui)
 │   └── [feature]/         # Feature-specific shared components
+├── db/                    # Database schema and migrations
 ├── hooks/                 # Global hooks
+├── i18n/                  # Internationalization configuration
 ├── lib/                   # Global utilities
 ├── models/                # Global data transformers
 ├── providers/             # Global providers
@@ -32,7 +34,9 @@ src/
 ├── schemas/               # Global schemas
 ├── services/              # Global services
 ├── stores/                # Global stores
-└── styles/                # Global styles
+├── styles/                # Global styles
+├── types/                 # Global type definitions
+└── env.ts                 # Environment variables definition
 ```
 
 ### Placement Rules
