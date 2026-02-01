@@ -1,5 +1,4 @@
 import {
-  array,
   boolean,
   type InferOutput,
   integer,
@@ -27,10 +26,6 @@ const ArticulationAreaSchema = omit(
   ['is_muhaqqaq', 'sort_order'],
 );
 
-export const RemoteArticulationAreasSchema = array(
-  RemoteArticulationAreaSchema,
-);
-
 export type RemoteArticulationArea = InferOutput<
   typeof RemoteArticulationAreaSchema
 >;
@@ -50,10 +45,6 @@ const ArticulationPointSchema = omit(
     sortOrder: pipe(number(), integer()),
   }),
   ['area_id', 'sort_order'],
-);
-
-export const RemoteArticulationPointsSchema = array(
-  RemoteArticulationPointSchema,
 );
 
 export type RemoteArticulationPoint = InferOutput<

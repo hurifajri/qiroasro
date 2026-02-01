@@ -1,5 +1,4 @@
 import {
-  array,
   boolean,
   type InferOutput,
   integer,
@@ -30,8 +29,6 @@ const LetterSchema = omit(
   ['is_madd', 'sort_order'],
 );
 
-export const RemoteLettersSchema = array(RemoteLetterSchema);
-
 export type RemoteLetter = InferOutput<typeof RemoteLetterSchema>;
 export type Letter = InferOutput<typeof LetterSchema>;
 
@@ -49,10 +46,6 @@ const LetterArticulationSchema = object({
   sortOrder: pipe(number(), integer()),
 });
 
-export const RemoteLetterArticulationsSchema = array(
-  RemoteLetterArticulationSchema,
-);
-
 export type RemoteLetterArticulation = InferOutput<
   typeof RemoteLetterArticulationSchema
 >;
@@ -67,8 +60,6 @@ const LetterTraitSchema = object({
   letterId: pipe(number(), integer()),
   traitId: pipe(number(), integer()),
 });
-
-export const RemoteLetterTraitsSchema = array(RemoteLetterTraitSchema);
 
 export type RemoteLetterTrait = InferOutput<typeof RemoteLetterTraitSchema>;
 export type LetterTrait = InferOutput<typeof LetterTraitSchema>;
