@@ -59,6 +59,10 @@ export function useQuizGenerator({
       ? challengeCurrQuestion.allowMultiEdge
       : practiceSettings.multiEdge;
 
+  // Only use specific letter in practice mode
+  const specificLetterId =
+    mode === 'practice' ? practiceSettings.specificLetterId : null;
+
   // Fetch data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
   const letters = playgroundData?.letters ?? [];
@@ -78,7 +82,7 @@ export function useQuizGenerator({
         articulationPoints,
         traits,
       },
-      { lettersPerQuiz, targetsPerQuiz, multiEdge },
+      { lettersPerQuiz, targetsPerQuiz, multiEdge, specificLetterId },
     );
 
     if (result.isUnsupported) {

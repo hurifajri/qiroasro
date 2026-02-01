@@ -27,6 +27,7 @@ interface QuizSettings {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
+  specificLetterId: number | null;
 }
 
 export interface GeneratedQuizResult {
@@ -53,13 +54,20 @@ export function generateQuizData(
     articulationPoints,
     traits,
   } = data;
-  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = settings;
+  const { lettersPerQuiz, targetsPerQuiz, multiEdge, specificLetterId } =
+    settings;
 
   const validTraitIds = new Set(
     traits.filter((t) => t.groupId !== 7).map((t) => t.id),
   );
 
-  const availableLetters = letters.filter((letter) => {
+  // Filter by specific letter if provided
+  const lettersPool =
+    specificLetterId !== null
+      ? letters.filter((letter) => letter.id === specificLetterId)
+      : letters;
+
+  const availableLetters = lettersPool.filter((letter) => {
     if (type === 'articulation_point') {
       return letterArticulations.some((la) => la.letterId === letter.id);
     }

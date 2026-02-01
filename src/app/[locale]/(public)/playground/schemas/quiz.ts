@@ -43,6 +43,7 @@ export interface PracticeQuizSettings {
   multiEdge: boolean;
   timerMode: boolean;
   timerDuration: number; // in seconds
+  specificLetterId: number | null;
 }
 
 // Config constraints per type
@@ -74,6 +75,7 @@ export const PRACTICE_QUIZ_DEFAULT_SETTINGS: PracticeQuizSettings = {
   multiEdge: false,
   timerMode: false,
   timerDuration: 15,
+  specificLetterId: null,
 };
 
 // Track weakness for detailed analysis

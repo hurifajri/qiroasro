@@ -237,6 +237,8 @@
       "practice_multi_edge": "Multi-Answer",
       "practice_timer_mode": "Timer Mode",
       "practice_timer_duration": "Duration (Seconds)",
+      "practice_specific_letters": "Specific Letters",
+      "practice_specific_letters_hint": "Select letters to practice",
       "practice_instruction_title": "Instructions",
       "practice_instruction_description_articulation_point": "Connect the letter to the correct articulation point. Draw a line or click both items to pair them.",
       "practice_instruction_description_trait": "Connect the letter to the correct characteristic. Draw a line or click both items to pair them.",
