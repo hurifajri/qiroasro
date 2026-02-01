@@ -139,12 +139,12 @@ export function useQuizGenerator({
     },
   );
 
-  // Check answer - returns the score and incorrect items for caller to use
-  function checkAnswer() {
+  // Check answer - returns the score and question analytics for caller to use
+  function checkAnswer(questionNumber: number = 1) {
     setIsChecked(true);
 
-    const { correctCount, letterResults, targetResults, incorrectItems } =
-      calculateAnswer(questions, edges, targets);
+    const { correctCount, letterResults, targetResults, questionAnalytics } =
+      calculateAnswer(questions, edges, targets, questionNumber);
 
     setNodes((currentNodes) =>
       applyResultsToNodes(currentNodes, letterResults, targetResults),
@@ -153,7 +153,7 @@ export function useQuizGenerator({
 
     const score = { correct: correctCount, total: requiredConnection };
 
-    return { score, incorrectItems };
+    return { score, questionAnalytics };
   }
 
   return {

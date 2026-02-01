@@ -93,7 +93,10 @@ export function useQuizChallenge({
     addChallengeTimeSpent(timeSpent);
 
     // Call checkAnswer to update edge colors (blue/red)
-    const { score: currentScore, incorrectItems } = checkAnswer();
+    // Pass current question number (1-indexed)
+    const { score: currentScore, questionAnalytics } = checkAnswer(
+      currQuestionIdx + 1,
+    );
     const isPerfect = currentScore.correct === currentScore.total;
 
     const stat = {
@@ -103,8 +106,10 @@ export function useQuizChallenge({
     };
     recordQuestionScore(stat);
 
-    for (const item of incorrectItems) {
-      addAnalytic(item.name, item.type, item.errorType);
+    // Add analytics for current question only (should only be 1 analytic in array)
+    const currentAnalytic = questionAnalytics[0];
+    if (currentAnalytic) {
+      addAnalytic(currentAnalytic);
     }
 
     // Animate score changes with delay

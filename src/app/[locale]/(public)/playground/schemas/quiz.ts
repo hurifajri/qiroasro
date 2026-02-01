@@ -7,7 +7,6 @@ export const CORRECT_POINT = 10;
 export const INCORRECT_POINT = -1;
 export const QUIZ_MODES = ['practice', 'challenge'] as const;
 export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
-export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
 export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
 export type ChallengeQuizDifficulty =
@@ -16,7 +15,6 @@ export type QuizLetter = Letter & { status: QuizStatus };
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 export type QuizMode = (typeof QUIZ_MODES)[number];
 export type QuizType = Extract<NodeType, 'articulation_point' | 'trait'>;
-type QuizErrorType = (typeof QUIZ_ERROR_TYPES)[number];
 type NodeType = (typeof NODE_TYPES)[number];
 
 // Quiz question and answer types
@@ -80,10 +78,23 @@ export const PRACTICE_QUIZ_DEFAULT_SETTINGS: PracticeQuizSettings = {
 
 // Track weakness for detailed analysis
 export interface ChallengeQuizAnalytic {
-  item: string;
-  type: NodeType;
-  errorType: QuizErrorType;
-  errorCount: number;
+  questionNumber: number;
+  letters: Array<{ id: number; symbol: string; isMadd: boolean }>;
+  targetType: QuizType;
+  correctTargets: QuizTarget[];
+  displayedTargets: QuizTarget[]; // All targets shown on screen (including distractors)
+  userAnswers: QuizTarget[];
+  isPerfect: boolean;
+  hasPartialCorrect: boolean;
+  isUnanswered: boolean;
+
+  // Score tracking (based on edges/connections)
+  correctCount: number;
+  incorrectCount: number;
+
+  // For multi-letter scenarios (5 letters, 1 target)
+  correctLetterIds?: number[];
+  userSelectedLetterIds?: number[];
 }
 
 export interface ChallengeQuizScore {

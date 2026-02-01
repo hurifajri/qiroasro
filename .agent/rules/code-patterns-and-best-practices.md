@@ -162,4 +162,26 @@ export const env = createEnv({
 });
 ```
 
+### Styling Pattern
+
+```typescript
+// ✅ Use cn() for class merging and conditional classes
+import { cn } from '@/lib/utils';
+
+export function Component({ className, isError }: Props) {
+  return (
+    <div
+      className={cn(
+        'flex items-center gap-2 rounded-md border p-4', // Base classes
+        'bg-white dark:bg-zinc-950', // Theming
+        isError && 'border-red-500 bg-red-50', // Conditional classes
+        className, // Prop overrides
+      )}
+    >
+      Content
+    </div>
+  );
+}
+```
+
 ---

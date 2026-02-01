@@ -1,17 +1,15 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { QuizQuestion, QuizTarget } from '../schemas/quiz';
-
-export interface IncorrectItem {
-  name: string;
-  type: 'letter' | 'articulation_point' | 'trait';
-  errorType: 'incorrect' | 'missed';
-}
+import type {
+  ChallengeQuizAnalytic,
+  QuizQuestion,
+  QuizTarget,
+} from '../schemas/quiz';
 
 interface CalculateAnswerResult {
   correctCount: number;
   letterResults: Map<string, 'correct' | 'incorrect'>;
   targetResults: Map<string, 'correct' | 'incorrect'>;
-  incorrectItems: IncorrectItem[];
+  questionAnalytics: ChallengeQuizAnalytic[];
 }
 
 /**
@@ -19,16 +17,23 @@ interface CalculateAnswerResult {
  * @param questions - Quiz questions with letters and their correct target IDs
  * @param edges - User's connections/answers
  * @param displayedTargets - Targets that are actually displayed on screen (for filtering)
+ * @param questionNumber - Current question number (1-indexed)
  */
 export function calculateAnswer(
   questions: QuizQuestion[],
   edges: Edge[],
   displayedTargets: QuizTarget[],
+  questionNumber: number = 1,
 ): CalculateAnswerResult {
   let correctCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
-  const incorrectItems: IncorrectItem[] = [];
+
+  // Collect data for single analytic
+  const allLetters: Array<{ id: number; symbol: string; isMadd: boolean }> = [];
+  const allCorrectTargets: QuizTarget[] = [];
+  const allUserAnswers: QuizTarget[] = [];
+  const targetType = questions[0]?.targetType || 'articulation_point';
 
   // Get set of displayed target IDs for fast lookup
   const displayedTargetIds = new Set(displayedTargets.map((t) => t.id));
@@ -37,14 +42,34 @@ export function calculateAnswer(
     const letterId = `letter-quiz-${question.letter.id}`;
     const letterConnections = edges.filter((e) => e.source === letterId);
 
+    // Collect letter
+    allLetters.push({
+      id: question.letter.id,
+      symbol: question.letter.symbol,
+      isMadd: question.letter.isMadd,
+    });
+
     // Filter correctTargetIds to only include targets that are displayed on screen
     const validCorrectTargetIds = question.correctTargetIds.filter((id) =>
       displayedTargetIds.has(id),
     );
 
-    // Track if this letter has any incorrect connection
-    let hasIncorrectConnection = false;
+    // Get correct targets for this letter
+    const correctTargets = displayedTargets.filter((t) =>
+      validCorrectTargetIds.includes(t.id),
+    );
+    allCorrectTargets.push(...correctTargets);
 
+    // Get user's answers from edges for this letter
+    const userAnswerIds = letterConnections.map((c) =>
+      Number.parseInt(c.target.replace('target-quiz-', ''), 10),
+    );
+    const userAnswers = displayedTargets.filter((t) =>
+      userAnswerIds.includes(t.id),
+    );
+    allUserAnswers.push(...userAnswers);
+
+    // Track connections for scoring
     for (const connection of letterConnections) {
       const targetIdNum = Number.parseInt(
         connection.target.replace('target-quiz-', ''),
@@ -64,37 +89,112 @@ export function calculateAnswer(
 
       if (isCorrect) {
         correctCount++;
-      } else {
-        hasIncorrectConnection = true;
-        // Track incorrect connection - letter connected to wrong target
-        incorrectItems.push({
-          name: question.letter.symbol,
-          type: 'letter',
-          errorType: 'incorrect',
-        });
       }
     }
 
-    // Check for missed correct connections (unanswered) - only for displayed targets
-    // Skip if letter already has an incorrect connection (Option C logic)
-    if (!hasIncorrectConnection) {
-      const answeredTargets = letterConnections.map((c) =>
-        Number.parseInt(c.target.replace('target-quiz-', ''), 10),
-      );
-      for (const correctId of validCorrectTargetIds) {
-        if (!answeredTargets.includes(correctId)) {
-          // Track missed connection - should have been connected but wasn't
-          incorrectItems.push({
-            name: question.letter.symbol,
-            type: 'letter',
-            errorType: 'missed',
-          });
-        }
-      }
+    // Set letter status for unanswered
+    if (letterConnections.length === 0 && validCorrectTargetIds.length > 0) {
+      letterResults.set(letterId, 'incorrect');
     }
   }
 
-  return { correctCount, letterResults, targetResults, incorrectItems };
+  // Detect multi-letter scenario (multiple letters, single target)
+  const isMultiLetter = allLetters.length > 1;
+
+  // For multi-letter, track which letters are correct and which user selected
+  let correctLetterIds: number[] | undefined;
+  let userSelectedLetterIds: number[] | undefined;
+
+  if (isMultiLetter) {
+    // For multi-letter, user still makes connections FROM letter TO target
+    const targetId = allCorrectTargets[0]?.id;
+    if (targetId) {
+      const targetNodeId = `target-quiz-${targetId}`;
+
+      // Get all edges going TO this target
+      const targetConnections = edges.filter((e) => e.target === targetNodeId);
+
+      // Extract letter IDs from edge sources
+      userSelectedLetterIds = targetConnections.map((c) =>
+        Number.parseInt(c.source.replace('letter-quiz-', ''), 10),
+      );
+
+      // Correct letter IDs are from questions where this target is in correctTargetIds
+      correctLetterIds = questions
+        .filter((q) => q.correctTargetIds.includes(targetId))
+        .map((q) => q.letter.id);
+    }
+  }
+
+  // Calculate incorrect count = wrong answers + missed correct answers
+  let incorrectCount: number;
+  if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
+    // Multi-letter: count wrong selections + missed correct letters
+    const wrongSelections = userSelectedLetterIds.filter(
+      (id) => !correctLetterIds.includes(id),
+    ).length;
+    const missedCorrect = correctLetterIds.filter(
+      (id) => !userSelectedLetterIds.includes(id),
+    ).length;
+    incorrectCount = wrongSelections + missedCorrect;
+  } else {
+    // Single-letter: count wrong targets + missed correct targets
+    const wrongAnswers = allUserAnswers.filter(
+      (ua) => !allCorrectTargets.some((ct) => ct.id === ua.id),
+    ).length;
+    const missedCorrect = allCorrectTargets.filter(
+      (ct) => !allUserAnswers.some((ua) => ua.id === ct.id),
+    ).length;
+    incorrectCount = wrongAnswers + missedCorrect;
+  }
+
+  // Determine overall status for this question
+  const isUnanswered = isMultiLetter
+    ? (userSelectedLetterIds?.length ?? 0) === 0
+    : allUserAnswers.length === 0;
+
+  let isPerfect: boolean;
+  if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
+    // For multi-letter: compare letter IDs
+    isPerfect =
+      !isUnanswered &&
+      userSelectedLetterIds.length === correctLetterIds.length &&
+      userSelectedLetterIds.every((uid) => correctLetterIds.includes(uid)) &&
+      correctLetterIds.every((cid) => userSelectedLetterIds.includes(cid));
+  } else {
+    // For single-letter: compare targets
+    isPerfect =
+      !isUnanswered &&
+      allUserAnswers.length === allCorrectTargets.length &&
+      allUserAnswers.every((ua) =>
+        allCorrectTargets.some((ct) => ct.id === ua.id),
+      );
+  }
+
+  const hasPartialCorrect = !isPerfect && !isUnanswered;
+
+  // Create single analytic for this quiz screen
+  const questionAnalytics: ChallengeQuizAnalytic[] = [
+    {
+      questionNumber,
+      letters: allLetters,
+      targetType,
+      correctTargets: allCorrectTargets,
+      displayedTargets,
+      userAnswers: allUserAnswers,
+      isPerfect,
+      hasPartialCorrect,
+      isUnanswered,
+      correctCount,
+      incorrectCount,
+      ...(isMultiLetter && {
+        correctLetterIds,
+        userSelectedLetterIds,
+      }),
+    },
+  ];
+
+  return { correctCount, letterResults, targetResults, questionAnalytics };
 }
 
 /**

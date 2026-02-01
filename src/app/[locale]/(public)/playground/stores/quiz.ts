@@ -74,11 +74,7 @@ interface QuizAction {
   nextChallengeQuestion: () => void;
   addConnectionChallengeScore: (isCorrect: boolean) => void;
   recordChallengeQuestionScore: (stat: ChallengeQuizQuestionScore) => void;
-  addChallengeAnalytic: (
-    item: string,
-    type: ChallengeQuizAnalytic['type'],
-    errorType: ChallengeQuizAnalytic['errorType'],
-  ) => void;
+  addChallengeAnalytic: (analytic: ChallengeQuizAnalytic) => void;
   finishChallenge: () => void;
   setChallengeCurrQuestion: (question: ChallengeQuizQuestion | null) => void;
   addChallengeTimeSpent: (timeSpent: number) => void;
@@ -185,28 +181,10 @@ export function createQuizStore() {
       set((state) => ({
         challengeQuestionScores: [...state.challengeQuestionScores, stat],
       })),
-    addChallengeAnalytic: (item, type, errorType) =>
-      set((state) => {
-        const existing = state.challengeAnalytics.find(
-          (e) =>
-            e.item === item && e.type === type && e.errorType === errorType,
-        );
-        if (existing) {
-          return {
-            challengeAnalytics: state.challengeAnalytics.map((e) =>
-              e.item === item && e.type === type && e.errorType === errorType
-                ? { ...e, errorCount: e.errorCount + 1 }
-                : e,
-            ),
-          };
-        }
-        return {
-          challengeAnalytics: [
-            ...state.challengeAnalytics,
-            { item, type, errorType, errorCount: 1 },
-          ],
-        };
-      }),
+    addChallengeAnalytic: (analytic) =>
+      set((state) => ({
+        challengeAnalytics: [...state.challengeAnalytics, analytic],
+      })),
     finishChallenge: () => {
       const state = get();
       const perfectQuestion = state.challengeQuestionScores.filter(
@@ -218,9 +196,9 @@ export function createQuizStore() {
         state.challengeScore.correctConnection +
         state.challengeScore.incorrectConnection;
 
-      // Sort weakness by error count descending
+      // Sort analytics by question number ascending
       const sortedAnalytics = [...state.challengeAnalytics].sort(
-        (a, b) => b.errorCount - a.errorCount,
+        (a, b) => a.questionNumber - b.questionNumber,
       );
 
       const result = {
