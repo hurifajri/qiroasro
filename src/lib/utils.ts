@@ -10,3 +10,16 @@ export function kebabToSnakeCase(str: string): string {
 }
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export interface Duration {
+  minutes: number;
+  seconds: number;
+}
+
+export function parseDuration(ms: number): Duration {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return { minutes, seconds };
+}

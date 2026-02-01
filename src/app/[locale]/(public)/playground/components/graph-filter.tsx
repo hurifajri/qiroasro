@@ -29,6 +29,13 @@ import {
 } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+import type {
+  EdgeShape,
+  EdgeStyleOptions,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
@@ -39,13 +46,6 @@ import {
   PARAM_SHAPE,
   PARAM_VIEW,
   VIEW_MODES,
-} from '../lib/constants';
-import type {
-  EdgeShape,
-  EdgeStyleOptions,
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
 } from '../schemas/graph';
 import type { Letter } from '../schemas/letter';
 

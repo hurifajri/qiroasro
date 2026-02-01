@@ -1,12 +1,14 @@
 import type { LucideIcon } from 'lucide-react';
-import type {
-  CHALLENGE_QUIZ_DIFFICULTIES,
-  NODE_TYPES,
-  QUIZ_ERROR_TYPES,
-  QUIZ_MODES,
-  QUIZ_STATUSES,
-} from '../lib/constants';
 import type { Letter } from './letter';
+import type { NODE_TYPES } from './node';
+
+// Quiz Constants
+export const CORRECT_POINT = 10;
+export const INCORRECT_POINT = -1;
+export const QUIZ_MODES = ['practice', 'challenge'] as const;
+export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
+export const QUIZ_ERROR_TYPES = ['incorrect', 'missed'] as const;
+export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
 export type ChallengeQuizDifficulty =
   (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];

@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { env } from '@/env';
-import { parseDuration } from '../lib/utils';
+import { parseDuration } from '@/lib/utils';
 import type { ChallengeQuizResult } from '../schemas/quiz';
 
 interface ChallengeActionsProps {

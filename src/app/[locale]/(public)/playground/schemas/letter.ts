@@ -10,7 +10,41 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { LETTERS } from '../lib/constants';
+
+export const LETTERS = [
+  'ء',
+  'ب',
+  'ت',
+  'ث',
+  'ج',
+  'ح',
+  'خ',
+  'د',
+  'ذ',
+  'ر',
+  'ز',
+  'س',
+  'ش',
+  'ص',
+  'ض',
+  'ط',
+  'ظ',
+  'ع',
+  'غ',
+  'ف',
+  'ق',
+  'ك',
+  'ل',
+  'م',
+  'ن',
+  'و',
+  'ه',
+  'لا',
+  'ي',
+  'ـَا',
+  'ـُو',
+  'ـِي',
+] as const;
 
 export const RemoteLetterSchema = object({
   id: pipe(number(), integer()),

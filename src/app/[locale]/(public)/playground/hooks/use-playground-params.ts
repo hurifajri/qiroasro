@@ -2,6 +2,12 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import type {
+  EdgeShape,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
@@ -12,12 +18,6 @@ import {
   PARAM_SHAPE,
   PARAM_VIEW,
   VIEW_MODES,
-} from '../lib/constants';
-import type {
-  EdgeShape,
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
 } from '../schemas/graph';
 
 // Type guards for validation

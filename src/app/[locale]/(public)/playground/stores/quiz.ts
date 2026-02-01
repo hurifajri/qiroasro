@@ -1,7 +1,6 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
-import { CORRECT_POINT, INCORRECT_POINT } from '../lib/constants';
 import type {
   ChallengeQuizAnalytic,
   ChallengeQuizDifficulty,
@@ -16,7 +15,9 @@ import type {
   QuizType,
 } from '../schemas/quiz';
 import {
+  CORRECT_POINT,
   DEFAULT_CHALLENGE_QUIZ_SCORE,
+  INCORRECT_POINT,
   PRACTICE_QUIZ_DEFAULT_SETTINGS,
   type PracticeQuizSettings,
 } from '../schemas/quiz';
