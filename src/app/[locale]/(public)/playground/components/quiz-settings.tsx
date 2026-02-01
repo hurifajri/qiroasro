@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { SettingsIcon, TimerIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -37,6 +38,9 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   // Get letters from playground data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
   const letters = playgroundData?.letters ?? [];
+
+  // Memoized letters for filter
+  const memoizedLetters = useMemo(() => letters, [letters]);
 
   // Get config for current type (default to trait if no type selected)
   const config = type
@@ -117,7 +121,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const handleToggleSpecificLetters = (enabled: boolean) => {
     if (enabled) {
       // Set first letter when toggling ON (fallback to ID 1 if letters not loaded)
-      const firstLetterId = letters[0]?.id ?? 1;
+      const firstLetterId = memoizedLetters[0]?.id ?? 1;
       setPracticeSettings({
         ...practiceSettings,
         specificLetterId: firstLetterId,
@@ -211,7 +215,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
                 {t('practice_specific_letters_hint')}
               </p>
               <div className="flex flex-wrap gap-1">
-                {letters.map((letter) => {
+                {memoizedLetters.map((letter) => {
                   const isSelected =
                     practiceSettings.specificLetterId === letter.id;
                   return (
