@@ -126,26 +126,22 @@ export function calculateAnswer(
     }
   }
 
-  // Calculate incorrect count = wrong answers + missed correct answers
+  // Calculate incorrect count = expected correct - actual correct
+  // This is the single source of truth for incorrect calculations
   let incorrectCount: number;
   if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
-    // Multi-letter: count wrong selections + missed correct letters
-    const wrongSelections = userSelectedLetterIds.filter(
-      (id) => !correctLetterIds.includes(id),
+    // Multi-letter: expectedCorrect = number of letters that should connect
+    // actualCorrect = number of correct letters user selected
+    const expectedCorrect = correctLetterIds.length;
+    const actualCorrect = userSelectedLetterIds.filter((id) =>
+      correctLetterIds.includes(id),
     ).length;
-    const missedCorrect = correctLetterIds.filter(
-      (id) => !userSelectedLetterIds.includes(id),
-    ).length;
-    incorrectCount = wrongSelections + missedCorrect;
+    incorrectCount = expectedCorrect - actualCorrect;
   } else {
-    // Single-letter: count wrong targets + missed correct targets
-    const wrongAnswers = allUserAnswers.filter(
-      (ua) => !allCorrectTargets.some((ct) => ct.id === ua.id),
-    ).length;
-    const missedCorrect = allCorrectTargets.filter(
-      (ct) => !allUserAnswers.some((ua) => ua.id === ct.id),
-    ).length;
-    incorrectCount = wrongAnswers + missedCorrect;
+    // Single-letter: expectedCorrect = number of correct targets
+    // actualCorrect = correctCount (already calculated above)
+    const expectedCorrect = allCorrectTargets.length;
+    incorrectCount = expectedCorrect - correctCount;
   }
 
   // Determine overall status for this question

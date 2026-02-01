@@ -97,14 +97,6 @@ export function useQuizChallenge({
     const { score: currentScore, questionAnalytics } = checkAnswer(
       currQuestionIdx + 1,
     );
-    const isPerfect = currentScore.correct === currentScore.total;
-
-    const stat = {
-      correctConnection: currentScore.correct,
-      incorrectConnection: currentScore.total - currentScore.correct,
-      isPerfect,
-    };
-    recordQuestionScore(stat);
 
     // Add analytics for current question only (should only be 1 analytic in array)
     const currentAnalytic = questionAnalytics[0];
@@ -112,20 +104,30 @@ export function useQuizChallenge({
       addAnalytic(currentAnalytic);
     }
 
+    // Use incorrectCount from analytics as single source of truth
+    const incorrectConnection = currentAnalytic?.incorrectCount ?? 0;
+    const isPerfect = currentScore.correct === currentScore.total;
+
+    const stat = {
+      correctConnection: currentScore.correct,
+      incorrectConnection,
+      isPerfect,
+    };
+    recordQuestionScore(stat);
+
     // Animate score changes with delay
-    // Note: currentScore.total is requiredConnection, so (total - correct) already includes
-    // both wrong connections AND missed connections (connections not made before timeout)
     let delay = 0;
     for (let i = 0; i < currentScore.correct; i++) {
       setTimeout(() => addConnectionScore(true), delay);
       delay += ANIMATION_DELAY;
     }
-    for (let i = 0; i < currentScore.total - currentScore.correct; i++) {
+    for (let i = 0; i < incorrectConnection; i++) {
       setTimeout(() => addConnectionScore(false), delay);
       delay += ANIMATION_DELAY;
     }
 
-    const animationDuration = currentScore.total * ANIMATION_DELAY + 800;
+    const totalAnimations = currentScore.correct + incorrectConnection;
+    const animationDuration = totalAnimations * ANIMATION_DELAY + 800;
 
     setTimeout(() => {
       if (currQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
