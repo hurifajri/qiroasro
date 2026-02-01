@@ -1,6 +1,6 @@
 import { type EdgeProps, getBezierPath, useStore } from '@xyflow/react';
 import { type CSSProperties, memo } from 'react';
-import { getEdgeParams } from '../../lib/graph-layout';
+import { getEdgeParams } from '../../lib/edge';
 
 /**
  * Floating Edge component - dynamically calculates edge connection points

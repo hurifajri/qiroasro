@@ -1,6 +1,6 @@
 import type { Edge } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
-import { computeHighlight } from '../lib/edge';
+import { computeHighlight } from '../lib/graph-traversal';
 import type {
   EdgeShape,
   EdgeStyleOptions,
