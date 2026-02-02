@@ -3,21 +3,13 @@
 import {
   CheckCircleIcon,
   CircleHelpIcon,
-  EyeIcon,
   Target,
   XCircleIcon,
 } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
-import { buttonVariants } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from '@/components/ui/card';
-import { Link } from '@/i18n/navigation';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 import type { ChallengeQuizAnalytic, QuizType } from '../schemas/quiz';
 
@@ -294,36 +286,6 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                 </div>
               </div>
             </CardContent>
-
-            {!isPerfect && (
-              <CardFooter className="gap-1">
-                <Link
-                  href={`/playground?view=letter&letter=${analytic.letters[0].id}&layout=hierarchical&direction=horizontal&shape=default`}
-                  onClick={() => {
-                    console.log('clicked');
-                    // TODO: Exit quiz (Destroy/unmount timer, etc) and close quiz dialog
-                  }}
-                  className={cn(
-                    'flex-1',
-                    buttonVariants({ size: 'sm', variant: 'outline' }),
-                  )}
-                >
-                  <EyeIcon className="size-3.5" />
-                  {t('playground_page.quiz.challenge_analytics_view')}
-                </Link>
-                {/* Keep TODO link as per original code */}
-                {/* <Link
-                  href="TODO"
-                  className={cn(
-                    'flex-1',
-                    buttonVariants({ size: 'sm', variant: 'default' }),
-                  )}
-                >
-                  <Target className="size-3.5" />
-                  {t('playground_page.quiz.challenge_analytics_practice')}
-                </Link> */}
-              </CardFooter>
-            )}
           </Card>
         );
       })}
