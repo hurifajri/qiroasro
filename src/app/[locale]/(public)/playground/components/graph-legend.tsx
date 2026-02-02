@@ -29,7 +29,7 @@ type LegendId =
 
 export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(
     null,

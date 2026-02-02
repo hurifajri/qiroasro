@@ -2,11 +2,18 @@ import type { Edge, Node } from '@xyflow/react';
 import type {
   ArticulationArea,
   ArticulationPoint,
-} from '@/schemas/articulation';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
-import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
-import type { Trait, TraitGroup } from '@/schemas/trait';
-import type { ViewMode } from '../schemas/graph';
+} from '../schemas/articulation';
+import type {
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
+import type {
+  Letter,
+  LetterArticulation,
+  LetterTrait,
+} from '../schemas/letter';
+import type { Trait, TraitGroup } from '../schemas/trait';
 import {
   createArticulationAreaNode,
   createArticulationPointNode,
@@ -29,7 +36,7 @@ interface GenerateGraphOptions {
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
-  selectedId?: number;
+  selectedId: number;
 }
 
 interface GraphView {
@@ -247,17 +254,9 @@ function generateByTraitView(data: GraphData): GraphView {
   return { nodes, edges };
 }
 
-function generateByLetterView(data: GraphData, selectedId?: number): GraphView {
+function generateByLetterView(data: GraphData, selectedId: number): GraphView {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
-
-  // If no letter selected, show all letters only
-  if (!selectedId) {
-    for (const letter of data.letters) {
-      nodes.push(createLetterNode(letter));
-    }
-    return { nodes, edges };
-  }
 
   // Find selected letter
   const letter = data.letters.find((l) => l.id === selectedId);

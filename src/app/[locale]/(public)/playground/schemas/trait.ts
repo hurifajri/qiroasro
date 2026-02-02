@@ -1,5 +1,4 @@
 import {
-  array,
   boolean,
   type InferOutput,
   integer,
@@ -29,8 +28,6 @@ const TraitSchema = omit(
   ['group_id', 'is_middle_trait', 'sort_order'],
 );
 
-export const RemoteTraitsSchema = array(RemoteTraitSchema);
-
 export type RemoteTrait = InferOutput<typeof RemoteTraitSchema>;
 export type Trait = InferOutput<typeof TraitSchema>;
 
@@ -51,8 +48,6 @@ const TraitGroupSchema = omit(
   }),
   ['is_lazimah', 'has_middle_trait', 'sort_order'],
 );
-
-export const RemoteTraitGroupsSchema = array(RemoteTraitGroupSchema);
 
 export type RemoteTraitGroup = InferOutput<typeof RemoteTraitGroupSchema>;
 export type TraitGroup = InferOutput<typeof TraitGroupSchema>;

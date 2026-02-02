@@ -2,7 +2,7 @@ import type {
   RemoteLetter,
   RemoteLetterArticulation,
   RemoteLetterTrait,
-} from '@/schemas/letter';
+} from '../schemas/letter';
 
 function transformRemoteLetter(remoteLetter: RemoteLetter) {
   return {

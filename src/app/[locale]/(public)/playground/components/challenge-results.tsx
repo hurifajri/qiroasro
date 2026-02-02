@@ -31,12 +31,14 @@ export function ChallengeResults({
       <ChallengeConfetti />
 
       <div className="h-[calc(100dvh-128px)] overflow-y-auto">
-        <div
-          ref={resultRef}
-          className="flex flex-col gap-4 overflow-y-auto bg-background p-4"
-        >
-          <ChallengeBadge difficulty={result.difficulty} accuracy={accuracy} />
-          <ChallengeStats result={result} accuracy={accuracy} />
+        <div className="flex flex-col overflow-y-auto bg-background">
+          <div ref={resultRef} className="flex flex-col gap-4 p-4">
+            <ChallengeBadge
+              difficulty={result.difficulty}
+              accuracy={accuracy}
+            />
+            <ChallengeStats result={result} accuracy={accuracy} />
+          </div>
           <ChallengeAnalytics analytics={result.analytics} />
         </div>
       </div>

@@ -7,7 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { getLocaleDir, LOCALE_CONFIG } from '@/i18n/locale';
+import { LOCALE_CONFIG } from '@/i18n/config';
+import { getLocaleDir } from '@/i18n/locale';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 

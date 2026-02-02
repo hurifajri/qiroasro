@@ -1,4 +1,4 @@
-import type { RemoteTrait, RemoteTraitGroup } from '@/schemas/trait';
+import type { RemoteTrait, RemoteTraitGroup } from '../schemas/trait';
 
 function transformRemoteTrait(remoteTrait: RemoteTrait) {
   return {

@@ -6,12 +6,12 @@ import {
   CompassIcon,
   FilterIcon,
   LayoutGridIcon,
-  LinkIcon,
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -27,16 +27,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
+import type {
+  EdgeShape,
+  EdgeStyleOptions,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 import {
   EDGE_SHAPES,
   HIERARCHY_DIRECTIONS,
   LAYOUT_MODES,
+  PARAM_DIRECTION,
+  PARAM_LAYOUT,
+  PARAM_LETTER,
+  PARAM_SHAPE,
+  PARAM_VIEW,
   VIEW_MODES,
-} from '@/lib/constants';
-import { cn } from '@/lib/utils';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
-import type { Letter } from '@/schemas/letter';
-import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
+} from '../schemas/graph';
+import type { Letter } from '../schemas/letter';
 
 interface GraphFilterProps {
   dir: 'ltr' | 'rtl';
@@ -45,7 +56,7 @@ interface GraphFilterProps {
   hierarchyDirection: HierarchyDirection;
   edgeStyle: EdgeStyleOptions;
   letters: Letter[];
-  selectedLetterId?: number;
+  selectedLetterId: number;
   onViewModeChange: (mode: ViewMode) => void;
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
@@ -68,7 +79,42 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Update query params and clean up dependent params
+  const updateQueryParams = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      // Clean up dependent params based on what's being changed
+      if (name === PARAM_VIEW) {
+        if (value === 'letter') {
+          // Auto-set letter=1 when switching to letter view
+          params.set(PARAM_LETTER, '1');
+        } else {
+          // Remove letter param when switching away from letter view
+          params.delete(PARAM_LETTER);
+        }
+      }
+
+      if (name === PARAM_LAYOUT) {
+        // Auto-set direction when switching to hierarchical layout
+        if (value === 'hierarchical') {
+          params.set(PARAM_DIRECTION, 'vertical');
+        } else {
+          // Remove direction param when switching to radial layout
+          params.delete(PARAM_DIRECTION);
+        }
+      }
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   return (
     <Collapsible
@@ -101,9 +147,10 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => {
                       onViewModeChange(mode);
-                      if (mode !== 'letter') {
-                        onLetterSelect(1);
-                      }
+                      if (mode !== 'letter') onLetterSelect(1);
+                      router.push(
+                        `${pathname}?${updateQueryParams(PARAM_VIEW, mode)}`,
+                      );
                     }}
                     className={cn(
                       'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
@@ -127,7 +174,14 @@ export function GraphFilter({
                     key={mode}
                     variant="outline"
                     size="sm"
-                    onClick={() => onLayoutModeChange(mode)}
+                    onClick={() => {
+                      onLayoutModeChange(mode);
+                      if (mode !== 'hierarchical')
+                        onHierarchyDirectionChange('vertical');
+                      router.push(
+                        `${pathname}?${updateQueryParams(PARAM_LAYOUT, mode)}`,
+                      );
+                    }}
                     className={cn(
                       'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                       layoutMode === mode
@@ -159,7 +213,12 @@ export function GraphFilter({
                       key={direction}
                       variant="outline"
                       size="sm"
-                      onClick={() => onHierarchyDirectionChange(direction)}
+                      onClick={() => {
+                        onHierarchyDirectionChange(direction);
+                        router.push(
+                          `${pathname}?${updateQueryParams(PARAM_DIRECTION, direction)}`,
+                        );
+                      }}
                       className={cn(
                         'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
                         hierarchyDirection === direction
@@ -180,7 +239,7 @@ export function GraphFilter({
             )}
 
             {/* Edge Type */}
-            <li id="tour-edge-style" className="flex items-center gap-2">
+            {/* <li id="tour-edge-style" className="flex items-center gap-2">
               <LinkIcon className="size-4 text-muted-foreground" />
               <Button
                 dir={dir}
@@ -198,7 +257,7 @@ export function GraphFilter({
               >
                 {t('edge.dynamic')}
               </Button>
-            </li>
+            </li> */}
 
             {/* Edge Shape Selector - only visible when floating is OFF */}
             {!edgeStyle.isFloating && (
@@ -207,9 +266,12 @@ export function GraphFilter({
                 <Select
                   dir={dir}
                   value={edgeStyle.shape}
-                  onValueChange={(value) =>
-                    onEdgeStyleChange({ shape: value as EdgeShape })
-                  }
+                  onValueChange={(value) => {
+                    onEdgeStyleChange({ shape: value as EdgeShape });
+                    router.push(
+                      `${pathname}?${updateQueryParams(PARAM_SHAPE, value)}`,
+                    );
+                  }}
                 >
                   <SelectTrigger
                     size="sm"
@@ -242,7 +304,12 @@ export function GraphFilter({
                     key={letter.id}
                     variant="outline"
                     size="icon-sm"
-                    onClick={() => onLetterSelect(letter.id)}
+                    onClick={() => {
+                      onLetterSelect(letter.id);
+                      router.push(
+                        `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
+                      );
+                    }}
                     className={cn(
                       'rounded-full',
                       selectedLetterId === letter.id

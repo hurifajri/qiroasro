@@ -90,7 +90,7 @@ export function VerifyEmailTemplate({
       <Tailwind>
         <Body
           className={cn(
-            'font-sans',
+            'font-latin',
             dir === 'rtl' ? 'text-right' : 'text-left',
           )}
           dir={dir}

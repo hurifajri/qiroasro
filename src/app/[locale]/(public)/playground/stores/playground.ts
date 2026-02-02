@@ -1,14 +1,19 @@
 import type { Edge } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
-import type { HierarchyDirection, LayoutMode } from '@/schemas/graph';
-import { computeHighlight } from '../lib/edge';
-import type { EdgeShape, EdgeStyleOptions, ViewMode } from '../schemas/graph';
+import { computeHighlight } from '../lib/graph-traversal';
+import type {
+  EdgeShape,
+  EdgeStyleOptions,
+  HierarchyDirection,
+  LayoutMode,
+  ViewMode,
+} from '../schemas/graph';
 
 interface PlaygroundState {
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
-  selectedLetterId: number | undefined;
+  selectedLetterId: number;
   selectedNodeId: string | null;
   edgeStyle: EdgeStyleOptions;
   // Highlight state - computed once when selection changes
@@ -35,13 +40,13 @@ export type PlaygroundStore = PlaygroundState & PlaygroundAction;
 
 export function createPlaygroundStore() {
   return createStore<PlaygroundStore>()((set, get) => ({
-    viewMode: 'all',
-    layoutMode: 'radial',
-    hierarchyDirection: 'vertical',
+    viewMode: 'letter',
+    layoutMode: 'hierarchical',
+    hierarchyDirection: 'horizontal',
     selectedLetterId: 1,
     selectedNodeId: null,
     edgeStyle: {
-      isFloating: true,
+      isFloating: false,
       isAnimated: false,
       shape: 'default',
     },
@@ -55,9 +60,6 @@ export function createPlaygroundStore() {
         connectedNodeIds: new Set<string>(),
         connectedEdgeIds: new Set<string>(),
       });
-      if (mode !== 'letter') {
-        set({ selectedLetterId: 1 });
-      }
     },
     setLayoutMode: (mode) => set({ layoutMode: mode }),
     setHierarchyDirection: (direction) =>

@@ -4,7 +4,7 @@ import type { StateStorage } from 'zustand/middleware';
 /**
  * Client-side cookies storage for Zustand persist.
  * Uses js-cookie for synchronous access (works with Zustand persist).
- * For server-side, use `getCookies` function from src/lib/cookies.ts instead.
+ * For server-side, use `getCookies` function from src/lib/server-cookies.ts instead.
  */
 export const cookiesStorage: StateStorage = {
   getItem: (key: string) => {

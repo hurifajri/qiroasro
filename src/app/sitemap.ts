@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next';
 import { env } from '@/env';
 import { getLocalePath } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
-import { PAGES } from '@/lib/constants';
 
+const PAGES = ['/', '/playground'] as const;
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
 
 export default function sitemap(): MetadataRoute.Sitemap {

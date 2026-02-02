@@ -1,19 +1,5 @@
-import type { Locale } from './routing';
-import { routing } from './routing';
-
-/**
- * Locale metadata with emoji flags and display names
- */
-export const LOCALE_CONFIG: Record<
-  Locale,
-  { flag: string; name: string; ogLocale: string; dir: 'ltr' | 'rtl' }
-> = {
-  id: { flag: '🇮🇩', name: 'Indonesia', ogLocale: 'id_ID', dir: 'ltr' },
-  en: { flag: '🇺🇸', name: 'English', ogLocale: 'en_US', dir: 'ltr' },
-  tr: { flag: '🇹🇷', name: 'Türkçe', ogLocale: 'tr_TR', dir: 'ltr' },
-  ms: { flag: '🇲🇾', name: 'Malay', ogLocale: 'ms_MY', dir: 'ltr' },
-  ar: { flag: '🇸🇦', name: 'العربية', ogLocale: 'ar_SA', dir: 'rtl' },
-};
+import { LOCALE_CONFIG } from './config';
+import { type Locale, routing } from './routing';
 
 /**
  * Get OpenGraph locale format (e.g., 'id_ID', 'en_US')

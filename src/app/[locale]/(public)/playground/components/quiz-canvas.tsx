@@ -2,6 +2,7 @@ import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
 import {
   Background,
   type Edge,
+  type EdgeMouseHandler,
   type Node,
   type NodeTypes,
   type OnConnect,
@@ -10,9 +11,9 @@ import {
   ReactFlow,
   useReactFlow,
 } from '@xyflow/react';
-import { useEffect } from 'react';
-import { FloatingConnectionLine } from '@/components/graph/floating-connection-line';
-import { FloatingEdge } from '@/components/graph/floating-edge';
+import { useCallback, useEffect } from 'react';
+import { FloatingConnectionLine } from '../components/ui/floating-connection-line';
+import { FloatingEdge } from '../components/ui/floating-edge';
 import { useQuizStore } from '../providers/quiz';
 
 const edgeTypes: EdgeTypes = { floating: FloatingEdge };
@@ -45,6 +46,15 @@ export function QuizCanvas({
 
   const isChecked = useQuizStore((s) => s.isChecked);
 
+  // Handle edge click to delete edge (only when not checked)
+  const handleEdgeClick: EdgeMouseHandler = useCallback(
+    (_, edge) => {
+      if (isChecked) return;
+      onEdgesChange([{ type: 'remove', id: edge.id }]);
+    },
+    [isChecked, onEdgesChange],
+  );
+
   // Auto-fit when nodes change (new question loaded)
   useEffect(() => {
     if (nodes.length > 0) {
@@ -67,6 +77,7 @@ export function QuizCanvas({
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onEdgeClick={handleEdgeClick}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={defaultEdgeOptions}

@@ -1,7 +1,7 @@
-import type { Metadata, Viewport } from 'next';
-import { Amiri, Outfit } from 'next/font/google';
 import '@/styles/global.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import type { Metadata, Viewport } from 'next';
+import { Noto_Naskh_Arabic, Outfit } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
@@ -18,15 +18,15 @@ type RootLayoutProps = React.PropsWithChildren & {
   params: Promise<{ locale: string }>;
 };
 
-const outfitFont = Outfit({
-  variable: '--font-outfit',
+const latinFont = Outfit({
+  variable: '--font-latin',
   subsets: ['latin'],
   display: 'swap',
   preload: true,
 });
 
-const amiriFont = Amiri({
-  variable: '--font-amiri',
+const arabicFont = Noto_Naskh_Arabic({
+  variable: '--font-arabic',
   weight: ['400', '700'],
   subsets: ['arabic'],
   display: 'swap',
@@ -106,9 +106,9 @@ export default async function RootLayout({
     >
       <body
         className={cn(
-          'font-sans antialiased',
-          outfitFont.variable,
-          amiriFont.variable,
+          'font-latin antialiased',
+          latinFont.variable,
+          arabicFont.variable,
         )}
       >
         <QueryClientProvider>

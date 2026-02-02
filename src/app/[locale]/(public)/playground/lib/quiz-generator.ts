@@ -1,10 +1,18 @@
 import type { Edge, Node } from '@xyflow/react';
-import type { ArticulationPoint } from '@/schemas/articulation';
-import type { Letter, LetterArticulation, LetterTrait } from '@/schemas/letter';
-import type { Trait } from '@/schemas/trait';
-import type { LetterQuiz } from '../schemas/letter';
+import type { ArticulationPoint } from '../schemas/articulation';
+import type {
+  Letter,
+  LetterArticulation,
+  LetterTrait,
+} from '../schemas/letter';
 import type { TargetQuizNodeData } from '../schemas/node';
-import type { QuizQuestion, QuizTarget, QuizType } from '../schemas/quiz';
+import type {
+  QuizLetter,
+  QuizQuestion,
+  QuizTarget,
+  QuizType,
+} from '../schemas/quiz';
+import type { Trait } from '../schemas/trait';
 import { createLetterQuizNode, createTargetQuizNode } from './node';
 
 interface QuizGeneratorData {
@@ -19,6 +27,7 @@ interface QuizSettings {
   lettersPerQuiz: number;
   targetsPerQuiz: number;
   multiEdge: boolean;
+  specificLetterId: number | null;
 }
 
 export interface GeneratedQuizResult {
@@ -45,13 +54,20 @@ export function generateQuizData(
     articulationPoints,
     traits,
   } = data;
-  const { lettersPerQuiz, targetsPerQuiz, multiEdge } = settings;
+  const { lettersPerQuiz, targetsPerQuiz, multiEdge, specificLetterId } =
+    settings;
 
   const validTraitIds = new Set(
     traits.filter((t) => t.groupId !== 7).map((t) => t.id),
   );
 
-  const availableLetters = letters.filter((letter) => {
+  // Filter by specific letter if provided
+  const lettersPool =
+    specificLetterId !== null
+      ? letters.filter((letter) => letter.id === specificLetterId)
+      : letters;
+
+  const availableLetters = lettersPool.filter((letter) => {
     if (type === 'articulation_point') {
       return letterArticulations.some((la) => la.letterId === letter.id);
     }
@@ -145,7 +161,7 @@ export function generateQuizData(
   }
 
   const letterNodes: Node[] = newQuestions.map((q, index) => {
-    const letter: LetterQuiz = { ...q.letter, status: 'none' };
+    const letter: QuizLetter = { ...q.letter, status: 'none' };
     const position = { x: 50, y: 30 + index * 70 };
     return createLetterQuizNode(letter, position);
   });

@@ -1,7 +1,7 @@
 import type {
   RemoteArticulationArea,
   RemoteArticulationPoint,
-} from '@/schemas/articulation';
+} from '../schemas/articulation';
 
 function transformRemoteArticulationArea(
   remoteArticulationArea: RemoteArticulationArea,

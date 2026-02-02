@@ -1,4 +1,4 @@
-import { createEnv } from '@t3-oss/env-core';
+import { createEnv } from '@t3-oss/env-nextjs';
 import { minLength, pipe, string, url } from 'valibot';
 
 export const env = createEnv({
@@ -6,7 +6,6 @@ export const env = createEnv({
     DATABASE_URL: pipe(string(), minLength(1)),
     RESEND_API_KEY: pipe(string(), minLength(1)),
   },
-  clientPrefix: 'NEXT_PUBLIC_',
   client: {
     NEXT_PUBLIC_APP_NAME: pipe(string(), minLength(1)),
     NEXT_PUBLIC_APP_URL: pipe(string(), url(), minLength(1)),

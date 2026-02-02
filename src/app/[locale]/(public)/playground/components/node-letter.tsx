@@ -4,8 +4,8 @@ import { memo } from 'react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
-import type { Letter } from '@/schemas/letter';
 import { useNodeLayout } from '../hooks/use-node-layout';
+import type { Letter } from '../schemas/letter';
 import type { BaseNodeData } from '../schemas/node';
 
 type LetterNodeData = Letter & BaseNodeData;
@@ -34,10 +34,13 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         type="target"
         position={targetPosition}
         className={getHandleClass(nodeData.hasTargetEdge ?? false)}
+        isConnectable={false}
       />
 
       <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
-        <span className="font-bold text-4xl">{nodeData.symbol}</span>
+        <span className="font-arabic font-bold text-4xl">
+          {nodeData.symbol}
+        </span>
         <span className="text-xs">{label}</span>
       </BaseNodeContent>
 
@@ -45,6 +48,7 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
+        isConnectable={false}
       />
     </BaseNode>
   );

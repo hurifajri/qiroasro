@@ -6,13 +6,11 @@ import { env } from '@/env';
 import type { Locale } from '@/i18n/routing';
 import { db } from '@/lib/db';
 import { getResendClient } from '@/lib/resend';
+import { emailRegex } from '@/lib/utils';
 
 // export const runtime = 'edge';
 
 const FROM_EMAIL = `${env.NEXT_PUBLIC_APP_NAME} <${env.NEXT_PUBLIC_NOREPLY_EMAIL}>`;
-
-// Email validation regex
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const translations = {
   id: { subject: `Verifikasi Email - ${env.NEXT_PUBLIC_APP_NAME}` },

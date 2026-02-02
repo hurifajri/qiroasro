@@ -1,20 +1,20 @@
 import {
   transformRemoteArticulationAreas,
   transformRemoteArticulationPoints,
-} from '@/models/articulation';
-import {
-  transformRemoteLetterArticulations,
-  transformRemoteLetters,
-  transformRemoteLetterTraits,
-} from '@/models/letter';
+} from '../models/articulation';
 import {
   transformRemoteTraitGroups,
   transformRemoteTraits,
-} from '@/models/trait';
+} from '../models/trait';
 import type {
   PlaygroundData,
   RemotePlaygroundData,
 } from '../schemas/playground';
+import {
+  transformRemoteLetterArticulations,
+  transformRemoteLetters,
+  transformRemoteLetterTraits,
+} from './letter';
 
 export function transformRemotePlaygroundData(
   remote: RemotePlaygroundData,

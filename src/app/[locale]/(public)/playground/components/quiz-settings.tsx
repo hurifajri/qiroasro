@@ -1,7 +1,10 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { SettingsIcon, TimerIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useMemo } from 'react';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
@@ -9,6 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { useQuizStore } from '../providers/quiz';
+import { getPlaygroundDataOpt } from '../queries/playground';
 import { PRACTICE_QUIZ_TYPE_CONFIG } from '../schemas/quiz';
 
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
@@ -30,6 +34,13 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const type = useQuizStore((s) => s.type);
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
   const setPracticeSettings = useQuizStore((s) => s.setPracticeSettings);
+
+  // Get letters from playground data
+  const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
+  const letters = playgroundData?.letters ?? [];
+
+  // Memoized letters for filter
+  const memoizedLetters = useMemo(() => letters, [letters]);
 
   // Get config for current type (default to trait if no type selected)
   const config = type
@@ -105,6 +116,36 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
     (practiceSettings.lettersPerQuiz <= 2 &&
       practiceSettings.targetsPerQuiz <= 2);
 
+  const hasSpecificLetter = practiceSettings.specificLetterId !== null;
+
+  const handleToggleSpecificLetters = (enabled: boolean) => {
+    if (enabled) {
+      // Set first letter when toggling ON (fallback to ID 1 if letters not loaded)
+      const firstLetterId = memoizedLetters[0]?.id ?? 1;
+      setPracticeSettings({
+        ...practiceSettings,
+        specificLetterId: firstLetterId,
+      });
+    } else {
+      setPracticeSettings({
+        ...practiceSettings,
+        specificLetterId: null,
+      });
+    }
+  };
+
+  const handleLetterClick = (letterId: number) => {
+    // Single selection - toggle off if same letter clicked, otherwise select new letter
+    if (practiceSettings.specificLetterId === letterId) {
+      // Don't allow deselecting - keep at least one selected
+      return;
+    }
+    setPracticeSettings({
+      ...practiceSettings,
+      specificLetterId: letterId,
+    });
+  };
+
   return (
     <Card size="sm">
       {hasHeader && (
@@ -157,7 +198,44 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           </div>
         )}
 
-        <div className="flex flex-col gap-2 border-t pt-4">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <Label className="text-sm">{t('practice_specific_letters')}</Label>
+            <Switch
+              dir={dir}
+              checked={hasSpecificLetter}
+              disabled={practiceSettings.lettersPerQuiz !== 1}
+              onCheckedChange={handleToggleSpecificLetters}
+            />
+          </div>
+
+          {hasSpecificLetter && (
+            <div className="flex flex-col gap-2">
+              <p className="text-muted-foreground text-xs">
+                {t('practice_specific_letters_hint')}
+              </p>
+              <div className="flex flex-wrap gap-1">
+                {memoizedLetters.map((letter) => {
+                  const isSelected =
+                    practiceSettings.specificLetterId === letter.id;
+                  return (
+                    <Button
+                      key={letter.id}
+                      variant={isSelected ? 'default' : 'outline'}
+                      size="icon"
+                      className="size-8 font-arabic text-base"
+                      onClick={() => handleLetterClick(letter.id)}
+                    >
+                      {letter.symbol}
+                    </Button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <Label className="flex items-center gap-1 text-sm">
               <TimerIcon className="size-5 shrink-0" />

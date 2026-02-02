@@ -1,19 +1,20 @@
 import type { LucideIcon } from 'lucide-react';
-import type {
-  CHALLENGE_QUIZ_DIFFICULTIES,
-  NODE_TYPES,
-  QUIZ_ERROR_TYPES,
-  QUIZ_MODES,
-  QUIZ_STATUSES,
-} from '@/lib/constants';
-import type { Letter } from '@/schemas/letter';
+import type { Letter } from './letter';
+import type { NODE_TYPES } from './node';
+
+// Quiz Constants
+export const CORRECT_POINT = 10;
+export const INCORRECT_POINT = -1;
+export const QUIZ_MODES = ['practice', 'challenge'] as const;
+export const QUIZ_STATUSES = ['none', 'correct', 'incorrect'] as const;
+export const CHALLENGE_QUIZ_DIFFICULTIES = ['easy', 'medium', 'hard'] as const;
 
 export type ChallengeQuizDifficulty =
   (typeof CHALLENGE_QUIZ_DIFFICULTIES)[number];
+export type QuizLetter = Letter & { status: QuizStatus };
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 export type QuizMode = (typeof QUIZ_MODES)[number];
 export type QuizType = Extract<NodeType, 'articulation_point' | 'trait'>;
-type QuizErrorType = (typeof QUIZ_ERROR_TYPES)[number];
 type NodeType = (typeof NODE_TYPES)[number];
 
 // Quiz question and answer types
@@ -40,6 +41,7 @@ export interface PracticeQuizSettings {
   multiEdge: boolean;
   timerMode: boolean;
   timerDuration: number; // in seconds
+  specificLetterId: number | null;
 }
 
 // Config constraints per type
@@ -71,14 +73,28 @@ export const PRACTICE_QUIZ_DEFAULT_SETTINGS: PracticeQuizSettings = {
   multiEdge: false,
   timerMode: false,
   timerDuration: 15,
+  specificLetterId: null,
 };
 
 // Track weakness for detailed analysis
 export interface ChallengeQuizAnalytic {
-  item: string;
-  type: NodeType;
-  errorType: QuizErrorType;
-  errorCount: number;
+  questionNumber: number;
+  letters: Array<{ id: number; symbol: string; isMadd: boolean }>;
+  targetType: QuizType;
+  correctTargets: QuizTarget[];
+  displayedTargets: QuizTarget[]; // All targets shown on screen (including distractors)
+  userAnswers: QuizTarget[];
+  isPerfect: boolean;
+  hasPartialCorrect: boolean;
+  isUnanswered: boolean;
+
+  // Score tracking (based on edges/connections)
+  correctCount: number;
+  incorrectCount: number;
+
+  // For multi-letter scenarios (5 letters, 1 target)
+  correctLetterIds?: number[];
+  userSelectedLetterIds?: number[];
 }
 
 export interface ChallengeQuizScore {

@@ -17,7 +17,9 @@ export function LetterQuizNode({ data }: NodeProps) {
       )}
     >
       <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
-        <span className="font-bold text-4xl">{nodeData.symbol}</span>
+        <span className="font-arabic font-bold text-4xl">
+          {nodeData.symbol}
+        </span>
       </BaseNodeContent>
 
       {/* Full-node handle for Easy Connect - entire node acts as connection handle */}

@@ -23,7 +23,7 @@ trigger: always_on
 | Variables | `camelCase` | `isLoading` |
 | Constants | `SCREAMING_SNAKE_CASE` | `MAX_RETRIES` |
 | Types/Interfaces | `PascalCase` | `QuizState` |
-| Zod Schemas | `PascalCase` + `Schema` | `LetterSchema` |
+| Valibot Schemas | `PascalCase` + `Schema` | `LetterSchema` |
 | Zustand Stores | `PascalCase` + `Store` | `QuizStore` |
 
 ### Prefixes & Suffixes
