@@ -12,10 +12,10 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { Playground } from './components/playground';
-import { PlaygroundStoreProvider } from './providers/playground';
-import { QuizStoreProvider } from './providers/quiz';
-import { getPlaygroundDataOpt } from './queries/playground';
+import { Playground } from './_components/playground';
+import { PlaygroundStoreProvider } from './_providers/playground';
+import { QuizStoreProvider } from './_providers/quiz';
+import { getPlaygroundDataOpt } from './_queries/playground';
 
 type GenerateMetadataProps = {
   params: Promise<{ locale: string }>;

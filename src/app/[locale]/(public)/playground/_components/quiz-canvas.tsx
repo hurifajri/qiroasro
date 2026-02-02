@@ -1,0 +1,110 @@
+import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
+import {
+  Background,
+  type Edge,
+  type EdgeMouseHandler,
+  type Node,
+  type NodeTypes,
+  type OnConnect,
+  type OnEdgesChange,
+  type OnNodesChange,
+  ReactFlow,
+  useReactFlow,
+} from '@xyflow/react';
+import { useCallback, useEffect } from 'react';
+import { useQuizStore } from '../_providers/quiz';
+import { FloatingConnectionLine } from './ui/floating-connection-line';
+import { FloatingEdge } from './ui/floating-edge';
+
+const edgeTypes: EdgeTypes = { floating: FloatingEdge };
+const defaultEdgeOptions = { type: 'floating' };
+
+interface QuizCanvasProps {
+  nodes: Node[];
+  edges: Edge[];
+  nodeTypes: NodeTypes;
+  theme: ColorMode;
+  onNodesChange: OnNodesChange<Node>;
+  onEdgesChange: OnEdgesChange<Edge>;
+  onConnect: OnConnect;
+  isValidConnection: IsValidConnection;
+  height: number;
+}
+
+export function QuizCanvas({
+  nodes,
+  edges,
+  nodeTypes,
+  theme,
+  onNodesChange,
+  onEdgesChange,
+  onConnect,
+  isValidConnection,
+  height,
+}: QuizCanvasProps) {
+  const { fitView } = useReactFlow();
+
+  const isChecked = useQuizStore((s) => s.isChecked);
+
+  // Handle edge click to delete edge (only when not checked)
+  const handleEdgeClick: EdgeMouseHandler = useCallback(
+    (_, edge) => {
+      if (isChecked) return;
+      onEdgesChange([{ type: 'remove', id: edge.id }]);
+    },
+    [isChecked, onEdgesChange],
+  );
+
+  // Auto-fit when nodes change (new question loaded)
+  useEffect(() => {
+    if (nodes.length > 0) {
+      // Small delay to ensure nodes are rendered
+      const timer = setTimeout(() => {
+        fitView({ padding: 0.2, duration: 200 });
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [nodes, fitView]);
+
+  return (
+    <div style={{ height }}>
+      <ReactFlow
+        proOptions={{ hideAttribution: true }}
+        colorMode={theme}
+        fitView
+        fitViewOptions={{ padding: 0.2 }}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onEdgeClick={handleEdgeClick}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        defaultEdgeOptions={defaultEdgeOptions}
+        connectionLineComponent={FloatingConnectionLine}
+        onConnect={onConnect}
+        isValidConnection={isValidConnection}
+        nodesDraggable={false}
+        nodesConnectable={!isChecked}
+        panOnDrag={false}
+        zoomOnScroll={false}
+        zoomOnPinch={false}
+        zoomOnDoubleClick={false}
+        preventScrolling={false}
+        autoPanOnConnect={false}
+        connectOnClick={true}
+        className="rounded-lg"
+      >
+        <Background
+          color={
+            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
+          }
+          bgColor={
+            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
+          }
+          className="rounded-lg"
+        />
+      </ReactFlow>
+    </div>
+  );
+}

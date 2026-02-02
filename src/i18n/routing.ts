@@ -3,7 +3,7 @@ import { LOCALES } from '@/i18n/config';
 
 export const routing = defineRouting({
   locales: LOCALES,
-  defaultLocale: 'id',
+  defaultLocale: 'en',
   localePrefix: 'always',
   localeDetection: true,
   alternateLinks: true,
