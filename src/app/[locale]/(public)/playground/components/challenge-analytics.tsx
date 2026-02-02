@@ -24,7 +24,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
 
   return (
     <m.div
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 p-4 pt-0"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.4 }}
