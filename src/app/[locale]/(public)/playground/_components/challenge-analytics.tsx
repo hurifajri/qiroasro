@@ -74,7 +74,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                 <Badge
                   variant="outline"
                   className={cn(
-                    'shrink-0 py-3 font-semibold text-md',
+                    'h-9 w-9 shrink-0 font-semibold text-md',
                     isPerfect && 'border-green-500 text-green-500',
                     isUnanswered && 'border-red-500 text-red-500',
                     !isPerfect &&
@@ -88,7 +88,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                   {targetTypeLabel}
                 </span>
               </div>
-              <div className="flex flex-col gap-1 font-medium text-muted-foreground text-xs">
+              <div className="flex gap-1 font-medium text-muted-foreground text-xs">
                 <span className="flex items-center justify-between gap-0.5 text-green-500">
                   {analytic.correctCount} <CheckIcon className="size-3.5" />
                 </span>
@@ -250,9 +250,9 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                               className="size-8 text-base"
                             />
                             {isCorrect ? (
-                              <CheckCircleIcon className="absolute -top-1 -right-1 size-3 text-green-500" />
+                              <CheckCircleIcon className="absolute top-0 right-0 size-3 text-green-500" />
                             ) : (
-                              <XCircleIcon className="absolute -top-1 -right-1 size-3 text-red-500" />
+                              <XCircleIcon className="absolute top-0 right-0 size-3 text-red-500" />
                             )}
                           </div>
                         );
