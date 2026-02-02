@@ -124,7 +124,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                       'playground_page.quiz.challenge_analytics_available_answers',
                     )}
                   />
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {isMultiLetter
                       ? analytic.letters.map((letter) => (
                           <LetterNode
@@ -165,7 +165,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                     )}
                     className="text-green-500"
                   />
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {isMultiLetter && analytic.correctLetterIds
                       ? analytic.correctLetterIds.map((letterId) => {
                           const letter = analytic.letters.find(
@@ -176,7 +176,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
 
                           return (
                             <LetterNode
-                              key={`correct-${letterId}`}
+                              key={letterId}
                               symbol={letter.symbol}
                               isMadd={letter.isMadd}
                               className="size-8 text-base"
@@ -213,7 +213,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                       'playground_page.quiz.challenge_analytics_your_answer',
                     )}
                   />
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {isUnanswered ? (
                       <Badge
                         variant="outline"
@@ -239,16 +239,15 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                         if (!letter) return null;
 
                         return (
-                          <div
-                            key={`selected-${letterId}`}
-                            className="relative"
-                          >
+                          <div key={letterId} className="relative">
                             <LetterNode
                               symbol={letter.symbol}
                               isMadd={letter.isMadd}
                               className="size-8 text-base"
                             />
-                            {!isCorrect && (
+                            {isCorrect ? (
+                              <CheckCircleIcon className="absolute -top-1 -right-1 size-3 text-green-500" />
+                            ) : (
                               <XCircleIcon className="absolute -top-1 -right-1 size-3 text-red-500" />
                             )}
                           </div>
@@ -275,7 +274,9 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                               targetName={targetName}
                               className="rounded-sm border"
                             />
-                            {!isCorrect && (
+                            {isCorrect ? (
+                              <CheckCircleIcon className="absolute -top-1 -right-1 size-3 text-green-500" />
+                            ) : (
                               <XCircleIcon className="absolute -top-1 -right-1 size-3 text-red-500" />
                             )}
                           </div>
