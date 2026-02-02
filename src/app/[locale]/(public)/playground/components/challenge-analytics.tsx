@@ -2,9 +2,11 @@
 
 import {
   CheckCircleIcon,
+  CheckIcon,
   CircleHelpIcon,
   Target,
   XCircleIcon,
+  XIcon,
 } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
@@ -86,12 +88,14 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                   {targetTypeLabel}
                 </span>
               </div>
-              <span className="font-medium text-muted-foreground text-xs">
-                {analytic.correctCount}{' '}
-                {t('playground_page.quiz.challenge_correct_connection')} |{' '}
-                {analytic.incorrectCount}{' '}
-                {t('playground_page.quiz.challenge_incorrect_connection')}
-              </span>
+              <div className="flex flex-col gap-1 font-medium text-muted-foreground text-xs">
+                <span className="flex items-center justify-between gap-0.5">
+                  {analytic.correctCount} <CheckIcon className="size-3.5" />
+                </span>
+                <span className="flex items-center justify-between gap-0.5">
+                  {analytic.incorrectCount} <XIcon className="size-3.5" />
+                </span>
+              </div>
             </CardHeader>
 
             <CardContent className="flex flex-col gap-4">
