@@ -156,6 +156,51 @@
       "reminder_error": "Berlaku ralat. Sila cuba lagi.",
       "reminder_invalid_email": "E-mel tidak sah",
       "reminder_email_required": "E-mel diperlukan"
+    },
+    "private_layout": {
+      "right_sidebar_title": "Bar Sisi Kanan",
+      "nav": {
+        "learn": "Belajar",
+        "sections": "Bahagian",
+        "practice": "Latihan",
+        "reference": "Rujukan",
+        "profile": "Profil"
+      },
+      "level_card": {
+        "title": "Naik Tahap dengan Super",
+        "description": "Tanpa iklan, latihan peribadi, dan ciri tanpa had!",
+        "cta": "Dapatkan Super"
+      },
+      "leagues": {
+        "obsidian": "Liga Obsidian",
+        "pearl": "Liga Mutiara",
+        "sapphire": "Liga Nilam",
+        "ruby": "Liga Delima",
+        "emerald": "Liga Zamrud",
+        "diamond": "Liga Berlian"
+      },
+      "leaderboard": {
+        "view_league": "Lihat Liga",
+        "description": "Lengkapkan pelajaran untuk menyertai papan pendulu minggu ini"
+      },
+      "daily_quests": {
+        "title": "Misi Harian",
+        "view_all": "Lihat Semua"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "Dapat 10 XP",
+          "description": "Lengkapkan pelajaran untuk mendapat XP"
+        },
+        "high_accuracy": {
+          "title": "Dapat 90%+ dalam 1 pelajaran",
+          "description": "Capai ketepatan tinggi dalam pelajaran"
+        },
+        "complete_lessons": {
+          "title": "Lengkapkan 3 pelajaran",
+          "description": "Selesaikan 3 pelajaran hari ini"
+        }
+      }
     }
   },
   "home_page": {
@@ -381,6 +426,224 @@
           "description": "Terima kasih telah mengikuti panduan ini. Silakan untuk meneruskannya. Barakallahu fiikum."
         }
       }
+    }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Perjalanan Tajwid",
+      "description": "Mulakan perjalanan anda untuk menguasai Tajwid melalui pelajaran dan unit interaktif."
+    },
+    "title": "Belajar - Perjalanan Tajwid",
+    "section_unit_title": "Bahagian dan Unit",
+    "start": "Mula",
+    "guidebook": "Buku Panduan",
+    "sections": {
+      "foundation": "Bahagian {section}, Unit {unit}",
+      "tongue_letters": "Bahagian {section}, Unit {unit}",
+      "lips_nasal": "Bahagian {section}, Unit {unit}",
+      "trait": "Bahagian {section}, Unit {unit}",
+      "unknown": "Bahagian {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Huruf Rongga (Al-Jauf)",
+        "description": "Pelajari huruf Mad yang keluar dari rongga mulut dan kerongkong."
+      },
+      "halq": {
+        "title": "Huruf Kerongkong (Al-Halq)",
+        "description": "Pelajari huruf yang keluar dari kerongkong."
+      },
+      "aqsha_lisan": {
+        "title": "Pangkal Lidah (Aqsa)",
+        "description": "Huruf yang keluar dari pangkal lidah."
+      },
+      "wasath_lisan": {
+        "title": "Tengah Lidah (Wasat)",
+        "description": "Huruf yang keluar dari tengah lidah."
+      },
+      "hafah_lisan": {
+        "title": "Tepi Lidah (Hafah)",
+        "description": "Huruf yang keluar dari sisi/tepi lidah."
+      },
+      "tharaf_lisan": {
+        "title": "Hujung Lidah (Tharaf)",
+        "description": "Huruf yang keluar dari hujung lidah."
+      },
+      "tsanaya": {
+        "title": "Kawasan Gigi Kacip",
+        "description": "Huruf yang melibatkan gigi kacip depan."
+      },
+      "syafatain": {
+        "title": "Dua Bibir (Asy-Syafatain)",
+        "description": "Huruf yang keluar dari dua bibir."
+      },
+      "khaisyum": {
+        "title": "Pangkal Hidung (Al-Khaisyum)",
+        "description": "Suara dengung (Ghunnah) dari rongga hidung."
+      },
+      "sifat_mutadhadah": {
+        "title": "Sifat Berlawanan",
+        "description": "Sifat-sifat yang mempunyai lawan."
+      },
+      "sifat_munfaridah": {
+        "title": "Sifat Tunggal",
+        "description": "Sifat-sifat yang tidak mempunyai lawan."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Kurikulum",
+      "description": "Lihat semua bahagian kurikulum dan pantau kemajuan anda."
+    },
+    "title": "Topik - Kurikulum",
+    "section_list_title": "Senarai Bahagian",
+    "section_title": "Bahagian {number}",
+    "back": "Kembali",
+    "completed": "Selesai!",
+    "continue": "Teruskan",
+    "review": "Ulas",
+    "sections": {
+      "foundation": {
+        "title": "Asas",
+        "description": "Kuasai huruf dan bunyi asas."
+      },
+      "tongue_letters": {
+        "title": "Huruf Lidah",
+        "description": "Pelajari huruf yang keluar dari pelbagai bahagian lidah."
+      },
+      "lips_nasal": {
+        "title": "Bibir & Hidung",
+        "description": "Huruf dari bibir dan rongga hidung."
+      },
+      "trait": {
+        "title": "Sifat Huruf",
+        "description": "Kuasai ciri-ciri dan sifat setiap huruf."
+      },
+      "advanced": {
+        "title": "Topik Lanjutan",
+        "description": "Hukum tajwid lanjutan dan teknik bacaan."
+      }
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Asah Kemahiran",
+      "description": "Latih kemahiran tajwid anda dengan pelbagai soalan tanpa kehilangan nyawa."
+    },
+    "title": "Latihan - Asah Kemahiran",
+    "description": "Tajamkan kemahiran bacaan anda dengan latihan berfokus.",
+    "sections": {
+      "letters": "Latihan Huruf",
+      "rules": "Latihan Hukum",
+      "collections": "Koleksi Anda"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Makharijul Huruf",
+        "description": "Latihan mengenal pasti tempat keluar huruf."
+      },
+      "sifaat": {
+        "title": "Sifatul Huruf",
+        "description": "Kenal pasti ciri-ciri huruf (Sifat)."
+      },
+      "ahkam": {
+        "title": "Hukum Tajwid",
+        "description": "Latihan hukum seperti Idgham, Ikhfa, dll."
+      },
+      "listen": {
+        "title": "Makmal Pendengaran",
+        "description": "Latihan pengenalan suara (audio)."
+      },
+      "mistakes": {
+        "title": "Perbaiki Kesilapan",
+        "description": "Latih semula bahagian kelemahan anda."
+      },
+      "saved": {
+        "title": "Item Disimpan",
+        "description": "Semak semula kandungan yang anda simpan."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Pustaka Ilmu",
+      "description": "Terokai perpustakaan rujukan Tajwid yang lengkap."
+    },
+    "title": "Rujukan - Pustaka Ilmu",
+    "categories": {
+      "letters": {
+        "title": "Huruf Hijaiyyah",
+        "count": "30 Item"
+      },
+      "makharij": {
+        "title": "Makharijul Huruf",
+        "count": "17 Tempat"
+      },
+      "sifaat": {
+        "title": "Sifatul Huruf",
+        "count": "17 Sifat"
+      },
+      "ahkam": {
+        "title": "Hukum Tajwid",
+        "count": "Hukum & Peraturan"
+      },
+      "waqf": {
+        "title": "Waqaf & Ibtida'",
+        "count": "Tanda Berhenti"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Direktori Hijaiyyah",
+      "description": "Pelajari abjad Arab dan tempat keluarnya."
+    },
+    "title": "Huruf - Direktori Hijaiyyah",
+    "description": "Latih pendengaran dan belajar menyebut huruf Arab dengan betul dari makhrajnya.",
+    "start": "Mula Belajar",
+    "progress": "{learned} daripada {total} dipelajari",
+    "makhraj": {
+      "jauf": "Rongga (Al-Jauf)",
+      "halq": "Kerongkong (Al-Halq)",
+      "lisan": "Lidah (Al-Lisan)",
+      "shafatayn": "Bibir (Asy-Syafatain)",
+      "khayshum": "Hidung (Al-Khaisyum)"
+    },
+    "letters": {
+      "alif_mad": "Alif Mad",
+      "waw_mad": "Wau Mad",
+      "ya_mad": "Ya Mad",
+      "hamza": "Hamzah",
+      "ha": "Ha",
+      "ain": "'Ain",
+      "ha_wasath": "Ha (Tengah)",
+      "ghain": "Ghain",
+      "kha": "Kha",
+      "qaf": "Qaf",
+      "kaf": "Kaf",
+      "jim": "Jim",
+      "shin": "Syin",
+      "ya": "Ya",
+      "dad": "Dhad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Ta",
+      "dal": "Dal",
+      "tha": "Tha",
+      "dhal": "Dzal",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Zai",
+      "ta_mafkhama": "Ta (Tebal)",
+      "dha": "Zha",
+      "fa": "Fa",
+      "ba": "Ba",
+      "mim": "Mim",
+      "waw": "Wau",
+      "nun_ghunna": "Nun Ghunnah",
+      "mim_ghunna": "Mim Ghunnah"
     }
   }
 }

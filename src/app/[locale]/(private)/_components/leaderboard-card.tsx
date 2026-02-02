@@ -1,0 +1,57 @@
+'use client';
+
+import { TrophyIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { ItemGroup } from '@/components/ui/item';
+import type { LeaderboardEntry, UserStats } from '../_schemas/private';
+import { LeaderboardRow } from './leaderboard-row';
+
+interface LeaderboardCardProps {
+  entries: LeaderboardEntry[];
+  userStats: UserStats;
+}
+
+/**
+ * Leaderboard preview widget showing top 3 and current user position.
+ */
+export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
+  const t = useTranslations('global.private_layout');
+
+  // Get league display name
+  const leagueDisplayName = t(`leagues.${userStats.league}`);
+
+  return (
+    <Card>
+      <CardHeader className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between gap-2">
+          <CardTitle className="flex items-center gap-2">
+            <TrophyIcon className="size-5 text-amber-500" />
+            <h3 className="font-bold">{leagueDisplayName}</h3>
+          </CardTitle>
+          <CardAction>
+            <Button variant="link" className="px-0">
+              {t('leaderboard.view_league')}
+            </Button>
+          </CardAction>
+        </div>
+        <CardDescription>{t('leaderboard.description')}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ItemGroup className="gap-0">
+          {entries.map((entry) => (
+            <LeaderboardRow key={entry.userId} entry={entry} />
+          ))}
+        </ItemGroup>
+      </CardContent>
+    </Card>
+  );
+}

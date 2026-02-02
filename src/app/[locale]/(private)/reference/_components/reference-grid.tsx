@@ -1,0 +1,16 @@
+import type { ReferenceCategory } from '../_lib/mock-data';
+import { ReferenceItem } from './reference-item';
+
+interface ReferenceGridProps {
+  categories: ReferenceCategory[];
+}
+
+export function ReferenceGrid({ categories }: ReferenceGridProps) {
+  return (
+    <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
+      {categories.map((category) => (
+        <ReferenceItem key={category.id} category={category} />
+      ))}
+    </ul>
+  );
+}

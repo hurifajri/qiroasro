@@ -156,6 +156,51 @@
       "reminder_error": "Something went wrong. Please try again.",
       "reminder_invalid_email": "Invalid email address",
       "reminder_email_required": "Email is required"
+    },
+    "private_layout": {
+      "right_sidebar_title": "Right Sidebar",
+      "nav": {
+        "learn": "Learn",
+        "sections": "Sections",
+        "practice": "Practice",
+        "reference": "Reference",
+        "profile": "Profile"
+      },
+      "level_card": {
+        "title": "Level up with Super",
+        "description": "No ads, personalized practice, and unlimited features!",
+        "cta": "Get Super"
+      },
+      "leagues": {
+        "obsidian": "Obsidian League",
+        "pearl": "Pearl League",
+        "sapphire": "Sapphire League",
+        "ruby": "Ruby League",
+        "emerald": "Emerald League",
+        "diamond": "Diamond League"
+      },
+      "leaderboard": {
+        "view_league": "View League",
+        "description": "Complete a lesson to join this week's leaderboard"
+      },
+      "daily_quests": {
+        "title": "Daily Quests",
+        "view_all": "View All"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "Earn 10 XP",
+          "description": "Complete lessons to earn XP"
+        },
+        "high_accuracy": {
+          "title": "Score 90%+ in 1 lesson",
+          "description": "Achieve high accuracy in a lesson"
+        },
+        "complete_lessons": {
+          "title": "Complete 3 lessons",
+          "description": "Finish 3 lessons today"
+        }
+      }
     }
   },
   "home_page": {
@@ -381,6 +426,224 @@
           "description": "Thank you for following this guide. Please continue exploring. Barakallahu fiikum."
         }
       }
+    }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Tajweed Learning Path",
+      "description": "Start your journey to master Tajweed through interactive lessons and units."
+    },
+    "title": "Learn - Tajweed Learning Path",
+    "section_unit_title": "Section and Unit",
+    "start": "Start",
+    "guidebook": "Guidebook",
+    "sections": {
+      "foundation": "Section {section}, Unit {unit}",
+      "tongue_letters": "Section {section}, Unit {unit}",
+      "lips_nasal": "Section {section}, Unit {unit}",
+      "trait": "Section {section}, Unit {unit}",
+      "unknown": "Section {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Cavity Letters (Al-Jauf)",
+        "description": "Learn the Madd letters from the oral and throat cavity."
+      },
+      "halq": {
+        "title": "Throat Letters (Al-Halq)",
+        "description": "Learn letters articulated from the throat."
+      },
+      "aqsha_lisan": {
+        "title": "Back Tongue (Aqsa)",
+        "description": "Letters from the deepest part of the tongue."
+      },
+      "wasath_lisan": {
+        "title": "Middle Tongue (Wasat)",
+        "description": "Letters from the middle of the tongue."
+      },
+      "hafah_lisan": {
+        "title": "Tongue Edge (Hafah)",
+        "description": "Letters from the sides/edges of the tongue."
+      },
+      "tharaf_lisan": {
+        "title": "Tongue Tip (Tharaf)",
+        "description": "Letters from the tip of the tongue."
+      },
+      "tsanaya": {
+        "title": "Incisors Area",
+        "description": "Letters involving the front teeth (incisors)."
+      },
+      "syafatain": {
+        "title": "Two Lips (Ash-Shafatain)",
+        "description": "Letters articulated by the lips."
+      },
+      "khaisyum": {
+        "title": "Nasal (Al-Khaishum)",
+        "description": "Sounds with nasal resonance (Ghunnah)."
+      },
+      "sifat_mutadhadah": {
+        "title": "Opposing Characteristics",
+        "description": "Traits that have opposites (e.g., Jahr vs Hams)."
+      },
+      "sifat_munfaridah": {
+        "title": "Unique Characteristics",
+        "description": "Traits without opposites (e.g., Qalqalah)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Curriculum",
+      "description": "View all curriculum sections and track your progress."
+    },
+    "title": "Sections - Curriculum",
+    "section_list_title": "Section List",
+    "section_title": "Section {number}",
+    "back": "Back",
+    "completed": "Completed!",
+    "continue": "Continue",
+    "review": "Review",
+    "sections": {
+      "foundation": {
+        "title": "Foundation",
+        "description": "Master the fundamental letters and sounds."
+      },
+      "tongue_letters": {
+        "title": "Tongue Letters",
+        "description": "Learn letters articulated from different parts of the tongue."
+      },
+      "lips_nasal": {
+        "title": "Lips & Nasal",
+        "description": "Letters from the lips and nasal cavity."
+      },
+      "trait": {
+        "title": "Characteristics",
+        "description": "Master the traits and properties of letters."
+      },
+      "advanced": {
+        "title": "Advanced Topics",
+        "description": "Advanced Tajweed rules and recitation techniques."
+      }
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Skill Drills",
+      "description": "Practice your Tajweed skills with various exercises without losing hearts."
+    },
+    "title": "Practice - Skill Drills",
+    "description": "Sharpen your recitation skills with targeted exercises.",
+    "sections": {
+      "letters": "Letter Practice",
+      "rules": "Rules Practice",
+      "collections": "Your Collections"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Articulation Points",
+        "description": "Practice identifying where letters come from."
+      },
+      "sifaat": {
+        "title": "Characteristics",
+        "description": "Identify letter traits (Sifaat)."
+      },
+      "ahkam": {
+        "title": "Tajweed Rules",
+        "description": "Practice rules like Idgham, Ikhfa, etc."
+      },
+      "listen": {
+        "title": "Listening Lab",
+        "description": "Audio recognition exercises."
+      },
+      "mistakes": {
+        "title": "Review Mistakes",
+        "description": "Practice your weak areas from previous lessons."
+      },
+      "saved": {
+        "title": "Saved Items",
+        "description": "Review your bookmarked content."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Knowledge Library",
+      "description": "Browse the comprehensive Tajweed reference library."
+    },
+    "title": "Reference - Knowledge Library",
+    "categories": {
+      "letters": {
+        "title": "Hijaiyyah Letters",
+        "count": "30 Items"
+      },
+      "makharij": {
+        "title": "Articulation Points",
+        "count": "17 Points"
+      },
+      "sifaat": {
+        "title": "Characteristics",
+        "count": "17 Traits"
+      },
+      "ahkam": {
+        "title": "Tajweed Rules",
+        "count": "Rules & Laws"
+      },
+      "waqf": {
+        "title": "Waqf & Ibtida'",
+        "count": "Stopping Marks"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Hijaiyyah Directory",
+      "description": "Learn the Arabic alphabet and their articulation points."
+    },
+    "title": "Letters - Hijaiyyah Directory",
+    "description": "Train your ear and learn to pronounce Arabic letters correctly from their proper articulation points.",
+    "start": "Start Learning",
+    "progress": "{learned} of {total} learned",
+    "makhraj": {
+      "jauf": "Cavity (Al-Jauf)",
+      "halq": "Throat (Al-Halq)",
+      "lisan": "Tongue (Al-Lisan)",
+      "shafatayn": "Lips (Ash-Shafatain)",
+      "khayshum": "Nasal (Al-Khaishum)"
+    },
+    "letters": {
+      "alif_mad": "Alif Madd",
+      "waw_mad": "Waw Madd",
+      "ya_mad": "Ya Madd",
+      "hamza": "Hamzah",
+      "ha": "Ha",
+      "ain": "'Ayn",
+      "ha_wasath": "Ha (Middle)",
+      "ghain": "Ghain",
+      "kha": "Kha",
+      "qaf": "Qaf",
+      "kaf": "Kaf",
+      "jim": "Jim",
+      "shin": "Shin",
+      "ya": "Ya",
+      "dad": "Dhad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Ta",
+      "dal": "Dal",
+      "tha": "Tha",
+      "dhal": "Dhal",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Zay",
+      "ta_mafkhama": "Ta (Emphatic)",
+      "dha": "Zha (Emphatic)",
+      "fa": "Fa",
+      "ba": "Ba",
+      "mim": "Mim",
+      "waw": "Waw",
+      "nun_ghunna": "Nun Ghunna",
+      "mim_ghunna": "Mim Ghunna"
     }
   }
 }

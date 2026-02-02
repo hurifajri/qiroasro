@@ -156,6 +156,51 @@
       "reminder_error": "حدث خطأ ما. حاول مرة اخرى.",
       "reminder_invalid_email": "البريد الإلكتروني غير صالح",
       "reminder_email_required": "البريد الإلكتروني مطلوب"
+    },
+    "private_layout": {
+      "right_sidebar_title": "الشريط الجانبي الأيمن",
+      "nav": {
+        "learn": "تَعَلَّم",
+        "sections": "الأقسام",
+        "practice": "التدريب",
+        "reference": "المراجع",
+        "profile": "الملف الشخصي"
+      },
+      "level_card": {
+        "title": "ارتقِ مع سوبر",
+        "description": "بدون إعلانات، تدريب مخصص، وميزات غير محدودة!",
+        "cta": "احصل على سوبر"
+      },
+      "leagues": {
+        "obsidian": "الدوري الأوبسيدياني",
+        "pearl": "دوري اللؤلؤ",
+        "sapphire": "دوري الياقوت الأزرق",
+        "ruby": "دوري الياقوت الأحمر",
+        "emerald": "دوري الزمرد",
+        "diamond": "دوري الألماس"
+      },
+      "leaderboard": {
+        "view_league": "عرض الدوري",
+        "description": "أكمل درساً للانضمام إلى لوحة الصدارة هذا الأسبوع"
+      },
+      "daily_quests": {
+        "title": "المهام اليومية",
+        "view_all": "عرض الكل"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "اكسب 10 نقاط خبرة",
+          "description": "أكمل الدروس لكسب النقاط"
+        },
+        "high_accuracy": {
+          "title": "احصل على 90%+ في درس واحد",
+          "description": "حقق دقة عالية في درس"
+        },
+        "complete_lessons": {
+          "title": "أكمل 3 دروس",
+          "description": "أنهِ 3 دروس اليوم"
+        }
+      }
     }
   },
   "home_page": {
@@ -381,6 +426,224 @@
           "description": "شكراً لمتابعة هذا الدليل. يرجى الاستمرار في الاستكشاف. بارك الله فيكم."
         }
       }
+    }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "رحلة التجويد",
+      "description": "ابدأ رحلتك لإتقان التجويد من خلال دروس ووحدات تفاعلية."
+    },
+    "title": "تعلم - رحلة التجويد",
+    "section_unit_title": "القسم والوحدة",
+    "start": "ابدأ",
+    "guidebook": "الدليل",
+    "sections": {
+      "foundation": "القسم {section}، الوحدة {unit}",
+      "tongue_letters": "القسم {section}، الوحدة {unit}",
+      "lips_nasal": "القسم {section}، الوحدة {unit}",
+      "trait": "القسم {section}، الوحدة {unit}",
+      "unknown": "القسم {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "حروف الجوف",
+        "description": "تعلم حروف المد التي تخرج من الخلاء الداخل في الفم والحلق."
+      },
+      "halq": {
+        "title": "حروف الحلق",
+        "description": "تعلم الحروف التي تخرج من الحلق."
+      },
+      "aqsha_lisan": {
+        "title": "أقصى اللسان",
+        "description": "الحروف التي تخرج من أبعد جزء في اللسان."
+      },
+      "wasath_lisan": {
+        "title": "وسط اللسان",
+        "description": "الحروف التي تخرج من وسط اللسان."
+      },
+      "hafah_lisan": {
+        "title": "حافة اللسان",
+        "description": "الحروف التي تخرج من حافتي اللسان."
+      },
+      "tharaf_lisan": {
+        "title": "طرف اللسان",
+        "description": "الحروف التي تخرج من طرف اللسان."
+      },
+      "tsanaya": {
+        "title": "منطقة الثنايا",
+        "description": "الحروف التي تشترك فيها الأسنان الأمامية."
+      },
+      "syafatain": {
+        "title": "الشفتان",
+        "description": "الحروف التي تخرج من الشفتين."
+      },
+      "khaisyum": {
+        "title": "الخيشوم",
+        "description": "صوت الغنة الذي يخرج من الخيشوم."
+      },
+      "sifat_mutadhadah": {
+        "title": "الصفات المتضادة",
+        "description": "الصفات التي لها ضد (مثل الجهر والهمس)."
+      },
+      "sifat_munfaridah": {
+        "title": "الصفات المنفردة",
+        "description": "الصفات التي لا ضد لها (مثل القلقلة)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "المنهج الدراسي",
+      "description": "عرض جميع أقسام المنهج ومتابعة تقدمك."
+    },
+    "title": "الأقسام - المنهج الدراسي",
+    "section_list_title": "قائمة الأقسام",
+    "section_title": "القسم {number}",
+    "back": "رجوع",
+    "completed": "مكتمل!",
+    "continue": "استمرار",
+    "review": "مراجعة",
+    "sections": {
+      "foundation": {
+        "title": "الأساسيات",
+        "description": "إتقان الحروف والأصوات الأساسية."
+      },
+      "tongue_letters": {
+        "title": "حروف اللسان",
+        "description": "تعلم الحروف التي تخرج من أجزاء مختلفة من اللسان."
+      },
+      "lips_nasal": {
+        "title": "الشفتان والخيشوم",
+        "description": "الحروف من الشفتين والتجويف الأنفي."
+      },
+      "trait": {
+        "title": "صفات الحروف",
+        "description": "إتقان خصائص وصفات كل حرف."
+      },
+      "advanced": {
+        "title": "مواضيع متقدمة",
+        "description": "قواعد التجويد المتقدمة وتقنيات التلاوة."
+      }
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "صقل المهارات",
+      "description": "مارس مهارات التجويد بتمارين متنوعة دون فقدان القلوب."
+    },
+    "title": "تدريب - صقل المهارات",
+    "description": "صقل مهارات التلاوة بتمارين موجهة.",
+    "sections": {
+      "letters": "تدريب الحروف",
+      "rules": "تدريب الأحكام",
+      "collections": "مجموعاتك"
+    },
+    "modes": {
+      "makharij": {
+        "title": "مخارج الحروف",
+        "description": "تدريب على تحديد مخارج الحروف."
+      },
+      "sifaat": {
+        "title": "صفات الحروف",
+        "description": "تحديد خصائص الحروف (الصفات)."
+      },
+      "ahkam": {
+        "title": "أحكام التجويد",
+        "description": "ممارسة الأحكام مثل الإدغام والإخفاء."
+      },
+      "listen": {
+        "title": "مختبر الاستماع",
+        "description": "تمارين التعرف الصوتي."
+      },
+      "mistakes": {
+        "title": "مراجعة الأخطاء",
+        "description": "تدرب على نقاط ضعفك."
+      },
+      "saved": {
+        "title": "العناصر المحفوظة",
+        "description": "مراجعة المحتوى الذي قمت بحفظه."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "مكتبة المعرفة",
+      "description": "تصفح مكتبة مراجع التجويد الشاملة."
+    },
+    "title": "المراجع - مكتبة المعرفة",
+    "categories": {
+      "letters": {
+        "title": "الحروف الهجائية",
+        "count": "30 عنصراً"
+      },
+      "makharij": {
+        "title": "مخارج الحروف",
+        "count": "17 مخرجاً"
+      },
+      "sifaat": {
+        "title": "صفات الحروف",
+        "count": "17 صفة"
+      },
+      "ahkam": {
+        "title": "أحكام التجويد",
+        "count": "الأحكام والقواعد"
+      },
+      "waqf": {
+        "title": "الوقف والابتداء",
+        "count": "علامات الوقف"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "دليل الحروف",
+      "description": "تعلم الحروف العربية ومخارجها الصحيحة."
+    },
+    "title": "الحروف - دليل الهجاء",
+    "description": "درب أذنك وتعلم نطق الحروف العربية بشكل صحيح من مخارجها السليمة.",
+    "start": "ابدأ التعلم",
+    "progress": "تم تعلم {learned} من {total}",
+    "makhraj": {
+      "jauf": "الجوف",
+      "halq": "الحلق",
+      "lisan": "اللسان",
+      "shafatayn": "الشفتان",
+      "khayshum": "الخيشوم"
+    },
+    "letters": {
+      "alif_mad": "ألف مدية",
+      "waw_mad": "واو مدية",
+      "ya_mad": "ياء مدية",
+      "hamza": "همزة",
+      "ha": "هاء",
+      "ain": "عين",
+      "ha_wasath": "حاء",
+      "ghain": "غين",
+      "kha": "خاء",
+      "qaf": "قاف",
+      "kaf": "كاف",
+      "jim": "جيم",
+      "shin": "شين",
+      "ya": "ياء",
+      "dad": "ضاد",
+      "lam": "لام",
+      "nun": "نون",
+      "ra": "راء",
+      "ta": "تاء",
+      "dal": "دال",
+      "tha": "ثاء",
+      "dhal": "ذال",
+      "sad": "صاد",
+      "sin": "سين",
+      "za": "زاي",
+      "ta_mafkhama": "طاء",
+      "dha": "ظاء",
+      "fa": "فاء",
+      "ba": "باء",
+      "mim": "ميم",
+      "waw": "واو",
+      "nun_ghunna": "نون (غنة)",
+      "mim_ghunna": "ميم (غنة)"
     }
   }
 }

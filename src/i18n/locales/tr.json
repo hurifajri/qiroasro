@@ -156,6 +156,51 @@
       "reminder_error": "Bir hata oluştu. Lütfen tekrar deneyin.",
       "reminder_invalid_email": "Geçersiz e-posta adresi",
       "reminder_email_required": "E-posta adresi gereklidir"
+    },
+    "private_layout": {
+      "right_sidebar_title": "Sağ Kenar Çubuğu",
+      "nav": {
+        "learn": "Öğren",
+        "sections": "Bölümler",
+        "practice": "Pratik",
+        "reference": "Referans",
+        "profile": "Profil"
+      },
+      "level_card": {
+        "title": "Super ile Yüksel",
+        "description": "Reklamsız, kişiselleştirilmiş pratik ve sınırsız özellikler!",
+        "cta": "Super'i Al"
+      },
+      "leagues": {
+        "obsidian": "Obsidyen Ligi",
+        "pearl": "İnci Ligi",
+        "sapphire": "Safir Ligi",
+        "ruby": "Yakut Ligi",
+        "emerald": "Zümrüt Ligi",
+        "diamond": "Elmas Ligi"
+      },
+      "leaderboard": {
+        "view_league": "Ligi Gör",
+        "description": "Bu haftaki liderlik tablosuna katılmak için bir ders tamamla"
+      },
+      "daily_quests": {
+        "title": "Günlük Görevler",
+        "view_all": "Tümünü Gör"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "10 XP Kazan",
+          "description": "XP kazanmak için dersleri tamamla"
+        },
+        "high_accuracy": {
+          "title": "1 derste %90+ puan al",
+          "description": "Bir derste yüksek doğruluk oranı yakala"
+        },
+        "complete_lessons": {
+          "title": "3 ders tamamla",
+          "description": "Bugün 3 dersi bitir"
+        }
+      }
     }
   },
   "home_page": {
@@ -381,6 +426,224 @@
           "description": "Bu rehberi takip ettiğiniz için teşekkürler. Lütfen keşfetmeye devam edin. Allah razı olsun."
         }
       }
+    }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Tecvid Yolculuğu",
+      "description": "Etkileşimli dersler ve ünitelerle Tecvid'de ustalaşmak için yolculuğunuza başlayın."
+    },
+    "title": "Öğren - Tecvid Yolculuğu",
+    "section_unit_title": "Bölüm ve Ünite",
+    "start": "Başla",
+    "guidebook": "Rehber Kitap",
+    "sections": {
+      "foundation": "Bölüm {section}, Ünite {unit}",
+      "tongue_letters": "Bölüm {section}, Ünite {unit}",
+      "lips_nasal": "Bölüm {section}, Ünite {unit}",
+      "trait": "Bölüm {section}, Ünite {unit}",
+      "unknown": "Bölüm {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Cevf Harfleri",
+        "description": "Ağız ve boğaz boşluğundan çıkan Med harflerini öğrenin."
+      },
+      "halq": {
+        "title": "Boğaz Harfleri (Halk)",
+        "description": "Boğazdan çıkan harfleri öğrenin."
+      },
+      "aqsha_lisan": {
+        "title": "Dil Kökü (Aksa-i Lisan)",
+        "description": "Dilin en arka kısmından çıkan harfler."
+      },
+      "wasath_lisan": {
+        "title": "Dil Ortası (Vasat-ı Lisan)",
+        "description": "Dilin orta kısmından çıkan harfler."
+      },
+      "hafah_lisan": {
+        "title": "Dil Yanı (Hafetü'l Lisan)",
+        "description": "Dilin yan taraflarından çıkan harfler."
+      },
+      "tharaf_lisan": {
+        "title": "Dil Ucu (Taraf-ı Lisan)",
+        "description": "Dilin ucundan çıkan harfler."
+      },
+      "tsanaya": {
+        "title": "Ön Dişler",
+        "description": "Ön dişlerin (kesici dişler) kullanıldığı harfler."
+      },
+      "syafatain": {
+        "title": "İki Dudak (Şefeteyn)",
+        "description": "Dudaklardan çıkan harfler."
+      },
+      "khaisyum": {
+        "title": "Geniz (Hayşum)",
+        "description": "Genizden gelen sesler (Gunne)."
+      },
+      "sifat_mutadhadah": {
+        "title": "Zıddı Olan Sıfatlar",
+        "description": "Karşıtı bulunan özellikler (örn. Cehr vs Hems)."
+      },
+      "sifat_munfaridah": {
+        "title": "Zıddı Olmayan Sıfatlar",
+        "description": "Karşıtı bulunmayan özellikler (örn. Kalkale)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Müfredat",
+      "description": "Tüm müfredat bölümlerini görüntüleyin ve ilerlemenizi takip edin."
+    },
+    "title": "Bölümler - Müfredat",
+    "section_list_title": "Bölüm Listesi",
+    "section_title": "Bölüm {number}",
+    "back": "Geri",
+    "completed": "Tamamlandı!",
+    "continue": "Devam Et",
+    "review": "Tekrar Et",
+    "sections": {
+      "foundation": {
+        "title": "Temel",
+        "description": "Temel harfleri ve sesleri öğrenin."
+      },
+      "tongue_letters": {
+        "title": "Dil Harfleri",
+        "description": "Dilin farklı bölgelerinden çıkan harfleri öğrenin."
+      },
+      "lips_nasal": {
+        "title": "Dudak ve Geniz",
+        "description": "Dudaklardan ve genizden çıkan harfler."
+      },
+      "trait": {
+        "title": "Sıfatlar",
+        "description": "Harflerin özelliklerini ve sıfatlarını kavrayın."
+      },
+      "advanced": {
+        "title": "İleri Konular",
+        "description": "İleri düzey tecvid kuralları ve okuyuş teknikleri."
+      }
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Beceri Geliştirme",
+      "description": "Can kaybetmeden çeşitli egzersizlerle Tecvid becerilerinizi geliştirin."
+    },
+    "title": "Pratik - Beceri Geliştirme",
+    "description": "Hedefe yönelik egzersizlerle okuma becerilerinizi keskinleştirin.",
+    "sections": {
+      "letters": "Harf Alıştırması",
+      "rules": "Kural Alıştırması",
+      "collections": "Koleksiyonlarınız"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Mahreçler",
+        "description": "Harflerin çıkış yerlerini tanıma alıştırması."
+      },
+      "sifaat": {
+        "title": "Sıfatlar",
+        "description": "Harf özelliklerini (Sıfatları) tanımlayın."
+      },
+      "ahkam": {
+        "title": "Tecvid Kuralları",
+        "description": "İdgam, İhfa gibi kuralları uygulayın."
+      },
+      "listen": {
+        "title": "Dinleme Laboratuvarı",
+        "description": "Ses tanıma egzersizleri."
+      },
+      "mistakes": {
+        "title": "Hataları Gözden Geçir",
+        "description": "Zayıf olduğunuz alanları tekrar çalışın."
+      },
+      "saved": {
+        "title": "Kaydedilenler",
+        "description": "Kaydettiğiniz içerikleri gözden geçirin."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Bilgi Kütüphanesi",
+      "description": "Kapsamlı Tecvid referans kütüphanesine göz atın."
+    },
+    "title": "Referans - Bilgi Kütüphanesi",
+    "categories": {
+      "letters": {
+        "title": "Harfler",
+        "count": "30 Öğe"
+      },
+      "makharij": {
+        "title": "Mahreçler",
+        "count": "17 Nokta"
+      },
+      "sifaat": {
+        "title": "Sıfatlar",
+        "count": "17 Sıfat"
+      },
+      "ahkam": {
+        "title": "Tecvid Kuralları",
+        "count": "Hükümler"
+      },
+      "waqf": {
+        "title": "Vakıf ve İbtida",
+        "count": "Durak İşaretleri"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Harf Rehberi",
+      "description": "Arap alfabesini ve çıkış noktalarını (mahreçlerini) öğrenin."
+    },
+    "title": "Harfler - Harf Rehberi",
+    "description": "Kulağınızı eğitin ve Arapça harfleri doğru mahreçlerinden telaffuz etmeyi öğrenin.",
+    "start": "Öğrenmeye Başla",
+    "progress": "{total} harften {learned} tanesi öğrenildi",
+    "makhraj": {
+      "jauf": "Cevf (Ağız Boşluğu)",
+      "halq": "Halk (Boğaz)",
+      "lisan": "Lisan (Dil)",
+      "shafatayn": "Şefeteyn (Dudaklar)",
+      "khayshum": "Hayşum (Geniz)"
+    },
+    "letters": {
+      "alif_mad": "Elif (Uzatma)",
+      "waw_mad": "Vav (Uzatma)",
+      "ya_mad": "Ye (Uzatma)",
+      "hamza": "Hemze",
+      "ha": "He",
+      "ain": "Ayın",
+      "ha_wasath": "Ha",
+      "ghain": "Gayın",
+      "kha": "Hı",
+      "qaf": "Kaf",
+      "kaf": "Kef",
+      "jim": "Cim",
+      "shin": "Şın",
+      "ya": "Ye",
+      "dad": "Dad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Te",
+      "dal": "Dal",
+      "tha": "Peltek Se",
+      "dhal": "Peltek Zel",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Ze",
+      "ta_mafkhama": "Tı",
+      "dha": "Zı",
+      "fa": "Fe",
+      "ba": "Be",
+      "mim": "Mim",
+      "waw": "Vav",
+      "nun_ghunna": "Nun (Gunneli)",
+      "mim_ghunna": "Mim (Gunneli)"
     }
   }
 }
