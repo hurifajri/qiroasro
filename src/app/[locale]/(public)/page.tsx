@@ -6,7 +6,7 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { Home } from './components/home';
+import { Home } from './_components/home';
 
 type GenerateMetadataProps = {
   params: Promise<{ locale: string }>;
