@@ -25,7 +25,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { getIsMobile } from '@/lib/device';
+// import { getIsMobile } from '@/lib/device';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
@@ -139,7 +139,7 @@ export function Playground() {
 
   // Interaction state for dimming
   const [isMoving, setIsMoving] = useState(false);
-  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+  // const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
 
   // Handle viewport changes (pan/zoom) using React Flow's built-in hook
   useOnViewportChange({
@@ -242,29 +242,29 @@ export function Playground() {
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedNodes = useMemo(() => {
-    const isMobile = getIsMobile();
+    // const isMobile = getIsMobile();
 
     return nodes.map((node) => {
       // Hide during pan/zoom (mobile only for performance)
-      if (
-        isMobile &&
-        isMoving &&
-        node.type !== 'letter' &&
-        viewMode !== 'letter'
-      ) {
-        // Only create new object if hidden state changed
-        if (node.hidden === true) return node;
-        return { ...node, hidden: true };
-      }
+      // if (
+      //   isMobile &&
+      //   isMoving &&
+      //   node.type !== 'letter' &&
+      //   viewMode !== 'letter'
+      // ) {
+      //   // Only create new object if hidden state changed
+      //   if (node.hidden === true) return node;
+      //   return { ...node, hidden: true };
+      // }
 
       // Hide during drag (except the node being dragged)
-      if (isMobile && draggingNodeId && viewMode !== 'letter') {
-        const isDragged = node.id === draggingNodeId;
-        const shouldHide = !isDragged;
-        // Only create new object if hidden state changed
-        if (node.hidden === shouldHide) return node;
-        return { ...node, hidden: shouldHide };
-      }
+      // if (isMobile && draggingNodeId && viewMode !== 'letter') {
+      //   const isDragged = node.id === draggingNodeId;
+      //   const shouldHide = !isDragged;
+      //   // Only create new object if hidden state changed
+      //   if (node.hidden === shouldHide) return node;
+      //   return { ...node, hidden: shouldHide };
+      // }
 
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
@@ -296,25 +296,25 @@ export function Playground() {
     nodes,
     connectedNodeIds,
     selectedNodeId,
-    isMoving,
-    draggingNodeId,
-    viewMode,
+    // isMoving,
+    // draggingNodeId,
+    // viewMode,
   ]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
-    const isMobile = getIsMobile();
-    const shouldHideAll =
-      isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
+    // const isMobile = getIsMobile();
+    // const shouldHideAll =
+    //   isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
 
     return edges.map((edge) => {
       // Hide during pan/zoom or drag (mobile only for performance)
-      if (shouldHideAll) {
-        // Only create new object if hidden state changed
-        if (edge.hidden === true) return edge;
-        return { ...edge, hidden: true };
-      }
+      // if (shouldHideAll) {
+      //   // Only create new object if hidden state changed
+      //   if (edge.hidden === true) return edge;
+      //   return { ...edge, hidden: true };
+      // }
 
       const isConnected = connectedEdgeIds.has(edge.id);
       const targetStrokeWidth = isConnected ? 3 : 1;
@@ -348,9 +348,9 @@ export function Playground() {
     connectedEdgeIds,
     selectedNodeId,
     edgeStyle.isAnimated,
-    isMoving,
-    draggingNodeId,
-    viewMode,
+    // isMoving,
+    // draggingNodeId,
+    // viewMode,
   ]);
 
   // Debounce ref for highlight updates
@@ -390,17 +390,17 @@ export function Playground() {
   }, [edges, updateHighlight]);
 
   // Handle node drag start
-  const handleNodeDragStart = useCallback(
-    (_event: React.MouseEvent, node: FlowNode) => {
-      setDraggingNodeId(node.id);
-    },
-    [],
-  );
+  // const handleNodeDragStart = useCallback(
+  //   (_event: React.MouseEvent, node: FlowNode) => {
+  //     setDraggingNodeId(node.id);
+  //   },
+  //   [],
+  // );
 
   // Handle node drag stop
-  const handleNodeDragStop = useCallback(() => {
-    setDraggingNodeId(null);
-  }, []);
+  // const handleNodeDragStop = useCallback(() => {
+  //   setDraggingNodeId(null);
+  // }, []);
 
   // Memoized letters for filter
   const memoizedLetters = useMemo(() => letters, [letters]);
@@ -448,8 +448,8 @@ export function Playground() {
             edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
-            onNodeDragStart={handleNodeDragStart}
-            onNodeDragStop={handleNodeDragStop}
+            // onNodeDragStart={handleNodeDragStart}
+            // onNodeDragStop={handleNodeDragStop}
             connectionLineComponent={connectionLineComponent}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
@@ -457,8 +457,10 @@ export function Playground() {
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
-            maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
+            // minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
+            // maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
+            minZoom={0.3}
+            maxZoom={1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
