@@ -5,7 +5,7 @@ import {
   Background,
   BackgroundVariant,
   Controls,
-  type EdgeTypes,
+  // type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
@@ -46,8 +46,9 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
-import { FloatingConnectionLine } from './ui/floating-connection-line';
-import { FloatingEdge } from './ui/floating-edge';
+
+// import { FloatingConnectionLine } from './ui/floating-connection-line';
+// import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -74,9 +75,9 @@ const nodeTypes: NodeTypes = {
 };
 
 // Register custom edge types
-const edgeTypes: EdgeTypes = {
-  floating: FloatingEdge,
-};
+// const edgeTypes: EdgeTypes = {
+//   floating: FloatingEdge,
+// };
 
 export function Playground() {
   const t = useTranslations('playground_page');
@@ -406,24 +407,24 @@ export function Playground() {
   const memoizedLetters = useMemo(() => letters, [letters]);
 
   // Compute the edge type based on settings
-  const computedEdgeType = useMemo(() => {
-    return getEffectiveEdgeType();
-  }, [getEffectiveEdgeType]);
+  // const computedEdgeType = useMemo(() => {
+  //   return getEffectiveEdgeType();
+  // }, [getEffectiveEdgeType]);
 
   // Memoize defaultEdgeOptions to prevent new object reference on every render
-  const defaultEdgeOptions = useMemo(
-    () => ({
-      type: computedEdgeType,
-      animated: edgeStyle.isAnimated,
-    }),
-    [computedEdgeType, edgeStyle.isAnimated],
-  );
+  // const defaultEdgeOptions = useMemo(
+  //   () => ({
+  //     type: computedEdgeType,
+  //     animated: edgeStyle.isAnimated,
+  //   }),
+  //   [computedEdgeType, edgeStyle.isAnimated],
+  // );
 
   // Memoize connectionLineComponent to prevent new reference on every render
-  const connectionLineComponent = useMemo(
-    () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
-    [edgeStyle.isFloating],
-  );
+  // const connectionLineComponent = useMemo(
+  //   () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
+  //   [edgeStyle.isFloating],
+  // );
 
   return (
     <>
@@ -445,14 +446,14 @@ export function Playground() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
+            // edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             // onNodeDragStart={handleNodeDragStart}
             // onNodeDragStop={handleNodeDragStop}
-            connectionLineComponent={connectionLineComponent}
-            defaultEdgeOptions={defaultEdgeOptions}
-            onlyRenderVisibleElements
+            // connectionLineComponent={connectionLineComponent}
+            // defaultEdgeOptions={defaultEdgeOptions}
+            // onlyRenderVisibleElements
             edgesFocusable={false}
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
