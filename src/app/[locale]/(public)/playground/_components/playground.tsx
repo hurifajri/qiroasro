@@ -23,6 +23,7 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+import { getIsMobile } from '@/lib/device';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
@@ -158,14 +159,27 @@ export function Playground() {
       });
 
       // Apply layout based on mode
+      // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
+      const isMobile = getIsMobile();
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
+        layoutedNodes = applyRadialLayout(
+          rawNodes,
+          600,
+          400,
+          isMobile ? 0.4 : 1,
+        );
       } else {
         layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
           direction: hierarchyDirection,
-          nodeSpacing: 60,
-          layerSpacing: viewMode === 'letter' ? 200 : 600,
+          nodeSpacing: isMobile ? 30 : 60,
+          layerSpacing: isMobile
+            ? viewMode === 'letter'
+              ? 100
+              : 200
+            : viewMode === 'letter'
+              ? 200
+              : 600,
         });
       }
 
