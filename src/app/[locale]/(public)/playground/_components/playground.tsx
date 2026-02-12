@@ -93,8 +93,8 @@ export function Playground() {
   const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
   const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
   const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
-  const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
-  const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
+  // const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
+  // const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
   const setLayoutMode = usePlaygroundStore((s) => s.setLayoutMode);
   const setHierarchyDirection = usePlaygroundStore(
@@ -242,117 +242,117 @@ export function Playground() {
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
-  const highlightedNodes = useMemo(() => {
-    // const isMobile = getIsMobile();
+  // const highlightedNodes = useMemo(() => {
+  //   // const isMobile = getIsMobile();
 
-    return nodes.map((node) => {
-      // Hide during pan/zoom (mobile only for performance)
-      // if (
-      //   isMobile &&
-      //   isMoving &&
-      //   node.type !== 'letter' &&
-      //   viewMode !== 'letter'
-      // ) {
-      //   // Only create new object if hidden state changed
-      //   if (node.hidden === true) return node;
-      //   return { ...node, hidden: true };
-      // }
+  //   return nodes.map((node) => {
+  //     // Hide during pan/zoom (mobile only for performance)
+  //     // if (
+  //     //   isMobile &&
+  //     //   isMoving &&
+  //     //   node.type !== 'letter' &&
+  //     //   viewMode !== 'letter'
+  //     // ) {
+  //     //   // Only create new object if hidden state changed
+  //     //   if (node.hidden === true) return node;
+  //     //   return { ...node, hidden: true };
+  //     // }
 
-      // Hide during drag (except the node being dragged)
-      // if (isMobile && draggingNodeId && viewMode !== 'letter') {
-      //   const isDragged = node.id === draggingNodeId;
-      //   const shouldHide = !isDragged;
-      //   // Only create new object if hidden state changed
-      //   if (node.hidden === shouldHide) return node;
-      //   return { ...node, hidden: shouldHide };
-      // }
+  //     // Hide during drag (except the node being dragged)
+  //     // if (isMobile && draggingNodeId && viewMode !== 'letter') {
+  //     //   const isDragged = node.id === draggingNodeId;
+  //     //   const shouldHide = !isDragged;
+  //     //   // Only create new object if hidden state changed
+  //     //   if (node.hidden === shouldHide) return node;
+  //     //   return { ...node, hidden: shouldHide };
+  //     // }
 
-      const isSelected = node.id === selectedNodeId;
-      const isConnected = connectedNodeIds.has(node.id);
-      const shouldHighlight = isSelected || isConnected;
-      const shouldDim = selectedNodeId ? !shouldHighlight : false;
+  //     const isSelected = node.id === selectedNodeId;
+  //     const isConnected = connectedNodeIds.has(node.id);
+  //     const shouldHighlight = isSelected || isConnected;
+  //     const shouldDim = selectedNodeId ? !shouldHighlight : false;
 
-      // Only create new object if highlight/dim state changed
-      const currentHighlight = node.data?.isHighlighted ?? false;
-      const currentDim = node.data?.isDimmed ?? false;
-      if (
-        currentHighlight === shouldHighlight &&
-        currentDim === shouldDim &&
-        node.hidden !== true
-      ) {
-        return node;
-      }
+  //     // Only create new object if highlight/dim state changed
+  //     const currentHighlight = node.data?.isHighlighted ?? false;
+  //     const currentDim = node.data?.isDimmed ?? false;
+  //     if (
+  //       currentHighlight === shouldHighlight &&
+  //       currentDim === shouldDim &&
+  //       node.hidden !== true
+  //     ) {
+  //       return node;
+  //     }
 
-      return {
-        ...node,
-        hidden: false,
-        data: {
-          ...node.data,
-          isHighlighted: shouldHighlight,
-          isDimmed: shouldDim,
-        },
-      };
-    });
-  }, [
-    nodes,
-    connectedNodeIds,
-    selectedNodeId,
-    // isMoving,
-    // draggingNodeId,
-    // viewMode,
-  ]);
+  //     return {
+  //       ...node,
+  //       hidden: false,
+  //       data: {
+  //         ...node.data,
+  //         isHighlighted: shouldHighlight,
+  //         isDimmed: shouldDim,
+  //       },
+  //     };
+  //   });
+  // }, [
+  //   nodes,
+  //   connectedNodeIds,
+  //   selectedNodeId,
+  //   // isMoving,
+  //   // draggingNodeId,
+  //   // viewMode,
+  // ]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
-  const highlightedEdges = useMemo(() => {
-    // const isMobile = getIsMobile();
-    // const shouldHideAll =
-    //   isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
+  // const highlightedEdges = useMemo(() => {
+  //   // const isMobile = getIsMobile();
+  //   // const shouldHideAll =
+  //   //   isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
 
-    return edges.map((edge) => {
-      // Hide during pan/zoom or drag (mobile only for performance)
-      // if (shouldHideAll) {
-      //   // Only create new object if hidden state changed
-      //   if (edge.hidden === true) return edge;
-      //   return { ...edge, hidden: true };
-      // }
+  //   return edges.map((edge) => {
+  //     // Hide during pan/zoom or drag (mobile only for performance)
+  //     // if (shouldHideAll) {
+  //     //   // Only create new object if hidden state changed
+  //     //   if (edge.hidden === true) return edge;
+  //     //   return { ...edge, hidden: true };
+  //     // }
 
-      const isConnected = connectedEdgeIds.has(edge.id);
-      const targetStrokeWidth = isConnected ? 3 : 1;
-      const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
-      const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
+  //     const isConnected = connectedEdgeIds.has(edge.id);
+  //     const targetStrokeWidth = isConnected ? 3 : 1;
+  //     const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
+  //     const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
-      // Only create new object if style changed
-      const currentStyle = edge.style as Record<string, unknown> | undefined;
-      if (
-        edge.hidden !== true &&
-        currentStyle?.strokeWidth === targetStrokeWidth &&
-        currentStyle?.opacity === targetOpacity &&
-        edge.animated === targetAnimated
-      ) {
-        return edge;
-      }
+  //     // Only create new object if style changed
+  //     const currentStyle = edge.style as Record<string, unknown> | undefined;
+  //     if (
+  //       edge.hidden !== true &&
+  //       currentStyle?.strokeWidth === targetStrokeWidth &&
+  //       currentStyle?.opacity === targetOpacity &&
+  //       edge.animated === targetAnimated
+  //     ) {
+  //       return edge;
+  //     }
 
-      return {
-        ...edge,
-        hidden: false,
-        style: {
-          ...edge.style,
-          strokeWidth: targetStrokeWidth,
-          opacity: targetOpacity,
-        },
-        animated: targetAnimated,
-      };
-    });
-  }, [
-    edges,
-    connectedEdgeIds,
-    selectedNodeId,
-    edgeStyle.isAnimated,
-    // isMoving,
-    // draggingNodeId,
-    // viewMode,
-  ]);
+  //     return {
+  //       ...edge,
+  //       hidden: false,
+  //       style: {
+  //         ...edge.style,
+  //         strokeWidth: targetStrokeWidth,
+  //         opacity: targetOpacity,
+  //       },
+  //       animated: targetAnimated,
+  //     };
+  //   });
+  // }, [
+  //   edges,
+  //   connectedEdgeIds,
+  //   selectedNodeId,
+  //   edgeStyle.isAnimated,
+  //   // isMoving,
+  //   // draggingNodeId,
+  //   // viewMode,
+  // ]);
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -440,9 +440,9 @@ export function Playground() {
             proOptions={{ hideAttribution: true }}
             colorMode={theme}
             fitView
-            fitViewOptions={{ padding: 0.2 }}
-            nodes={highlightedNodes}
-            edges={highlightedEdges}
+            // fitViewOptions={{ padding: 0.2 }}
+            nodes={nodes}
+            edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
