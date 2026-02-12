@@ -2,8 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query';
 import {
-  Background,
-  BackgroundVariant,
+  // Background,
+  // BackgroundVariant,
   // Controls,
   // type EdgeTypes,
   type Edge as FlowEdge,
@@ -17,7 +17,7 @@ import {
   // useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 // import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 // import { useLocale, useTranslations } from 'next-intl';
@@ -33,7 +33,7 @@ import {
 // import type { Locale } from '@/i18n/routing';
 // import { getIsMobile } from '@/lib/device';
 // import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
+// import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
 // import { usePlaygroundTour } from '../_hooks/use-playground-tour';
 import { generateGraphFromData } from '../_lib/graph-generator';
@@ -42,7 +42,7 @@ import {
   applyRadialLayout,
 } from '../_lib/graph-layout';
 import { usePlaygroundStore } from '../_providers/playground';
-import { useQuizStore } from '../_providers/quiz';
+// import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
 
 // import { GraphFilter } from './graph-filter';
@@ -61,9 +61,9 @@ import { getPlaygroundDataOpt } from '../_queries/playground';
 /**
  * Lazy load Quiz component - only shown when dialog is open
  */
-const Quiz = dynamic(() => import('./quiz').then((mod) => mod.Quiz), {
-  ssr: false,
-});
+// const Quiz = dynamic(() => import('./quiz').then((mod) => mod.Quiz), {
+//   ssr: false,
+// });
 
 /**
  * Lazy load GraphDownload - not critical for initial render
@@ -92,7 +92,7 @@ export function Playground() {
   // const locale = useLocale() as Locale;
   // const dir = getLocaleDir(locale);
 
-  const theme = useGlobalStore((s) => s.theme);
+  // const theme = useGlobalStore((s) => s.theme);
   // const { startTour } = usePlaygroundTour({ theme });
 
   const viewMode = usePlaygroundStore((s) => s.viewMode);
@@ -110,9 +110,9 @@ export function Playground() {
   );
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
-  const getEffectiveEdgeType = usePlaygroundStore(
-    (s) => s.getEffectiveEdgeType,
-  );
+  // const getEffectiveEdgeType = usePlaygroundStore(
+  //   (s) => s.getEffectiveEdgeType,
+  // );
   // const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
@@ -132,8 +132,9 @@ export function Playground() {
   });
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
-  const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
-  const isQuizStarted = useQuizStore((s) => s.isStarted);
+  // const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
+  // const isQuizStarted = useQuizStore((s) => s.isStarted);
+  const isQuizStarted = false;
   // const openQuizDialog = useQuizStore((s) => s.openDialog);
 
   // const handleOpenQuizDialog = useCallback(() => {
@@ -223,10 +224,11 @@ export function Playground() {
       }));
 
       // Apply edge type based on current edgeStyle
-      const effectiveEdgeType = getEffectiveEdgeType();
+      // const effectiveEdgeType = getEffectiveEdgeType();
       const edgesWithStyle = newEdges.map((edge) => ({
         ...edge,
-        type: effectiveEdgeType,
+        // type: effectiveEdgeType,
+        type: edgeStyle.shape,
         animated: edgeStyle.isAnimated,
       }));
 
@@ -555,7 +557,7 @@ export function Playground() {
               maskColor={theme === 'dark' ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.5)'}
             /> */}
 
-            <Background
+            {/* <Background
               color={
                 theme === 'light' ? 'oklch(0 0 0 / 0.8)' : 'oklch(1 0 0 / 0.5)'
               }
@@ -566,12 +568,12 @@ export function Playground() {
               variant={BackgroundVariant.Dots}
               gap={20}
               size={1}
-            />
+            /> */}
           </ReactFlow>
         </div>
       )}
       {/* Quiz component rendered outside ReactFlow so it's always accessible */}
-      {isQuizDialogOpen && <Quiz />}
+      {/* {isQuizDialogOpen && <Quiz />} */}
     </>
   );
 }
