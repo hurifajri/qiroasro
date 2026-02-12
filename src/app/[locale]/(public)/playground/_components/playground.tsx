@@ -4,13 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Background,
   BackgroundVariant,
-  Controls,
+  // Controls,
   // type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
   // type NodeTypes,
-  Panel,
+  // Panel,
   ReactFlow,
   useEdgesState,
   useNodesState,
@@ -19,23 +19,23 @@ import {
 } from '@xyflow/react';
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
-import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+// import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
+// import { useLocale, useTranslations } from 'next-intl';
 import {
-  useCallback,
+  // useCallback,
   useEffect,
-  useMemo,
+  // useMemo,
   // useRef,
   //  useState
 } from 'react';
-import { Button } from '@/components/ui/button';
-import { getLocaleDir } from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
+// import { Button } from '@/components/ui/button';
+// import { getLocaleDir } from '@/i18n/locale';
+// import type { Locale } from '@/i18n/routing';
 // import { getIsMobile } from '@/lib/device';
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
-import { usePlaygroundTour } from '../_hooks/use-playground-tour';
+// import { usePlaygroundTour } from '../_hooks/use-playground-tour';
 import { generateGraphFromData } from '../_lib/graph-generator';
 import {
   applyHierarchicalLayout,
@@ -44,8 +44,9 @@ import {
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
-import { GraphFilter } from './graph-filter';
-import { GraphLegend } from './graph-legend';
+
+// import { GraphFilter } from './graph-filter';
+// import { GraphLegend } from './graph-legend';
 
 // import {
 //   ArticulationAreaNode,
@@ -67,10 +68,10 @@ const Quiz = dynamic(() => import('./quiz').then((mod) => mod.Quiz), {
 /**
  * Lazy load GraphDownload - not critical for initial render
  */
-const GraphDownload = dynamic(
-  () => import('./graph-download').then((mod) => mod.GraphDownload),
-  { ssr: false },
-);
+// const GraphDownload = dynamic(
+//   () => import('./graph-download').then((mod) => mod.GraphDownload),
+//   { ssr: false },
+// );
 
 // Register custom node types
 // const nodeTypes: NodeTypes = {
@@ -87,12 +88,12 @@ const GraphDownload = dynamic(
 // };
 
 export function Playground() {
-  const t = useTranslations('playground_page');
-  const locale = useLocale() as Locale;
-  const dir = getLocaleDir(locale);
+  // const t = useTranslations('playground_page');
+  // const locale = useLocale() as Locale;
+  // const dir = getLocaleDir(locale);
 
   const theme = useGlobalStore((s) => s.theme);
-  const { startTour } = usePlaygroundTour({ theme });
+  // const { startTour } = usePlaygroundTour({ theme });
 
   const viewMode = usePlaygroundStore((s) => s.viewMode);
   const layoutMode = usePlaygroundStore((s) => s.layoutMode);
@@ -133,12 +134,12 @@ export function Playground() {
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
   const isQuizDialogOpen = useQuizStore((s) => s.isDialogOpen);
   const isQuizStarted = useQuizStore((s) => s.isStarted);
-  const openQuizDialog = useQuizStore((s) => s.openDialog);
+  // const openQuizDialog = useQuizStore((s) => s.openDialog);
 
-  const handleOpenQuizDialog = useCallback(() => {
-    // trackEvent('quiz_dialog_opened', { locale, theme });
-    openQuizDialog();
-  }, [openQuizDialog]);
+  // const handleOpenQuizDialog = useCallback(() => {
+  //   // trackEvent('quiz_dialog_opened', { locale, theme });
+  //   openQuizDialog();
+  // }, [openQuizDialog]);
 
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
@@ -411,7 +412,7 @@ export function Playground() {
   // }, []);
 
   // Memoized letters for filter
-  const memoizedLetters = useMemo(() => letters, [letters]);
+  // const memoizedLetters = useMemo(() => letters, [letters]);
 
   // Compute the edge type based on settings
   // const computedEdgeType = useMemo(() => {
@@ -471,7 +472,7 @@ export function Playground() {
             minZoom={0}
             // maxZoom={1}
           >
-            <Panel
+            {/* <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
               className={cn(
                 'm-0! flex w-full flex-col gap-2 p-3 sm:w-auto',
@@ -532,7 +533,7 @@ export function Playground() {
               className="m-3!"
             >
               <Controls className="static! m-0!" />
-            </Panel>
+            </Panel> */}
 
             {/* <MiniMap
               position="bottom-left"
