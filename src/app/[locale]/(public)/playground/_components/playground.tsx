@@ -9,19 +9,25 @@ import {
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
-  type NodeTypes,
+  // type NodeTypes,
   Panel,
   ReactFlow,
   useEdgesState,
   useNodesState,
-  useOnViewportChange,
+  // useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  // useRef,
+  //  useState
+} from 'react';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
@@ -40,12 +46,13 @@ import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
-import {
-  ArticulationAreaNode,
-  ArticulationPointNode,
-} from './node-articulation';
-import { LetterNode } from './node-letter';
-import { TraitGroupNode, TraitNode } from './node-trait';
+
+// import {
+//   ArticulationAreaNode,
+//   ArticulationPointNode,
+// } from './node-articulation';
+// import { LetterNode } from './node-letter';
+// import { TraitGroupNode, TraitNode } from './node-trait';
 
 // import { FloatingConnectionLine } from './ui/floating-connection-line';
 // import { FloatingEdge } from './ui/floating-edge';
@@ -66,13 +73,13 @@ const GraphDownload = dynamic(
 );
 
 // Register custom node types
-const nodeTypes: NodeTypes = {
-  letter: LetterNode,
-  articulationArea: ArticulationAreaNode,
-  articulationPoint: ArticulationPointNode,
-  traitGroup: TraitGroupNode,
-  trait: TraitNode,
-};
+// const nodeTypes: NodeTypes = {
+//   letter: LetterNode,
+//   articulationArea: ArticulationAreaNode,
+//   articulationPoint: ArticulationPointNode,
+//   traitGroup: TraitGroupNode,
+//   trait: TraitNode,
+// };
 
 // Register custom edge types
 // const edgeTypes: EdgeTypes = {
@@ -91,7 +98,7 @@ export function Playground() {
   const layoutMode = usePlaygroundStore((s) => s.layoutMode);
   const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
   const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
-  const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
+  // const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
   const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
   // const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
   // const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
@@ -105,7 +112,7 @@ export function Playground() {
   const getEffectiveEdgeType = usePlaygroundStore(
     (s) => s.getEffectiveEdgeType,
   );
-  const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
+  // const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
   usePlaygroundParams({
@@ -139,18 +146,18 @@ export function Playground() {
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
 
   // Interaction state for dimming
-  const [isMoving, setIsMoving] = useState(false);
+  // const [isMoving, setIsMoving] = useState(false);
   // const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
 
   // Handle viewport changes (pan/zoom) using React Flow's built-in hook
-  useOnViewportChange({
-    onChange: useCallback(() => {
-      if (!isMoving) setIsMoving(true);
-    }, [isMoving]),
-    onEnd: useCallback(() => {
-      if (isMoving) setIsMoving(false);
-    }, [isMoving]),
-  });
+  // useOnViewportChange({
+  //   onChange: useCallback(() => {
+  //     if (!isMoving) setIsMoving(true);
+  //   }, [isMoving]),
+  //   onEnd: useCallback(() => {
+  //     if (isMoving) setIsMoving(false);
+  //   }, [isMoving]),
+  // });
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -235,7 +242,7 @@ export function Playground() {
     viewMode,
     layoutMode,
     hierarchyDirection,
-    edgeStyle.isFloating,
+    // edgeStyle.isFloating,
     edgeStyle.shape,
     selectedLetterId,
   ]);
@@ -355,40 +362,40 @@ export function Playground() {
   // ]);
 
   // Debounce ref for highlight updates
-  const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
+  // const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+  //   null,
+  // );
 
   // Handle node click - debounced to prevent rapid highlight recalculations
-  const handleNodeClick = useCallback(
-    (_event: React.MouseEvent, node: FlowNode) => {
-      // Clear any pending highlight update
-      if (highlightTimeoutRef.current) {
-        clearTimeout(highlightTimeoutRef.current);
-      }
+  // const handleNodeClick = useCallback(
+  //   (_event: React.MouseEvent, node: FlowNode) => {
+  //     // Clear any pending highlight update
+  //     if (highlightTimeoutRef.current) {
+  //       clearTimeout(highlightTimeoutRef.current);
+  //     }
 
-      // Debounce highlight update (100ms)
-      highlightTimeoutRef.current = setTimeout(() => {
-        // Toggle selection: if same node clicked again, deselect
-        const newSelectedId = selectedNodeId === node.id ? null : node.id;
-        updateHighlight(newSelectedId, edges);
-      }, 100);
-    },
-    [selectedNodeId, edges, updateHighlight],
-  );
+  //     // Debounce highlight update (100ms)
+  //     highlightTimeoutRef.current = setTimeout(() => {
+  //       // Toggle selection: if same node clicked again, deselect
+  //       const newSelectedId = selectedNodeId === node.id ? null : node.id;
+  //       updateHighlight(newSelectedId, edges);
+  //     }, 100);
+  //   },
+  //   [selectedNodeId, edges, updateHighlight],
+  // );
 
   // Handle pane click - debounced to clear selection
-  const handlePaneClick = useCallback(() => {
-    // Clear any pending highlight update
-    if (highlightTimeoutRef.current) {
-      clearTimeout(highlightTimeoutRef.current);
-    }
+  // const handlePaneClick = useCallback(() => {
+  //   // Clear any pending highlight update
+  //   if (highlightTimeoutRef.current) {
+  //     clearTimeout(highlightTimeoutRef.current);
+  //   }
 
-    // Debounce highlight update (100ms)
-    highlightTimeoutRef.current = setTimeout(() => {
-      updateHighlight(null, edges);
-    }, 100);
-  }, [edges, updateHighlight]);
+  //   // Debounce highlight update (100ms)
+  //   highlightTimeoutRef.current = setTimeout(() => {
+  //     updateHighlight(null, edges);
+  //   }, 100);
+  // }, [edges, updateHighlight]);
 
   // Handle node drag start
   // const handleNodeDragStart = useCallback(
@@ -436,32 +443,33 @@ export function Playground() {
       {!isQuizStarted && (
         <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
-            dir={dir}
-            proOptions={{ hideAttribution: true }}
-            colorMode={theme}
+            // dir={dir}
+            // proOptions={{ hideAttribution: true }}
+            // colorMode={theme}
             fitView
             // fitViewOptions={{ padding: 0.2 }}
             nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            nodeTypes={nodeTypes}
+            // nodeTypes={nodeTypes}
             // edgeTypes={edgeTypes}
-            onNodeClick={handleNodeClick}
-            onPaneClick={handlePaneClick}
+            // onNodeClick={handleNodeClick}
+            // onPaneClick={handlePaneClick}
             // onNodeDragStart={handleNodeDragStart}
             // onNodeDragStop={handleNodeDragStop}
             // connectionLineComponent={connectionLineComponent}
             // defaultEdgeOptions={defaultEdgeOptions}
             // onlyRenderVisibleElements
-            edgesFocusable={false}
-            zoomOnDoubleClick={false}
-            autoPanOnNodeDrag={false}
-            autoPanOnNodeFocus={false}
+            // edgesFocusable={false}
+            // zoomOnDoubleClick={false}
+            // autoPanOnNodeDrag={false}
+            // autoPanOnNodeFocus={false}
             // minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
             // maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
-            minZoom={0.3}
-            maxZoom={1}
+            // minZoom={0.3}
+            minZoom={0}
+            // maxZoom={1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
