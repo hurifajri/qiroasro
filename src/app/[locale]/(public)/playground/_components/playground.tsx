@@ -1,6 +1,6 @@
 'use client';
 
-// import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import {
   // Background,
   // BackgroundVariant,
@@ -15,20 +15,20 @@ import {
   useEdgesState,
   useNodesState,
   // useOnViewportChange,
-  // useReactFlow,
+  useReactFlow,
 } from '@xyflow/react';
-import { initialElements } from '../_lib/initialElements.js';
+// import { initialElements } from '../_lib/initialElements.js';
 // import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 // import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 // import { useLocale, useTranslations } from 'next-intl';
-// import {
-//   // useCallback,
-//   // useEffect,
-//   // useMemo,
-//   // useRef,
-//   //  useState
-// } from 'react';
+import {
+  // useCallback,
+  useEffect,
+  // useMemo,
+  // useRef,
+  //  useState
+} from 'react';
 // import { Button } from '@/components/ui/button';
 // import { getLocaleDir } from '@/i18n/locale';
 // import type { Locale } from '@/i18n/routing';
@@ -37,15 +37,15 @@ import '@xyflow/react/dist/style.css';
 // import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
 // import { usePlaygroundTour } from '../_hooks/use-playground-tour';
-// import { generateGraphFromData } from '../_lib/graph-generator';
-// import {
-//   applyHierarchicalLayout,
-//   applyRadialLayout,
-// } from '../_lib/graph-layout';
+import { generateGraphFromData } from '../_lib/graph-generator';
+import {
+  applyHierarchicalLayout,
+  applyRadialLayout,
+} from '../_lib/graph-layout';
 import { usePlaygroundStore } from '../_providers/playground';
 
 // import { useQuizStore } from '../_providers/quiz';
-// import { getPlaygroundDataOpt } from '../_queries/playground';
+import { getPlaygroundDataOpt } from '../_queries/playground';
 
 // import { GraphFilter } from './graph-filter';
 // import { GraphLegend } from './graph-legend';
@@ -89,7 +89,7 @@ import { usePlaygroundStore } from '../_providers/playground';
 //   floating: FloatingEdge,
 // };
 
-const { nodes: initialNodes, edges: initialEdges } = initialElements(15, 30);
+// const { nodes: initialNodes, edges: initialEdges } = initialElements(15, 30);
 
 export function Playground() {
   // const t = useTranslations('playground_page');
@@ -147,14 +147,14 @@ export function Playground() {
   // }, [openQuizDialog]);
 
   // ReactFlow state (local, managed by ReactFlow)
-  // const { fitView } = useReactFlow();
-  // const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
-  // const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
+  const { fitView } = useReactFlow();
+  const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
 
-  const [nodes, setNodes, onNodesChange] =
-    useNodesState<FlowNode>(initialNodes);
-  const [edges, setEdges, onEdgesChange] =
-    useEdgesState<FlowEdge>(initialEdges);
+  // const [nodes, setNodes, onNodesChange] =
+  //   useNodesState<FlowNode>(initialNodes);
+  // const [edges, setEdges, onEdgesChange] =
+  //   useEdgesState<FlowEdge>(initialEdges);
 
   // Interaction state for dimming
   // const [isMoving, setIsMoving] = useState(false);
@@ -171,92 +171,98 @@ export function Playground() {
   // });
 
   // Fetch data from single consolidated query
-  // const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
-  // const letters = playgroundData?.letters ?? [];
-  // const letterArticulations = playgroundData?.letterArticulations ?? [];
-  // const letterTraits = playgroundData?.letterTraits ?? [];
-  // const articulationAreas = playgroundData?.articulationAreas ?? [];
-  // const articulationPoints = playgroundData?.articulationPoints ?? [];
-  // const traits = playgroundData?.traits ?? [];
-  // const traitGroups = playgroundData?.traitGroups ?? [];
+  const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
+  const letters = playgroundData?.letters ?? [];
+  const letterArticulations = playgroundData?.letterArticulations ?? [];
+  const letterTraits = playgroundData?.letterTraits ?? [];
+  const articulationAreas = playgroundData?.articulationAreas ?? [];
+  const articulationPoints = playgroundData?.articulationPoints ?? [];
+  const traits = playgroundData?.traits ?? [];
+  const traitGroups = playgroundData?.traitGroups ?? [];
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
-  // useEffect(() => {
-  //   const data = {
-  //     letters,
-  //     letterArticulations,
-  //     letterTraits,
-  //     articulationAreas,
-  //     articulationPoints,
-  //     traits,
-  //     traitGroups,
-  //   };
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <some>
+  useEffect(() => {
+    const data = {
+      letters,
+      letterArticulations,
+      letterTraits,
+      articulationAreas,
+      articulationPoints,
+      traits,
+      traitGroups,
+    };
 
-  //   async function updateLayout() {
-  //     // Generate nodes and edges (without positions)
-  //     const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
-  //       viewMode,
-  //       layoutMode,
-  //       hierarchyDirection,
-  //       selectedId: selectedLetterId,
-  //     });
+    async function updateLayout() {
+      // Generate nodes and edges (without positions)
+      const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
+        viewMode,
+        layoutMode,
+        hierarchyDirection,
+        selectedId: selectedLetterId,
+      });
 
-  //     // Apply layout based on mode
-  //     let layoutedNodes: FlowNode[];
-  //     if (layoutMode === 'radial') {
-  //       layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
-  //     } else {
-  //       layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
-  //         direction: hierarchyDirection,
-  //         nodeSpacing: 60,
-  //         layerSpacing: viewMode === 'letter' ? 200 : 600,
-  //       });
-  //     }
+      // Apply layout based on mode
+      let layoutedNodes: FlowNode[];
+      if (layoutMode === 'radial') {
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
+      } else {
+        layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
+          direction: hierarchyDirection,
+          nodeSpacing: 60,
+          layerSpacing: viewMode === 'letter' ? 200 : 600,
+        });
+      }
 
-  //     // Calculate which nodes have source/target edges
-  //     const nodesWithSourceEdge = new Set(newEdges.map((e) => e.source));
-  //     const nodesWithTargetEdge = new Set(newEdges.map((e) => e.target));
+      // Calculate which nodes have source/target edges
+      const nodesWithSourceEdge = new Set(newEdges.map((e) => e.source));
+      const nodesWithTargetEdge = new Set(newEdges.map((e) => e.target));
 
-  //     // Add layout info to node data for conditional handle rendering
-  //     const nodesWithLayoutInfo = layoutedNodes.map((node) => ({
-  //       ...node,
-  //       data: {
-  //         ...node.data,
-  //         isFloating: edgeStyle.isFloating,
-  //         layoutMode,
-  //         hierarchyDirection,
-  //         hasSourceEdge: nodesWithSourceEdge.has(node.id),
-  //         hasTargetEdge: nodesWithTargetEdge.has(node.id),
-  //       },
-  //     }));
+      // Add layout info to node data for conditional handle rendering
+      const nodesWithLayoutInfo = layoutedNodes.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          isFloating: edgeStyle.isFloating,
+          layoutMode,
+          hierarchyDirection,
+          hasSourceEdge: nodesWithSourceEdge.has(node.id),
+          hasTargetEdge: nodesWithTargetEdge.has(node.id),
+        },
+      }));
 
-  //     // Apply edge type based on current edgeStyle
-  //     // const effectiveEdgeType = getEffectiveEdgeType();
-  //     const edgesWithStyle = newEdges.map((edge) => ({
-  //       ...edge,
-  //       // type: effectiveEdgeType,
-  //       type: edgeStyle.shape,
-  //       animated: edgeStyle.isAnimated,
-  //     }));
+      // Apply edge type based on current edgeStyle
+      // const effectiveEdgeType = getEffectiveEdgeType();
+      const edgesWithStyle = newEdges.map((edge) => ({
+        ...edge,
+        // type: effectiveEdgeType,
+        type: edgeStyle.shape,
+        animated: edgeStyle.isAnimated,
+      }));
 
-  //     setNodes(nodesWithLayoutInfo);
-  //     setEdges(edgesWithStyle);
+      // setNodes(nodesWithLayoutInfo);
+      const compactNodes = nodesWithLayoutInfo.map((node, i) => ({
+        ...node,
+        position: { x: (i % 10) * 100, y: Math.floor(i / 10) * 50 },
+      }));
+      setNodes(compactNodes);
+      setEdges(edgesWithStyle);
 
-  //     setTimeout(() => {
-  //       fitView({ padding: 0.2, duration: 300 });
-  //     }, 50);
-  //   }
+      setTimeout(() => {
+        fitView({ padding: 0.2, duration: 300 });
+      }, 50);
+    }
 
-  //   updateLayout();
-  // }, [
-  //   viewMode,
-  //   layoutMode,
-  //   hierarchyDirection,
-  //   // edgeStyle.isFloating,
-  //   edgeStyle.shape,
-  //   selectedLetterId,
-  // ]);
+    updateLayout();
+  }, [
+    viewMode,
+    layoutMode,
+    hierarchyDirection,
+    // edgeStyle.isFloating,
+    edgeStyle.shape,
+    selectedLetterId,
+  ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
