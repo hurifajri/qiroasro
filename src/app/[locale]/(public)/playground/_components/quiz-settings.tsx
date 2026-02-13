@@ -62,6 +62,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           lettersPerQuiz: newValue,
           targetsPerQuiz: 1,
           multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
+          specificLetterId: null,
         });
       } else {
         const newTargets =
@@ -99,6 +100,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           targetsPerQuiz: newValue,
           lettersPerQuiz: newLetters,
           multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
+          specificLetterId: null,
         });
       }
     }
@@ -117,6 +119,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
       practiceSettings.targetsPerQuiz <= 2);
 
   const hasSpecificLetter = practiceSettings.specificLetterId !== null;
+  const isMultiLetter = practiceSettings.lettersPerQuiz !== 1;
 
   const handleToggleSpecificLetters = (enabled: boolean) => {
     if (enabled) {
@@ -203,13 +206,13 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
             <Label className="text-sm">{t('practice_specific_letters')}</Label>
             <Switch
               dir={dir}
-              checked={hasSpecificLetter}
-              disabled={practiceSettings.lettersPerQuiz !== 1}
+              checked={hasSpecificLetter && !isMultiLetter}
+              disabled={isMultiLetter}
               onCheckedChange={handleToggleSpecificLetters}
             />
           </div>
 
-          {hasSpecificLetter && (
+          {hasSpecificLetter && !isMultiLetter && (
             <div className="flex flex-col gap-2">
               <p className="text-muted-foreground text-xs">
                 {t('practice_specific_letters_hint')}
