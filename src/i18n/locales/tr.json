@@ -293,8 +293,8 @@
       "more_comprehensive": "Daha kapsamlısını mı istiyorsunuz?"
     },
     "mobile_unsupported": {
-      "title": "Masaüstü Görünüm Önerilir",
-      "description": "Bu görünüm daha büyük bir ekranda daha iyi deneyimlenir. Lütfen Harf görünümüne geçin veya masaüstü cihaz kullanın."
+      "title": "Masaüstü Önerilir",
+      "description": "Bu görselleştirme büyük ekranlarda daha iyi görüntülenir. Lütfen Harf moduna geçin veya en iyi deneyim için masaüstü cihaz kullanın."
     },
     "error": {
       "title": "Bir hata oluştu",
