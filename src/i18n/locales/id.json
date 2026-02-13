@@ -292,6 +292,10 @@
     "development": {
       "more_comprehensive": "Mau yang lebih komprehensif?"
     },
+    "mobile_unsupported": {
+      "title": "Disarankan Pakai Desktop",
+      "description": "Tampilan ini lebih nyaman dilihat di layar yang lebih besar. Silakan beralih ke tampilan Huruf atau gunakan perangkat desktop."
+    },
     "error": {
       "title": "Terjadi Kesalahan",
       "description": "Terjadi kesalahan saat memuat halaman. Silakan coba lagi.",

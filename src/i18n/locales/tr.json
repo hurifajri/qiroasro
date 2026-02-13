@@ -292,6 +292,10 @@
     "development": {
       "more_comprehensive": "Daha kapsamlısını mı istiyorsunuz?"
     },
+    "mobile_unsupported": {
+      "title": "Masaüstü Görünüm Önerilir",
+      "description": "Bu görünüm daha büyük bir ekranda daha iyi deneyimlenir. Lütfen Harf görünümüne geçin veya masaüstü cihaz kullanın."
+    },
     "error": {
       "title": "Bir hata oluştu",
       "description": "Sayfa yüklenirken bir hata oluştu. Lütfen tekrar deneyin.",

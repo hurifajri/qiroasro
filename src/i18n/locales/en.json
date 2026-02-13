@@ -292,6 +292,10 @@
     "development": {
       "more_comprehensive": "Looking for more details?"
     },
+    "mobile_unsupported": {
+      "title": "Desktop View Recommended",
+      "description": "This view is best experienced on a larger screen. Please switch to Letter view or use a desktop device."
+    },
     "error": {
       "title": "Something went wrong",
       "description": "An error occurred while loading the playground. Please try again.",

@@ -292,6 +292,10 @@
     "development": {
       "more_comprehensive": "Inginkan yang lebih komprehensif?"
     },
+    "mobile_unsupported": {
+      "title": "Disyorkan Guna Desktop",
+      "description": "Paparan ini lebih sesuai pada skrin yang lebih besar. Sila tukar ke paparan Huruf atau gunakan peranti desktop."
+    },
     "error": {
       "title": "Berlaku Ralat",
       "description": "Berlaku ralat semasa memuatkan halaman. Sila cuba lagi.",
