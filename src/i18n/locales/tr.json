@@ -294,7 +294,8 @@
     },
     "mobile_unsupported": {
       "title": "Masaüstü Önerilir",
-      "description": "Bu görselleştirme büyük ekranlarda daha iyi görüntülenir. Lütfen Harf moduna geçin veya en iyi deneyim için masaüstü cihaz kullanın."
+      "description": "Bu görselleştirme büyük ekranlarda daha iyi görüntülenir. Lütfen Harf moduna geçin veya en iyi deneyim için masaüstü cihaz kullanın.",
+      "switch_to_letter": "Harf Moduna Geç"
     },
     "error": {
       "title": "Bir hata oluştu",

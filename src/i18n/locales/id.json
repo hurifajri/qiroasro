@@ -294,7 +294,8 @@
     },
     "mobile_unsupported": {
       "title": "Lebih Optimal di Desktop",
-      "description": "Visualisasi ini lebih nyaman dilihat di layar besar. Silakan beralih ke mode Huruf atau gunakan perangkat desktop untuk pengalaman terbaik."
+      "description": "Visualisasi ini lebih nyaman dilihat di layar besar. Silakan beralih ke mode Huruf atau gunakan perangkat desktop untuk pengalaman terbaik.",
+      "switch_to_letter": "Beralih ke Mode Huruf"
     },
     "error": {
       "title": "Terjadi Kesalahan",

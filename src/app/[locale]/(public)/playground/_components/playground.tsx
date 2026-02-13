@@ -461,7 +461,11 @@ export function Playground() {
               size={1}
             />
 
-            {isUnsupportedMobileView && <MobileUnsupported />}
+            {isUnsupportedMobileView && (
+              <MobileUnsupported
+                onSwitchToLetter={() => setViewMode('letter')}
+              />
+            )}
           </ReactFlow>
         </div>
       )}
