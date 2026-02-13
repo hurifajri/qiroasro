@@ -22,8 +22,8 @@ export function MobileUnsupported({
   const t = useTranslations('playground_page.mobile_unsupported');
 
   return (
-    <div className="absolute inset-0 z-4 flex items-center justify-center bg-background/95 p-4 backdrop-blur-sm">
-      <Card className="w-full!">
+    <div className="absolute inset-0 z-4 flex items-center justify-center bg-background/95 p-3 backdrop-blur-sm">
+      <Card className="mt-8! w-full! rounded-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 font-semibold text-foreground text-xl">
             <MonitorSmartphoneIcon className="size-5" />
