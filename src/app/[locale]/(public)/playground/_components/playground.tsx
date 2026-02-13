@@ -21,9 +21,9 @@ import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { getIsMobile } from '@/lib/device';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
@@ -73,6 +73,7 @@ export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
+  const isMobile = useIsMobile();
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
@@ -160,7 +161,6 @@ export function Playground() {
 
       // Apply layout based on mode
       // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
-      const isMobile = getIsMobile();
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
         layoutedNodes = applyRadialLayout(
