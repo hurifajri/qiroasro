@@ -1,5 +1,5 @@
 import '@/styles/global.css';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata, Viewport } from 'next';
 import { Noto_Naskh_Arabic, Outfit } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -117,13 +117,13 @@ export default async function RootLayout({
               <MotionProvider>{children}</MotionProvider>
             </NextIntlClientProvider>
           </GlobalStoreProvider>
-          {process.env.NODE_ENV === 'development' && (
+          {/* {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools
               initialIsOpen={false}
               buttonPosition="top-left"
               position="right"
             />
-          )}
+          )} */}
         </QueryClientProvider>
 
         <script
