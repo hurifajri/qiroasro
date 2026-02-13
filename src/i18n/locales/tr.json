@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "E-posta",
-      "waitlist": "Bekleme Listesi",
-      "more_comprehensive": "Daha kapsamlısını mı arıyorsunuz?",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
       "reminder_cta": "Listeye Katıl",
       "reminder_playground_cta": "Playground'a Git",
@@ -288,9 +286,6 @@
     "download": {
       "trigger": "Görüntüyü İndir",
       "downloading": "İndiriliyor..."
-    },
-    "development": {
-      "more_comprehensive": "Daha kapsamlısını mı istiyorsunuz?"
     },
     "mobile_unsupported": {
       "title": "Masaüstü Önerilir",

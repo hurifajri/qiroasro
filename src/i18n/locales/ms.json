@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "E-mel",
-      "waitlist": "Senarai Menunggu",
-      "more_comprehensive": "Inginkan yang lebih komprehensif?",
       "reminder_title": "Beritahu apabila aplikasi tersedia",
       "reminder_cta": "Sertai Senarai",
       "reminder_playground_cta": "Ke Playground",
@@ -288,9 +286,6 @@
     "download": {
       "trigger": "Muat Turun Imej",
       "downloading": "Sedang memuat turun..."
-    },
-    "development": {
-      "more_comprehensive": "Inginkan yang lebih komprehensif?"
     },
     "mobile_unsupported": {
       "title": "Lebih Baik di Desktop",

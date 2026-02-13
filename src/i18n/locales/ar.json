@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "البريد الإلكتروني",
-      "waitlist": "قائمة الانتظار",
-      "more_comprehensive": "هل تريد المزيد من التفاصيل؟",
       "reminder_title": "أخبرني عندما يكون التطبيق متاحاً",
       "reminder_cta": "انضم للقائمة",
       "reminder_playground_cta": "اذهب إلى ساحة التجربة",
@@ -287,10 +285,7 @@
     },
     "download": {
       "trigger": "تحميل الصورة",
-      "downloading": "جاري التحميل..."
-    },
-    "development": {
-      "more_comprehensive": "هل تريد المزيد؟"
+      "downloading": "جاري التحميل"
     },
     "mobile_unsupported": {
       "title": "يُفضل استخدام سطح المكتب",

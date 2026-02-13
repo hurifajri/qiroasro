@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "Email",
-      "waitlist": "Waitlist",
-      "more_comprehensive": "Looking for more details?",
       "reminder_title": "Notify me when the app is available",
       "reminder_cta": "Join Waitlist",
       "reminder_playground_cta": "Visit Playground",
@@ -288,9 +286,6 @@
     "download": {
       "trigger": "Download Image",
       "downloading": "Downloading..."
-    },
-    "development": {
-      "more_comprehensive": "Looking for more details?"
     },
     "mobile_unsupported": {
       "title": "Optimized for Desktop",
