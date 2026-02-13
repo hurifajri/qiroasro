@@ -365,8 +365,8 @@ export function Playground() {
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={0.1}
-            // maxZoom={1}
+            minZoom={0.25}
+            maxZoom={isMobile && viewMode !== 'letter' ? 0.5 : 1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
