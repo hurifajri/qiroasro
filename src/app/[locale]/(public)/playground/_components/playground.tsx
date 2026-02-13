@@ -172,7 +172,7 @@ export function Playground() {
       } else {
         layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
           direction: hierarchyDirection,
-          nodeSpacing: isMobile ? 30 : 60,
+          nodeSpacing: isMobile ? 0 : 30,
           layerSpacing: isMobile
             ? viewMode === 'letter'
               ? 100
@@ -221,6 +221,7 @@ export function Playground() {
     hierarchyDirection,
     edgeStyle.shape,
     selectedLetterId,
+    isMobile,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
@@ -364,8 +365,8 @@ export function Playground() {
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={0.3}
-            maxZoom={1}
+            minZoom={0.1}
+            // maxZoom={1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
