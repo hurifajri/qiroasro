@@ -18,15 +18,26 @@ export function Private({ children, sidebar }: PrivateProps) {
   const pathname = usePathname();
 
   // Update nav items based on current path
-  const navItems = MOCK_NAV_ITEMS.map((item) => ({
+  const leftNavItems = MOCK_NAV_ITEMS.map((item) => ({
     ...item,
     isActive: pathname.endsWith(item.href) || pathname.includes(item.href),
   }));
 
+  const bottomNavItems = leftNavItems.filter((item) =>
+    [
+      'learn',
+      'practice',
+      'reference',
+      'leaderboard',
+      'quests',
+      'profile',
+    ].includes(item.id),
+  );
+
   return (
     <div className="flex min-h-dvh bg-background">
       {/* Left Sidebar - Desktop only */}
-      <LeftSidebar navItems={navItems} />
+      <LeftSidebar navItems={leftNavItems} />
 
       {/* Main Content */}
       <main className="flex-1">
@@ -45,7 +56,7 @@ export function Private({ children, sidebar }: PrivateProps) {
       <RightSidebar>{sidebar}</RightSidebar>
 
       {/* Bottom Navigation - Mobile only */}
-      <BottomNav items={navItems} />
+      <BottomNav items={bottomNavItems} />
     </div>
   );
 }
