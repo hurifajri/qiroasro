@@ -135,6 +135,13 @@ export const MOCK_NAV_ITEMS: NavItem[] = [
     isActive: false,
   },
   {
+    id: 'shop',
+    labelKey: 'nav.shop',
+    iconName: 'Store',
+    href: '/shop',
+    isActive: false,
+  },
+  {
     id: 'profile',
     labelKey: 'nav.profile',
     iconName: 'User',

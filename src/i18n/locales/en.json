@@ -164,6 +164,7 @@
         "reference": "Reference",
         "leaderboard": "Leaderboard",
         "quests": "Quests",
+        "shop": "Shop",
         "profile": "Profile"
       },
       "level_card": {
@@ -185,7 +186,12 @@
       },
       "daily_quests": {
         "title": "Daily Quests",
-        "view_all": "View All"
+        "view_all": "VIEW ALL"
+      },
+      "ads": {
+        "title": "Discover more",
+        "placeholder": "Ad space",
+        "remove_ads": "REMOVE ADS"
       },
       "quests": {
         "earn_xp": {
@@ -699,6 +705,43 @@
         "title": "2024 Summer Owlympics",
         "date": "August 2024"
       }
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Shop - Power-Ups & Items",
+      "description": "Purchase hearts, power-ups, and other items to enhance your learning experience."
+    },
+    "title": "Shop - Power-Ups & Items",
+    "sections": {
+      "hearts": "Hearts",
+      "powerups": "Power-Ups"
+    },
+    "hearts": {
+      "refill": {
+        "title": "Refill Hearts",
+        "description": "Get full hearts so you can worry less about making mistakes in a lesson"
+      },
+      "unlimited": {
+        "title": "Unlimited Hearts",
+        "description": "Never run out of hearts with Super!"
+      }
+    },
+    "powerups": {
+      "streak_freeze": {
+        "title": "Streak Freeze",
+        "description": "Streak Freeze allows your streak to remain in place for one full day of inactivity."
+      },
+      "double_xp": {
+        "title": "Double XP Boost",
+        "description": "Earn double XP for 15 minutes of learning."
+      }
+    },
+    "status": {
+      "full": "FULL",
+      "get_super": "GET SUPER",
+      "get_for": "GET FOR:",
+      "equipped": "EQUIPPED"
     }
   },
   "profile_page": {

@@ -6,6 +6,7 @@ import {
   GiftIcon,
   HomeIcon,
   LayoutGridIcon,
+  StoreIcon,
   TrophyIcon,
   UserIcon,
 } from 'lucide-react';
@@ -28,6 +29,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutGrid: LayoutGridIcon,
   Trophy: TrophyIcon,
   Gift: GiftIcon,
+  Store: StoreIcon,
   User: UserIcon,
 };
 
