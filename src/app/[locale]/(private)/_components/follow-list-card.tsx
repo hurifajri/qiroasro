@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Item,
   ItemContent,
@@ -55,13 +55,8 @@ export function FollowListCard({
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>
-          <h3 className="font-bold text-sm">{t('follow_list.title')}</h3>
-        </CardTitle>
-      </CardHeader>
       <CardContent>
-        <Tabs defaultValue="following">
+        <Tabs defaultValue="following" className="gap-4">
           <TabsList variant="line" className="w-full">
             <TabsTrigger value="following" className="flex-1">
               {t('follow_list.following')}
@@ -71,8 +66,8 @@ export function FollowListCard({
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="following" className="mt-4 flex flex-col gap-3">
-            <ItemGroup className="gap-0">
+          <TabsContent value="following" className="flex flex-col gap-4">
+            <ItemGroup className="gap-4">
               {following.map(renderFollowEntry)}
             </ItemGroup>
             {followingCount > following.length && (
@@ -87,8 +82,8 @@ export function FollowListCard({
             )}
           </TabsContent>
 
-          <TabsContent value="followers" className="mt-4 flex flex-col gap-3">
-            <ItemGroup className="gap-0">
+          <TabsContent value="followers" className="flex flex-col gap-4">
+            <ItemGroup className="gap-4">
               {followers.map(renderFollowEntry)}
             </ItemGroup>
             {followersCount > followers.length && (
