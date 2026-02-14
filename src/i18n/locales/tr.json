@@ -368,10 +368,6 @@
           "title": "Tema Seçimi",
           "description": "Uygulamayı açık veya koyu modda kullanmak için buradan tema seçin."
         },
-        "waitlist": {
-          "title": "Bekleme Listesi",
-          "description": "Uygulama hazır olduğunda size haber verebilmemiz için bu butona tıklayarak bekleme listesine katılın inşallah."
-        },
         "help": {
           "title": "Yardım",
           "description": "Rehberi yeniden başlatmak için bu butona tıklayın."

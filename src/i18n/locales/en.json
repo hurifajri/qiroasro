@@ -368,10 +368,6 @@
           "title": "Theme",
           "description": "Select between Light or Dark mode."
         },
-        "waitlist": {
-          "title": "Waitlist",
-          "description": "Click here to join the waitlist so we can notify you when the app is available, insyaa Allah."
-        },
         "help": {
           "title": "Help",
           "description": "Click here to restart the guide."
