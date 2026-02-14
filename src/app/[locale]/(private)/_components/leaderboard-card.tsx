@@ -2,7 +2,7 @@
 
 import { TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+import { Link } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import type { LeaderboardEntry, UserStats } from '../_schemas/private';
 import { LeaderboardRow } from './leaderboard-row';
 
@@ -38,9 +40,12 @@ export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
             <h3 className="font-bold">{leagueDisplayName}</h3>
           </CardTitle>
           <CardAction>
-            <Button variant="link" className="px-0">
+            <Link
+              href="/leaderboard"
+              className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
+            >
               {t('leaderboard.view_league')}
-            </Button>
+            </Link>
           </CardAction>
         </div>
         <CardDescription>{t('leaderboard.description')}</CardDescription>

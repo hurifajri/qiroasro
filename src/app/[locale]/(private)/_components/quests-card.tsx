@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+import { Link } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import type { Quest } from '../_schemas/private';
 import { QuestRow } from './quests-row';
 
@@ -28,9 +30,12 @@ export function QuestsCard({ quests }: QuestsCardProps) {
           <h3 className="font-bold">{t('daily_quests.title')}</h3>
         </CardTitle>
         <CardAction>
-          <Button variant="link" className="px-0">
+          <Link
+            href="/quests"
+            className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
+          >
             {t('daily_quests.view_all')}
-          </Button>
+          </Link>
         </CardAction>
       </CardHeader>
       <CardContent>
