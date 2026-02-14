@@ -6,13 +6,15 @@ import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
 import { StatList } from './stat-list';
 
-type PrivateProps = React.PropsWithChildren;
+type PrivateProps = React.PropsWithChildren & {
+  sidebar: React.ReactNode;
+};
 
 /**
  * Shared layout shell for private pages (learn, sections, profile, etc.)
  * Includes: left sidebar, stats bar header, right sidebar widgets, bottom nav
  */
-export function Private({ children }: PrivateProps) {
+export function Private({ children, sidebar }: PrivateProps) {
   const pathname = usePathname();
 
   // Update nav items based on current path
@@ -40,7 +42,7 @@ export function Private({ children }: PrivateProps) {
       </main>
 
       {/* Right Sidebar - Desktop only */}
-      <RightSidebar />
+      <RightSidebar>{sidebar}</RightSidebar>
 
       {/* Bottom Navigation - Mobile only */}
       <BottomNav items={navItems} />

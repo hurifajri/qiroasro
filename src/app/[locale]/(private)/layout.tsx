@@ -1,18 +1,18 @@
 import { setRequestLocale } from 'next-intl/server';
-import type { ReactNode } from 'react';
 import { Private } from './_components/private';
 
-type PrivateLayoutProps = {
-  children: ReactNode;
+type PrivateLayoutProps = React.PropsWithChildren & {
   params: Promise<{ locale: string }>;
+  sidebar: React.ReactNode;
 };
 
 export default async function PrivateLayout({
   children,
   params,
+  sidebar,
 }: PrivateLayoutProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return <Private>{children}</Private>;
+  return <Private sidebar={sidebar}>{children}</Private>;
 }
