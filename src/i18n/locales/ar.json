@@ -193,6 +193,28 @@
         "placeholder": "إعلان",
         "remove_ads": "إزالة الإعلانات"
       },
+      "profile_sidebar": {
+        "activity_feed": {
+          "title": "النشاط",
+          "celebrate": "احتفل",
+          "view_all": "عرض الكل"
+        },
+        "activity": {
+          "completed_streak": "أكمل سلسلة 500 يوم!",
+          "collected_badge": "حصل على شارة فبراير!"
+        },
+        "follow_list": {
+          "title": "الأصدقاء",
+          "following": "تتابع",
+          "followers": "المتابعون",
+          "view_more": "عرض {count} آخرين"
+        },
+        "add_friends": {
+          "title": "إضافة أصدقاء",
+          "find": "البحث عن أصدقاء",
+          "invite": "دعوة أصدقاء"
+        }
+      },
       "quests": {
         "earn_xp": {
           "title": "اكسب 10 نقاط خبرة",

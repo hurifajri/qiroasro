@@ -196,8 +196,8 @@
       "profile_sidebar": {
         "activity_feed": {
           "title": "Activity",
-          "celebrate": "CELEBRATE",
-          "view_all": "View all"
+          "celebrate": "Celebrate",
+          "view_all": "View All"
         },
         "activity": {
           "completed_streak": "Completed a 500 day streak!",
@@ -205,14 +205,14 @@
         },
         "follow_list": {
           "title": "Friends",
-          "following": "FOLLOWING",
-          "followers": "FOLLOWERS",
+          "following": "Following",
+          "followers": "Followers",
           "view_more": "View {count} more"
         },
         "add_friends": {
-          "title": "Add friends",
-          "find": "Find friends",
-          "invite": "Invite friends"
+          "title": "Add Friends",
+          "find": "Find Friends",
+          "invite": "Invite Friends"
         }
       },
       "quests": {

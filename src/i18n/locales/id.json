@@ -193,6 +193,28 @@
         "placeholder": "Iklan",
         "remove_ads": "Hapus Iklan"
       },
+      "profile_sidebar": {
+        "activity_feed": {
+          "title": "Aktivitas",
+          "celebrate": "Rayakan",
+          "view_all": "Lihat Semua"
+        },
+        "activity": {
+          "completed_streak": "Mencapai rekor 500 hari!",
+          "collected_badge": "Meraih lencana Februari!"
+        },
+        "follow_list": {
+          "title": "Teman",
+          "following": "Mengikuti",
+          "followers": "Pengikut",
+          "view_more": "Lihat {count} lagi"
+        },
+        "add_friends": {
+          "title": "Tambah Teman",
+          "find": "Cari Teman",
+          "invite": "Undang Teman"
+        }
+      },
       "quests": {
         "earn_xp": {
           "title": "Raih 10 XP",
