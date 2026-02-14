@@ -2,15 +2,26 @@
 
 import {
   BookOpenIcon,
+  CircleHelpIcon,
   DumbbellIcon,
+  EllipsisIcon,
   GiftIcon,
   HomeIcon,
   LayoutGridIcon,
+  LogOutIcon,
+  SettingsIcon,
   StoreIcon,
   TrophyIcon,
   UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Tooltip,
   TooltipContent,
@@ -35,6 +46,60 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 interface SidebarNavProps {
   items: NavItem[];
+}
+
+/**
+ * More menu dropdown component.
+ */
+function MoreMenu() {
+  const t = useTranslations('global.private_layout.nav');
+  const isLg = useMediaQuery('(width >= 64rem)');
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          className={cn(
+            'flex items-center gap-3 rounded-xl p-3 font-medium text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground',
+          )}
+        >
+          {isLg ? (
+            <EllipsisIcon className="size-6" />
+          ) : (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <EllipsisIcon className="size-6" />
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>{t('more')}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+          <span className="hidden lg:inline">{t('more')}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent side="right" align="start" className="w-48">
+        <DropdownMenuItem asChild>
+          <Link href="/settings" className="flex items-center gap-2">
+            <SettingsIcon className="size-4" />
+            {t('settings')}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/help" className="flex items-center gap-2">
+            <CircleHelpIcon className="size-4" />
+            {t('help')}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="flex items-center gap-2">
+          <LogOutIcon className="size-4" />
+          {t('logout')}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
 }
 
 /**
@@ -77,6 +142,9 @@ export function SidebarNav({ items }: SidebarNavProps) {
           </Link>
         );
       })}
+
+      {/* More menu */}
+      <MoreMenu />
     </nav>
   );
 }

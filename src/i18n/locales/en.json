@@ -165,7 +165,11 @@
         "leaderboard": "Leaderboard",
         "quests": "Quests",
         "shop": "Shop",
-        "profile": "Profile"
+        "profile": "Profile",
+        "more": "More",
+        "settings": "Settings",
+        "help": "Help",
+        "logout": "Log Out"
       },
       "level_card": {
         "title": "Level up with Super",

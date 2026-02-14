@@ -165,7 +165,11 @@
         "leaderboard": "Papan Pendahulu",
         "quests": "Misi",
         "shop": "Kedai",
-        "profile": "Profil"
+        "profile": "Profil",
+        "more": "Lagi",
+        "settings": "Tetapan",
+        "help": "Bantuan",
+        "logout": "Log Keluar"
       },
       "level_card": {
         "title": "Naik Tahap dengan Super",

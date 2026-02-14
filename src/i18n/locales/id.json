@@ -165,7 +165,11 @@
         "leaderboard": "Papan Peringkat",
         "quests": "Misi",
         "shop": "Toko",
-        "profile": "Profil"
+        "profile": "Profil",
+        "more": "Lainnya",
+        "settings": "Pengaturan",
+        "help": "Bantuan",
+        "logout": "Keluar"
       },
       "level_card": {
         "title": "Naik Level dengan Super",

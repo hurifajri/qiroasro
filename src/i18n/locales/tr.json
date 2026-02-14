@@ -165,7 +165,11 @@
         "leaderboard": "Liderlik Tablosu",
         "quests": "Görevler",
         "shop": "Mağaza",
-        "profile": "Profil"
+        "profile": "Profil",
+        "more": "Daha Fazla",
+        "settings": "Ayarlar",
+        "help": "Yardım",
+        "logout": "Çıkış Yap"
       },
       "level_card": {
         "title": "Super ile Yüksel",
