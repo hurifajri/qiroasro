@@ -164,6 +164,7 @@
         "reference": "Referensi",
         "leaderboard": "Papan Peringkat",
         "quests": "Misi",
+        "shop": "Toko",
         "profile": "Profil"
       },
       "level_card": {
@@ -186,6 +187,11 @@
       "daily_quests": {
         "title": "Misi Harian",
         "view_all": "Lihat Semua"
+      },
+      "ads": {
+        "title": "Temukan Lebih Banyak",
+        "placeholder": "Iklan",
+        "remove_ads": "Hapus Iklan"
       },
       "quests": {
         "earn_xp": {
@@ -699,6 +705,43 @@
         "title": "Olimpiade Musim Panas 2024",
         "date": "Agustus 2024"
       }
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Toko - Power-Ups & Item",
+      "description": "Beli hati, power-up, dan item lainnya untuk meningkatkan pengalaman belajar Anda."
+    },
+    "title": "Toko - Power-Ups & Item",
+    "sections": {
+      "hearts": "Hati",
+      "powerups": "Power-Ups"
+    },
+    "hearts": {
+      "refill": {
+        "title": "Isi Ulang Hati",
+        "description": "Dapatkan hati penuh agar tidak khawatir membuat kesalahan."
+      },
+      "unlimited": {
+        "title": "Hati Tak Terbatas",
+        "description": "Jangan pernah kehabisan hati dengan Super!"
+      }
+    },
+    "powerups": {
+      "streak_freeze": {
+        "title": "Pembeku Rekor",
+        "description": "Jaga rekor harianmu tetap aman meski absen satu hari."
+      },
+      "double_xp": {
+        "title": "Pengganda XP",
+        "description": "Dapatkan XP ganda selama 15 menit belajar."
+      }
+    },
+    "status": {
+      "full": "PENUH",
+      "get_super": "DAPATKAN SUPER",
+      "get_for": "TUKAR:",
+      "equipped": "TERPASANG"
     }
   },
   "profile_page": {

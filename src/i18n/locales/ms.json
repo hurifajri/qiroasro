@@ -164,6 +164,7 @@
         "reference": "Rujukan",
         "leaderboard": "Papan Pendahulu",
         "quests": "Misi",
+        "shop": "Kedai",
         "profile": "Profil"
       },
       "level_card": {
@@ -186,6 +187,11 @@
       "daily_quests": {
         "title": "Misi Harian",
         "view_all": "Lihat Semua"
+      },
+      "ads": {
+        "title": "Temui Lebih Banyak",
+        "placeholder": "Iklan",
+        "remove_ads": "Buang Iklan"
       },
       "quests": {
         "earn_xp": {
@@ -699,6 +705,43 @@
         "title": "Olimpiade Musim Panas 2024",
         "date": "Ogos 2024"
       }
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Kedai - Kuasa & Item",
+      "description": "Beli hati, kuasa tambahan, dan item lain untuk meningkatkan pengalaman pembelajaran anda."
+    },
+    "title": "Kedai - Kuasa & Item",
+    "sections": {
+      "hearts": "Hati",
+      "powerups": "Kuasa Tambahan"
+    },
+    "hearts": {
+      "refill": {
+        "title": "Isi Semula Hati",
+        "description": "Dapatkan hati penuh supaya tidak risau melakukan kesilapan."
+      },
+      "unlimited": {
+        "title": "Hati Tanpa Had",
+        "description": "Tidak akan kehabisan hati dengan Super!"
+      }
+    },
+    "powerups": {
+      "streak_freeze": {
+        "title": "Pembeku Rekod",
+        "description": "Kekalkan rekod harian anda walaupun tidak aktif selama sehari."
+      },
+      "double_xp": {
+        "title": "Gandaan XP",
+        "description": "Raih XP berganda selama 15 minit pembelajaran."
+      }
+    },
+    "status": {
+      "full": "PENUH",
+      "get_super": "DAPATKAN SUPER",
+      "get_for": "DAPATKAN:",
+      "equipped": "DILENGKAPI"
     }
   },
   "profile_page": {

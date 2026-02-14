@@ -189,9 +189,9 @@
         "view_all": "VIEW ALL"
       },
       "ads": {
-        "title": "Discover more",
-        "placeholder": "Ad space",
-        "remove_ads": "REMOVE ADS"
+        "title": "Discover More",
+        "placeholder": "Advertisement",
+        "remove_ads": "Remove Ads"
       },
       "quests": {
         "earn_xp": {
@@ -720,7 +720,7 @@
     "hearts": {
       "refill": {
         "title": "Refill Hearts",
-        "description": "Get full hearts so you can worry less about making mistakes in a lesson"
+        "description": "Restore full hearts to worry less about making mistakes."
       },
       "unlimited": {
         "title": "Unlimited Hearts",
@@ -730,7 +730,7 @@
     "powerups": {
       "streak_freeze": {
         "title": "Streak Freeze",
-        "description": "Streak Freeze allows your streak to remain in place for one full day of inactivity."
+        "description": "Keep your streak alive for one full day of inactivity."
       },
       "double_xp": {
         "title": "Double XP Boost",

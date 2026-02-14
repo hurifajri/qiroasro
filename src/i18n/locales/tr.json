@@ -164,6 +164,7 @@
         "reference": "Referans",
         "leaderboard": "Liderlik Tablosu",
         "quests": "Görevler",
+        "shop": "Mağaza",
         "profile": "Profil"
       },
       "level_card": {
@@ -186,6 +187,11 @@
       "daily_quests": {
         "title": "Günlük Görevler",
         "view_all": "Tümünü Gör"
+      },
+      "ads": {
+        "title": "Daha Fazlasını Keşfet",
+        "placeholder": "Reklam",
+        "remove_ads": "Reklamları Kaldır"
       },
       "quests": {
         "earn_xp": {
@@ -699,6 +705,43 @@
         "title": "2024 Yaz Olimpiyatları",
         "date": "Ağustos 2024"
       }
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Mağaza - Güçlendirmeler & Eşyalar",
+      "description": "Öğrenme deneyiminizi geliştirmek için can, güçlendirme ve diğer eşyaları satın alın."
+    },
+    "title": "Mağaza - Güçlendirmeler",
+    "sections": {
+      "hearts": "Canlar",
+      "powerups": "Güçlendirmeler"
+    },
+    "hearts": {
+      "refill": {
+        "title": "Canları Doldur",
+        "description": "Hata yapmaktan korkmadan öğrenmek için canları fulle."
+      },
+      "unlimited": {
+        "title": "Sınırsız Can",
+        "description": "Super ile canların asla bitmesin!"
+      }
+    },
+    "powerups": {
+      "streak_freeze": {
+        "title": "Seri Dondurucu",
+        "description": "Bir gün pratik yapmasan bile serini korur."
+      },
+      "double_xp": {
+        "title": "Çifte XP Desteği",
+        "description": "15 dakikalık öğrenim boyunca iki kat XP kazan."
+      }
+    },
+    "status": {
+      "full": "DOLU",
+      "get_super": "SUPER AL",
+      "get_for": "SATIN AL:",
+      "equipped": "KUŞANILDI"
     }
   },
   "profile_page": {
