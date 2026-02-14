@@ -162,6 +162,7 @@
         "sections": "Bölümler",
         "practice": "Pratik",
         "reference": "Referans",
+        "quests": "Görevler",
         "profile": "Profil"
       },
       "level_card": {
@@ -667,6 +668,44 @@
       "wildfire": {
         "title": "Alev",
         "description": "365 günlük bir seriye ulaştın"
+      }
+    }
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "Günlük Görevler ve Meydan Okumalar",
+      "description": "Ödüller ve rozetler kazanmak için günlük görevleri ve aylık meydan okumaları tamamlayın."
+    },
+    "title": "Görevler - Günlük Meydan Okumalar",
+    "monthly_quest": {
+      "february_quest": "Şubat Görevi"
+    },
+    "days_remaining": "{count} Gün",
+    "hours_remaining": "{count} Saat",
+    "daily_quests": "Günlük Görevler",
+    "monthly_badges": "Aylık Rozetler",
+    "view_all": "Tümünü Gör",
+    "complete_quests": "{target} görev tamamla",
+    "badges": {
+      "oscars_final_rose": {
+        "title": "Oscar'ın Son Gülü",
+        "date": "Şubat 2025"
+      },
+      "duos_frozen_winter": {
+        "title": "Duo'nun Donmuş Kışı",
+        "date": "Ocak 2025"
+      },
+      "oscars_ode_to_botticelli": {
+        "title": "Oscar'dan Botticelli'ye Övgü",
+        "date": "Kasım 2024"
+      },
+      "duocon_2024": {
+        "title": "Duocon 2024",
+        "date": "Eylül 2024"
+      },
+      "summer_owlympics": {
+        "title": "2024 Yaz Olimpiyatları",
+        "date": "Ağustos 2024"
       }
     }
   }

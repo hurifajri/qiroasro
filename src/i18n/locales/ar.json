@@ -162,6 +162,7 @@
         "sections": "الأقسام",
         "practice": "التدريب",
         "reference": "المراجع",
+        "quests": "المهام",
         "profile": "الملف الشخصي"
       },
       "level_card": {
@@ -667,6 +668,44 @@
       "wildfire": {
         "title": "شعلة الحماس",
         "description": "لقد وصلت إلى سلسلة 365 يوماً"
+      }
+    }
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "المهام اليومية والتحديات",
+      "description": "أكمل المهام اليومية والتحديات الشهرية لكسب الجوائز والشارات."
+    },
+    "title": "المهام - التحديات اليومية",
+    "monthly_quest": {
+      "february_quest": "مهمة فبراير"
+    },
+    "days_remaining": "{count} يوم",
+    "hours_remaining": "{count} ساعة",
+    "daily_quests": "المهام اليومية",
+    "monthly_badges": "الشارات الشهرية",
+    "view_all": "عرض الكل",
+    "complete_quests": "أكمل {target} مهام",
+    "badges": {
+      "oscars_final_rose": {
+        "title": "وردة أوسكار الأخيرة",
+        "date": "فبراير 2025"
+      },
+      "duos_frozen_winter": {
+        "title": "شتاء دو المتجمد",
+        "date": "يناير 2025"
+      },
+      "oscars_ode_to_botticelli": {
+        "title": "قصيدة أوسكار لبوتيتشيلي",
+        "date": "نوفمبر 2024"
+      },
+      "duocon_2024": {
+        "title": "دوكون 2024",
+        "date": "سبتمبر 2024"
+      },
+      "summer_owlympics": {
+        "title": "أولمبياد صيف 2024",
+        "date": "أغسطس 2024"
       }
     }
   }

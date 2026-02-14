@@ -5,6 +5,7 @@ import {
   DumbbellIcon,
   HomeIcon,
   LayoutGridIcon,
+  TrophyIcon,
   UserIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -24,6 +25,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   BookOpen: BookOpenIcon,
   Dumbbell: DumbbellIcon,
   LayoutGrid: LayoutGridIcon,
+  Trophy: TrophyIcon,
   User: UserIcon,
 };
 
