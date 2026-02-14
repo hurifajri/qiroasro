@@ -42,7 +42,7 @@ export function TargetQuizNode({ data }: NodeProps) {
               setIsDialogOpen(true);
             }}
             className={cn(
-              'nodrag size-5 cursor-pointer',
+              'nodrag size-5 animate-node-appendix-pulse cursor-pointer transition-transform',
               nodeData.type === 'trait' && 'text-node-trait/50',
               nodeData.type === 'articulation_point' &&
                 'text-node-articulation/50',

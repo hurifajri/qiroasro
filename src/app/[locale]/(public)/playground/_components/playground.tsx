@@ -5,7 +5,6 @@ import {
   Background,
   BackgroundVariant,
   Controls,
-  type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
@@ -14,18 +13,17 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
-  useOnViewportChange,
   useReactFlow,
 } from '@xyflow/react';
 import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { getIsMobile } from '@/lib/device';
 import { cn } from '@/lib/utils';
 import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
@@ -40,14 +38,13 @@ import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
+import { MobileUnsupported } from './mobile-unsupported';
 import {
   ArticulationAreaNode,
   ArticulationPointNode,
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
-import { FloatingConnectionLine } from './ui/floating-connection-line';
-import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -73,15 +70,11 @@ const nodeTypes: NodeTypes = {
   trait: TraitNode,
 };
 
-// Register custom edge types
-const edgeTypes: EdgeTypes = {
-  floating: FloatingEdge,
-};
-
 export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
+  const isMobile = useIsMobile();
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
@@ -101,9 +94,6 @@ export function Playground() {
   );
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
-  const getEffectiveEdgeType = usePlaygroundStore(
-    (s) => s.getEffectiveEdgeType,
-  );
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
@@ -136,20 +126,6 @@ export function Playground() {
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
-
-  // Interaction state for dimming
-  const [isMoving, setIsMoving] = useState(false);
-  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
-
-  // Handle viewport changes (pan/zoom) using React Flow's built-in hook
-  useOnViewportChange({
-    onChange: useCallback(() => {
-      if (!isMoving) setIsMoving(true);
-    }, [isMoving]),
-    onEnd: useCallback(() => {
-      if (isMoving) setIsMoving(false);
-    }, [isMoving]),
-  });
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -185,13 +161,14 @@ export function Playground() {
       });
 
       // Apply layout based on mode
+      // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
         layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
       } else {
         layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
           direction: hierarchyDirection,
-          nodeSpacing: 60,
+          nodeSpacing: 30,
           layerSpacing: viewMode === 'letter' ? 200 : 600,
         });
       }
@@ -205,7 +182,6 @@ export function Playground() {
         ...node,
         data: {
           ...node.data,
-          isFloating: edgeStyle.isFloating,
           layoutMode,
           hierarchyDirection,
           hasSourceEdge: nodesWithSourceEdge.has(node.id),
@@ -214,10 +190,9 @@ export function Playground() {
       }));
 
       // Apply edge type based on current edgeStyle
-      const effectiveEdgeType = getEffectiveEdgeType();
       const edgesWithStyle = newEdges.map((edge) => ({
         ...edge,
-        type: effectiveEdgeType,
+        type: edgeStyle.shape,
         animated: edgeStyle.isAnimated,
       }));
 
@@ -234,7 +209,6 @@ export function Playground() {
     viewMode,
     layoutMode,
     hierarchyDirection,
-    edgeStyle.isFloating,
     edgeStyle.shape,
     selectedLetterId,
   ]);
@@ -242,30 +216,7 @@ export function Playground() {
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedNodes = useMemo(() => {
-    const isMobile = getIsMobile();
-
     return nodes.map((node) => {
-      // Hide during pan/zoom (mobile only for performance)
-      if (
-        isMobile &&
-        isMoving &&
-        node.type !== 'letter' &&
-        viewMode !== 'letter'
-      ) {
-        // Only create new object if hidden state changed
-        if (node.hidden === true) return node;
-        return { ...node, hidden: true };
-      }
-
-      // Hide during drag (except the node being dragged)
-      if (isMobile && draggingNodeId && viewMode !== 'letter') {
-        const isDragged = node.id === draggingNodeId;
-        const shouldHide = !isDragged;
-        // Only create new object if hidden state changed
-        if (node.hidden === shouldHide) return node;
-        return { ...node, hidden: shouldHide };
-      }
-
       const isSelected = node.id === selectedNodeId;
       const isConnected = connectedNodeIds.has(node.id);
       const shouldHighlight = isSelected || isConnected;
@@ -292,30 +243,12 @@ export function Playground() {
         },
       };
     });
-  }, [
-    nodes,
-    connectedNodeIds,
-    selectedNodeId,
-    isMoving,
-    draggingNodeId,
-    viewMode,
-  ]);
+  }, [nodes, connectedNodeIds, selectedNodeId]);
 
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
-    const isMobile = getIsMobile();
-    const shouldHideAll =
-      isMobile && (isMoving || draggingNodeId) && viewMode !== 'letter';
-
     return edges.map((edge) => {
-      // Hide during pan/zoom or drag (mobile only for performance)
-      if (shouldHideAll) {
-        // Only create new object if hidden state changed
-        if (edge.hidden === true) return edge;
-        return { ...edge, hidden: true };
-      }
-
       const isConnected = connectedEdgeIds.has(edge.id);
       const targetStrokeWidth = isConnected ? 3 : 1;
       const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
@@ -343,15 +276,7 @@ export function Playground() {
         animated: targetAnimated,
       };
     });
-  }, [
-    edges,
-    connectedEdgeIds,
-    selectedNodeId,
-    edgeStyle.isAnimated,
-    isMoving,
-    draggingNodeId,
-    viewMode,
-  ]);
+  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated]);
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -389,41 +314,19 @@ export function Playground() {
     }, 100);
   }, [edges, updateHighlight]);
 
-  // Handle node drag start
-  const handleNodeDragStart = useCallback(
-    (_event: React.MouseEvent, node: FlowNode) => {
-      setDraggingNodeId(node.id);
-    },
-    [],
-  );
-
-  // Handle node drag stop
-  const handleNodeDragStop = useCallback(() => {
-    setDraggingNodeId(null);
-  }, []);
-
   // Memoized letters for filter
   const memoizedLetters = useMemo(() => letters, [letters]);
-
-  // Compute the edge type based on settings
-  const computedEdgeType = useMemo(() => {
-    return getEffectiveEdgeType();
-  }, [getEffectiveEdgeType]);
 
   // Memoize defaultEdgeOptions to prevent new object reference on every render
   const defaultEdgeOptions = useMemo(
     () => ({
-      type: computedEdgeType,
+      type: edgeStyle.shape,
       animated: edgeStyle.isAnimated,
     }),
-    [computedEdgeType, edgeStyle.isAnimated],
+    [edgeStyle.shape, edgeStyle.isAnimated],
   );
 
-  // Memoize connectionLineComponent to prevent new reference on every render
-  const connectionLineComponent = useMemo(
-    () => (edgeStyle.isFloating ? FloatingConnectionLine : undefined),
-    [edgeStyle.isFloating],
-  );
+  const isUnsupportedMobileView = isMobile && viewMode !== 'letter';
 
   return (
     <>
@@ -440,25 +343,20 @@ export function Playground() {
             colorMode={theme}
             fitView
             fitViewOptions={{ padding: 0.2 }}
-            nodes={highlightedNodes}
-            edges={highlightedEdges}
+            nodes={isUnsupportedMobileView ? [] : highlightedNodes}
+            edges={isUnsupportedMobileView ? [] : highlightedEdges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
-            onNodeDragStart={handleNodeDragStart}
-            onNodeDragStop={handleNodeDragStop}
-            connectionLineComponent={connectionLineComponent}
             defaultEdgeOptions={defaultEdgeOptions}
             onlyRenderVisibleElements
             edgesFocusable={false}
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={getIsMobile() && viewMode !== 'letter' ? 0.1 : 0.3}
-            maxZoom={getIsMobile() && viewMode !== 'letter' ? 0.2 : 1}
+            minZoom={0.1}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
@@ -481,47 +379,54 @@ export function Playground() {
                 onEdgeStyleChange={setEdgeStyle}
                 onLetterSelect={setSelectedLetterId}
               />
-              <GraphLegend dir={dir} viewMode={viewMode} />
-            </Panel>
 
-            <Panel
-              position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
-              className={cn(
-                'm-0! flex flex-col gap-2 p-3',
-                dir === 'ltr' ? 'items-start' : 'items-end',
+              {!isUnsupportedMobileView && (
+                <GraphLegend dir={dir} viewMode={viewMode} />
               )}
-            >
-              <Button
-                id="tour-quiz"
-                dir={dir}
-                size="sm"
-                onClick={handleOpenQuizDialog}
-                className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
-              >
-                <TrophyIcon className="size-4" />
-                {t('quiz.trigger')}
-              </Button>
-              <GraphDownload />
-              <Button
-                id="tour-help"
-                dir={dir}
-                variant="outline"
-                size="sm"
-                onClick={startTour}
-                className="bg-background!"
-              >
-                <CircleHelpIcon className="size-4" />
-                {t('tour.help_button')}
-              </Button>
             </Panel>
 
-            <Panel
-              id="tour-controls"
-              position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
-              className="m-3!"
-            >
-              <Controls className="static! m-0!" />
-            </Panel>
+            {!isUnsupportedMobileView && (
+              <>
+                <Panel
+                  position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
+                  className={cn(
+                    'm-0! flex flex-col gap-2 p-3',
+                    dir === 'ltr' ? 'items-start' : 'items-end',
+                  )}
+                >
+                  <Button
+                    id="tour-quiz"
+                    dir={dir}
+                    size="sm"
+                    onClick={handleOpenQuizDialog}
+                    className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
+                  >
+                    <TrophyIcon className="size-4" />
+                    {t('quiz.trigger')}
+                  </Button>
+                  <GraphDownload />
+                  <Button
+                    id="tour-help"
+                    dir={dir}
+                    variant="outline"
+                    size="sm"
+                    onClick={startTour}
+                    className="bg-background!"
+                  >
+                    <CircleHelpIcon className="size-4" />
+                    {t('tour.help_button')}
+                  </Button>
+                </Panel>
+
+                <Panel
+                  id="tour-controls"
+                  position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
+                  className="m-3!"
+                >
+                  <Controls className="static! m-0!" />
+                </Panel>
+              </>
+            )}
 
             {/* <MiniMap
               position="bottom-left"
@@ -555,6 +460,12 @@ export function Playground() {
               gap={20}
               size={1}
             />
+
+            {isUnsupportedMobileView && (
+              <MobileUnsupported
+                onSwitchToLetter={() => setViewMode('letter')}
+              />
+            )}
           </ReactFlow>
         </div>
       )}

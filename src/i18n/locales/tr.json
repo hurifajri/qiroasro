@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "E-posta",
-      "waitlist": "Bekleme Listesi",
-      "more_comprehensive": "Daha kapsamlısını mı arıyorsunuz?",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
       "reminder_cta": "Listeye Katıl",
       "reminder_playground_cta": "Playground'a Git",
@@ -334,8 +332,10 @@
       "trigger": "Görüntüyü İndir",
       "downloading": "İndiriliyor..."
     },
-    "development": {
-      "more_comprehensive": "Daha kapsamlısını mı istiyorsunuz?"
+    "mobile_unsupported": {
+      "title": "Masaüstü Önerilir",
+      "description": "Bu görselleştirme büyük ekranlarda daha iyi görüntülenir. Lütfen Harf moduna geçin veya en iyi deneyim için masaüstü cihaz kullanın.",
+      "switch_to_letter": "Harf Moduna Geç"
     },
     "error": {
       "title": "Bir hata oluştu",
@@ -412,10 +412,6 @@
         "theme_selector": {
           "title": "Tema Seçimi",
           "description": "Uygulamayı açık veya koyu modda kullanmak için buradan tema seçin."
-        },
-        "waitlist": {
-          "title": "Bekleme Listesi",
-          "description": "Uygulama hazır olduğunda size haber verebilmemiz için bu butona tıklayarak bekleme listesine katılın inşallah."
         },
         "help": {
           "title": "Yardım",

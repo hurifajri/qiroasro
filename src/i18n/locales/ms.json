@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "E-mel",
-      "waitlist": "Senarai Menunggu",
-      "more_comprehensive": "Inginkan yang lebih komprehensif?",
       "reminder_title": "Beritahu apabila aplikasi tersedia",
       "reminder_cta": "Sertai Senarai",
       "reminder_playground_cta": "Ke Playground",
@@ -334,8 +332,10 @@
       "trigger": "Muat Turun Imej",
       "downloading": "Sedang memuat turun..."
     },
-    "development": {
-      "more_comprehensive": "Inginkan yang lebih komprehensif?"
+    "mobile_unsupported": {
+      "title": "Lebih Baik di Desktop",
+      "description": "Paparan visual ini lebih selesa dilihat pada skrin besar. Sila tukar ke mod Huruf atau gunakan peranti desktop untuk pengalaman terbaik.",
+      "switch_to_letter": "Tukar ke Mod Huruf"
     },
     "error": {
       "title": "Berlaku Ralat",
@@ -412,10 +412,6 @@
         "theme_selector": {
           "title": "Pilih Tema",
           "description": "Pilih tema antara mod terang atau gelap."
-        },
-        "waitlist": {
-          "title": "Senarai Menunggu",
-          "description": "Klik butang ini untuk mendaftar ke senarai menunggu agar kami dapat memberitahu apabila aplikasi sudah tersedia."
         },
         "help": {
           "title": "Bantuan",

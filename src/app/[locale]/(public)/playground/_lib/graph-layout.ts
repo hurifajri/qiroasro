@@ -126,6 +126,7 @@ export function applyRadialLayout(
   nodes: Node[],
   centerX: number,
   centerY: number,
+  scale = 1,
 ): Node[] {
   // Group nodes by type
   const nodesByType = new Map<string, Node[]>();
@@ -149,7 +150,7 @@ export function applyRadialLayout(
   const layoutedNodes: Node[] = [];
 
   for (const [type, typeNodes] of nodesByType) {
-    const radius = ringConfig[type] || 300;
+    const radius = (ringConfig[type] || 300) * scale;
     typeNodes.forEach((node, index) => {
       const angle = (2 * Math.PI * index) / typeNodes.length - Math.PI / 2;
       layoutedNodes.push({

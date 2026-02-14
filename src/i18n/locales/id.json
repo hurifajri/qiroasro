@@ -144,8 +144,6 @@
     },
     "development": {
       "email_placeholder": "Email",
-      "waitlist": "Waitlist",
-      "more_comprehensive": "Mau yang lebih komprehensif?",
       "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
       "reminder_cta": "Waitlist",
       "reminder_playground_cta": "Ke Playground",
@@ -334,8 +332,10 @@
       "trigger": "Unduh Gambar",
       "downloading": "Mengunduh..."
     },
-    "development": {
-      "more_comprehensive": "Mau yang lebih komprehensif?"
+    "mobile_unsupported": {
+      "title": "Lebih Optimal di Desktop",
+      "description": "Visualisasi ini lebih nyaman dilihat di layar besar. Silakan beralih ke mode Huruf atau gunakan perangkat desktop untuk pengalaman terbaik.",
+      "switch_to_letter": "Beralih ke Mode Huruf"
     },
     "error": {
       "title": "Terjadi Kesalahan",
@@ -412,10 +412,6 @@
         "theme_selector": {
           "title": "Pilih Tema",
           "description": "Pilih tema untuk menggunakan aplikasi dalam tema yang diinginkan. Tersedia tema terang dan gelap."
-        },
-        "waitlist": {
-          "title": "Waitlist",
-          "description": "Klik tombol ini untuk mendaftar ke waitlist agar kami dapat memberitahu ketika aplikasi sudah tersedia, insyaa Allah."
         },
         "help": {
           "title": "Bantuan",
