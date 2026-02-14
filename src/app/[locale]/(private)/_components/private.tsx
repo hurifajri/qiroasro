@@ -2,12 +2,12 @@
 
 import { useMobile } from '@/hooks/use-mobile';
 import { usePathname } from '@/i18n/navigation';
-import { MOCK_NAV_ITEMS, MOCK_USER_STATS } from '../_lib/mock-data';
+import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
-import { StatList } from './stat-list';
 
 type PrivateProps = React.PropsWithChildren & {
+  header: React.ReactNode;
   sidebar: React.ReactNode;
 };
 
@@ -15,7 +15,7 @@ type PrivateProps = React.PropsWithChildren & {
  * Shared layout shell for private pages (learn, sections, profile, etc.)
  * Includes: left sidebar, stats bar header, right sidebar widgets, bottom nav
  */
-export function Private({ children, sidebar }: PrivateProps) {
+export function Private({ children, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
   const isMobile = useMobile();
 
@@ -36,6 +36,8 @@ export function Private({ children, sidebar }: PrivateProps) {
     ].includes(item.id),
   );
 
+  const hasMobileHeader = !['/leaderboard', '/quests'].includes(pathname);
+
   return (
     <div className="flex min-h-dvh bg-background">
       {/* Left Sidebar - Desktop only */}
@@ -44,9 +46,9 @@ export function Private({ children, sidebar }: PrivateProps) {
       {/* Main Content */}
       <main className="flex-1">
         {/* Top Stats Bar */}
-        {isMobile && (
+        {isMobile && hasMobileHeader && (
           <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
-            <StatList stats={MOCK_USER_STATS} />
+            {header}
           </header>
         )}
 
