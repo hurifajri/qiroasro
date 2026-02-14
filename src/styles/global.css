@@ -203,6 +203,30 @@
   }
 }
 
+/* Node Appendix - Question Mark Button Animation */
+@keyframes node-appendix-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.animate-node-appendix-pulse {
+  animation: node-appendix-pulse 0.8s ease-in-out 3;
+  animation-fill-mode: forwards;
+}
+
+.animate-node-appendix-pulse:hover {
+  animation-play-state: paused;
+  transform: scale(1.2);
+  opacity: 1;
+}
+
 /* ============================================
    Driver.js Theme Styles
    ============================================ */

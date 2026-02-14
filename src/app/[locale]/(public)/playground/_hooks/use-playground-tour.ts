@@ -3,9 +3,11 @@
 import type { ColorMode } from '@xyflow/react';
 import type { Driver, DriveStep } from 'driver.js';
 import { useLocale, useTranslations } from 'next-intl';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
+const TOUR_COMPLETED_KEY = 'playground_tour-completed';
 
 // Helper to check if an element is visible in DOM
 function isElementVisible(selector: string): boolean {
@@ -103,7 +105,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
               const buttons = document.querySelectorAll(
                 '#tour-view-mode button',
               );
-              const trigger = buttons[buttons.length - 1];
+              const trigger = buttons[0];
               flashElement(trigger);
               return;
             }
@@ -130,7 +132,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
               const buttons = document.querySelectorAll(
                 '#tour-layout-mode button',
               );
-              const trigger = buttons[buttons.length - 1];
+              const trigger = buttons[0];
               flashElement(trigger);
               return;
             }
@@ -163,23 +165,6 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           },
         },
       },
-      // {
-      //   element: '#tour-edge-style',
-      //   popover: {
-      //     title: t('steps.edge_style.title'),
-      //     description: t('steps.edge_style.description'),
-      //     onNextClick: () => {
-      //       // Check if settings panel content is visible (user has opened it)
-      //       if (!isElementVisible('#tour-edge-shape')) {
-      //         // Flash the trigger to indicate user needs to click it
-      //         const trigger = document.querySelector('#tour-edge-style button');
-      //         flashElement(trigger);
-      //         return;
-      //       }
-      //       driverRef.current?.moveNext();
-      //     },
-      //   },
-      // },
       {
         element: '#tour-edge-shape',
         popover: {
@@ -246,14 +231,6 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         disableActiveInteraction: true,
       },
       {
-        element: '#tour-waitlist-button',
-        popover: {
-          title: t('steps.waitlist.title'),
-          description: t('steps.waitlist.description'),
-        },
-        disableActiveInteraction: true,
-      },
-      {
         element: '#tour-help',
         popover: {
           title: t('steps.help.title'),
@@ -270,7 +247,8 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
     ];
   }
 
-  async function startTour() {
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <ignore>
+  const startTour = useCallback(async () => {
     // Destroy existing driver if any
     if (driverRef.current) {
       driverRef.current.destroy();
@@ -295,15 +273,31 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       popoverClass: `driverjs-theme ${dir === 'rtl' ? 'driverjs-rtl' : ''}`,
       overlayColor: theme === 'dark' ? 'white' : 'black',
       steps: getTourSteps(),
+      onDestroyStarted: () => {
+        // Mark tour as completed when user finishes or dismisses
+        localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+        driverRef.current?.destroy();
+      },
     });
 
     driverRef.current = driverInstance;
     driverInstance.drive();
-  }
+  }, []);
 
-  // Cleanup on unmount
+  // Auto-start tour on first visit
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <ignore>
   useEffect(() => {
+    const hasCompletedTour = localStorage.getItem(TOUR_COMPLETED_KEY);
+    if (hasCompletedTour) return;
+
+    // Delay to allow the graph to render before starting the tour
+    const timeout = setTimeout(() => {
+      startTour();
+    }, 1000);
+
+    // Cleanup on unmount
     return () => {
+      clearTimeout(timeout);
       if (driverRef.current) {
         driverRef.current.destroy();
       }

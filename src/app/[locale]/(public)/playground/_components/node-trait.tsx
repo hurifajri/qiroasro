@@ -83,7 +83,7 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
               onClick={() => {
                 setIsDialogOpen(true);
               }}
-              className="nodrag size-5 cursor-pointer text-node-trait/50"
+              className="nodrag size-5 animate-node-appendix-pulse cursor-pointer text-node-trait/50 transition-transform"
             />
           </NodeAppendix>
         )}
