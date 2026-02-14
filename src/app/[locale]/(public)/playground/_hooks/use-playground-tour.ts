@@ -105,7 +105,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
               const buttons = document.querySelectorAll(
                 '#tour-view-mode button',
               );
-              const trigger = buttons[buttons.length - 1];
+              const trigger = buttons[0];
               flashElement(trigger);
               return;
             }
@@ -132,7 +132,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
               const buttons = document.querySelectorAll(
                 '#tour-layout-mode button',
               );
-              const trigger = buttons[buttons.length - 1];
+              const trigger = buttons[0];
               flashElement(trigger);
               return;
             }
@@ -282,9 +282,10 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
     driverRef.current = driverInstance;
     driverInstance.drive();
-  }, [dir, theme]);
+  }, []);
 
   // Auto-start tour on first visit
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <ignore>
   useEffect(() => {
     const hasCompletedTour = localStorage.getItem(TOUR_COMPLETED_KEY);
     if (hasCompletedTour) return;
@@ -294,12 +295,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       startTour();
     }, 1000);
 
-    return () => clearTimeout(timeout);
-  }, [startTour]);
-
-  // Cleanup on unmount
-  useEffect(() => {
+    // Cleanup on unmount
     return () => {
+      clearTimeout(timeout);
       if (driverRef.current) {
         driverRef.current.destroy();
       }
