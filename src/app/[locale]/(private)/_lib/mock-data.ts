@@ -100,10 +100,10 @@ export const MOCK_NAV_ITEMS: NavItem[] = [
     isActive: true,
   },
   {
-    id: 'sections',
-    labelKey: 'nav.sections',
-    iconName: 'LayoutGrid',
-    href: '/sections',
+    id: 'reference',
+    labelKey: 'nav.reference',
+    iconName: 'BookOpen',
+    href: '/reference',
     isActive: false,
   },
   {
@@ -111,13 +111,6 @@ export const MOCK_NAV_ITEMS: NavItem[] = [
     labelKey: 'nav.practice',
     iconName: 'Dumbbell',
     href: '/practice',
-    isActive: false,
-  },
-  {
-    id: 'reference',
-    labelKey: 'nav.reference',
-    iconName: 'BookOpen',
-    href: '/reference',
     isActive: false,
   },
   {
