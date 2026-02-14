@@ -1,0 +1,64 @@
+import { Calendar } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
+import type { UserProfile } from '../_schemas/profile';
+
+interface UserInfoProps {
+  user: UserProfile;
+}
+
+export function UserInfo({ user }: UserInfoProps) {
+  const t = useTranslations('profile_page');
+
+  // Extract initials from display name
+  const initials = user.displayName
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+
+  // Format joined date
+  const joinedYear = new Date(user.joinedDate).getFullYear();
+  const joinedMonth = new Date(user.joinedDate).toLocaleDateString('en-US', {
+    month: 'long',
+  });
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Avatar & Name */}
+      <div className="flex items-start gap-4">
+        <Avatar className="size-20 ring-2 ring-border">
+          <AvatarImage src={user.avatarUrl} alt={user.displayName} />
+          <AvatarFallback className="bg-primary/10 font-bold text-2xl text-primary">
+            {initials}
+          </AvatarFallback>
+        </Avatar>
+
+        <div className="flex flex-col gap-1">
+          <h2 className="font-bold text-2xl">{user.displayName}</h2>
+          <p className="text-muted-foreground">{user.username}</p>
+          <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+            <Calendar className="size-4" />
+            <span>{t('joined', { date: `${joinedMonth} ${joinedYear}` })}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Following & Followers */}
+      <div className="flex items-center gap-4 text-sm">
+        <div className="flex items-center gap-1.5">
+          <span className="font-bold text-primary">{user.followingCount}</span>
+          <span className="text-muted-foreground">{t('following')}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="font-bold text-primary">{user.followersCount}</span>
+          <span className="text-muted-foreground">{t('followers')}</span>
+        </div>
+      </div>
+
+      <Separator />
+    </div>
+  );
+}

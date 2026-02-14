@@ -1,0 +1,63 @@
+import type { InferOutput } from 'valibot';
+import { array, integer, number, object, pipe, string } from 'valibot';
+
+/**
+ * User profile schema
+ */
+export const UserProfileSchema = object({
+  username: string(),
+  displayName: string(),
+  avatarUrl: string(),
+  joinedDate: string(), // ISO date string
+  followingCount: pipe(number(), integer()),
+  followersCount: pipe(number(), integer()),
+});
+
+export type UserProfile = InferOutput<typeof UserProfileSchema>;
+
+/**
+ * Statistic schema
+ */
+export const StatisticSchema = object({
+  id: string(),
+  label: string(),
+  value: pipe(number(), integer()),
+  icon: string(), // lucide icon name
+});
+
+export type Statistic = InferOutput<typeof StatisticSchema>;
+
+/**
+ * Friend suggestion schema
+ */
+export const FriendSuggestionSchema = object({
+  id: string(),
+  username: string(),
+  displayName: string(),
+  avatarUrl: string(),
+  mutualFriendsCount: pipe(number(), integer()),
+  isFollowing: string(), // 'true' | 'false'
+});
+
+export type FriendSuggestion = InferOutput<typeof FriendSuggestionSchema>;
+
+/**
+ * Achievement schema
+ */
+export const AchievementSchema = object({
+  id: string(),
+  titleKey: string(), // i18n key
+  descriptionKey: string(), // i18n key
+  iconBg: string(), // Tailwind color
+  iconEmoji: string(),
+  level: pipe(number(), integer()),
+});
+
+export type Achievement = InferOutput<typeof AchievementSchema>;
+
+/**
+ * Collection schemas
+ */
+export const StatisticsSchema = array(StatisticSchema);
+export const FriendSuggestionsSchema = array(FriendSuggestionSchema);
+export const AchievementsSchema = array(AchievementSchema);

@@ -641,5 +641,33 @@
       "nun_ghunna": "Nun Ghunnah",
       "mim_ghunna": "Mim Ghunnah"
     }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Profil Pengguna",
+      "description": "Lihat statistik pengguna, pencapaian, dan saran teman."
+    },
+    "title": "Profil - Statistik Pengguna",
+    "statistics": "Statistik",
+    "friend_suggestions": "Saran Teman",
+    "achievements": "Pencapaian",
+    "view_all": "Lihat Semua",
+    "follow": "Ikuti",
+    "following": "Mengikuti",
+    "followers": "Pengikut",
+    "joined": "Bergabung {date}",
+    "stats": {
+      "day_streak": "Rekor Harian",
+      "total_xp": "Total XP",
+      "current_league": "Liga Saat Ini",
+      "top_3_finishes": "Masuk 3 Besar"
+    },
+    "followed_by": "Diikuti oleh {count} teman",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Semangat Membara",
+        "description": "Kamu mencapai rekor 365 hari"
+      }
+    }
   }
 }

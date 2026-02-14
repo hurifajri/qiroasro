@@ -641,5 +641,33 @@
       "nun_ghunna": "Nun (Gunneli)",
       "mim_ghunna": "Mim (Gunneli)"
     }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Kullanıcı Profili",
+      "description": "Kullanıcı istatistiklerini, başarılarını ve arkadaş önerilerini görüntüleyin."
+    },
+    "title": "Profil - Kullanıcı İstatistikleri",
+    "statistics": "İstatistikler",
+    "friend_suggestions": "Arkadaş Önerileri",
+    "achievements": "Başarılar",
+    "view_all": "Tümünü Gör",
+    "follow": "Takip Et",
+    "following": "Takip Ediliyor",
+    "followers": "Takipçiler",
+    "joined": "Katıldı: {date}",
+    "stats": {
+      "day_streak": "Gün Serisi",
+      "total_xp": "Toplam XP",
+      "current_league": "Mevcut Lig",
+      "top_3_finishes": "İlk 3 Derece"
+    },
+    "followed_by": "{count} arkadaş tarafından takip ediliyor",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Alev",
+        "description": "365 günlük bir seriye ulaştın"
+      }
+    }
   }
 }

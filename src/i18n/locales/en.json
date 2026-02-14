@@ -641,5 +641,33 @@
       "nun_ghunna": "Nun Ghunna",
       "mim_ghunna": "Mim Ghunna"
     }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "User Profile",
+      "description": "View user statistics, achievements, and friend suggestions."
+    },
+    "title": "Profile - User Statistics",
+    "statistics": "Statistics",
+    "friend_suggestions": "Suggested Friends",
+    "achievements": "Achievements",
+    "view_all": "View All",
+    "follow": "Follow",
+    "following": "Following",
+    "followers": "Followers",
+    "joined": "Joined {date}",
+    "stats": {
+      "day_streak": "Day Streak",
+      "total_xp": "Total XP",
+      "current_league": "Current League",
+      "top_3_finishes": "Top 3 Finishes"
+    },
+    "followed_by": "Followed by {count} friends",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Wildfire",
+        "description": "You reached a 365-day streak"
+      }
+    }
   }
 }

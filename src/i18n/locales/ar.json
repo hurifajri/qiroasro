@@ -641,5 +641,33 @@
       "nun_ghunna": "نون (غنة)",
       "mim_ghunna": "ميم (غنة)"
     }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "الملف الشخصي",
+      "description": "عرض إحصائيات المستخدم والإنجازات واقتراحات الأصدقاء."
+    },
+    "title": "الملف الشخصي - إحصائيات المستخدم",
+    "statistics": "الإحصائيات",
+    "friend_suggestions": "اقتراحات الأصدقاء",
+    "achievements": "الإنجازات",
+    "view_all": "عرض الكل",
+    "follow": "متابعة",
+    "following": "تتابع",
+    "followers": "المتابعون",
+    "joined": "انضم في {date}",
+    "stats": {
+      "day_streak": "سلسلة الأيام",
+      "total_xp": "إجمالي XP",
+      "current_league": "الدوري الحالي",
+      "top_3_finishes": "المراكز الـ 3 الأولى"
+    },
+    "followed_by": "يتابعه {count} من الأصدقاء",
+    "achievement_data": {
+      "wildfire": {
+        "title": "شعلة الحماس",
+        "description": "لقد وصلت إلى سلسلة 365 يوماً"
+      }
+    }
   }
 }
