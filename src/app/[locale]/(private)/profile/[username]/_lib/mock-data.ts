@@ -9,10 +9,10 @@ import type {
  * Mock user profile data
  */
 export const MOCK_USER_PROFILE: UserProfile = {
-  username: 'hurifajri',
-  displayName: 'Baba Huri Haura',
-  avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=Baba%20Huri',
-  joinedDate: '2021-06-01',
+  username: 'fajri',
+  displayName: 'Baba',
+  avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=B',
+  joinedDate: '2026-02-15',
   followingCount: 19,
   followersCount: 52,
 };
@@ -62,18 +62,19 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
   },
   {
     id: '2',
-    username: 'eunice',
-    displayName: 'Eunice é',
-    avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Eunice',
+    username: 'abdullah',
+    displayName: 'Abdullah',
+    avatarUrl:
+      'https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=f59e0b',
     mutualFriendsCount: 3,
     isFollowing: false,
   },
   {
     id: '3',
-    username: 'nhat',
-    displayName: 'Nhật',
+    username: 'ibrahim',
+    displayName: 'Ibrahim',
     avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=N&backgroundColor=84cc16',
+      'https://api.dicebear.com/7.x/initials/svg?seed=I&backgroundColor=84cc16',
     mutualFriendsCount: 3,
     isFollowing: true,
   },

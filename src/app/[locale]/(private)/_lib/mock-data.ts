@@ -68,7 +68,7 @@ export const MOCK_LEADERBOARD: LeaderboardEntry[] = [
   {
     rank: 2,
     userId: 'user-2',
-    name: 'Fatimah',
+    name: 'Abdullah',
     xp: 2180,
     isCurrentUser: false,
   },
