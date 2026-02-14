@@ -8,10 +8,18 @@ import { UnitHeader } from './unit-header';
 interface UnitPathProps {
   unit: Unit;
   lessons: Lesson[];
-  onLessonClick?: (lesson: Lesson) => void;
+  onClickLesson: (lesson: Lesson) => void;
+  onClickSection: (unit: Unit) => void;
+  onClickGuidebook: () => void;
 }
 
-export function UnitPath({ unit, lessons, onLessonClick }: UnitPathProps) {
+export function UnitPath({
+  unit,
+  lessons,
+  onClickLesson,
+  onClickSection,
+  onClickGuidebook,
+}: UnitPathProps) {
   const t = useTranslations('learn_page');
 
   const sectionTitle = t(getSectionTitleKey(unit.sectionNumber), {
@@ -39,9 +47,8 @@ export function UnitPath({ unit, lessons, onLessonClick }: UnitPathProps) {
       <UnitHeader
         unit={unit}
         sectionTitle={sectionTitle}
-        onGuidebookClick={() => {
-          // TODO: Open guidebook modal
-        }}
+        onClickSection={onClickSection}
+        onClickGuidebook={onClickGuidebook}
       />
 
       {/* Lesson Nodes - zigzag pattern */}
@@ -51,7 +58,7 @@ export function UnitPath({ unit, lessons, onLessonClick }: UnitPathProps) {
             key={lesson.id}
             lesson={lesson}
             offset={offset}
-            onClick={() => onLessonClick?.(lesson)}
+            onClick={() => onClickLesson(lesson)}
           />
         ))}
       </div>

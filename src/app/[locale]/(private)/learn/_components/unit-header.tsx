@@ -1,6 +1,6 @@
 'use client';
 
-import { BookOpenIcon } from 'lucide-react';
+import { ArrowLeftIcon, BookOpenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,8 @@ import type { Unit } from '../_schemas/learn';
 interface UnitHeaderProps {
   unit: Unit;
   sectionTitle: string;
-  onGuidebookClick?: () => void;
+  onClickSection: (unit: Unit) => void;
+  onClickGuidebook: () => void;
 }
 
 /**
@@ -26,7 +27,8 @@ interface UnitHeaderProps {
 export function UnitHeader({
   unit,
   sectionTitle,
-  onGuidebookClick,
+  onClickSection,
+  onClickGuidebook,
 }: UnitHeaderProps) {
   const t = useTranslations('learn_page');
 
@@ -53,7 +55,11 @@ export function UnitHeader({
       className={cn('sticky top-20 z-10 rounded-xl p-4 md:top-6', bgColor)}
     >
       <ItemContent>
-        <ItemTitle>
+        <ItemTitle
+          onClick={() => onClickSection(unit)}
+          className="cursor-default"
+        >
+          <ArrowLeftIcon className="size-5" />
           <h3 className="font-bold text-white uppercase tracking-wider">
             {sectionTitle}
           </h3>
@@ -62,12 +68,12 @@ export function UnitHeader({
           {t(unit.titleKey)}
         </ItemDescription>
       </ItemContent>
-      {onGuidebookClick && (
+      {onClickGuidebook && (
         <ItemActions>
           <Button
             variant="secondary"
             size="sm"
-            onClick={onGuidebookClick}
+            onClick={onClickGuidebook}
             className="shrink-0 bg-white/20 text-white hover:bg-white/30"
           >
             <BookOpenIcon className="size-4" />

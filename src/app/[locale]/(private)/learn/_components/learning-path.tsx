@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import type { Lesson, Unit } from '../_schemas/learn';
 import { UnitPath } from './unit-path';
@@ -7,7 +6,9 @@ interface LearningPathProps {
   units: Unit[];
   lessons: Lesson[];
   className?: string;
-  onLessonClick?: (lesson: Lesson) => void;
+  onClickLesson: (lesson: Lesson) => void;
+  onClickSection: (unit: Unit) => void;
+  onClickGuidebook: () => void;
 }
 
 /**
@@ -17,10 +18,10 @@ export function LearningPath({
   units,
   lessons,
   className,
-  onLessonClick,
+  onClickLesson,
+  onClickSection,
+  onClickGuidebook,
 }: LearningPathProps) {
-  const _t = useTranslations('learn_page');
-
   return (
     <div className={cn('flex flex-col gap-8', className)}>
       {units.slice(0, 2).map((unit) => (
@@ -28,7 +29,9 @@ export function LearningPath({
           key={unit.id}
           unit={unit}
           lessons={lessons.filter((l) => l.unitId === unit.id)}
-          onLessonClick={onLessonClick}
+          onClickLesson={onClickLesson}
+          onClickSection={onClickSection}
+          onClickGuidebook={onClickGuidebook}
         />
       ))}
     </div>

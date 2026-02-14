@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useCallback } from 'react';
+import { useRouter } from '@/i18n/navigation';
 import { MOCK_LESSONS, MOCK_UNITS } from '../_lib/mock-data';
-import type { Lesson } from '../_schemas/learn';
+import type { Lesson, Unit } from '../_schemas/learn';
 import { LearningPath } from './learning-path';
 
 interface LearnProps {
@@ -16,13 +16,25 @@ interface LearnProps {
  */
 export function Learn({ className }: LearnProps) {
   const t = useTranslations('learn_page');
+  const router = useRouter();
 
-  const handleLessonClick = useCallback((lesson: Lesson) => {
+  function handleClickLesson(lesson: Lesson) {
     if (lesson.status === 'locked') return;
 
     // TODO: Navigate to lesson or open lesson modal
     console.log('Lesson clicked:', lesson);
-  }, []);
+  }
+
+  function handleClickSection(unit: Unit) {
+    // TODO: Navigate to section or open section modal
+    console.log('Section clicked:', unit);
+    router.push('/sections');
+  }
+
+  function handleClickGuidebook() {
+    // TODO: Open guidebook modal
+    console.log('Guidebook clicked');
+  }
 
   return (
     <>
@@ -30,7 +42,9 @@ export function Learn({ className }: LearnProps) {
       <LearningPath
         units={MOCK_UNITS}
         lessons={MOCK_LESSONS}
-        onLessonClick={handleLessonClick}
+        onClickLesson={handleClickLesson}
+        onClickSection={handleClickSection}
+        onClickGuidebook={handleClickGuidebook}
         className={className}
       />
     </>
