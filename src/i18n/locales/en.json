@@ -162,6 +162,7 @@
         "sections": "Sections",
         "practice": "Practice",
         "reference": "Reference",
+        "leaderboard": "Leaderboard",
         "quests": "Quests",
         "profile": "Profile"
       },
@@ -643,33 +644,24 @@
       "mim_ghunna": "Mim Ghunna"
     }
   },
-  "profile_page": {
+  "leaderboard_page": {
     "metadata": {
-      "title": "User Profile",
-      "description": "View user statistics, achievements, and friend suggestions."
+      "title": "Weekly Leaderboard",
+      "description": "Compete with other learners in your league and climb the ranks."
     },
-    "title": "Profile - User Statistics",
-    "statistics": "Statistics",
-    "friend_suggestions": "Suggested Friends",
-    "achievements": "Achievements",
-    "view_all": "View All",
-    "follow": "Follow",
-    "following": "Following",
-    "followers": "Followers",
-    "joined": "Joined {date}",
-    "stats": {
-      "day_streak": "Day Streak",
-      "total_xp": "Total XP",
-      "current_league": "Current League",
-      "top_3_finishes": "Top 3 Finishes"
+    "title": "Leaderboard - Weekly Ranking",
+    "leagues": {
+      "obsidian": "Obsidian League",
+      "pearl": "Pearl League",
+      "sapphire": "Sapphire League",
+      "ruby": "Ruby League",
+      "emerald": "Emerald League",
+      "diamond": "Diamond League"
     },
-    "followed_by": "Followed by {count} friends",
-    "achievement_data": {
-      "wildfire": {
-        "title": "Wildfire",
-        "description": "You reached a 365-day streak"
-      }
-    }
+    "week_info": "This week's leaderboard",
+    "ranking": "Ranking",
+    "participants": "{count} participants",
+    "set_status": "Set Status"
   },
   "quests_page": {
     "metadata": {
@@ -706,6 +698,34 @@
       "summer_owlympics": {
         "title": "2024 Summer Owlympics",
         "date": "August 2024"
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "User Profile",
+      "description": "View user statistics, achievements, and friend suggestions."
+    },
+    "title": "Profile - User Statistics",
+    "statistics": "Statistics",
+    "friend_suggestions": "Suggested Friends",
+    "achievements": "Achievements",
+    "view_all": "View All",
+    "follow": "Follow",
+    "following": "Following",
+    "followers": "Followers",
+    "joined": "Joined {date}",
+    "stats": {
+      "day_streak": "Day Streak",
+      "total_xp": "Total XP",
+      "current_league": "Current League",
+      "top_3_finishes": "Top 3 Finishes"
+    },
+    "followed_by": "Followed by {count} friends",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Wildfire",
+        "description": "You reached a 365-day streak"
       }
     }
   }

@@ -1,0 +1,65 @@
+import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import {
+  getAlternateLanguages,
+  getLocalePath,
+  getOgLocale,
+} from '@/i18n/locale';
+import type { Locale } from '@/i18n/routing';
+import { MOCK_USER_STATS } from '../_lib/mock-data';
+import { Leaderboard } from './_components/leaderboard';
+import { MOCK_FULL_LEADERBOARD, MOCK_LEAGUES } from './_lib/mock-data';
+
+type GenerateMetadataProps = {
+  params: Promise<{ locale: string }>;
+};
+
+type LeaderboardPageProps = GenerateMetadataProps;
+
+export async function generateMetadata({
+  params,
+}: GenerateMetadataProps): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: 'leaderboard_page.metadata',
+  });
+
+  const path = '/leaderboard';
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    alternates: {
+      canonical: getLocalePath(path, locale as Locale),
+      languages: getAlternateLanguages(path),
+    },
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      locale: getOgLocale(locale as Locale),
+    },
+  };
+}
+
+export default async function LeaderboardPage({
+  params,
+}: LeaderboardPageProps) {
+  const { locale } = await params;
+
+  // Enable static rendering
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: 'leaderboard_page' });
+
+  return (
+    <>
+      <h1 className="sr-only">{t('title')}</h1>
+      <Leaderboard
+        leagues={MOCK_LEAGUES}
+        currentLeague={MOCK_USER_STATS.league}
+        entries={MOCK_FULL_LEADERBOARD}
+      />
+    </>
+  );
+}

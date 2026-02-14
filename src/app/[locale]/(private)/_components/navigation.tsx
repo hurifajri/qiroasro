@@ -3,6 +3,7 @@
 import {
   BookOpenIcon,
   DumbbellIcon,
+  GiftIcon,
   HomeIcon,
   LayoutGridIcon,
   TrophyIcon,
@@ -26,6 +27,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Dumbbell: DumbbellIcon,
   LayoutGrid: LayoutGridIcon,
   Trophy: TrophyIcon,
+  Gift: GiftIcon,
   User: UserIcon,
 };
 

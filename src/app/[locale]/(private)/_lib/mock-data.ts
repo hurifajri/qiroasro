@@ -121,9 +121,16 @@ export const MOCK_NAV_ITEMS: NavItem[] = [
     isActive: false,
   },
   {
+    id: 'leaderboard',
+    labelKey: 'nav.leaderboard',
+    iconName: 'Trophy',
+    href: '/leaderboard',
+    isActive: false,
+  },
+  {
     id: 'quests',
     labelKey: 'nav.quests',
-    iconName: 'Trophy',
+    iconName: 'Gift',
     href: '/quests',
     isActive: false,
   },

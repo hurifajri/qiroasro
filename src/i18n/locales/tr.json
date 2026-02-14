@@ -162,6 +162,7 @@
         "sections": "Bölümler",
         "practice": "Pratik",
         "reference": "Referans",
+        "leaderboard": "Liderlik Tablosu",
         "quests": "Görevler",
         "profile": "Profil"
       },
@@ -643,33 +644,24 @@
       "mim_ghunna": "Mim (Gunneli)"
     }
   },
-  "profile_page": {
+  "leaderboard_page": {
     "metadata": {
-      "title": "Kullanıcı Profili",
-      "description": "Kullanıcı istatistiklerini, başarılarını ve arkadaş önerilerini görüntüleyin."
+      "title": "Haftalık Liderlik Tablosu",
+      "description": "Ligindeki diğer öğrencilerle yarış ve sıralamada yüksel."
     },
-    "title": "Profil - Kullanıcı İstatistikleri",
-    "statistics": "İstatistikler",
-    "friend_suggestions": "Arkadaş Önerileri",
-    "achievements": "Başarılar",
-    "view_all": "Tümünü Gör",
-    "follow": "Takip Et",
-    "following": "Takip Ediliyor",
-    "followers": "Takipçiler",
-    "joined": "Katıldı: {date}",
-    "stats": {
-      "day_streak": "Gün Serisi",
-      "total_xp": "Toplam XP",
-      "current_league": "Mevcut Lig",
-      "top_3_finishes": "İlk 3 Derece"
+    "title": "Liderlik Tablosu - Haftalık Sıralama",
+    "leagues": {
+      "obsidian": "Obsidiyen Ligi",
+      "pearl": "İnci Ligi",
+      "sapphire": "Safir Ligi",
+      "ruby": "Yakut Ligi",
+      "emerald": "Zümrüt Ligi",
+      "diamond": "Elmas Ligi"
     },
-    "followed_by": "{count} arkadaş tarafından takip ediliyor",
-    "achievement_data": {
-      "wildfire": {
-        "title": "Alev",
-        "description": "365 günlük bir seriye ulaştın"
-      }
-    }
+    "week_info": "Bu haftanın sıralaması",
+    "ranking": "Sıralama",
+    "participants": "{count} katılımcı",
+    "set_status": "Durum Ayarla"
   },
   "quests_page": {
     "metadata": {
@@ -706,6 +698,34 @@
       "summer_owlympics": {
         "title": "2024 Yaz Olimpiyatları",
         "date": "Ağustos 2024"
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Kullanıcı Profili",
+      "description": "Kullanıcı istatistiklerini, başarılarını ve arkadaş önerilerini görüntüleyin."
+    },
+    "title": "Profil - Kullanıcı İstatistikleri",
+    "statistics": "İstatistikler",
+    "friend_suggestions": "Arkadaş Önerileri",
+    "achievements": "Başarılar",
+    "view_all": "Tümünü Gör",
+    "follow": "Takip Et",
+    "following": "Takip Ediliyor",
+    "followers": "Takipçiler",
+    "joined": "Katıldı: {date}",
+    "stats": {
+      "day_streak": "Gün Serisi",
+      "total_xp": "Toplam XP",
+      "current_league": "Mevcut Lig",
+      "top_3_finishes": "İlk 3 Derece"
+    },
+    "followed_by": "{count} arkadaş tarafından takip ediliyor",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Alev",
+        "description": "365 günlük bir seriye ulaştın"
       }
     }
   }

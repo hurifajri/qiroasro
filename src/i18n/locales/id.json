@@ -162,6 +162,7 @@
         "sections": "Seksi",
         "practice": "Latihan",
         "reference": "Referensi",
+        "leaderboard": "Papan Peringkat",
         "quests": "Misi",
         "profile": "Profil"
       },
@@ -643,33 +644,24 @@
       "mim_ghunna": "Mim Ghunnah"
     }
   },
-  "profile_page": {
+  "leaderboard_page": {
     "metadata": {
-      "title": "Profil Pengguna",
-      "description": "Lihat statistik pengguna, pencapaian, dan saran teman."
+      "title": "Papan Peringkat Mingguan",
+      "description": "Bersaing dengan pelajar lain di ligamu dan naikkan peringkat."
     },
-    "title": "Profil - Statistik Pengguna",
-    "statistics": "Statistik",
-    "friend_suggestions": "Saran Teman",
-    "achievements": "Pencapaian",
-    "view_all": "Lihat Semua",
-    "follow": "Ikuti",
-    "following": "Mengikuti",
-    "followers": "Pengikut",
-    "joined": "Bergabung {date}",
-    "stats": {
-      "day_streak": "Rekor Harian",
-      "total_xp": "Total XP",
-      "current_league": "Liga Saat Ini",
-      "top_3_finishes": "Masuk 3 Besar"
+    "title": "Papan Peringkat - Rangking Mingguan",
+    "leagues": {
+      "obsidian": "Liga Obsidian",
+      "pearl": "Liga Mutiara",
+      "sapphire": "Liga Safir",
+      "ruby": "Liga Rubi",
+      "emerald": "Liga Zamrud",
+      "diamond": "Liga Berlian"
     },
-    "followed_by": "Diikuti oleh {count} teman",
-    "achievement_data": {
-      "wildfire": {
-        "title": "Semangat Membara",
-        "description": "Kamu mencapai rekor 365 hari"
-      }
-    }
+    "week_info": "Papan peringkat minggu ini",
+    "ranking": "Peringkat",
+    "participants": "{count} peserta",
+    "set_status": "Atur Status"
   },
   "quests_page": {
     "metadata": {
@@ -706,6 +698,34 @@
       "summer_owlympics": {
         "title": "Olimpiade Musim Panas 2024",
         "date": "Agustus 2024"
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Profil Pengguna",
+      "description": "Lihat statistik pengguna, pencapaian, dan saran teman."
+    },
+    "title": "Profil - Statistik Pengguna",
+    "statistics": "Statistik",
+    "friend_suggestions": "Saran Teman",
+    "achievements": "Pencapaian",
+    "view_all": "Lihat Semua",
+    "follow": "Ikuti",
+    "following": "Mengikuti",
+    "followers": "Pengikut",
+    "joined": "Bergabung {date}",
+    "stats": {
+      "day_streak": "Rekor Harian",
+      "total_xp": "Total XP",
+      "current_league": "Liga Saat Ini",
+      "top_3_finishes": "Masuk 3 Besar"
+    },
+    "followed_by": "Diikuti oleh {count} teman",
+    "achievement_data": {
+      "wildfire": {
+        "title": "Semangat Membara",
+        "description": "Kamu mencapai rekor 365 hari"
       }
     }
   }

@@ -162,6 +162,7 @@
         "sections": "الأقسام",
         "practice": "التدريب",
         "reference": "المراجع",
+        "leaderboard": "لوحة الصدارة",
         "quests": "المهام",
         "profile": "الملف الشخصي"
       },
@@ -643,33 +644,24 @@
       "mim_ghunna": "ميم (غنة)"
     }
   },
-  "profile_page": {
+  "leaderboard_page": {
     "metadata": {
-      "title": "الملف الشخصي",
-      "description": "عرض إحصائيات المستخدم والإنجازات واقتراحات الأصدقاء."
+      "title": "لوحة الصدارة الأسبوعية",
+      "description": "نافس متعلمين آخرين في دوريك وارتق في التصنيف."
     },
-    "title": "الملف الشخصي - إحصائيات المستخدم",
-    "statistics": "الإحصائيات",
-    "friend_suggestions": "اقتراحات الأصدقاء",
-    "achievements": "الإنجازات",
-    "view_all": "عرض الكل",
-    "follow": "متابعة",
-    "following": "تتابع",
-    "followers": "المتابعون",
-    "joined": "انضم في {date}",
-    "stats": {
-      "day_streak": "سلسلة الأيام",
-      "total_xp": "إجمالي XP",
-      "current_league": "الدوري الحالي",
-      "top_3_finishes": "المراكز الـ 3 الأولى"
+    "title": "لوحة الصدارة - الترتيب الأسبوعي",
+    "leagues": {
+      "obsidian": "دوري السبج",
+      "pearl": "دوري اللؤلؤ",
+      "sapphire": "دوري الياقوت الأزرق",
+      "ruby": "دوري الياقوت الأحمر",
+      "emerald": "دوري الزمرد",
+      "diamond": "دوري الماس"
     },
-    "followed_by": "يتابعه {count} من الأصدقاء",
-    "achievement_data": {
-      "wildfire": {
-        "title": "شعلة الحماس",
-        "description": "لقد وصلت إلى سلسلة 365 يوماً"
-      }
-    }
+    "week_info": "لوحة صدارة هذا الأسبوع",
+    "ranking": "الترتيب",
+    "participants": "{count} مشاركاً",
+    "set_status": "تعيين الحالة"
   },
   "quests_page": {
     "metadata": {
@@ -706,6 +698,34 @@
       "summer_owlympics": {
         "title": "أولمبياد صيف 2024",
         "date": "أغسطس 2024"
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "الملف الشخصي",
+      "description": "عرض إحصائيات المستخدم والإنجازات واقتراحات الأصدقاء."
+    },
+    "title": "الملف الشخصي - إحصائيات المستخدم",
+    "statistics": "الإحصائيات",
+    "friend_suggestions": "اقتراحات الأصدقاء",
+    "achievements": "الإنجازات",
+    "view_all": "عرض الكل",
+    "follow": "متابعة",
+    "following": "تتابع",
+    "followers": "المتابعون",
+    "joined": "انضم في {date}",
+    "stats": {
+      "day_streak": "سلسلة الأيام",
+      "total_xp": "إجمالي XP",
+      "current_league": "الدوري الحالي",
+      "top_3_finishes": "المراكز الـ 3 الأولى"
+    },
+    "followed_by": "يتابعه {count} من الأصدقاء",
+    "achievement_data": {
+      "wildfire": {
+        "title": "شعلة الحماس",
+        "description": "لقد وصلت إلى سلسلة 365 يوماً"
       }
     }
   }
