@@ -58,7 +58,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     avatarUrl:
       'https://api.dicebear.com/7.x/initials/svg?seed=M&backgroundColor=60a5fa',
     mutualFriendsCount: 3,
-    isFollowing: 'false',
+    isFollowing: false,
   },
   {
     id: '2',
@@ -66,7 +66,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     displayName: 'Eunice é',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Eunice',
     mutualFriendsCount: 3,
-    isFollowing: 'false',
+    isFollowing: false,
   },
   {
     id: '3',
@@ -75,7 +75,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     avatarUrl:
       'https://api.dicebear.com/7.x/initials/svg?seed=N&backgroundColor=84cc16',
     mutualFriendsCount: 3,
-    isFollowing: 'true',
+    isFollowing: true,
   },
 ];
 

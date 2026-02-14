@@ -11,7 +11,7 @@ interface FriendSuggestionsCardProps {
 }
 
 export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
-  const [isFollowing, setIsFollowing] = useState(friend.isFollowing === 'true');
+  const [isFollowing, setIsFollowing] = useState(friend.isFollowing);
 
   const handleFollow = () => {
     setIsFollowing(!isFollowing);

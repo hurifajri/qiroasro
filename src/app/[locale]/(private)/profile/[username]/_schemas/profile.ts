@@ -1,5 +1,5 @@
 import type { InferOutput } from 'valibot';
-import { array, integer, number, object, pipe, string } from 'valibot';
+import { array, boolean, integer, number, object, pipe, string } from 'valibot';
 
 /**
  * User profile schema
@@ -36,7 +36,7 @@ export const FriendSuggestionSchema = object({
   displayName: string(),
   avatarUrl: string(),
   mutualFriendsCount: pipe(number(), integer()),
-  isFollowing: string(), // 'true' | 'false'
+  isFollowing: boolean(),
 });
 
 export type FriendSuggestion = InferOutput<typeof FriendSuggestionSchema>;
