@@ -1,5 +1,6 @@
 'use client';
 
+import { useMobile } from '@/hooks/use-mobile';
 import { usePathname } from '@/i18n/navigation';
 import { MOCK_NAV_ITEMS, MOCK_USER_STATS } from '../_lib/mock-data';
 import { BottomNav } from './navigation';
@@ -16,6 +17,7 @@ type PrivateProps = React.PropsWithChildren & {
  */
 export function Private({ children, sidebar }: PrivateProps) {
   const pathname = usePathname();
+  const isMobile = useMobile();
 
   // Update nav items based on current path
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => ({
@@ -37,14 +39,16 @@ export function Private({ children, sidebar }: PrivateProps) {
   return (
     <div className="flex min-h-dvh bg-background">
       {/* Left Sidebar - Desktop only */}
-      <LeftSidebar navItems={leftNavItems} />
+      {!isMobile && <LeftSidebar navItems={leftNavItems} />}
 
       {/* Main Content */}
       <main className="flex-1">
         {/* Top Stats Bar */}
-        <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
-          <StatList stats={MOCK_USER_STATS} />
-        </header>
+        {isMobile && (
+          <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
+            <StatList stats={MOCK_USER_STATS} />
+          </header>
+        )}
 
         {/* Page Content */}
         <div className="mx-auto max-w-xl px-4 py-6 pb-24.25 sm:px-6 sm:pb-6">
@@ -53,7 +57,7 @@ export function Private({ children, sidebar }: PrivateProps) {
       </main>
 
       {/* Right Sidebar - Desktop only */}
-      <RightSidebar>{sidebar}</RightSidebar>
+      {!isMobile && <RightSidebar>{sidebar}</RightSidebar>}
 
       {/* Bottom Navigation - Mobile only */}
       <BottomNav items={bottomNavItems} />

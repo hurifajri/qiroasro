@@ -21,7 +21,7 @@ import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useMobile } from '@/hooks/use-mobile';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
@@ -74,7 +74,7 @@ export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
-  const isMobile = useIsMobile();
+  const isMobile = useMobile();
 
   const theme = useGlobalStore((s) => s.theme);
   const { startTour } = usePlaygroundTour({ theme });
