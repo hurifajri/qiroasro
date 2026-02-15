@@ -25,10 +25,8 @@ export function QuestsCard({ quests }: QuestsCardProps) {
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between gap-2">
-        <CardTitle>
-          <h3 className="font-bold">{t('daily_quests.title')}</h3>
-        </CardTitle>
+      <CardHeader className="flex w-full items-center justify-between gap-2">
+        <CardTitle>{t('daily_quests.title')}</CardTitle>
         <CardAction>
           <Link
             href="/quests"
@@ -39,7 +37,7 @@ export function QuestsCard({ quests }: QuestsCardProps) {
         </CardAction>
       </CardHeader>
       <CardContent>
-        <ItemGroup className="gap-3">
+        <ItemGroup>
           {quests.map((quest) => (
             <QuestRow key={quest.id} quest={quest} />
           ))}

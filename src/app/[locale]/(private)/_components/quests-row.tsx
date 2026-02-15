@@ -43,17 +43,14 @@ export function QuestRow({ quest }: QuestRowProps) {
 
   return (
     <Item asChild>
-      <li className="px-0! py-0!">
-        <ItemMedia
-          variant="icon"
-          className="translate-0! flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted"
-        >
-          {getIcon()}
+      <li className="p-0!">
+        <ItemMedia variant="icon" className="translate-0!">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted">
+            {getIcon()}
+          </div>
         </ItemMedia>
         <ItemContent>
-          <ItemTitle>
-            <h4 className="font-medium text-sm">{t(quest.titleKey)}</h4>
-          </ItemTitle>
+          <ItemTitle>{t(quest.titleKey)}</ItemTitle>
           <ItemDescription className="flex items-center gap-2">
             <span className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
               <span
@@ -73,11 +70,10 @@ export function QuestRow({ quest }: QuestRowProps) {
         </ItemContent>
         <ItemActions>
           <Button
-            variant="default"
             size="icon"
-            className="flex items-center justify-center rounded bg-amber-100 dark:bg-amber-900/30"
+            className="flex items-center justify-center rounded bg-amber-100 text-lg dark:bg-amber-900/30"
           >
-            <span className="text-lg">🎁</span>
+            🎁
           </Button>
         </ItemActions>
       </li>
