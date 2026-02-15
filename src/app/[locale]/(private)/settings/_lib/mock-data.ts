@@ -55,7 +55,7 @@ export const MOCK_ACCOUNT_LINKS: SettingsLink[] = [
   },
   {
     id: 'social',
-    labelKey: 'account.social_accounts',
+    labelKey: 'account.social',
     href: '/settings/social',
   },
   {

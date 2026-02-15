@@ -74,7 +74,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'preferences') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">{t('preferences.title')}</h1>
+        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+          {t('preferences.title')}
+        </h1>
         <Preferences
           lessonPreferences={MOCK_LESSON_PREFERENCES}
           defaultAppearanceMode={MOCK_APPEARANCE_MODE}
@@ -86,7 +88,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'profile') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">{t('profile.title')}</h1>
+        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+          {t('profile.title')}
+        </h1>
         <Profile defaultProfile={MOCK_PROFILE_DATA} />
       </>
     );
@@ -95,7 +99,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'notifications') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">{t('notifications.title')}</h1>
+        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+          {t('notifications.title')}
+        </h1>
         <Notifications
           generalNotifications={MOCK_GENERAL_NOTIFICATIONS}
           dailyReminder={MOCK_DAILY_REMINDER}
@@ -107,8 +113,8 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'social') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">
-          {t('social_accounts.title')}
+        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+          {t('social.title')}
         </h1>
         <SocialAccounts accounts={MOCK_SOCIAL_ACCOUNTS} />
       </>
@@ -118,7 +124,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'privacy') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">{t('privacy.title')}</h1>
+        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+          {t('privacy.title')}
+        </h1>
         <PrivacySettings settings={MOCK_PRIVACY_SETTINGS} />
       </>
     );

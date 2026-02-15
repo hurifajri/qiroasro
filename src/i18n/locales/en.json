@@ -234,7 +234,7 @@
         "preferences": "Preferences",
         "profile": "Profile",
         "notifications": "Notifications",
-        "social_accounts": "Social Accounts",
+        "social": "Social Accounts",
         "privacy": "Privacy"
       },
       "subscription": {
@@ -875,7 +875,7 @@
         "reminder_time": "Reminder Time"
       }
     },
-    "social_accounts": {
+    "social": {
       "title": "Social Accounts",
       "facebook": "Facebook",
       "google": "Google"

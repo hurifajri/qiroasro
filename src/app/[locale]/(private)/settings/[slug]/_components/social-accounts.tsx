@@ -13,7 +13,7 @@ interface SocialAccountsProps {
 }
 
 export function SocialAccounts({ accounts }: SocialAccountsProps) {
-  const t = useTranslations('settings_page.social_accounts');
+  const t = useTranslations('settings_page.social');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
 

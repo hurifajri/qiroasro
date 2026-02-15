@@ -1,5 +1,5 @@
-import { SettingsContentHeader } from '../../../_components/settings-content-header';
+import { ProfileContentHeader } from '../../../_components/profile-content-header';
 
-export default async function ProfileHeader() {
-  return <SettingsContentHeader />;
+export default function ProfileHeader() {
+  return <ProfileContentHeader />;
 }

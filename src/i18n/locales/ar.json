@@ -234,7 +234,7 @@
         "preferences": "التفضيلات",
         "profile": "الملف الشخصي",
         "notifications": "الإشعارات",
-        "social_accounts": "الحسابات الاجتماعية",
+        "social": "الحسابات الاجتماعية",
         "privacy": "الخصوصية"
       },
       "subscription": {
@@ -875,7 +875,7 @@
         "reminder_time": "وقت التذكير"
       }
     },
-    "social_accounts": {
+    "social": {
       "title": "الحسابات الاجتماعية",
       "facebook": "فيسبوك",
       "google": "جوجل"

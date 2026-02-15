@@ -234,7 +234,7 @@
         "preferences": "Tercihler",
         "profile": "Profil",
         "notifications": "Bildirimler",
-        "social_accounts": "Sosyal Hesaplar",
+        "social": "Sosyal Hesaplar",
         "privacy": "Gizlilik"
       },
       "subscription": {
@@ -875,7 +875,7 @@
         "reminder_time": "Hatırlatma Zamanı"
       }
     },
-    "social_accounts": {
+    "social": {
       "title": "Sosyal Hesaplar",
       "facebook": "Facebook",
       "google": "Google"

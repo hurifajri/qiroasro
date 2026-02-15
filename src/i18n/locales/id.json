@@ -234,7 +234,7 @@
         "preferences": "Preferensi",
         "profile": "Profil",
         "notifications": "Notifikasi",
-        "social_accounts": "Akun Sosial",
+        "social": "Akun Sosial",
         "privacy": "Privasi"
       },
       "subscription": {
@@ -875,7 +875,7 @@
         "reminder_time": "Waktu Pengingat"
       }
     },
-    "social_accounts": {
+    "social": {
       "title": "Akun Sosial",
       "facebook": "Facebook",
       "google": "Google"
