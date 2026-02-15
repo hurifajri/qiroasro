@@ -13,16 +13,14 @@ export function StatusCard({ statuses }: StatusCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          <h3 className="font-bold">{t('set_status')}</h3>
-        </CardTitle>
+        <CardTitle>{t('set_status')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-6 gap-2">
           {statuses.map((status) => (
             <Button
               key={status.label}
-              className="flex size-10 items-center justify-center rounded-lg text-xl transition-transform hover:scale-110 hover:bg-muted"
+              className="size-10 text-xl"
               title={status.label}
               size="icon"
               variant="ghost"
