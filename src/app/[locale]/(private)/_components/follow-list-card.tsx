@@ -1,19 +1,14 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemMedia,
-  ItemTitle,
-} from '@/components/ui/item';
+import { ItemGroup } from '@/components/ui/item';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import type { FollowEntry } from '../_schemas/profile-sidebar';
+import { FollowListRow } from './follow-list-row';
 
 interface FollowListCardProps {
   following: FollowEntry[];
@@ -30,50 +25,32 @@ export function FollowListCard({
 }: FollowListCardProps) {
   const t = useTranslations('global.private_layout.profile_sidebar');
 
-  const renderFollowEntry = (entry: FollowEntry) => (
-    <Item key={entry.id} asChild>
-      <li className="px-0! py-0!">
-        <ItemMedia variant="image">
-          <Avatar className="size-10">
-            <AvatarImage src={entry.avatarUrl} alt={entry.name} />
-            <AvatarFallback>
-              {entry.name.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>
-            <h4 className="font-semibold text-sm">{entry.name}</h4>
-          </ItemTitle>
-          <ItemDescription className="text-muted-foreground text-xs">
-            {entry.xp.toLocaleString()} XP
-          </ItemDescription>
-        </ItemContent>
-      </li>
-    </Item>
-  );
-
   return (
     <Card>
       <CardContent>
         <Tabs defaultValue="following" className="gap-4">
           <TabsList variant="line" className="w-full">
-            <TabsTrigger value="following" className="flex-1">
+            <TabsTrigger value="following">
               {t('follow_list.following')}
             </TabsTrigger>
-            <TabsTrigger value="followers" className="flex-1">
+            <TabsTrigger value="followers">
               {t('follow_list.followers')}
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="following" className="flex flex-col gap-4">
-            <ItemGroup className="gap-4">
-              {following.map(renderFollowEntry)}
+          <TabsContent value="following" className="flex flex-col gap-2">
+            <ItemGroup>
+              {following.map((entry) => (
+                <FollowListRow key={entry.id} entry={entry} />
+              ))}
             </ItemGroup>
             {followingCount > following.length && (
               <Link
                 href="/following"
-                className="flex items-center justify-between font-semibold text-primary text-sm hover:underline"
+                className={cn(
+                  buttonVariants({ variant: 'link' }),
+                  'w-fit px-0',
+                )}
               >
                 {t('follow_list.view_more', {
                   count: followingCount - following.length,
@@ -82,14 +59,19 @@ export function FollowListCard({
             )}
           </TabsContent>
 
-          <TabsContent value="followers" className="flex flex-col gap-4">
-            <ItemGroup className="gap-4">
-              {followers.map(renderFollowEntry)}
+          <TabsContent value="followers" className="flex flex-col gap-2">
+            <ItemGroup>
+              {followers.map((entry) => (
+                <FollowListRow key={entry.id} entry={entry} />
+              ))}
             </ItemGroup>
             {followersCount > followers.length && (
               <Link
                 href="/followers"
-                className="flex items-center justify-between font-semibold text-primary text-sm hover:underline"
+                className={cn(
+                  buttonVariants({ variant: 'link' }),
+                  'w-fit px-0',
+                )}
               >
                 {t('follow_list.view_more', {
                   count: followersCount - followers.length,
