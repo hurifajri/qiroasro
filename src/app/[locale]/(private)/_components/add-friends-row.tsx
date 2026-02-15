@@ -1,12 +1,17 @@
-import type { LucideIcon } from 'lucide-react';
-import { ChevronRightIcon } from 'lucide-react';
+import { ChevronRightIcon, SearchIcon, UserPlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 
+// Icon mapping
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Search: SearchIcon,
+  UserPlus: UserPlusIcon,
+};
+
 interface AddFriendsRowProps {
   href: string;
-  icon: LucideIcon;
+  iconName: string;
   iconBgClass: string;
   iconClass: string;
   labelKey: string;
@@ -14,12 +19,13 @@ interface AddFriendsRowProps {
 
 export function AddFriendsRow({
   href,
-  icon: Icon,
+  iconName,
   iconBgClass,
   iconClass,
   labelKey,
 }: AddFriendsRowProps) {
   const t = useTranslations('global.private_layout.profile_sidebar');
+  const Icon = iconMap[iconName];
 
   return (
     <Item asChild>

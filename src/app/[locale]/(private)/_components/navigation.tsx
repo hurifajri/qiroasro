@@ -113,7 +113,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
   return (
     <nav className="flex flex-col gap-2">
       {items.map((item) => {
-        const IconComponent = iconMap[item.iconName] ?? HomeIcon;
+        const Icon = iconMap[item.iconName] ?? HomeIcon;
 
         return (
           <Link
@@ -128,11 +128,11 @@ export function SidebarNav({ items }: SidebarNavProps) {
             )}
           >
             {isLg ? (
-              <IconComponent className="size-6" />
+              <Icon className="size-6" />
             ) : (
               <Tooltip>
                 <TooltipTrigger>
-                  <IconComponent className="size-6" />
+                  <Icon className="size-6" />
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>{t(item.labelKey)}</p>
@@ -163,7 +163,7 @@ export function BottomNav({ items }: BottomNavProps) {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-around border-t bg-background/95 px-2 py-2 backdrop-blur-sm sm:hidden">
       {items.map((item) => {
-        const IconComponent = iconMap[item.iconName];
+        const Icon = iconMap[item.iconName];
 
         return (
           <Link
@@ -177,7 +177,7 @@ export function BottomNav({ items }: BottomNavProps) {
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
-            <IconComponent className="size-6" />
+            <Icon className="size-6" />
           </Link>
         );
       })}

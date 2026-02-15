@@ -1,5 +1,3 @@
-import { SearchIcon, UserPlusIcon } from 'lucide-react';
-
 import type {
   LeaderboardEntry,
   NavItem,
@@ -11,7 +9,7 @@ export const ADD_FRIENDS_ITEMS = [
   {
     id: 'find',
     href: '/find-friends',
-    icon: SearchIcon,
+    iconName: 'Search',
     iconBgClass:
       'flex size-10 items-center justify-center rounded-full bg-muted',
     iconClass: 'size-5 text-muted-foreground',
@@ -20,7 +18,7 @@ export const ADD_FRIENDS_ITEMS = [
   {
     id: 'invite',
     href: '/invite-friends',
-    icon: UserPlusIcon,
+    iconName: 'UserPlus',
     iconBgClass:
       'flex size-10 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30',
     iconClass: 'size-5 text-emerald-600 dark:text-emerald-400',

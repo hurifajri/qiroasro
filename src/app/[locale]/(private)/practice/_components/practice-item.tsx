@@ -50,7 +50,7 @@ interface PracticeItemProps {
 
 export function PracticeItem({ mode }: PracticeItemProps) {
   const t = useTranslations('practice_page');
-  const IconComponent = iconMap[mode.iconName];
+  const Icon = iconMap[mode.iconName];
 
   function handleClickMode() {
     console.log(mode);
@@ -85,7 +85,7 @@ export function PracticeItem({ mode }: PracticeItemProps) {
           variant="icon"
           className="translate-0! self-center! relative"
         >
-          <IconComponent className={cn('size-12', iconColorMap[mode.color])} />
+          <Icon className={cn('size-12', iconColorMap[mode.color])} />
           {mode.badge && (
             <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-500 font-bold text-white text-xs">
               {mode.badge > 99 ? '99+' : mode.badge}

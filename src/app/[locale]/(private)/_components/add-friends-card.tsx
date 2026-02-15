@@ -18,7 +18,7 @@ export function AddFriendsCard() {
             <AddFriendsRow
               key={item.id}
               href={item.href}
-              icon={item.icon}
+              iconName={item.iconName}
               iconBgClass={item.iconBgClass}
               iconClass={item.iconClass}
               labelKey={item.labelKey}
