@@ -156,7 +156,6 @@
       "reminder_email_required": "Email tidak boleh kosong"
     },
     "private_layout": {
-      "right_sidebar_title": "Sidebar Kanan",
       "nav": {
         "learn": "Belajar",
         "practice": "Latihan",

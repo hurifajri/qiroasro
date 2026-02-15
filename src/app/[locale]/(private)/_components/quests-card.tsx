@@ -30,7 +30,10 @@ export function QuestsCard({ quests }: QuestsCardProps) {
         <CardAction>
           <Link
             href="/quests"
-            className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
+            className={cn(
+              buttonVariants({ variant: 'link' }),
+              'px-0 uppercase',
+            )}
           >
             {t('daily_quests.view_all')}
           </Link>

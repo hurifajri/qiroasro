@@ -42,7 +42,10 @@ export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
           <CardAction>
             <Link
               href="/leaderboard"
-              className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
+              className={cn(
+                buttonVariants({ variant: 'link' }),
+                'px-0 uppercase',
+              )}
             >
               {t('leaderboard.view_league')}
             </Link>

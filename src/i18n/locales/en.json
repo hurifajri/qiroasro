@@ -156,7 +156,6 @@
       "reminder_email_required": "Email is required"
     },
     "private_layout": {
-      "right_sidebar_title": "Right Sidebar",
       "nav": {
         "learn": "Learn",
         "practice": "Practice",
