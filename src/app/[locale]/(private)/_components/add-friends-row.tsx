@@ -40,7 +40,7 @@ export function AddFriendsRow({
             <ItemTitle>{t(labelKey)}</ItemTitle>
           </ItemContent>
           <ItemContent className="shrink-0">
-            <ChevronRightIcon className="text-muted-foreground" />
+            <ChevronRightIcon className="size-5 text-muted-foreground" />
           </ItemContent>
         </Link>
       </li>
