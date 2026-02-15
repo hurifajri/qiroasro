@@ -245,6 +245,10 @@
         "title": "Support",
         "help_center": "Help Center"
       },
+      "monthly_badges": {
+        "title": "Monthly Badges",
+        "view_all": "View All"
+      },
       "logout": "Log Out"
     }
   },
@@ -720,8 +724,6 @@
     "days_remaining": "{count} Days",
     "hours_remaining": "{count} Hours",
     "daily_quests": "Daily Quests",
-    "monthly_badges": "Monthly Badges",
-    "view_all": "View All",
     "complete_quests": "Complete {target} quests",
     "badges": {
       "oscars_final_rose": {

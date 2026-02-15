@@ -18,12 +18,12 @@ interface MonthlyBadgesCardProps {
 }
 
 export function MonthlyBadgesCard({ badges }: MonthlyBadgesCardProps) {
-  const t = useTranslations('quests_page');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>
       <CardHeader className="flex w-full items-center justify-between gap-2">
-        <CardTitle>{t('monthly_badges')}</CardTitle>
+        <CardTitle>{t('monthly_badges.title')}</CardTitle>
         <CardAction>
           <Link
             href="/friend-updates"
@@ -32,7 +32,7 @@ export function MonthlyBadgesCard({ badges }: MonthlyBadgesCardProps) {
               'px-0 uppercase',
             )}
           >
-            {t('view_all')}
+            {t('monthly_badges.view_all')}
           </Link>
         </CardAction>
       </CardHeader>

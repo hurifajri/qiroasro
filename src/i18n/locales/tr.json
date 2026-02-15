@@ -245,6 +245,10 @@
         "title": "Destek",
         "help_center": "Yardım Merkezi"
       },
+      "monthly_badges": {
+        "title": "Aylık Rozetler",
+        "view_all": "Tümünü Gör"
+      },
       "logout": "Çıkış Yap"
     }
   },
@@ -720,8 +724,6 @@
     "days_remaining": "{count} Gün",
     "hours_remaining": "{count} Saat",
     "daily_quests": "Günlük Görevler",
-    "monthly_badges": "Aylık Rozetler",
-    "view_all": "Tümünü Gör",
     "complete_quests": "{target} görev tamamla",
     "badges": {
       "oscars_final_rose": {

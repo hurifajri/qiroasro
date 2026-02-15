@@ -245,6 +245,10 @@
         "title": "Bantuan",
         "help_center": "Pusat Bantuan"
       },
+      "monthly_badges": {
+        "title": "Lencana Bulanan",
+        "view_all": "Lihat Semua"
+      },
       "logout": "Keluar"
     }
   },
@@ -720,8 +724,6 @@
     "days_remaining": "{count} Hari",
     "hours_remaining": "{count} Jam",
     "daily_quests": "Misi Harian",
-    "monthly_badges": "Lencana Bulanan",
-    "view_all": "Lihat Semua",
     "complete_quests": "Selesaikan {target} misi",
     "badges": {
       "oscars_final_rose": {
