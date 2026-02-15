@@ -2,10 +2,16 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { FieldGroup } from '@/components/ui/field';
+import {
+  Field,
+  FieldContent,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -55,20 +61,24 @@ export function Preferences({
       <section className="flex flex-col gap-2">
         <h2 className="font-bold text-xl">{t('appearance.title')}</h2>
         <Separator />
-        <div className="flex flex-col gap-3">
-          <label htmlFor="theme" className="font-normal text-base">
-            {t('appearance.dark_mode')}
-          </label>
+        <Field>
+          <FieldContent>
+            <FieldLabel htmlFor="theme" className="text-base">
+              {t('appearance.dark_mode')}
+            </FieldLabel>
+          </FieldContent>
           <Select value={appearanceMode} onValueChange={setAppearanceMode}>
             <SelectTrigger id="theme" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="off">{t('appearance.mode_off')}</SelectItem>
-              <SelectItem value="on">{t('appearance.mode_on')}</SelectItem>
+              <SelectGroup>
+                <SelectItem value="off">{t('appearance.mode_off')}</SelectItem>
+                <SelectItem value="on">{t('appearance.mode_on')}</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
-        </div>
+        </Field>
       </section>
     </div>
   );
