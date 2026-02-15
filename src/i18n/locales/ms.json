@@ -874,6 +874,21 @@
         "practice_reminder": "Peringatan Latihan",
         "reminder_time": "Masa Peringatan"
       }
+    },
+    "social_accounts": {
+      "title": "Akaun Sosial",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Tetapan Privasi",
+      "make_profile_public": "Profil Awam",
+      "make_profile_public_description": "Benarkan orang lain mencari dan mengikuti anda. Membolehkan anda mengikuti orang lain dan menyertai papan pendahulu.",
+      "personalized_ads": "Iklan Diperibadikan",
+      "personalized_ads_description": "Benarkan penggunaan data untuk memaparkan iklan yang relevan.",
+      "friend_streaks": "Kongsi Rekod",
+      "friend_streaks_description": "Benarkan rakan melihat rekod harian (streak) anda.",
+      "save_changes": "Simpan Perubahan"
     }
   }
 }

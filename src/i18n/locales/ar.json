@@ -874,6 +874,21 @@
         "practice_reminder": "تذكير التدريب",
         "reminder_time": "وقت التذكير"
       }
+    },
+    "social_accounts": {
+      "title": "الحسابات الاجتماعية",
+      "facebook": "فيسبوك",
+      "google": "جوجل"
+    },
+    "privacy": {
+      "title": "إعدادات الخصوصية",
+      "make_profile_public": "الملف الشخصي العام",
+      "make_profile_public_description": "السماح للآخرين بالعثور عليك ومتابعتك. يتيح لك متابعة الآخرين والانضمام إلى لوحات الصدارة.",
+      "personalized_ads": "إعلانات مخصصة",
+      "personalized_ads_description": "السماح باستخدام البيانات لعرض إعلانات تهمك.",
+      "friend_streaks": "مشاركة التتابع",
+      "friend_streaks_description": "السماح للأصدقاء برؤية سلسلة التتابع اليومي الخاصة بك.",
+      "save_changes": "حفظ التغييرات"
     }
   }
 }

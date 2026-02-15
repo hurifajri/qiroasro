@@ -2,8 +2,10 @@ import type {
   DailyReminder,
   NotificationCheckbox,
   PreferenceToggle,
+  PrivacySetting,
   ProfileForm,
   SettingsLink,
+  SocialAccount,
 } from '../_schemas/settings';
 
 /**
@@ -52,9 +54,9 @@ export const MOCK_ACCOUNT_LINKS: SettingsLink[] = [
     href: '/settings/notifications',
   },
   {
-    id: 'socialAccounts',
+    id: 'social',
     labelKey: 'settings.social_accounts',
-    href: '/settings/social-accounts',
+    href: '/settings/social',
   },
   {
     id: 'privacy',
@@ -145,3 +147,43 @@ export const MOCK_DAILY_REMINDER: DailyReminder = {
   checked: true,
   time: '17:00',
 };
+
+/**
+ * Mock social accounts
+ */
+export const MOCK_SOCIAL_ACCOUNTS: SocialAccount[] = [
+  {
+    id: 'facebook',
+    labelKey: 'facebook',
+    connected: false,
+  },
+  {
+    id: 'google',
+    labelKey: 'google',
+    connected: true,
+  },
+];
+
+/**
+ * Mock privacy settings
+ */
+export const MOCK_PRIVACY_SETTINGS: PrivacySetting[] = [
+  {
+    id: 'make_profile_public',
+    labelKey: 'make_profile_public',
+    descriptionKey: 'make_profile_public_description',
+    enabled: true,
+  },
+  {
+    id: 'personalized_ads',
+    labelKey: 'personalized_ads',
+    descriptionKey: 'personalized_ads_description',
+    enabled: true,
+  },
+  {
+    id: 'friend_streaks',
+    labelKey: 'friend_streaks',
+    descriptionKey: 'friend_streaks_description',
+    enabled: true,
+  },
+];

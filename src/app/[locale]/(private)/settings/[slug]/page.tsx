@@ -6,11 +6,15 @@ import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
   MOCK_LESSON_PREFERENCES,
+  MOCK_PRIVACY_SETTINGS,
   MOCK_PROFILE_DATA,
+  MOCK_SOCIAL_ACCOUNTS,
 } from '../_lib/mock-data';
 import { Notifications } from './_components/notifications';
 import { Preferences } from './_components/preferences';
+import { PrivacySettings } from './_components/privacy-settings';
 import { Profile } from './_components/profile';
+import { SocialAccounts } from './_components/social-accounts';
 
 interface SettingsPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -22,8 +26,9 @@ const VALID_SLUGS = [
   'preferences',
   'profile',
   'notifications',
-  'courses',
+  'social',
   'privacy',
+  'courses',
 ] as const;
 
 type SettingsSlug = (typeof VALID_SLUGS)[number];
@@ -95,6 +100,26 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
           generalNotifications={MOCK_GENERAL_NOTIFICATIONS}
           dailyReminder={MOCK_DAILY_REMINDER}
         />
+      </>
+    );
+  }
+
+  if (slug === 'social') {
+    return (
+      <>
+        <h1 className="mb-6 font-bold text-2xl">
+          {t('social_accounts.title')}
+        </h1>
+        <SocialAccounts accounts={MOCK_SOCIAL_ACCOUNTS} />
+      </>
+    );
+  }
+
+  if (slug === 'privacy') {
+    return (
+      <>
+        <h1 className="mb-6 font-bold text-2xl">{t('privacy.title')}</h1>
+        <PrivacySettings settings={MOCK_PRIVACY_SETTINGS} />
       </>
     );
   }

@@ -874,6 +874,21 @@
         "practice_reminder": "Alıştırma Hatırlatıcısı",
         "reminder_time": "Hatırlatma Zamanı"
       }
+    },
+    "social_accounts": {
+      "title": "Sosyal Hesaplar",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Gizlilik Ayarları",
+      "make_profile_public": "Herkese Açık Profil",
+      "make_profile_public_description": "Başkalarının sizi bulmasına ve takip etmesine izin verin. Liderlik tablolarına katılmanızı sağlar.",
+      "personalized_ads": "Kişiselleştirilmiş Reklamlar",
+      "personalized_ads_description": "İlgili reklamları göstermek için veri kullanımına izin verin.",
+      "friend_streaks": "Seri Paylaşımı",
+      "friend_streaks_description": "Arkadaşlarınızın günlük serinizi görmesine izin verin.",
+      "save_changes": "Değişiklikleri Kaydet"
     }
   }
 }

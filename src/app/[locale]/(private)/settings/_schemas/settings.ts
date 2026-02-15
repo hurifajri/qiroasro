@@ -60,3 +60,26 @@ export const DailyReminderSchema = object({
 });
 
 export type DailyReminder = InferOutput<typeof DailyReminderSchema>;
+
+/**
+ * Social Account Schema
+ */
+export const SocialAccountSchema = object({
+  id: string(),
+  labelKey: string(),
+  connected: boolean(),
+});
+
+export type SocialAccount = InferOutput<typeof SocialAccountSchema>;
+
+/**
+ * Privacy Setting Schema
+ */
+export const PrivacySettingSchema = object({
+  id: string(),
+  labelKey: string(),
+  descriptionKey: string(),
+  enabled: boolean(),
+});
+
+export type PrivacySetting = InferOutput<typeof PrivacySettingSchema>;

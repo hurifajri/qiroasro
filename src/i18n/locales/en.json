@@ -874,6 +874,21 @@
         "practice_reminder": "Practice Reminder",
         "reminder_time": "Reminder Time"
       }
+    },
+    "social_accounts": {
+      "title": "Social Accounts",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Privacy Settings",
+      "make_profile_public": "Public Profile",
+      "make_profile_public_description": "Allow others to find and follow you. Enables following others and joining public leaderboards.",
+      "personalized_ads": "Personalized Ads",
+      "personalized_ads_description": "Allow data usage to show relevant ads.",
+      "friend_streaks": "Share Streak",
+      "friend_streaks_description": "Allow friends to see your daily learning streak.",
+      "save_changes": "Save Changes"
     }
   }
 }
