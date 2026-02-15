@@ -17,7 +17,7 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
-import type { MonthlyBadge } from '../_schemas/quests';
+import type { MonthlyBadge } from '../_schemas/private';
 
 interface MonthlyBadgesCardProps {
   badges: MonthlyBadge[];

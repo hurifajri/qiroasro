@@ -13,16 +13,3 @@ export const MonthlyQuestSchema = object({
 });
 
 export type MonthlyQuest = InferOutput<typeof MonthlyQuestSchema>;
-
-/**
- * Monthly Badge Schema
- */
-export const MonthlyBadgeSchema = object({
-  id: pipe(number(), integer()),
-  titleKey: string(), // i18n key
-  dateKey: string(), // i18n key for month/year
-  iconEmoji: string(), // emoji icon
-  iconBg: string(), // Tailwind bg class
-});
-
-export type MonthlyBadge = InferOutput<typeof MonthlyBadgeSchema>;

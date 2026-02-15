@@ -1,7 +1,6 @@
+import { MonthlyBadgesCard } from '../../_components/monthly-badges-card';
 import { StatList } from '../../_components/stat-list';
-import { MOCK_USER_STATS } from '../../_lib/mock-data';
-import { MonthlyBadgesCard } from '../../quests/_components/monthly-badges-card';
-import { MOCK_MONTHLY_BADGES } from '../../quests/_lib/mock-data';
+import { MOCK_MONTHLY_BADGES, MOCK_USER_STATS } from '../../_lib/mock-data';
 
 export default function QuestsSidebar() {
   return (
