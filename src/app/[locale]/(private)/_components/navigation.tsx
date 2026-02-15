@@ -79,7 +79,10 @@ function MoreMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent side="right" align="start" className="w-48">
         <DropdownMenuItem asChild>
-          <Link href="/settings" className="flex items-center gap-2">
+          <Link
+            href="/settings/preferences"
+            className="flex items-center gap-2"
+          >
             <SettingsIcon className="size-4" />
             {t('settings')}
           </Link>

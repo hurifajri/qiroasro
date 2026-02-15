@@ -555,45 +555,6 @@
       }
     }
   },
-  "practice_page": {
-    "metadata": {
-      "title": "Asah Kemampuan",
-      "description": "Latih kemampuan tajwid Anda dengan berbagai soal tanpa kehilangan nyawa."
-    },
-    "title": "Latihan - Asah Kemampuan",
-    "description": "Pertajam kemampuan membaca Anda dengan latihan terarah.",
-    "sections": {
-      "letters": "Latihan Huruf",
-      "rules": "Latihan Hukum",
-      "collections": "Koleksi Anda"
-    },
-    "modes": {
-      "makharij": {
-        "title": "Makhorijul Huruf",
-        "description": "Latihan mengidentifikasi tempat keluar huruf."
-      },
-      "sifaat": {
-        "title": "Sifatul Huruf",
-        "description": "Identifikasi karakteristik huruf (Sifat)."
-      },
-      "ahkam": {
-        "title": "Hukum Tajwid",
-        "description": "Latihan hukum seperti Idgham, Ikhfa, dll."
-      },
-      "listen": {
-        "title": "Laboratorium Dengar",
-        "description": "Latihan pengenalan suara (audio)."
-      },
-      "mistakes": {
-        "title": "Perbaiki Kesalahan",
-        "description": "Latih kembali area kelemahan Anda."
-      },
-      "saved": {
-        "title": "Item Tersimpan",
-        "description": "Tinjau kembali konten yang Anda simpan."
-      }
-    }
-  },
   "reference_page": {
     "metadata": {
       "title": "Pustaka Ilmu",
@@ -673,6 +634,45 @@
       "waw": "Wawu",
       "nun_ghunna": "Nun Ghunnah",
       "mim_ghunna": "Mim Ghunnah"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Asah Kemampuan",
+      "description": "Latih kemampuan tajwid Anda dengan berbagai soal tanpa kehilangan nyawa."
+    },
+    "title": "Latihan - Asah Kemampuan",
+    "description": "Pertajam kemampuan membaca Anda dengan latihan terarah.",
+    "sections": {
+      "letters": "Latihan Huruf",
+      "rules": "Latihan Hukum",
+      "collections": "Koleksi Anda"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Makhorijul Huruf",
+        "description": "Latihan mengidentifikasi tempat keluar huruf."
+      },
+      "sifaat": {
+        "title": "Sifatul Huruf",
+        "description": "Identifikasi karakteristik huruf (Sifat)."
+      },
+      "ahkam": {
+        "title": "Hukum Tajwid",
+        "description": "Latihan hukum seperti Idgham, Ikhfa, dll."
+      },
+      "listen": {
+        "title": "Laboratorium Dengar",
+        "description": "Latihan pengenalan suara (audio)."
+      },
+      "mistakes": {
+        "title": "Perbaiki Kesalahan",
+        "description": "Latih kembali area kelemahan Anda."
+      },
+      "saved": {
+        "title": "Item Tersimpan",
+        "description": "Tinjau kembali konten yang Anda simpan."
+      }
     }
   },
   "leaderboard_page": {
@@ -795,6 +795,46 @@
         "title": "Semangat Membara",
         "description": "Kamu mencapai rekor 365 hari"
       }
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Preferensi - Pengaturan",
+      "description": "Sesuaikan pengalaman belajar dan preferensi aplikasi Anda."
+    },
+    "title": "Preferensi",
+    "lesson_experience": {
+      "title": "Pengalaman Belajar",
+      "sound_effects": "Efek Suara",
+      "animations": "Animasi",
+      "motivational_messages": "Pesan Motivasi",
+      "listening_exercises": "Latihan Mendengar"
+    },
+    "appearance": {
+      "title": "Tampilan",
+      "dark_mode": "Mode Gelap",
+      "mode_off": "Mati",
+      "mode_on": "Nyala"
+    },
+    "sidebar": {
+      "settings": {
+        "title": "Pengaturan",
+        "account": "Akun",
+        "preferences": "Preferensi",
+        "profile": "Profil",
+        "notifications": "Notifikasi",
+        "social_accounts": "Akun Sosial",
+        "privacy": "Privasi"
+      },
+      "subscription": {
+        "title": "Langganan",
+        "choose_plan": "Pilih Paket"
+      },
+      "support": {
+        "title": "Bantuan",
+        "help_center": "Pusat Bantuan"
+      },
+      "logout": "Keluar"
     }
   }
 }

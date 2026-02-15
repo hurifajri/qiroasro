@@ -555,45 +555,6 @@
       }
     }
   },
-  "practice_page": {
-    "metadata": {
-      "title": "صقل المهارات",
-      "description": "مارس مهارات التجويد بتمارين متنوعة دون فقدان القلوب."
-    },
-    "title": "تدريب - صقل المهارات",
-    "description": "صقل مهارات التلاوة بتمارين موجهة.",
-    "sections": {
-      "letters": "تدريب الحروف",
-      "rules": "تدريب الأحكام",
-      "collections": "مجموعاتك"
-    },
-    "modes": {
-      "makharij": {
-        "title": "مخارج الحروف",
-        "description": "تدريب على تحديد مخارج الحروف."
-      },
-      "sifaat": {
-        "title": "صفات الحروف",
-        "description": "تحديد خصائص الحروف (الصفات)."
-      },
-      "ahkam": {
-        "title": "أحكام التجويد",
-        "description": "ممارسة الأحكام مثل الإدغام والإخفاء."
-      },
-      "listen": {
-        "title": "مختبر الاستماع",
-        "description": "تمارين التعرف الصوتي."
-      },
-      "mistakes": {
-        "title": "مراجعة الأخطاء",
-        "description": "تدرب على نقاط ضعفك."
-      },
-      "saved": {
-        "title": "العناصر المحفوظة",
-        "description": "مراجعة المحتوى الذي قمت بحفظه."
-      }
-    }
-  },
   "reference_page": {
     "metadata": {
       "title": "مكتبة المعرفة",
@@ -673,6 +634,45 @@
       "waw": "واو",
       "nun_ghunna": "نون (غنة)",
       "mim_ghunna": "ميم (غنة)"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "صقل المهارات",
+      "description": "مارس مهارات التجويد بتمارين متنوعة دون فقدان القلوب."
+    },
+    "title": "تدريب - صقل المهارات",
+    "description": "صقل مهارات التلاوة بتمارين موجهة.",
+    "sections": {
+      "letters": "تدريب الحروف",
+      "rules": "تدريب الأحكام",
+      "collections": "مجموعاتك"
+    },
+    "modes": {
+      "makharij": {
+        "title": "مخارج الحروف",
+        "description": "تدريب على تحديد مخارج الحروف."
+      },
+      "sifaat": {
+        "title": "صفات الحروف",
+        "description": "تحديد خصائص الحروف (الصفات)."
+      },
+      "ahkam": {
+        "title": "أحكام التجويد",
+        "description": "ممارسة الأحكام مثل الإدغام والإخفاء."
+      },
+      "listen": {
+        "title": "مختبر الاستماع",
+        "description": "تمارين التعرف الصوتي."
+      },
+      "mistakes": {
+        "title": "مراجعة الأخطاء",
+        "description": "تدرب على نقاط ضعفك."
+      },
+      "saved": {
+        "title": "العناصر المحفوظة",
+        "description": "مراجعة المحتوى الذي قمت بحفظه."
+      }
     }
   },
   "leaderboard_page": {
@@ -795,6 +795,46 @@
         "title": "شعلة الحماس",
         "description": "لقد وصلت إلى سلسلة 365 يوماً"
       }
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "التفضيلات - الإعدادات",
+      "description": "تخصيص تجربة التعلم وتفضيلات التطبيق."
+    },
+    "title": "التفضيلات",
+    "lesson_experience": {
+      "title": "تجربة الدرس",
+      "sound_effects": "المؤثرات الصوتية",
+      "animations": "الرسوم المتحركة",
+      "motivational_messages": "رسائل تحفيزية",
+      "listening_exercises": "تمارين الاستماع"
+    },
+    "appearance": {
+      "title": "المظهر",
+      "dark_mode": "الوضع الداكن",
+      "mode_off": "إيقاف",
+      "mode_on": "تشغيل"
+    },
+    "sidebar": {
+      "settings": {
+        "title": "الإعدادات",
+        "account": "الحساب",
+        "preferences": "التفضيلات",
+        "profile": "الملف الشخصي",
+        "notifications": "الإشعارات",
+        "social_accounts": "الحسابات الاجتماعية",
+        "privacy": "الخصوصية"
+      },
+      "subscription": {
+        "title": "الاشتراك",
+        "choose_plan": "اختر خطة"
+      },
+      "support": {
+        "title": "الدعم",
+        "help_center": "مركز المساعدة"
+      },
+      "logout": "تسجيل الخروج"
     }
   }
 }

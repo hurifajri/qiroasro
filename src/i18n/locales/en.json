@@ -555,45 +555,6 @@
       }
     }
   },
-  "practice_page": {
-    "metadata": {
-      "title": "Skill Drills",
-      "description": "Practice your Tajweed skills with various exercises without losing hearts."
-    },
-    "title": "Practice - Skill Drills",
-    "description": "Sharpen your recitation skills with targeted exercises.",
-    "sections": {
-      "letters": "Letter Practice",
-      "rules": "Rules Practice",
-      "collections": "Your Collections"
-    },
-    "modes": {
-      "makharij": {
-        "title": "Articulation Points",
-        "description": "Practice identifying where letters come from."
-      },
-      "sifaat": {
-        "title": "Characteristics",
-        "description": "Identify letter traits (Sifaat)."
-      },
-      "ahkam": {
-        "title": "Tajweed Rules",
-        "description": "Practice rules like Idgham, Ikhfa, etc."
-      },
-      "listen": {
-        "title": "Listening Lab",
-        "description": "Audio recognition exercises."
-      },
-      "mistakes": {
-        "title": "Review Mistakes",
-        "description": "Practice your weak areas from previous lessons."
-      },
-      "saved": {
-        "title": "Saved Items",
-        "description": "Review your bookmarked content."
-      }
-    }
-  },
   "reference_page": {
     "metadata": {
       "title": "Knowledge Library",
@@ -673,6 +634,45 @@
       "waw": "Waw",
       "nun_ghunna": "Nun Ghunna",
       "mim_ghunna": "Mim Ghunna"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Skill Drills",
+      "description": "Practice your Tajweed skills with various exercises without losing hearts."
+    },
+    "title": "Practice - Skill Drills",
+    "description": "Sharpen your recitation skills with targeted exercises.",
+    "sections": {
+      "letters": "Letter Practice",
+      "rules": "Rules Practice",
+      "collections": "Your Collections"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Articulation Points",
+        "description": "Practice identifying where letters come from."
+      },
+      "sifaat": {
+        "title": "Characteristics",
+        "description": "Identify letter traits (Sifaat)."
+      },
+      "ahkam": {
+        "title": "Tajweed Rules",
+        "description": "Practice rules like Idgham, Ikhfa, etc."
+      },
+      "listen": {
+        "title": "Listening Lab",
+        "description": "Audio recognition exercises."
+      },
+      "mistakes": {
+        "title": "Review Mistakes",
+        "description": "Practice your weak areas from previous lessons."
+      },
+      "saved": {
+        "title": "Saved Items",
+        "description": "Review your bookmarked content."
+      }
     }
   },
   "leaderboard_page": {
@@ -795,6 +795,46 @@
         "title": "Wildfire",
         "description": "You reached a 365-day streak"
       }
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Preferences - Settings",
+      "description": "Customize your learning experience and app preferences."
+    },
+    "title": "Preferences",
+    "lesson_experience": {
+      "title": "Lesson Experience",
+      "sound_effects": "Sound Effects",
+      "animations": "Animations",
+      "motivational_messages": "Motivational Messages",
+      "listening_exercises": "Listening Exercises"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "dark_mode": "Dark Mode",
+      "mode_off": "Off",
+      "mode_on": "On"
+    },
+    "sidebar": {
+      "settings": {
+        "title": "Settings",
+        "account": "Account",
+        "preferences": "Preferences",
+        "profile": "Profile",
+        "notifications": "Notifications",
+        "social_accounts": "Social Accounts",
+        "privacy": "Privacy"
+      },
+      "subscription": {
+        "title": "Subscription",
+        "choose_plan": "Choose a Plan"
+      },
+      "support": {
+        "title": "Support",
+        "help_center": "Help Center"
+      },
+      "logout": "Log Out"
     }
   }
 }

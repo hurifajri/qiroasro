@@ -555,45 +555,6 @@
       }
     }
   },
-  "practice_page": {
-    "metadata": {
-      "title": "Beceri Geliştirme",
-      "description": "Can kaybetmeden çeşitli egzersizlerle Tecvid becerilerinizi geliştirin."
-    },
-    "title": "Pratik - Beceri Geliştirme",
-    "description": "Hedefe yönelik egzersizlerle okuma becerilerinizi keskinleştirin.",
-    "sections": {
-      "letters": "Harf Alıştırması",
-      "rules": "Kural Alıştırması",
-      "collections": "Koleksiyonlarınız"
-    },
-    "modes": {
-      "makharij": {
-        "title": "Mahreçler",
-        "description": "Harflerin çıkış yerlerini tanıma alıştırması."
-      },
-      "sifaat": {
-        "title": "Sıfatlar",
-        "description": "Harf özelliklerini (Sıfatları) tanımlayın."
-      },
-      "ahkam": {
-        "title": "Tecvid Kuralları",
-        "description": "İdgam, İhfa gibi kuralları uygulayın."
-      },
-      "listen": {
-        "title": "Dinleme Laboratuvarı",
-        "description": "Ses tanıma egzersizleri."
-      },
-      "mistakes": {
-        "title": "Hataları Gözden Geçir",
-        "description": "Zayıf olduğunuz alanları tekrar çalışın."
-      },
-      "saved": {
-        "title": "Kaydedilenler",
-        "description": "Kaydettiğiniz içerikleri gözden geçirin."
-      }
-    }
-  },
   "reference_page": {
     "metadata": {
       "title": "Bilgi Kütüphanesi",
@@ -673,6 +634,45 @@
       "waw": "Vav",
       "nun_ghunna": "Nun (Gunneli)",
       "mim_ghunna": "Mim (Gunneli)"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Beceri Geliştirme",
+      "description": "Can kaybetmeden çeşitli egzersizlerle Tecvid becerilerinizi geliştirin."
+    },
+    "title": "Pratik - Beceri Geliştirme",
+    "description": "Hedefe yönelik egzersizlerle okuma becerilerinizi keskinleştirin.",
+    "sections": {
+      "letters": "Harf Alıştırması",
+      "rules": "Kural Alıştırması",
+      "collections": "Koleksiyonlarınız"
+    },
+    "modes": {
+      "makharij": {
+        "title": "Mahreçler",
+        "description": "Harflerin çıkış yerlerini tanıma alıştırması."
+      },
+      "sifaat": {
+        "title": "Sıfatlar",
+        "description": "Harf özelliklerini (Sıfatları) tanımlayın."
+      },
+      "ahkam": {
+        "title": "Tecvid Kuralları",
+        "description": "İdgam, İhfa gibi kuralları uygulayın."
+      },
+      "listen": {
+        "title": "Dinleme Laboratuvarı",
+        "description": "Ses tanıma egzersizleri."
+      },
+      "mistakes": {
+        "title": "Hataları Gözden Geçir",
+        "description": "Zayıf olduğunuz alanları tekrar çalışın."
+      },
+      "saved": {
+        "title": "Kaydedilenler",
+        "description": "Kaydettiğiniz içerikleri gözden geçirin."
+      }
     }
   },
   "leaderboard_page": {
@@ -795,6 +795,46 @@
         "title": "Alev",
         "description": "365 günlük bir seriye ulaştın"
       }
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Tercihler - Ayarlar",
+      "description": "Öğrenme deneyiminizi ve uygulama tercihlerinizi özelleştirin."
+    },
+    "title": "Tercihler",
+    "lesson_experience": {
+      "title": "Ders Deneyimi",
+      "sound_effects": "Ses Efektleri",
+      "animations": "Animasyonlar",
+      "motivational_messages": "Motivasyon Mesajları",
+      "listening_exercises": "Dinleme Alıştırmaları"
+    },
+    "appearance": {
+      "title": "Görünüm",
+      "dark_mode": "Karanlık Mod",
+      "mode_off": "Kapalı",
+      "mode_on": "Açık"
+    },
+    "sidebar": {
+      "settings": {
+        "title": "Ayarlar",
+        "account": "Hesap",
+        "preferences": "Tercihler",
+        "profile": "Profil",
+        "notifications": "Bildirimler",
+        "social_accounts": "Sosyal Hesaplar",
+        "privacy": "Gizlilik"
+      },
+      "subscription": {
+        "title": "Abonelik",
+        "choose_plan": "Plan Seç"
+      },
+      "support": {
+        "title": "Destek",
+        "help_center": "Yardım Merkezi"
+      },
+      "logout": "Çıkış Yap"
     }
   }
 }
