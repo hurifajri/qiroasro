@@ -27,13 +27,3 @@ export const FullLeaderboardEntrySchema = object({
 export type FullLeaderboardEntry = InferOutput<
   typeof FullLeaderboardEntrySchema
 >;
-
-/**
- * User Status Schema (for sidebar)
- */
-export const UserStatusSchema = object({
-  emoji: string(),
-  label: string(),
-});
-
-export type UserStatus = InferOutput<typeof UserStatusSchema>;

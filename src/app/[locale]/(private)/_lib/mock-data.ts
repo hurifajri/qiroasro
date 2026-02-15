@@ -3,6 +3,7 @@ import type {
   NavItem,
   Quest,
   UserStats,
+  UserStatus,
 } from '../_schemas/private';
 
 export const ADD_FRIENDS_ITEMS = [
@@ -162,4 +163,22 @@ export const MOCK_NAV_ITEMS: NavItem[] = [
     href: '/profile/hurifajri',
     isActive: false,
   },
+];
+
+/**
+ * Mock user statuses for sidebar
+ */
+export const MOCK_USER_STATUSES: UserStatus[] = [
+  { emoji: '🎯', label: 'Focused' },
+  { emoji: '📖', label: 'Learning' },
+  { emoji: '🔥', label: 'On Fire' },
+  { emoji: '💪', label: 'Determined' },
+  { emoji: '🤲', label: 'Praying' },
+  { emoji: '📚', label: 'Studying' },
+  { emoji: '🌙', label: 'Night Owl' },
+  { emoji: '☀️', label: 'Early Bird' },
+  { emoji: '🏆', label: 'Champion' },
+  { emoji: '🎓', label: 'Graduate' },
+  { emoji: '🌟', label: 'Star' },
+  { emoji: '🦉', label: 'Wise' },
 ];

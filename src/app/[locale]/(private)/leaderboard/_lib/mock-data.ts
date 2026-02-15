@@ -1,8 +1,4 @@
-import type {
-  FullLeaderboardEntry,
-  League,
-  UserStatus,
-} from '../_schemas/leaderboard';
+import type { FullLeaderboardEntry, League } from '../_schemas/leaderboard';
 
 /**
  * Available leagues in order
@@ -100,22 +96,4 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     isCurrentUser: false,
     avatarBg: 'bg-indigo-500',
   },
-];
-
-/**
- * Mock user statuses for sidebar
- */
-export const MOCK_USER_STATUSES: UserStatus[] = [
-  { emoji: '🎯', label: 'Focused' },
-  { emoji: '📖', label: 'Learning' },
-  { emoji: '🔥', label: 'On Fire' },
-  { emoji: '💪', label: 'Determined' },
-  { emoji: '🤲', label: 'Praying' },
-  { emoji: '📚', label: 'Studying' },
-  { emoji: '🌙', label: 'Night Owl' },
-  { emoji: '☀️', label: 'Early Bird' },
-  { emoji: '🏆', label: 'Champion' },
-  { emoji: '🎓', label: 'Graduate' },
-  { emoji: '🌟', label: 'Star' },
-  { emoji: '🦉', label: 'Wise' },
 ];

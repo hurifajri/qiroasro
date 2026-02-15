@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { UserStatus } from '../_schemas/leaderboard';
+import type { UserStatus } from '../_schemas/private';
 
 interface StatusCardProps {
   statuses: UserStatus[];

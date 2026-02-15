@@ -59,3 +59,13 @@ export const NavItemSchema = object({
 });
 
 export type NavItem = InferOutput<typeof NavItemSchema>;
+
+/**
+ * User Status Schema (for sidebar)
+ */
+export const UserStatusSchema = object({
+  emoji: string(),
+  label: string(),
+});
+
+export type UserStatus = InferOutput<typeof UserStatusSchema>;
