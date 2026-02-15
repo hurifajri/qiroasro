@@ -4,8 +4,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   MOCK_APPEARANCE_MODE,
   MOCK_LESSON_PREFERENCES,
+  MOCK_PROFILE_DATA,
 } from '../_lib/mock-data';
 import { Preferences } from './_components/preferences';
+import { Profile } from './_components/profile';
 
 interface SettingsPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -64,11 +66,20 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'preferences') {
     return (
       <>
-        <h1 className="mb-6 font-bold text-2xl">{t('title')}</h1>
+        <h1 className="mb-6 font-bold text-2xl">{t('preferences.title')}</h1>
         <Preferences
           lessonPreferences={MOCK_LESSON_PREFERENCES}
           defaultAppearanceMode={MOCK_APPEARANCE_MODE}
         />
+      </>
+    );
+  }
+
+  if (slug === 'profile') {
+    return (
+      <>
+        <h1 className="mb-6 font-bold text-2xl">{t('profile.title')}</h1>
+        <Profile defaultProfile={MOCK_PROFILE_DATA} />
       </>
     );
   }

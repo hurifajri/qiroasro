@@ -815,22 +815,42 @@
   },
   "settings_page": {
     "metadata": {
-      "title": "التفضيلات - الإعدادات",
+      "title": "الإعدادات",
       "description": "تخصيص تجربة التعلم وتفضيلات التطبيق."
     },
-    "title": "التفضيلات",
-    "lesson_experience": {
-      "title": "تجربة الدرس",
-      "sound_effects": "المؤثرات الصوتية",
-      "animations": "الرسوم المتحركة",
-      "motivational_messages": "رسائل تحفيزية",
-      "listening_exercises": "تمارين الاستماع"
+    "title": "الإعدادات",
+    "preferences": {
+      "title": "التفضيلات",
+      "lesson_experience": {
+        "title": "تجربة الدرس",
+        "sound_effects": "المؤثرات الصوتية",
+        "animations": "الرسوم المتحركة",
+        "motivational_messages": "رسائل تحفيزية",
+        "listening_exercises": "تمارين الاستماع"
+      },
+      "appearance": {
+        "title": "المظهر",
+        "dark_mode": "الوضع الداكن",
+        "mode_off": "إيقاف",
+        "mode_on": "تشغيل"
+      }
     },
-    "appearance": {
-      "title": "المظهر",
-      "dark_mode": "الوضع الداكن",
-      "mode_off": "إيقاف",
-      "mode_on": "تشغيل"
+    "profile": {
+      "title": "الملف الشخصي",
+      "avatar": "الصورة الرمزية",
+      "edit_avatar": "تعديل الصورة الرمزية",
+      "personal_info": "المعلومات الشخصية",
+      "name": "الاسم",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "password_section": "كلمة المرور",
+      "current_password": "كلمة المرور الحالية",
+      "new_password": "كلمة المرور الجديدة",
+      "show_password": "إظهار كلمة المرور",
+      "hide_password": "إخفاء كلمة المرور",
+      "save_changes": "حفظ التغييرات",
+      "export_data": "تصدير بياناتي",
+      "delete_account": "حذف حسابي"
     }
   }
 }

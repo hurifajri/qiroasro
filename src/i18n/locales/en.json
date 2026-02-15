@@ -815,22 +815,42 @@
   },
   "settings_page": {
     "metadata": {
-      "title": "Preferences - Settings",
+      "title": "Settings",
       "description": "Customize your learning experience and app preferences."
     },
-    "title": "Preferences",
-    "lesson_experience": {
-      "title": "Lesson Experience",
-      "sound_effects": "Sound Effects",
-      "animations": "Animations",
-      "motivational_messages": "Motivational Messages",
-      "listening_exercises": "Listening Exercises"
+    "title": "Settings",
+    "preferences": {
+      "title": "Preferences",
+      "lesson_experience": {
+        "title": "Lesson Experience",
+        "sound_effects": "Sound Effects",
+        "animations": "Animations",
+        "motivational_messages": "Motivational Messages",
+        "listening_exercises": "Listening Exercises"
+      },
+      "appearance": {
+        "title": "Appearance",
+        "dark_mode": "Dark Mode",
+        "mode_off": "Off",
+        "mode_on": "On"
+      }
     },
-    "appearance": {
-      "title": "Appearance",
-      "dark_mode": "Dark Mode",
-      "mode_off": "Off",
-      "mode_on": "On"
+    "profile": {
+      "title": "Profile",
+      "avatar": "Avatar",
+      "edit_avatar": "Edit Avatar",
+      "personal_info": "Personal Info",
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "password_section": "Password",
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "show_password": "Show Password",
+      "hide_password": "Hide Password",
+      "save_changes": "Save Changes",
+      "export_data": "Export My Data",
+      "delete_account": "Delete My Account"
     }
   }
 }

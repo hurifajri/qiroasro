@@ -16,7 +16,7 @@ export function PreferenceToggleRow({
   preference,
   onToggle,
 }: PreferenceToggleRowProps) {
-  const t = useTranslations('settings_page');
+  const t = useTranslations('settings_page.preferences');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
 

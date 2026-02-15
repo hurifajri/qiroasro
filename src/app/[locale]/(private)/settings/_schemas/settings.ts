@@ -23,3 +23,15 @@ export const SettingsLinkSchema = object({
 });
 
 export type SettingsLink = InferOutput<typeof SettingsLinkSchema>;
+
+/**
+ * Profile Form Schema
+ */
+export const ProfileFormSchema = object({
+  name: string(),
+  username: string(),
+  email: string(),
+  avatarUrl: optional(string()),
+});
+
+export type ProfileForm = InferOutput<typeof ProfileFormSchema>;

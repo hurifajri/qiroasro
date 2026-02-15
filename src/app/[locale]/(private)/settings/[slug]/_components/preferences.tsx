@@ -29,7 +29,7 @@ export function Preferences({
   lessonPreferences,
   defaultAppearanceMode,
 }: PreferencesProps) {
-  const t = useTranslations('settings_page');
+  const t = useTranslations('settings_page.preferences');
   const [preferences, setPreferences] =
     useState<PreferenceToggle[]>(lessonPreferences);
   const [appearanceMode, setAppearanceMode] = useState(defaultAppearanceMode);
