@@ -6,22 +6,21 @@ import {
   MOCK_SUPPORT_LINKS,
 } from '../../../settings/_lib/mock-data';
 
+interface SettingsSidebarProps {
+  params: Promise<{ slug: string }>;
+}
+
 export default async function SettingsSidebar({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: SettingsSidebarProps) {
   const { slug } = await params;
-
-  // Determine active link based on slug
-  const activeId = slug;
 
   return (
     <>
       <SettingsNavCard
         titleKey="sidebar.settings.title"
         links={MOCK_ACCOUNT_LINKS}
-        activeId={activeId}
+        activeId={slug}
       />
       <SettingsNavCard
         titleKey="sidebar.subscription.title"

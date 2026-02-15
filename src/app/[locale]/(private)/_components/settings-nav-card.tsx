@@ -26,7 +26,7 @@ export function SettingsNavCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ItemGroup className="gap-0">
+        <ItemGroup className="gap-1">
           {links.map((link) => (
             <Item key={link.id} asChild>
               <Link
