@@ -15,7 +15,7 @@ interface MonthlyBadgeRowProps {
 }
 
 export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
-  const t = useTranslations('quests_page');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Item asChild>

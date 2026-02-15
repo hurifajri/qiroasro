@@ -249,6 +249,28 @@
         "title": "Lencana Bulanan",
         "view_all": "Lihat Semua"
       },
+      "badges": {
+        "oscars_final_rose": {
+          "title": "Mawar Terakhir Oscar",
+          "date": "Februari 2025"
+        },
+        "duos_frozen_winter": {
+          "title": "Musim Dingin Beku Duo",
+          "date": "Januari 2025"
+        },
+        "oscars_ode_to_botticelli": {
+          "title": "Ode Oscar untuk Botticelli",
+          "date": "November 2024"
+        },
+        "duocon_2024": {
+          "title": "Duocon 2024",
+          "date": "September 2024"
+        },
+        "summer_owlympics": {
+          "title": "Olimpiade Musim Panas 2024",
+          "date": "Agustus 2024"
+        }
+      },
       "logout": "Keluar"
     }
   },
@@ -724,29 +746,7 @@
     "days_remaining": "{count} Hari",
     "hours_remaining": "{count} Jam",
     "daily_quests": "Misi Harian",
-    "complete_quests": "Selesaikan {target} misi",
-    "badges": {
-      "oscars_final_rose": {
-        "title": "Mawar Terakhir Oscar",
-        "date": "Februari 2025"
-      },
-      "duos_frozen_winter": {
-        "title": "Musim Dingin Beku Duo",
-        "date": "Januari 2025"
-      },
-      "oscars_ode_to_botticelli": {
-        "title": "Ode Oscar untuk Botticelli",
-        "date": "November 2024"
-      },
-      "duocon_2024": {
-        "title": "Duocon 2024",
-        "date": "September 2024"
-      },
-      "summer_owlympics": {
-        "title": "Olimpiade Musim Panas 2024",
-        "date": "Agustus 2024"
-      }
-    }
+    "complete_quests": "Selesaikan {target} misi"
   },
   "shop_page": {
     "metadata": {

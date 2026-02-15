@@ -249,6 +249,28 @@
         "title": "Monthly Badges",
         "view_all": "View All"
       },
+      "badges": {
+        "oscars_final_rose": {
+          "title": "Oscar's Final Rose",
+          "date": "February 2025"
+        },
+        "duos_frozen_winter": {
+          "title": "Duo's Frozen Winter",
+          "date": "January 2025"
+        },
+        "oscars_ode_to_botticelli": {
+          "title": "Oscar's Ode to Botticelli",
+          "date": "November 2024"
+        },
+        "duocon_2024": {
+          "title": "Duocon 2024",
+          "date": "September 2024"
+        },
+        "summer_owlympics": {
+          "title": "2024 Summer Owlympics",
+          "date": "August 2024"
+        }
+      },
       "logout": "Log Out"
     }
   },
@@ -724,29 +746,7 @@
     "days_remaining": "{count} Days",
     "hours_remaining": "{count} Hours",
     "daily_quests": "Daily Quests",
-    "complete_quests": "Complete {target} quests",
-    "badges": {
-      "oscars_final_rose": {
-        "title": "Oscar's Final Rose",
-        "date": "February 2025"
-      },
-      "duos_frozen_winter": {
-        "title": "Duo's Frozen Winter",
-        "date": "January 2025"
-      },
-      "oscars_ode_to_botticelli": {
-        "title": "Oscar's Ode to Botticelli",
-        "date": "November 2024"
-      },
-      "duocon_2024": {
-        "title": "Duocon 2024",
-        "date": "September 2024"
-      },
-      "summer_owlympics": {
-        "title": "2024 Summer Owlympics",
-        "date": "August 2024"
-      }
-    }
+    "complete_quests": "Complete {target} quests"
   },
   "shop_page": {
     "metadata": {
