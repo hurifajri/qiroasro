@@ -229,8 +229,8 @@
           "description": "Finish 3 lessons today"
         }
       },
-      "settings": {
-        "title": "Settings",
+      "account": {
+        "title": "Account",
         "preferences": "Preferences",
         "profile": "Profile",
         "notifications": "Notifications",

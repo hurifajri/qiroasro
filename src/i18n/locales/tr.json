@@ -229,8 +229,8 @@
           "description": "Bugün 3 dersi bitir"
         }
       },
-      "settings": {
-        "title": "Ayarlar",
+      "account": {
+        "title": "Hesap",
         "preferences": "Tercihler",
         "profile": "Profil",
         "notifications": "Bildirimler",

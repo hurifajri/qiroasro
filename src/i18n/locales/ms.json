@@ -229,8 +229,8 @@
           "description": "Selesaikan 3 pelajaran hari ini"
         }
       },
-      "settings": {
-        "title": "Tetapan",
+      "account": {
+        "title": "Akaun",
         "preferences": "Keutamaan",
         "profile": "Profil",
         "notifications": "Pemberitahuan",

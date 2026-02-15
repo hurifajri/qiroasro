@@ -40,27 +40,27 @@ export const MOCK_LESSON_PREFERENCES: PreferenceToggle[] = [
 export const MOCK_ACCOUNT_LINKS: SettingsLink[] = [
   {
     id: 'preferences',
-    labelKey: 'settings.preferences',
+    labelKey: 'account.preferences',
     href: '/settings/preferences',
   },
   {
     id: 'profile',
-    labelKey: 'settings.profile',
+    labelKey: 'account.profile',
     href: '/settings/profile',
   },
   {
     id: 'notifications',
-    labelKey: 'settings.notifications',
+    labelKey: 'account.notifications',
     href: '/settings/notifications',
   },
   {
     id: 'social',
-    labelKey: 'settings.social_accounts',
+    labelKey: 'account.social_accounts',
     href: '/settings/social',
   },
   {
     id: 'privacy',
-    labelKey: 'settings.privacy',
+    labelKey: 'account.privacy',
     href: '/settings/privacy',
   },
 ];

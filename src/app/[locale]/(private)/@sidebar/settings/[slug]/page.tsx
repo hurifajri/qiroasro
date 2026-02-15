@@ -18,7 +18,7 @@ export default async function SettingsSidebar({
   return (
     <>
       <SettingsNavCard
-        titleKey="settings.title"
+        titleKey="account.title"
         links={MOCK_ACCOUNT_LINKS}
         activeId={slug}
       />

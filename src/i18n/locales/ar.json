@@ -229,8 +229,8 @@
           "description": "أنهِ 3 دروس اليوم"
         }
       },
-      "settings": {
-        "title": "الإعدادات",
+      "account": {
+        "title": "الحساب",
         "preferences": "التفضيلات",
         "profile": "الملف الشخصي",
         "notifications": "الإشعارات",
