@@ -128,11 +128,11 @@ export function SidebarNav({ items }: SidebarNavProps) {
             )}
           >
             {isLg ? (
-              <Icon className="size-6" />
+              <Icon />
             ) : (
               <Tooltip>
                 <TooltipTrigger>
-                  <Icon className="size-6" />
+                  <Icon />
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>{t(item.labelKey)}</p>
@@ -177,7 +177,7 @@ export function BottomNav({ items }: BottomNavProps) {
                 : 'text-muted-foreground hover:text-foreground',
             )}
           >
-            <Icon className="size-6" />
+            <Icon />
           </Link>
         );
       })}
