@@ -10,11 +10,14 @@ import { cn } from '@/lib/utils';
 import type { LeaderboardEntry } from '../_schemas/private';
 
 interface LeaderboardRowProps {
-  entry: LeaderboardEntry;
+  entry: LeaderboardEntry & {
+    /** Optional custom avatar background (Tailwind classes) */
+    avatarBg?: string;
+  };
 }
 
 export function LeaderboardRow({ entry }: LeaderboardRowProps) {
-  const { rank, name, xp, isCurrentUser } = entry;
+  const { rank, name, xp, isCurrentUser, avatarBg } = entry;
 
   // Medal colors for top 3
   const getMedalStyle = () => {
@@ -39,34 +42,40 @@ export function LeaderboardRow({ entry }: LeaderboardRowProps) {
         <ItemMedia
           variant="icon"
           className={cn(
-            'translate-0! self-center! flex size-7 shrink-0 items-center justify-center rounded-full',
+            'translate-0! self-center! flex size-8 shrink-0 items-center justify-center rounded-full font-bold text-sm',
             getMedalStyle(),
           )}
         >
           {rank === 1 ? <CrownIcon className="size-4" /> : rank}
         </ItemMedia>
+
         {/* Avatar */}
         <ItemMedia
           variant="image"
-          className="translate-0! self-center! flex size-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-primary/60 to-primary font-bold text-white text-xs"
+          className={cn(
+            'translate-0! self-center! flex size-10 shrink-0 items-center justify-center rounded-full font-bold text-white',
+            avatarBg || 'bg-linear-to-br from-primary/60 to-primary text-xs',
+          )}
         >
           {name.charAt(0).toUpperCase()}
         </ItemMedia>
+
+        {/* Name */}
         <ItemContent>
-          {/* Name */}
           <ItemTitle>
             <h4
               className={cn(
                 'flex-1 truncate font-medium text-sm',
-                isCurrentUser && 'text-primary',
+                isCurrentUser && 'font-bold text-primary',
               )}
             >
               {name}
             </h4>
           </ItemTitle>
         </ItemContent>
+
+        {/* XP */}
         <ItemContent>
-          {/* XP */}
           <ItemDescription className="font-semibold text-muted-foreground text-sm">
             {xp.toLocaleString()} XP
           </ItemDescription>

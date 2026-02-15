@@ -1,7 +1,7 @@
 import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
+import { LeaderboardRow } from '../../_components/leaderboard-row';
 import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
-import { LeaderboardEntryRow } from './leaderboard-entry-row';
 
 interface LeaderboardListProps {
   entries: FullLeaderboardEntry[];
@@ -18,7 +18,7 @@ export function LeaderboardList({ entries }: LeaderboardListProps) {
       {/* Promotion Zone (Top 3) */}
       <ItemGroup className="gap-0">
         {promotionZone.map((entry) => (
-          <LeaderboardEntryRow key={entry.userId} entry={entry} />
+          <LeaderboardRow key={entry.userId} entry={entry} />
         ))}
       </ItemGroup>
 
@@ -29,7 +29,7 @@ export function LeaderboardList({ entries }: LeaderboardListProps) {
       {/* Safe Zone */}
       <ItemGroup className="gap-0">
         {safeZone.map((entry) => (
-          <LeaderboardEntryRow key={entry.userId} entry={entry} />
+          <LeaderboardRow key={entry.userId} entry={entry} />
         ))}
       </ItemGroup>
 
@@ -40,7 +40,7 @@ export function LeaderboardList({ entries }: LeaderboardListProps) {
       {/* Demotion Zone */}
       <ItemGroup className="gap-0">
         {demotionZone.map((entry) => (
-          <LeaderboardEntryRow key={entry.userId} entry={entry} />
+          <LeaderboardRow key={entry.userId} entry={entry} />
         ))}
       </ItemGroup>
     </div>
