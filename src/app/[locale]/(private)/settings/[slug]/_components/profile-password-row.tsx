@@ -46,11 +46,7 @@ export function ProfilePasswordRow({
             onClick={() => setShowPassword(!showPassword)}
             aria-label={t(showPassword ? 'hide_password' : 'show_password')}
           >
-            {showPassword ? (
-              <EyeOffIcon className="size-4" />
-            ) : (
-              <EyeIcon className="size-4" />
-            )}
+            {showPassword ? <EyeOffIcon /> : <EyeIcon />}
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>

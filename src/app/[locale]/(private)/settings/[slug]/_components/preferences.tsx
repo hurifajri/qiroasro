@@ -43,10 +43,10 @@ export function Preferences({
   return (
     <div className="flex flex-col gap-12">
       {/* Lesson experience section */}
-      <section className="flex flex-col gap-2">
+      <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('lesson_experience.title')}</h2>
         <Separator />
-        <FieldGroup className="gap-2">
+        <FieldGroup className="gap-4">
           {preferences.map((preference) => (
             <PreferenceToggleRow
               key={preference.id}
@@ -58,7 +58,7 @@ export function Preferences({
       </section>
 
       {/* Appearance section */}
-      <section className="flex flex-col gap-2">
+      <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('appearance.title')}</h2>
         <Separator />
         <Field>

@@ -48,21 +48,19 @@ export function Profile({ defaultProfile }: ProfileProps) {
       {/* Avatar section */}
       <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('avatar.title')}</h2>
-        <div className="flex items-center gap-4">
-          <Avatar className="size-24">
-            <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-            <AvatarFallback className="text-2xl">
-              {profile.name.charAt(0).toUpperCase()}
-            </AvatarFallback>
-            <AvatarBadge>
-              <PencilIcon />
-            </AvatarBadge>
-          </Avatar>
-        </div>
+        <Avatar size="lg">
+          <AvatarImage src={profile.avatarUrl} alt={profile.name} />
+          <AvatarFallback>
+            {profile.name.charAt(0).toUpperCase()}
+          </AvatarFallback>
+          <AvatarBadge>
+            <PencilIcon />
+          </AvatarBadge>
+        </Avatar>
       </section>
 
       {/* Personal info section */}
-      <section className="flex flex-col gap-2">
+      <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('personal_info.title')}</h2>
         <Separator />
         <FieldGroup className="gap-4">
@@ -89,7 +87,7 @@ export function Profile({ defaultProfile }: ProfileProps) {
       </section>
 
       {/* Password section */}
-      <section className="flex flex-col gap-2">
+      <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('password.title')}</h2>
         <Separator />
         <FieldGroup className="gap-4">
@@ -109,26 +107,28 @@ export function Profile({ defaultProfile }: ProfileProps) {
       </section>
 
       {/* Save button */}
-      <div>
-        <Button onClick={handleSaveChanges}>{t('save_changes')}</Button>
-      </div>
+      <Button onClick={handleSaveChanges} className="w-fit">
+        {t('save_changes')}
+      </Button>
 
       {/* Footer actions */}
-      <div className="flex flex-col gap-2">
-        <button
-          type="button"
+      <div className="flex flex-col">
+        <Button
+          variant="link"
+          size="xs"
           onClick={handleExportData}
-          className="text-left font-normal text-muted-foreground text-sm hover:underline"
+          className="no-underline! w-fit px-0 text-foreground uppercase"
         >
           {t('export_data')}
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="link"
+          size="lg"
           onClick={handleDeleteAccount}
-          className="text-left font-normal text-destructive text-sm hover:underline"
+          className="no-underline! w-fit px-0 text-destructive uppercase"
         >
           {t('delete_account')}
-        </button>
+        </Button>
       </div>
     </div>
   );
