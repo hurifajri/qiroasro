@@ -6,7 +6,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import type { FollowEntry } from '../_schemas/profile-sidebar';
+import type { FollowEntry } from '../_schemas/private';
 
 interface FollowListRowProps {
   entry: FollowEntry;

@@ -10,7 +10,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import type { ActivityFeedItem } from '../_schemas/profile-sidebar';
+import type { ActivityFeedItem } from '../_schemas/private';
 
 interface ActivityFeedRowProps {
   item: ActivityFeedItem;

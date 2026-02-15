@@ -5,7 +5,7 @@ import {
   MOCK_ACTIVITY_FEED,
   MOCK_FOLLOWERS,
   MOCK_FOLLOWING,
-} from '../../../_lib/profile-sidebar-data';
+} from '../../../_lib/mock-data';
 
 export default async function ProfileSidebar({
   params,

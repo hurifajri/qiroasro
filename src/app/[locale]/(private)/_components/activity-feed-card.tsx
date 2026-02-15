@@ -12,7 +12,7 @@ import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { ActivityFeedItem } from '../_schemas/profile-sidebar';
+import type { ActivityFeedItem } from '../_schemas/private';
 import { ActivityFeedRow } from './activity-feed-row';
 
 interface ActivityFeedCardProps {

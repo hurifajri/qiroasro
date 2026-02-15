@@ -7,7 +7,7 @@ import { ItemGroup } from '@/components/ui/item';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { FollowEntry } from '../_schemas/profile-sidebar';
+import type { FollowEntry } from '../_schemas/private';
 import { FollowListRow } from './follow-list-row';
 
 interface FollowListCardProps {
