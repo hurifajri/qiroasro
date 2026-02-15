@@ -21,9 +21,7 @@ export function SettingsNavCard({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          <h3 className="font-bold text-sm">{t(titleKey)}</h3>
-        </CardTitle>
+        <CardTitle>{t(titleKey)}</CardTitle>
       </CardHeader>
       <CardContent>
         <ItemGroup className="gap-1">

@@ -17,7 +17,7 @@ export function SettingsContentHeader() {
           'absolute right-0 px-0',
         )}
       >
-        <SettingsIcon className="size-5" />
+        <SettingsIcon />
       </Link>
     </div>
   );
