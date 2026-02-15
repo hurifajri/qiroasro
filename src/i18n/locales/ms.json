@@ -271,6 +271,7 @@
           "date": "Ogos 2024"
         }
       },
+      "set_status": "Tetapkan Status",
       "logout": "Log Keluar"
     }
   },
@@ -731,8 +732,7 @@
     },
     "week_info": "Papan pendahulu minggu ini",
     "ranking": "Kedudukan",
-    "participants": "{count} peserta",
-    "set_status": "Tetapkan Status"
+    "participants": "{count} peserta"
   },
   "quests_page": {
     "metadata": {

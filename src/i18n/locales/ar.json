@@ -271,6 +271,7 @@
           "date": "أغسطس 2024"
         }
       },
+      "set_status": "تعيين الحالة",
       "logout": "تسجيل الخروج"
     }
   },
@@ -731,8 +732,7 @@
     },
     "week_info": "لوحة صدارة هذا الأسبوع",
     "ranking": "الترتيب",
-    "participants": "{count} مشاركاً",
-    "set_status": "تعيين الحالة"
+    "participants": "{count} مشاركاً"
   },
   "quests_page": {
     "metadata": {

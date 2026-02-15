@@ -271,6 +271,7 @@
           "date": "August 2024"
         }
       },
+      "set_status": "Set Status",
       "logout": "Log Out"
     }
   },
@@ -731,8 +732,7 @@
     },
     "week_info": "This week's leaderboard",
     "ranking": "Ranking",
-    "participants": "{count} participants",
-    "set_status": "Set Status"
+    "participants": "{count} participants"
   },
   "quests_page": {
     "metadata": {

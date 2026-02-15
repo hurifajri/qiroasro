@@ -8,7 +8,7 @@ interface StatusCardProps {
 }
 
 export function StatusCard({ statuses }: StatusCardProps) {
-  const t = useTranslations('leaderboard_page');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>

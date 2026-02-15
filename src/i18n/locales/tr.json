@@ -271,6 +271,7 @@
           "date": "Ağustos 2024"
         }
       },
+      "set_status": "Durum Ayarla",
       "logout": "Çıkış Yap"
     }
   },
@@ -731,8 +732,7 @@
     },
     "week_info": "Bu haftanın sıralaması",
     "ranking": "Sıralama",
-    "participants": "{count} katılımcı",
-    "set_status": "Durum Ayarla"
+    "participants": "{count} katılımcı"
   },
   "quests_page": {
     "metadata": {

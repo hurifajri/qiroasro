@@ -271,6 +271,7 @@
           "date": "Agustus 2024"
         }
       },
+      "set_status": "Atur Status",
       "logout": "Keluar"
     }
   },
@@ -731,8 +732,7 @@
     },
     "week_info": "Papan peringkat minggu ini",
     "ranking": "Peringkat",
-    "participants": "{count} peserta",
-    "set_status": "Atur Status"
+    "participants": "{count} peserta"
   },
   "quests_page": {
     "metadata": {
