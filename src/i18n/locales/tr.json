@@ -228,7 +228,25 @@
           "title": "3 ders tamamla",
           "description": "Bugün 3 dersi bitir"
         }
-      }
+      },
+      "settings": {
+        "title": "Ayarlar",
+        "account": "Hesap",
+        "preferences": "Tercihler",
+        "profile": "Profil",
+        "notifications": "Bildirimler",
+        "social_accounts": "Sosyal Hesaplar",
+        "privacy": "Gizlilik"
+      },
+      "subscription": {
+        "title": "Abonelik",
+        "choose_plan": "Plan Seç"
+      },
+      "support": {
+        "title": "Destek",
+        "help_center": "Yardım Merkezi"
+      },
+      "logout": "Çıkış Yap"
     }
   },
   "home_page": {
@@ -812,26 +830,6 @@
       "dark_mode": "Karanlık Mod",
       "mode_off": "Kapalı",
       "mode_on": "Açık"
-    },
-    "sidebar": {
-      "settings": {
-        "title": "Ayarlar",
-        "account": "Hesap",
-        "preferences": "Tercihler",
-        "profile": "Profil",
-        "notifications": "Bildirimler",
-        "social_accounts": "Sosyal Hesaplar",
-        "privacy": "Gizlilik"
-      },
-      "subscription": {
-        "title": "Abonelik",
-        "choose_plan": "Plan Seç"
-      },
-      "support": {
-        "title": "Destek",
-        "help_center": "Yardım Merkezi"
-      },
-      "logout": "Çıkış Yap"
     }
   }
 }

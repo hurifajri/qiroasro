@@ -228,7 +228,25 @@
           "title": "أكمل 3 دروس",
           "description": "أنهِ 3 دروس اليوم"
         }
-      }
+      },
+      "settings": {
+        "title": "الإعدادات",
+        "account": "الحساب",
+        "preferences": "التفضيلات",
+        "profile": "الملف الشخصي",
+        "notifications": "الإشعارات",
+        "social_accounts": "الحسابات الاجتماعية",
+        "privacy": "الخصوصية"
+      },
+      "subscription": {
+        "title": "الاشتراك",
+        "choose_plan": "اختر خطة"
+      },
+      "support": {
+        "title": "الدعم",
+        "help_center": "مركز المساعدة"
+      },
+      "logout": "تسجيل الخروج"
     }
   },
   "home_page": {
@@ -812,26 +830,6 @@
       "dark_mode": "الوضع الداكن",
       "mode_off": "إيقاف",
       "mode_on": "تشغيل"
-    },
-    "sidebar": {
-      "settings": {
-        "title": "الإعدادات",
-        "account": "الحساب",
-        "preferences": "التفضيلات",
-        "profile": "الملف الشخصي",
-        "notifications": "الإشعارات",
-        "social_accounts": "الحسابات الاجتماعية",
-        "privacy": "الخصوصية"
-      },
-      "subscription": {
-        "title": "الاشتراك",
-        "choose_plan": "اختر خطة"
-      },
-      "support": {
-        "title": "الدعم",
-        "help_center": "مركز المساعدة"
-      },
-      "logout": "تسجيل الخروج"
     }
   }
 }

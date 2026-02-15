@@ -18,18 +18,15 @@ export default async function SettingsSidebar({
   return (
     <>
       <SettingsNavCard
-        titleKey="sidebar.settings.title"
+        titleKey="settings.title"
         links={MOCK_ACCOUNT_LINKS}
         activeId={slug}
       />
       <SettingsNavCard
-        titleKey="sidebar.subscription.title"
+        titleKey="subscription.title"
         links={MOCK_SUBSCRIPTION_LINKS}
       />
-      <SettingsNavCard
-        titleKey="sidebar.support.title"
-        links={MOCK_SUPPORT_LINKS}
-      />
+      <SettingsNavCard titleKey="support.title" links={MOCK_SUPPORT_LINKS} />
       <LogoutButton />
     </>
   );

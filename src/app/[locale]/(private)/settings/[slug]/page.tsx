@@ -76,9 +76,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   // Placeholder for other settings pages
   return (
     <>
-      <h1 className="mb-6 font-bold text-2xl">
-        {t(`sidebar.account.${slug}`)}
-      </h1>
+      <h1 className="sr-only">{t('title')}</h1>
       <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
         <p>Settings for: {slug}</p>
         <p className="mt-2 text-sm">This page is not yet implemented.</p>

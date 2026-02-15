@@ -32,27 +32,27 @@ export const MOCK_LESSON_PREFERENCES: PreferenceToggle[] = [
 export const MOCK_ACCOUNT_LINKS: SettingsLink[] = [
   {
     id: 'preferences',
-    labelKey: 'sidebar.settings.preferences',
+    labelKey: 'settings.preferences',
     href: '/settings/preferences',
   },
   {
     id: 'profile',
-    labelKey: 'sidebar.settings.profile',
+    labelKey: 'settings.profile',
     href: '/settings/profile',
   },
   {
     id: 'notifications',
-    labelKey: 'sidebar.settings.notifications',
+    labelKey: 'settings.notifications',
     href: '/settings/notifications',
   },
   {
     id: 'socialAccounts',
-    labelKey: 'sidebar.settings.social_accounts',
+    labelKey: 'settings.social_accounts',
     href: '/settings/social-accounts',
   },
   {
     id: 'privacy',
-    labelKey: 'sidebar.settings.privacy',
+    labelKey: 'settings.privacy',
     href: '/settings/privacy',
   },
 ];
@@ -63,7 +63,7 @@ export const MOCK_ACCOUNT_LINKS: SettingsLink[] = [
 export const MOCK_SUBSCRIPTION_LINKS: SettingsLink[] = [
   {
     id: 'choose_plan',
-    labelKey: 'sidebar.subscription.choose_plan',
+    labelKey: 'subscription.choose_plan',
     href: '/settings/subscription',
   },
 ];
@@ -74,7 +74,7 @@ export const MOCK_SUBSCRIPTION_LINKS: SettingsLink[] = [
 export const MOCK_SUPPORT_LINKS: SettingsLink[] = [
   {
     id: 'help_center',
-    labelKey: 'sidebar.support.help_center',
+    labelKey: 'support.help_center',
     href: '/help',
   },
 ];

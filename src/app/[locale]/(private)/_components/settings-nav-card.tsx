@@ -17,7 +17,7 @@ export function SettingsNavCard({
   links,
   activeId,
 }: SettingsNavCardProps) {
-  const t = useTranslations('settings_page');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>
