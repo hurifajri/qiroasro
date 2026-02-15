@@ -1,8 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { Item, ItemContent, ItemTitle } from '@/components/ui/item';
-import { Label } from '@/components/ui/label';
+import { Field, FieldContent, FieldLabel } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
@@ -22,27 +21,18 @@ export function PreferenceToggleRow({
   const dir = getLocaleDir(locale);
 
   return (
-    <Item asChild>
-      <li className="p-0!">
-        <ItemContent>
-          <ItemTitle>
-            <Label
-              htmlFor={preference.id}
-              className="cursor-pointer font-normal text-base"
-            >
-              {t(preference.labelKey)}
-            </Label>
-          </ItemTitle>
-        </ItemContent>
-        <ItemContent>
-          <Switch
-            id={preference.id}
-            checked={preference.enabled}
-            onCheckedChange={(checked) => onToggle(preference.id, checked)}
-            dir={dir}
-          />
-        </ItemContent>
-      </li>
-    </Item>
+    <Field orientation="horizontal">
+      <FieldContent>
+        <FieldLabel htmlFor={preference.id} className="text-base">
+          {t(preference.labelKey)}
+        </FieldLabel>
+      </FieldContent>
+      <Switch
+        id={preference.id}
+        checked={preference.enabled}
+        onCheckedChange={(checked) => onToggle(preference.id, checked)}
+        dir={dir}
+      />
+    </Field>
   );
 }

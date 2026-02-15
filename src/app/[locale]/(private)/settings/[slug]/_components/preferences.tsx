@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { ItemGroup } from '@/components/ui/item';
+import { FieldGroup } from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -40,7 +40,7 @@ export function Preferences({
       <section className="flex flex-col gap-2">
         <h2 className="font-bold text-xl">{t('lesson_experience.title')}</h2>
         <Separator />
-        <ItemGroup>
+        <FieldGroup className="gap-2">
           {preferences.map((preference) => (
             <PreferenceToggleRow
               key={preference.id}
@@ -48,7 +48,7 @@ export function Preferences({
               onToggle={handleToggle}
             />
           ))}
-        </ItemGroup>
+        </FieldGroup>
       </section>
 
       {/* Appearance section */}
