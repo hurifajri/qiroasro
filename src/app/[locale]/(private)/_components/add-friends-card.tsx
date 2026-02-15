@@ -5,7 +5,7 @@ import { ADD_FRIENDS_ITEMS } from '../_lib/mock-data';
 import { AddFriendsRow } from './add-friends-row';
 
 export function AddFriendsCard() {
-  const t = useTranslations('global.private_layout.profile_sidebar');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>

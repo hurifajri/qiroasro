@@ -24,7 +24,7 @@ export function AddFriendsRow({
   iconClass,
   labelKey,
 }: AddFriendsRowProps) {
-  const t = useTranslations('global.private_layout.profile_sidebar');
+  const t = useTranslations('global.private_layout');
   const Icon = iconMap[iconName];
 
   return (

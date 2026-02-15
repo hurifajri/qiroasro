@@ -17,7 +17,7 @@ interface ActivityFeedRowProps {
 }
 
 export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
-  const t = useTranslations('global.private_layout.profile_sidebar');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Item asChild>

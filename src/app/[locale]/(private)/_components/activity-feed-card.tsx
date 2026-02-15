@@ -20,7 +20,7 @@ interface ActivityFeedCardProps {
 }
 
 export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
-  const t = useTranslations('global.private_layout.profile_sidebar');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>

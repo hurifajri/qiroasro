@@ -195,27 +195,25 @@
         "placeholder": "Reklam",
         "remove_ads": "Reklamları Kaldır"
       },
-      "profile_sidebar": {
-        "activity_feed": {
-          "title": "Aktivite",
-          "celebrate": "Kutla",
-          "view_all": "Tümünü Gör"
-        },
-        "activity": {
-          "completed_streak": "500 günlük seriyi tamamladı!",
-          "collected_badge": "Şubat rozetini kazandı!"
-        },
-        "follow_list": {
-          "title": "Arkadaşlar",
-          "following": "Takip Edilen",
-          "followers": "Takipçiler",
-          "view_more": "{count} tane daha gör"
-        },
-        "add_friends": {
-          "title": "Arkadaş Ekle",
-          "find": "Arkadaş Bul",
-          "invite": "Arkadaş Davet Et"
-        }
+      "activity_feed": {
+        "title": "Aktivite",
+        "celebrate": "Kutla",
+        "view_all": "Tümünü Gör"
+      },
+      "activity": {
+        "completed_streak": "500 günlük seriyi tamamladı!",
+        "collected_badge": "Şubat rozetini kazandı!"
+      },
+      "follow_list": {
+        "title": "Arkadaşlar",
+        "following": "Takip Edilen",
+        "followers": "Takipçiler",
+        "view_more": "{count} tane daha gör"
+      },
+      "add_friends": {
+        "title": "Arkadaş Ekle",
+        "find": "Arkadaş Bul",
+        "invite": "Arkadaş Davet Et"
       },
       "quests": {
         "earn_xp": {

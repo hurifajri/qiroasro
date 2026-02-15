@@ -23,7 +23,7 @@ export function FollowListCard({
   followingCount,
   followersCount,
 }: FollowListCardProps) {
-  const t = useTranslations('global.private_layout.profile_sidebar');
+  const t = useTranslations('global.private_layout');
 
   return (
     <Card>

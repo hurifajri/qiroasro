@@ -195,27 +195,25 @@
         "placeholder": "Advertisement",
         "remove_ads": "Remove Ads"
       },
-      "profile_sidebar": {
-        "activity_feed": {
-          "title": "Activity",
-          "celebrate": "Celebrate",
-          "view_all": "View All"
-        },
-        "activity": {
-          "completed_streak": "Completed a 500 day streak!",
-          "collected_badge": "Collected the February badge!"
-        },
-        "follow_list": {
-          "title": "Friends",
-          "following": "Following",
-          "followers": "Followers",
-          "view_more": "View {count} more"
-        },
-        "add_friends": {
-          "title": "Add Friends",
-          "find": "Find Friends",
-          "invite": "Invite Friends"
-        }
+      "activity_feed": {
+        "title": "Activity",
+        "celebrate": "Celebrate",
+        "view_all": "View All"
+      },
+      "activity": {
+        "completed_streak": "Completed a 500 day streak!",
+        "collected_badge": "Collected the February badge!"
+      },
+      "follow_list": {
+        "title": "Friends",
+        "following": "Following",
+        "followers": "Followers",
+        "view_more": "View {count} more"
+      },
+      "add_friends": {
+        "title": "Add Friends",
+        "find": "Find Friends",
+        "invite": "Invite Friends"
       },
       "quests": {
         "earn_xp": {

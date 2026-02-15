@@ -195,27 +195,25 @@
         "placeholder": "Iklan",
         "remove_ads": "Buang Iklan"
       },
-      "profile_sidebar": {
-        "activity_feed": {
-          "title": "Aktiviti",
-          "celebrate": "Raikan",
-          "view_all": "Lihat Semua"
-        },
-        "activity": {
-          "completed_streak": "Mencapai rekod 500 hari!",
-          "collected_badge": "Mengumpul lencana Februari!"
-        },
-        "follow_list": {
-          "title": "Rakan",
-          "following": "Mengikuti",
-          "followers": "Pengikut",
-          "view_more": "Lihat {count} lagi"
-        },
-        "add_friends": {
-          "title": "Tambah Rakan",
-          "find": "Cari Rakan",
-          "invite": "Jemput Rakan"
-        }
+      "activity_feed": {
+        "title": "Aktiviti",
+        "celebrate": "Raikan",
+        "view_all": "Lihat Semua"
+      },
+      "activity": {
+        "completed_streak": "Mencapai rekod 500 hari!",
+        "collected_badge": "Mengumpul lencana Februari!"
+      },
+      "follow_list": {
+        "title": "Rakan",
+        "following": "Mengikuti",
+        "followers": "Pengikut",
+        "view_more": "Lihat {count} lagi"
+      },
+      "add_friends": {
+        "title": "Tambah Rakan",
+        "find": "Cari Rakan",
+        "invite": "Jemput Rakan"
       },
       "quests": {
         "earn_xp": {
