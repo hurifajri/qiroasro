@@ -1,7 +1,5 @@
-import { PartyPopperIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -9,9 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ItemGroup } from '@/components/ui/item';
+import { Separator } from '@/components/ui/separator';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import type { ActivityFeedItem } from '../_schemas/profile-sidebar';
+import { ActivityFeedRow } from './activity-feed-row';
 
 interface ActivityFeedCardProps {
   items: ActivityFeedItem[];
@@ -22,10 +23,8 @@ export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
 
   return (
     <Card>
-      <CardHeader className="flex w-full items-center justify-between gap-2">
-        <CardTitle>
-          <h3 className="font-bold text-sm">{t('activity_feed.title')}</h3>
-        </CardTitle>
+      <CardHeader className="flex items-center justify-between gap-2">
+        <CardTitle>{t('activity_feed.title')}</CardTitle>
         <CardAction>
           <Link
             href="/friend-updates"
@@ -35,58 +34,15 @@ export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
           </Link>
         </CardAction>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4">
-        {/* Activity items */}
-        <div className="flex flex-col gap-4">
-          {items.map((item) => (
-            <div key={item.id} className="flex flex-col gap-2">
-              {/* User info */}
-              <div className="flex items-start gap-2">
-                <Avatar className="size-10">
-                  <AvatarImage src={item.avatarUrl} alt={item.userName} />
-                  <AvatarFallback>
-                    {item.userName.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="font-semibold text-sm">
-                      {item.userName}
-                    </span>
-                    <span className="text-muted-foreground text-xs">
-                      {item.timeAgo}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground text-xs">
-                    {t(item.descriptionKey)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Celebrate button + reactions */}
-              <div className="flex items-center gap-2 pl-12">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5 font-semibold text-xs"
-                >
-                  <PartyPopperIcon className="size-3.5" />
-                  {t('activity_feed.celebrate')}
-                </Button>
-                <div className="flex items-center gap-1">
-                  {item.reactionEmojis.map((emoji) => (
-                    <span key={emoji} className="text-sm">
-                      {emoji}
-                    </span>
-                  ))}
-                  <span className="text-muted-foreground text-xs">
-                    {item.reactionCount}
-                  </span>
-                </div>
-              </div>
-            </div>
+      <CardContent>
+        <ItemGroup>
+          {items.map((item, index) => (
+            <>
+              <ActivityFeedRow key={item.id} item={item} />
+              {index < items.length - 1 && <Separator />}
+            </>
           ))}
-        </div>
+        </ItemGroup>
       </CardContent>
     </Card>
   );

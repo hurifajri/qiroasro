@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -31,7 +30,6 @@ export function MobileUnsupported({
           </CardTitle>
           <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
-        <CardContent />
         <CardFooter className="flex items-center justify-end">
           <Button onClick={onSwitchToLetter}>{t('switch_to_letter')}</Button>
         </CardFooter>
