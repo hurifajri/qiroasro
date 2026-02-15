@@ -10,21 +10,27 @@ export function SettingsContentHeader() {
   const t = useTranslations('global.private_layout');
   const pathname = usePathname();
 
+  const isMobileSettings = pathname === '/settings';
+
   // Extract slug from pathname (e.g., "/settings/profile" -> "profile")
   const slug = pathname.split('/').pop() || 'preferences';
 
   return (
     <div className="relative flex items-center justify-center">
-      <Link
-        href="/settings"
-        className={cn(
-          buttonVariants({ variant: 'ghost', size: 'icon' }),
-          'absolute left-0 px-0',
-        )}
-      >
-        <ChevronLeftIcon />
-      </Link>
-      <h1 className="font-bold text-xl">{t(`account.${slug}`)}</h1>
+      {!isMobileSettings && (
+        <Link
+          href="/settings"
+          className={cn(
+            buttonVariants({ variant: 'ghost', size: 'icon' }),
+            'absolute left-0 px-0',
+          )}
+        >
+          <ChevronLeftIcon />
+        </Link>
+      )}
+      <h1 className="font-bold text-xl">
+        {isMobileSettings ? t('nav.settings') : t(`account.${slug}`)}
+      </h1>
     </div>
   );
 }
