@@ -37,7 +37,7 @@ export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
           <ItemTitle>{item.userName}</ItemTitle>
           <ItemDescription>{item.timeAgo}</ItemDescription>
         </ItemContent>
-        <ItemContent>
+        <ItemContent className="w-full">
           <ItemDescription>{t(item.descriptionKey)}</ItemDescription>
         </ItemContent>
 
