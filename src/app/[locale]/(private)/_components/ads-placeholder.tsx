@@ -8,9 +8,7 @@ export function AdsPlaceholder() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>
-          <h3 className="font-bold text-sm">{t('ads.title')}</h3>
-        </CardTitle>
+        <CardTitle>{t('ads.title')}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {/* Ad placeholder area */}
@@ -21,9 +19,7 @@ export function AdsPlaceholder() {
         </div>
 
         {/* Remove ads button */}
-        <Button variant="link" className="px-0 font-semibold text-primary">
-          {t('ads.remove_ads')}
-        </Button>
+        <Button variant="link">{t('ads.remove_ads')}</Button>
       </CardContent>
     </Card>
   );
