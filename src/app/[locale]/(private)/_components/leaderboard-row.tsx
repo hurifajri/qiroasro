@@ -16,7 +16,7 @@ interface LeaderboardRowProps {
 }
 
 export function LeaderboardRow({ entry }: LeaderboardRowProps) {
-  const { rank, name, xp, isCurrentUser, avatarUrl, avatarBg } = entry;
+  const { rank, name, xp, isCurrentUser } = entry;
 
   // Medal colors for top 3
   const getMedalStyle = () => {

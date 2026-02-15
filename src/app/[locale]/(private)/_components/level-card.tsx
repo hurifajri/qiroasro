@@ -8,7 +8,6 @@ import {
   Card,
   CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -27,24 +26,19 @@ export function LevelCard({ onUpgradeClick }: LevelCardProps) {
   return (
     <Card className="bg-linear-to-br from-violet-500/10 via-purple-500/10 to-fuchsia-500/10">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="flex flex-col gap-1">
           <Badge className="border-none bg-linear-to-r from-violet-500 to-fuchsia-500 font-bold">
-            <SparklesIcon className="size-3" />
+            <SparklesIcon />
             SUPER
           </Badge>
-          <h3 className="font-bold">{t('level_card.title')}</h3>
-        </CardTitle>
-        <CardDescription className="sr-only">
           {t('level_card.title')}
-        </CardDescription>
+        </CardTitle>
         <CardAction>
           <div className="size-12 rounded-full bg-linear-to-br from-violet-400 to-fuchsia-500 opacity-80" />
         </CardAction>
       </CardHeader>
       <CardContent>
-        <p className="text-muted-foreground text-sm">
-          {t('level_card.description')}
-        </p>
+        <p className="text-muted-foreground">{t('level_card.description')}</p>
       </CardContent>
       <CardFooter className="border-t-0 bg-transparent pt-0">
         <Button
