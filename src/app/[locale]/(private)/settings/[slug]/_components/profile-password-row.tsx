@@ -30,9 +30,7 @@ export function ProfilePasswordRow({
   return (
     <Field>
       <FieldContent>
-        <FieldLabel htmlFor={id} className="text-base">
-          {t(labelKey)}
-        </FieldLabel>
+        <FieldLabel htmlFor={id}>{t(labelKey)}</FieldLabel>
       </FieldContent>
       <InputGroup>
         <InputGroupInput

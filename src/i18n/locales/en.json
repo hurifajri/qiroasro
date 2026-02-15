@@ -856,6 +856,24 @@
       "save_changes": "Save Changes",
       "export_data": "Export My Data",
       "delete_account": "Delete My Account"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email",
+      "general": {
+        "title": "General",
+        "product_updates": "Product Updates & Learning Tips",
+        "new_follower": "New Follower",
+        "friend_activity": "Friend Activity",
+        "weekly_progress": "Weekly Progress",
+        "special_promotions": "Special Promotions",
+        "research_participation": "Research Participation Opportunities"
+      },
+      "daily_reminders": {
+        "title": "Daily Reminders",
+        "practice_reminder": "Practice Reminder",
+        "reminder_time": "Reminder Time"
+      }
     }
   }
 }

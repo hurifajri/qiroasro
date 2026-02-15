@@ -3,9 +3,12 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import {
   MOCK_APPEARANCE_MODE,
+  MOCK_DAILY_REMINDER,
+  MOCK_GENERAL_NOTIFICATIONS,
   MOCK_LESSON_PREFERENCES,
   MOCK_PROFILE_DATA,
 } from '../_lib/mock-data';
+import { Notifications } from './_components/notifications';
 import { Preferences } from './_components/preferences';
 import { Profile } from './_components/profile';
 
@@ -80,6 +83,18 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
       <>
         <h1 className="mb-6 font-bold text-2xl">{t('profile.title')}</h1>
         <Profile defaultProfile={MOCK_PROFILE_DATA} />
+      </>
+    );
+  }
+
+  if (slug === 'notifications') {
+    return (
+      <>
+        <h1 className="mb-6 font-bold text-2xl">{t('notifications.title')}</h1>
+        <Notifications
+          generalNotifications={MOCK_GENERAL_NOTIFICATIONS}
+          dailyReminder={MOCK_DAILY_REMINDER}
+        />
       </>
     );
   }

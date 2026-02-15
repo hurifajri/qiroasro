@@ -35,3 +35,28 @@ export const ProfileFormSchema = object({
 });
 
 export type ProfileForm = InferOutput<typeof ProfileFormSchema>;
+
+/**
+ * Notification Checkbox Schema
+ */
+export const NotificationCheckboxSchema = object({
+  id: string(),
+  labelKey: string(),
+  checked: boolean(),
+});
+
+export type NotificationCheckbox = InferOutput<
+  typeof NotificationCheckboxSchema
+>;
+
+/**
+ * Daily Reminder Schema
+ */
+export const DailyReminderSchema = object({
+  id: string(),
+  labelKey: string(),
+  checked: boolean(),
+  time: string(), // e.g., "17:00" for 5PM
+});
+
+export type DailyReminder = InferOutput<typeof DailyReminderSchema>;

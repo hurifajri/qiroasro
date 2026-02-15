@@ -856,6 +856,24 @@
       "save_changes": "حفظ التغييرات",
       "export_data": "تصدير بياناتي",
       "delete_account": "حذف حسابي"
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "email": "البريد الإلكتروني",
+      "general": {
+        "title": "عام",
+        "product_updates": "تحديثات المنتج ونصائح التعلم",
+        "new_follower": "متابع جديد",
+        "friend_activity": "نشاط الأصدقاء",
+        "weekly_progress": "التقدم الأسبوعي",
+        "special_promotions": "عروض خاصة",
+        "research_participation": "فرص المشاركة في الأبحاث"
+      },
+      "daily_reminders": {
+        "title": "التذكيرات اليومية",
+        "practice_reminder": "تذكير التدريب",
+        "reminder_time": "وقت التذكير"
+      }
     }
   }
 }

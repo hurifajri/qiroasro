@@ -26,9 +26,7 @@ export function ProfileFieldRow({
   return (
     <Field>
       <FieldContent>
-        <FieldLabel htmlFor={id} className="text-base">
-          {t(labelKey)}
-        </FieldLabel>
+        <FieldLabel htmlFor={id}>{t(labelKey)}</FieldLabel>
       </FieldContent>
       <Input
         id={id}

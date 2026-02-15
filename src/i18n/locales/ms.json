@@ -856,6 +856,24 @@
       "save_changes": "Simpan Perubahan",
       "export_data": "Eksport Data Saya",
       "delete_account": "Padam Akaun Saya"
+    },
+    "notifications": {
+      "title": "Pemberitahuan",
+      "email": "E-mel",
+      "general": {
+        "title": "Umum",
+        "product_updates": "Kemas Kini Produk & Tip Pembelajaran",
+        "new_follower": "Pengikut Baharu",
+        "friend_activity": "Aktiviti Rakan",
+        "weekly_progress": "Kemajuan Mingguan",
+        "special_promotions": "Promosi Istimewa",
+        "research_participation": "Peluang Penyertaan Penyelidikan"
+      },
+      "daily_reminders": {
+        "title": "Peringatan Harian",
+        "practice_reminder": "Peringatan Latihan",
+        "reminder_time": "Masa Peringatan"
+      }
     }
   }
 }

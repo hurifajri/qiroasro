@@ -856,6 +856,24 @@
       "save_changes": "Simpan Perubahan",
       "export_data": "Ekspor Data Saya",
       "delete_account": "Hapus Akun Saya"
+    },
+    "notifications": {
+      "title": "Notifikasi",
+      "email": "Email",
+      "general": {
+        "title": "Umum",
+        "product_updates": "Pembaruan Produk & Tips Belajar",
+        "new_follower": "Pengikut Baru",
+        "friend_activity": "Aktivitas Teman",
+        "weekly_progress": "Kemajuan Mingguan",
+        "special_promotions": "Promo Spesial",
+        "research_participation": "Kesempatan Partisipasi Riset"
+      },
+      "daily_reminders": {
+        "title": "Pengingat Harian",
+        "practice_reminder": "Pengingat Latihan",
+        "reminder_time": "Waktu Pengingat"
+      }
     }
   }
 }

@@ -23,7 +23,7 @@ export function PreferenceToggleRow({
   return (
     <Field orientation="horizontal">
       <FieldContent>
-        <FieldLabel htmlFor={preference.id} className="text-base">
+        <FieldLabel htmlFor={preference.id}>
           {t(preference.labelKey)}
         </FieldLabel>
       </FieldContent>

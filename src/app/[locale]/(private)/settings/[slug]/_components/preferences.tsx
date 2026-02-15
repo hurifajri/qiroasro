@@ -63,9 +63,7 @@ export function Preferences({
         <Separator />
         <Field>
           <FieldContent>
-            <FieldLabel htmlFor="theme" className="text-base">
-              {t('appearance.dark_mode')}
-            </FieldLabel>
+            <FieldLabel htmlFor="theme">{t('appearance.dark_mode')}</FieldLabel>
           </FieldContent>
           <Select value={appearanceMode} onValueChange={setAppearanceMode}>
             <SelectTrigger id="theme" className="w-full">

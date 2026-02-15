@@ -1,4 +1,6 @@
 import type {
+  DailyReminder,
+  NotificationCheckbox,
   PreferenceToggle,
   ProfileForm,
   SettingsLink,
@@ -96,4 +98,50 @@ export const MOCK_PROFILE_DATA: ProfileForm = {
   username: 'hurifajri',
   email: 'hurifajri@gmail.com',
   avatarUrl: undefined,
+};
+
+/**
+ * Mock general notification settings
+ */
+export const MOCK_GENERAL_NOTIFICATIONS: NotificationCheckbox[] = [
+  {
+    id: 'product_updates',
+    labelKey: 'general.product_updates',
+    checked: false,
+  },
+  {
+    id: 'new_follower',
+    labelKey: 'general.new_follower',
+    checked: false,
+  },
+  {
+    id: 'friend_activity',
+    labelKey: 'general.friend_activity',
+    checked: false,
+  },
+  {
+    id: 'weekly_progress',
+    labelKey: 'general.weekly_progress',
+    checked: false,
+  },
+  {
+    id: 'special_promotions',
+    labelKey: 'general.special_promotions',
+    checked: false,
+  },
+  {
+    id: 'research_participation',
+    labelKey: 'general.research_participation',
+    checked: true,
+  },
+];
+
+/**
+ * Mock daily reminder settings
+ */
+export const MOCK_DAILY_REMINDER: DailyReminder = {
+  id: 'practice_reminder',
+  labelKey: 'daily_reminders.practice_reminder',
+  checked: true,
+  time: '17:00',
 };
