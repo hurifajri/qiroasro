@@ -23,7 +23,7 @@ export function LeaderboardList({ entries }: LeaderboardListProps) {
       </ItemGroup>
 
       {promotionZone.length > 0 && safeZone.length > 0 && (
-        <Separator className="my-1" />
+        <Separator className="my-4" />
       )}
 
       {/* Safe Zone */}
@@ -34,7 +34,7 @@ export function LeaderboardList({ entries }: LeaderboardListProps) {
       </ItemGroup>
 
       {safeZone.length > 0 && demotionZone.length > 0 && (
-        <Separator className="my-1" />
+        <Separator className="my-4" />
       )}
 
       {/* Demotion Zone */}
