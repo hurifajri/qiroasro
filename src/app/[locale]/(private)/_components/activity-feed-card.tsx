@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { Fragment } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -37,10 +38,10 @@ export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
       <CardContent>
         <ItemGroup>
           {items.map((item, index) => (
-            <>
-              <ActivityFeedRow key={item.id} item={item} />
+            <Fragment key={item.id}>
+              <ActivityFeedRow item={item} />
               {index < items.length - 1 && <Separator />}
-            </>
+            </Fragment>
           ))}
         </ItemGroup>
       </CardContent>

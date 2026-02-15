@@ -1,9 +1,32 @@
+import { SearchIcon, UserPlusIcon } from 'lucide-react';
+
 import type {
   LeaderboardEntry,
   NavItem,
   Quest,
   UserStats,
 } from '../_schemas/private';
+
+export const ADD_FRIENDS_ITEMS = [
+  {
+    id: 'find',
+    href: '/find-friends',
+    icon: SearchIcon,
+    iconBgClass:
+      'flex size-10 items-center justify-center rounded-full bg-muted',
+    iconClass: 'size-5 text-muted-foreground',
+    labelKey: 'add_friends.find',
+  },
+  {
+    id: 'invite',
+    href: '/invite-friends',
+    icon: UserPlusIcon,
+    iconBgClass:
+      'flex size-10 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30',
+    iconClass: 'size-5 text-emerald-600 dark:text-emerald-400',
+    labelKey: 'add_friends.invite',
+  },
+];
 
 /**
  * Mock user stats
