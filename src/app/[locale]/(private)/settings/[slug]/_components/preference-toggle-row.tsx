@@ -22,25 +22,27 @@ export function PreferenceToggleRow({
   const dir = getLocaleDir(locale);
 
   return (
-    <Item className="px-0! py-0!">
-      <ItemContent className="flex-1">
-        <ItemTitle>
-          <Label
-            htmlFor={preference.id}
-            className="cursor-pointer font-normal text-base"
-          >
-            {t(preference.labelKey)}
-          </Label>
-        </ItemTitle>
-      </ItemContent>
-      <ItemContent className="shrink-0">
-        <Switch
-          id={preference.id}
-          checked={preference.enabled}
-          onCheckedChange={(checked) => onToggle(preference.id, checked)}
-          dir={dir}
-        />
-      </ItemContent>
+    <Item asChild>
+      <li className="p-0!">
+        <ItemContent>
+          <ItemTitle>
+            <Label
+              htmlFor={preference.id}
+              className="cursor-pointer font-normal text-base"
+            >
+              {t(preference.labelKey)}
+            </Label>
+          </ItemTitle>
+        </ItemContent>
+        <ItemContent>
+          <Switch
+            id={preference.id}
+            checked={preference.enabled}
+            onCheckedChange={(checked) => onToggle(preference.id, checked)}
+            dir={dir}
+          />
+        </ItemContent>
+      </li>
     </Item>
   );
 }

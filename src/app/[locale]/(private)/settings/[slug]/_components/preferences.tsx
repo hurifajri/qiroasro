@@ -35,13 +35,12 @@ export function Preferences({
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-12">
       {/* Lesson experience section */}
-      <section>
-        <h2 className="mb-4 font-bold text-xl">
-          {t('lesson_experience.title')}
-        </h2>
-        <ItemGroup className="gap-0">
+      <section className="flex flex-col gap-2">
+        <h2 className="font-bold text-xl">{t('lesson_experience.title')}</h2>
+        <Separator />
+        <ItemGroup>
           {preferences.map((preference) => (
             <PreferenceToggleRow
               key={preference.id}
@@ -52,17 +51,16 @@ export function Preferences({
         </ItemGroup>
       </section>
 
-      <Separator />
-
       {/* Appearance section */}
-      <section>
-        <h2 className="mb-4 font-bold text-xl">{t('appearance.title')}</h2>
+      <section className="flex flex-col gap-2">
+        <h2 className="font-bold text-xl">{t('appearance.title')}</h2>
+        <Separator />
         <div className="flex flex-col gap-3">
-          <label htmlFor="dark-mode" className="font-normal text-base">
+          <label htmlFor="theme" className="font-normal text-base">
             {t('appearance.dark_mode')}
           </label>
           <Select value={appearanceMode} onValueChange={setAppearanceMode}>
-            <SelectTrigger id="dark-mode" className="w-full">
+            <SelectTrigger id="theme" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
