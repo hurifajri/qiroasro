@@ -39,6 +39,24 @@ export function Notifications({
     useState<NotificationCheckbox[]>(generalNotifications);
   const [reminder, setReminder] = useState<DailyReminder>(dailyReminder);
 
+  const timeOptions = [
+    { value: '05:00', label: '5:00 AM' },
+    { value: '06:00', label: '6:00 AM' },
+    { value: '07:00', label: '7:00 AM' },
+    { value: '08:00', label: '8:00 AM' },
+    { value: '09:00', label: '9:00 AM' },
+    { value: '12:00', label: '12:00 PM' },
+    { value: '13:00', label: '1:00 PM' },
+    { value: '14:00', label: '2:00 PM' },
+    { value: '15:00', label: '3:00 PM' },
+    { value: '16:00', label: '4:00 PM' },
+    { value: '17:00', label: '5:00 PM' },
+    { value: '18:00', label: '6:00 PM' },
+    { value: '19:00', label: '7:00 PM' },
+    { value: '20:00', label: '8:00 PM' },
+    { value: '21:00', label: '9:00 PM' },
+  ];
+
   const handleNotificationChange = (id: string, checked: boolean) => {
     setNotifications((prev) =>
       prev.map((notif) => (notif.id === id ? { ...notif, checked } : notif)),
@@ -106,21 +124,11 @@ export function Notifications({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="05:00">5:00 AM</SelectItem>
-                    <SelectItem value="06:00">6:00 AM</SelectItem>
-                    <SelectItem value="07:00">7:00 AM</SelectItem>
-                    <SelectItem value="08:00">8:00 AM</SelectItem>
-                    <SelectItem value="09:00">9:00 AM</SelectItem>
-                    <SelectItem value="12:00">12:00 PM</SelectItem>
-                    <SelectItem value="13:00">1:00 PM</SelectItem>
-                    <SelectItem value="14:00">2:00 PM</SelectItem>
-                    <SelectItem value="15:00">3:00 PM</SelectItem>
-                    <SelectItem value="16:00">4:00 PM</SelectItem>
-                    <SelectItem value="17:00">5:00 PM</SelectItem>
-                    <SelectItem value="18:00">6:00 PM</SelectItem>
-                    <SelectItem value="19:00">7:00 PM</SelectItem>
-                    <SelectItem value="20:00">8:00 PM</SelectItem>
-                    <SelectItem value="21:00">9:00 PM</SelectItem>
+                    {timeOptions.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
