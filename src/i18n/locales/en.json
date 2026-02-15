@@ -837,17 +837,22 @@
     },
     "profile": {
       "title": "Profile",
-      "avatar": "Avatar",
-      "edit_avatar": "Edit Avatar",
-      "personal_info": "Personal Info",
-      "name": "Name",
-      "username": "Username",
-      "email": "Email",
-      "password_section": "Password",
-      "current_password": "Current Password",
-      "new_password": "New Password",
-      "show_password": "Show Password",
-      "hide_password": "Hide Password",
+      "avatar": {
+        "title": "Avatar"
+      },
+      "personal_info": {
+        "title": "Personal Info",
+        "name": "Name",
+        "username": "Username",
+        "email": "Email"
+      },
+      "password": {
+        "title": "Password",
+        "current_password": "Current Password",
+        "new_password": "New Password",
+        "show_password": "Show Password",
+        "hide_password": "Hide Password"
+      },
       "save_changes": "Save Changes",
       "export_data": "Export My Data",
       "delete_account": "Delete My Account"

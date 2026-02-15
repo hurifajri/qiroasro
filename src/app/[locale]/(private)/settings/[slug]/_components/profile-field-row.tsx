@@ -21,7 +21,7 @@ export function ProfileFieldRow({
   type = 'text',
   placeholder,
 }: ProfileFieldRowProps) {
-  const t = useTranslations('settings_page.profile');
+  const t = useTranslations('settings_page.profile.personal_info');
 
   return (
     <Field>

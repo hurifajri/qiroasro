@@ -47,7 +47,7 @@ export function Profile({ defaultProfile }: ProfileProps) {
     <div className="flex flex-col gap-12">
       {/* Avatar section */}
       <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('avatar')}</h2>
+        <h2 className="font-bold text-xl">{t('avatar.title')}</h2>
         <div className="flex items-center gap-4">
           <Avatar className="size-24">
             <AvatarImage src={profile.avatarUrl} alt={profile.name} />
@@ -63,7 +63,7 @@ export function Profile({ defaultProfile }: ProfileProps) {
 
       {/* Personal info section */}
       <section className="flex flex-col gap-2">
-        <h2 className="font-bold text-xl">{t('personal_info')}</h2>
+        <h2 className="font-bold text-xl">{t('personal_info.title')}</h2>
         <Separator />
         <FieldGroup className="gap-4">
           <ProfileFieldRow
@@ -90,7 +90,7 @@ export function Profile({ defaultProfile }: ProfileProps) {
 
       {/* Password section */}
       <section className="flex flex-col gap-2">
-        <h2 className="font-bold text-xl">{t('password_section')}</h2>
+        <h2 className="font-bold text-xl">{t('password.title')}</h2>
         <Separator />
         <FieldGroup className="gap-4">
           <ProfilePasswordRow

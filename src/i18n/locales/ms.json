@@ -837,17 +837,22 @@
     },
     "profile": {
       "title": "Profil",
-      "avatar": "Avatar",
-      "edit_avatar": "Sunting Avatar",
-      "personal_info": "Maklumat Peribadi",
-      "name": "Nama",
-      "username": "Nama Pengguna",
-      "email": "E-mel",
-      "password_section": "Kata Laluan",
-      "current_password": "Kata Laluan Semasa",
-      "new_password": "Kata Laluan Baharu",
-      "show_password": "Tunjukkan Kata Laluan",
-      "hide_password": "Sembunyikan Kata Laluan",
+      "avatar": {
+        "title": "Avatar"
+      },
+      "personal_info": {
+        "title": "Maklumat Peribadi",
+        "name": "Nama",
+        "username": "Nama Pengguna",
+        "email": "E-mel"
+      },
+      "password": {
+        "title": "Kata Laluan",
+        "current_password": "Kata Laluan Semasa",
+        "new_password": "Kata Laluan Baharu",
+        "show_password": "Tunjukkan Kata Laluan",
+        "hide_password": "Sembunyikan Kata Laluan"
+      },
       "save_changes": "Simpan Perubahan",
       "export_data": "Eksport Data Saya",
       "delete_account": "Padam Akaun Saya"

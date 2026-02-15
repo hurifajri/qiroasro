@@ -24,7 +24,7 @@ export function ProfilePasswordRow({
   value,
   onChange,
 }: ProfilePasswordRowProps) {
-  const t = useTranslations('settings_page.profile');
+  const t = useTranslations('settings_page.profile.password');
   const [showPassword, setShowPassword] = useState(false);
 
   return (

@@ -830,24 +830,29 @@
       },
       "appearance": {
         "title": "Görünüm",
-      "dark_mode": "Karanlık Mod",
-      "mode_off": "Kapalı",
-      "mode_on": "Açık"
+        "dark_mode": "Karanlık Mod",
+        "mode_off": "Kapalı",
+        "mode_on": "Açık"
       }
     },
     "profile": {
       "title": "Profil",
-      "avatar": "Avatar",
-      "edit_avatar": "Avatarı Düzenle",
-      "personal_info": "Kişisel Bilgiler",
-      "name": "İsim",
-      "username": "Kullanıcı Adı",
-      "email": "E-posta",
-      "password_section": "Şifre",
-      "current_password": "Mevcut Şifre",
-      "new_password": "Yeni Şifre",
-      "show_password": "Şifreyi Göster",
-      "hide_password": "Şifreyi Gizle",
+      "avatar": {
+        "title": "Avatar"
+      },
+      "personal_info": {
+        "title": "Kişisel Bilgiler",
+        "name": "İsim",
+        "username": "Kullanıcı Adı",
+        "email": "E-posta"
+      },
+      "password": {
+        "title": "Şifre",
+        "current_password": "Mevcut Şifre",
+        "new_password": "Yeni Şifre",
+        "show_password": "Şifreyi Göster",
+        "hide_password": "Şifreyi Gizle"
+      },
       "save_changes": "Değişiklikleri Kaydet",
       "export_data": "Verilerimi Dışa Aktar",
       "delete_account": "Hesabımı Sil"

@@ -837,17 +837,22 @@
     },
     "profile": {
       "title": "الملف الشخصي",
-      "avatar": "الصورة الرمزية",
-      "edit_avatar": "تعديل الصورة الرمزية",
-      "personal_info": "المعلومات الشخصية",
-      "name": "الاسم",
-      "username": "اسم المستخدم",
-      "email": "البريد الإلكتروني",
-      "password_section": "كلمة المرور",
-      "current_password": "كلمة المرور الحالية",
-      "new_password": "كلمة المرور الجديدة",
-      "show_password": "إظهار كلمة المرور",
-      "hide_password": "إخفاء كلمة المرور",
+      "avatar": {
+        "title": "الصورة الرمزية"
+      },
+      "personal_info": {
+        "title": "المعلومات الشخصية",
+        "name": "الاسم",
+        "username": "اسم المستخدم",
+        "email": "البريد الإلكتروني"
+      },
+      "password": {
+        "title": "كلمة المرور",
+        "current_password": "كلمة المرور الحالية",
+        "new_password": "كلمة المرور الجديدة",
+        "show_password": "إظهار كلمة المرور",
+        "hide_password": "إخفاء كلمة المرور"
+      },
       "save_changes": "حفظ التغييرات",
       "export_data": "تصدير بياناتي",
       "delete_account": "حذف حسابي"
