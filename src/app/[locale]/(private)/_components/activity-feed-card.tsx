@@ -24,7 +24,7 @@ export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between gap-2">
+      <CardHeader className="flex w-full items-center justify-between gap-2">
         <CardTitle>{t('activity_feed.title')}</CardTitle>
         <CardAction>
           <Link

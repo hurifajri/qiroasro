@@ -33,11 +33,11 @@ export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
 
   return (
     <Card>
-      <CardHeader className="flex flex-col gap-3">
+      <CardHeader className="flex flex-col gap-2">
         <div className="flex w-full items-center justify-between gap-2">
           <CardTitle className="flex items-center gap-2">
             <TrophyIcon className="size-5 text-amber-500" />
-            <h3 className="font-bold">{leagueDisplayName}</h3>
+            {leagueDisplayName}
           </CardTitle>
           <CardAction>
             <Link
