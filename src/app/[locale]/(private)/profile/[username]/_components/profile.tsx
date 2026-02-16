@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import type {
   Achievement,
@@ -33,24 +34,23 @@ export function Profile({
       {/* User Info */}
       <UserInfo user={user} />
 
+      <Separator />
+
       {/* Statistics */}
-      <section>
-        <h2 className="mb-4 font-bold text-xl">{t('statistics')}</h2>
+      <section className="flex flex-col gap-4">
+        <h2 className="font-bold text-xl">{t('statistics')}</h2>
         <StatGrid stats={stats} />
       </section>
 
       <Separator />
 
       {/* Friend Suggestions */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
+      <section className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
           <h2 className="font-bold text-xl">{t('friend_suggestions')}</h2>
-          <button
-            type="button"
-            className="font-semibold text-primary text-sm hover:underline"
-          >
+          <Button variant="link" className="px-0 uppercase">
             {t('view_all')}
-          </button>
+          </Button>
         </div>
         <FriendSuggestionsGrid friends={friendSuggestions} />
       </section>

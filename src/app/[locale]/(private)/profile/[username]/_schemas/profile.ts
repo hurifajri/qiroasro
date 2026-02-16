@@ -30,7 +30,7 @@ export type UserProfile = InferOutput<typeof UserProfileSchema>;
  */
 export const StatisticSchema = object({
   id: string(),
-  label: string(),
+  labelKey: string(), // i18n key
   value: pipe(number(), integer()),
   icon: string(), // lucide icon name
 });

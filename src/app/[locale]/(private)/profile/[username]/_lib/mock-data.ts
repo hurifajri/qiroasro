@@ -23,25 +23,25 @@ export const MOCK_USER_PROFILE: UserProfile = {
 export const MOCK_STATISTICS: Statistic[] = [
   {
     id: 'streak',
-    label: 'Day streak',
+    labelKey: 'stats.day_streak',
     value: 0,
     icon: 'flame',
   },
   {
     id: 'xp',
-    label: 'Total XP',
+    labelKey: 'stats.total_xp',
     value: 91757,
     icon: 'zap',
   },
   {
     id: 'league',
-    label: 'Current league',
+    labelKey: 'stats.current_league',
     value: 0,
     icon: 'shield',
   },
   {
     id: 'top3',
-    label: 'Top 3 finishes',
+    labelKey: 'stats.top_3_finishes',
     value: 16,
     icon: 'trophy',
   },

@@ -2,7 +2,6 @@ import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { UserAvatar } from '@/components/common/user-avatar';
-import { Separator } from '@/components/ui/separator';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
 import type { UserProfile } from '../_schemas/profile';
@@ -21,7 +20,7 @@ export function UserInfo({ user }: UserInfoProps) {
   });
 
   return (
-    <div className="flex flex-col gap-4">
+    <section className="flex flex-col gap-4">
       {/* Avatar & Name */}
       <div className="flex items-start gap-4">
         <UserAvatar
@@ -52,8 +51,6 @@ export function UserInfo({ user }: UserInfoProps) {
           <span className="text-muted-foreground">{t('followers')}</span>
         </div>
       </div>
-
-      <Separator />
-    </div>
+    </section>
   );
 }
