@@ -25,11 +25,6 @@ export function Settings() {
     }
   }, [isMounted, isMobile]);
 
-  // Show nothing while checking or redirecting
-  if (!isMounted || !isMobile) {
-    return null;
-  }
-
   return (
     <div className="flex flex-col gap-4">
       <SettingsNavCard titleKey="account.title" links={MOCK_ACCOUNT_LINKS} />
