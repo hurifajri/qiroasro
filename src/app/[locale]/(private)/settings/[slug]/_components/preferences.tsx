@@ -46,16 +46,7 @@ export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
   };
 
   const handleAppearanceChange = (value: ColorMode) => {
-    if (value === 'system') {
-      // Get system preference
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light';
-      setTheme(systemTheme);
-    } else {
-      setTheme(value);
-    }
+    setTheme(value);
     // Refresh to re-render server components with new theme from cookies
     router.refresh();
   };
