@@ -1,17 +1,18 @@
 'use client';
 
-import { PencilIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import {
-  Avatar,
-  AvatarBadge,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
+import {
+  AVATAR_COLORS,
+  AVATAR_GRADIENT_CODES,
+  AVATAR_SOLID_CODES,
+} from '@/lib/avatar';
+import { cn } from '@/lib/utils';
 import type { ProfileForm } from '../../_schemas/settings';
 import { ProfileFieldRow } from './profile-field-row';
 import { ProfilePasswordRow } from './profile-password-row';
@@ -48,15 +49,66 @@ export function Profile({ defaultProfile }: ProfileProps) {
       {/* Avatar section */}
       <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('avatar.title')}</h2>
-        <Avatar size="lg">
-          <AvatarImage src={profile.avatarUrl} alt={profile.name} />
-          <AvatarFallback>
-            {profile.name.charAt(0).toUpperCase()}
-          </AvatarFallback>
-          <AvatarBadge>
-            <PencilIcon />
-          </AvatarBadge>
-        </Avatar>
+        <UserAvatar
+          name={profile.name}
+          colorCode={profile.avatarColorCode}
+          size="lg"
+        />
+
+        {/* Color picker */}
+        <div className="flex flex-col gap-3">
+          <p className="text-muted-foreground text-sm">
+            {t('avatar.choose_color')}
+          </p>
+
+          {/* Solid colors */}
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-sm">{t('avatar.solid_colors')}</p>
+            <div className="flex flex-wrap gap-2">
+              {AVATAR_SOLID_CODES.map((colorCode) => (
+                <button
+                  key={colorCode}
+                  type="button"
+                  onClick={() =>
+                    setProfile({ ...profile, avatarColorCode: colorCode })
+                  }
+                  className={cn(
+                    'relative size-10 rounded-full transition-transform hover:scale-110',
+                    AVATAR_COLORS[colorCode],
+                  )}
+                >
+                  {profile.avatarColorCode === colorCode && (
+                    <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Gradient colors */}
+          <div className="flex flex-col gap-2">
+            <p className="font-medium text-sm">{t('avatar.gradient_colors')}</p>
+            <div className="flex flex-wrap gap-2">
+              {AVATAR_GRADIENT_CODES.map((colorCode) => (
+                <button
+                  key={colorCode}
+                  type="button"
+                  onClick={() =>
+                    setProfile({ ...profile, avatarColorCode: colorCode })
+                  }
+                  className={cn(
+                    'relative size-10 rounded-full transition-transform hover:scale-110',
+                    AVATAR_COLORS[colorCode],
+                  )}
+                >
+                  {profile.avatarColorCode === colorCode && (
+                    <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Personal info section */}

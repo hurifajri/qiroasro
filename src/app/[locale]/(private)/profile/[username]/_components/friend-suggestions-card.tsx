@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import type { FriendSuggestion } from '../_schemas/profile';
@@ -17,24 +17,15 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
     setIsFollowing(!isFollowing);
   };
 
-  // Extract initials
-  const initials = friend.displayName
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
   return (
     <Card size="sm" className="relative">
       <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
         {/* Avatar */}
-        <Avatar className="size-16">
-          <AvatarImage src={friend.avatarUrl} alt={friend.displayName} />
-          <AvatarFallback className="font-semibold text-lg">
-            {initials}
-          </AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          name={friend.displayName}
+          colorCode={friend.avatarColorCode}
+          className="size-16 font-semibold text-lg"
+        />
 
         {/* Name */}
         <h3 className="line-clamp-1 font-semibold text-sm">

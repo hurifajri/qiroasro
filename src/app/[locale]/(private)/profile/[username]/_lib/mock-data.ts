@@ -11,7 +11,7 @@ import type {
 export const MOCK_USER_PROFILE: UserProfile = {
   username: 'fajri',
   displayName: 'Baba Huri Haura',
-  avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=B',
+  avatarColorCode: 'indigo',
   joinedDate: '2026-02-15T00:00:00.000Z',
   followingCount: 19,
   followersCount: 52,
@@ -55,8 +55,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     id: '1',
     username: 'mfajri',
     displayName: 'Muhammad',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=M&backgroundColor=60a5fa',
+    avatarColorCode: 'sky',
     mutualFriendsCount: 3,
     isFollowing: false,
   },
@@ -64,8 +63,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     id: '2',
     username: 'abdullah',
     displayName: 'Abdullah',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=f59e0b',
+    avatarColorCode: 'indigo_rose',
     mutualFriendsCount: 3,
     isFollowing: false,
   },
@@ -73,8 +71,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     id: '3',
     username: 'ibrahim',
     displayName: 'Ibrahim',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=I&backgroundColor=84cc16',
+    avatarColorCode: 'emerald',
     mutualFriendsCount: 3,
     isFollowing: true,
   },

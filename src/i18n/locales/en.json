@@ -838,7 +838,10 @@
     "profile": {
       "title": "Profile",
       "avatar": {
-        "title": "Avatar"
+        "title": "Avatar",
+        "choose_color": "Choose a color",
+        "solid_colors": "Solid",
+        "gradient_colors": "Gradient"
       },
       "personal_info": {
         "title": "Personal Info",

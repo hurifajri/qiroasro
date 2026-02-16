@@ -193,8 +193,7 @@ export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
   {
     id: '1',
     userName: 'Bagus Brahmantya',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=BB&backgroundColor=f59e0b',
+    avatarColorCode: 'amber',
     activityDate: '2026-02-16T00:30:00.000Z',
     descriptionKey: 'activity.completed_streak',
     reactionEmojis: ['🎉'],
@@ -203,8 +202,7 @@ export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
   {
     id: '2',
     userName: 'W',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=W&backgroundColor=ec4899',
+    avatarColorCode: 'rose',
     activityDate: '2026-02-15T01:00:00.000Z',
     descriptionKey: 'activity.collected_badge',
     reactionEmojis: ['🎉', '😊'],
@@ -219,22 +217,19 @@ export const MOCK_FOLLOWING: FollowEntry[] = [
   {
     id: '1',
     name: 'W',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=W&backgroundColor=ec4899',
+    avatarColorCode: 'rose',
     xp: 1566566,
   },
   {
     id: '2',
     name: 'Bagus Brahmantya',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=BB&backgroundColor=f59e0b',
+    avatarColorCode: 'amber',
     xp: 606236,
   },
   {
     id: '3',
     name: 'Sylham S',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=SS&backgroundColor=84cc16',
+    avatarColorCode: 'teal',
     xp: 130976,
   },
 ];
@@ -246,22 +241,19 @@ export const MOCK_FOLLOWERS: FollowEntry[] = [
   {
     id: '1',
     name: 'Ahmad',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=3b82f6',
+    avatarColorCode: 'sky',
     xp: 245000,
   },
   {
     id: '2',
     name: 'Abdullah',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=AB&backgroundColor=f59e0b',
+    avatarColorCode: 'amber',
     xp: 218000,
   },
   {
     id: '3',
     name: 'Muhammad',
-    avatarUrl:
-      'https://api.dicebear.com/7.x/initials/svg?seed=M&backgroundColor=8b5cf6',
+    avatarColorCode: 'violet',
     xp: 205000,
   },
 ];

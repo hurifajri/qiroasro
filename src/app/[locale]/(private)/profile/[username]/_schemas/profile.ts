@@ -6,6 +6,7 @@ import {
   isoDateTime,
   number,
   object,
+  optional,
   pipe,
   string,
 } from 'valibot';
@@ -16,7 +17,7 @@ import {
 export const UserProfileSchema = object({
   username: string(),
   displayName: string(),
-  avatarUrl: string(),
+  avatarColorCode: optional(string()),
   joinedDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   followingCount: pipe(number(), integer()),
   followersCount: pipe(number(), integer()),
@@ -43,7 +44,7 @@ export const FriendSuggestionSchema = object({
   id: string(),
   username: string(),
   displayName: string(),
-  avatarUrl: string(),
+  avatarColorCode: optional(string()),
   mutualFriendsCount: pipe(number(), integer()),
   isFollowing: boolean(),
 });

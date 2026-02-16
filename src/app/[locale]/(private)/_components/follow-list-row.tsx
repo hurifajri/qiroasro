@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { UserAvatar } from '@/components/common/user-avatar';
 import {
   Item,
   ItemContent,
@@ -17,12 +17,11 @@ export function FollowListRow({ entry }: FollowListRowProps) {
     <Item asChild>
       <li className="p-0!">
         <ItemMedia variant="image" className="translate-0! self-center!">
-          <Avatar size="lg">
-            <AvatarImage src={entry.avatarUrl} alt={entry.name} />
-            <AvatarFallback>
-              {entry.name.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            name={entry.name}
+            colorCode={entry.avatarColorCode}
+            size="lg"
+          />
         </ItemMedia>
         <ItemContent>
           <ItemTitle>{entry.name}</ItemTitle>

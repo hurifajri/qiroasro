@@ -188,6 +188,8 @@
   --color-accent-sky-dark: var(--node-articulation-dark);
   --color-accent-amber: var(--node-letter);
   --color-accent-amber-light: var(--node-letter-handle);
+  --color-accent-rose: var(--node-letter-madd);
+  --color-accent-rose-light: var(--node-letter-madd-dark);
 }
 
 @layer base {

@@ -838,7 +838,10 @@
     "profile": {
       "title": "Profil",
       "avatar": {
-        "title": "Avatar"
+        "title": "Avatar",
+        "choose_color": "Pilih warna",
+        "solid_colors": "Solid",
+        "gradient_colors": "Gradien"
       },
       "personal_info": {
         "title": "Info Pribadi",

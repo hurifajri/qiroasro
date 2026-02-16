@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Separator } from '@/components/ui/separator';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
@@ -15,9 +15,6 @@ export function UserInfo({ user }: UserInfoProps) {
   const t = useTranslations('profile_page');
   const locale = useLocale() as Locale;
 
-  // Extract initials from display name
-  const initials = user.displayName.charAt(0).toUpperCase();
-
   // Format joined date
   const joinedDateFormatted = format(new Date(user.joinedDate), 'MMMM yyyy', {
     locale: getDateLocale(locale),
@@ -27,12 +24,11 @@ export function UserInfo({ user }: UserInfoProps) {
     <div className="flex flex-col gap-4">
       {/* Avatar & Name */}
       <div className="flex items-start gap-4">
-        <Avatar className="size-20 ring-2 ring-border">
-          <AvatarImage src={user.avatarUrl} alt={user.displayName} />
-          <AvatarFallback className="bg-primary/10 font-bold text-2xl text-primary">
-            {initials}
-          </AvatarFallback>
-        </Avatar>
+        <UserAvatar
+          name={user.displayName}
+          colorCode={user.avatarColorCode}
+          className="size-20 font-bold text-2xl ring-2 ring-border"
+        />
 
         <div className="flex flex-col gap-1">
           <h2 className="font-bold text-2xl">{user.displayName}</h2>

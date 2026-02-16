@@ -31,7 +31,7 @@ export const ProfileFormSchema = object({
   name: string(),
   username: string(),
   email: string(),
-  avatarUrl: optional(string()),
+  avatarColorCode: optional(string()),
 });
 
 export type ProfileForm = InferOutput<typeof ProfileFormSchema>;

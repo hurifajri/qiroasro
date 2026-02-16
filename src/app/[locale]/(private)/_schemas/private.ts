@@ -31,7 +31,7 @@ export const LeaderboardEntrySchema = object({
   userId: string(),
   name: string(),
   xp: pipe(number(), integer()),
-  avatarUrl: optional(string()),
+  avatarColorCode: optional(string()),
   isCurrentUser: boolean(),
 });
 
@@ -78,7 +78,7 @@ export type UserStatus = InferOutput<typeof UserStatusSchema>;
 export const ActivityFeedItemSchema = object({
   id: string(),
   userName: string(),
-  avatarUrl: string(),
+  avatarColorCode: optional(string()),
   activityDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   descriptionKey: string(), // i18n key
   reactionEmojis: array(string()), // e.g., ["🎉", "😊"]
@@ -93,7 +93,7 @@ export type ActivityFeedItem = InferOutput<typeof ActivityFeedItemSchema>;
 export const FollowEntrySchema = object({
   id: string(),
   name: string(),
-  avatarUrl: string(),
+  avatarColorCode: optional(string()),
   xp: pipe(number(), integer()),
 });
 

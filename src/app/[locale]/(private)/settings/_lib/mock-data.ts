@@ -99,7 +99,7 @@ export const MOCK_PROFILE_DATA: ProfileForm = {
   name: 'Baba Huri Haura',
   username: 'hurifajri',
   email: 'hurifajri@gmail.com',
-  avatarUrl: undefined,
+  avatarColorCode: 'indigo',
 };
 
 /**

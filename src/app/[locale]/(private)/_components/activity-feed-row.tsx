@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
 import { PartyPopperIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -33,12 +33,11 @@ export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
       <li className="p-0!">
         {/* Avatar */}
         <ItemMedia variant="image">
-          <Avatar size="lg">
-            <AvatarImage src={item.avatarUrl} alt={item.userName} />
-            <AvatarFallback>
-              {item.userName.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <UserAvatar
+            name={item.userName}
+            colorCode={item.avatarColorCode}
+            size="lg"
+          />
         </ItemMedia>
 
         {/* User info and description */}
