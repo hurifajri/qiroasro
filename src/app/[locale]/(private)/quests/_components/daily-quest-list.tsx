@@ -8,7 +8,7 @@ interface DailyQuestListProps {
 
 export function DailyQuestList({ quests }: DailyQuestListProps) {
   return (
-    <ItemGroup className="gap-3">
+    <ItemGroup>
       {quests.map((quest) => (
         <QuestRow key={quest.id} quest={quest} />
       ))}

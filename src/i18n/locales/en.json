@@ -741,12 +741,14 @@
     },
     "title": "Quests - Daily Challenges",
     "monthly_quest": {
-      "february_quest": "February Quest"
+      "february_quest": "February Quest",
+      "days_remaining": "{count} Days",
+      "complete_quests": "Complete {target} quests"
     },
-    "days_remaining": "{count} Days",
-    "hours_remaining": "{count} Hours",
-    "daily_quests": "Daily Quests",
-    "complete_quests": "Complete {target} quests"
+    "daily_quests": {
+      "title": "Daily Quests",
+      "hours_remaining": "{count} Hours"
+    }
   },
   "shop_page": {
     "metadata": {

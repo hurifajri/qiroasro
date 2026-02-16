@@ -741,12 +741,14 @@
     },
     "title": "Misi - Cabaran Harian",
     "monthly_quest": {
-      "february_quest": "Misi Februari"
+      "february_quest": "Misi Februari",
+      "days_remaining": "{count} Hari",
+      "complete_quests": "Selesaikan {target} misi"
     },
-    "days_remaining": "{count} Hari",
-    "hours_remaining": "{count} Jam",
-    "daily_quests": "Misi Harian",
-    "complete_quests": "Selesaikan {target} misi"
+    "daily_quests": {
+      "title": "Misi Harian",
+      "hours_remaining": "{count} Jam"
+    }
   },
   "shop_page": {
     "metadata": {

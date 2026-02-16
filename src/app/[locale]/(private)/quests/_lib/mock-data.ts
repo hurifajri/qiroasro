@@ -5,7 +5,7 @@ import type { MonthlyQuest } from '../_schemas/quests';
  */
 export const MOCK_MONTHLY_QUEST: MonthlyQuest = {
   month: 'FEBRUARY',
-  titleKey: 'monthly_quest.february_quest',
+  titleKey: 'february_quest',
   target: 20,
   current: 0,
   daysRemaining: 14,

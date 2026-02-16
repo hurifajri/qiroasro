@@ -741,12 +741,14 @@
     },
     "title": "المهام - التحديات اليومية",
     "monthly_quest": {
-      "february_quest": "مهمة فبراير"
+      "february_quest": "مهمة فبراير",
+      "days_remaining": "{count} يوم",
+      "complete_quests": "أكمل {target} مهام"
     },
-    "days_remaining": "{count} يوم",
-    "hours_remaining": "{count} ساعة",
-    "daily_quests": "المهام اليومية",
-    "complete_quests": "أكمل {target} مهام"
+    "daily_quests": {
+      "title": "المهام اليومية",
+      "hours_remaining": "{count} ساعة"
+    }
   },
   "shop_page": {
     "metadata": {

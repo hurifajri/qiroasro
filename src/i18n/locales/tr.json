@@ -741,12 +741,14 @@
     },
     "title": "Görevler - Günlük Meydan Okumalar",
     "monthly_quest": {
-      "february_quest": "Şubat Görevi"
+      "february_quest": "Şubat Görevi",
+      "days_remaining": "{count} Gün",
+      "complete_quests": "{target} görev tamamla"
     },
-    "days_remaining": "{count} Gün",
-    "hours_remaining": "{count} Saat",
-    "daily_quests": "Günlük Görevler",
-    "complete_quests": "{target} görev tamamla"
+    "daily_quests": {
+      "title": "Günlük Görevler",
+      "hours_remaining": "{count} Saat"
+    }
   },
   "shop_page": {
     "metadata": {

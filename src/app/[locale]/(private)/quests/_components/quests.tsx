@@ -19,17 +19,21 @@ export function Quests({ monthlyQuest, dailyQuests }: QuestsProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Monthly Quest Hero */}
-      <MonthlyQuestCard quest={monthlyQuest} />
+      <section>
+        <MonthlyQuestCard quest={monthlyQuest} />
+      </section>
 
       <Separator />
 
       {/* Daily Quests */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-bold text-xl">{t('daily_quests')}</h2>
-          <div className="flex items-center gap-1.5 text-amber-600 text-sm dark:text-amber-500">
+      <section className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-bold text-xl">{t('daily_quests.title')}</h2>
+          <div className="flex items-center gap-1 text-amber-600 text-sm dark:text-amber-500">
             <Clock className="size-4" />
-            <span className="font-semibold">7 HOURS</span>
+            <span className="font-semibold uppercase">
+              {t('daily_quests.hours_remaining', { count: 7 })}
+            </span>
           </div>
         </div>
         <DailyQuestList quests={dailyQuests} />

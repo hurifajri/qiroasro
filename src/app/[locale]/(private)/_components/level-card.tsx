@@ -12,15 +12,15 @@ import {
 import { SuperBadge } from './super-badge';
 import { SuperButton } from './super-button';
 
-interface LevelCardProps {
-  onUpgradeClick: () => void;
-}
-
 /**
  * Premium upgrade / level up card widget.
  */
-export function LevelCard({ onUpgradeClick }: LevelCardProps) {
+export function LevelCard() {
   const t = useTranslations('global.private_layout');
+
+  function handleUpgradeClick() {
+    console.log('Upgrade clicked');
+  }
 
   return (
     <Card className="bg-linear-to-br from-violet-500/10 via-purple-500/10 to-fuchsia-500/10">
@@ -37,7 +37,7 @@ export function LevelCard({ onUpgradeClick }: LevelCardProps) {
         <p className="text-muted-foreground">{t('level_card.description')}</p>
       </CardContent>
       <CardFooter className="border-t-0 bg-transparent pt-0">
-        <SuperButton onClick={onUpgradeClick}>
+        <SuperButton onClick={handleUpgradeClick}>
           {t('level_card.cta')}
         </SuperButton>
       </CardFooter>
