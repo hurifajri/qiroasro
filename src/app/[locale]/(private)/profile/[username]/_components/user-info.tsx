@@ -43,11 +43,11 @@ export function UserInfo({ user }: UserInfoProps) {
 
       {/* Following & Followers */}
       <div className="flex items-center gap-4 text-sm">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <span className="font-bold text-primary">{user.followingCount}</span>
           <span className="text-muted-foreground">{t('following')}</span>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <span className="font-bold text-primary">{user.followersCount}</span>
           <span className="text-muted-foreground">{t('followers')}</span>
         </div>

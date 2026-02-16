@@ -27,7 +27,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 import type { NavItem } from '../_schemas/private';
 
@@ -52,32 +52,35 @@ interface SidebarNavProps {
 function MoreMenu() {
   const t = useTranslations('global.private_layout.nav');
   const isLg = useMediaQuery('(width >= 64rem)');
+  const pathname = usePathname();
+  const isActive =
+    pathname.endsWith('/settings') || pathname.includes('/settings');
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className={cn(
-            'flex items-center gap-3 rounded-xl p-3 font-medium text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground',
-          )}
-        >
-          {isLg ? (
-            <EllipsisIcon className="size-6" />
-          ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <EllipsisIcon className="size-6" />
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                <p>{t('more')}</p>
-              </TooltipContent>
-            </Tooltip>
-          )}
-          <span className="hidden lg:inline">{t('more')}</span>
-        </button>
+      <DropdownMenuTrigger
+        className={cn(
+          'flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
+          isActive
+            ? 'bg-primary/10 text-primary'
+            : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+        )}
+      >
+        {isLg ? (
+          <EllipsisIcon />
+        ) : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <EllipsisIcon />
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              <p>{t('more')}</p>
+            </TooltipContent>
+          </Tooltip>
+        )}
+        <span className="hidden lg:inline">{t('more')}</span>
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="right" align="start" className="w-48">
+      <DropdownMenuContent side="right" align="start">
         <DropdownMenuItem asChild>
           <Link
             href="/settings/preferences"
@@ -131,7 +134,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
               <Icon />
             ) : (
               <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <Icon />
                 </TooltipTrigger>
                 <TooltipContent side="right">
