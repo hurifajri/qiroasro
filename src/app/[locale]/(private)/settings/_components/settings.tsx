@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useMobile } from '@/hooks/use-mobile';
+import { useMounted } from '@/hooks/use-mounted';
 import { useRouter } from '@/i18n/navigation';
 import { LogoutButton } from '../../_components/logout-button';
 import { SettingsNavCard } from '../../_components/settings-nav-card';
@@ -13,13 +14,8 @@ import {
 
 export function Settings() {
   const router = useRouter();
+  const isMounted = useMounted();
   const isMobile = useMobile();
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Track when component is mounted
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   // Redirect only after mounted and confirmed not mobile
   // biome-ignore lint/correctness/useExhaustiveDependencies: <router won't be changed>
