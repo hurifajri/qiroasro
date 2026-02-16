@@ -3,6 +3,7 @@ import {
   array,
   boolean,
   integer,
+  isoDateTime,
   number,
   object,
   optional,
@@ -78,7 +79,7 @@ export const ActivityFeedItemSchema = object({
   id: string(),
   userName: string(),
   avatarUrl: string(),
-  timeAgo: string(), // e.g., "40 mins", "1 day"
+  activityDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   descriptionKey: string(), // i18n key
   reactionEmojis: array(string()), // e.g., ["🎉", "😊"]
   reactionCount: pipe(number(), integer()),

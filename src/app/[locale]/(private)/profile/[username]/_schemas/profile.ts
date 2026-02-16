@@ -1,5 +1,14 @@
 import type { InferOutput } from 'valibot';
-import { array, boolean, integer, number, object, pipe, string } from 'valibot';
+import {
+  array,
+  boolean,
+  integer,
+  isoDateTime,
+  number,
+  object,
+  pipe,
+  string,
+} from 'valibot';
 
 /**
  * User profile schema
@@ -8,7 +17,7 @@ export const UserProfileSchema = object({
   username: string(),
   displayName: string(),
   avatarUrl: string(),
-  joinedDate: string(), // ISO date string
+  joinedDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   followingCount: pipe(number(), integer()),
   followersCount: pipe(number(), integer()),
 });

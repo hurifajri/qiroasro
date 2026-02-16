@@ -195,7 +195,7 @@ export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
     userName: 'Bagus Brahmantya',
     avatarUrl:
       'https://api.dicebear.com/7.x/initials/svg?seed=BB&backgroundColor=f59e0b',
-    timeAgo: '40 mins',
+    activityDate: '2026-02-16T00:30:00.000Z',
     descriptionKey: 'activity.completed_streak',
     reactionEmojis: ['🎉'],
     reactionCount: 2,
@@ -205,7 +205,7 @@ export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
     userName: 'W',
     avatarUrl:
       'https://api.dicebear.com/7.x/initials/svg?seed=W&backgroundColor=ec4899',
-    timeAgo: '1 day',
+    activityDate: '2026-02-15T01:00:00.000Z',
     descriptionKey: 'activity.collected_badge',
     reactionEmojis: ['🎉', '😊'],
     reactionCount: 5,

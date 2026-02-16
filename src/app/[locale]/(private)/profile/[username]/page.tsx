@@ -47,7 +47,7 @@ export async function generateMetadata({
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const { locale, username } = await params;
+  const { locale } = await params;
 
   // Enable static rendering
   setRequestLocale(locale);
@@ -56,10 +56,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   return (
     <>
-      <h1 className="sr-only">
-        {t('title')}
-        {username}
-      </h1>
+      <h1 className="sr-only">{t('title')}</h1>
       <Profile
         user={MOCK_USER_PROFILE}
         stats={MOCK_STATISTICS}

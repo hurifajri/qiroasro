@@ -1,5 +1,6 @@
+import { formatDistanceToNow } from 'date-fns';
 import { PartyPopperIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,6 +11,8 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import type { Locale } from '@/i18n/routing';
+import { getDateLocale } from '@/lib/date';
 import type { ActivityFeedItem } from '../_schemas/private';
 
 interface ActivityFeedRowProps {
@@ -18,6 +21,12 @@ interface ActivityFeedRowProps {
 
 export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
   const t = useTranslations('global.private_layout');
+  const locale = useLocale() as Locale;
+
+  const timeAgo = formatDistanceToNow(new Date(item.activityDate), {
+    addSuffix: true,
+    locale: getDateLocale(locale),
+  });
 
   return (
     <Item asChild>
@@ -35,7 +44,7 @@ export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
         {/* User info and description */}
         <ItemContent>
           <ItemTitle>{item.userName}</ItemTitle>
-          <ItemDescription>{item.timeAgo}</ItemDescription>
+          <ItemDescription>{timeAgo}</ItemDescription>
         </ItemContent>
         <ItemContent className="w-full">
           <ItemDescription>{t(item.descriptionKey)}</ItemDescription>

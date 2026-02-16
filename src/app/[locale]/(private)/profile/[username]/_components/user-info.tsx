@@ -1,7 +1,10 @@
+import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
+import type { Locale } from '@/i18n/routing';
+import { getDateLocale } from '@/lib/date';
 import type { UserProfile } from '../_schemas/profile';
 
 interface UserInfoProps {
@@ -10,19 +13,14 @@ interface UserInfoProps {
 
 export function UserInfo({ user }: UserInfoProps) {
   const t = useTranslations('profile_page');
+  const locale = useLocale() as Locale;
 
   // Extract initials from display name
-  const initials = user.displayName
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
+  const initials = user.displayName.charAt(0).toUpperCase();
 
   // Format joined date
-  const joinedYear = new Date(user.joinedDate).getFullYear();
-  const joinedMonth = new Date(user.joinedDate).toLocaleDateString('en-US', {
-    month: 'long',
+  const joinedDateFormatted = format(new Date(user.joinedDate), 'MMMM yyyy', {
+    locale: getDateLocale(locale),
   });
 
   return (
@@ -41,7 +39,7 @@ export function UserInfo({ user }: UserInfoProps) {
           <p className="text-muted-foreground">{user.username}</p>
           <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
             <Calendar className="size-4" />
-            <span>{t('joined', { date: `${joinedMonth} ${joinedYear}` })}</span>
+            <span>{t('joined', { date: joinedDateFormatted })}</span>
           </div>
         </div>
       </div>

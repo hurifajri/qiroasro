@@ -10,9 +10,9 @@ import type {
  */
 export const MOCK_USER_PROFILE: UserProfile = {
   username: 'fajri',
-  displayName: 'Baba',
+  displayName: 'Baba Huri Haura',
   avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=B',
-  joinedDate: '2026-02-15',
+  joinedDate: '2026-02-15T00:00:00.000Z',
   followingCount: 19,
   followersCount: 52,
 };
