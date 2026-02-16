@@ -839,7 +839,7 @@
       "title": "Profile",
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Choose a color",
+        "choose_color": "Choose Color",
         "solid_colors": "Solid",
         "gradient_colors": "Gradient"
       },

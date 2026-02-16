@@ -839,9 +839,9 @@
       "title": "Profil",
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Pilih warna",
+        "choose_color": "Pilih Warna",
         "solid_colors": "Solid",
-        "gradient_colors": "Gradien"
+        "gradient_colors": "Gradasi"
       },
       "personal_info": {
         "title": "Info Pribadi",

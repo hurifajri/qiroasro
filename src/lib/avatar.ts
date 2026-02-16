@@ -18,11 +18,17 @@ export const AVATAR_COLORS = {
   orange: 'bg-orange-500',
   // Gradient colors
   indigo_rose: 'bg-gradient-to-br from-indigo-500 to-rose-500',
-  emerald_teal: 'bg-gradient-to-br from-emerald-500 to-teal-500',
-  amber_orange: 'bg-gradient-to-br from-amber-500 to-orange-500',
-  sky_indigo: 'bg-gradient-to-br from-sky-500 to-indigo-500',
+  rose_indigo: 'bg-gradient-to-br from-rose-500 to-indigo-500',
+  emerald_rose: 'bg-gradient-to-br from-emerald-500 to-rose-500',
+  rose_emerald: 'bg-gradient-to-br from-rose-500 to-emerald-500',
+  amber_sky: 'bg-gradient-to-br from-amber-500 to-sky-500',
+  sky_amber: 'bg-gradient-to-br from-sky-500 to-amber-500',
+  teal_amber: 'bg-gradient-to-br from-teal-500 to-amber-500',
+  amber_teal: 'bg-gradient-to-br from-amber-500 to-teal-500',
   rose_violet: 'bg-gradient-to-br from-rose-500 to-violet-500',
-  teal_sky: 'bg-gradient-to-br from-teal-500 to-sky-500',
+  violet_rose: 'bg-gradient-to-br from-violet-500 to-rose-500',
+  rose_sky: 'bg-gradient-to-br from-rose-500 to-sky-500',
+  sky_rose: 'bg-gradient-to-br from-sky-500 to-rose-500',
 } as const;
 
 export type AvatarColorCode = keyof typeof AVATAR_COLORS;
@@ -48,11 +54,17 @@ export const AVATAR_SOLID_CODES = [
  */
 export const AVATAR_GRADIENT_CODES = [
   'indigo_rose',
-  'emerald_teal',
-  'amber_orange',
-  'sky_indigo',
+  'rose_indigo',
+  'emerald_rose',
+  'rose_emerald',
+  'amber_sky',
+  'sky_amber',
+  'teal_amber',
+  'amber_teal',
   'rose_violet',
-  'teal_sky',
+  'violet_rose',
+  'rose_sky',
+  'sky_rose',
 ] as const satisfies readonly AvatarColorCode[];
 
 /**

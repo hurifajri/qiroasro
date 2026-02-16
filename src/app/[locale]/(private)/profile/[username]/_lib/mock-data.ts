@@ -63,7 +63,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     id: '2',
     username: 'abdullah',
     displayName: 'Abdullah',
-    avatarColorCode: 'indigo_rose',
+    avatarColorCode: 'sky_rose',
     mutualFriendsCount: 3,
     isFollowing: false,
   },
