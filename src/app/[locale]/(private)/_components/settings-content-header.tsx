@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils';
 export function SettingsContentHeader() {
   const t = useTranslations('global.private_layout');
   const pathname = usePathname();
-
   const isMobileSettings = pathname === '/settings';
 
   // Extract slug from pathname (e.g., "/settings/profile" -> "profile")
