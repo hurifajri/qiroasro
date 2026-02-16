@@ -56,10 +56,7 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
     <Item asChild>
       <li className="px-0! py-0!">
         {/* Icon */}
-        <ItemMedia
-          variant="icon"
-          className="translate-0! self-center! flex size-14 shrink-0 items-center justify-center rounded-xl bg-muted text-3xl"
-        >
+        <ItemMedia className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-muted text-3xl">
           {item.iconEmoji}
         </ItemMedia>
 

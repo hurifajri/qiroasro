@@ -38,7 +38,7 @@ export function LeaderboardRow({ entry }: LeaderboardRowProps) {
         className={cn(isCurrentUser && 'bg-primary/10 ring-1 ring-primary/20')}
       >
         {/* Rank */}
-        <ItemMedia variant="icon">
+        <ItemMedia>
           <div
             className={cn(
               'flex size-8 shrink-0 items-center justify-center rounded-full font-bold text-sm',

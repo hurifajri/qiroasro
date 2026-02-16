@@ -20,7 +20,7 @@ export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
   return (
     <Item asChild>
       <li className="p-0!">
-        <ItemMedia variant="icon">
+        <ItemMedia>
           <Avatar className={cn('size-12', badge.iconBg)}>
             <AvatarFallback className="bg-transparent text-2xl">
               {badge.iconEmoji}

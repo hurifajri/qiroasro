@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
@@ -11,6 +12,7 @@ interface FriendSuggestionsCardProps {
 }
 
 export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
+  const t = useTranslations('profile_page');
   const [isFollowing, setIsFollowing] = useState(friend.isFollowing);
 
   const handleFollow = () => {
@@ -18,8 +20,8 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
   };
 
   return (
-    <Card size="sm" className="relative">
-      <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
+    <Card size="sm" className="relative h-full">
+      <CardContent className="flex h-full flex-col items-center gap-3 p-4 text-center">
         {/* Avatar */}
         <UserAvatar
           name={friend.displayName}
@@ -29,23 +31,23 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
         />
 
         {/* Name */}
-        <h3 className="line-clamp-1 font-semibold text-sm">
-          {friend.displayName}
-        </h3>
+        <h3 className="line-clamp-1 font-semibold">{friend.displayName}</h3>
 
         {/* Mutual friends */}
-        <p className="text-muted-foreground text-xs">
-          Followed by {friend.mutualFriendsCount} friends
-        </p>
+        {friend.mutualFriendsCount > 0 && (
+          <p className="text-muted-foreground text-xs">
+            {t('followed_by', { count: friend.mutualFriendsCount })}
+          </p>
+        )}
 
         {/* Follow button */}
         <Button
           size="sm"
           variant={isFollowing ? 'outline' : 'default'}
           onClick={handleFollow}
-          className="w-full font-semibold"
+          className="mt-auto w-full font-semibold uppercase"
         >
-          {isFollowing ? 'FOLLOWING' : 'FOLLOW'}
+          {isFollowing ? t('following') : t('follow')}
         </Button>
       </CardContent>
     </Card>

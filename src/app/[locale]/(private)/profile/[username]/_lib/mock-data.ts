@@ -56,7 +56,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     username: 'mfajri',
     displayName: 'Muhammad Fajri',
     avatarColorCode: 'sky',
-    mutualFriendsCount: 3,
+    mutualFriendsCount: 0,
     isFollowing: false,
   },
   {
@@ -64,7 +64,7 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     username: 'abdullah',
     displayName: 'Abdullah',
     avatarColorCode: 'sky_rose',
-    mutualFriendsCount: 3,
+    mutualFriendsCount: 5,
     isFollowing: false,
   },
   {
@@ -83,6 +83,22 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
 export const MOCK_ACHIEVEMENTS: Achievement[] = [
   {
     id: 'wildfire',
+    titleKey: 'achievement_data.wildfire.title',
+    descriptionKey: 'achievement_data.wildfire.description',
+    iconBg: 'bg-gradient-to-br from-orange-400 to-red-500',
+    iconEmoji: '🔥',
+    level: 1,
+  },
+  {
+    id: 'wildfire2',
+    titleKey: 'achievement_data.wildfire.title',
+    descriptionKey: 'achievement_data.wildfire.description',
+    iconBg: 'bg-gradient-to-br from-orange-400 to-red-500',
+    iconEmoji: '🔥',
+    level: 3,
+  },
+  {
+    id: 'wildfire3',
     titleKey: 'achievement_data.wildfire.title',
     descriptionKey: 'achievement_data.wildfire.description',
     iconBg: 'bg-gradient-to-br from-orange-400 to-red-500',

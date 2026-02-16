@@ -16,7 +16,7 @@ export function FollowListRow({ entry }: FollowListRowProps) {
   return (
     <Item asChild>
       <li className="p-0!">
-        <ItemMedia variant="image" className="translate-0! self-center!">
+        <ItemMedia>
           <UserAvatar
             name={entry.name}
             colorCode={entry.avatarColorCode}

@@ -8,7 +8,7 @@ interface AchievementListProps {
 
 export function AchievementList({ achievements }: AchievementListProps) {
   return (
-    <ItemGroup className="gap-3">
+    <ItemGroup>
       {achievements.map((achievement) => (
         <AchievementItem key={achievement.id} achievement={achievement} />
       ))}

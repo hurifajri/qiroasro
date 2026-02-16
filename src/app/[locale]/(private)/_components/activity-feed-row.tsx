@@ -32,7 +32,7 @@ export function ActivityFeedRow({ item }: ActivityFeedRowProps) {
     <Item asChild>
       <li className="p-0!">
         {/* Avatar */}
-        <ItemMedia variant="image">
+        <ItemMedia>
           <UserAvatar
             name={item.userName}
             colorCode={item.avatarColorCode}

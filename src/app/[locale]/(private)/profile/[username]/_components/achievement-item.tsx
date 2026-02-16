@@ -13,7 +13,7 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
 
   return (
     <Item variant="outline" asChild>
-      <li className="rounded-2xl! border-2 p-4!">
+      <li>
         {/* Icon */}
         <ItemMedia>
           <div
@@ -28,16 +28,13 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
 
         {/* Content */}
         <ItemContent className="gap-2">
-          <ItemTitle className="flex items-center gap-2">
-            <h3 className="font-bold text-base">{t(achievement.titleKey)}</h3>
-            <Badge
-              variant="secondary"
-              className="shrink-0 font-semibold text-xs"
-            >
+          <ItemTitle className="flex items-center gap-2 font-bold text-base">
+            {t(achievement.titleKey)}
+            <Badge variant="secondary" className="shrink-0 font-semibold">
               LEVEL {achievement.level}
             </Badge>
           </ItemTitle>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground">
             {t(achievement.descriptionKey)}
           </p>
         </ItemContent>

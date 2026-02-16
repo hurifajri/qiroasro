@@ -58,15 +58,12 @@ export function Profile({
       <Separator />
 
       {/* Achievements */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
+      <section className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
           <h2 className="font-bold text-xl">{t('achievements')}</h2>
-          <button
-            type="button"
-            className="font-semibold text-primary text-sm hover:underline"
-          >
+          <Button variant="link" className="px-0 uppercase">
             {t('view_all')}
-          </button>
+          </Button>
         </div>
         <AchievementList achievements={achievements} />
       </section>
