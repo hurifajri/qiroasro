@@ -9,7 +9,7 @@ interface StatItemProps {
 }
 
 export function StatItem({ stat }: StatItemProps) {
-  const t = useTranslations('profile_page');
+  const t = useTranslations('profile_page.statistics');
 
   return (
     <li>

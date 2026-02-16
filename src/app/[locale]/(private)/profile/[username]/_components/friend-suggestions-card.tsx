@@ -12,7 +12,7 @@ interface FriendSuggestionsCardProps {
 }
 
 export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
-  const t = useTranslations('profile_page');
+  const t = useTranslations('profile_page.friend_suggestions');
   const [isFollowing, setIsFollowing] = useState(friend.isFollowing);
 
   const handleFollow = () => {

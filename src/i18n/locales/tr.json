@@ -790,23 +790,30 @@
       "title": "Kullanıcı Profili",
       "description": "Kullanıcı istatistiklerini, başarılarını ve arkadaş önerilerini görüntüleyin."
     },
-    "title": "Profil - Kullanıcı İstatistikleri",
-    "statistics": "İstatistikler",
-    "friend_suggestions": "Arkadaş Önerileri",
-    "achievements": "Başarılar",
-    "view_all": "Tümünü Gör",
-    "follow": "Takip Et",
-    "following": "Takip Ediliyor",
-    "followers": "Takipçiler",
-    "joined": "Katıldı: {date}",
-    "stats": {
-      "day_streak": "Gün Serisi",
+    "title": "Kullanıcı Profili",
+    "user_info": {
+      "joined": "Katıldı: {date}",
+      "following": "Takip Ediliyor",
+      "followers": "Takipçiler"
+    },
+    "statistics": {
+      "title": "İstatistikler",
+      "day_streak": "Günlük Seri",
       "total_xp": "Toplam XP",
       "current_league": "Mevcut Lig",
       "top_3_finishes": "İlk 3 Derece"
     },
-    "followed_by": "{count} arkadaş tarafından takip ediliyor",
-    "achievement_data": {
+    "friend_suggestions": {
+      "title": "Arkadaş Önerileri",
+      "view_all": "Tümünü Gör",
+      "followed_by": "{count} arkadaş tarafından takip ediliyor",
+      "follow": "Takip Et",
+      "following": "Takip Ediliyor"
+    },
+    "achievements": {
+      "title": "Başarılar",
+      "view_all": "Tümünü Gör",
+      "level": "Seviye",
       "wildfire": {
         "title": "Alev",
         "description": "365 günlük bir seriye ulaştın"

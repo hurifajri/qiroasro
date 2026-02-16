@@ -9,7 +9,7 @@ interface AchievementItemProps {
 }
 
 export function AchievementItem({ achievement }: AchievementItemProps) {
-  const t = useTranslations('profile_page');
+  const t = useTranslations('profile_page.achievements');
 
   return (
     <Item variant="outline" asChild>
@@ -30,8 +30,11 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
         <ItemContent className="gap-2">
           <ItemTitle className="flex items-center gap-2 font-bold text-base">
             {t(achievement.titleKey)}
-            <Badge variant="secondary" className="shrink-0 font-semibold">
-              LEVEL {achievement.level}
+            <Badge
+              variant="secondary"
+              className="shrink-0 font-semibold uppercase"
+            >
+              {t('level')} {achievement.level}
             </Badge>
           </ItemTitle>
           <p className="text-muted-foreground">

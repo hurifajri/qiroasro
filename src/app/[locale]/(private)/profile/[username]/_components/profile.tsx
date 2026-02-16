@@ -38,7 +38,7 @@ export function Profile({
 
       {/* Statistics */}
       <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('statistics')}</h2>
+        <h2 className="font-bold text-xl">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
       </section>
 
@@ -47,9 +47,9 @@ export function Profile({
       {/* Friend Suggestions */}
       <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-xl">{t('friend_suggestions')}</h2>
+          <h2 className="font-bold text-xl">{t('friend_suggestions.title')}</h2>
           <Button variant="link" className="px-0 uppercase">
-            {t('view_all')}
+            {t('friend_suggestions.view_all')}
           </Button>
         </div>
         <FriendSuggestionsGrid friends={friendSuggestions} />
@@ -60,9 +60,9 @@ export function Profile({
       {/* Achievements */}
       <section className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-bold text-xl">{t('achievements')}</h2>
+          <h2 className="font-bold text-xl">{t('achievements.title')}</h2>
           <Button variant="link" className="px-0 uppercase">
-            {t('view_all')}
+            {t('achievements.view_all')}
           </Button>
         </div>
         <AchievementList achievements={achievements} />

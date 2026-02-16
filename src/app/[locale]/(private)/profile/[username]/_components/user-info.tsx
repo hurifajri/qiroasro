@@ -11,7 +11,7 @@ interface UserInfoProps {
 }
 
 export function UserInfo({ user }: UserInfoProps) {
-  const t = useTranslations('profile_page');
+  const t = useTranslations('profile_page.user_info');
   const locale = useLocale() as Locale;
 
   // Format joined date
