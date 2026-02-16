@@ -95,6 +95,7 @@ export const FollowEntrySchema = object({
   name: string(),
   avatarColorCode: optional(string()),
   xp: pipe(number(), integer()),
+  isOnline: boolean(),
 });
 
 export type FollowEntry = InferOutput<typeof FollowEntrySchema>;

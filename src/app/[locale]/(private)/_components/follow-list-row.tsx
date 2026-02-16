@@ -21,6 +21,8 @@ export function FollowListRow({ entry }: FollowListRowProps) {
             name={entry.name}
             colorCode={entry.avatarColorCode}
             size="lg"
+            hasOnlineBadge
+            isOnline={entry.isOnline}
           />
         </ItemMedia>
         <ItemContent>

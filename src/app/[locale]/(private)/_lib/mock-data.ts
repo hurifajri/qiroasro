@@ -216,21 +216,24 @@ export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
 export const MOCK_FOLLOWING: FollowEntry[] = [
   {
     id: '1',
-    name: 'W',
-    avatarColorCode: 'rose',
+    name: 'Hajar Haura',
+    avatarColorCode: 'rose_violet',
     xp: 1566566,
+    isOnline: true,
   },
   {
     id: '2',
-    name: 'Bagus Brahmantya',
+    name: 'Nurul Huriyyah',
     avatarColorCode: 'amber',
     xp: 606236,
+    isOnline: false,
   },
   {
     id: '3',
-    name: 'Sylham S',
+    name: `Rifa'atul Mahmudah`,
     avatarColorCode: 'teal',
     xp: 130976,
+    isOnline: false,
   },
 ];
 
@@ -243,18 +246,21 @@ export const MOCK_FOLLOWERS: FollowEntry[] = [
     name: 'Ahmad',
     avatarColorCode: 'sky',
     xp: 245000,
+    isOnline: false,
   },
   {
     id: '2',
     name: 'Abdullah',
     avatarColorCode: 'amber',
     xp: 218000,
+    isOnline: true,
   },
   {
     id: '3',
     name: 'Muhammad',
     avatarColorCode: 'violet',
     xp: 205000,
+    isOnline: true,
   },
 ];
 
