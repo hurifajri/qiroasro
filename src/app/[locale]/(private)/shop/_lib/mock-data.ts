@@ -12,8 +12,8 @@ export const MOCK_HEARTS_ITEMS: ShopItem[] = [
     price: 0,
     type: 'hearts',
     status: 'full',
-    equipped: 0,
-    maxEquipped: 0,
+    equipped: 1,
+    maxEquipped: 2,
   },
   {
     id: 'unlimited-hearts',
@@ -23,8 +23,8 @@ export const MOCK_HEARTS_ITEMS: ShopItem[] = [
     price: 0,
     type: 'hearts',
     status: 'super',
-    equipped: 0,
-    maxEquipped: 0,
+    equipped: 1,
+    maxEquipped: 2,
   },
 ];
 
@@ -40,7 +40,7 @@ export const MOCK_POWERUP_ITEMS: ShopItem[] = [
     price: 200,
     type: 'powerup',
     status: 'available',
-    equipped: 0,
+    equipped: 1,
     maxEquipped: 2,
   },
   {

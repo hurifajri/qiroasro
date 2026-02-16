@@ -12,7 +12,7 @@ export default function DefaultSidebar() {
   return (
     <>
       <StatList stats={MOCK_USER_STATS} />
-      <LevelCard />
+      <LevelCard onUpgradeClick={() => {}} />
       <LeaderboardCard entries={MOCK_LEADERBOARD} userStats={MOCK_USER_STATS} />
       <QuestsCard quests={MOCK_QUESTS} />
     </>

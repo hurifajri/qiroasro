@@ -754,11 +754,10 @@
       "description": "Purchase hearts, power-ups, and other items to enhance your learning experience."
     },
     "title": "Shop - Power-Ups & Items",
-    "sections": {
-      "hearts": "Hearts",
-      "powerups": "Power-Ups"
-    },
     "hearts": {
+      "title": "Hearts",
+      "full": "Full",
+      "get_super": "Get Super",
       "refill": {
         "title": "Refill Hearts",
         "description": "Restore full hearts to worry less about making mistakes."
@@ -769,6 +768,9 @@
       }
     },
     "powerups": {
+      "title": "Power-Ups",
+      "get_for": "Get For:",
+      "equipped": "Equipped",
       "streak_freeze": {
         "title": "Streak Freeze",
         "description": "Keep your streak alive for one full day of inactivity."
@@ -777,12 +779,6 @@
         "title": "Double XP Boost",
         "description": "Earn double XP for 15 minutes of learning."
       }
-    },
-    "status": {
-      "full": "FULL",
-      "get_super": "GET SUPER",
-      "get_for": "GET FOR:",
-      "equipped": "EQUIPPED"
     }
   },
   "profile_page": {

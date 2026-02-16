@@ -754,11 +754,10 @@
       "description": "Öğrenme deneyiminizi geliştirmek için can, güçlendirme ve diğer eşyaları satın alın."
     },
     "title": "Mağaza - Güçlendirmeler",
-    "sections": {
-      "hearts": "Canlar",
-      "powerups": "Güçlendirmeler"
-    },
     "hearts": {
+      "title": "Canlar",
+      "full": "Dolu",
+      "get_super": "Super Al",
       "refill": {
         "title": "Canları Doldur",
         "description": "Hata yapmaktan korkmadan öğrenmek için canları fulle."
@@ -769,6 +768,9 @@
       }
     },
     "powerups": {
+      "title": "Güçlendirmeler",
+      "get_for": "Satın Al:",
+      "equipped": "Kuşanıldı",
       "streak_freeze": {
         "title": "Seri Dondurucu",
         "description": "Bir gün pratik yapmasan bile serini korur."
@@ -777,12 +779,6 @@
         "title": "Çifte XP Desteği",
         "description": "15 dakikalık öğrenim boyunca iki kat XP kazan."
       }
-    },
-    "status": {
-      "full": "DOLU",
-      "get_super": "SUPER AL",
-      "get_for": "SATIN AL:",
-      "equipped": "KUŞANILDI"
     }
   },
   "profile_page": {

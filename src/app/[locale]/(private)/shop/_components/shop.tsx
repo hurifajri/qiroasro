@@ -16,12 +16,12 @@ export function Shop({ heartsItems, powerupItems }: ShopProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Hearts Section */}
-      <ShopSection title={t('sections.hearts')} items={heartsItems} />
+      <ShopSection title={t('hearts.title')} items={heartsItems} />
 
       <Separator />
 
       {/* Power-Ups Section */}
-      <ShopSection title={t('sections.powerups')} items={powerupItems} />
+      <ShopSection title={t('powerups.title')} items={powerupItems} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { cn } from '@/lib/utils';
+import { SuperButton } from '../../_components/super-button';
 import type { ShopItem } from '../_schemas/shop';
 
 interface ShopItemCardProps {
@@ -22,29 +22,25 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
   const renderAction = () => {
     if (item.status === 'full') {
       return (
-        <Badge variant="secondary" className="font-bold">
-          {t('status.full')}
+        <Badge variant="secondary" className="font-bold uppercase">
+          {t('hearts.full')}
         </Badge>
       );
     }
 
     if (item.status === 'super') {
       return (
-        <Button variant="default" size="sm" className="font-bold">
-          {t('status.get_super')}
-        </Button>
+        <SuperButton onClick={() => {}} className="uppercase">
+          {t('hearts.get_super')}
+        </SuperButton>
       );
     }
 
     // Available - show price
     return (
-      <Button
-        variant="outline"
-        size="sm"
-        className="gap-1.5 font-bold text-primary"
-      >
-        <span>{t('status.get_for')}</span>
-        <GemIcon className="size-4 fill-primary" />
+      <Button variant="outline" size="sm" className="font-bold text-primary">
+        <span>{t('powerups.get_for')}</span>
+        <GemIcon className="fill-primary" />
         <span>{item.price}</span>
       </Button>
     );
@@ -54,7 +50,7 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
 
   return (
     <Item asChild>
-      <li className="px-0! py-0!">
+      <li className="p-0!">
         {/* Icon */}
         <ItemMedia className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-muted text-3xl">
           {item.iconEmoji}
@@ -63,22 +59,20 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
         {/* Content */}
         <ItemContent>
           <ItemTitle>
-            <div className="flex items-center gap-2">
-              <h4 className="font-bold text-sm">{t(item.titleKey)}</h4>
+            <div className="flex items-center gap-2 font-bold">
+              {t(item.titleKey)}
               {showEquipped && (
-                <Badge variant="secondary" className="text-xs">
-                  {item.equipped} / {item.maxEquipped} {t('status.equipped')}
+                <Badge variant="secondary">
+                  {item.equipped} / {item.maxEquipped} {t('powerups.equipped')}
                 </Badge>
               )}
             </div>
           </ItemTitle>
-          <ItemDescription className="text-muted-foreground text-xs">
-            {t(item.descriptionKey)}
-          </ItemDescription>
+          <ItemDescription>{t(item.descriptionKey)}</ItemDescription>
         </ItemContent>
 
         {/* Action */}
-        <ItemContent className={cn('shrink-0')}>{renderAction()}</ItemContent>
+        <ItemContent className="shrink-0">{renderAction()}</ItemContent>
       </li>
     </Item>
   );

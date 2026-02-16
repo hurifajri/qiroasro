@@ -1,9 +1,6 @@
 'use client';
 
-import { SparklesIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -12,9 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { SuperBadge } from './super-badge';
+import { SuperButton } from './super-button';
 
 interface LevelCardProps {
-  onUpgradeClick?: () => void;
+  onUpgradeClick: () => void;
 }
 
 /**
@@ -27,10 +26,7 @@ export function LevelCard({ onUpgradeClick }: LevelCardProps) {
     <Card className="bg-linear-to-br from-violet-500/10 via-purple-500/10 to-fuchsia-500/10">
       <CardHeader>
         <CardTitle className="flex flex-col gap-1">
-          <Badge className="border-none bg-linear-to-r from-violet-500 to-fuchsia-500 font-bold">
-            <SparklesIcon />
-            SUPER
-          </Badge>
+          <SuperBadge />
           {t('level_card.title')}
         </CardTitle>
         <CardAction>
@@ -41,12 +37,9 @@ export function LevelCard({ onUpgradeClick }: LevelCardProps) {
         <p className="text-muted-foreground">{t('level_card.description')}</p>
       </CardContent>
       <CardFooter className="border-t-0 bg-transparent pt-0">
-        <Button
-          onClick={onUpgradeClick}
-          className="w-full bg-linear-to-r from-violet-500 to-fuchsia-500 font-bold text-white hover:from-violet-600 hover:to-fuchsia-600"
-        >
+        <SuperButton onClick={onUpgradeClick}>
           {t('level_card.cta')}
-        </Button>
+        </SuperButton>
       </CardFooter>
     </Card>
   );

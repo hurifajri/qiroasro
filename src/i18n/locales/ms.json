@@ -754,11 +754,10 @@
       "description": "Beli hati, kuasa tambahan, dan item lain untuk meningkatkan pengalaman pembelajaran anda."
     },
     "title": "Kedai - Kuasa & Item",
-    "sections": {
-      "hearts": "Hati",
-      "powerups": "Kuasa Tambahan"
-    },
     "hearts": {
+      "title": "Hati",
+      "full": "Penuh",
+      "get_super": "Dapatkan Super",
       "refill": {
         "title": "Isi Semula Hati",
         "description": "Dapatkan hati penuh supaya tidak risau melakukan kesilapan."
@@ -769,6 +768,9 @@
       }
     },
     "powerups": {
+      "title": "Kuasa Tambahan",
+      "get_for": "Dapatkan:",
+      "equipped": "Dilengkapi",
       "streak_freeze": {
         "title": "Pembeku Rekod",
         "description": "Kekalkan rekod harian anda walaupun tidak aktif selama sehari."
@@ -777,12 +779,6 @@
         "title": "Gandaan XP",
         "description": "Raih XP berganda selama 15 minit pembelajaran."
       }
-    },
-    "status": {
-      "full": "PENUH",
-      "get_super": "DAPATKAN SUPER",
-      "get_for": "DAPATKAN:",
-      "equipped": "DILENGKAPI"
     }
   },
   "profile_page": {

@@ -9,9 +9,9 @@ interface ShopSectionProps {
 
 export function ShopSection({ title, items }: ShopSectionProps) {
   return (
-    <section>
-      <h2 className="mb-4 font-bold text-xl">{title}</h2>
-      <ItemGroup className="gap-0">
+    <section className="flex flex-col gap-4">
+      <h2 className="font-bold text-xl">{title}</h2>
+      <ItemGroup>
         {items.map((item) => (
           <ShopItemCard key={item.id} item={item} />
         ))}
