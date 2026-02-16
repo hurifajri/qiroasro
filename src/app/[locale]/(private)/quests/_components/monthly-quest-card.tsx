@@ -38,7 +38,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
             {quest.month}
           </Badge>
         </CardAction>
-        <CardTitle className="font-bold text-2xl">
+        <CardTitle className="font-bold text-2xl text-white">
           {t(quest.titleKey)}
         </CardTitle>
         <CardDescription className="flex items-center gap-1 font-semibold text-sm text-white">
@@ -48,7 +48,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
       </CardHeader>
       <CardContent>
         {/* Progress */}
-        <div className="rounded-2xl bg-zinc-900/30 p-4 backdrop-blur-sm">
+        <div className="rounded-2xl bg-zinc-900/30 p-4 backdrop-blur-sm text-white">
           <span className="font-semibold">
             {t('complete_quests', { target: quest.target })}
           </span>
