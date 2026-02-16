@@ -32,9 +32,9 @@ export function UserInfo({ user }: UserInfoProps) {
         />
 
         <div className="flex flex-col gap-1">
-          <h2 className="font-bold text-2xl">{user.displayName}</h2>
+          <h2 className="font-bold text-xl">{user.displayName}</h2>
           <p className="text-muted-foreground">{user.username}</p>
-          <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
+          <div className="flex items-center gap-1 text-muted-foreground text-sm">
             <Calendar className="size-4" />
             <span>{t('joined', { date: joinedDateFormatted })}</span>
           </div>
