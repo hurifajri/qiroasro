@@ -9,6 +9,7 @@ interface UserAvatarProps {
   hasOnlineBadge?: boolean;
   isOnline?: boolean;
   className?: string;
+  textClassName?: string;
 }
 
 /**
@@ -21,13 +22,14 @@ export function UserAvatar({
   hasOnlineBadge = false,
   isOnline = false,
   className,
+  textClassName,
 }: UserAvatarProps) {
   const initials = getInitials(name);
   const bgColorClass = getAvatarColorClass(colorCode);
 
   return (
     <Avatar size={size} className={className}>
-      <AvatarFallback className={cn(bgColorClass, 'text-white')}>
+      <AvatarFallback className={cn('text-white', bgColorClass, textClassName)}>
         {initials}
       </AvatarFallback>
       {hasOnlineBadge && (

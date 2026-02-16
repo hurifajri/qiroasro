@@ -24,7 +24,8 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
         <UserAvatar
           name={friend.displayName}
           colorCode={friend.avatarColorCode}
-          className="size-16 font-semibold text-lg"
+          className="size-16"
+          textClassName="font-semibold text-2xl"
         />
 
         {/* Name */}

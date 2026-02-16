@@ -52,7 +52,8 @@ export function Profile({ defaultProfile }: ProfileProps) {
         <UserAvatar
           name={profile.name}
           colorCode={profile.avatarColorCode}
-          size="lg"
+          className="size-20"
+          textClassName="font-bold text-3xl"
         />
 
         {/* Color picker */}

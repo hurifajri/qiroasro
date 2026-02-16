@@ -27,7 +27,8 @@ export function UserInfo({ user }: UserInfoProps) {
         <UserAvatar
           name={user.displayName}
           colorCode={user.avatarColorCode}
-          className="size-20 font-bold text-2xl ring-2 ring-border"
+          className="size-20"
+          textClassName="font-bold text-3xl"
         />
 
         <div className="flex flex-col gap-1">
