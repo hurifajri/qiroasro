@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { getMonthlyGradientClasses } from '../_lib/mock-data';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
@@ -26,7 +27,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
       : t('hours_remaining', { count: quest.daysRemaining * 24 });
 
   return (
-    <Card className="bg-linear-to-br from-rose-400 to-rose-500 dark:from-rose-600 dark:to-rose-700">
+    <Card className={getMonthlyGradientClasses(quest.colorCode)}>
       <CardHeader>
         <CardAction>
           <Badge

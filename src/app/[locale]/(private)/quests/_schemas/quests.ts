@@ -10,6 +10,7 @@ export const MonthlyQuestSchema = object({
   target: pipe(number(), integer()),
   current: pipe(number(), integer()),
   daysRemaining: pipe(number(), integer()),
+  colorCode: string(), // Color code for gradient (e.g., "indigo", "rose", "emerald")
 });
 
 export type MonthlyQuest = InferOutput<typeof MonthlyQuestSchema>;
