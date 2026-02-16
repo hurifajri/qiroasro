@@ -12,6 +12,7 @@ import {
 import { cn } from '@/lib/utils';
 import { getMonthlyGradientClasses } from '../_lib/mock-data';
 import type { MonthlyQuest } from '../_schemas/quests';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface MonthlyQuestCardProps {
   quest: MonthlyQuest;
@@ -48,9 +49,9 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
       <CardContent>
         {/* Progress */}
         <div className="rounded-2xl bg-zinc-900/30 p-4 backdrop-blur-sm">
-          <h3 className="font-semibold">
+          <span className="font-semibold">
             {t('complete_quests', { target: quest.target })}
-          </h3>
+          </span>
           <div className="flex items-center gap-3">
             {/* Progress bar */}
             <div className="h-3 flex-1 overflow-hidden rounded-full bg-zinc-700/50">
@@ -66,9 +67,11 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
               {quest.current} / {quest.target}
             </span>
             {/* Reward icon */}
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-emerald-500">
-              <span className="text-lg">🦉</span>
-            </div>
+            <Avatar className={cn('size-8', quest.iconBg)}>
+              <AvatarFallback className="bg-transparent text-lg">
+                {quest.iconEmoji}
+              </AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </CardContent>

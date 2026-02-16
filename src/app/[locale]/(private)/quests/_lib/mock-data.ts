@@ -3,20 +3,59 @@ import type { MonthlyQuest } from '../_schemas/quests';
 /**
  * Monthly color codes for gradient backgrounds
  * Each month has a unique color palette with WCAG AA compliant contrast
+ * Based on seasonal weather and nature themes
  */
 export const MONTHLY_COLOR_CODES = {
-  JANUARY: 'indigo', // Winter blue
-  FEBRUARY: 'rose', //
-  MARCH: 'emerald', // Spring green
-  APRIL: 'sky', // Spring sky
-  MAY: 'amber', // Warm spring
-  JUNE: 'purple', // Summer vibrancy
-  JULY: 'orange', // Summer heat
-  AUGUST: 'teal', // Tropical summer
-  SEPTEMBER: 'violet', // Autumn transition
-  OCTOBER: 'fuchsia', // Fall colors
-  NOVEMBER: 'cyan', // Cool autumn
-  DECEMBER: 'blue', // Winter frost
+  JANUARY: 'blue', // Deep winter frost
+  FEBRUARY: 'sky', // Late winter sky
+  MARCH: 'emerald', // Early spring growth
+  APRIL: 'teal', // Spring rain
+  MAY: 'amber', // Warm spring sunshine
+  JUNE: 'orange', // Early summer warmth
+  JULY: 'rose', // Peak summer bloom
+  AUGUST: 'purple', // Late summer twilight
+  SEPTEMBER: 'violet', // Early autumn transition
+  OCTOBER: 'fuchsia', // Autumn foliage
+  NOVEMBER: 'cyan', // Cool late autumn
+  DECEMBER: 'indigo', // Winter evening
+} as const;
+
+/**
+ * Monthly reward icon emojis based on weather and nature
+ * Each month represents seasonal characteristics without holiday references
+ */
+export const MONTHLY_ICONS = {
+  JANUARY: '❄️', // Snowflake - deep winter
+  FEBRUARY: '🌬️', // Wind - late winter winds
+  MARCH: '🌱', // Seedling - spring growth begins
+  APRIL: '🌸', // Cherry blossom - spring bloom
+  MAY: '☀️', // Sun - warm spring sunshine
+  JUNE: '🌻', // Sunflower - early summer
+  JULY: '🔥', // Sun with face - peak summer
+  AUGUST: '🌊', // Ocean wave - late summer
+  SEPTEMBER: '🍂', // Fallen leaf - autumn begins
+  OCTOBER: '🍁', // Maple leaf - peak autumn colors
+  NOVEMBER: '🌾', // Sheaf of rice - harvest season
+  DECEMBER: '🌨️', // Snow cloud - winter returns
+} as const;
+
+/**
+ * Monthly reward icon background colors
+ * Coordinated with the gradient theme for visual harmony
+ */
+export const MONTHLY_ICON_BACKGROUNDS = {
+  JANUARY: 'bg-blue-100 dark:bg-blue-900/30',
+  FEBRUARY: 'bg-sky-100 dark:bg-sky-900/30',
+  MARCH: 'bg-emerald-100 dark:bg-emerald-900/30',
+  APRIL: 'bg-teal-100 dark:bg-teal-900/30',
+  MAY: 'bg-amber-100 dark:bg-amber-900/30',
+  JUNE: 'bg-orange-100 dark:bg-orange-900/30',
+  JULY: 'bg-rose-100 dark:bg-rose-900/30',
+  AUGUST: 'bg-purple-100 dark:bg-purple-900/30',
+  SEPTEMBER: 'bg-violet-100 dark:bg-violet-900/30',
+  OCTOBER: 'bg-fuchsia-100 dark:bg-fuchsia-900/30',
+  NOVEMBER: 'bg-cyan-100 dark:bg-cyan-900/30',
+  DECEMBER: 'bg-indigo-100 dark:bg-indigo-900/30',
 } as const;
 
 /**
@@ -60,4 +99,6 @@ export const MOCK_MONTHLY_QUEST: MonthlyQuest = {
   current: 0,
   daysRemaining: 14,
   colorCode: MONTHLY_COLOR_CODES.FEBRUARY,
+  iconEmoji: MONTHLY_ICONS.FEBRUARY,
+  iconBg: MONTHLY_ICON_BACKGROUNDS.FEBRUARY,
 };
