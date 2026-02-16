@@ -831,6 +831,7 @@
       "appearance": {
         "title": "Appearance",
         "dark_mode": "Dark Mode",
+        "mode_system": "System Default",
         "mode_off": "Off",
         "mode_on": "On"
       }

@@ -1,5 +1,6 @@
 'use client';
 
+import type { ColorMode } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import {
@@ -17,27 +18,46 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from '@/i18n/navigation';
+import { useGlobalStore } from '@/providers/global';
 import type { PreferenceToggle } from '../../_schemas/settings';
 import { PreferenceToggleRow } from './preference-toggle-row';
 
 interface PreferencesProps {
   lessonPreferences: PreferenceToggle[];
-  defaultAppearanceMode: string;
+  theme: ColorMode;
 }
 
-export function Preferences({
-  lessonPreferences,
-  defaultAppearanceMode,
-}: PreferencesProps) {
+export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
   const t = useTranslations('settings_page.preferences');
+  const router = useRouter();
   const [preferences, setPreferences] =
     useState<PreferenceToggle[]>(lessonPreferences);
-  const [appearanceMode, setAppearanceMode] = useState(defaultAppearanceMode);
+  const setTheme = useGlobalStore((s) => s.setTheme);
+  const storeTheme = useGlobalStore((s) => s.theme);
+
+  // Use store value (client) after hydration, fallback to server prop
+  const currentTheme = storeTheme ?? theme;
 
   const handleToggle = (id: string, enabled: boolean) => {
     setPreferences((prev) =>
       prev.map((pref) => (pref.id === id ? { ...pref, enabled } : pref)),
     );
+  };
+
+  const handleAppearanceChange = (value: ColorMode) => {
+    if (value === 'system') {
+      // Get system preference
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
+        .matches
+        ? 'dark'
+        : 'light';
+      setTheme(systemTheme);
+    } else {
+      setTheme(value);
+    }
+    // Refresh to re-render server components with new theme from cookies
+    router.refresh();
   };
 
   return (
@@ -65,14 +85,19 @@ export function Preferences({
           <FieldContent>
             <FieldLabel htmlFor="theme">{t('appearance.dark_mode')}</FieldLabel>
           </FieldContent>
-          <Select value={appearanceMode} onValueChange={setAppearanceMode}>
+          <Select value={currentTheme} onValueChange={handleAppearanceChange}>
             <SelectTrigger id="theme" className="w-full">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="off">{t('appearance.mode_off')}</SelectItem>
-                <SelectItem value="on">{t('appearance.mode_on')}</SelectItem>
+                <SelectItem value="system">
+                  {t('appearance.mode_system')}
+                </SelectItem>
+                <SelectItem value="light">
+                  {t('appearance.mode_off')}
+                </SelectItem>
+                <SelectItem value="dark">{t('appearance.mode_on')}</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

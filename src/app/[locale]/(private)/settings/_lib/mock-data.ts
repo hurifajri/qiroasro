@@ -88,11 +88,6 @@ export const MOCK_SUPPORT_LINKS: SettingsLink[] = [
 ];
 
 /**
- * Default appearance mode
- */
-export const MOCK_APPEARANCE_MODE = 'on';
-
-/**
  * Mock profile data
  */
 export const MOCK_PROFILE_DATA: ProfileForm = {

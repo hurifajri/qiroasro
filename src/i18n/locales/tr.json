@@ -831,6 +831,7 @@
       "appearance": {
         "title": "Görünüm",
         "dark_mode": "Karanlık Mod",
+        "mode_system": "Sistem Varsayılanı",
         "mode_off": "Kapalı",
         "mode_on": "Açık"
       }

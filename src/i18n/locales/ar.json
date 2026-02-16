@@ -831,6 +831,7 @@
       "appearance": {
         "title": "المظهر",
         "dark_mode": "الوضع الداكن",
+        "mode_system": "النظام الافتراضي",
         "mode_off": "إيقاف",
         "mode_on": "تشغيل"
       }

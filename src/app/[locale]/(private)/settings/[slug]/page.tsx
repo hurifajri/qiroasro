@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getPersistedGlobalStore } from '@/stores/global';
 import {
-  MOCK_APPEARANCE_MODE,
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
   MOCK_LESSON_PREFERENCES,
@@ -72,6 +72,9 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
   // Conditional rendering based on slug
   if (slug === 'preferences') {
+    const persistedState = await getPersistedGlobalStore();
+    const { theme } = persistedState;
+
     return (
       <>
         <h1 className="mb-6 hidden font-bold text-2xl md:block">
@@ -79,7 +82,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
         </h1>
         <Preferences
           lessonPreferences={MOCK_LESSON_PREFERENCES}
-          defaultAppearanceMode={MOCK_APPEARANCE_MODE}
+          theme={theme}
         />
       </>
     );

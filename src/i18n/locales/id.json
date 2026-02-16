@@ -831,6 +831,7 @@
       "appearance": {
         "title": "Tampilan",
         "dark_mode": "Mode Gelap",
+        "mode_system": "Default Sistem",
         "mode_off": "Mati",
         "mode_on": "Nyala"
       }
