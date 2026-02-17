@@ -20,10 +20,18 @@ export function Private({ children, header, sidebar }: PrivateProps) {
   const isMobile = useMobile();
 
   // Update nav items based on current path
-  const leftNavItems = MOCK_NAV_ITEMS.map((item) => ({
-    ...item,
-    isActive: pathname.endsWith(item.href) || pathname.includes(item.href),
-  }));
+  const leftNavItems = MOCK_NAV_ITEMS.map((item) => {
+    return {
+      ...item,
+      isActive:
+        pathname.endsWith(item.href) ||
+        pathname.includes(item.href) ||
+        (pathname === '/sections' && item.href === '/learn') ||
+        (isMobile &&
+          pathname.startsWith('/settings') &&
+          item.href.startsWith('/profile')),
+    };
+  });
 
   const bottomNavItems = leftNavItems.filter((item) =>
     [
