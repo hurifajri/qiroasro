@@ -13,6 +13,9 @@ import {
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '../_lib/avatar';
 import { EMOJI_BADGE_COLOR_CODES } from '../_lib/colors';
+import { LEAGUE_NAME_KEYS } from './league';
+
+const LeagueNameKeySchema = picklist(LEAGUE_NAME_KEYS);
 
 // User Stats Schema
 export const UserStatsSchema = object({
@@ -21,11 +24,12 @@ export const UserStatsSchema = object({
   streak: pipe(number(), integer()),
   hearts: pipe(number(), integer()),
   gems: pipe(number(), integer()),
-  league: string(),
+  leagueNameKey: LeagueNameKeySchema,
   leagueRank: pipe(number(), integer()),
 });
 
 export type UserStats = InferOutput<typeof UserStatsSchema>;
+export type LeagueNameKey = InferOutput<typeof LeagueNameKeySchema>;
 
 // Leaderboard Entry Schema
 export const LeaderboardEntrySchema = object({

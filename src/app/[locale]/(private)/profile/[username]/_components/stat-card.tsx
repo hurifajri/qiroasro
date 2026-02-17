@@ -33,7 +33,7 @@ export function StatCard({ label, value, icon }: StatCardProps) {
         <div className="flex flex-col">
           <span
             className={cn(
-              'font-bold text-2xl',
+              'font-bold text-lg',
               isActive ? 'text-primary' : 'text-muted-foreground',
             )}
           >

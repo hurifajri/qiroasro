@@ -2,19 +2,25 @@ import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import type { League } from '../../_schemas/league';
+import type { LeagueNameKey } from '../../_schemas/private';
 
 interface LeagueHeaderProps {
   leagues: League[];
-  currentLeague: string;
+  currentLeagueNameKey: LeagueNameKey;
 }
 
-export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
+export function LeagueHeader({
+  leagues,
+  currentLeagueNameKey,
+}: LeagueHeaderProps) {
   const t = useTranslations();
 
-  const currentLeagueData = leagues.find((l) => l.id === currentLeague);
+  const currentLeagueData = leagues.find(
+    (l) => l.nameKey === currentLeagueNameKey,
+  );
   const leagueName = currentLeagueData
     ? t(`global.${currentLeagueData.nameKey}`)
-    : currentLeague;
+    : '';
 
   return (
     <section className="flex flex-col items-center gap-4">
@@ -31,13 +37,13 @@ export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
         <div
           className="flex items-center gap-3 transition-transform duration-300 ease-out"
           style={{
-            transform: `translateX(calc(50% - ${leagues.findIndex((l) => l.id === currentLeague) * 60 + 24}px))`,
+            transform: `translateX(calc(50% - ${leagues.findIndex((l) => l.nameKey === currentLeagueNameKey) * 60 + 24}px))`,
           }}
         >
           {leagues.map((league, index) => {
-            const isActive = league.id === currentLeague;
+            const isActive = league.nameKey === currentLeagueNameKey;
             const currentIndex = leagues.findIndex(
-              (l) => l.id === currentLeague,
+              (l) => l.nameKey === currentLeagueNameKey,
             );
             const distance = Math.abs(index - currentIndex);
             const isDisguised = distance >= 2;

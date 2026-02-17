@@ -2,19 +2,20 @@
 
 import { useTranslations } from 'next-intl';
 import type { League } from '../../_schemas/league';
+import type { LeagueNameKey } from '../../_schemas/private';
 import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
 import { LeaderboardList } from './leaderboard-list';
 import { LeagueHeader } from './league-header';
 
 interface LeaderboardProps {
   leagues: League[];
-  currentLeague: string;
+  currentLeagueNameKey: LeagueNameKey;
   entries: FullLeaderboardEntry[];
 }
 
 export function Leaderboard({
   leagues,
-  currentLeague,
+  currentLeagueNameKey,
   entries,
 }: LeaderboardProps) {
   const t = useTranslations('leaderboard_page');
@@ -22,7 +23,10 @@ export function Leaderboard({
   return (
     <div className="flex flex-col gap-6">
       {/* League Header */}
-      <LeagueHeader leagues={leagues} currentLeague={currentLeague} />
+      <LeagueHeader
+        leagues={leagues}
+        currentLeagueNameKey={currentLeagueNameKey}
+      />
 
       {/* Leaderboard */}
       <section className="flex flex-col gap-4">

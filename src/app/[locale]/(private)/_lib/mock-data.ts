@@ -39,7 +39,7 @@ export const MOCK_USER_STATS: UserStats = {
   streak: 5,
   hearts: 5,
   gems: 129,
-  league: 'honor',
+  leagueNameKey: 'leagues.honor',
   leagueRank: 7,
 };
 

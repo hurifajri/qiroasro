@@ -29,7 +29,7 @@ export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
   const t = useTranslations('global');
 
   // Get league display name
-  const leagueDisplayName = t(`leagues.${userStats.league}`);
+  const leagueDisplayName = t(userStats.leagueNameKey);
 
   return (
     <Card>

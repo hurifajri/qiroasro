@@ -36,7 +36,7 @@ export const MOCK_STATISTICS: Statistic[] = [
   {
     id: 'league',
     labelKey: 'current_league',
-    value: 'Obsidian',
+    value: `Maq'adu Sidq`,
     icon: 'shield',
   },
   {

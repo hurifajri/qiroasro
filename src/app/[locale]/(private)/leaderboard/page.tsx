@@ -58,7 +58,7 @@ export default async function LeaderboardPage({
       <h1 className="sr-only">{t('title')}</h1>
       <Leaderboard
         leagues={LEAGUES}
-        currentLeague={MOCK_USER_STATS.league}
+        currentLeagueNameKey={MOCK_USER_STATS.leagueNameKey}
         entries={MOCK_FULL_LEADERBOARD}
       />
     </>
