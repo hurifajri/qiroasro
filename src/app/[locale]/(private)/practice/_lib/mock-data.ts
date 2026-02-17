@@ -59,6 +59,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.listen.description',
         iconName: 'Headphones',
         href: '/practice/listen',
+        badge: 125,
         colorCode: 'sky',
       },
     ],

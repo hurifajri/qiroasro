@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/item';
 import { getPracticeColors } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+import { SuperBadge } from '../../_components/super-badge';
 import type { PracticeMode } from '../_lib/mock-data';
 
 // Icon mapping
@@ -51,18 +52,14 @@ export function PracticeItem({ mode }: PracticeItemProps) {
           }
         }}
         className={cn(
-          'group relative flex w-full items-center gap-4 rounded-2xl! border-2 p-4! text-left transition-all',
+          'relative flex w-full items-center gap-4 rounded-2xl! border-2 p-4! text-left transition-all',
           colors.card,
         )}
       >
         <ItemContent>
           <ItemTitle>
-            <h4 className="font-bold text-base">{t(mode.titleKey)}</h4>
-            {mode.isPremium && (
-              <span className="rounded-full bg-linear-to-r from-violet-500 to-fuchsia-500 px-2 py-0.5 font-bold text-white text-xs">
-                SUPER
-              </span>
-            )}
+            <h3 className="font-bold text-base">{t(mode.titleKey)}</h3>
+            {mode.isPremium && <SuperBadge />}
           </ItemTitle>
           <ItemDescription>{t(mode.descriptionKey)}</ItemDescription>
         </ItemContent>
@@ -72,7 +69,7 @@ export function PracticeItem({ mode }: PracticeItemProps) {
         >
           <Icon className={cn('size-12', colors.icon)} />
           {mode.badge && (
-            <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-500 font-bold text-white text-xs">
+            <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-600 font-bold text-white text-xs">
               {mode.badge > 99 ? '99+' : mode.badge}
             </span>
           )}

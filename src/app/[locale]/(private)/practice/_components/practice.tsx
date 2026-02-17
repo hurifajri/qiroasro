@@ -14,9 +14,9 @@ export function Practice({ sections }: PracticeProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex flex-col gap-1 text-center">
+      <div className="flex flex-col items-center gap-2">
         <h2 className="font-bold text-2xl">{t('title')}</h2>
-        <p className="text-lg text-muted-foreground">{t('description')}</p>
+        <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       {/* Sections */}
