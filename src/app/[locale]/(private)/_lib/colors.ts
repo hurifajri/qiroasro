@@ -54,13 +54,27 @@ export function getGradientColorClass(colorCode?: GradientColorCode): string {
  * Used by: monthly badge emoji bg, achievement emoji bg, quest reward icon bg
  */
 export const EMOJI_BADGE_COLORS = {
-  orange_red: 'bg-gradient-to-br from-orange-400 to-red-500',
+  // badges
+  orange_rose: 'bg-gradient-to-br from-orange-300 to-rose-500',
+  blue_indigo: 'bg-gradient-to-br from-blue-400 to-indigo-600',
+  violet_fuchsia: 'bg-gradient-to-br from-violet-500 to-fuchsia-700',
+  lime_green: 'bg-gradient-to-br from-lime-400 to-green-600',
+  yellow_amber: 'bg-gradient-to-br from-yellow-300 to-amber-500',
+  amber_orange: 'bg-gradient-to-br from-amber-400 to-orange-600',
+  slate_slate: 'bg-gradient-to-br from-slate-400 to-slate-600',
+  indigo_blue: 'bg-gradient-to-br from-indigo-500 to-blue-900',
+  stone_neutral: 'bg-gradient-to-br from-stone-500 to-neutral-700',
+  sky_blue: 'bg-gradient-to-br from-sky-200 to-blue-400',
+  slate_slate2: 'bg-gradient-to-br from-slate-700 to-slate-900',
+  orange_red: 'bg-gradient-to-br from-orange-500 to-red-700',
+
+  // orange_red: 'bg-gradient-to-br from-orange-400 to-red-500',
   rose_pink: 'bg-gradient-to-br from-rose-400 to-pink-500',
-  sky_blue: 'bg-gradient-to-br from-sky-400 to-blue-500',
-  blue_indigo: 'bg-gradient-to-br from-blue-400 to-indigo-500',
+  // sky_blue: 'bg-gradient-to-br from-sky-400 to-blue-500',
+  // blue_indigo: 'bg-gradient-to-br from-blue-400 to-indigo-500',
   indigo_violet: 'bg-gradient-to-br from-indigo-400 to-violet-500',
   emerald_teal: 'bg-gradient-to-br from-emerald-400 to-teal-500',
-  amber_orange: 'bg-gradient-to-br from-amber-400 to-orange-500',
+  // amber_orange: 'bg-gradient-to-br from-amber-400 to-orange-500',
   violet_purple: 'bg-gradient-to-br from-violet-400 to-purple-500',
   cyan_teal: 'bg-gradient-to-br from-cyan-400 to-teal-500',
 } as const;

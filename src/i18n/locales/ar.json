@@ -888,6 +888,11 @@
       "followed_by": "يتابعه {count} من الأصدقاء",
       "follow": "متابعة",
       "following": "تتابع"
+    },
+    "achievements": {
+      "title": "الإنجازات",
+      "view_all": "عرض الكل",
+      "level": "المستوى"
     }
   },
   "settings_page": {

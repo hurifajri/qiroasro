@@ -888,6 +888,11 @@
       "followed_by": "Followed by {count} friends",
       "follow": "Follow",
       "following": "Following"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "view_all": "View All",
+      "level": "Level"
     }
   },
   "settings_page": {

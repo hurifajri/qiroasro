@@ -888,6 +888,11 @@
       "followed_by": "Diikuti oleh {count} rakan",
       "follow": "Ikuti",
       "following": "Mengikuti"
+    },
+    "achievements": {
+      "title": "Pencapaian",
+      "view_all": "Lihat Semua",
+      "level": "Tahap"
     }
   },
   "settings_page": {

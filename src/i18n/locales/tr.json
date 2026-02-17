@@ -888,6 +888,11 @@
       "followed_by": "{count} arkadaş tarafından takip ediliyor",
       "follow": "Takip Et",
       "following": "Takip Ediliyor"
+    },
+    "achievements": {
+      "title": "Başarılar",
+      "view_all": "Tümünü Gör",
+      "level": "Seviye"
     }
   },
   "settings_page": {
