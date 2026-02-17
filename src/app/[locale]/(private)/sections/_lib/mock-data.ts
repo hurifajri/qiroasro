@@ -13,7 +13,6 @@ export const MOCK_SECTIONS: Section[] = [
     status: 'completed',
     totalUnits: 2,
     completedUnits: 2,
-    color: 'rose',
   },
   {
     id: 2,
@@ -24,7 +23,6 @@ export const MOCK_SECTIONS: Section[] = [
     status: 'completed',
     totalUnits: 5,
     completedUnits: 5,
-    color: 'amber',
   },
   {
     id: 3,
@@ -32,10 +30,9 @@ export const MOCK_SECTIONS: Section[] = [
     titleKey: 'sections.lips_nasal.title',
     descriptionKey: 'sections.lips_nasal.description',
     progress: 100,
-    status: 'completed',
+    status: 'in-progress',
     totalUnits: 2,
     completedUnits: 2,
-    color: 'teal',
   },
   {
     id: 4,
@@ -43,10 +40,9 @@ export const MOCK_SECTIONS: Section[] = [
     titleKey: 'sections.trait.title',
     descriptionKey: 'sections.trait.description',
     progress: 67,
-    status: 'in-progress',
+    status: 'available',
     totalUnits: 2,
     completedUnits: 1,
-    color: 'sky',
   },
   {
     id: 5,
@@ -57,6 +53,5 @@ export const MOCK_SECTIONS: Section[] = [
     status: 'locked',
     totalUnits: 3,
     completedUnits: 0,
-    color: 'purple',
   },
 ];

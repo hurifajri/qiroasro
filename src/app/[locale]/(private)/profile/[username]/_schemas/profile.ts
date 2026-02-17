@@ -58,8 +58,8 @@ export const AchievementSchema = object({
   id: string(),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  iconBg: string(), // Tailwind color
-  iconEmoji: string(),
+  emojiColorCode: string(), // Tailwind color
+  emoji: string(),
   level: pipe(number(), integer()),
 });
 

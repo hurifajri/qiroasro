@@ -1,5 +1,6 @@
 import { Clock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -12,7 +13,6 @@ import {
 import { cn } from '@/lib/utils';
 import { getMonthlyGradientClasses } from '../_lib/mock-data';
 import type { MonthlyQuest } from '../_schemas/quests';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface MonthlyQuestCardProps {
   quest: MonthlyQuest;
@@ -48,7 +48,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
       </CardHeader>
       <CardContent>
         {/* Progress */}
-        <div className="rounded-2xl bg-zinc-900/30 p-4 backdrop-blur-sm text-white">
+        <div className="rounded-2xl bg-zinc-900/30 p-4 text-white backdrop-blur-sm">
           <span className="font-semibold">
             {t('complete_quests', { target: quest.target })}
           </span>
@@ -67,9 +67,9 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
               {quest.current} / {quest.target}
             </span>
             {/* Reward icon */}
-            <Avatar className={cn('size-8', quest.iconBg)}>
+            <Avatar className={cn('size-8', quest.emojiColorCode)}>
               <AvatarFallback className="bg-transparent text-lg">
-                {quest.iconEmoji}
+                {quest.emoji}
               </AvatarFallback>
             </Avatar>
           </div>

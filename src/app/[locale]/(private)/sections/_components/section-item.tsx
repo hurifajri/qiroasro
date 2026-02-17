@@ -30,27 +30,11 @@ export function SectionItem({
   const isInProgress = status === 'in-progress';
   const isLocked = status === 'locked';
 
-  // Color variants
-  const colorVariants: Record<string, string> = {
-    rose: 'bg-rose-500',
-    orange: 'bg-orange-500',
-    amber: 'bg-amber-500',
-    yellow: 'bg-yellow-500',
-    lime: 'bg-lime-500',
-    green: 'bg-green-500',
-    emerald: 'bg-emerald-500',
-    teal: 'bg-teal-500',
-    cyan: 'bg-cyan-500',
-    sky: 'bg-sky-500',
-    blue: 'bg-blue-500',
-    purple: 'bg-purple-500',
-  };
-
   const progressColor = isCompleted
     ? 'bg-emerald-500'
     : isLocked
-      ? 'bg-muted-foreground/30'
-      : (colorVariants[section.color] ?? 'bg-primary');
+      ? 'bg-muted'
+      : 'bg-primary';
 
   return (
     <Item variant="outline" asChild>

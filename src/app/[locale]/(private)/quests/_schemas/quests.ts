@@ -11,8 +11,8 @@ export const MonthlyQuestSchema = object({
   current: pipe(number(), integer()),
   daysRemaining: pipe(number(), integer()),
   colorCode: string(), // Color code for gradient (e.g., "indigo", "rose", "emerald")
-  iconEmoji: string(), // Emoji icon for reward
-  iconBg: string(), // Tailwind bg class for reward icon
+  emoji: string(), // Emoji icon for reward
+  emojiColorCode: string(), // Tailwind bg class for reward icon
 });
 
 export type MonthlyQuest = InferOutput<typeof MonthlyQuestSchema>;

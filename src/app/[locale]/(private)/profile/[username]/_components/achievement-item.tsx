@@ -19,10 +19,10 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
           <div
             className={cn(
               'flex size-16 items-center justify-center rounded-xl',
-              achievement.iconBg,
+              achievement.emojiColorCode,
             )}
           >
-            <span className="text-3xl">{achievement.iconEmoji}</span>
+            <span className="text-3xl">{achievement.emoji}</span>
           </div>
         </ItemMedia>
 

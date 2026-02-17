@@ -29,7 +29,7 @@ export const ShopItemSchema = object({
   id: string(),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  iconEmoji: string(),
+  emoji: string(),
   price: pipe(number(), integer()), // gems
   type: ShopItemTypeSchema,
   status: ShopItemStatusSchema,

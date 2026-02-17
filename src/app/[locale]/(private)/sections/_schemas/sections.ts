@@ -19,7 +19,6 @@ export const SectionSchema = object({
   status: picklist(SECTION_STATUSES),
   totalUnits: pipe(number(), integer()),
   completedUnits: pipe(number(), integer()),
-  color: string(), // Tailwind color
 });
 
 export type Section = InferOutput<typeof SectionSchema>;

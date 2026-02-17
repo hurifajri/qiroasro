@@ -107,8 +107,8 @@ export const MonthlyBadgeSchema = object({
   id: pipe(number(), integer()),
   titleKey: string(), // i18n key
   dateKey: string(), // i18n key for month/year
-  iconEmoji: string(), // emoji icon
-  iconBg: string(), // Tailwind bg class
+  emoji: string(), // emoji icon
+  emojiColorCode: string(), // Tailwind bg class
 });
 
 export type MonthlyBadge = InferOutput<typeof MonthlyBadgeSchema>;

@@ -50,7 +50,7 @@ export const AVATAR_SOLID_CODES = [
 ] as const satisfies readonly AvatarColorCode[];
 
 /**
- * Gradient color codes (premium only - future)
+ * Gradient color codes (premium only)
  */
 export const AVATAR_GRADIENT_CODES = [
   'indigo_rose',

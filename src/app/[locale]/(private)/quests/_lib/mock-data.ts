@@ -99,6 +99,6 @@ export const MOCK_MONTHLY_QUEST: MonthlyQuest = {
   current: 0,
   daysRemaining: 14,
   colorCode: MONTHLY_COLOR_CODES.FEBRUARY,
-  iconEmoji: MONTHLY_ICONS.FEBRUARY,
-  iconBg: MONTHLY_ICON_BACKGROUNDS.FEBRUARY,
+  emoji: MONTHLY_ICONS.FEBRUARY,
+  emojiColorCode: MONTHLY_ICON_BACKGROUNDS.FEBRUARY,
 };

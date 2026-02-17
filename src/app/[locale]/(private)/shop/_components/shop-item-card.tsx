@@ -53,7 +53,7 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
       <li className="p-0!">
         {/* Icon */}
         <ItemMedia className="flex size-14 shrink-0 items-center justify-center rounded-xl bg-muted text-3xl">
-          {item.iconEmoji}
+          {item.emoji}
         </ItemMedia>
 
         {/* Content */}
