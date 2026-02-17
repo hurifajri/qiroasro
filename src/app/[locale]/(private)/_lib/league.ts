@@ -3,7 +3,7 @@ import type { League } from '../_schemas/league';
 /**
  * Available leagues in order
  */
-export const MOCK_LEAGUES: League[] = [
+export const LEAGUES: League[] = [
   { id: 'peace', nameKey: 'leagues.peace', emoji: '🪨' },
   { id: 'stability', nameKey: 'leagues.stability', emoji: '🏛️' },
   { id: 'security', nameKey: 'leagues.security', emoji: '🛡️' },

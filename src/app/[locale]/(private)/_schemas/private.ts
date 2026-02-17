@@ -21,7 +21,7 @@ export const UserStatsSchema = object({
   streak: pipe(number(), integer()),
   hearts: pipe(number(), integer()),
   gems: pipe(number(), integer()),
-  league: string(), // e.g., "obsidian", "pearl", "sapphire"
+  league: string(),
   leagueRank: pipe(number(), integer()),
 });
 

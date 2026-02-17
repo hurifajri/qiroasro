@@ -6,7 +6,7 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { MOCK_LEAGUES } from '../_lib/league';
+import { LEAGUES } from '../_lib/league';
 import { MOCK_USER_STATS } from '../_lib/mock-data';
 import { Leaderboard } from './_components/leaderboard';
 import { MOCK_FULL_LEADERBOARD } from './_lib/mock-data';
@@ -57,7 +57,7 @@ export default async function LeaderboardPage({
     <>
       <h1 className="sr-only">{t('title')}</h1>
       <Leaderboard
-        leagues={MOCK_LEAGUES}
+        leagues={LEAGUES}
         currentLeague={MOCK_USER_STATS.league}
         entries={MOCK_FULL_LEADERBOARD}
       />
