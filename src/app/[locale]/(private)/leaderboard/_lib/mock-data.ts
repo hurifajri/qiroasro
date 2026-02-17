@@ -1,20 +1,4 @@
-import type { FullLeaderboardEntry, League } from '../_schemas/leaderboard';
-
-/**
- * Available leagues in order
- */
-export const MOCK_LEAGUES: League[] = [
-  { id: 'peace', nameKey: 'leagues.peace', emoji: '🪨' },
-  { id: 'stability', nameKey: 'leagues.stability', emoji: '🏛️' },
-  { id: 'security', nameKey: 'leagues.security', emoji: '🛡️' },
-  { id: 'merit', nameKey: 'leagues.merit', emoji: '🎖️' },
-  { id: 'honor', nameKey: 'leagues.honor', emoji: '👑' },
-  { id: 'eternity', nameKey: 'leagues.eternity', emoji: '♾️' },
-  { id: 'shelter', nameKey: 'leagues.shelter', emoji: '⛺' },
-  { id: 'bliss', nameKey: 'leagues.bliss', emoji: '🍇' },
-  { id: 'eden', nameKey: 'leagues.eden', emoji: '⛲' },
-  { id: 'paradise', nameKey: 'leagues.paradise', emoji: '💎' },
-];
+import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
 
 /**
  * Full leaderboard entries (joined state)
@@ -26,7 +10,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Ahmad',
     xp: 2450,
     isCurrentUser: false,
-    avatarBg: 'bg-amber-500',
   },
   {
     rank: 2,
@@ -34,7 +17,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Abdullah',
     xp: 2180,
     isCurrentUser: false,
-    avatarBg: 'bg-sky-500',
   },
   {
     rank: 3,
@@ -42,7 +24,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Muhammad',
     xp: 2050,
     isCurrentUser: false,
-    avatarBg: 'bg-rose-500',
   },
   {
     rank: 4,
@@ -50,7 +31,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Yusuf',
     xp: 1950,
     isCurrentUser: false,
-    avatarBg: 'bg-violet-500',
   },
   {
     rank: 5,
@@ -58,7 +38,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Ibrahim',
     xp: 1920,
     isCurrentUser: false,
-    avatarBg: 'bg-emerald-500',
   },
   {
     rank: 6,
@@ -66,7 +45,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Khadijah',
     xp: 1900,
     isCurrentUser: false,
-    avatarBg: 'bg-pink-500',
   },
   {
     rank: 7,
@@ -74,7 +52,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Baba',
     xp: 1883,
     isCurrentUser: true,
-    avatarBg: 'bg-primary',
   },
   {
     rank: 8,
@@ -82,7 +59,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Umar',
     xp: 1750,
     isCurrentUser: false,
-    avatarBg: 'bg-teal-500',
   },
   {
     rank: 9,
@@ -90,7 +66,6 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Aisha',
     xp: 1680,
     isCurrentUser: false,
-    avatarBg: 'bg-orange-500',
   },
   {
     rank: 10,
@@ -98,6 +73,5 @@ export const MOCK_FULL_LEADERBOARD: FullLeaderboardEntry[] = [
     name: 'Bilal',
     xp: 1520,
     isCurrentUser: false,
-    avatarBg: 'bg-indigo-500',
   },
 ];

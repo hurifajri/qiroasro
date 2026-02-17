@@ -6,9 +6,10 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+import { MOCK_LEAGUES } from '../_lib/league';
 import { MOCK_USER_STATS } from '../_lib/mock-data';
 import { Leaderboard } from './_components/leaderboard';
-import { MOCK_FULL_LEADERBOARD, MOCK_LEAGUES } from './_lib/mock-data';
+import { MOCK_FULL_LEADERBOARD } from './_lib/mock-data';
 
 type GenerateMetadataProps = {
   params: Promise<{ locale: string }>;

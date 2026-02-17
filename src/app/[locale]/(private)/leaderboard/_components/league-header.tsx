@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import type { League } from '../_schemas/leaderboard';
+import type { League } from '../../_schemas/league';
 
 interface LeagueHeaderProps {
   leagues: League[];

@@ -1,7 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import type { FullLeaderboardEntry, League } from '../_schemas/leaderboard';
+import type { League } from '../../_schemas/league';
+import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
 import { LeaderboardList } from './leaderboard-list';
 import { LeagueHeader } from './league-header';
 
