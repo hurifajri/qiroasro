@@ -6,7 +6,7 @@
  * Avatar color map: semantic color codes → Tailwind classes
  * All classes are statically written so Tailwind JIT can detect them
  */
-const AVATAR_COLORS = {
+export const AVATAR_COLORS = {
   // Solid colors
   gray: 'bg-gray-500',
   indigo: 'bg-indigo-500',

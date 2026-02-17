@@ -67,21 +67,21 @@ export function Profile({ defaultProfile }: ProfileProps) {
             <p className="font-medium text-sm">{t('avatar.solid_colors')}</p>
             <div className="flex flex-wrap gap-2">
               {AVATAR_SOLID_CODES.map((colorCode) => (
-                <button
+                <Button
+                  size="icon-lg"
                   key={colorCode}
-                  type="button"
                   onClick={() =>
                     setProfile({ ...profile, avatarColorCode: colorCode })
                   }
                   className={cn(
-                    'relative size-10 rounded-full transition-transform hover:scale-110',
+                    'relative rounded-full transition-transform hover:scale-110',
                     AVATAR_COLORS[colorCode],
                   )}
                 >
                   {profile.avatarColorCode === colorCode && (
                     <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
                   )}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -91,21 +91,21 @@ export function Profile({ defaultProfile }: ProfileProps) {
             <p className="font-medium text-sm">{t('avatar.gradient_colors')}</p>
             <div className="flex flex-wrap gap-2">
               {AVATAR_GRADIENT_CODES.map((colorCode) => (
-                <button
+                <Button
+                  size="icon-lg"
                   key={colorCode}
-                  type="button"
                   onClick={() =>
                     setProfile({ ...profile, avatarColorCode: colorCode })
                   }
                   className={cn(
-                    'relative size-10 rounded-full transition-transform hover:scale-110',
+                    'relative rounded-full transition-transform hover:scale-110',
                     AVATAR_COLORS[colorCode],
                   )}
                 >
                   {profile.avatarColorCode === colorCode && (
                     <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
                   )}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
