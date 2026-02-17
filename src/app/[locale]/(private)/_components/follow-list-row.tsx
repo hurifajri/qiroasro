@@ -1,4 +1,3 @@
-import { UserAvatar } from '@/components/common/user-avatar';
 import {
   Item,
   ItemContent,
@@ -6,6 +5,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import { UserAvatar } from '../_components/user-avatar';
 import type { FollowEntry } from '../_schemas/private';
 
 interface FollowListRowProps {

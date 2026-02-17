@@ -1,7 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import { PartyPopperIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/item';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
+import { UserAvatar } from '../_components/user-avatar';
 import type { ActivityFeedItem } from '../_schemas/private';
 
 interface ActivityFeedRowProps {

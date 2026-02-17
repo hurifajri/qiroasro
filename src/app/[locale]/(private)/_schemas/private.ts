@@ -11,8 +11,8 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
-import { EMOJI_BADGE_COLOR_CODES } from '@/lib/colors';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '../_lib/avatar';
+import { EMOJI_BADGE_COLOR_CODES } from '../_lib/colors';
 
 // User Stats Schema
 export const UserStatsSchema = object({

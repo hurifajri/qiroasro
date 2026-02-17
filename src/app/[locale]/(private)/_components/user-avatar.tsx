@@ -1,10 +1,10 @@
 import { Avatar, AvatarBadge, AvatarFallback } from '@/components/ui/avatar';
+import { cn } from '@/lib/utils';
 import {
   type AvatarColorCode,
   getAvatarColorClass,
   getInitials,
-} from '@/lib/avatar';
-import { cn } from '@/lib/utils';
+} from '../_lib/avatar';
 
 interface UserAvatarProps {
   name: string;

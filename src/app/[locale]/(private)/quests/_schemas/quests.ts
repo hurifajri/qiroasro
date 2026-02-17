@@ -8,7 +8,10 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { EMOJI_BADGE_COLOR_CODES, GRADIENT_COLOR_CODES } from '@/lib/colors';
+import {
+  EMOJI_BADGE_COLOR_CODES,
+  GRADIENT_COLOR_CODES,
+} from '../../_lib/colors';
 
 /**
  * Monthly Quest Schema

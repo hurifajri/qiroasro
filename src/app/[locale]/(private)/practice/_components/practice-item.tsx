@@ -14,9 +14,9 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { getPracticeColors } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import { SuperBadge } from '../../_components/super-badge';
+import { getPracticeColors } from '../../_lib/colors';
 import type { PracticeMode } from '../_lib/mock-data';
 
 // Icon mapping

@@ -8,7 +8,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { GRADIENT_COLOR_CODES } from '@/lib/colors';
+import { GRADIENT_COLOR_CODES } from '../../_lib/colors';
 
 // Lesson status
 export const LESSON_STATUSES = [

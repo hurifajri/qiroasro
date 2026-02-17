@@ -1,9 +1,9 @@
 import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
-import { UserAvatar } from '@/components/common/user-avatar';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
+import { UserAvatar } from '../../../_components/user-avatar';
 import type { UserProfile } from '../_schemas/profile';
 
 interface UserInfoProps {

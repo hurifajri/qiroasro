@@ -12,8 +12,11 @@ import {
   string,
   union,
 } from 'valibot';
-import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
-import { EMOJI_BADGE_COLOR_CODES } from '@/lib/colors';
+import {
+  AVATAR_GRADIENT_CODES,
+  AVATAR_SOLID_CODES,
+} from '../../../_lib/avatar';
+import { EMOJI_BADGE_COLOR_CODES } from '../../../_lib/colors';
 
 /**
  * User profile schema

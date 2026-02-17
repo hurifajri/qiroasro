@@ -2,9 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { UserAvatar } from '../../../_components/user-avatar';
 import type { FriendSuggestion } from '../_schemas/profile';
 
 interface FriendSuggestionsCardProps {

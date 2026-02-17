@@ -10,8 +10,8 @@ import {
   ItemDescription,
   ItemTitle,
 } from '@/components/ui/item';
-import { getGradientColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+import { getGradientColorClass } from '../../_lib/colors';
 import type { Unit } from '../_schemas/learn';
 
 interface UnitHeaderProps {

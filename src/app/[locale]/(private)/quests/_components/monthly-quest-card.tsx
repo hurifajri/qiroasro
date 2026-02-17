@@ -12,9 +12,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import type { Locale } from '@/i18n/routing';
-import { getEmojiBadgeColorClass, getGradientColorClass } from '@/lib/colors';
 import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
+import {
+  getEmojiBadgeColorClass,
+  getGradientColorClass,
+} from '../../_lib/colors';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {

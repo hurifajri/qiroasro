@@ -7,8 +7,8 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
-import { getEmojiBadgeColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+import { getEmojiBadgeColorClass } from '../_lib/colors';
 import type { MonthlyBadge } from '../_schemas/private';
 
 interface MonthlyBadgeRowProps {

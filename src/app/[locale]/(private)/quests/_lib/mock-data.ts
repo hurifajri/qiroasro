@@ -1,4 +1,4 @@
-import { getMonthlyTheme } from '@/lib/colors';
+import { getMonthlyTheme } from '../../_lib/colors';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 /**

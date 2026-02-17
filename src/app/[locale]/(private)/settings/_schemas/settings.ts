@@ -1,6 +1,6 @@
 import type { InferOutput } from 'valibot';
 import { boolean, object, optional, picklist, string } from 'valibot';
-import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '../../_lib/avatar';
 
 /**
  * Preference Toggle Schema
