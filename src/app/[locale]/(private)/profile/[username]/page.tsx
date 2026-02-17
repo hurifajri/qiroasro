@@ -6,9 +6,9 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+import { ACHIEVEMENTS } from '../../_lib/achievement';
 import { Profile } from './_components/profile';
 import {
-  MOCK_ACHIEVEMENTS,
   MOCK_FRIEND_SUGGESTIONS,
   MOCK_STATISTICS,
   MOCK_USER_PROFILE,
@@ -61,7 +61,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
         user={MOCK_USER_PROFILE}
         stats={MOCK_STATISTICS}
         friendSuggestions={MOCK_FRIEND_SUGGESTIONS}
-        achievements={MOCK_ACHIEVEMENTS}
+        achievements={ACHIEVEMENTS}
       />
     </>
   );

@@ -1,5 +1,4 @@
 import type {
-  Achievement,
   FriendSuggestion,
   Statistic,
   UserProfile,
@@ -74,35 +73,5 @@ export const MOCK_FRIEND_SUGGESTIONS: FriendSuggestion[] = [
     avatarColorCode: 'emerald',
     mutualFriendsCount: 3,
     isFollowing: true,
-  },
-];
-
-/**
- * Mock achievements
- */
-export const MOCK_ACHIEVEMENTS: Achievement[] = [
-  {
-    id: 'wildfire',
-    titleKey: 'wildfire.title',
-    descriptionKey: 'wildfire.description',
-    emojiColorCode: 'orange_red',
-    emoji: '🔥',
-    level: 1,
-  },
-  {
-    id: 'wildfire2',
-    titleKey: 'wildfire.title',
-    descriptionKey: 'wildfire.description',
-    emojiColorCode: 'orange_red',
-    emoji: '🔥',
-    level: 3,
-  },
-  {
-    id: 'wildfire3',
-    titleKey: 'wildfire.title',
-    descriptionKey: 'wildfire.description',
-    emojiColorCode: 'orange_red',
-    emoji: '🔥',
-    level: 10,
   },
 ];

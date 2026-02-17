@@ -3,14 +3,14 @@ import { Badge } from '@/components/ui/badge';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 import { getEmojiBadgeColorClass } from '../../../_lib/colors';
-import type { Achievement } from '../_schemas/profile';
+import type { Achievement } from '../../../_schemas/achievement';
 
 interface AchievementItemProps {
   achievement: Achievement;
 }
 
 export function AchievementItem({ achievement }: AchievementItemProps) {
-  const t = useTranslations('profile_page.achievements');
+  const t = useTranslations('global.achievements');
 
   return (
     <Item variant="outline" asChild>

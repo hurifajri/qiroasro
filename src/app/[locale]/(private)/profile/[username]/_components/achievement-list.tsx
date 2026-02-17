@@ -1,5 +1,5 @@
 import { ItemGroup } from '@/components/ui/item';
-import type { Achievement } from '../_schemas/profile';
+import type { Achievement } from '../../../_schemas/achievement';
 import { AchievementItem } from './achievement-item';
 
 interface AchievementListProps {

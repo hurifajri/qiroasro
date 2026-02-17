@@ -68,6 +68,16 @@ export const EMOJI_BADGE_COLORS = {
   slate_slate2: 'bg-gradient-to-br from-slate-700 to-slate-900',
   orange_red: 'bg-gradient-to-br from-orange-500 to-red-700',
 
+  // achievements
+  orange_red2: 'bg-gradient-to-br from-orange-400 to-red-600',
+  sky_blue2: 'bg-gradient-to-br from-sky-300 to-blue-500',
+  yellow_amber2: 'bg-gradient-to-br from-yellow-400 to-amber-600',
+  rose_orange: 'bg-gradient-to-br from-rose-300 to-orange-400',
+  indigo_purple: 'bg-gradient-to-br from-indigo-500 to-purple-900',
+  emerald_teal2: 'bg-gradient-to-br from-emerald-400 to-teal-600',
+  slate_gray: 'bg-gradient-to-br from-slate-400 to-gray-600',
+  red_rose: 'bg-gradient-to-br from-red-500 to-rose-700',
+
   // orange_red: 'bg-gradient-to-br from-orange-400 to-red-500',
   rose_pink: 'bg-gradient-to-br from-rose-400 to-pink-500',
   // sky_blue: 'bg-gradient-to-br from-sky-400 to-blue-500',

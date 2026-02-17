@@ -34,7 +34,7 @@ export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
         <ItemContent>
           <ItemTitle>{t(badge.titleKey)}</ItemTitle>
           <ItemDescription className="text-xs">
-            {t(badge.dateKey)}
+            {t(badge.descriptionKey)}
           </ItemDescription>
         </ItemContent>
       </li>

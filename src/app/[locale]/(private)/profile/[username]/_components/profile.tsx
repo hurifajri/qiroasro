@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import type { Achievement } from '../../../_schemas/achievement';
 import type {
-  Achievement,
   FriendSuggestion,
   Statistic,
   UserProfile,

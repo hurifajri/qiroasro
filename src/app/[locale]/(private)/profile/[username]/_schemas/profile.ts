@@ -16,7 +16,6 @@ import {
   AVATAR_GRADIENT_CODES,
   AVATAR_SOLID_CODES,
 } from '../../../_lib/avatar';
-import { EMOJI_BADGE_COLOR_CODES } from '../../../_lib/colors';
 
 /**
  * User profile schema
@@ -63,22 +62,7 @@ export const FriendSuggestionSchema = object({
 export type FriendSuggestion = InferOutput<typeof FriendSuggestionSchema>;
 
 /**
- * Achievement schema
- */
-export const AchievementSchema = object({
-  id: string(),
-  titleKey: string(), // i18n key
-  descriptionKey: string(), // i18n key
-  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
-  emoji: string(),
-  level: pipe(number(), integer()),
-});
-
-export type Achievement = InferOutput<typeof AchievementSchema>;
-
-/**
  * Collection schemas
  */
 export const StatisticsSchema = array(StatisticSchema);
 export const FriendSuggestionsSchema = array(FriendSuggestionSchema);
-export const AchievementsSchema = array(AchievementSchema);
