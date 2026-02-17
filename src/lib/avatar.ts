@@ -8,6 +8,7 @@
  */
 export const AVATAR_COLORS = {
   // Solid colors
+  gray: 'bg-gray-500',
   indigo: 'bg-indigo-500',
   emerald: 'bg-emerald-500',
   amber: 'bg-amber-500',
@@ -33,12 +34,13 @@ export const AVATAR_COLORS = {
 
 export type AvatarColorCode = keyof typeof AVATAR_COLORS;
 
-export const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'indigo';
+const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
 
 /**
  * Solid color codes (for free users)
  */
 export const AVATAR_SOLID_CODES = [
+  'gray',
   'indigo',
   'emerald',
   'amber',

@@ -1,5 +1,6 @@
+import { format } from 'date-fns';
 import { Clock } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -10,8 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import type { Locale } from '@/i18n/routing';
+import { getEmojiBadgeColorClass, getGradientColorClass } from '@/lib/colors';
+import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
-import { getMonthlyGradientClasses } from '../_lib/mock-data';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
@@ -20,6 +23,7 @@ interface MonthlyQuestCardProps {
 
 export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
   const t = useTranslations('quests_page.monthly_quest');
+  const locale = useLocale();
 
   const progress = Math.min((quest.current / quest.target) * 100, 100);
   const timeLabel =
@@ -27,15 +31,20 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
       ? t('days_remaining', { count: quest.daysRemaining })
       : t('hours_remaining', { count: quest.daysRemaining * 24 });
 
+  // Format month name using date-fns with current locale
+  const monthName = format(new Date(2026, quest.month - 1), 'MMMM', {
+    locale: getDateLocale(locale as Locale),
+  });
+
   return (
-    <Card className={getMonthlyGradientClasses(quest.colorCode)}>
+    <Card className={getGradientColorClass(quest.colorCode)}>
       <CardHeader>
         <CardAction>
           <Badge
             variant="secondary"
-            className="bg-white/20 font-bold text-white backdrop-blur-sm"
+            className="bg-white/20 font-bold text-white uppercase backdrop-blur-sm"
           >
-            {quest.month}
+            {monthName}
           </Badge>
         </CardAction>
         <CardTitle className="font-bold text-2xl text-white">
@@ -67,7 +76,9 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
               {quest.current} / {quest.target}
             </span>
             {/* Reward icon */}
-            <Avatar className={cn('size-8', quest.emojiColorCode)}>
+            <Avatar
+              className={cn(getEmojiBadgeColorClass(quest.emojiColorCode))}
+            >
               <AvatarFallback className="bg-transparent text-lg">
                 {quest.emoji}
               </AvatarFallback>

@@ -10,6 +10,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from '@/components/ui/item';
+import { getGradientColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import type { Unit } from '../_schemas/learn';
 
@@ -32,27 +33,13 @@ export function UnitHeader({
 }: UnitHeaderProps) {
   const t = useTranslations('learn_page');
 
-  // Color variants based on unit color
-  const colorVariants: Record<string, string> = {
-    rose: 'bg-rose-600 dark:bg-rose-700',
-    orange: 'bg-orange-600 dark:bg-orange-700',
-    amber: 'bg-amber-600 dark:bg-amber-700',
-    yellow: 'bg-yellow-600 dark:bg-yellow-700',
-    lime: 'bg-lime-600 dark:bg-lime-700',
-    green: 'bg-green-600 dark:bg-green-700',
-    emerald: 'bg-emerald-600 dark:bg-emerald-700',
-    teal: 'bg-teal-600 dark:bg-teal-700',
-    cyan: 'bg-cyan-600 dark:bg-cyan-700',
-    sky: 'bg-sky-600 dark:bg-sky-700',
-    blue: 'bg-blue-600 dark:bg-blue-700',
-  };
-
-  const bgColor = colorVariants[unit.color] ?? 'bg-primary';
-
   return (
     <Item
       variant="muted"
-      className={cn('sticky top-20 z-10 rounded-xl p-4 md:top-6', bgColor)}
+      className={cn(
+        'sticky top-20 z-10 rounded-xl p-4 md:top-6',
+        getGradientColorClass(unit.colorCode),
+      )}
     >
       <ItemContent>
         <ItemTitle

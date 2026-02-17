@@ -32,7 +32,7 @@ export const UnitSchema = object({
   unitNumber: pipe(number(), integer()),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  color: string(), // Tailwind color class or hex
+  colorCode: string(), // Tailwind color class or hex
   iconKey: optional(string()), // Icon identifier
 });
 

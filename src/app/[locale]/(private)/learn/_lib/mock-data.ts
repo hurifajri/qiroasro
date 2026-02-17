@@ -11,7 +11,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 1,
     titleKey: 'units.jauf.title',
     descriptionKey: 'units.jauf.description',
-    color: 'rose',
+    colorCode: 'rose',
     iconKey: 'heart',
   },
   {
@@ -20,7 +20,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 2,
     titleKey: 'units.halq.title',
     descriptionKey: 'units.halq.description',
-    color: 'orange',
+    colorCode: 'orange',
     iconKey: 'circle',
   },
   // Section 2: Tongue Letters
@@ -30,7 +30,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 1,
     titleKey: 'units.aqsha_lisan.title',
     descriptionKey: 'units.aqsha_lisan.description',
-    color: 'amber',
+    colorCode: 'amber',
     iconKey: 'zap',
   },
   {
@@ -39,7 +39,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 2,
     titleKey: 'units.wasath_lisan.title',
     descriptionKey: 'units.wasath_lisan.description',
-    color: 'yellow',
+    colorCode: 'yellow',
     iconKey: 'star',
   },
   {
@@ -48,7 +48,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 3,
     titleKey: 'units.hafah_lisan.title',
     descriptionKey: 'units.hafah_lisan.description',
-    color: 'lime',
+    colorCode: 'lime',
     iconKey: 'leaf',
   },
   {
@@ -57,7 +57,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 4,
     titleKey: 'units.tharaf_lisan.title',
     descriptionKey: 'units.tharaf_lisan.description',
-    color: 'green',
+    colorCode: 'green',
     iconKey: 'target',
   },
   {
@@ -66,7 +66,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 5,
     titleKey: 'units.tsanaya.title',
     descriptionKey: 'units.tsanaya.description',
-    color: 'emerald',
+    colorCode: 'emerald',
     iconKey: 'gem',
   },
   // Section 3: Lips & Nasal
@@ -76,7 +76,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 1,
     titleKey: 'units.syafatain.title',
     descriptionKey: 'units.syafatain.description',
-    color: 'teal',
+    colorCode: 'teal',
     iconKey: 'smile',
   },
   {
@@ -85,7 +85,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 2,
     titleKey: 'units.khaisyum.title',
     descriptionKey: 'units.khaisyum.description',
-    color: 'cyan',
+    colorCode: 'cyan',
     iconKey: 'wind',
   },
   // Section 4: Traits
@@ -95,7 +95,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 1,
     titleKey: 'units.sifat_mutadhadah.title',
     descriptionKey: 'units.sifat_mutadhadah.description',
-    color: 'sky',
+    colorCode: 'sky',
     iconKey: 'layers',
   },
   {
@@ -104,7 +104,7 @@ export const MOCK_UNITS: Unit[] = [
     unitNumber: 2,
     titleKey: 'units.sifat_munfaridah.title',
     descriptionKey: 'units.sifat_munfaridah.description',
-    color: 'blue',
+    colorCode: 'blue',
     iconKey: 'sparkles',
   },
 ];

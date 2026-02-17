@@ -14,6 +14,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import { getPracticeColors } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import type { PracticeMode } from '../_lib/mock-data';
 
@@ -27,23 +28,6 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Star: StarIcon,
 };
 
-// Color mapping
-const colorMap: Record<string, string> = {
-  primary: 'bg-primary/10 border-primary/30! hover:bg-primary/20',
-  emerald: 'bg-emerald-500/10 border-emerald-500/30! hover:bg-emerald-500/20',
-  amber: 'bg-amber-500/10 border-amber-500/30! hover:bg-amber-500/20',
-  sky: 'bg-sky-500/10 border-sky-500/30! hover:bg-sky-500/20',
-  purple: 'bg-purple-500/10 border-purple-500/30! hover:bg-purple-500/20',
-};
-
-const iconColorMap: Record<string, string> = {
-  primary: 'text-primary',
-  emerald: 'text-emerald-500',
-  amber: 'text-amber-500',
-  sky: 'text-sky-500',
-  purple: 'text-purple-500',
-};
-
 interface PracticeItemProps {
   mode: PracticeMode;
 }
@@ -51,6 +35,7 @@ interface PracticeItemProps {
 export function PracticeItem({ mode }: PracticeItemProps) {
   const t = useTranslations('practice_page');
   const Icon = iconMap[mode.iconName];
+  const colors = getPracticeColors(mode.colorCode);
 
   function handleClickMode() {
     console.log(mode);
@@ -67,7 +52,7 @@ export function PracticeItem({ mode }: PracticeItemProps) {
         }}
         className={cn(
           'group relative flex w-full items-center gap-4 rounded-2xl! border-2 p-4! text-left transition-all',
-          colorMap[mode.color],
+          colors.card,
         )}
       >
         <ItemContent>
@@ -85,7 +70,7 @@ export function PracticeItem({ mode }: PracticeItemProps) {
           variant="icon"
           className="translate-0! self-center! relative"
         >
-          <Icon className={cn('size-12', iconColorMap[mode.color])} />
+          <Icon className={cn('size-12', colors.icon)} />
           {mode.badge && (
             <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-500 font-bold text-white text-xs">
               {mode.badge > 99 ? '99+' : mode.badge}

@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
+import { getEmojiBadgeColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import type { Achievement } from '../_schemas/profile';
 
@@ -19,7 +20,7 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
           <div
             className={cn(
               'flex size-16 items-center justify-center rounded-xl',
-              achievement.emojiColorCode,
+              getEmojiBadgeColorClass(achievement.emojiColorCode),
             )}
           >
             <span className="text-3xl">{achievement.emoji}</span>

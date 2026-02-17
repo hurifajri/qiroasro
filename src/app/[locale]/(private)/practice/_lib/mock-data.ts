@@ -9,7 +9,7 @@ export interface PracticeMode {
   href: string;
   isPremium?: boolean;
   badge?: number;
-  color: 'primary' | 'emerald' | 'amber' | 'sky' | 'purple';
+  colorCode: 'rose' | 'emerald' | 'amber' | 'sky' | 'purple' | 'orange';
 }
 
 export interface PracticeSection {
@@ -29,7 +29,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.makharij.description',
         iconName: 'Speech',
         href: '/practice/makharij',
-        color: 'primary',
+        colorCode: 'orange',
       },
       {
         id: 'sifaat',
@@ -37,7 +37,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.sifaat.description',
         iconName: 'Zap',
         href: '/practice/sifaat',
-        color: 'amber',
+        colorCode: 'amber',
       },
     ],
   },
@@ -51,7 +51,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.ahkam.description',
         iconName: 'BookOpen',
         href: '/practice/ahkam',
-        color: 'emerald',
+        colorCode: 'emerald',
       },
       {
         id: 'listen',
@@ -59,7 +59,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.listen.description',
         iconName: 'Headphones',
         href: '/practice/listen',
-        color: 'sky',
+        colorCode: 'sky',
       },
     ],
   },
@@ -74,7 +74,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         iconName: 'RefreshCw',
         href: '/practice/mistakes',
         badge: 12,
-        color: 'amber',
+        colorCode: 'amber',
         isPremium: true,
       },
       {
@@ -83,7 +83,7 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
         descriptionKey: 'modes.saved.description',
         iconName: 'Star',
         href: '/practice/saved',
-        color: 'purple',
+        colorCode: 'purple',
       },
     ],
   },

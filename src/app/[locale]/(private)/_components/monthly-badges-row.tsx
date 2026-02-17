@@ -7,6 +7,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import { getEmojiBadgeColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 import type { MonthlyBadge } from '../_schemas/private';
 
@@ -21,7 +22,10 @@ export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
     <Item asChild>
       <li className="p-0!">
         <ItemMedia>
-          <Avatar className={cn('size-12', badge.emojiColorCode)}>
+          <Avatar
+            size="lg"
+            className={cn(getEmojiBadgeColorClass(badge.emojiColorCode))}
+          >
             <AvatarFallback className="bg-transparent text-2xl">
               {badge.emoji}
             </AvatarFallback>
