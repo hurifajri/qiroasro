@@ -138,10 +138,10 @@ export function getPracticeColors(colorCode?: PracticeColorCode): {
  */
 export const MONTHLY_THEMES = {
   1: { colorCode: 'blue', emojiColorCode: 'sky_blue', emoji: '❄️' },
-  2: { colorCode: 'sky', emojiColorCode: 'sky_blue', emoji: '🌬️' },
+  2: { colorCode: 'sky', emojiColorCode: 'sky_blue', emoji: '💨' },
   3: { colorCode: 'emerald', emojiColorCode: 'emerald_teal', emoji: '🌱' },
   4: { colorCode: 'teal', emojiColorCode: 'emerald_teal', emoji: '🌸' },
-  5: { colorCode: 'amber', emojiColorCode: 'amber_orange', emoji: '☀️' },
+  5: { colorCode: 'amber', emojiColorCode: 'amber_orange', emoji: '🌤' },
   6: { colorCode: 'orange', emojiColorCode: 'orange_red', emoji: '🌻' },
   7: { colorCode: 'rose', emojiColorCode: 'rose_pink', emoji: '🔥' },
   8: { colorCode: 'purple', emojiColorCode: 'violet_purple', emoji: '🌊' },
