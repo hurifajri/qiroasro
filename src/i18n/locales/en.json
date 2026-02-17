@@ -6,6 +6,18 @@
       "feature_list": "Interactive knowledge graphs,Quiz mode,Multi-language support",
       "keywords": "tajweed,tajwid,makharijul huruf,sifatul huruf,quran,learn quran,hijaiyyah letters,arabic"
     },
+    "leagues": {
+      "peace": "Darussalam",
+      "stability": "Darul Muqamah",
+      "security": "Al-Maqamul Amin",
+      "merit": "Qadama Sidq",
+      "honor": "Maq'adu Sidq",
+      "eternity": "Jannatul Khuld",
+      "shelter": "Jannatul Ma'wa",
+      "bliss": "Jannatun Na'im",
+      "eden": "Jannatu 'Adn",
+      "paradise": "Jannatul Firdaus"
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -173,14 +185,6 @@
         "title": "Level up with Super",
         "description": "No ads, personalized practice, and unlimited features!",
         "cta": "Get Super"
-      },
-      "leagues": {
-        "obsidian": "Obsidian League",
-        "pearl": "Pearl League",
-        "sapphire": "Sapphire League",
-        "ruby": "Ruby League",
-        "emerald": "Emerald League",
-        "diamond": "Diamond League"
       },
       "leaderboard": {
         "view_league": "View League",
@@ -722,14 +726,6 @@
       "description": "Compete with other learners in your league and climb the ranks."
     },
     "title": "Leaderboard - Weekly Ranking",
-    "leagues": {
-      "obsidian": "Obsidian League",
-      "pearl": "Pearl League",
-      "sapphire": "Sapphire League",
-      "ruby": "Ruby League",
-      "emerald": "Emerald League",
-      "diamond": "Diamond League"
-    },
     "week_info": "This week's leaderboard",
     "ranking": "Ranking",
     "participants": "{count} participants"
@@ -798,7 +794,7 @@
       "title": "Statistics",
       "day_streak": "Day Streak",
       "total_xp": "Total XP",
-      "current_league": "Current League",
+      "current_league": "Current Halaqah",
       "top_3_finishes": "Top 3 Finishes"
     },
     "friend_suggestions": {

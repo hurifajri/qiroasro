@@ -26,7 +26,7 @@ interface LeaderboardCardProps {
  * Leaderboard preview widget showing top 3 and current user position.
  */
 export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
-  const t = useTranslations('global.private_layout');
+  const t = useTranslations('global');
 
   // Get league display name
   const leagueDisplayName = t(`leagues.${userStats.league}`);
@@ -47,11 +47,13 @@ export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
                 'px-0 uppercase',
               )}
             >
-              {t('leaderboard.view_league')}
+              {t('private_layout.leaderboard.view_league')}
             </Link>
           </CardAction>
         </div>
-        <CardDescription>{t('leaderboard.description')}</CardDescription>
+        <CardDescription>
+          {t('private_layout.leaderboard.description')}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ItemGroup className="gap-0">

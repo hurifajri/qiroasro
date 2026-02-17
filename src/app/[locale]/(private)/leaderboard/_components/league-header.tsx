@@ -9,11 +9,11 @@ interface LeagueHeaderProps {
 }
 
 export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
-  const t = useTranslations('leaderboard_page');
+  const t = useTranslations();
 
   const currentLeagueData = leagues.find((l) => l.id === currentLeague);
   const leagueName = currentLeagueData
-    ? t(currentLeagueData.nameKey)
+    ? t(`global.${currentLeagueData.nameKey}`)
     : currentLeague;
 
   return (
@@ -47,7 +47,7 @@ export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
       <div className="flex flex-col items-center gap-2">
         <h2 className="font-bold text-2xl">{leagueName}</h2>
         <Badge variant="secondary" className="font-medium">
-          {t('week_info')}
+          {t('leaderboard_page.week_info')}
         </Badge>
       </div>
     </section>

@@ -6,6 +6,18 @@
       "feature_list": "Etkileşimli bilgi grafikleri,Test modu,Çoklu dil desteği",
       "keywords": "tecvid,tajweed,mahreç,mahreçler,sıfat,kuran,kuran öğrenme,arapça harfler,elifba"
     },
+    "leagues": {
+      "peace": "Dâru's-Selâm",
+      "stability": "Dâru'l-Mukâme",
+      "security": "Makam-ı Emîn",
+      "merit": "Kadem-i Sıdk",
+      "honor": "Mak'ad-i Sıdk",
+      "eternity": "Cennetü'l-Huld",
+      "shelter": "Cennetü'l-Me'vâ",
+      "bliss": "Naîm Cennetleri",
+      "eden": "Adn Cennetleri",
+      "paradise": "Firdevs Cenneti"
+    },
     "letter": {
       "hamzah": "Hemze",
       "ba": "Be",
@@ -173,14 +185,6 @@
         "title": "Super ile Yüksel",
         "description": "Reklamsız, kişiselleştirilmiş pratik ve sınırsız özellikler!",
         "cta": "Super'i Al"
-      },
-      "leagues": {
-        "obsidian": "Obsidyen Ligi",
-        "pearl": "İnci Ligi",
-        "sapphire": "Safir Ligi",
-        "ruby": "Yakut Ligi",
-        "emerald": "Zümrüt Ligi",
-        "diamond": "Elmas Ligi"
       },
       "leaderboard": {
         "view_league": "Ligi Gör",
@@ -722,14 +726,6 @@
       "description": "Ligindeki diğer öğrencilerle yarış ve sıralamada yüksel."
     },
     "title": "Liderlik Tablosu - Haftalık Sıralama",
-    "leagues": {
-      "obsidian": "Obsidiyen Ligi",
-      "pearl": "İnci Ligi",
-      "sapphire": "Safir Ligi",
-      "ruby": "Yakut Ligi",
-      "emerald": "Zümrüt Ligi",
-      "diamond": "Elmas Ligi"
-    },
     "week_info": "Bu haftanın sıralaması",
     "ranking": "Sıralama",
     "participants": "{count} katılımcı"
@@ -798,7 +794,7 @@
       "title": "İstatistikler",
       "day_streak": "Günlük Seri",
       "total_xp": "Toplam XP",
-      "current_league": "Mevcut Lig",
+      "current_league": "Mevcut Halka",
       "top_3_finishes": "İlk 3 Derece"
     },
     "friend_suggestions": {

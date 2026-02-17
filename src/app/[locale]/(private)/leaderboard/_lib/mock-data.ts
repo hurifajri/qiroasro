@@ -4,12 +4,16 @@ import type { FullLeaderboardEntry, League } from '../_schemas/leaderboard';
  * Available leagues in order
  */
 export const MOCK_LEAGUES: League[] = [
-  { id: 'obsidian', nameKey: 'leagues.obsidian', emoji: '🪨' },
-  { id: 'pearl', nameKey: 'leagues.pearl', emoji: '🤍' },
-  { id: 'sapphire', nameKey: 'leagues.sapphire', emoji: '💎' },
-  { id: 'ruby', nameKey: 'leagues.ruby', emoji: '❤️‍🔥' },
-  { id: 'emerald', nameKey: 'leagues.emerald', emoji: '💚' },
-  { id: 'diamond', nameKey: 'leagues.diamond', emoji: '🔷' },
+  { id: 'peace', nameKey: 'leagues.peace', emoji: '🪨' },
+  { id: 'stability', nameKey: 'leagues.stability', emoji: '🏛️' },
+  { id: 'security', nameKey: 'leagues.security', emoji: '🛡️' },
+  { id: 'merit', nameKey: 'leagues.merit', emoji: '🎖️' },
+  { id: 'honor', nameKey: 'leagues.honor', emoji: '👑' },
+  { id: 'eternity', nameKey: 'leagues.eternity', emoji: '♾️' },
+  { id: 'shelter', nameKey: 'leagues.shelter', emoji: '⛺' },
+  { id: 'bliss', nameKey: 'leagues.bliss', emoji: '🍇' },
+  { id: 'eden', nameKey: 'leagues.eden', emoji: '⛲' },
+  { id: 'paradise', nameKey: 'leagues.paradise', emoji: '💎' },
 ];
 
 /**

@@ -6,6 +6,18 @@
       "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
+    "leagues": {
+      "peace": "Darussalam",
+      "stability": "Darul Muqamah",
+      "security": "Al-Maqamul Amin",
+      "merit": "Qadama Shidq",
+      "honor": "Maq'adu Shidq",
+      "eternity": "Jannatul Khuld",
+      "shelter": "Jannatul Ma'wa",
+      "bliss": "Jannatun Na'im",
+      "eden": "Jannatu 'Adn",
+      "paradise": "Jannatul Firdaus"
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -173,14 +185,6 @@
         "title": "Naik Level dengan Super",
         "description": "Tanpa iklan, latihan personal, dan fitur tak terbatas!",
         "cta": "Dapatkan Super"
-      },
-      "leagues": {
-        "obsidian": "Liga Obsidian",
-        "pearl": "Liga Mutiara",
-        "sapphire": "Liga Safir",
-        "ruby": "Liga Rubi",
-        "emerald": "Liga Zamrud",
-        "diamond": "Liga Berlian"
       },
       "leaderboard": {
         "view_league": "Lihat Liga",
@@ -722,14 +726,6 @@
       "description": "Bersaing dengan pelajar lain di ligamu dan naikkan peringkat."
     },
     "title": "Papan Peringkat - Rangking Mingguan",
-    "leagues": {
-      "obsidian": "Liga Obsidian",
-      "pearl": "Liga Mutiara",
-      "sapphire": "Liga Safir",
-      "ruby": "Liga Rubi",
-      "emerald": "Liga Zamrud",
-      "diamond": "Liga Berlian"
-    },
     "week_info": "Papan peringkat minggu ini",
     "ranking": "Peringkat",
     "participants": "{count} peserta"
@@ -798,7 +794,7 @@
       "title": "Statistik",
       "day_streak": "Rekor Harian",
       "total_xp": "Total XP",
-      "current_league": "Liga Saat Ini",
+      "current_league": "Halaqah Saat Ini",
       "top_3_finishes": "Masuk 3 Besar"
     },
     "friend_suggestions": {
