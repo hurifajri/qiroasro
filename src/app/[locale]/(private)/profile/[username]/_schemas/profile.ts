@@ -12,6 +12,7 @@ import {
   string,
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
+import { EMOJI_BADGE_COLOR_CODES } from '@/lib/colors';
 
 /**
  * User profile schema
@@ -64,7 +65,7 @@ export const AchievementSchema = object({
   id: string(),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  emojiColorCode: string(), // Tailwind color
+  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
   emoji: string(),
   level: pipe(number(), integer()),
 });

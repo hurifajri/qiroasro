@@ -6,7 +6,7 @@
  * Avatar color map: semantic color codes → Tailwind classes
  * All classes are statically written so Tailwind JIT can detect them
  */
-export const AVATAR_COLORS = {
+const SOLID_COLORS = {
   // Solid colors
   gray: 'bg-gray-500',
   indigo: 'bg-indigo-500',
@@ -17,6 +17,9 @@ export const AVATAR_COLORS = {
   violet: 'bg-violet-500',
   teal: 'bg-teal-500',
   orange: 'bg-orange-500',
+} as const;
+
+const GRADIENT_COLORS = {
   // Gradient colors
   indigo_rose: 'bg-gradient-to-br from-indigo-500 to-rose-500',
   rose_indigo: 'bg-gradient-to-br from-rose-500 to-indigo-500',
@@ -32,6 +35,8 @@ export const AVATAR_COLORS = {
   sky_rose: 'bg-gradient-to-br from-sky-500 to-rose-500',
 } as const;
 
+export const AVATAR_COLORS = { ...SOLID_COLORS, ...GRADIENT_COLORS } as const;
+
 export type AvatarColorCode = keyof typeof AVATAR_COLORS;
 
 const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
@@ -39,35 +44,16 @@ const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
 /**
  * Solid color codes (for free users)
  */
-export const AVATAR_SOLID_CODES = [
-  'gray',
-  'indigo',
-  'emerald',
-  'amber',
-  'rose',
-  'sky',
-  'violet',
-  'teal',
-  'orange',
-] as const satisfies readonly AvatarColorCode[];
+export const AVATAR_SOLID_CODES = Object.keys(
+  SOLID_COLORS,
+) as AvatarColorCode[];
 
 /**
  * Gradient color codes (premium only)
  */
-export const AVATAR_GRADIENT_CODES = [
-  'indigo_rose',
-  'rose_indigo',
-  'emerald_rose',
-  'rose_emerald',
-  'amber_sky',
-  'sky_amber',
-  'teal_amber',
-  'amber_teal',
-  'rose_violet',
-  'violet_rose',
-  'rose_sky',
-  'sky_rose',
-] as const satisfies readonly AvatarColorCode[];
+export const AVATAR_GRADIENT_CODES = Object.keys(
+  GRADIENT_COLORS,
+) as AvatarColorCode[];
 
 /**
  * Get Tailwind classes for a given color code

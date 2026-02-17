@@ -12,6 +12,7 @@ import {
   string,
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
+import { EMOJI_BADGE_COLOR_CODES } from '@/lib/colors';
 
 // User Stats Schema
 export const UserStatsSchema = object({
@@ -115,7 +116,7 @@ export const MonthlyBadgeSchema = object({
   titleKey: string(), // i18n key
   dateKey: string(), // i18n key for month/year
   emoji: string(), // emoji icon
-  emojiColorCode: string(), // Tailwind bg class
+  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
 });
 
 export type MonthlyBadge = InferOutput<typeof MonthlyBadgeSchema>;

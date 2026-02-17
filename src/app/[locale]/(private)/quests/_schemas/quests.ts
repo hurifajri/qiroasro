@@ -1,5 +1,14 @@
 import type { InferOutput } from 'valibot';
-import { integer, number, object, pipe, string } from 'valibot';
+import {
+  integer,
+  number,
+  object,
+  optional,
+  picklist,
+  pipe,
+  string,
+} from 'valibot';
+import { EMOJI_BADGE_COLOR_CODES, GRADIENT_COLOR_CODES } from '@/lib/colors';
 
 /**
  * Monthly Quest Schema
@@ -10,9 +19,9 @@ export const MonthlyQuestSchema = object({
   target: pipe(number(), integer()),
   current: pipe(number(), integer()),
   daysRemaining: pipe(number(), integer()),
-  colorCode: string(), // Color code for gradient (e.g., "sky", "rose")
+  colorCode: optional(picklist([...GRADIENT_COLOR_CODES])),
   emoji: string(), // Emoji icon for reward
-  emojiColorCode: string(), // Color code for emoji bg (e.g., "sky_blue", "orange_red")
+  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
 });
 
 export type MonthlyQuest = InferOutput<typeof MonthlyQuestSchema>;

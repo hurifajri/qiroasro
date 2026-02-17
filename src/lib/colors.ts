@@ -36,11 +36,17 @@ export const GRADIENT_COLORS = {
 
 export type GradientColorCode = keyof typeof GRADIENT_COLORS;
 
-export function getGradientColorClass(colorCode: string): string {
-  if (colorCode in GRADIENT_COLORS) {
-    return GRADIENT_COLORS[colorCode as GradientColorCode];
+const DEFAULT_GRADIENT_COLOR_CODE: GradientColorCode = 'rose';
+
+export const GRADIENT_COLOR_CODES = Object.keys(
+  GRADIENT_COLORS,
+) as GradientColorCode[];
+
+export function getGradientColorClass(colorCode?: GradientColorCode): string {
+  if (!colorCode || !(colorCode in GRADIENT_COLORS)) {
+    return GRADIENT_COLORS[DEFAULT_GRADIENT_COLOR_CODE];
   }
-  return GRADIENT_COLORS.rose; // fallback
+  return GRADIENT_COLORS[colorCode];
 }
 
 /**
@@ -61,11 +67,19 @@ export const EMOJI_BADGE_COLORS = {
 
 export type EmojiBadgeColorCode = keyof typeof EMOJI_BADGE_COLORS;
 
-export function getEmojiBadgeColorClass(colorCode: string): string {
-  if (colorCode in EMOJI_BADGE_COLORS) {
-    return EMOJI_BADGE_COLORS[colorCode as EmojiBadgeColorCode];
+const DEFAULT_EMOJI_BADGE_COLOR_CODE: EmojiBadgeColorCode = 'orange_red';
+
+export const EMOJI_BADGE_COLOR_CODES = Object.keys(
+  EMOJI_BADGE_COLORS,
+) as EmojiBadgeColorCode[];
+
+export function getEmojiBadgeColorClass(
+  colorCode?: EmojiBadgeColorCode,
+): string {
+  if (!colorCode || !(colorCode in EMOJI_BADGE_COLORS)) {
+    return EMOJI_BADGE_COLORS[DEFAULT_EMOJI_BADGE_COLOR_CODE];
   }
-  return EMOJI_BADGE_COLORS.orange_red; // fallback
+  return EMOJI_BADGE_COLORS[colorCode];
 }
 
 /**
@@ -101,14 +115,20 @@ export const PRACTICE_COLORS = {
 
 export type PracticeColorCode = keyof typeof PRACTICE_COLORS;
 
-export function getPracticeColors(colorCode: string): {
+const DEFAULT_PRACTICE_COLOR_CODE: PracticeColorCode = 'rose';
+
+export const PRACTICE_COLOR_CODES = Object.keys(
+  PRACTICE_COLORS,
+) as PracticeColorCode[];
+
+export function getPracticeColors(colorCode?: PracticeColorCode): {
   card: string;
   icon: string;
 } {
-  if (colorCode in PRACTICE_COLORS) {
-    return PRACTICE_COLORS[colorCode as PracticeColorCode];
+  if (!colorCode || !(colorCode in PRACTICE_COLORS)) {
+    return PRACTICE_COLORS[DEFAULT_PRACTICE_COLOR_CODE];
   }
-  return PRACTICE_COLORS.rose; // fallback
+  return PRACTICE_COLORS[colorCode];
 }
 
 /**

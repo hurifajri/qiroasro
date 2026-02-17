@@ -8,6 +8,7 @@ import {
   pipe,
   string,
 } from 'valibot';
+import { GRADIENT_COLOR_CODES } from '@/lib/colors';
 
 // Lesson status
 export const LESSON_STATUSES = [
@@ -32,7 +33,7 @@ export const UnitSchema = object({
   unitNumber: pipe(number(), integer()),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  colorCode: string(), // Tailwind color class or hex
+  colorCode: optional(picklist([...GRADIENT_COLOR_CODES])),
   iconKey: optional(string()), // Icon identifier
 });
 
