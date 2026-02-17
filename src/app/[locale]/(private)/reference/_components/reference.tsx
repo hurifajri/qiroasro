@@ -15,7 +15,7 @@ export function Reference({ categories }: ReferenceProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <BookOpenIcon className="size-6 text-primary" />
         <h2 className="font-bold text-xl">{t('title')}</h2>
       </div>

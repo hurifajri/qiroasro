@@ -607,15 +607,15 @@
         "title": "Harfler",
         "count": "30 Öğe"
       },
-      "makharij": {
+      "articulation": {
         "title": "Mahreçler",
         "count": "17 Nokta"
       },
-      "sifaat": {
+      "trait": {
         "title": "Sıfatlar",
         "count": "17 Sıfat"
       },
-      "ahkam": {
+      "rule": {
         "title": "Tecvid Kuralları",
         "count": "Hükümler"
       },
@@ -690,15 +690,15 @@
       "collections": "Koleksiyonlarınız"
     },
     "modes": {
-      "makharij": {
+      "articulation": {
         "title": "Mahreçler",
         "description": "Harflerin çıkış yerlerini tanıma alıştırması."
       },
-      "sifaat": {
+      "trait": {
         "title": "Sıfatlar",
         "description": "Harf özelliklerini (Sıfatları) tanımlayın."
       },
-      "ahkam": {
+      "rule": {
         "title": "Tecvid Kuralları",
         "description": "İdgam, İhfa gibi kuralları uygulayın."
       },

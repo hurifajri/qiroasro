@@ -607,15 +607,15 @@
         "title": "Huruf Hijaiyyah",
         "count": "30 Item"
       },
-      "makharij": {
+      "articulation": {
         "title": "Makharijul Huruf",
         "count": "17 Tempat"
       },
-      "sifaat": {
+      "trait": {
         "title": "Sifatul Huruf",
         "count": "17 Sifat"
       },
-      "ahkam": {
+      "rule": {
         "title": "Hukum Tajwid",
         "count": "Hukum & Peraturan"
       },
@@ -690,15 +690,15 @@
       "collections": "Koleksi Anda"
     },
     "modes": {
-      "makharij": {
+      "articulation": {
         "title": "Makharijul Huruf",
         "description": "Latihan mengenal pasti tempat keluar huruf."
       },
-      "sifaat": {
+      "trait": {
         "title": "Sifatul Huruf",
         "description": "Kenal pasti ciri-ciri huruf (Sifat)."
       },
-      "ahkam": {
+      "rule": {
         "title": "Hukum Tajwid",
         "description": "Latihan hukum seperti Idgham, Ikhfa, dll."
       },

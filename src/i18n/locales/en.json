@@ -607,15 +607,15 @@
         "title": "Hijaiyyah Letters",
         "count": "30 Items"
       },
-      "makharij": {
+      "articulation": {
         "title": "Articulation Points",
         "count": "17 Points"
       },
-      "sifaat": {
+      "trait": {
         "title": "Characteristics",
         "count": "17 Traits"
       },
-      "ahkam": {
+      "rule": {
         "title": "Tajweed Rules",
         "count": "Rules & Laws"
       },
@@ -690,15 +690,15 @@
       "collections": "Your Collections"
     },
     "modes": {
-      "makharij": {
+      "articulation": {
         "title": "Articulation Points",
         "description": "Practice identifying where letters come from."
       },
-      "sifaat": {
+      "trait": {
         "title": "Characteristics",
         "description": "Identify letter traits (Sifaat)."
       },
-      "ahkam": {
+      "rule": {
         "title": "Tajweed Rules",
         "description": "Practice rules like Idgham, Ikhfa, etc."
       },

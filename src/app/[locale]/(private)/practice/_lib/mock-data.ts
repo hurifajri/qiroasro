@@ -24,19 +24,19 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
     titleKey: 'sections.letters',
     modes: [
       {
-        id: 'makharij',
-        titleKey: 'modes.makharij.title',
-        descriptionKey: 'modes.makharij.description',
+        id: 'articulation',
+        titleKey: 'modes.articulation.title',
+        descriptionKey: 'modes.articulation.description',
         iconName: 'Speech',
-        href: '/practice/makharij',
+        href: '/practice/articulation',
         colorCode: 'orange',
       },
       {
-        id: 'sifaat',
-        titleKey: 'modes.sifaat.title',
-        descriptionKey: 'modes.sifaat.description',
+        id: 'trait',
+        titleKey: 'modes.trait.title',
+        descriptionKey: 'modes.trait.description',
         iconName: 'Zap',
-        href: '/practice/sifaat',
+        href: '/practice/trait',
         colorCode: 'amber',
       },
     ],
@@ -46,11 +46,11 @@ export const PRACTICE_SECTIONS: PracticeSection[] = [
     titleKey: 'sections.rules',
     modes: [
       {
-        id: 'ahkam',
-        titleKey: 'modes.ahkam.title',
-        descriptionKey: 'modes.ahkam.description',
+        id: 'rule',
+        titleKey: 'modes.rule.title',
+        descriptionKey: 'modes.rule.description',
         iconName: 'BookOpen',
-        href: '/practice/ahkam',
+        href: '/practice/rule',
         colorCode: 'emerald',
       },
       {

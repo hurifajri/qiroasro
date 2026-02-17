@@ -607,15 +607,15 @@
         "title": "الحروف الهجائية",
         "count": "30 عنصراً"
       },
-      "makharij": {
+      "articulation": {
         "title": "مخارج الحروف",
         "count": "17 مخرجاً"
       },
-      "sifaat": {
+      "trait": {
         "title": "صفات الحروف",
         "count": "17 صفة"
       },
-      "ahkam": {
+      "rule": {
         "title": "أحكام التجويد",
         "count": "الأحكام والقواعد"
       },
@@ -690,15 +690,15 @@
       "collections": "مجموعاتك"
     },
     "modes": {
-      "makharij": {
+      "articulation": {
         "title": "مخارج الحروف",
         "description": "تدريب على تحديد مخارج الحروف."
       },
-      "sifaat": {
+      "trait": {
         "title": "صفات الحروف",
         "description": "تحديد خصائص الحروف (الصفات)."
       },
-      "ahkam": {
+      "rule": {
         "title": "أحكام التجويد",
         "description": "ممارسة الأحكام مثل الإدغام والإخفاء."
       },

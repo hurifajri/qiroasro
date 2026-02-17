@@ -20,27 +20,27 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: true,
   },
   {
-    id: 'makharij',
-    titleKey: 'categories.makharij.title',
-    countKey: 'categories.makharij.count',
+    id: 'articulation',
+    titleKey: 'categories.articulation.title',
+    countKey: 'categories.articulation.count',
     iconSymbol: '🗣️',
-    href: '/reference/makharij',
+    href: '/reference/articulation',
     available: false, // Coming soon
   },
   {
-    id: 'sifaat',
-    titleKey: 'categories.sifaat.title',
-    countKey: 'categories.sifaat.count',
+    id: 'trait',
+    titleKey: 'categories.trait.title',
+    countKey: 'categories.trait.count',
     iconSymbol: '⚡',
-    href: '/reference/sifaat',
+    href: '/reference/trait',
     available: false, // Coming soon
   },
   {
-    id: 'ahkam',
-    titleKey: 'categories.ahkam.title',
-    countKey: 'categories.ahkam.count',
+    id: 'rule',
+    titleKey: 'categories.rule.title',
+    countKey: 'categories.rule.count',
     iconSymbol: '📐',
-    href: '/reference/ahkam',
+    href: '/reference/rule',
     available: false, // Coming soon
   },
   {
