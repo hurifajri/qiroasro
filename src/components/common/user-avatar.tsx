@@ -1,10 +1,14 @@
 import { Avatar, AvatarBadge, AvatarFallback } from '@/components/ui/avatar';
-import { getAvatarColorClass, getInitials } from '@/lib/avatar';
+import {
+  type AvatarColorCode,
+  getAvatarColorClass,
+  getInitials,
+} from '@/lib/avatar';
 import { cn } from '@/lib/utils';
 
 interface UserAvatarProps {
   name: string;
-  colorCode?: string | null;
+  colorCode?: AvatarColorCode;
   size?: 'sm' | 'default' | 'lg';
   hasOnlineBadge?: boolean;
   isOnline?: boolean;

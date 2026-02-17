@@ -11,6 +11,7 @@ import {
   pipe,
   string,
 } from 'valibot';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 
 // User Stats Schema
 export const UserStatsSchema = object({
@@ -31,7 +32,9 @@ export const LeaderboardEntrySchema = object({
   userId: string(),
   name: string(),
   xp: pipe(number(), integer()),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
   isCurrentUser: boolean(),
 });
 
@@ -78,7 +81,9 @@ export type UserStatus = InferOutput<typeof UserStatusSchema>;
 export const ActivityFeedItemSchema = object({
   id: string(),
   userName: string(),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
   activityDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   descriptionKey: string(), // i18n key
   reactionEmojis: array(string()), // e.g., ["🎉", "😊"]
@@ -93,7 +98,9 @@ export type ActivityFeedItem = InferOutput<typeof ActivityFeedItemSchema>;
 export const FollowEntrySchema = object({
   id: string(),
   name: string(),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
   xp: pipe(number(), integer()),
   isOnline: boolean(),
 });

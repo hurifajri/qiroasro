@@ -7,9 +7,11 @@ import {
   number,
   object,
   optional,
+  picklist,
   pipe,
   string,
 } from 'valibot';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 
 /**
  * User profile schema
@@ -17,7 +19,9 @@ import {
 export const UserProfileSchema = object({
   username: string(),
   displayName: string(),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
   joinedDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
   followingCount: pipe(number(), integer()),
   followersCount: pipe(number(), integer()),
@@ -44,7 +48,9 @@ export const FriendSuggestionSchema = object({
   id: string(),
   username: string(),
   displayName: string(),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
   mutualFriendsCount: pipe(number(), integer()),
   isFollowing: boolean(),
 });

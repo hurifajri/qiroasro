@@ -1,5 +1,6 @@
 import type { InferOutput } from 'valibot';
-import { boolean, object, optional, string } from 'valibot';
+import { boolean, object, optional, picklist, string } from 'valibot';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 
 /**
  * Preference Toggle Schema
@@ -31,7 +32,9 @@ export const ProfileFormSchema = object({
   name: string(),
   username: string(),
   email: string(),
-  avatarColorCode: optional(string()),
+  avatarColorCode: optional(
+    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
+  ),
 });
 
 export type ProfileForm = InferOutput<typeof ProfileFormSchema>;

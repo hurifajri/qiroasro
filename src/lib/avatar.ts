@@ -6,7 +6,7 @@
  * Avatar color map: semantic color codes → Tailwind classes
  * All classes are statically written so Tailwind JIT can detect them
  */
-export const AVATAR_COLORS = {
+const AVATAR_COLORS = {
   // Solid colors
   gray: 'bg-gray-500',
   indigo: 'bg-indigo-500',
@@ -72,11 +72,11 @@ export const AVATAR_GRADIENT_CODES = [
 /**
  * Get Tailwind classes for a given color code
  */
-export function getAvatarColorClass(colorCode?: string | null): string {
+export function getAvatarColorClass(colorCode?: AvatarColorCode): string {
   if (!colorCode || !(colorCode in AVATAR_COLORS)) {
     return AVATAR_COLORS[DEFAULT_AVATAR_COLOR_CODE];
   }
-  return AVATAR_COLORS[colorCode as AvatarColorCode];
+  return AVATAR_COLORS[colorCode];
 }
 
 /**
