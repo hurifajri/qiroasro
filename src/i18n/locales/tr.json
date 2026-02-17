@@ -18,6 +18,113 @@
       "eden": "Adn Cennetleri",
       "paradise": "Firdevs Cenneti"
     },
+    "achievements": {
+      "title": "Başarılar",
+      "view_all": "Tümünü Gör",
+      "level": "Seviye",
+      "consistency_streak": {
+        "title": "İstikamet Ateşi",
+        "description": "365 günlük öğrenme serisine ulaş. İstikrar Allah katında sevilir.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "İtkan Ustası",
+        "description": "100 dersi sıfır hatayla tamamla. Mükemmellik için çabala.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "El-Mahir",
+        "description": "5000 XP kazan. Kuran okumada mahir ol.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Fecr Arayan",
+        "description": "Sabah 7'den önce bir ders tamamla. Bereket sabahın erken saatlerindedir.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Teheccüd Savaşçısı",
+        "description": "Gece 10'dan sonra bir ders tamamla. Geceyi ilimle ihya et.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Uhuvvet Mimarı",
+        "description": "3 arkadaşını takip et. Müminler sağlam bir bina gibidir.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Tevvabin Ruhu",
+        "description": "Alıştırmalarda 50 hatayı düzelt. Doğruya dönmek erdemdir.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Hafta Sonu Hafızı",
+        "description": "Arka arkaya 4 hafta boyunca Cumartesi ve Pazar günleri ders tamamla.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "january_dawn": {
+        "title": "Fecr",
+        "surah_ref": "Al-Fajr",
+        "description": "Yolculuğuna şafak vakti gibi başla."
+      },
+      "february_pen": {
+        "title": "Kalem",
+        "surah_ref": "Al-Qalam",
+        "description": "İlim kalemle kayıt altına alınır."
+      },
+      "march_thunder": {
+        "title": "Gök Gürültüsü",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Gök gürültüsü gibi güçlü bir kıraat."
+      },
+      "april_fig": {
+        "title": "İncir",
+        "surah_ref": "At-Tin",
+        "description": "Sabır ve öğrenmenin tatlı meyveleri."
+      },
+      "may_star": {
+        "title": "Yıldız",
+        "surah_ref": "An-Najm",
+        "description": "Yıldızların rehberliğinde yükseği hedefle."
+      },
+      "june_sun": {
+        "title": "Güneş",
+        "surah_ref": "Ash-Shams",
+        "description": "Okumada netlik ile parla."
+      },
+      "july_iron": {
+        "title": "Demir",
+        "surah_ref": "Al-Hadid",
+        "description": "Güçlü irade ve kırılmaz istikrar."
+      },
+      "august_stars": {
+        "title": "Burçlar",
+        "surah_ref": "Al-Buruj",
+        "description": "Azimli çabalarla dolu bir gökyüzü."
+      },
+      "september_mount": {
+        "title": "Tur Dağı",
+        "surah_ref": "At-Tur",
+        "description": "Bir dağ gibi sağlam ve sarsılmaz."
+      },
+      "october_moon": {
+        "title": "Ay",
+        "surah_ref": "Al-Qamar",
+        "description": "Işığın güzel yansıması."
+      },
+      "november_night": {
+        "title": "Gece",
+        "surah_ref": "Al-Lail",
+        "description": "Sessiz saatlerde huzurlu adanmışlık."
+      },
+      "december_declining_day": {
+        "title": "Asır",
+        "surah_ref": "Al-'Asr",
+        "description": "Zaman geçmeden önce her anın kıymetini bil."
+      }
+    },
     "letter": {
       "hamzah": "Hemze",
       "ba": "Be",
@@ -252,28 +359,6 @@
       "monthly_badges": {
         "title": "Aylık Rozetler",
         "view_all": "Tümünü Gör"
-      },
-      "badges": {
-        "oscars_final_rose": {
-          "title": "Oscar'ın Son Gülü",
-          "date": "Şubat 2025"
-        },
-        "duos_frozen_winter": {
-          "title": "Duo'nun Donmuş Kışı",
-          "date": "Ocak 2025"
-        },
-        "oscars_ode_to_botticelli": {
-          "title": "Oscar'dan Botticelli'ye Övgü",
-          "date": "Kasım 2024"
-        },
-        "duocon_2024": {
-          "title": "Duocon 2024",
-          "date": "Eylül 2024"
-        },
-        "summer_owlympics": {
-          "title": "2024 Yaz Olimpiyatları",
-          "date": "Ağustos 2024"
-        }
       },
       "set_status": "Durum Ayarla",
       "logout": "Çıkış Yap"
@@ -803,15 +888,6 @@
       "followed_by": "{count} arkadaş tarafından takip ediliyor",
       "follow": "Takip Et",
       "following": "Takip Ediliyor"
-    },
-    "achievements": {
-      "title": "Başarılar",
-      "view_all": "Tümünü Gör",
-      "level": "Seviye",
-      "wildfire": {
-        "title": "Alev",
-        "description": "365 günlük bir seriye ulaştın"
-      }
     }
   },
   "settings_page": {

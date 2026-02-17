@@ -18,6 +18,113 @@
       "eden": "Jannatu 'Adn",
       "paradise": "Jannatul Firdaus"
     },
+    "achievements": {
+      "title": "Achievements",
+      "view_all": "View All",
+      "level": "Level",
+      "consistency_streak": {
+        "title": "Istiqamah Flame",
+        "description": "Reach a 365-day learning streak. Consistency is beloved by Allah.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "Itqan Master",
+        "description": "Complete 100 lessons with zero mistakes. Strive for perfection.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "Al-Mahir",
+        "description": "Earn 5000 XP. Be skilled in reciting the Quran.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Fajr Seeker",
+        "description": "Complete a lesson before 7 AM. Blessings are in the early hours.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Tahajjud Warrior",
+        "description": "Complete a lesson after 10 PM. Revive the night with knowledge.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Ukhuwah Builder",
+        "description": "Follow 3 friends. Believers are like a solid building.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Tawwabin Spirit",
+        "description": "Correct 50 mistakes in practice sessions. Returning to truth is noble.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Holiday Hafiz",
+        "description": "Complete lessons on Saturday and Sunday for 4 weeks in a row.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "january_dawn": {
+        "title": "The Dawn",
+        "surah_ref": "Al-Fajr",
+        "description": "Start your journey like the break of dawn."
+      },
+      "february_pen": {
+        "title": "The Pen",
+        "surah_ref": "Al-Qalam",
+        "description": "Knowledge is captured by the pen."
+      },
+      "march_thunder": {
+        "title": "The Thunder",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Powerful recitation like rolling thunder."
+      },
+      "april_fig": {
+        "title": "The Fig",
+        "surah_ref": "At-Tin",
+        "description": "Sweet fruits of patience and learning."
+      },
+      "may_star": {
+        "title": "The Star",
+        "surah_ref": "An-Najm",
+        "description": "Aim high, guided by the stars."
+      },
+      "june_sun": {
+        "title": "The Sun",
+        "surah_ref": "Ash-Shams",
+        "description": "Shine bright with clarity in reading."
+      },
+      "july_iron": {
+        "title": "The Iron",
+        "surah_ref": "Al-Hadid",
+        "description": "Strong will and unbreakable consistency."
+      },
+      "august_stars": {
+        "title": "The Mansions of the Stars",
+        "surah_ref": "Al-Buruj",
+        "description": "A sky full of persistent efforts."
+      },
+      "september_mount": {
+        "title": "The Mount",
+        "surah_ref": "At-Tur",
+        "description": "Firm and steadfast like a mountain."
+      },
+      "october_moon": {
+        "title": "The Moon",
+        "surah_ref": "Al-Qamar",
+        "description": "Beautiful reflection of the light."
+      },
+      "november_night": {
+        "title": "The Night",
+        "surah_ref": "Al-Lail",
+        "description": "Peaceful dedication in the quiet hours."
+      },
+      "december_declining_day": {
+        "title": "The Declining Day",
+        "surah_ref": "Al-'Asr",
+        "description": "Value every moment before time passes."
+      }
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -252,28 +359,6 @@
       "monthly_badges": {
         "title": "Monthly Badges",
         "view_all": "View All"
-      },
-      "badges": {
-        "oscars_final_rose": {
-          "title": "Oscar's Final Rose",
-          "date": "February 2025"
-        },
-        "duos_frozen_winter": {
-          "title": "Duo's Frozen Winter",
-          "date": "January 2025"
-        },
-        "oscars_ode_to_botticelli": {
-          "title": "Oscar's Ode to Botticelli",
-          "date": "November 2024"
-        },
-        "duocon_2024": {
-          "title": "Duocon 2024",
-          "date": "September 2024"
-        },
-        "summer_owlympics": {
-          "title": "2024 Summer Owlympics",
-          "date": "August 2024"
-        }
       },
       "set_status": "Set Status",
       "logout": "Log Out"
@@ -803,15 +888,6 @@
       "followed_by": "Followed by {count} friends",
       "follow": "Follow",
       "following": "Following"
-    },
-    "achievements": {
-      "title": "Achievements",
-      "view_all": "View All",
-      "level": "Level",
-      "wildfire": {
-        "title": "Wildfire",
-        "description": "You reached a 365-day streak"
-      }
     }
   },
   "settings_page": {

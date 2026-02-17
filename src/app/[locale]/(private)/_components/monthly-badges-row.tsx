@@ -9,14 +9,14 @@ import {
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
 import { getEmojiBadgeColorClass } from '../_lib/colors';
-import type { MonthlyBadge } from '../_schemas/private';
+import type { MonthlyBadge } from '../_schemas/badge';
 
 interface MonthlyBadgeRowProps {
   badge: MonthlyBadge;
 }
 
 export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
-  const t = useTranslations('global.private_layout');
+  const t = useTranslations('global');
 
   return (
     <Item asChild>
@@ -33,7 +33,9 @@ export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>{t(badge.titleKey)}</ItemTitle>
-          <ItemDescription>{t(badge.dateKey)}</ItemDescription>
+          <ItemDescription className="text-xs">
+            {t(badge.dateKey)}
+          </ItemDescription>
         </ItemContent>
       </li>
     </Item>

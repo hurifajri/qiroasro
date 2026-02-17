@@ -10,7 +10,7 @@ import {
 import { ItemGroup } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { MonthlyBadge } from '../_schemas/private';
+import type { MonthlyBadge } from '../_schemas/badge';
 import { MonthlyBadgesRow } from './monthly-badges-row';
 
 interface MonthlyBadgesCardProps {

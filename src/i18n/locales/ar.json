@@ -18,6 +18,113 @@
       "eden": "جنات عدن",
       "paradise": "جنة الفردوس"
     },
+    "achievements": {
+      "title": "الإنجازات",
+      "view_all": "عرض الكل",
+      "level": "المستوى",
+      "consistency_streak": {
+        "title": "شعلة الاستقامة",
+        "description": "حقق سلسلة تعلم لمدة 365 يوماً. الاستقامة أحب الأعمال إلى الله.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "أستاذ الإتقان",
+        "description": "أكمل 100 درس بدون أي خطأ. اسعَ نحو الكمال.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "الماهر",
+        "description": "اكسب 5000 نقطة خبرة. كن ماهراً في تلاوة القرآن.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "طالب الفجر",
+        "description": "أكمل درساً قبل الساعة 7 صباحاً. البركة في البكور.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "مجاهد التهجد",
+        "description": "أكمل درساً بعد الساعة 10 ليلاً. أحيِ الليل بالعلم.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "باني الأخوة",
+        "description": "تابع 3 أصدقاء. المؤمنون كالبنيان المرصوص.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "روح التوابين",
+        "description": "صحح 50 خطأ في الجلسات التدريبية. الرجوع إلى الحق فضيلة.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "حافظ العطلة",
+        "description": "أكمل الدروس يومي السبت والأحد لمدة 4 أسابيع متتالية.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "january_dawn": {
+        "title": "الفجر",
+        "surah_ref": "Al-Fajr",
+        "description": "ابدأ رحلتك كانبلاج الفجر."
+      },
+      "february_pen": {
+        "title": "القلم",
+        "surah_ref": "Al-Qalam",
+        "description": "العلم صيد والكتابة قيده."
+      },
+      "march_thunder": {
+        "title": "الرعد",
+        "surah_ref": "Ar-Ra'd",
+        "description": "تلاوة قوية مثل الرعد المسبح."
+      },
+      "april_fig": {
+        "title": "التين",
+        "surah_ref": "At-Tin",
+        "description": "ثمار حلوة للصبر والتعلم."
+      },
+      "may_star": {
+        "title": "النجم",
+        "surah_ref": "An-Najm",
+        "description": "طموح عالٍ يهتدي بالنجوم."
+      },
+      "june_sun": {
+        "title": "الشمس",
+        "surah_ref": "Ash-Shams",
+        "description": "أشرق بوضوح في تلاوتك."
+      },
+      "july_iron": {
+        "title": "الحديد",
+        "surah_ref": "Al-Hadid",
+        "description": "إرادة قوية واستقامة لا تلين."
+      },
+      "august_stars": {
+        "title": "البروج",
+        "surah_ref": "Al-Buruj",
+        "description": "سماء مليئة بالجهود المستمرة."
+      },
+      "september_mount": {
+        "title": "الطور",
+        "surah_ref": "At-Tur",
+        "description": "راسخ وثابت مثل الجبل."
+      },
+      "october_moon": {
+        "title": "القمر",
+        "surah_ref": "Al-Qamar",
+        "description": "انعكاس جميل للنور."
+      },
+      "november_night": {
+        "title": "الليل",
+        "surah_ref": "Al-Lail",
+        "description": "تفانٍ هادئ في ساعات السكون."
+      },
+      "december_declining_day": {
+        "title": "العصر",
+        "surah_ref": "Al-'Asr",
+        "description": "اغتنم كل لحظة قبل فوات الأوان."
+      }
+    },
     "letter": {
       "hamzah": "همزة",
       "ba": "باء",
@@ -252,28 +359,6 @@
       "monthly_badges": {
         "title": "الشارات الشهرية",
         "view_all": "عرض الكل"
-      },
-      "badges": {
-        "oscars_final_rose": {
-          "title": "وردة أوسكار الأخيرة",
-          "date": "فبراير 2025"
-        },
-        "duos_frozen_winter": {
-          "title": "شتاء دو المتجمد",
-          "date": "يناير 2025"
-        },
-        "oscars_ode_to_botticelli": {
-          "title": "قصيدة أوسكار لبوتيتشيلي",
-          "date": "نوفمبر 2024"
-        },
-        "duocon_2024": {
-          "title": "دوكون 2024",
-          "date": "سبتمبر 2024"
-        },
-        "summer_owlympics": {
-          "title": "أولمبياد صيف 2024",
-          "date": "أغسطس 2024"
-        }
       },
       "set_status": "تعيين الحالة",
       "logout": "تسجيل الخروج"
@@ -803,15 +888,6 @@
       "followed_by": "يتابعه {count} من الأصدقاء",
       "follow": "متابعة",
       "following": "تتابع"
-    },
-    "achievements": {
-      "title": "الإنجازات",
-      "view_all": "عرض الكل",
-      "level": "المستوى",
-      "wildfire": {
-        "title": "شعلة الحماس",
-        "description": "لقد وصلت إلى سلسلة 365 يوماً"
-      }
     }
   },
   "settings_page": {

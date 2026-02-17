@@ -2,7 +2,6 @@ import type {
   ActivityFeedItem,
   FollowEntry,
   LeaderboardEntry,
-  MonthlyBadge,
   NavItem,
   Quest,
   UserStats,
@@ -261,46 +260,5 @@ export const MOCK_FOLLOWERS: FollowEntry[] = [
     avatarColorCode: 'violet',
     xp: 205000,
     isOnline: true,
-  },
-];
-
-/**
- * Mock monthly badges
- */
-export const MOCK_MONTHLY_BADGES: MonthlyBadge[] = [
-  {
-    id: 1,
-    titleKey: 'badges.oscars_final_rose.title',
-    dateKey: 'badges.oscars_final_rose.date',
-    emoji: '🌹',
-    emojiColorCode: 'rose_pink',
-  },
-  {
-    id: 2,
-    titleKey: 'badges.duos_frozen_winter.title',
-    dateKey: 'badges.duos_frozen_winter.date',
-    emoji: '❄️',
-    emojiColorCode: 'sky_blue',
-  },
-  {
-    id: 3,
-    titleKey: 'badges.oscars_ode_to_botticelli.title',
-    dateKey: 'badges.oscars_ode_to_botticelli.date',
-    emoji: '🎨',
-    emojiColorCode: 'blue_indigo',
-  },
-  {
-    id: 4,
-    titleKey: 'badges.duocon_2024.title',
-    dateKey: 'badges.duocon_2024.date',
-    emoji: '🎯',
-    emojiColorCode: 'indigo_violet',
-  },
-  {
-    id: 5,
-    titleKey: 'badges.summer_owlympics.title',
-    dateKey: 'badges.summer_owlympics.date',
-    emoji: '🏅',
-    emojiColorCode: 'emerald_teal',
   },
 ];

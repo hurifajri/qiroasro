@@ -12,7 +12,6 @@ import {
   string,
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '../_lib/avatar';
-import { EMOJI_BADGE_COLOR_CODES } from '../_lib/colors';
 import { LEAGUE_NAME_KEYS } from './league';
 
 const LeagueNameKeySchema = picklist(LEAGUE_NAME_KEYS);
@@ -111,16 +110,3 @@ export const FollowEntrySchema = object({
 });
 
 export type FollowEntry = InferOutput<typeof FollowEntrySchema>;
-
-/**
- * Monthly Badge Schema
- */
-export const MonthlyBadgeSchema = object({
-  id: pipe(number(), integer()),
-  titleKey: string(), // i18n key
-  dateKey: string(), // i18n key for month/year
-  emoji: string(), // emoji icon
-  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
-});
-
-export type MonthlyBadge = InferOutput<typeof MonthlyBadgeSchema>;

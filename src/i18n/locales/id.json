@@ -18,6 +18,113 @@
       "eden": "Jannatu 'Adn",
       "paradise": "Jannatul Firdaus"
     },
+    "achievements": {
+      "title": "Pencapaian",
+      "view_all": "Lihat Semua",
+      "level": "Level",
+      "consistency_streak": {
+        "title": "Api Istiqamah",
+        "description": "Raih rentetan belajar 365 hari. Konsistensi sangat dicintai Allah.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "Ahli Itqan",
+        "description": "Selesaikan 100 pelajaran tanpa kesalahan. Kejarlah kesempurnaan.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "Al-Mahir",
+        "description": "Dapatkan 5000 XP. Jadilah mahir dalam membaca Al-Quran.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Pencari Fajar",
+        "description": "Selesaikan pelajaran sebelum jam 7 pagi. Keberkahan ada di waktu pagi.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Pejuang Tahajjud",
+        "description": "Selesaikan pelajaran setelah jam 10 malam. Hidupkan malam dengan ilmu.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Pembangun Ukhuwah",
+        "description": "Ikuti 3 teman. Orang beriman ibarat bangunan yang kokoh.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Jiwa Tawwabin",
+        "description": "Perbaiki 50 kesalahan dalam latihan. Kembali pada kebenaran itu mulia.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Hafiz Akhir Pekan",
+        "description": "Selesaikan pelajaran pada Sabtu dan Minggu selama 4 minggu berturut-turut.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "january_dawn": {
+        "title": "Sang Fajar",
+        "surah_ref": "Al-Fajr",
+        "description": "Mulailah perjalananmu seperti menyingsingnya fajar."
+      },
+      "february_pen": {
+        "title": "Sang Pena",
+        "surah_ref": "Al-Qalam",
+        "description": "Ilmu itu diikat dengan pena."
+      },
+      "march_thunder": {
+        "title": "Guruh",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Bacaan yang kuat laksana guruh yang bertasbih."
+      },
+      "april_fig": {
+        "title": "Buah Tin",
+        "surah_ref": "At-Tin",
+        "description": "Buah manis dari kesabaran dan pembelajaran."
+      },
+      "may_star": {
+        "title": "Sang Bintang",
+        "surah_ref": "An-Najm",
+        "description": "Bercita-cita tinggi dengan petunjuk bintang."
+      },
+      "june_sun": {
+        "title": "Sang Matahari",
+        "surah_ref": "Ash-Shams",
+        "description": "Bersinar terang dengan kejelasan dalam membaca."
+      },
+      "july_iron": {
+        "title": "Besi",
+        "surah_ref": "Al-Hadid",
+        "description": "Kemauan yang kuat dan konsistensi yang tak tergoyahkan."
+      },
+      "august_stars": {
+        "title": "Gugusan Bintang",
+        "surah_ref": "Al-Buruj",
+        "description": "Langit yang penuh dengan usaha yang gigih."
+      },
+      "september_mount": {
+        "title": "Bukit Tursina",
+        "surah_ref": "At-Tur",
+        "description": "Teguh dan kokoh laksana gunung."
+      },
+      "october_moon": {
+        "title": "Sang Bulan",
+        "surah_ref": "Al-Qamar",
+        "description": "Pantulan cahaya yang indah."
+      },
+      "november_night": {
+        "title": "Sang Malam",
+        "surah_ref": "Al-Lail",
+        "description": "Dedikasi yang damai di waktu-waktu sunyi."
+      },
+      "december_declining_day": {
+        "title": "Masa",
+        "surah_ref": "Al-'Asr",
+        "description": "Hargai setiap detik sebelum waktu berlalu."
+      }
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -252,28 +359,6 @@
       "monthly_badges": {
         "title": "Lencana Bulanan",
         "view_all": "Lihat Semua"
-      },
-      "badges": {
-        "oscars_final_rose": {
-          "title": "Mawar Terakhir Oscar",
-          "date": "Februari 2025"
-        },
-        "duos_frozen_winter": {
-          "title": "Musim Dingin Beku Duo",
-          "date": "Januari 2025"
-        },
-        "oscars_ode_to_botticelli": {
-          "title": "Ode Oscar untuk Botticelli",
-          "date": "November 2024"
-        },
-        "duocon_2024": {
-          "title": "Duocon 2024",
-          "date": "September 2024"
-        },
-        "summer_owlympics": {
-          "title": "Olimpiade Musim Panas 2024",
-          "date": "Agustus 2024"
-        }
       },
       "set_status": "Atur Status",
       "logout": "Keluar"
@@ -803,15 +888,6 @@
       "followed_by": "Diikuti oleh {count} teman",
       "follow": "Ikuti",
       "following": "Mengikuti"
-    },
-    "achievements": {
-      "title": "Pencapaian",
-      "view_all": "Lihat Semua",
-      "level": "Level",
-      "wildfire": {
-        "title": "Semangat Membara",
-        "description": "Kamu mencapai rekor 365 hari"
-      }
     }
   },
   "settings_page": {
