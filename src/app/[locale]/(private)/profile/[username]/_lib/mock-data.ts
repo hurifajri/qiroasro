@@ -24,7 +24,7 @@ export const MOCK_STATISTICS: Statistic[] = [
   {
     id: 'streak',
     labelKey: 'day_streak',
-    value: 0,
+    value: 3,
     icon: 'flame',
   },
   {
@@ -36,7 +36,7 @@ export const MOCK_STATISTICS: Statistic[] = [
   {
     id: 'league',
     labelKey: 'current_league',
-    value: 0,
+    value: 'Obsidian',
     icon: 'shield',
   },
   {

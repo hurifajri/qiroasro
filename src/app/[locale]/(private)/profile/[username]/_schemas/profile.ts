@@ -10,6 +10,7 @@ import {
   picklist,
   pipe,
   string,
+  union,
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 import { EMOJI_BADGE_COLOR_CODES } from '@/lib/colors';
@@ -36,7 +37,7 @@ export type UserProfile = InferOutput<typeof UserProfileSchema>;
 export const StatisticSchema = object({
   id: string(),
   labelKey: string(), // i18n key
-  value: pipe(number(), integer()),
+  value: union([string(), pipe(number(), integer())]),
   icon: string(), // lucide icon name
 });
 

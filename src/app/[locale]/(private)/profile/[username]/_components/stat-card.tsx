@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 interface StatCardProps {
   label: string;
-  value: number;
+  value: number | string;
   icon: string;
 }
 
@@ -19,7 +19,7 @@ export function StatCard({ label, value, icon }: StatCardProps) {
   const Icon = iconMap[icon as keyof typeof iconMap];
 
   // Determine if the stat is zero (inactive)
-  const isActive = value !== 0;
+  const isActive = (value || 0) !== 0;
 
   return (
     <Card>
@@ -37,7 +37,7 @@ export function StatCard({ label, value, icon }: StatCardProps) {
               isActive ? 'text-primary' : 'text-muted-foreground',
             )}
           >
-            {value}
+            {value === '' ? '-' : value}
           </span>
           <p className="text-muted-foreground text-sm">{label}</p>
         </div>
