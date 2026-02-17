@@ -46,7 +46,7 @@ export function Profile({
 
       {/* Friend Suggestions */}
       <section className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-xl">{t('friend_suggestions.title')}</h2>
           <Button variant="link" className="px-0 uppercase">
             {t('friend_suggestions.view_all')}
@@ -59,7 +59,7 @@ export function Profile({
 
       {/* Achievements */}
       <section className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-xl">{t('achievements.title')}</h2>
           <Button variant="link" className="px-0 uppercase">
             {t('achievements.view_all')}

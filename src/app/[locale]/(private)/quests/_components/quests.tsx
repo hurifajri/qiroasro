@@ -27,7 +27,7 @@ export function Quests({ monthlyQuest, dailyQuests }: QuestsProps) {
 
       {/* Daily Quests */}
       <section className="flex flex-col gap-4">
-        <div className="flex items-center justify-between">
+        <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-xl">{t('daily_quests.title')}</h2>
           <div className="flex items-center gap-1 text-amber-600 text-sm dark:text-amber-500">
             <Clock className="size-4" />

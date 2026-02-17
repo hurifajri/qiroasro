@@ -17,7 +17,7 @@ export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
     : currentLeague;
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <section className="flex flex-col items-center gap-4">
       {/* League icons row */}
       <div className="flex items-center justify-center gap-3">
         {leagues.map((league) => {
@@ -50,6 +50,6 @@ export function LeagueHeader({ leagues, currentLeague }: LeagueHeaderProps) {
           {t('week_info')}
         </Badge>
       </div>
-    </div>
+    </section>
   );
 }
