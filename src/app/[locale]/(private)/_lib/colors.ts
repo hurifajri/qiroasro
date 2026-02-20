@@ -7,7 +7,7 @@
  * GRADIENT_COLORS — single-color gradient backgrounds
  * Used by: quest card bg, unit header bg
  */
-export const GRADIENT_COLORS = {
+const GRADIENT_COLORS = {
   rose: 'bg-gradient-to-br from-rose-400 to-rose-500 dark:from-rose-600 dark:to-rose-700',
   orange:
     'bg-gradient-to-br from-orange-400 to-orange-500 dark:from-orange-600 dark:to-orange-700',
@@ -34,9 +34,7 @@ export const GRADIENT_COLORS = {
     'bg-gradient-to-br from-fuchsia-400 to-fuchsia-500 dark:from-fuchsia-600 dark:to-fuchsia-700',
 } as const;
 
-export type GradientColorCode = keyof typeof GRADIENT_COLORS;
-
-const DEFAULT_GRADIENT_COLOR_CODE: GradientColorCode = 'rose';
+type GradientColorCode = keyof typeof GRADIENT_COLORS;
 
 export const GRADIENT_COLOR_CODES = Object.keys(
   GRADIENT_COLORS,
@@ -44,6 +42,7 @@ export const GRADIENT_COLOR_CODES = Object.keys(
 
 export function getGradientColorClass(colorCode?: GradientColorCode): string {
   if (!colorCode || !(colorCode in GRADIENT_COLORS)) {
+    const DEFAULT_GRADIENT_COLOR_CODE: GradientColorCode = 'rose';
     return GRADIENT_COLORS[DEFAULT_GRADIENT_COLOR_CODE];
   }
   return GRADIENT_COLORS[colorCode];
@@ -53,7 +52,7 @@ export function getGradientColorClass(colorCode?: GradientColorCode): string {
  * EMOJI_BADGE_COLORS — multi-color gradient backgrounds for emoji/badge
  * Used by: monthly badge emoji bg, achievement emoji bg, quest reward icon bg
  */
-export const EMOJI_BADGE_COLORS = {
+const EMOJI_BADGE_COLORS = {
   // badges
   orange_rose: 'bg-gradient-to-br from-orange-300 to-rose-500',
   blue_indigo: 'bg-gradient-to-br from-blue-400 to-indigo-600',
@@ -89,9 +88,7 @@ export const EMOJI_BADGE_COLORS = {
   cyan_teal: 'bg-gradient-to-br from-cyan-400 to-teal-500',
 } as const;
 
-export type EmojiBadgeColorCode = keyof typeof EMOJI_BADGE_COLORS;
-
-const DEFAULT_EMOJI_BADGE_COLOR_CODE: EmojiBadgeColorCode = 'orange_red';
+type EmojiBadgeColorCode = keyof typeof EMOJI_BADGE_COLORS;
 
 export const EMOJI_BADGE_COLOR_CODES = Object.keys(
   EMOJI_BADGE_COLORS,
@@ -101,6 +98,7 @@ export function getEmojiBadgeColorClass(
   colorCode?: EmojiBadgeColorCode,
 ): string {
   if (!colorCode || !(colorCode in EMOJI_BADGE_COLORS)) {
+    const DEFAULT_EMOJI_BADGE_COLOR_CODE: EmojiBadgeColorCode = 'orange_red';
     return EMOJI_BADGE_COLORS[DEFAULT_EMOJI_BADGE_COLOR_CODE];
   }
   return EMOJI_BADGE_COLORS[colorCode];
@@ -110,7 +108,7 @@ export function getEmojiBadgeColorClass(
  * PRACTICE_COLORS — card bg/border/hover + icon text color
  * Used by: practice-item.tsx
  */
-export const PRACTICE_COLORS = {
+const PRACTICE_COLORS = {
   rose: {
     card: 'bg-rose-500/10 border-rose-500/30! hover:bg-rose-500/20',
     icon: 'text-rose-500',
@@ -137,19 +135,14 @@ export const PRACTICE_COLORS = {
   },
 } as const;
 
-export type PracticeColorCode = keyof typeof PRACTICE_COLORS;
-
-const DEFAULT_PRACTICE_COLOR_CODE: PracticeColorCode = 'rose';
-
-export const PRACTICE_COLOR_CODES = Object.keys(
-  PRACTICE_COLORS,
-) as PracticeColorCode[];
+type PracticeColorCode = keyof typeof PRACTICE_COLORS;
 
 export function getPracticeColors(colorCode?: PracticeColorCode): {
   card: string;
   icon: string;
 } {
   if (!colorCode || !(colorCode in PRACTICE_COLORS)) {
+    const DEFAULT_PRACTICE_COLOR_CODE: PracticeColorCode = 'rose';
     return PRACTICE_COLORS[DEFAULT_PRACTICE_COLOR_CODE];
   }
   return PRACTICE_COLORS[colorCode];
@@ -160,7 +153,7 @@ export function getPracticeColors(colorCode?: PracticeColorCode): {
  * colorCode: for quest card background (GRADIENT_COLORS)
  * emojiColorCode: for emoji/badge background (EMOJI_BADGE_COLORS)
  */
-export const MONTHLY_THEMES = {
+const MONTHLY_THEMES = {
   1: { colorCode: 'blue', emojiColorCode: 'sky_blue', emoji: '❄️' },
   2: { colorCode: 'sky', emojiColorCode: 'sky_blue', emoji: '💨' },
   3: { colorCode: 'emerald', emojiColorCode: 'emerald_teal', emoji: '🌱' },

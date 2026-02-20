@@ -7,7 +7,6 @@
  * All classes are statically written so Tailwind JIT can detect them
  */
 const SOLID_COLORS = {
-  // Solid colors
   gray: 'bg-gray-500',
   indigo: 'bg-indigo-500',
   emerald: 'bg-emerald-500',
@@ -20,7 +19,6 @@ const SOLID_COLORS = {
 } as const;
 
 const GRADIENT_COLORS = {
-  // Gradient colors
   indigo_rose: 'bg-gradient-to-br from-indigo-500 to-rose-500',
   rose_indigo: 'bg-gradient-to-br from-rose-500 to-indigo-500',
   emerald_rose: 'bg-gradient-to-br from-emerald-500 to-rose-500',
@@ -36,10 +34,7 @@ const GRADIENT_COLORS = {
 } as const;
 
 export const AVATAR_COLORS = { ...SOLID_COLORS, ...GRADIENT_COLORS } as const;
-
 export type AvatarColorCode = keyof typeof AVATAR_COLORS;
-
-const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
 
 /**
  * Solid color codes (for free users)
@@ -60,6 +55,7 @@ export const AVATAR_GRADIENT_CODES = Object.keys(
  */
 export function getAvatarColorClass(colorCode?: AvatarColorCode): string {
   if (!colorCode || !(colorCode in AVATAR_COLORS)) {
+    const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
     return AVATAR_COLORS[DEFAULT_AVATAR_COLOR_CODE];
   }
   return AVATAR_COLORS[colorCode];
