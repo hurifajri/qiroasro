@@ -40,7 +40,7 @@ export const GRADIENT_COLOR_CODES = Object.keys(
   GRADIENT_COLORS,
 ) as GradientColorCode[];
 
-export function getGradientColorClass(colorCode?: GradientColorCode): string {
+export function getGradientColorClass(colorCode?: GradientColorCode) {
   if (!colorCode || !(colorCode in GRADIENT_COLORS)) {
     const DEFAULT_GRADIENT_COLOR_CODE: GradientColorCode = 'rose';
     return GRADIENT_COLORS[DEFAULT_GRADIENT_COLOR_CODE];
@@ -94,9 +94,7 @@ export const EMOJI_BADGE_COLOR_CODES = Object.keys(
   EMOJI_BADGE_COLORS,
 ) as EmojiBadgeColorCode[];
 
-export function getEmojiBadgeColorClass(
-  colorCode?: EmojiBadgeColorCode,
-): string {
+export function getEmojiBadgeColorClass(colorCode?: EmojiBadgeColorCode) {
   if (!colorCode || !(colorCode in EMOJI_BADGE_COLORS)) {
     const DEFAULT_EMOJI_BADGE_COLOR_CODE: EmojiBadgeColorCode = 'orange_red';
     return EMOJI_BADGE_COLORS[DEFAULT_EMOJI_BADGE_COLOR_CODE];
@@ -137,10 +135,7 @@ const PRACTICE_COLORS = {
 
 type PracticeColorCode = keyof typeof PRACTICE_COLORS;
 
-export function getPracticeColors(colorCode?: PracticeColorCode): {
-  card: string;
-  icon: string;
-} {
+export function getPracticeColors(colorCode?: PracticeColorCode) {
   if (!colorCode || !(colorCode in PRACTICE_COLORS)) {
     const DEFAULT_PRACTICE_COLOR_CODE: PracticeColorCode = 'rose';
     return PRACTICE_COLORS[DEFAULT_PRACTICE_COLOR_CODE];
