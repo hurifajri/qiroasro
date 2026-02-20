@@ -4,10 +4,10 @@
  */
 
 /**
- * GRADIENT_COLORS — single-color gradient backgrounds
+ * CARD_COLORS — single-color gradient backgrounds
  * Used by: quest card bg, unit header bg
  */
-const GRADIENT_COLORS = {
+const CARD_COLORS = {
   rose: 'bg-gradient-to-br from-rose-400 to-rose-500 dark:from-rose-600 dark:to-rose-700',
   orange:
     'bg-gradient-to-br from-orange-400 to-orange-500 dark:from-orange-600 dark:to-orange-700',
@@ -34,18 +34,16 @@ const GRADIENT_COLORS = {
     'bg-gradient-to-br from-fuchsia-400 to-fuchsia-500 dark:from-fuchsia-600 dark:to-fuchsia-700',
 } as const;
 
-export type GradientColorCode = keyof typeof GRADIENT_COLORS;
+export type CardColorCode = keyof typeof CARD_COLORS;
 
-export const GRADIENT_COLOR_CODES = Object.keys(
-  GRADIENT_COLORS,
-) as GradientColorCode[];
+export const CARD_COLOR_CODES = Object.keys(CARD_COLORS) as CardColorCode[];
 
-export function getGradientColorClass(colorCode?: GradientColorCode) {
-  if (!colorCode || !(colorCode in GRADIENT_COLORS)) {
-    const DEFAULT_GRADIENT_COLOR_CODE: GradientColorCode = 'rose';
-    return GRADIENT_COLORS[DEFAULT_GRADIENT_COLOR_CODE];
+export function getCardColorClass(colorCode?: CardColorCode) {
+  if (!colorCode || !(colorCode in CARD_COLORS)) {
+    const DEFAULT_CARD_COLOR_CODE: CardColorCode = 'rose';
+    return CARD_COLORS[DEFAULT_CARD_COLOR_CODE];
   }
-  return GRADIENT_COLORS[colorCode];
+  return CARD_COLORS[colorCode];
 }
 
 /**

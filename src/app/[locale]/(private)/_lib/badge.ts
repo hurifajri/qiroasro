@@ -1,5 +1,5 @@
 import type { MonthlyBadge } from '../_schemas/badge';
-import type { EmojiColorCode, GradientColorCode } from './colors';
+import type { CardColorCode, EmojiColorCode } from './colors';
 
 /**
  * Monthly badges
@@ -102,7 +102,7 @@ function getMonthlyBadge(month: number) {
 
 /**
  * MONTHLY_THEMES — per-month configuration
- * colorCode: for quest card background (GRADIENT_COLORS)
+ * colorCode: for quest card background (CARD_COLORS)
  * emojiColorCode: for emoji/badge background (EMOJI_COLORS)
  */
 const MONTHLY_THEMES = {
@@ -121,7 +121,7 @@ const MONTHLY_THEMES = {
 } as const satisfies Record<
   number,
   {
-    colorCode: GradientColorCode;
+    colorCode: CardColorCode;
     emojiColorCode: EmojiColorCode;
     emoji: string;
   }

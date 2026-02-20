@@ -11,7 +11,7 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
-import { getGradientColorClass } from '../../_lib/colors';
+import { getCardColorClass } from '../../_lib/colors';
 import type { Unit } from '../_schemas/learn';
 
 interface UnitHeaderProps {
@@ -38,7 +38,7 @@ export function UnitHeader({
       variant="muted"
       className={cn(
         'sticky top-20 z-10 rounded-xl p-4 md:top-6',
-        getGradientColorClass(unit.colorCode),
+        getCardColorClass(unit.colorCode),
       )}
     >
       <ItemContent>

@@ -14,7 +14,7 @@ import {
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
-import { getEmojiColorClass, getGradientColorClass } from '../../_lib/colors';
+import { getCardColorClass, getEmojiColorClass } from '../../_lib/colors';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
@@ -37,7 +37,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
   });
 
   return (
-    <Card className={getGradientColorClass(quest.colorCode)}>
+    <Card className={getCardColorClass(quest.colorCode)}>
       <CardHeader>
         <CardAction>
           <Badge
