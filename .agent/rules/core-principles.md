@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 1. Core Principles
+## Core Principles
 
 ### KISS (Keep It Simple, Stupid)
 

@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 11. Quick Reference
+## Quick Reference
 
 ### Do's ✅
 

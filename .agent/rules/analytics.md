@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 9. Analytics
+## Analytics
 
 ### Overview
 

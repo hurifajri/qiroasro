@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 10. React Flow Performance
+## React Flow Performance
 
 React Flow can suffer from performance issues on mobile devices, especially during zoom + click interactions. Follow these guidelines to optimize performance.
 

@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 6. SEO, Accessibility and Semantic HTML
+## SEO, Accessibility and Semantic HTML
 
 ### SEO Requirements
 

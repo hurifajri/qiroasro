@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 0. Available Scripts
+## Available Scripts
 
 All commands should be run with `pnpm`:
 
@@ -11,10 +11,11 @@ All commands should be run with `pnpm`:
 | `pnpm dev` | Start Next.js development server |
 | `pnpm build` | Build production bundle |
 | `pnpm start` | Start production server |
-| `pnpm format` | Format code with Biome |
 | `pnpm check` | Run Biome linter & apply safe fixes |
+| `pnpm fix` | Run unsafe Biome fixes (--write mode) |
 | `pnpm check:types` | TypeScript type checking (no emit) |
 | `pnpm check:packages` | Check for outdated packages |
+| `pnpm build:analyze` | Analyze production bundle |
 
 ### Common Workflows
 

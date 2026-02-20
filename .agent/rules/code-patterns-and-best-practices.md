@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 5. Code Patterns and Best Practices
+## Code Patterns and Best Practices
 
 ### Component Patterns
 
