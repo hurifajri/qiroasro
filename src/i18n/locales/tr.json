@@ -64,62 +64,62 @@
       }
     },
     "badges": {
-      "january_dawn": {
+      "dawn": {
         "title": "Fecr",
         "surah_ref": "Al-Fajr",
         "description": "Yolculuğuna şafak vakti gibi başla."
       },
-      "february_pen": {
+      "pen": {
         "title": "Kalem",
         "surah_ref": "Al-Qalam",
         "description": "İlim kalemle kayıt altına alınır."
       },
-      "march_thunder": {
+      "thunder": {
         "title": "Gök Gürültüsü",
         "surah_ref": "Ar-Ra'd",
         "description": "Gök gürültüsü gibi güçlü bir kıraat."
       },
-      "april_fig": {
+      "fig": {
         "title": "İncir",
         "surah_ref": "At-Tin",
         "description": "Sabır ve öğrenmenin tatlı meyveleri."
       },
-      "may_star": {
+      "star": {
         "title": "Yıldız",
         "surah_ref": "An-Najm",
         "description": "Yıldızların rehberliğinde yükseği hedefle."
       },
-      "june_sun": {
+      "sun": {
         "title": "Güneş",
         "surah_ref": "Ash-Shams",
         "description": "Okumada netlik ile parla."
       },
-      "july_iron": {
+      "iron": {
         "title": "Demir",
         "surah_ref": "Al-Hadid",
         "description": "Güçlü irade ve kırılmaz istikrar."
       },
-      "august_stars": {
+      "stars": {
         "title": "Burçlar",
         "surah_ref": "Al-Buruj",
         "description": "Azimli çabalarla dolu bir gökyüzü."
       },
-      "september_mount": {
+      "mount": {
         "title": "Tur Dağı",
         "surah_ref": "At-Tur",
         "description": "Bir dağ gibi sağlam ve sarsılmaz."
       },
-      "october_moon": {
+      "moon": {
         "title": "Ay",
         "surah_ref": "Al-Qamar",
         "description": "Işığın güzel yansıması."
       },
-      "november_night": {
+      "night": {
         "title": "Gece",
         "surah_ref": "Al-Lail",
         "description": "Sessiz saatlerde huzurlu adanmışlık."
       },
-      "december_declining_day": {
+      "declining_day": {
         "title": "Asır",
         "surah_ref": "Al-'Asr",
         "description": "Zaman geçmeden önce her anın kıymetini bil."

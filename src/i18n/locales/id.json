@@ -64,62 +64,62 @@
       }
     },
     "badges": {
-      "january_dawn": {
+      "dawn": {
         "title": "Sang Fajar",
         "surah_ref": "Al-Fajr",
         "description": "Mulailah perjalananmu seperti menyingsingnya fajar."
       },
-      "february_pen": {
+      "pen": {
         "title": "Sang Pena",
         "surah_ref": "Al-Qalam",
         "description": "Ilmu itu diikat dengan pena."
       },
-      "march_thunder": {
+      "thunder": {
         "title": "Guruh",
         "surah_ref": "Ar-Ra'd",
         "description": "Bacaan yang kuat laksana guruh yang bertasbih."
       },
-      "april_fig": {
+      "fig": {
         "title": "Buah Tin",
         "surah_ref": "At-Tin",
         "description": "Buah manis dari kesabaran dan pembelajaran."
       },
-      "may_star": {
+      "star": {
         "title": "Sang Bintang",
         "surah_ref": "An-Najm",
         "description": "Bercita-cita tinggi dengan petunjuk bintang."
       },
-      "june_sun": {
+      "sun": {
         "title": "Sang Matahari",
         "surah_ref": "Ash-Shams",
         "description": "Bersinar terang dengan kejelasan dalam membaca."
       },
-      "july_iron": {
+      "iron": {
         "title": "Besi",
         "surah_ref": "Al-Hadid",
         "description": "Kemauan yang kuat dan konsistensi yang tak tergoyahkan."
       },
-      "august_stars": {
+      "stars": {
         "title": "Gugusan Bintang",
         "surah_ref": "Al-Buruj",
         "description": "Langit yang penuh dengan usaha yang gigih."
       },
-      "september_mount": {
+      "mount": {
         "title": "Bukit Tursina",
         "surah_ref": "At-Tur",
         "description": "Teguh dan kokoh laksana gunung."
       },
-      "october_moon": {
+      "moon": {
         "title": "Sang Bulan",
         "surah_ref": "Al-Qamar",
         "description": "Pantulan cahaya yang indah."
       },
-      "november_night": {
+      "night": {
         "title": "Sang Malam",
         "surah_ref": "Al-Lail",
         "description": "Dedikasi yang damai di waktu-waktu sunyi."
       },
-      "december_declining_day": {
+      "declining_day": {
         "title": "Masa",
         "surah_ref": "Al-'Asr",
         "description": "Hargai setiap detik sebelum waktu berlalu."

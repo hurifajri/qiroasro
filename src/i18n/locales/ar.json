@@ -64,62 +64,62 @@
       }
     },
     "badges": {
-      "january_dawn": {
+      "dawn": {
         "title": "الفجر",
         "surah_ref": "Al-Fajr",
         "description": "ابدأ رحلتك كانبلاج الفجر."
       },
-      "february_pen": {
+      "pen": {
         "title": "القلم",
         "surah_ref": "Al-Qalam",
         "description": "العلم صيد والكتابة قيده."
       },
-      "march_thunder": {
+      "thunder": {
         "title": "الرعد",
         "surah_ref": "Ar-Ra'd",
         "description": "تلاوة قوية مثل الرعد المسبح."
       },
-      "april_fig": {
+      "fig": {
         "title": "التين",
         "surah_ref": "At-Tin",
         "description": "ثمار حلوة للصبر والتعلم."
       },
-      "may_star": {
+      "star": {
         "title": "النجم",
         "surah_ref": "An-Najm",
         "description": "طموح عالٍ يهتدي بالنجوم."
       },
-      "june_sun": {
+      "sun": {
         "title": "الشمس",
         "surah_ref": "Ash-Shams",
         "description": "أشرق بوضوح في تلاوتك."
       },
-      "july_iron": {
+      "iron": {
         "title": "الحديد",
         "surah_ref": "Al-Hadid",
         "description": "إرادة قوية واستقامة لا تلين."
       },
-      "august_stars": {
+      "stars": {
         "title": "البروج",
         "surah_ref": "Al-Buruj",
         "description": "سماء مليئة بالجهود المستمرة."
       },
-      "september_mount": {
+      "mount": {
         "title": "الطور",
         "surah_ref": "At-Tur",
         "description": "راسخ وثابت مثل الجبل."
       },
-      "october_moon": {
+      "moon": {
         "title": "القمر",
         "surah_ref": "Al-Qamar",
         "description": "انعكاس جميل للنور."
       },
-      "november_night": {
+      "night": {
         "title": "الليل",
         "surah_ref": "Al-Lail",
         "description": "تفانٍ هادئ في ساعات السكون."
       },
-      "december_declining_day": {
+      "declining_day": {
         "title": "العصر",
         "surah_ref": "Al-'Asr",
         "description": "اغتنم كل لحظة قبل فوات الأوان."

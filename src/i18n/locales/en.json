@@ -64,62 +64,62 @@
       }
     },
     "badges": {
-      "january_dawn": {
+      "dawn": {
         "title": "The Dawn",
         "surah_ref": "Al-Fajr",
         "description": "Start your journey like the break of dawn."
       },
-      "february_pen": {
+      "pen": {
         "title": "The Pen",
         "surah_ref": "Al-Qalam",
         "description": "Knowledge is captured by the pen."
       },
-      "march_thunder": {
+      "thunder": {
         "title": "The Thunder",
         "surah_ref": "Ar-Ra'd",
         "description": "Powerful recitation like rolling thunder."
       },
-      "april_fig": {
+      "fig": {
         "title": "The Fig",
         "surah_ref": "At-Tin",
         "description": "Sweet fruits of patience and learning."
       },
-      "may_star": {
+      "star": {
         "title": "The Star",
         "surah_ref": "An-Najm",
         "description": "Aim high, guided by the stars."
       },
-      "june_sun": {
+      "sun": {
         "title": "The Sun",
         "surah_ref": "Ash-Shams",
         "description": "Shine bright with clarity in reading."
       },
-      "july_iron": {
+      "iron": {
         "title": "The Iron",
         "surah_ref": "Al-Hadid",
         "description": "Strong will and unbreakable consistency."
       },
-      "august_stars": {
+      "stars": {
         "title": "The Mansions of the Stars",
         "surah_ref": "Al-Buruj",
         "description": "A sky full of persistent efforts."
       },
-      "september_mount": {
+      "mount": {
         "title": "The Mount",
         "surah_ref": "At-Tur",
         "description": "Firm and steadfast like a mountain."
       },
-      "october_moon": {
+      "moon": {
         "title": "The Moon",
         "surah_ref": "Al-Qamar",
         "description": "Beautiful reflection of the light."
       },
-      "november_night": {
+      "night": {
         "title": "The Night",
         "surah_ref": "Al-Lail",
         "description": "Peaceful dedication in the quiet hours."
       },
-      "december_declining_day": {
+      "declining_day": {
         "title": "The Declining Day",
         "surah_ref": "Al-'Asr",
         "description": "Value every moment before time passes."

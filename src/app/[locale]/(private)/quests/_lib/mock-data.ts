@@ -4,7 +4,7 @@ import type { MonthlyQuest } from '../_schemas/quests';
 /**
  * Mock monthly quest - using current month (February = 2)
  */
-const currentMonth = 2;
+const currentMonth = 12;
 const monthlyTheme = getMonthlyTheme(currentMonth);
 
 export const MOCK_MONTHLY_QUEST: MonthlyQuest = {
