@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
-import { getEmojiBadgeColorClass } from '../../../_lib/colors';
+import { getEmojiColorClass } from '../../../_lib/colors';
 import type { Achievement } from '../../../_schemas/achievement';
 
 interface AchievementItemProps {
@@ -20,7 +20,7 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
           <div
             className={cn(
               'flex size-16 items-center justify-center rounded-xl',
-              getEmojiBadgeColorClass(achievement.emojiColorCode),
+              getEmojiColorClass(achievement.emojiColorCode),
             )}
           >
             <span className="text-3xl">{achievement.emoji}</span>

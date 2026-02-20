@@ -8,10 +8,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import {
-  EMOJI_BADGE_COLOR_CODES,
-  GRADIENT_COLOR_CODES,
-} from '../../_lib/colors';
+import { EMOJI_COLOR_CODES, GRADIENT_COLOR_CODES } from '../../_lib/colors';
 
 /**
  * Monthly Quest Schema
@@ -24,7 +21,7 @@ export const MonthlyQuestSchema = object({
   daysRemaining: pipe(number(), integer()),
   colorCode: optional(picklist([...GRADIENT_COLOR_CODES])),
   emoji: string(), // Emoji icon for reward
-  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
+  emojiColorCode: optional(picklist([...EMOJI_COLOR_CODES])),
 });
 
 export type MonthlyQuest = InferOutput<typeof MonthlyQuestSchema>;

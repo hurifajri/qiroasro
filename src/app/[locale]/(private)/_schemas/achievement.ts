@@ -9,7 +9,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { EMOJI_BADGE_COLOR_CODES } from '../_lib/colors';
+import { EMOJI_COLOR_CODES } from '../_lib/colors';
 
 /**
  * Achievement schema
@@ -18,7 +18,7 @@ export const AchievementSchema = object({
   id: string(),
   titleKey: string(), // i18n key
   descriptionKey: string(), // i18n key
-  emojiColorCode: optional(picklist([...EMOJI_BADGE_COLOR_CODES])),
+  emojiColorCode: optional(picklist([...EMOJI_COLOR_CODES])),
   emoji: string(),
   levels: array(pipe(number(), integer())),
   level: pipe(number(), integer()),

@@ -49,10 +49,10 @@ export function getGradientColorClass(colorCode?: GradientColorCode) {
 }
 
 /**
- * EMOJI_BADGE_COLORS — multi-color gradient backgrounds for emoji/badge
+ * EMOJI_COLORS — multi-color gradient backgrounds for emoji/badge
  * Used by: monthly badge emoji bg, achievement emoji bg, quest reward icon bg
  */
-const EMOJI_BADGE_COLORS = {
+const EMOJI_COLORS = {
   // badges
   orange_rose: 'bg-gradient-to-br from-orange-300 to-rose-500',
   blue_indigo: 'bg-gradient-to-br from-blue-400 to-indigo-600',
@@ -88,18 +88,16 @@ const EMOJI_BADGE_COLORS = {
   cyan_teal: 'bg-gradient-to-br from-cyan-400 to-teal-500',
 } as const;
 
-type EmojiBadgeColorCode = keyof typeof EMOJI_BADGE_COLORS;
+type EmojiColorCode = keyof typeof EMOJI_COLORS;
 
-export const EMOJI_BADGE_COLOR_CODES = Object.keys(
-  EMOJI_BADGE_COLORS,
-) as EmojiBadgeColorCode[];
+export const EMOJI_COLOR_CODES = Object.keys(EMOJI_COLORS) as EmojiColorCode[];
 
-export function getEmojiBadgeColorClass(colorCode?: EmojiBadgeColorCode) {
-  if (!colorCode || !(colorCode in EMOJI_BADGE_COLORS)) {
-    const DEFAULT_EMOJI_BADGE_COLOR_CODE: EmojiBadgeColorCode = 'orange_red';
-    return EMOJI_BADGE_COLORS[DEFAULT_EMOJI_BADGE_COLOR_CODE];
+export function getEmojiColorClass(colorCode?: EmojiColorCode) {
+  if (!colorCode || !(colorCode in EMOJI_COLORS)) {
+    const DEFAULT_EMOJI_COLOR_CODE: EmojiColorCode = 'orange_red';
+    return EMOJI_COLORS[DEFAULT_EMOJI_COLOR_CODE];
   }
-  return EMOJI_BADGE_COLORS[colorCode];
+  return EMOJI_COLORS[colorCode];
 }
 
 /**
@@ -146,7 +144,7 @@ export function getPracticeColors(colorCode?: PracticeColorCode) {
 /**
  * MONTHLY_THEMES — per-month configuration
  * colorCode: for quest card background (GRADIENT_COLORS)
- * emojiColorCode: for emoji/badge background (EMOJI_BADGE_COLORS)
+ * emojiColorCode: for emoji/badge background (EMOJI_COLORS)
  */
 const MONTHLY_THEMES = {
   1: { colorCode: 'blue', emojiColorCode: 'sky_blue', emoji: '❄️' },
@@ -165,7 +163,7 @@ const MONTHLY_THEMES = {
   number,
   {
     colorCode: GradientColorCode;
-    emojiColorCode: EmojiBadgeColorCode;
+    emojiColorCode: EmojiColorCode;
     emoji: string;
   }
 >;

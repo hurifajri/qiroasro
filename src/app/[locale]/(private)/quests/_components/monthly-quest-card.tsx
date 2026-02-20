@@ -14,10 +14,7 @@ import {
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
-import {
-  getEmojiBadgeColorClass,
-  getGradientColorClass,
-} from '../../_lib/colors';
+import { getEmojiColorClass, getGradientColorClass } from '../../_lib/colors';
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
@@ -79,9 +76,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
               {quest.current} / {quest.target}
             </span>
             {/* Reward icon */}
-            <Avatar
-              className={cn(getEmojiBadgeColorClass(quest.emojiColorCode))}
-            >
+            <Avatar className={cn(getEmojiColorClass(quest.emojiColorCode))}>
               <AvatarFallback className="bg-transparent text-lg">
                 {quest.emoji}
               </AvatarFallback>
