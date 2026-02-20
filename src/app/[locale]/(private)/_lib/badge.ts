@@ -1,4 +1,5 @@
 import type { MonthlyBadge } from '../_schemas/badge';
+import type { EmojiColorCode, GradientColorCode } from './colors';
 
 /**
  * Monthly badges
@@ -90,3 +91,44 @@ export const MONTHLY_BADGES: MonthlyBadge[] = [
     emojiColorCode: 'orange_red',
   },
 ];
+
+function getMonthlyBadge(month: number) {
+  const selectedBadge = MONTHLY_BADGES[month - 1];
+  return {
+    emoji: selectedBadge.emoji,
+    emojiColorCode: selectedBadge.emojiColorCode ?? 'orange_red',
+  };
+}
+
+/**
+ * MONTHLY_THEMES — per-month configuration
+ * colorCode: for quest card background (GRADIENT_COLORS)
+ * emojiColorCode: for emoji/badge background (EMOJI_COLORS)
+ */
+const MONTHLY_THEMES = {
+  1: { colorCode: 'blue', ...getMonthlyBadge(1) },
+  2: { colorCode: 'sky', ...getMonthlyBadge(2) },
+  3: { colorCode: 'emerald', ...getMonthlyBadge(3) },
+  4: { colorCode: 'teal', ...getMonthlyBadge(4) },
+  5: { colorCode: 'amber', ...getMonthlyBadge(5) },
+  6: { colorCode: 'orange', ...getMonthlyBadge(6) },
+  7: { colorCode: 'rose', ...getMonthlyBadge(7) },
+  8: { colorCode: 'purple', ...getMonthlyBadge(8) },
+  9: { colorCode: 'violet', ...getMonthlyBadge(9) },
+  10: { colorCode: 'fuchsia', ...getMonthlyBadge(10) },
+  11: { colorCode: 'cyan', ...getMonthlyBadge(11) },
+  12: { colorCode: 'indigo', ...getMonthlyBadge(12) },
+} as const satisfies Record<
+  number,
+  {
+    colorCode: GradientColorCode;
+    emojiColorCode: EmojiColorCode;
+    emoji: string;
+  }
+>;
+
+export function getMonthlyTheme(month: number) {
+  return (
+    MONTHLY_THEMES[month as keyof typeof MONTHLY_THEMES] ?? MONTHLY_THEMES[1]
+  );
+}

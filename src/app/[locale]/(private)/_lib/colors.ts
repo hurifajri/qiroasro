@@ -34,7 +34,7 @@ const GRADIENT_COLORS = {
     'bg-gradient-to-br from-fuchsia-400 to-fuchsia-500 dark:from-fuchsia-600 dark:to-fuchsia-700',
 } as const;
 
-type GradientColorCode = keyof typeof GRADIENT_COLORS;
+export type GradientColorCode = keyof typeof GRADIENT_COLORS;
 
 export const GRADIENT_COLOR_CODES = Object.keys(
   GRADIENT_COLORS,
@@ -88,7 +88,7 @@ const EMOJI_COLORS = {
   cyan_teal: 'bg-gradient-to-br from-cyan-400 to-teal-500',
 } as const;
 
-type EmojiColorCode = keyof typeof EMOJI_COLORS;
+export type EmojiColorCode = keyof typeof EMOJI_COLORS;
 
 export const EMOJI_COLOR_CODES = Object.keys(EMOJI_COLORS) as EmojiColorCode[];
 
@@ -139,37 +139,4 @@ export function getPracticeColors(colorCode?: PracticeColorCode) {
     return PRACTICE_COLORS[DEFAULT_PRACTICE_COLOR_CODE];
   }
   return PRACTICE_COLORS[colorCode];
-}
-
-/**
- * MONTHLY_THEMES — per-month configuration
- * colorCode: for quest card background (GRADIENT_COLORS)
- * emojiColorCode: for emoji/badge background (EMOJI_COLORS)
- */
-const MONTHLY_THEMES = {
-  1: { colorCode: 'blue', emojiColorCode: 'sky_blue', emoji: '❄️' },
-  2: { colorCode: 'sky', emojiColorCode: 'sky_blue', emoji: '💨' },
-  3: { colorCode: 'emerald', emojiColorCode: 'emerald_teal', emoji: '🌱' },
-  4: { colorCode: 'teal', emojiColorCode: 'emerald_teal', emoji: '🌸' },
-  5: { colorCode: 'amber', emojiColorCode: 'amber_orange', emoji: '🌤' },
-  6: { colorCode: 'orange', emojiColorCode: 'orange_red', emoji: '🌻' },
-  7: { colorCode: 'rose', emojiColorCode: 'rose_pink', emoji: '🔥' },
-  8: { colorCode: 'purple', emojiColorCode: 'violet_purple', emoji: '🌊' },
-  9: { colorCode: 'violet', emojiColorCode: 'indigo_violet', emoji: '🍂' },
-  10: { colorCode: 'fuchsia', emojiColorCode: 'rose_pink', emoji: '🍁' },
-  11: { colorCode: 'cyan', emojiColorCode: 'cyan_teal', emoji: '🌾' },
-  12: { colorCode: 'indigo', emojiColorCode: 'blue_indigo', emoji: '🌨️' },
-} as const satisfies Record<
-  number,
-  {
-    colorCode: GradientColorCode;
-    emojiColorCode: EmojiColorCode;
-    emoji: string;
-  }
->;
-
-export function getMonthlyTheme(month: number) {
-  return (
-    MONTHLY_THEMES[month as keyof typeof MONTHLY_THEMES] ?? MONTHLY_THEMES[1]
-  );
 }
