@@ -115,13 +115,13 @@ interface Props extends ComponentProps {
 
 export function ComponentName({ prop1, prop2 }: Props) {
   const t = useTranslations();
-  
+
   // 1. Hooks (useState, useQuery, etc.)
   // 2. Derived state (useMemo)
   // 3. Effects (useEffect)
   // 4. Handlers (useCallback)
   // 5. Render (JSX)
-  
+
   return <div className={cn('base-class', prop1 && 'conditional')} />;
 }
 ```
@@ -203,7 +203,7 @@ function LetterList() {
   if (isLoading) return <LoadingSkeleton />;
   if (error) return <ErrorMessage error={error} />;
   if (!data?.length) return <EmptyState />;
-  
+
   return <List items={data} />;
 }
 ```
@@ -336,5 +336,3 @@ export async function generateMetadata(): Promise<Metadata> {
 - **D:** Depend on abstractions, not concretions
 
 ---
-
-**Reference:** For detailed guidelines, see CODING_GUIDELINES.md in the root directory.
