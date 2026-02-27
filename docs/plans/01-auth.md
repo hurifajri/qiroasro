@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[ ]` Belum dimulai
+## Status: `[/]` In Progress
 
 ---
 
@@ -87,18 +87,18 @@ Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cu
 > - `getClaims()` lebih efisien dari `getUser()` karena decode JWT lokal (tidak hit Supabase server setiap request)
 
 ### 1.2 Auth Abstraction Layer
-- [ ] Buat `src/lib/auth.ts` — provider-agnostic wrapper
+- [x] Buat `src/lib/auth.ts` — provider-agnostic wrapper
   - `signIn(provider)` — trigger social login
   - `signOut()` — logout
   - `getUser()` — get current user (server-side)
   - `getSession()` — get current session
-- [ ] Buat `src/services/auth-provider.ts` — Supabase-specific implementation
+- [x] Buat `src/services/auth-provider.ts` — Supabase-specific implementation
 
 ### 1.3 Database Schema — User Profiles
-- [ ] Buat `docs/schemas/auth.sql`
-- [ ] Tabel `user_profiles` (references `auth.users` dari Supabase)
-- [ ] Buat Drizzle schema di `src/db/schema.ts`
-- [ ] Buat Valibot schemas (Remote → Local types)
+- [x] Buat `docs/schemas/auth.sql`
+- [x] Tabel `user_profiles` (references `auth.users` dari Supabase)
+- [x] Buat Drizzle schema di `src/db/schema.ts`
+- [x] Buat Valibot schemas (Remote → Local types) `src/schemas/user-profile.ts` + `src/models/user-profile.ts`
 
 ```sql
 CREATE TABLE user_profiles (
@@ -162,9 +162,12 @@ CREATE TRIGGER on_auth_user_created
 
 | File | Perubahan |
 |---|---|
-| `src/lib/auth.ts` | [NEW] Auth abstraction layer |
-| `src/services/auth-provider.ts` | [NEW] Supabase Auth implementation |
-| `src/db/schema.ts` | Tambah `userProfiles` table |
+| `src/lib/auth.ts` | [x] Auth abstraction layer |
+| `src/services/auth-provider.ts` | [x] Supabase Auth implementation |
+| `src/schemas/user-profile.ts` | [x] Valibot remote schema + local type |
+| `src/models/user-profile.ts` | [x] Transformer `transformRemoteUserProfile` |
+| `src/db/schema.ts` | [x] Tambah `userProfiles` table |
+| `src/app/api/auth/callback/route.ts` | [x] OAuth PKCE callback route |
 | `src/app/[locale]/(private)/layout.tsx` | Wrap dengan `UserProvider` |
 | `src/app/[locale]/(private)/_components/private.tsx` | Pass real user data |
 | `src/middleware.ts` | [NEW/MODIFY] Auth middleware |

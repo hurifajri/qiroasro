@@ -103,8 +103,16 @@ graph TD
 
 | File | Status | Keterangan |
 |---|---|---|
-| `src/env.ts` | [x] | Tambah `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` |
+| `src/env.ts` | [x] | Tambah `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, Google OAuth env vars |
 | `src/lib/supabase/client.ts` | [x] | Browser client (`createBrowserClient`) |
 | `src/lib/supabase/server.ts` | [x] | Server client (`createServerClient`) |
-| `src/lib/supabase/proxy.ts` | [x] | Session refresh + route protection (`updateSession`, `getClaims()`) |
-| `src/proxy.ts` | [x] | Chain auth → next-intl locale routing |
+| `src/lib/supabase/proxy.ts` | [x] | Session refresh + route protection (`updateSession`, default-deny public routes) |
+| `src/proxy.ts` | [x] | Chain auth → next-intl locale routing, combined matcher |
+| `src/lib/auth.ts` | [x] | Provider-agnostic auth wrapper (`signIn`, `signOut`, `getUser`, `getSession`) |
+| `src/services/auth-provider.ts` | [x] | Supabase Auth implementation |
+| `src/app/api/auth/callback/route.ts` | [x] | OAuth PKCE callback handler |
+| `src/db/schema.ts` | [x] | `userProfiles` table added |
+| `src/schemas/user-profile.ts` | [x] | Valibot remote schema + local `UserProfile` type |
+| `src/models/user-profile.ts` | [x] | `transformRemoteUserProfile` transformer |
+| `docs/schemas/auth.sql` | [x] | `user_profiles` table + trigger + RLS policies |
+| `supabase/config.toml` | [x] | Google OAuth configuration |
