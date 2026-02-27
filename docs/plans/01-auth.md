@@ -14,6 +14,42 @@
 | Metode login | **Social auth only** — Google (wajib), Apple (opsional, wajib jika publish ke App Store) |
 | Email+Password | ❌ Tidak untuk saat ini (bisa ditambah nanti) |
 | Waitlist integration | ❌ Tidak perlu — waitlist tetap standalone untuk broadcast email |
+| DB queries | **Drizzle ORM** (existing) — Supabase package TIDAK dipakai untuk query DB |
+
+### Packages yang Digunakan
+
+| Package | Install? | Fungsi |
+|---|---|---|
+| `@supabase/supabase-js` | ✅ Ya | Main SDK — peer dependency dari `@supabase/ssr` |
+| `@supabase/ssr` | ✅ Ya | SSR helper — handle auth cookies, middleware, session refresh di Next.js |
+| `@supabase/auth-js` | ❌ Tidak langsung | Auth module, ter-install otomatis via `supabase-js` |
+| `@supabase/postgrest-js` | ❌ Tidak dipakai | REST client — kita pakai Drizzle untuk semua DB queries |
+| `@supabase/realtime-js` | ❌ Tidak dipakai | Realtime subscriptions — tidak dibutuhkan saat ini |
+| `@supabase/storage-js` | ❌ Tidak dipakai | File storage — tidak dibutuhkan saat ini |
+| `@supabase/functions-js` | ❌ Tidak dipakai | Edge functions — tidak dibutuhkan saat ini |
+
+```bash
+# Yang perlu di-install
+pnpm add @supabase/supabase-js @supabase/ssr
+```
+
+> [!NOTE]
+> `postgrest-js`, `realtime-js`, `storage-js`, `functions-js` ter-install sebagai dependency `supabase-js`, tapi **tidak masuk client bundle** karena tree-shaking — kita hanya import `createBrowserClient` dan `createServerClient` dari `@supabase/ssr`.
+
+### Arsitektur: Auth vs DB
+
+```
+┌─────────────────────────────────────────────────────┐
+│ src/lib/                                            │
+│                                                     │
+│ supabase/client.ts ──→ @supabase/ssr (browser)     │ ← Auth only
+│ supabase/server.ts ──→ @supabase/ssr (server)      │ ← Auth only
+│ auth.ts            ──→ Abstraction layer            │ ← Provider-agnostic
+│ db.ts              ──→ drizzle-orm + postgres       │ ← All DB queries
+└─────────────────────────────────────────────────────┘
+```
+
+**Authorization:** Handle di service layer (explicit `userId` filter di setiap query), bukan via Supabase RLS `auth.uid()`. Ini lebih portable jika suatu hari ganti provider.
 
 ### Vendor Lock-in Strategy
 
@@ -34,10 +70,14 @@ Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cu
 ## Subtasks
 
 ### 1.1 Setup Supabase Auth
+- [ ] Install packages: `pnpm add @supabase/supabase-js @supabase/ssr`
+- [ ] Tambah env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- [ ] Buat Supabase client helpers:
+  - `src/lib/supabase/client.ts` — browser client (`createBrowserClient`)
+  - `src/lib/supabase/server.ts` — server client (`createServerClient`)
+  - `src/lib/supabase/middleware.ts` — middleware client (session refresh)
 - [ ] Enable Google OAuth di Supabase Dashboard
 - [ ] Setup Google Cloud Console (OAuth credentials)
-- [ ] Install `@supabase/ssr` untuk Next.js App Router
-- [ ] Buat Supabase client helpers (browser + server)
 
 ### 1.2 Auth Abstraction Layer
 - [ ] Buat `src/lib/auth.ts` — provider-agnostic wrapper
