@@ -5,28 +5,29 @@ import { env } from '@/env';
 const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-// Routes that require authentication — update if new routes are added
-// Format: without locale prefix (e.g. '/learn' not '/en/learn')
-const PRIVATE_ROUTE_SEGMENTS = [
-  '/learn',
-  '/practice',
-  '/sections',
-  '/reference',
-  '/profile',
-  '/settings',
-  '/leaderboard',
-  '/quests',
-  '/shop',
+// Public routes that DO NOT require authentication.
+// Every other route will be considered private (default-deny pattern).
+// Format: without locale prefix (e.g. '/login' not '/en/login')
+const PUBLIC_ROUTES = [
+  '/', // Landing page
+  '/playground', // Public playground page
+  '/login',
+  '/register',
+  '/forgot-password',
 ];
 
-function isPrivateRoute(pathname: string): boolean {
-  // Pathname will be formatted as /{locale}/... because next-intl uses localePrefix: 'always'
-  // Example: /en/learn, /id/settings, /en/profile/johndoe
-  // We strip the first segment (locale) then check the rest
-  const withoutLocale = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '');
-  return PRIVATE_ROUTE_SEGMENTS.some((segment) =>
-    withoutLocale.startsWith(segment),
-  );
+function isPublicRoute(pathname: string): boolean {
+  // Strip the locale prefix from the pathname
+  // e.g. /en -> /
+  // e.g. /en/login -> /login
+  const withoutLocale = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?(\/|$)/, '/');
+
+  return PUBLIC_ROUTES.some((route) => {
+    if (route === '/') {
+      return withoutLocale === '/';
+    }
+    return withoutLocale.startsWith(route);
+  });
 }
 
 export async function updateSession(request: NextRequest) {
@@ -63,8 +64,8 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  // Only redirect to login if the route is private and the user is not logged in
-  if (!user && isPrivateRoute(request.nextUrl.pathname)) {
+  // Default-deny: If NOT logged in and routing to a NON-PUBLIC route -> redirect to login
+  if (!user && !isPublicRoute(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     // Redirect to homepage (not /login) because there is no login page yet
     // TODO: Update to the correct login route after Task 1.5 (Login UI) is completed
