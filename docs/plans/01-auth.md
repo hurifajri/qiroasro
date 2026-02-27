@@ -77,8 +77,8 @@ Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cu
   - `src/lib/supabase/server.ts` — server client (`createServerClient`)
   - `src/lib/supabase/proxy.ts` — session refresh + route protection (`updateSession`)
 - [x] Update `src/proxy.ts` — chain `updateSession` (auth) → `next-intl` (i18n locale routing)
-- [ ] Enable Google OAuth di Supabase Dashboard
-- [ ] Setup Google Cloud Console (OAuth credentials)
+- [x] Enable Google OAuth di Supabase Dashboard (lihat [Panduan Setup](../guides/google-oauth-setup.md))
+- [x] Setup Google Cloud Console (OAuth credentials) (lihat [Panduan Setup](../guides/google-oauth-setup.md))
 
 > [!NOTE]
 > **Arsitektur `proxy.ts`:**

@@ -5,6 +5,8 @@ export const env = createEnv({
   server: {
     DATABASE_URL: pipe(string(), minLength(1)),
     RESEND_API_KEY: pipe(string(), minLength(1)),
+    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID: pipe(string(), minLength(1)),
+    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET: pipe(string(), minLength(1)),
   },
   client: {
     NEXT_PUBLIC_APP_NAME: pipe(string(), minLength(1)),
@@ -16,6 +18,10 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID:
+      process.env.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID,
+    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET:
+      process.env.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET,
     NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NOREPLY_EMAIL: process.env.NEXT_PUBLIC_NOREPLY_EMAIL,
