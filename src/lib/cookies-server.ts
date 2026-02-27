@@ -19,6 +19,12 @@ export async function getCookies(key: string) {
   return cookieStore.get(key)?.value;
 }
 
+export async function getAllCookies() {
+  const cookieStore = await cookies();
+
+  return cookieStore.getAll();
+}
+
 export async function deleteCookies(key: string) {
   const cookieStore = await cookies();
 
