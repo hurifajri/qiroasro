@@ -11,7 +11,7 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: pipe(string(), url(), minLength(1)),
     NEXT_PUBLIC_NOREPLY_EMAIL: pipe(string(), minLength(1)),
     NEXT_PUBLIC_SUPABASE_URL: pipe(string(), url(), minLength(1)),
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: pipe(string(), minLength(1)),
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: pipe(string(), minLength(1)),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -20,7 +20,7 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NOREPLY_EMAIL: process.env.NEXT_PUBLIC_NOREPLY_EMAIL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY:
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   },
 });

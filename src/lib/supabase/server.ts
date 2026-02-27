@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { env } from '@/env';
 
 const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+const supabaseKey = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 export async function createClient() {
   const cookieStore = await cookies();

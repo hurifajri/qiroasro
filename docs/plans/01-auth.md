@@ -71,18 +71,18 @@ Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cu
 
 ### 1.1 Setup Supabase Auth
 - [x] Install packages: `pnpm add @supabase/supabase-js @supabase/ssr`
-- [x] Tambah env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`
+- [x] Tambah env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - [x] Buat Supabase client helpers:
   - `src/lib/supabase/client.ts` — browser client (`createBrowserClient`)
   - `src/lib/supabase/server.ts` — server client (`createServerClient`) *
-  - `src/lib/supabase/middleware.ts` — middleware client (session refresh) *
+  - `src/lib/supabase/proxy.ts` — middleware client (session refresh) *
 - [ ] Enable Google OAuth di Supabase Dashboard
 - [ ] Setup Google Cloud Console (OAuth credentials)
 
 > [!NOTE]
 > **Fixes yang dilakukan:**
 > - `server.ts`: `getAll()` callback harus **synchronous** — `cookies()` di-await di luar (di level atas fungsi async), bukan di dalam callback.
-> - `middleware.ts`: Wajib panggil `supabase.auth.getUser()` untuk refresh session token setiap request. Tanpa ini, session akan expire secara diam-diam. Return `{ supabase, supabaseResponse, user }` agar middleware bisa akses user untuk route protection.
+> - `proxy.ts`: Wajib panggil `supabase.auth.getUser()` untuk refresh session token setiap request. Tanpa ini, session akan expire secara diam-diam. Return `{ supabase, supabaseResponse, user }` agar middleware bisa akses user untuk route protection.
 
 ### 1.2 Auth Abstraction Layer
 - [ ] Buat `src/lib/auth.ts` — provider-agnostic wrapper
