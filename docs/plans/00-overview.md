@@ -94,3 +94,17 @@ graph TD
 | `docs/schemas/quest.sql` | Daily/weekly/monthly quests, user quest progress | `[ ]` |
 
 > Tabel dari `master.sql` dan `unused.sql` tetap digunakan as-is (tidak dimodifikasi). Schema baru akan me-reference tabel tersebut via foreign keys.
+
+---
+
+## Files yang Sudah Dibuat/Dimodifikasi
+
+### Task 1 — Auth & User Management (In Progress)
+
+| File | Status | Keterangan |
+|---|---|---|
+| `src/env.ts` | [x] | Tambah `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` |
+| `src/lib/supabase/client.ts` | [x] | Browser client (`createBrowserClient`) |
+| `src/lib/supabase/server.ts` | [x] | Server client (`createServerClient`) |
+| `src/lib/supabase/proxy.ts` | [x] | Session refresh + route protection (`updateSession`, `getClaims()`) |
+| `src/proxy.ts` | [x] | Chain auth → next-intl locale routing |

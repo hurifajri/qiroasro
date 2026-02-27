@@ -5,6 +5,30 @@ import { env } from '@/env';
 const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
+// Routes yang memerlukan autentikasi — sesuaikan jika ada route baru
+// Format: tanpa locale prefix (e.g. '/learn' bukan '/en/learn')
+const PRIVATE_ROUTE_SEGMENTS = [
+  '/learn',
+  '/practice',
+  '/sections',
+  '/reference',
+  '/profile',
+  '/settings',
+  '/leaderboard',
+  '/quests',
+  '/shop',
+];
+
+function isPrivateRoute(pathname: string): boolean {
+  // Pathname akan berbentuk /{locale}/... karena next-intl pakai localePrefix: 'always'
+  // Contoh: /en/learn, /id/settings, /en/profile/johndoe
+  // Kita strip segment pertama (locale) lalu cek sisanya
+  const withoutLocale = pathname.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, '');
+  return PRIVATE_ROUTE_SEGMENTS.some((segment) =>
+    withoutLocale.startsWith(segment),
+  );
+}
+
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -38,14 +62,13 @@ export async function updateSession(request: NextRequest) {
   // with the Supabase client, your users may be randomly logged out.
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
-    !request.nextUrl.pathname.startsWith('/auth')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+
+  // Hanya redirect ke login jika route adalah private dan user belum login
+  if (!user && isPrivateRoute(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = '/login';
+    // Redirect ke homepage (bukan /login) karena belum ada login page
+    // TODO: Update ke route login yang benar setelah Task 1.5 (Login UI) selesai
+    url.pathname = '/';
     return NextResponse.redirect(url);
   }
 

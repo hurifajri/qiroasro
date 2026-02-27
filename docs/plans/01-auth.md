@@ -74,15 +74,17 @@ Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cu
 - [x] Tambah env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
 - [x] Buat Supabase client helpers:
   - `src/lib/supabase/client.ts` — browser client (`createBrowserClient`)
-  - `src/lib/supabase/server.ts` — server client (`createServerClient`) *
-  - `src/lib/supabase/proxy.ts` — middleware client (session refresh) *
+  - `src/lib/supabase/server.ts` — server client (`createServerClient`)
+  - `src/lib/supabase/proxy.ts` — session refresh + route protection (`updateSession`)
+- [x] Update `src/proxy.ts` — chain `updateSession` (auth) → `next-intl` (i18n locale routing)
 - [ ] Enable Google OAuth di Supabase Dashboard
 - [ ] Setup Google Cloud Console (OAuth credentials)
 
 > [!NOTE]
-> **Fixes yang dilakukan:**
-> - `server.ts`: `getAll()` callback harus **synchronous** — `cookies()` di-await di luar (di level atas fungsi async), bukan di dalam callback.
-> - `proxy.ts`: Wajib panggil `supabase.auth.getUser()` untuk refresh session token setiap request. Tanpa ini, session akan expire secara diam-diam. Return `{ supabase, supabaseResponse, user }` agar middleware bisa akses user untuk route protection.
+> **Arsitektur `proxy.ts`:**
+> - `src/lib/supabase/proxy.ts` — `updateSession()`: refresh session via `getClaims()` (decode JWT lokal, tanpa network call), redirect ke `/login` jika tidak terautentikasi
+> - `src/proxy.ts` — chain: auth check dulu, jika redirect langsung return, jika OK lanjut ke `next-intl` untuk locale routing
+> - `getClaims()` lebih efisien dari `getUser()` karena decode JWT lokal (tidak hit Supabase server setiap request)
 
 ### 1.2 Auth Abstraction Layer
 - [ ] Buat `src/lib/auth.ts` — provider-agnostic wrapper
