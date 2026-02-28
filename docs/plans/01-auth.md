@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[ ]` Belum Dikerjakan
+## Status: `[/]` Sedang dikerjakan
 
 ---
 
@@ -55,15 +55,14 @@ Route Handler:
 
 ### 1.1 Setup Better Auth
 
-- [ ] Install package: `pnpm add better-auth`
-- [ ] Uninstall Supabase packages: `pnpm remove @supabase/supabase-js @supabase/ssr`
-- [ ] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars), `BETTER_AUTH_URL`
-- [ ] Update `src/env.ts` — hapus Supabase env vars, tambah Better Auth env vars
-- [ ] Buat `src/lib/auth.ts` — Better Auth server config:
-  - Drizzle adapter (`drizzleAdapter`)
-  - Social providers (Google)
-  - Session config (expiry, cookie cache)
-  - Rate limiting
+- [x] Install package: `pnpm add better-auth`
+- [x] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars), `BETTER_AUTH_URL`
+- [x] Update `src/env.ts` — tambah Better Auth env vars
+- [/] Buat `src/lib/auth.ts` — Better Auth server config:
+  - [x] Drizzle adapter (`drizzleAdapter`)
+  - [ ] Social providers (Google) — lihat subtask 1.4
+  - [ ] Session config (expiry, cookie cache)
+  - [ ] Rate limiting
 - [ ] Buat `src/lib/auth-client.ts` — Better Auth React client:
   - Import dari `better-auth/react`
   - Export `signIn`, `signOut`, `useSession`
@@ -71,49 +70,46 @@ Route Handler:
 ### 1.2 Route Handler
 
 - [ ] Buat `src/app/api/auth/[...all]/route.ts` — `toNextJsHandler(auth)` → export `{ GET, POST }`
-- [ ] Hapus `src/app/api/auth/callback/route.ts` (Supabase OAuth callback — tidak diperlukan lagi)
 
 ### 1.3 Database Schema (Auth Tables)
 
 - [ ] Generate auth schema via Better Auth CLI: `npx @better-auth/cli@latest generate --output src/db/auth-schema.ts`
 - [ ] Jalankan migration via Drizzle: `pnpm drizzle-kit push`
-- [ ] Update `docs/schemas/auth.sql` — dokumentasi tabel Better Auth (`user`, `session`, `account`, `verification`)
 
 > [!NOTE]
-> Better Auth membuat tabel `user`, `session`, `account`, dan `verification` sendiri. Tidak perlu trigger `handle_new_user()` atau referensi ke `auth.users` seperti di Supabase.
+> Better Auth membuat tabel `user`, `session`, `account`, dan `verification` sendiri via generated Drizzle schema. File `docs/schemas/auth.sql` sudah dihapus — dokumentasi tabel auth cukup di-refer dari generated schema `src/db/auth-schema.ts`.
 
 ### 1.4 Google OAuth
 
 - [ ] Configure `socialProviders.google` di `src/lib/auth.ts`:
   - `clientId`: dari Google Cloud Console
   - `clientSecret`: dari Google Cloud Console
-- [ ] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (ganti dari `SUPABASE_AUTH_EXTERNAL_GOOGLE_*`)
+- [ ] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
 - [ ] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
 
 ### 1.5 User Profiles
 
-- [ ] Update `docs/schemas/auth.sql` — `user_profiles` FK ke Better Auth `user` table (bukan `auth.users`)
-- [ ] Update `src/db/schema.ts` — `userProfiles` referensi ke tabel `user` dari Better Auth
-- [ ] Buat hook/trigger untuk auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
+- [ ] Definisikan `userProfiles` di `src/db/schema.ts` — FK ke Better Auth `user` table
+- [ ] Buat hook auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
 - [ ] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — tetap sama
+
+> [!NOTE]
+> `userProfiles` sudah dihapus dari `src/db/schema.ts`. Perlu didefinisikan dengan FK ke tabel `user` dari Better Auth generated schema.
 
 ### 1.6 Middleware & Protected Routes
 
-- [ ] Update `src/proxy.ts` — hapus import Supabase, ganti session check pakai Better Auth
-- [ ] Hapus `src/lib/supabase/` — semua file (client.ts, server.ts, proxy.ts) tidak diperlukan lagi
-- [ ] Implement route protection: cek session via Better Auth di middleware, redirect ke `/login` jika unauthenticated
-- [ ] Hapus `supabase/config.toml` (konfigurasi Google OAuth Supabase — tidak diperlukan lagi)
+- [ ] Tambahkan session check pakai Better Auth di middleware
+- [ ] Implement route protection: redirect ke `/login` jika unauthenticated
 
 ### 1.7 Login UI
 
-- [ ] Update login page — ganti `authProvider.signIn()` ke `authClient.signIn.social({ provider: 'google' })`
+- [ ] Update login page — pakai `authClient.signIn.social({ provider: 'google' })`
 - [ ] Update `src/app/[locale]/(public)/login/_components/login-button.tsx` — pakai Better Auth client
 - [ ] Handle auth errors (popup blocked, cancelled, dll)
 
 ### 1.8 User Context & Hooks
 
-- [ ] Gunakan `useSession()` dari `src/lib/auth-client.ts` (Better Auth React hook, bukan custom hook)
-- [ ] Hapus custom `useUser`, `UserProvider` jika ada — `useSession()` sudah cukup
+- [ ] Gunakan `useSession()` dari `src/lib/auth-client.ts` (Better Auth React hook)
 - [ ] Update layout `(private)` jika perlu
 
 ### 1.9 Connect Existing UI to Real User
@@ -124,41 +120,18 @@ Route Handler:
 
 ---
 
-## Cleanup: Hapus Supabase Auth
-
-File yang perlu dihapus saat implementasi Better Auth:
-
-| File | Alasan |
-|---|---|
-| `src/lib/supabase/client.ts` | Diganti oleh `src/lib/auth-client.ts` |
-| `src/lib/supabase/server.ts` | Diganti oleh `src/lib/auth.ts` server config |
-| `src/lib/supabase/proxy.ts` | Diganti oleh session check di middleware |
-| `src/services/auth-provider.ts` | Abstraction layer tidak diperlukan — Better Auth sudah provider-agnostic |
-| `src/lib/auth.ts` | Rewrite — ganti dari abstraction wrapper ke Better Auth server config |
-| `src/app/api/auth/callback/route.ts` | Diganti oleh catch-all `[...all]/route.ts` |
-| `supabase/config.toml` | Konfigurasi Supabase, tidak diperlukan |
-
----
-
-## New Schema Files
-
-| File | Deskripsi |
-|---|---|
-| `docs/schemas/auth.sql` | Better Auth tables (`user`, `session`, `account`, `verification`) + `user_profiles` |
-
 ## Files yang Akan Ditambah/Modify
 
-| File | Perubahan |
-|---|---|
-| `src/lib/auth.ts` | Better Auth server config (Drizzle adapter, Google OAuth, session) |
-| `src/lib/auth-client.ts` | [NEW] Better Auth React client (`signIn`, `signOut`, `useSession`) |
-| `src/app/api/auth/[...all]/route.ts` | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
-| `src/db/auth-schema.ts` | [NEW] Generated auth tables schema (via Better Auth CLI) |
-| `src/db/schema.ts` | Update `userProfiles` FK — referensi ke Better Auth `user` table |
-| `src/env.ts` | Hapus Supabase env vars, tambah `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
-| `src/proxy.ts` | Update middleware — Better Auth session check |
-| `src/schemas/user-profile.ts` | Tetap sama |
-| `src/models/user-profile.ts` | Tetap sama |
-| `src/app/[locale]/(public)/login/page.tsx` | Update — pakai Better Auth client |
-| `src/app/[locale]/(public)/login/_components/login-button.tsx` | Update — `authClient.signIn.social()` |
-| `docs/schemas/auth.sql` | Rewrite — Better Auth tables + `user_profiles` |
+| File | Status | Perubahan |
+|---|---|---|
+| `src/lib/auth.ts` | [/] | Better Auth server config (Drizzle adapter ✅, Google OAuth, session, rate limit) |
+| `src/lib/auth-client.ts` | [ ] | [NEW] Better Auth React client (`signIn`, `signOut`, `useSession`) |
+| `src/app/api/auth/[...all]/route.ts` | [ ] | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
+| `src/db/auth-schema.ts` | [ ] | [NEW] Generated auth tables schema (via Better Auth CLI) |
+| `src/db/schema.ts` | [ ] | Tambah kembali `userProfiles` — FK ke Better Auth `user` table |
+| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (done), + `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (pending) |
+| `src/proxy.ts` | [/] | Simplified ✅, tambah Better Auth session check (pending) |
+| `src/schemas/user-profile.ts` | — | Tetap sama |
+| `src/models/user-profile.ts` | — | Tetap sama |
+| `src/app/[locale]/(public)/login/page.tsx` | [ ] | Update — pakai Better Auth client |
+| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [ ] | Update — `authClient.signIn.social()` |

@@ -4,7 +4,6 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
-import { signIn } from '@/lib/auth';
 
 interface LoginButtonProps {
   text: string;
@@ -21,9 +20,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
     setError(false);
 
     try {
-      await signIn('google');
-      // Supabase OAuth redirect will handle the rest, but if it doesn't redirect fast:
-      // it might stay in loading state, which is fine
+      console.log('Login button clicked');
     } catch {
       setError(true);
       setIsLoading(false);

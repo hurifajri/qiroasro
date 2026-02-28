@@ -5,28 +5,21 @@ export const env = createEnv({
   server: {
     DATABASE_URL: pipe(string(), minLength(1)),
     RESEND_API_KEY: pipe(string(), minLength(1)),
-    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID: pipe(string(), minLength(1)),
-    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET: pipe(string(), minLength(1)),
+    BETTER_AUTH_SECRET: pipe(string(), minLength(1)),
+    BETTER_AUTH_URL: pipe(string(), url(), minLength(1)),
   },
   client: {
     NEXT_PUBLIC_APP_NAME: pipe(string(), minLength(1)),
     NEXT_PUBLIC_APP_URL: pipe(string(), url(), minLength(1)),
     NEXT_PUBLIC_NOREPLY_EMAIL: pipe(string(), minLength(1)),
-    NEXT_PUBLIC_SUPABASE_URL: pipe(string(), url(), minLength(1)),
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: pipe(string(), minLength(1)),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
-    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID:
-      process.env.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID,
-    SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET:
-      process.env.SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_NOREPLY_EMAIL: process.env.NEXT_PUBLIC_NOREPLY_EMAIL,
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
   },
 });

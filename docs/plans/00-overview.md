@@ -53,7 +53,7 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 
 | # | Task | File Plan | Prioritas | Status |
 |---|---|---|---|---|
-| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[ ]` |
+| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[/]` In Progress |
 | 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[ ]` |
 | 3 | Curriculum Engine (Sections, Units, Lessons) | [03-curriculum.md](./03-curriculum.md) | 🔴 High | `[ ]` |
 | 4 | Learn Page — Fungsionalitas | [04-learn.md](./04-learn.md) | 🔴 High | `[ ]` |
@@ -86,7 +86,7 @@ graph TD
 
 | File | Isi | Status |
 |---|---|---|
-| `docs/schemas/auth.sql` | Tabel users, accounts, sessions, user_profiles | `[ ]` |
+| `docs/schemas/auth.sql` | Tabel `user_profiles` (auth tables di-manage oleh Better Auth via Drizzle schema) | `[ ]` |
 | `docs/schemas/curriculum.sql` | Sections, units, lessons, user progress | `[ ]` |
 | `docs/schemas/gamification.sql` | XP, hearts, streak, gems, achievements | `[ ]` |
 | `docs/schemas/social.sql` | Follows, leaderboard, activity feed | `[ ]` |
