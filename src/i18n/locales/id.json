@@ -978,11 +978,15 @@
     }
   },
   "auth_page": {
-    "title": "Selamat Datang",
-    "description": "Masuk untuk menyimpan kemajuan belajarmu, mempertahankan rekor, dan bergabung di papan peringkat.",
+    "metadata": {
+      "title": "Masuk",
+      "description": "Masuk ke akun Anda untuk menyimpan progres belajar Tajwid."
+    },
+    "title": "Selamat Datang Kembali",
+    "description": "Masuk untuk menyimpan progres, mempertahankan rentetan belajar, dan bergabung dalam Halaqah.",
     "login_with_google": "Lanjutkan dengan Google",
     "error_title": "Gagal Masuk",
-    "error_description": "Kami tidak dapat memproses login Anda. Silakan coba lagi.",
-    "terms": "Dengan melanjutkan, Anda menyetujui Ketentuan Layanan dan Kebijakan Privasi kami."
+    "error_description": "Kami tidak dapat mengautentikasi akun Anda. Silakan coba lagi.",
+    "terms": "Dengan melanjutkan, Anda menyetujui Ketentuan Layanan & Kebijakan Privasi kami."
   }
 }

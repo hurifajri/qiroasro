@@ -976,5 +976,17 @@
       "friend_streaks_description": "Benarkan rakan melihat rekod harian (streak) anda.",
       "save_changes": "Simpan Perubahan"
     }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "Log Masuk",
+      "description": "Log masuk ke akaun anda untuk menyimpan kemajuan pembelajaran Tajwid."
+    },
+    "title": "Selamat Kembali",
+    "description": "Log masuk untuk menyimpan kemajuan, mengekalkan rentetan pembelajaran, dan menyertai Halaqah.",
+    "login_with_google": "Teruskan dengan Google",
+    "error_title": "Log Masuk Gagal",
+    "error_description": "Kami tidak dapat log masuk ke akaun anda. Sila cuba lagi.",
+    "terms": "Dengan meneruskan, anda bersetuju dengan Terma Perkhidmatan & Dasar Privasi kami."
   }
 }

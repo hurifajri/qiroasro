@@ -976,5 +976,17 @@
       "friend_streaks_description": "Arkadaşlarınızın günlük serinizi görmesine izin verin.",
       "save_changes": "Değişiklikleri Kaydet"
     }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "Giriş Yap",
+      "description": "Tecvid öğrenme ilerlemenizi kaydetmek için giriş yapın."
+    },
+    "title": "Tekrar Hoş Geldiniz",
+    "description": "İlerlemenizi kaydetmek, serinizi takip etmek ve Halkaya katılmak için giriş yapın.",
+    "login_with_google": "Google ile Devam Et",
+    "error_title": "Giriş Başarısız",
+    "error_description": "Giriş yapılamadı. Lütfen tekrar deneyin.",
+    "terms": "Devam ederek, Hizmet Şartlarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz."
   }
 }
