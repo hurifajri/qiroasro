@@ -1,19 +1,11 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
-  },
   "assist": {
     "actions": {
       "source": {
         "organizeImports": "on",
         "useSortedKeys": {
+          "level": "off",
           "options": {
             "sortOrder": "natural"
           }
@@ -21,67 +13,23 @@
       }
     }
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+  },
   "formatter": {
-    "enabled": true,
     "attributePosition": "auto",
+    "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
     "lineWidth": 80
-  },
-  "linter": {
-    "enabled": true,
-    "domains": {
-      "react": "recommended",
-      "next": "recommended",
-      "test": "recommended"
-    },
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnusedImports": "error",
-        "useExhaustiveDependencies": "info"
-      },
-      "nursery": {
-        "useSortedClasses": {
-          "level": "error",
-          "options": {
-            "attributes": ["classList"],
-            "functions": ["clsx", "cva", "cn", "tw", "tw.*"]
-          }
-        }
-      },
-      "style": {
-        "useNamingConvention": {
-          "level": "error",
-          "options": {
-            "conventions": [
-              {
-                "selector": {
-                  "kind": "objectLiteralProperty"
-                },
-                "formats": [
-                  "camelCase",
-                  "snake_case",
-                  "CONSTANT_CASE",
-                  "PascalCase"
-                ]
-              },
-              {
-                "selector": {
-                  "kind": "const"
-                },
-                "formats": ["camelCase", "PascalCase", "CONSTANT_CASE"]
-              }
-            ]
-          }
-        }
-      },
-      "suspicious": {
-        "noUnknownAtRules": "off"
-      }
-    }
   },
   "javascript": {
     "formatter": {
@@ -100,9 +48,63 @@
       "trailingCommas": "none"
     }
   },
-  "css": {
-    "parser": {
-      "tailwindDirectives": true
+  "linter": {
+    "domains": {
+      "next": "recommended",
+      "react": "recommended",
+      "test": "recommended"
+    },
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noUnusedImports": "error",
+        "useExhaustiveDependencies": "info"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "attributes": ["classList"],
+            "functions": ["clsx", "cva", "cn", "tw", "tw.*"]
+          }
+        }
+      },
+      "recommended": true,
+      "style": {
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "conventions": [
+              {
+                "formats": [
+                  "camelCase",
+                  "snake_case",
+                  "CONSTANT_CASE",
+                  "PascalCase"
+                ],
+                "selector": {
+                  "kind": "objectLiteralProperty"
+                }
+              },
+              {
+                "formats": ["camelCase", "PascalCase", "CONSTANT_CASE"],
+                "selector": {
+                  "kind": "const"
+                }
+              }
+            ],
+            "strictCase": false
+          }
+        }
+      },
+      "suspicious": {
+        "noUnknownAtRules": "off"
+      }
     }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }
