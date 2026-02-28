@@ -67,9 +67,7 @@ export async function updateSession(request: NextRequest) {
   // Default-deny: If NOT logged in and routing to a NON-PUBLIC route -> redirect to login
   if (!user && !isPublicRoute(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
-    // Redirect to homepage (not /login) because there is no login page yet
-    // TODO: Update to the correct login route after Task 1.5 (Login UI) is completed
-    url.pathname = '/';
+    url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 
