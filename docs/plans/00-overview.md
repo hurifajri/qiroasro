@@ -26,7 +26,14 @@
 | `hij_letter_traits` | ✅ Edges | ✅ Quiz questions, Reference details |
 | `mv_playground_data` | ✅ Single query | ⬜ Buat MV baru khusus private app jika perlu |
 
-Pendekatan: **Tambah Drizzle schema** untuk tabel `master.sql` yang belum ada di `src/db/schema.ts` (saat ini hanya `waitlist` dan `mv_playground_data`).
+Pendekatan: **Schema dipecah ke 4 file** di `src/db/`:
+
+| File | Domain | Status |
+|---|---|---|
+| `auth-schema.ts` | Better Auth tables — jangan disentuh manual | ✅ Done |
+| `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
+| `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
+| `user-schema.ts` | Private-app user data (`userProfiles`, dst) | `[ ]` Pending |
 
 ---
 
@@ -53,8 +60,8 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 
 | # | Task | File Plan | Prioritas | Status |
 |---|---|---|---|---|
-| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[/]` In Progress |
-| 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[ ]` |
+| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[/]` In Progress — core selesai, sisa: middleware, userProfiles, connect UI |
+| 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[/]` Partial — master + auth schema done, sisa: unused.sql tables |
 | 3 | Curriculum Engine (Sections, Units, Lessons) | [03-curriculum.md](./03-curriculum.md) | 🔴 High | `[ ]` |
 | 4 | Learn Page — Fungsionalitas | [04-learn.md](./04-learn.md) | 🔴 High | `[ ]` |
 | 5 | Reference Page — Data Riil | [05-reference.md](./05-reference.md) | 🟡 Medium | `[ ]` |

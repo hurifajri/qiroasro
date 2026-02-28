@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[/]` Sedang dikerjakan
+## Status: `[/]` Sedang dikerjakan — Core auth setup selesai, tinggal middleware & connect UI
 
 ---
 
@@ -74,10 +74,12 @@ Route Handler:
 ### 1.3 Database Schema (Auth Tables)
 
 - [x] Generate auth schema via Better Auth CLI: `pnpm dlx @better-auth/cli@latest generate` → dipindah ke `src/db/auth-schema.ts`
-- [ ] Jalankan migration via Drizzle: `pnpm drizzle-kit push`
+- [x] Auth tables (`user`, `session`, `account`, `verification`) sudah masuk ke DB
+- [x] Master tables dari `master.sql` sudah di-define di `src/db/common-schema.ts`
+- [x] `drizzle.config.ts` pakai schema array (3 files) + `DATABASE_URL_DIRECT` untuk drizzle-kit CLI
 
 > [!NOTE]
-> Better Auth membuat tabel `user`, `session`, `account`, dan `verification` sendiri via generated Drizzle schema. File `docs/schemas/auth.sql` sudah dihapus — dokumentasi tabel auth cukup di-refer dari generated schema `src/db/auth-schema.ts`.
+> Schema dipecah menjadi 3 file: `auth-schema.ts` (auth), `common-schema.ts` (master tables + waitlist), `playground-schema.ts` (mv). Untuk menjalankan drizzle-kit, gunakan: `pnpm drizzle-kit push` — otomatis pakai `DATABASE_URL_DIRECT` (session pooler, port 5432).
 
 ### 1.4 Google OAuth
 
@@ -89,12 +91,13 @@ Route Handler:
 
 ### 1.5 User Profiles
 
-- [ ] Definisikan `userProfiles` di `src/db/schema.ts` — FK ke Better Auth `user` table
+- [ ] Buat `src/db/user-schema.ts` — [NEW] schema khusus private-app user data
+- [ ] Definisikan `userProfiles` di `src/db/user-schema.ts` — FK ke tabel `user` di `auth-schema.ts`
 - [ ] Buat hook auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
 - [ ] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — tetap sama
 
 > [!NOTE]
-> `userProfiles` sudah dihapus dari `src/db/schema.ts`. Perlu didefinisikan dengan FK ke tabel `user` dari Better Auth generated schema.
+> `user-schema.ts` adalah schema domain untuk private-app user data. Berbeda dengan `common-schema.ts` (master data, public) dan `auth-schema.ts` (managed by Better Auth). Ke depan tabel seperti `userProgress`, `userSettings`, `userStats` juga masuk di sini.
 
 ### 1.6 Middleware & Protected Routes
 
@@ -130,9 +133,9 @@ Route Handler:
 | `src/db/auth-schema.ts` | [x] | [NEW] Generated auth tables schema (via Better Auth CLI) — dipindah ke `src/db/` |
 | `src/db/common-schema.ts` | [x] | [NEW] waitlist (dipecah dari schema.ts) |
 | `src/db/playground-schema.ts` | [x] | [NEW] mv_playground_data (dipecah dari schema.ts) |
-| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
-| `drizzle.config.ts` | [x] | Schema array (3 files), `process.env` langsung (fix drizzle-kit CLI) |
+| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DATABASE_URL_DIRECT` |
+| `drizzle.config.ts` | [x] | Schema array (3 files), prefer `DATABASE_URL_DIRECT` (session pooler) untuk drizzle-kit |
 | `src/lib/db.ts` | [x] | Spread 3 schema ke satu object |
 | `src/schemas/user-profile.ts` | — | Tetap sama |
 | `src/models/user-profile.ts` | — | Tetap sama |
-| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] | `authClient.signIn.social({ provider: 'google' })` |
+| `src/db/user-schema.ts` | [ ] | [NEW] Schema domain private-app user (`userProfiles`, dst) |
