@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[/]` In Progress
+## Status: `[ ]` Belum Dikerjakan
 
 ---
 
@@ -10,145 +10,133 @@
 
 | Keputusan | Jawaban |
 |---|---|
-| Auth provider | **Supabase Auth** (+ abstraction layer untuk minimize vendor lock-in) |
+| Auth provider | **Better Auth** — TypeScript-first, framework-agnostic, Drizzle adapter built-in |
 | Metode login | **Social auth only** — Google (wajib), Apple (opsional, wajib jika publish ke App Store) |
-| Email+Password | ❌ Tidak untuk saat ini (bisa ditambah nanti) |
+| Email+Password | ❌ Tidak untuk saat ini (bisa ditambah nanti via plugin) |
 | Waitlist integration | ❌ Tidak perlu — waitlist tetap standalone untuk broadcast email |
-| DB queries | **Drizzle ORM** (existing) — Supabase package TIDAK dipakai untuk query DB |
+| DB queries | **Drizzle ORM** (existing) — Better Auth pakai Drizzle adapter langsung |
 
 ### Packages yang Digunakan
 
 | Package | Install? | Fungsi |
 |---|---|---|
-| `@supabase/supabase-js` | ✅ Ya | Main SDK — peer dependency dari `@supabase/ssr` |
-| `@supabase/ssr` | ✅ Ya | SSR helper — handle auth cookies, middleware, session refresh di Next.js |
-| `@supabase/auth-js` | ❌ Tidak langsung | Auth module, ter-install otomatis via `supabase-js` |
-| `@supabase/postgrest-js` | ❌ Tidak dipakai | REST client — kita pakai Drizzle untuk semua DB queries |
-| `@supabase/realtime-js` | ❌ Tidak dipakai | Realtime subscriptions — tidak dibutuhkan saat ini |
-| `@supabase/storage-js` | ❌ Tidak dipakai | File storage — tidak dibutuhkan saat ini |
-| `@supabase/functions-js` | ❌ Tidak dipakai | Edge functions — tidak dibutuhkan saat ini |
+| `better-auth` | ✅ Ya | Core auth framework — server config, client, plugins, adapters |
 
 ```bash
 # Yang perlu di-install
-pnpm add @supabase/supabase-js @supabase/ssr
+pnpm add better-auth
 ```
 
 > [!NOTE]
-> `postgrest-js`, `realtime-js`, `storage-js`, `functions-js` ter-install sebagai dependency `supabase-js`, tapi **tidak masuk client bundle** karena tree-shaking — kita hanya import `createBrowserClient` dan `createServerClient` dari `@supabase/ssr`.
+> Better Auth sudah include Drizzle adapter, social OAuth, session management, dan CSRF protection. Tidak perlu tambahan package untuk fitur dasar. Plugin tambahan (2FA, organization, dll.) diimport langsung dari `better-auth/plugins`.
 
-### Arsitektur: Auth vs DB
+### Arsitektur: Auth
 
 ```
 ┌─────────────────────────────────────────────────────┐
 │ src/lib/                                            │
 │                                                     │
-│ supabase/client.ts ──→ @supabase/ssr (browser)     │ ← Auth only
-│ supabase/server.ts ──→ @supabase/ssr (server)      │ ← Auth only
-│ auth.ts            ──→ Abstraction layer            │ ← Provider-agnostic
+│ auth.ts            ──→ Better Auth server config    │ ← Server config + Drizzle adapter
+│ auth-client.ts     ──→ Better Auth React client     │ ← Client hooks (signIn, useSession)
 │ db.ts              ──→ drizzle-orm + postgres       │ ← All DB queries
 └─────────────────────────────────────────────────────┘
+
+Route Handler:
+  src/app/api/auth/[...all]/route.ts ──→ toNextJsHandler(auth)
 ```
 
-**Authorization:** Handle di service layer (explicit `userId` filter di setiap query), bukan via Supabase RLS `auth.uid()`. Ini lebih portable jika suatu hari ganti provider.
+**Session management:** Better Auth mengelola tabel `session`, `user`, `account`, dan `verification` sendiri. Tidak perlu manage session cookies manual.
 
-### Vendor Lock-in Strategy
-
-Menggunakan abstraction layer agar mudah ganti provider di masa depan:
-
-```
-src/
-├── lib/
-│   └── auth.ts              ← Public API (wrapper, provider-agnostic)
-├── services/
-│   └── auth-provider.ts     ← Supabase-specific implementation
-```
-
-Jika suatu hari perlu migrasi dari Supabase Auth ke NextAuth/Better Auth/dll, cukup ganti `auth-provider.ts` tanpa ubah semua komponen.
+**Authorization:** Handle di service layer (explicit `userId` filter di setiap query). Portable — tidak terikat ke provider tertentu.
 
 ---
 
 ## Subtasks
 
-### 1.1 Setup Supabase Auth
-- [x] Install packages: `pnpm add @supabase/supabase-js @supabase/ssr`
-- [x] Tambah env vars: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-- [x] Buat Supabase client helpers:
-  - `src/lib/supabase/client.ts` — browser client (`createBrowserClient`)
-  - `src/lib/supabase/server.ts` — server client (`createServerClient`)
-  - `src/lib/supabase/proxy.ts` — session refresh + route protection (`updateSession`)
-- [x] Update `src/proxy.ts` — chain `updateSession` (auth) → `next-intl` (i18n locale routing)
-- [x] Enable Google OAuth di Supabase Dashboard (lihat [Panduan Setup](../guides/google-oauth-setup.md))
-- [x] Setup Google Cloud Console (OAuth credentials) (lihat [Panduan Setup](../guides/google-oauth-setup.md))
+### 1.1 Setup Better Auth
+
+- [ ] Install package: `pnpm add better-auth`
+- [ ] Uninstall Supabase packages: `pnpm remove @supabase/supabase-js @supabase/ssr`
+- [ ] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars), `BETTER_AUTH_URL`
+- [ ] Update `src/env.ts` — hapus Supabase env vars, tambah Better Auth env vars
+- [ ] Buat `src/lib/auth.ts` — Better Auth server config:
+  - Drizzle adapter (`drizzleAdapter`)
+  - Social providers (Google)
+  - Session config (expiry, cookie cache)
+  - Rate limiting
+- [ ] Buat `src/lib/auth-client.ts` — Better Auth React client:
+  - Import dari `better-auth/react`
+  - Export `signIn`, `signOut`, `useSession`
+
+### 1.2 Route Handler
+
+- [ ] Buat `src/app/api/auth/[...all]/route.ts` — `toNextJsHandler(auth)` → export `{ GET, POST }`
+- [ ] Hapus `src/app/api/auth/callback/route.ts` (Supabase OAuth callback — tidak diperlukan lagi)
+
+### 1.3 Database Schema (Auth Tables)
+
+- [ ] Generate auth schema via Better Auth CLI: `npx @better-auth/cli@latest generate --output src/db/auth-schema.ts`
+- [ ] Jalankan migration via Drizzle: `pnpm drizzle-kit push`
+- [ ] Update `docs/schemas/auth.sql` — dokumentasi tabel Better Auth (`user`, `session`, `account`, `verification`)
 
 > [!NOTE]
-> **Arsitektur `proxy.ts`:**
-> - `src/lib/supabase/proxy.ts` — `updateSession()`: refresh session via `getClaims()` (decode JWT lokal, tanpa network call), redirect ke `/login` jika tidak terautentikasi
-> - `src/proxy.ts` — chain: auth check dulu, jika redirect langsung return, jika OK lanjut ke `next-intl` untuk locale routing
-> - `getClaims()` lebih efisien dari `getUser()` karena decode JWT lokal (tidak hit Supabase server setiap request)
+> Better Auth membuat tabel `user`, `session`, `account`, dan `verification` sendiri. Tidak perlu trigger `handle_new_user()` atau referensi ke `auth.users` seperti di Supabase.
 
-### 1.2 Auth Abstraction Layer
-- [x] Buat `src/lib/auth.ts` — provider-agnostic wrapper
-  - `signIn(provider)` — trigger social login
-  - `signOut()` — logout
-  - `getUser()` — get current user (server-side)
-  - `getSession()` — get current session
-- [x] Buat `src/services/auth-provider.ts` — Supabase-specific implementation
+### 1.4 Google OAuth
 
-### 1.3 Database Schema — User Profiles
-- [x] Buat `docs/schemas/auth.sql`
-- [x] Tabel `user_profiles` (references `auth.users` dari Supabase)
-- [x] Buat Drizzle schema di `src/db/schema.ts`
-- [x] Buat Valibot schemas (Remote → Local types) `src/schemas/user-profile.ts` + `src/models/user-profile.ts`
+- [ ] Configure `socialProviders.google` di `src/lib/auth.ts`:
+  - `clientId`: dari Google Cloud Console
+  - `clientSecret`: dari Google Cloud Console
+- [ ] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (ganti dari `SUPABASE_AUTH_EXTERNAL_GOOGLE_*`)
+- [ ] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
 
-```sql
-CREATE TABLE user_profiles (
-    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    display_name VARCHAR(100) NOT NULL,
-    avatar_color_code VARCHAR(30) DEFAULT 'sky',
-    locale TEXT DEFAULT 'id',
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-);
+### 1.5 User Profiles
 
--- Auto-create profile on signup via trigger
-CREATE OR REPLACE FUNCTION handle_new_user()
-RETURNS TRIGGER AS $$
-BEGIN
-    INSERT INTO public.user_profiles (id, username, display_name)
-    VALUES (
-        NEW.id,
-        COALESCE(NEW.raw_user_meta_data->>'preferred_username', 'user-' || LEFT(NEW.id::text, 8)),
-        COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.raw_user_meta_data->>'name', 'User')
-    );
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+- [ ] Update `docs/schemas/auth.sql` — `user_profiles` FK ke Better Auth `user` table (bukan `auth.users`)
+- [ ] Update `src/db/schema.ts` — `userProfiles` referensi ke tabel `user` dari Better Auth
+- [ ] Buat hook/trigger untuk auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
+- [ ] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — tetap sama
 
-CREATE TRIGGER on_auth_user_created
-    AFTER INSERT ON auth.users
-    FOR EACH ROW EXECUTE FUNCTION handle_new_user();
-```
+### 1.6 Middleware & Protected Routes
 
-### 1.4 Auth Middleware & Protected Routes
-- [ ] Buat Next.js middleware untuk protect `(private)` routes
-- [ ] Redirect unauthenticated users ke landing page / login
-- [ ] Setup session refresh di middleware
+- [ ] Update `src/proxy.ts` — hapus import Supabase, ganti session check pakai Better Auth
+- [ ] Hapus `src/lib/supabase/` — semua file (client.ts, server.ts, proxy.ts) tidak diperlukan lagi
+- [ ] Implement route protection: cek session via Better Auth di middleware, redirect ke `/login` jika unauthenticated
+- [ ] Hapus `supabase/config.toml` (konfigurasi Google OAuth Supabase — tidak diperlukan lagi)
 
-### 1.5 Login UI
-- [x] Buat login page / modal (dengan tombol "Sign in with Google")
-- [x] Buat callback route untuk OAuth redirect
-- [x] Handle auth errors (popup blocked, cancelled, dll)
+### 1.7 Login UI
 
-### 1.6 User Context & Hooks
-- [ ] Buat `useUser` hook untuk akses user data di client
-- [ ] Buat `UserProvider` context
-- [ ] Update layout `(private)` untuk wrap dengan `UserProvider`
+- [ ] Update login page — ganti `authProvider.signIn()` ke `authClient.signIn.social({ provider: 'google' })`
+- [ ] Update `src/app/[locale]/(public)/login/_components/login-button.tsx` — pakai Better Auth client
+- [ ] Handle auth errors (popup blocked, cancelled, dll)
 
-### 1.7 Connect Existing UI to Real User
+### 1.8 User Context & Hooks
+
+- [ ] Gunakan `useSession()` dari `src/lib/auth-client.ts` (Better Auth React hook, bukan custom hook)
+- [ ] Hapus custom `useUser`, `UserProvider` jika ada — `useSession()` sudah cukup
+- [ ] Update layout `(private)` jika perlu
+
+### 1.9 Connect Existing UI to Real User
+
 - [ ] Update `@header` dengan user info riil
 - [ ] Update `@sidebar` dengan user info riil
 - [ ] Update navigation profile link dengan username riil
+
+---
+
+## Cleanup: Hapus Supabase Auth
+
+File yang perlu dihapus saat implementasi Better Auth:
+
+| File | Alasan |
+|---|---|
+| `src/lib/supabase/client.ts` | Diganti oleh `src/lib/auth-client.ts` |
+| `src/lib/supabase/server.ts` | Diganti oleh `src/lib/auth.ts` server config |
+| `src/lib/supabase/proxy.ts` | Diganti oleh session check di middleware |
+| `src/services/auth-provider.ts` | Abstraction layer tidak diperlukan — Better Auth sudah provider-agnostic |
+| `src/lib/auth.ts` | Rewrite — ganti dari abstraction wrapper ke Better Auth server config |
+| `src/app/api/auth/callback/route.ts` | Diganti oleh catch-all `[...all]/route.ts` |
+| `supabase/config.toml` | Konfigurasi Supabase, tidak diperlukan |
 
 ---
 
@@ -156,20 +144,21 @@ CREATE TRIGGER on_auth_user_created
 
 | File | Deskripsi |
 |---|---|
-| `docs/schemas/auth.sql` | `user_profiles` table + trigger + RLS policies |
+| `docs/schemas/auth.sql` | Better Auth tables (`user`, `session`, `account`, `verification`) + `user_profiles` |
 
 ## Files yang Akan Ditambah/Modify
 
 | File | Perubahan |
 |---|---|
-| `src/lib/auth.ts` | [x] Auth abstraction layer |
-| `src/services/auth-provider.ts` | [x] Supabase Auth implementation |
-| `src/schemas/user-profile.ts` | [x] Valibot remote schema + local type |
-| `src/models/user-profile.ts` | [x] Transformer `transformRemoteUserProfile` |
-| `src/db/schema.ts` | [x] Tambah `userProfiles` table |
-| `src/app/api/auth/callback/route.ts` | [x] OAuth PKCE callback route |
-| `src/app/[locale]/(private)/layout.tsx` | Wrap dengan `UserProvider` |
-| `src/app/[locale]/(private)/_components/private.tsx` | Pass real user data |
-| `src/app/[locale]/(public)/login/page.tsx` | [x] Halaman Login |
-| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] Komponen tombol Sign in with Google |
-| `src/middleware.ts` | [NEW/MODIFY] Auth middleware |
+| `src/lib/auth.ts` | Better Auth server config (Drizzle adapter, Google OAuth, session) |
+| `src/lib/auth-client.ts` | [NEW] Better Auth React client (`signIn`, `signOut`, `useSession`) |
+| `src/app/api/auth/[...all]/route.ts` | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
+| `src/db/auth-schema.ts` | [NEW] Generated auth tables schema (via Better Auth CLI) |
+| `src/db/schema.ts` | Update `userProfiles` FK — referensi ke Better Auth `user` table |
+| `src/env.ts` | Hapus Supabase env vars, tambah `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
+| `src/proxy.ts` | Update middleware — Better Auth session check |
+| `src/schemas/user-profile.ts` | Tetap sama |
+| `src/models/user-profile.ts` | Tetap sama |
+| `src/app/[locale]/(public)/login/page.tsx` | Update — pakai Better Auth client |
+| `src/app/[locale]/(public)/login/_components/login-button.tsx` | Update — `authClient.signIn.social()` |
+| `docs/schemas/auth.sql` | Rewrite — Better Auth tables + `user_profiles` |

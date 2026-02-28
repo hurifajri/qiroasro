@@ -53,7 +53,7 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 
 | # | Task | File Plan | Prioritas | Status |
 |---|---|---|---|---|
-| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[/]` In Progress |
+| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[ ]` |
 | 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[ ]` |
 | 3 | Curriculum Engine (Sections, Units, Lessons) | [03-curriculum.md](./03-curriculum.md) | 🔴 High | `[ ]` |
 | 4 | Learn Page — Fungsionalitas | [04-learn.md](./04-learn.md) | 🔴 High | `[ ]` |
@@ -86,7 +86,7 @@ graph TD
 
 | File | Isi | Status |
 |---|---|---|
-| `docs/schemas/auth.sql` | Tabel users, profiles, sessions | `[ ]` |
+| `docs/schemas/auth.sql` | Tabel users, accounts, sessions, user_profiles | `[ ]` |
 | `docs/schemas/curriculum.sql` | Sections, units, lessons, user progress | `[ ]` |
 | `docs/schemas/gamification.sql` | XP, hearts, streak, gems, achievements | `[ ]` |
 | `docs/schemas/social.sql` | Follows, leaderboard, activity feed | `[ ]` |
@@ -94,28 +94,3 @@ graph TD
 | `docs/schemas/quest.sql` | Daily/weekly/monthly quests, user quest progress | `[ ]` |
 
 > Tabel dari `master.sql` dan `unused.sql` tetap digunakan as-is (tidak dimodifikasi). Schema baru akan me-reference tabel tersebut via foreign keys.
-
----
-
-## Files yang Sudah Dibuat/Dimodifikasi
-
-### Task 1 — Auth & User Management (In Progress)
-
-| File | Status | Keterangan |
-|---|---|---|
-| `src/env.ts` | [x] | Tambah `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, Google OAuth env vars |
-| `src/lib/supabase/client.ts` | [x] | Browser client (`createBrowserClient`) |
-| `src/lib/supabase/server.ts` | [x] | Server client (`createServerClient`) |
-| `src/lib/supabase/proxy.ts` | [x] | Session refresh + route protection (`updateSession`, default-deny public routes) |
-| `src/proxy.ts` | [x] | Chain auth → next-intl locale routing, combined matcher |
-| `src/lib/auth.ts` | [x] | Provider-agnostic auth wrapper (`signIn`, `signOut`, `getUser`, `getSession`) |
-| `src/services/auth-provider.ts` | [x] | Supabase Auth implementation |
-| `src/app/api/auth/callback/route.ts` | [x] | OAuth PKCE callback handler |
-| `src/db/schema.ts` | [x] | `userProfiles` table added |
-| `src/schemas/user-profile.ts` | [x] | Valibot remote schema + local `UserProfile` type |
-| `src/models/user-profile.ts` | [x] | `transformRemoteUserProfile` transformer |
-| `docs/schemas/auth.sql` | [x] | `user_profiles` table + trigger + RLS policies |
-| `supabase/config.toml` | [x] | Google OAuth configuration |
-| `src/app/[locale]/(public)/login/page.tsx` | [x] | Halaman Login UI |
-| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] | Komponen LoginButton dengan Google Auth |
-| `src/i18n/locales/*.json` | [x] | Tambah locale untuk `auth_page` |
