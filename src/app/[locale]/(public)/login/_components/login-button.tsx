@@ -24,8 +24,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
       await signIn('google');
       // Supabase OAuth redirect will handle the rest, but if it doesn't redirect fast:
       // it might stay in loading state, which is fine
-    } catch (error) {
-      console.error('Login error:', error);
+    } catch {
       setError(true);
       setIsLoading(false);
     }
@@ -48,8 +47,8 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
       </Button>
 
       {error && (
-        <div className="flex gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm">
-          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+        <div className="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm">
+          <AlertCircle className="shrink-0" />
           <div>
             <p className="font-semibold">{errorTitle}</p>
             <p className="text-destructive/90">{errorDesc}</p>
