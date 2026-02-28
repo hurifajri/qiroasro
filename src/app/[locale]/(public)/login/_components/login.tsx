@@ -1,27 +1,37 @@
 import { useTranslations } from 'next-intl';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { LoginButton } from './login-button';
 
 export function Login() {
   const t = useTranslations('auth_page');
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <div className="w-full max-w-sm space-y-8 rounded-xl border bg-card p-6 shadow-sm">
-        <div className="space-y-2 text-center">
-          <h1 className="font-bold text-3xl">{t('title')}</h1>
-          <p className="text-muted-foreground">{t('description')}</p>
-        </div>
-
-        <LoginButton
-          text={t('login_with_google')}
-          errorTitle={t('error_title')}
-          errorDesc={t('error_description')}
-        />
-
-        <p className="text-center text-muted-foreground text-xs">
-          {t('terms')}
-        </p>
-      </div>
+    <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-4 p-4 sm:mt-32 sm:max-w-md sm:flex-row">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle>{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LoginButton
+            text={t('login_with_google')}
+            errorTitle={t('error_title')}
+            errorDesc={t('error_description')}
+          />
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <p className="text-center text-muted-foreground text-xs">
+            {t('terms')}
+          </p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
