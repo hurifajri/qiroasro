@@ -1,4 +1,4 @@
-# Qiro Asro — Private App Functionality Plan
+# Qiroasro — Private App Functionality Plan
 
 > Master plan untuk menambahkan fungsionalitas ke Duolingo-like Quran learning app.
 > Setiap task besar dipecah ke subtask dan ditrack progressnya di file masing-masing.
@@ -11,9 +11,9 @@
 
 ---
 
-## Jawaban: Reuse `master.sql`
+## Reuse `master.sql`
 
-**Ya, `master.sql` bisa dan sebaiknya di-reuse.** Data dari tabel `hij_letters`, `hij_articulation_areas`, `hij_articulation_points`, `hij_traits`, `hij_trait_groups`, serta junction tables (`hij_letter_articulations`, `hij_letter_traits`) merupakan **master data** yang bersifat read-only dan bisa digunakan di mana saja:
+**`docs/schemas/master.sql` bisa dan sebaiknya di-reuse.** Data dari tabel `hij_letters`, `hij_articulation_areas`, `hij_articulation_points`, `hij_traits`, `hij_trait_groups`, serta junction tables (`hij_letter_articulations`, `hij_letter_traits`) merupakan **master data** yang bersifat read-only dan bisa digunakan di mana saja:
 
 | Tabel `master.sql` | Digunakan di Playground | Akan Digunakan di Private App |
 |---|---|---|
@@ -30,7 +30,7 @@ Pendekatan: **Tambah Drizzle schema** untuk tabel `master.sql` yang belum ada di
 
 ---
 
-## Jawaban: Tabel dari `unused.sql`
+## Tabel dari `unused.sql`
 
 Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 
