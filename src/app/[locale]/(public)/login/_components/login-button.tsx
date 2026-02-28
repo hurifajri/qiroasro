@@ -23,7 +23,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
     try {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/home',
+        callbackURL: '/learn',
       });
     } catch {
       setError(true);

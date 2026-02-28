@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[/]` Sedang dikerjakan — Core auth setup selesai, tinggal middleware & connect UI
+## Status: `[/]` Sedang dikerjakan — Login flow selesai ✅, sisa: userProfiles, middleware, connect UI
 
 ---
 
@@ -83,11 +83,9 @@ Route Handler:
 
 ### 1.4 Google OAuth
 
-- [x] Configure `socialProviders.google` di `src/lib/auth.ts`:
-  - `clientId`: dari Google Cloud Console
-  - `clientSecret`: dari Google Cloud Console
+- [x] Configure `socialProviders.google` di `src/lib/auth.ts`
 - [x] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
-- [ ] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
+- [x] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
 
 ### 1.5 User Profiles
 
