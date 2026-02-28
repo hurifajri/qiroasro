@@ -1,7 +1,6 @@
 import {
   type AnyPgColumn,
   jsonb,
-  pgMaterializedView,
   pgTable,
   text,
   timestamp,
@@ -32,9 +31,3 @@ export const waitlist = pgTable('waitlist', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
 });
-
-// MATERIALIZED VIEW
-// Note: defining it as a view for strict typing in Drizzle
-export const mvPlaygroundData = pgMaterializedView('mv_playground_data', {
-  data: jsonb('data'),
-}).existing();

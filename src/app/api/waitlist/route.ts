@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { VerifyEmailTemplate } from '@/components/email-templates/verify-email';
-import { waitlist } from '@/db/schema';
+import { waitlist } from '@/db/common-schema';
 import { env } from '@/env';
 import type { Locale } from '@/i18n/routing';
 import { db } from '@/lib/db';
