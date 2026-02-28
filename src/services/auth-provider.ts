@@ -16,7 +16,7 @@ export const AuthProvider = {
     // Default redirect to home page if not provided
     const redirectUrl = redirectTo
       ? `${window.location.origin}${redirectTo}`
-      : `${window.location.origin}/api/auth/callback?next=/`;
+      : `${window.location.origin}/api/auth/callback?next=/learn`;
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
