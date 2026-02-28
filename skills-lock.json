@@ -1,15 +1,40 @@
 {
   "version": 1,
   "skills": {
+    "better-auth-best-practices": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "a24359053259e55a75972cab4bf0b0e37e1393bac5f3756ec2e3a7b4b3778d2a"
+    },
+    "better-auth-security-best-practices": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "294d13881e083d41ff874b1da6689faf0c9eee4120579c0148a7a9c2aaa83e0c"
+    },
     "crawl": {
       "source": "tavily-ai/skills",
       "sourceType": "github",
       "computedHash": "9620e0eb413c554263dd86d3c76be5f62590cc8388623b30cd68d06c7e8ec067"
     },
+    "create-auth-skill": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "63689cc54dad93d286af948ab1792e755e7063541ffe90e248eed6523b0748a0"
+    },
+    "email-and-password-best-practices": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "9105cc29a462e8d07da45bbdbc90c3a60be3ba32fbd9d99d49944f5b971f8f96"
+    },
     "extract": {
       "source": "tavily-ai/skills",
       "sourceType": "github",
       "computedHash": "d659e3ffc9339dee640484b2b2d2a5052375011bc9fcf57325180ce21e8fa097"
+    },
+    "organization-best-practices": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "ec7bfca730d9263a357bfb059448035e62339ee58eb6191dfe9029088ed5bdf2"
     },
     "research": {
       "source": "tavily-ai/skills",
@@ -30,6 +55,11 @@
       "source": "tavily-ai/skills",
       "sourceType": "github",
       "computedHash": "e486e26e0f28b013f60952c1c60c808eb6a9f86d6fdb4fefcb83fbc3752efe27"
+    },
+    "two-factor-authentication-best-practices": {
+      "source": "better-auth/skills",
+      "sourceType": "github",
+      "computedHash": "37c04cd3de40b33601f2d2dfb290bde6dcc873badbdeace7d2a0e73dd055b270"
     }
   }
 }
