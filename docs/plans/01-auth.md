@@ -136,9 +136,9 @@ CREATE TRIGGER on_auth_user_created
 - [ ] Setup session refresh di middleware
 
 ### 1.5 Login UI
-- [ ] Buat login page / modal (dengan tombol "Sign in with Google")
-- [ ] Buat callback route untuk OAuth redirect
-- [ ] Handle auth errors (popup blocked, cancelled, dll)
+- [x] Buat login page / modal (dengan tombol "Sign in with Google")
+- [x] Buat callback route untuk OAuth redirect
+- [x] Handle auth errors (popup blocked, cancelled, dll)
 
 ### 1.6 User Context & Hooks
 - [ ] Buat `useUser` hook untuk akses user data di client
@@ -170,4 +170,6 @@ CREATE TRIGGER on_auth_user_created
 | `src/app/api/auth/callback/route.ts` | [x] OAuth PKCE callback route |
 | `src/app/[locale]/(private)/layout.tsx` | Wrap dengan `UserProvider` |
 | `src/app/[locale]/(private)/_components/private.tsx` | Pass real user data |
+| `src/app/[locale]/(public)/login/page.tsx` | [x] Halaman Login |
+| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] Komponen tombol Sign in with Google |
 | `src/middleware.ts` | [NEW/MODIFY] Auth middleware |

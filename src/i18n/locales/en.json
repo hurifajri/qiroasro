@@ -976,5 +976,13 @@
       "friend_streaks_description": "Allow friends to see your daily learning streak.",
       "save_changes": "Save Changes"
     }
+  },
+  "auth_page": {
+    "title": "Welcome Back",
+    "description": "Log in to save your progress, track your streak, and join the leaderboard.",
+    "login_with_google": "Continue with Google",
+    "error_title": "Authentication Failed",
+    "error_description": "We couldn't log you in. Please try again.",
+    "terms": "By continuing, you agree to our Terms of Service & Privacy Policy."
   }
 }

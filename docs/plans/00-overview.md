@@ -116,3 +116,6 @@ graph TD
 | `src/models/user-profile.ts` | [x] | `transformRemoteUserProfile` transformer |
 | `docs/schemas/auth.sql` | [x] | `user_profiles` table + trigger + RLS policies |
 | `supabase/config.toml` | [x] | Google OAuth configuration |
+| `src/app/[locale]/(public)/login/page.tsx` | [x] | Halaman Login UI |
+| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] | Komponen LoginButton dengan Google Auth |
+| `src/i18n/locales/*.json` | [x] | Tambah locale untuk `auth_page` |

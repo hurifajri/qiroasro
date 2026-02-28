@@ -976,5 +976,13 @@
       "friend_streaks_description": "Izinkan teman melihat rekor harian (streak) Anda.",
       "save_changes": "Simpan Perubahan"
     }
+  },
+  "auth_page": {
+    "title": "Selamat Datang",
+    "description": "Masuk untuk menyimpan kemajuan belajarmu, mempertahankan rekor, dan bergabung di papan peringkat.",
+    "login_with_google": "Lanjutkan dengan Google",
+    "error_title": "Gagal Masuk",
+    "error_description": "Kami tidak dapat memproses login Anda. Silakan coba lagi.",
+    "terms": "Dengan melanjutkan, Anda menyetujui Ketentuan Layanan dan Kebijakan Privasi kami."
   }
 }
