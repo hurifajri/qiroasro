@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import {
-  getAlternateLanguages,
-  getLocalePath,
-  getOgLocale,
-} from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import { LEAGUES } from '../_lib/league';
 import { MOCK_USER_STATS } from '../_lib/mock-data';
 import { Leaderboard } from './_components/leaderboard';
@@ -26,20 +20,10 @@ export async function generateMetadata({
     namespace: 'leaderboard_page.metadata',
   });
 
-  const path = '/leaderboard';
-
   return {
     title: t('title'),
     description: t('description'),
-    alternates: {
-      canonical: getLocalePath(path, locale as Locale),
-      languages: getAlternateLanguages(path),
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      locale: getOgLocale(locale as Locale),
-    },
+    robots: { index: false, follow: false },
   };
 }
 

@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import {
-  getAlternateLanguages,
-  getLocalePath,
-  getOgLocale,
-} from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import { ACHIEVEMENTS } from '../../_lib/achievement';
 import { Profile } from './_components/profile';
 import {
@@ -15,7 +9,7 @@ import {
 } from './_lib/mock-data';
 
 type GenerateMetadataProps = {
-  params: Promise<{ locale: string; username: string }>;
+  params: Promise<{ locale: string }>;
 };
 
 type ProfilePageProps = GenerateMetadataProps;
@@ -23,26 +17,16 @@ type ProfilePageProps = GenerateMetadataProps;
 export async function generateMetadata({
   params,
 }: GenerateMetadataProps): Promise<Metadata> {
-  const { locale, username } = await params;
+  const { locale } = await params;
   const t = await getTranslations({
     locale,
     namespace: 'profile_page.metadata',
   });
 
-  const path = `/profile/${username}`;
-
   return {
     title: t('title'),
     description: t('description'),
-    alternates: {
-      canonical: getLocalePath(path, locale as Locale),
-      languages: getAlternateLanguages(path),
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      locale: getOgLocale(locale as Locale),
-    },
+    robots: { index: false, follow: false },
   };
 }
 

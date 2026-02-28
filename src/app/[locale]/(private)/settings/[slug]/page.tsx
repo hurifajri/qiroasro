@@ -36,15 +36,7 @@ type SettingsSlug = (typeof VALID_SLUGS)[number];
 export async function generateMetadata({
   params,
 }: SettingsPageProps): Promise<Metadata> {
-  const { locale, slug } = await params;
-
-  // Validate slug
-  if (!VALID_SLUGS.includes(slug as SettingsSlug)) {
-    return {
-      title: 'Settings',
-      description: 'Manage your settings',
-    };
-  }
+  const { locale } = await params;
 
   const t = await getTranslations({
     locale,
@@ -54,6 +46,7 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
+    robots: { index: false, follow: false },
   };
 }
 

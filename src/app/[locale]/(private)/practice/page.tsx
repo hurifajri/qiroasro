@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import {
-  getAlternateLanguages,
-  getLocalePath,
-  getOgLocale,
-} from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import { Practice } from './_components/practice';
 import { PRACTICE_SECTIONS } from './_lib/mock-data';
 
@@ -27,15 +21,7 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
-    alternates: {
-      canonical: getLocalePath('/practice', locale as Locale),
-      languages: getAlternateLanguages('/practice'),
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      locale: getOgLocale(locale as Locale),
-    },
+    robots: { index: false, follow: false },
   };
 }
 

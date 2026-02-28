@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import {
-  getAlternateLanguages,
-  getLocalePath,
-  getOgLocale,
-} from '@/i18n/locale';
-import type { Locale } from '@/i18n/routing';
 import { MOCK_QUESTS } from '../_lib/mock-data';
 import { Quests } from './_components/quests';
 import { MOCK_MONTHLY_QUEST } from './_lib/mock-data';
@@ -25,20 +19,10 @@ export async function generateMetadata({
     namespace: 'quests_page.metadata',
   });
 
-  const path = '/quests';
-
   return {
     title: t('title'),
     description: t('description'),
-    alternates: {
-      canonical: getLocalePath(path, locale as Locale),
-      languages: getAlternateLanguages(path),
-    },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      locale: getOgLocale(locale as Locale),
-    },
+    robots: { index: false, follow: false },
   };
 }
 
