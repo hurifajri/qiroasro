@@ -58,22 +58,22 @@ Route Handler:
 - [x] Install package: `pnpm add better-auth`
 - [x] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars), `BETTER_AUTH_URL`
 - [x] Update `src/env.ts` — tambah Better Auth env vars
-- [/] Buat `src/lib/auth.ts` — Better Auth server config:
+- [x] Buat `src/lib/auth.ts` — Better Auth server config:
   - [x] Drizzle adapter (`drizzleAdapter`)
-  - [ ] Social providers (Google) — lihat subtask 1.4
-  - [ ] Session config (expiry, cookie cache)
-  - [ ] Rate limiting
-- [ ] Buat `src/lib/auth-client.ts` — Better Auth React client:
-  - Import dari `better-auth/react`
-  - Export `signIn`, `signOut`, `useSession`
+  - [x] Social providers (Google)
+  - [x] Session config (expiry, cookie cache)
+  - [x] Rate limiting
+- [x] Buat `src/lib/auth-client.ts` — Better Auth React client:
+  - Import dari `better-auth/client`
+  - Export `authClient` (signIn, signOut, useSession via authClient)
 
 ### 1.2 Route Handler
 
-- [ ] Buat `src/app/api/auth/[...all]/route.ts` — `toNextJsHandler(auth)` → export `{ GET, POST }`
+- [x] Buat `src/app/api/auth/[...all]/route.ts` — `toNextJsHandler(auth)` → export `{ GET, POST }`
 
 ### 1.3 Database Schema (Auth Tables)
 
-- [ ] Generate auth schema via Better Auth CLI: `npx @better-auth/cli@latest generate --output src/db/auth-schema.ts`
+- [x] Generate auth schema via Better Auth CLI: `pnpm dlx @better-auth/cli@latest generate` → dipindah ke `src/db/auth-schema.ts`
 - [ ] Jalankan migration via Drizzle: `pnpm drizzle-kit push`
 
 > [!NOTE]
@@ -81,10 +81,10 @@ Route Handler:
 
 ### 1.4 Google OAuth
 
-- [ ] Configure `socialProviders.google` di `src/lib/auth.ts`:
+- [x] Configure `socialProviders.google` di `src/lib/auth.ts`:
   - `clientId`: dari Google Cloud Console
   - `clientSecret`: dari Google Cloud Console
-- [ ] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+- [x] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
 - [ ] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
 
 ### 1.5 User Profiles
@@ -103,9 +103,9 @@ Route Handler:
 
 ### 1.7 Login UI
 
-- [ ] Update login page — pakai `authClient.signIn.social({ provider: 'google' })`
-- [ ] Update `src/app/[locale]/(public)/login/_components/login-button.tsx` — pakai Better Auth client
-- [ ] Handle auth errors (popup blocked, cancelled, dll)
+- [x] Update login page — pakai `authClient.signIn.social({ provider: 'google' })`
+- [x] Update `src/app/[locale]/(public)/login/_components/login-button.tsx` — pakai Better Auth client
+- [x] Handle auth errors (popup blocked, cancelled, dll)
 
 ### 1.8 User Context & Hooks
 
@@ -124,14 +124,15 @@ Route Handler:
 
 | File | Status | Perubahan |
 |---|---|---|
-| `src/lib/auth.ts` | [/] | Better Auth server config (Drizzle adapter ✅, Google OAuth, session, rate limit) |
-| `src/lib/auth-client.ts` | [ ] | [NEW] Better Auth React client (`signIn`, `signOut`, `useSession`) |
-| `src/app/api/auth/[...all]/route.ts` | [ ] | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
-| `src/db/auth-schema.ts` | [ ] | [NEW] Generated auth tables schema (via Better Auth CLI) |
-| `src/db/schema.ts` | [ ] | Tambah kembali `userProfiles` — FK ke Better Auth `user` table |
-| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` (done), + `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (pending) |
-| `src/proxy.ts` | [/] | Simplified ✅, tambah Better Auth session check (pending) |
+| `src/lib/auth.ts` | [x] | Better Auth server config (Drizzle adapter, Google OAuth, session, rate limit) |
+| `src/lib/auth-client.ts` | [x] | [NEW] Better Auth React client (`authClient`) |
+| `src/app/api/auth/[...all]/route.ts` | [x] | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
+| `src/db/auth-schema.ts` | [x] | [NEW] Generated auth tables schema (via Better Auth CLI) — dipindah ke `src/db/` |
+| `src/db/common-schema.ts` | [x] | [NEW] waitlist (dipecah dari schema.ts) |
+| `src/db/playground-schema.ts` | [x] | [NEW] mv_playground_data (dipecah dari schema.ts) |
+| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` |
+| `drizzle.config.ts` | [x] | Schema array (3 files), `process.env` langsung (fix drizzle-kit CLI) |
+| `src/lib/db.ts` | [x] | Spread 3 schema ke satu object |
 | `src/schemas/user-profile.ts` | — | Tetap sama |
 | `src/models/user-profile.ts` | — | Tetap sama |
-| `src/app/[locale]/(public)/login/page.tsx` | [ ] | Update — pakai Better Auth client |
-| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [ ] | Update — `authClient.signIn.social()` |
+| `src/app/[locale]/(public)/login/_components/login-button.tsx` | [x] | `authClient.signIn.social({ provider: 'google' })` |

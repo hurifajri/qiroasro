@@ -86,7 +86,7 @@ graph TD
 
 | File | Isi | Status |
 |---|---|---|
-| `docs/schemas/auth.sql` | Tabel `user_profiles` (auth tables di-manage oleh Better Auth via Drizzle schema) | `[ ]` |
+| `docs/schemas/auth.sql` | Tabel `user_profiles` (auth tables di-manage oleh Better Auth via `src/db/auth-schema.ts`) | `[x]` |
 | `docs/schemas/curriculum.sql` | Sections, units, lessons, user progress | `[ ]` |
 | `docs/schemas/gamification.sql` | XP, hearts, streak, gems, achievements | `[ ]` |
 | `docs/schemas/social.sql` | Follows, leaderboard, activity feed | `[ ]` |

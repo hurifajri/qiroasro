@@ -4,6 +4,7 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
+import { authClient } from '@/lib/auth-client';
 
 interface LoginButtonProps {
   text: string;
@@ -20,7 +21,10 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
     setError(false);
 
     try {
-      console.log('Login button clicked');
+      await authClient.signIn.social({
+        provider: 'google',
+        callbackURL: '/home',
+      });
     } catch {
       setError(true);
       setIsLoading(false);
