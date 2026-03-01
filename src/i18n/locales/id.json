@@ -12,6 +12,9 @@
       "mode_light": "Terang",
       "mode_dark": "Gelap"
     },
+    "language": {
+      "title": "Bahasa"
+    },
     "leagues": {
       "peace": "Darussalam",
       "stability": "Darul Muqamah",

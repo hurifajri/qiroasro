@@ -12,6 +12,9 @@
       "mode_light": "Açık",
       "mode_dark": "Koyu"
     },
+    "language": {
+      "title": "Dil"
+    },
     "leagues": {
       "peace": "Dâru's-Selâm",
       "stability": "Dâru'l-Mukâme",

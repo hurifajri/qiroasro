@@ -12,6 +12,9 @@
       "mode_light": "فاتح",
       "mode_dark": "داكن"
     },
+    "language": {
+      "title": "اللغة"
+    },
     "leagues": {
       "peace": "دار السلام",
       "stability": "دار المقامة",

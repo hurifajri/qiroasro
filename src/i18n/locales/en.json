@@ -12,6 +12,9 @@
       "mode_light": "Light",
       "mode_dark": "Dark"
     },
+    "language": {
+      "title": "Language"
+    },
     "leagues": {
       "peace": "Darussalam",
       "stability": "Darul Muqamah",
