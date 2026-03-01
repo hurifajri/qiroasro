@@ -71,7 +71,7 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
             </FieldLabel>
           </FieldContent>
           <Select
-            value={isMounted ? theme : undefined}
+            value={isMounted && theme ? theme : 'system'}
             onValueChange={setTheme}
           >
             <SelectTrigger id="theme" className="w-full">
