@@ -913,7 +913,7 @@
       "appearance": {
         "title": "Appearance",
         "dark_mode": "Dark Mode",
-        "mode_system": "System Default",
+        "mode_system": "System",
         "mode_off": "Off",
         "mode_on": "On"
       }

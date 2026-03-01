@@ -913,7 +913,7 @@
       "appearance": {
         "title": "Penampilan",
         "dark_mode": "Mod Gelap",
-        "mode_system": "Lalai Sistem",
+        "mode_system": "Sistem",
         "mode_off": "Padam",
         "mode_on": "Hidup"
       }
