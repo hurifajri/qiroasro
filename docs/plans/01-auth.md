@@ -56,7 +56,7 @@ Route Handler:
 ### 1.1 Setup Better Auth
 
 - [x] Install package: `pnpm add better-auth`
-- [x] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars), `BETTER_AUTH_URL`
+- [x] Tambah env vars: `BETTER_AUTH_SECRET` (32+ chars)
 - [x] Update `src/env.ts` — tambah Better Auth env vars
 - [x] Buat `src/lib/auth.ts` — Better Auth server config:
   - [x] Drizzle adapter (`drizzleAdapter`)
@@ -85,7 +85,7 @@ Route Handler:
 
 - [x] Configure `socialProviders.google` di `src/lib/auth.ts`
 - [x] Update env vars: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
-- [x] Verifikasi redirect URI di Google Cloud Console: `{BETTER_AUTH_URL}/api/auth/callback/google`
+- [x] Verifikasi redirect URI di Google Cloud Console: `{NEXT_PUBLIC_APP_URL}/api/auth/callback/google`
 
 ### 1.5 User Profiles
 
@@ -131,7 +131,7 @@ Route Handler:
 | `src/db/auth-schema.ts` | [x] | [NEW] Generated auth tables schema (via Better Auth CLI) — dipindah ke `src/db/` |
 | `src/db/common-schema.ts` | [x] | [NEW] waitlist (dipecah dari schema.ts) |
 | `src/db/playground-schema.ts` | [x] | [NEW] mv_playground_data (dipecah dari schema.ts) |
-| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DATABASE_URL_DIRECT` |
+| `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DATABASE_URL_DIRECT` |
 | `drizzle.config.ts` | [x] | Schema array (3 files), prefer `DATABASE_URL_DIRECT` (session pooler) untuk drizzle-kit |
 | `src/lib/db.ts` | [x] | Spread 3 schema ke satu object |
 | `src/schemas/user-profile.ts` | — | Tetap sama |

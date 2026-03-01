@@ -4,6 +4,7 @@ import { env } from '@/env';
 import { db } from '@/lib/db';
 
 export const auth = betterAuth({
+  baseURL: env.NEXT_PUBLIC_APP_URL,
   database: drizzleAdapter(db, { provider: 'pg' }),
   socialProviders: {
     google: {

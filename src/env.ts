@@ -4,7 +4,6 @@ import { minLength, pipe, string, url } from 'valibot';
 export const env = createEnv({
   server: {
     BETTER_AUTH_SECRET: pipe(string(), minLength(1)),
-    BETTER_AUTH_URL: pipe(string(), url(), minLength(1)),
     DATABASE_URL: pipe(string(), minLength(1)),
     DATABASE_URL_DIRECT: pipe(string(), minLength(1)),
     GOOGLE_CLIENT_ID: pipe(string(), minLength(1)),
@@ -18,7 +17,6 @@ export const env = createEnv({
   },
   runtimeEnv: {
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
-    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
     DATABASE_URL: process.env.DATABASE_URL,
     DATABASE_URL_DIRECT: process.env.DATABASE_URL_DIRECT,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
