@@ -3,18 +3,18 @@
 import { getViewportForBounds, useReactFlow } from '@xyflow/react';
 import { DownloadIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-import { useGlobalStore } from '@/providers/global';
 
 const IMAGE_WIDTH = 1920;
 const IMAGE_HEIGHT = 1080;
 
 export function GraphDownload() {
   const t = useTranslations('playground_page.download');
-  const theme = useGlobalStore((s) => s.theme);
+  const { resolvedTheme } = useTheme();
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
 
@@ -52,7 +52,9 @@ export function GraphDownload() {
 
     const dataUrl = await toPng(viewportElement, {
       backgroundColor:
-        theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)',
+        resolvedTheme === 'light'
+          ? 'oklch(1 0 0)'
+          : 'oklch(0.13 0.028 261.692)',
       width: IMAGE_WIDTH,
       height: IMAGE_HEIGHT,
       style: {

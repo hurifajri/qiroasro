@@ -17,7 +17,7 @@ type PrivateProps = React.PropsWithChildren & {
  */
 export function Private({ children, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
-  const isMobile = useMobile();
+  const { isMobile } = useMobile();
 
   // Update nav items based on current path
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => {

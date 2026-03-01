@@ -14,8 +14,8 @@ import {
 
 export function Settings() {
   const router = useRouter();
-  const isMounted = useMounted();
-  const isMobile = useMobile();
+  const { isMounted } = useMounted();
+  const { isMobile } = useMobile();
 
   // Redirect only after mounted and confirmed not mobile
   // biome-ignore lint/correctness/useExhaustiveDependencies: <router won't be changed>

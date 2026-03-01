@@ -3,5 +3,6 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 const MOBILE_BREAKPOINT = 768;
 
 export function useMobile() {
-  return useMediaQuery(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+  const isMobile = useMediaQuery(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+  return { isMobile };
 }

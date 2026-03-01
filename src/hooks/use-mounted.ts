@@ -22,5 +22,5 @@ export function useMounted() {
     setIsMounted(true);
   }, []);
 
-  return isMounted;
+  return { isMounted };
 }

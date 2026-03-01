@@ -5,7 +5,6 @@ import { Noto_Naskh_Arabic, Outfit } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
-import { SystemThemeScript } from '@/components/common/system-theme-script';
 import { env } from '@/env';
 import { getAlternateOgLocale, getLocaleDir, getOgLocale } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
@@ -13,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { GlobalStoreProvider } from '@/providers/global';
 import { MotionProvider } from '@/providers/motion';
 import { QueryClientProvider } from '@/providers/query-client';
-import { getPersistedGlobalStore } from '@/stores/global';
+import { ThemeProvider } from '@/providers/theme';
 
 type RootLayoutProps = React.PropsWithChildren & {
   params: Promise<{ locale: string }>;
@@ -84,8 +83,6 @@ export default async function RootLayout({
   params,
 }: RootLayoutProps) {
   const { locale } = await params;
-  const persistedState = await getPersistedGlobalStore();
-  const { theme: storedTheme } = persistedState;
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -97,19 +94,8 @@ export default async function RootLayout({
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
   const dir = getLocaleDir(locale);
 
-  // Resolve 'system' theme to actual theme for HTML attributes
-  // For 'system', we default to 'dark' on server-side, then SystemThemeScript
-  // will immediately update it based on actual system preference on client-side
-  const resolvedTheme = storedTheme === 'system' ? 'dark' : storedTheme;
-
   return (
-    <html
-      lang={locale}
-      dir={dir}
-      className={resolvedTheme}
-      style={{ colorScheme: resolvedTheme }}
-      suppressHydrationWarning
-    >
+    <html lang={locale} dir={dir} suppressHydrationWarning>
       <body
         className={cn(
           'font-latin antialiased',
@@ -118,11 +104,17 @@ export default async function RootLayout({
         )}
       >
         <QueryClientProvider>
-          <GlobalStoreProvider persistedState={persistedState}>
-            <SystemThemeScript />
-            <NextIntlClientProvider>
-              <MotionProvider>{children}</MotionProvider>
-            </NextIntlClientProvider>
+          <GlobalStoreProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <NextIntlClientProvider>
+                <MotionProvider>{children}</MotionProvider>
+              </NextIntlClientProvider>
+            </ThemeProvider>
           </GlobalStoreProvider>
           {/* {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools

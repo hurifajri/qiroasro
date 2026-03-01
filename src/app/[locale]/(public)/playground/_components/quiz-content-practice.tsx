@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  ColorMode,
   Edge,
   IsValidConnection,
   Node,
@@ -11,9 +12,10 @@ import type {
 } from '@xyflow/react';
 import { CheckCircle2Icon, PlayIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
-import { useGlobalStore } from '@/providers/global';
+import { useMounted } from '@/hooks/use-mounted';
 import { useQuizStore } from '../_providers/quiz';
 import { QuizContent } from './quiz-content';
 import { QuizInstruction } from './quiz-instruction';
@@ -53,7 +55,9 @@ export function QuizContentPractice({
   handleCheckAnswer,
 }: QuizContentPracticeProps) {
   const t = useTranslations('playground_page.quiz');
-  const theme = useGlobalStore((s) => s.theme);
+  const { theme } = useTheme();
+  const { isMounted } = useMounted();
+  const colorMode = (isMounted ? theme : 'light') as ColorMode;
 
   const type = useQuizStore((s) => s.type);
   const setMode = useQuizStore((s) => s.setMode);
@@ -102,7 +106,7 @@ export function QuizContentPractice({
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
-          theme={theme}
+          theme={colorMode}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}

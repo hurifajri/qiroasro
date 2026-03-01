@@ -1,7 +1,7 @@
 'use client';
 
-import type { ColorMode } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import {
   Field,
@@ -18,37 +18,25 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { useRouter } from '@/i18n/navigation';
-import { useGlobalStore } from '@/providers/global';
+import { useMounted } from '@/hooks/use-mounted';
 import type { PreferenceToggle } from '../../_schemas/settings';
 import { PreferenceToggleRow } from './preference-toggle-row';
 
 interface PreferencesProps {
   lessonPreferences: PreferenceToggle[];
-  theme: ColorMode;
 }
 
-export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
+export function Preferences({ lessonPreferences }: PreferencesProps) {
   const t = useTranslations();
-  const router = useRouter();
   const [preferences, setPreferences] =
     useState<PreferenceToggle[]>(lessonPreferences);
-  const setTheme = useGlobalStore((s) => s.setTheme);
-  const storeTheme = useGlobalStore((s) => s.theme);
-
-  // Use store value (client) after hydration, fallback to server prop
-  const currentTheme = storeTheme ?? theme;
+  const { theme, setTheme } = useTheme();
+  const { isMounted } = useMounted();
 
   const handleToggle = (id: string, enabled: boolean) => {
     setPreferences((prev) =>
       prev.map((pref) => (pref.id === id ? { ...pref, enabled } : pref)),
     );
-  };
-
-  const handleAppearanceChange = (value: ColorMode) => {
-    setTheme(value);
-    // Refresh to re-render server components with new theme from cookies
-    router.refresh();
   };
 
   return (
@@ -82,7 +70,10 @@ export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
               {t('global.dark_mode.title')}
             </FieldLabel>
           </FieldContent>
-          <Select value={currentTheme} onValueChange={handleAppearanceChange}>
+          <Select
+            value={isMounted ? theme : undefined}
+            onValueChange={setTheme}
+          >
             <SelectTrigger id="theme" className="w-full">
               <SelectValue />
             </SelectTrigger>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getPersistedGlobalStore } from '@/stores/global';
 import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
@@ -65,18 +64,12 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
   // Conditional rendering based on slug
   if (slug === 'preferences') {
-    const persistedState = await getPersistedGlobalStore();
-    const { theme } = persistedState;
-
     return (
       <>
         <h1 className="mb-6 hidden font-bold text-2xl md:block">
           {t('preferences.title')}
         </h1>
-        <Preferences
-          lessonPreferences={MOCK_LESSON_PREFERENCES}
-          theme={theme}
-        />
+        <Preferences lessonPreferences={MOCK_LESSON_PREFERENCES} />
       </>
     );
   }

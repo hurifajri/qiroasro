@@ -1,34 +1,23 @@
 'use client';
 
-import { createContext, useContext, useEffect, useRef } from 'react';
+import { createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
 import {
   createGlobalStore,
   type GlobalStore,
   initGlobalState,
-  type PersistedGlobalState,
 } from '@/stores/global';
 
 type GlobalStoreApi = ReturnType<typeof createGlobalStore>;
 
 const GlobalStoreContext = createContext<GlobalStoreApi | undefined>(undefined);
 
-type GlobalStoreProviderProps = React.PropsWithChildren &
-  Readonly<{ persistedState?: PersistedGlobalState }>;
-
-export function GlobalStoreProvider({
-  children,
-  persistedState,
-}: GlobalStoreProviderProps) {
+export function GlobalStoreProvider({ children }: React.PropsWithChildren) {
   const storeRef = useRef<GlobalStoreApi>(undefined);
-  const globalState = initGlobalState(persistedState);
+  const globalState = initGlobalState();
   storeRef.current ??= createGlobalStore(globalState);
 
   const store = storeRef.current;
-
-  useEffect(() => {
-    void store.persist.rehydrate();
-  }, [store.persist.rehydrate]);
 
   return (
     <GlobalStoreContext.Provider value={store}>
