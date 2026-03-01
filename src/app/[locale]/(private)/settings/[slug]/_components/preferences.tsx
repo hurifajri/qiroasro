@@ -67,7 +67,7 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
         <Field>
           <FieldContent>
             <FieldLabel htmlFor="theme">
-              {t('global.dark_mode.title')}
+              {t('global.color_mode.title')}
             </FieldLabel>
           </FieldContent>
           <Select
@@ -80,13 +80,13 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="system">
-                  {t('global.dark_mode.mode_system')}
+                  {t('global.color_mode.mode_system')}
                 </SelectItem>
                 <SelectItem value="light">
-                  {t('global.dark_mode.mode_off')}
+                  {t('global.color_mode.mode_light')}
                 </SelectItem>
                 <SelectItem value="dark">
-                  {t('global.dark_mode.mode_on')}
+                  {t('global.color_mode.mode_dark')}
                 </SelectItem>
               </SelectGroup>
             </SelectContent>

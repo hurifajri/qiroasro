@@ -6,11 +6,11 @@
       "feature_list": "Etkileşimli bilgi grafikleri,Test modu,Çoklu dil desteği",
       "keywords": "tecvid,tajweed,mahreç,mahreçler,sıfat,kuran,kuran öğrenme,arapça harfler,elifba"
     },
-    "dark_mode": {
-      "title": "Karanlık Mod",
+    "color_mode": {
+      "title": "Renk Modu",
       "mode_system": "Sistem",
-      "mode_off": "Kapalı",
-      "mode_on": "Açık"
+      "mode_light": "Açık",
+      "mode_dark": "Koyu"
     },
     "leagues": {
       "peace": "Dâru's-Selâm",

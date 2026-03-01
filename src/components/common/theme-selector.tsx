@@ -17,7 +17,7 @@ const themeSelectorClassName =
   'flex size-8 items-center justify-center rounded-full border border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50';
 
 export function ThemeSelector() {
-  const t = useTranslations('global.dark_mode');
+  const t = useTranslations('global.color_mode');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
   const { theme, setTheme } = useTheme();
@@ -49,11 +49,11 @@ export function ThemeSelector() {
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('light')}>
           <SunIcon className="mr-2 size-4" />
-          {t('mode_off')}
+          {t('mode_light')}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')}>
           <MoonIcon className="mr-2 size-4" />
-          {t('mode_on')}
+          {t('mode_dark')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

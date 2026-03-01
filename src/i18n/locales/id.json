@@ -6,11 +6,11 @@
       "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
-    "dark_mode": {
-      "title": "Mode Gelap",
+    "color_mode": {
+      "title": "Mode Warna",
       "mode_system": "Sistem",
-      "mode_off": "Mati",
-      "mode_on": "Nyala"
+      "mode_light": "Terang",
+      "mode_dark": "Gelap"
     },
     "leagues": {
       "peace": "Darussalam",
