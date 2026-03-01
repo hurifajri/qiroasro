@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { index, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
+import { index, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { user } from './auth-schema';
 
 // =====================================================================
@@ -14,10 +14,10 @@ export const userProfiles = pgTable(
     id: text('id')
       .primaryKey()
       .references(() => user.id, { onDelete: 'cascade' }),
-    username: varchar('username', { length: 50 }).notNull().unique(),
+    username: text('username').notNull().unique(),
     displayName: text('display_name').notNull(),
-    avatarColorCode: varchar('avatar_color_code', { length: 10 }).notNull(),
-    locale: varchar('locale', { length: 10 }).notNull().default('id'),
+    avatarColorCode: text('avatar_color_code').notNull(),
+    locale: text('locale').notNull().default('id'),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
   },

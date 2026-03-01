@@ -69,7 +69,7 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 | 7 | Gamification (XP, Hearts, Streak, Gems) | [07-gamification.md](./07-gamification.md) | 🟡 Medium | `[ ]` |
 | 8 | Leaderboard & Social | [08-leaderboard-social.md](./08-leaderboard-social.md) | 🟢 Low | `[ ]` |
 | 9 | Quests & Shop | [09-quests-shop.md](./09-quests-shop.md) | 🟢 Low | `[ ]` |
-| 10 | Profile & Settings | [10-profile-settings.md](./10-profile-settings.md) | 🟢 Low | `[ ]` |
+| 10 | Profile & Settings | [10-profile-settings.md](./10-profile-settings.md) | 🟢 Low | `[/]` Partial done |
 
 ### Dependency Graph
 

@@ -1,13 +1,15 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMobile } from '@/hooks/use-mobile';
 import { usePathname } from '@/i18n/navigation';
-import { authClient } from '@/lib/auth-client';
+import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
 
 type PrivateProps = React.PropsWithChildren & {
+  userId: string;
   header: React.ReactNode;
   sidebar: React.ReactNode;
 };
@@ -16,13 +18,17 @@ type PrivateProps = React.PropsWithChildren & {
  * Shared layout shell for private pages (learn, sections, profile, etc.)
  * Includes: left sidebar, stats bar header, right sidebar widgets, bottom nav
  */
-export function Private({ children, header, sidebar }: PrivateProps) {
+export function Private({ children, userId, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
   const { isMobile } = useMobile();
-  const { data: session } = authClient.useSession();
 
-  // Use real user ID as profile slug (same as username set at signup)
-  const profileUsername = session?.user?.id ?? 'me';
+  // Fetch real user profile — data is already prefetched in layout.tsx (no waterfall)
+  const { data: userProfile } = useSuspenseQuery(
+    getUserProfileByUserIdOpt(userId),
+  );
+
+  // Use real username for profile link
+  const profileUsername = userProfile?.username ?? userId;
 
   // Update nav items based on current path, inject real profile link
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => {

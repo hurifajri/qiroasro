@@ -2,7 +2,7 @@
 
 > Menghubungkan Profile dan Settings page ke data riil.
 
-## Status: `[ ]` Belum dimulai
+## Status: `[/]` Partial done
 
 **Depends on:** Task 8 (Leaderboard & Social), Task 9 (Quests & Shop)
 
@@ -16,10 +16,10 @@
 - [ ] Replace `MOCK_FRIEND_SUGGESTIONS` → real suggestions
 - [ ] Tampilkan achievements riil (berdasarkan badges earned)
 
-### 10.2 Profile Edit
-- [ ] Edit display name
-- [ ] Edit avatar color
-- [ ] Edit username (with uniqueness check)
+### 10.2 Profile Edit (✅ Selesai)
+- [x] Edit display name
+- [x] Edit avatar color
+- [x] Edit username (with uniqueness check)
 - [ ] Upload avatar image (optional, future)
 
 ### 10.3 Achievement System
@@ -36,7 +36,7 @@
 - [ ] Sound effects on/off → persist ke user preferences
 - [ ] Notification preferences → persist
 - [ ] Language preference → already handled by `next-intl`
-- [ ] Account management (change password, delete account)
+- [ ] Account management (delete account) — *Note: password auth disable (Google OAuth array)*
 - [ ] Privacy settings
 
 ### 10.5 Buat Schema DB — Settings (jika perlu)

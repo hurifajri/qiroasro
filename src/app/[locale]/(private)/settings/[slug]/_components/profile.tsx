@@ -1,48 +1,149 @@
 'use client';
 
-import { CheckIcon } from 'lucide-react';
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { CheckIcon, Loader2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useCallback, useRef, useState, useTransition } from 'react';
+import { safeParse } from 'valibot';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
+import { authClient } from '@/lib/auth-client';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
   AVATAR_SOLID_CODES,
+  type AvatarColorCode,
 } from '@/lib/avatar';
 import { cn } from '@/lib/utils';
+import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
+import { UpdateUserProfileSchema } from '@/schemas/user-profile';
+import {
+  checkUsernameAvailability,
+  updateUserProfile,
+} from '@/services/user-profile';
 import { UserAvatar } from '../../../_components/user-avatar';
-import type { ProfileForm } from '../../_schemas/settings';
 import { ProfileFieldRow } from './profile-field-row';
-import { ProfilePasswordRow } from './profile-password-row';
 
 interface ProfileProps {
-  defaultProfile: ProfileForm;
+  userId: string;
 }
 
-export function Profile({ defaultProfile }: ProfileProps) {
+type SaveStatus =
+  | { type: 'idle' }
+  | { type: 'saving' }
+  | { type: 'success' }
+  | { type: 'error'; message: string };
+
+export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
+  const queryClient = useQueryClient();
 
-  // Profile form state
-  const [profile, setProfile] = useState<ProfileForm>(defaultProfile);
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  // Fetch real user profile from cache (prefetched in page.tsx)
+  const { data: userProfile } = useSuspenseQuery(
+    getUserProfileByUserIdOpt(userId),
+  );
+  const { data: session } = authClient.useSession();
+  const userEmail = session?.user?.email ?? '';
 
-  const handleSaveChanges = () => {
-    // TODO: Implement save changes logic
-    console.log('Save changes:', { profile, currentPassword, newPassword });
-  };
+  // Local form state — seeded from real profile data
+  const [displayName, setDisplayName] = useState(
+    userProfile?.displayName ?? '',
+  );
+  const [username, setUsername] = useState(userProfile?.username ?? '');
+  const [avatarColorCode, setAvatarColorCode] = useState<AvatarColorCode>(
+    (userProfile?.avatarColorCode ?? '') as AvatarColorCode,
+  );
 
-  const handleExportData = () => {
-    // TODO: Implement export data logic
-    console.log('Export data');
-  };
+  // Username availability state
+  const [usernameStatus, setUsernameStatus] = useState<
+    'idle' | 'checking' | 'available' | 'taken' | 'invalid'
+  >('idle');
+  const usernameDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
-  const handleDeleteAccount = () => {
-    // TODO: Implement delete account logic
-    console.log('Delete account');
-  };
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>({ type: 'idle' });
+  const [isPending, startTransition] = useTransition();
+
+  const handleUsernameChange = useCallback(
+    (value: string) => {
+      setUsername(value);
+
+      // Reset status immediately
+      setUsernameStatus('idle');
+
+      // Debounce availability check
+      if (usernameDebounceRef.current) {
+        clearTimeout(usernameDebounceRef.current);
+      }
+
+      // Skip check if same as current username
+      if (value === userProfile?.username) {
+        return;
+      }
+
+      if (!value) return;
+
+      usernameDebounceRef.current = setTimeout(async () => {
+        setUsernameStatus('checking');
+        try {
+          const result = await checkUsernameAvailability(value, userId);
+          setUsernameStatus(result.available ? 'available' : result.reason);
+        } catch {
+          setUsernameStatus('invalid');
+        }
+      }, 500);
+    },
+    [userId, userProfile?.username],
+  );
+
+  const handleSaveChanges = useCallback(() => {
+    startTransition(async () => {
+      setSaveStatus({ type: 'saving' });
+
+      // Validate before sending
+      const validation = safeParse(UpdateUserProfileSchema, {
+        displayName,
+        avatarColorCode: avatarColorCode || undefined,
+        username: username !== userProfile?.username ? username : undefined,
+      });
+
+      if (!validation.success) {
+        setSaveStatus({
+          type: 'error',
+          message: validation.issues[0]?.message ?? 'Invalid input',
+        });
+        return;
+      }
+
+      const result = await updateUserProfile(userId, validation.output);
+
+      if (!result.success) {
+        const msg =
+          result.error === 'username_taken'
+            ? 'Username is already taken'
+            : 'Failed to save changes. Please try again.';
+        setSaveStatus({ type: 'error', message: msg });
+        return;
+      }
+
+      // Invalidate cache so profile link + profile page reflect new data
+      await queryClient.invalidateQueries(getUserProfileByUserIdOpt(userId));
+
+      setSaveStatus({ type: 'success' });
+
+      // Auto-clear success message after 3 seconds
+      setTimeout(() => setSaveStatus({ type: 'idle' }), 3000);
+    });
+  }, [
+    userId,
+    displayName,
+    username,
+    avatarColorCode,
+    userProfile?.username,
+    queryClient,
+  ]);
 
   return (
     <div className="flex flex-col gap-12">
@@ -50,8 +151,8 @@ export function Profile({ defaultProfile }: ProfileProps) {
       <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('avatar.title')}</h2>
         <UserAvatar
-          name={profile.name}
-          colorCode={profile.avatarColorCode}
+          name={displayName}
+          colorCode={avatarColorCode}
           className="size-20"
           textClassName="font-bold text-3xl"
         />
@@ -70,15 +171,13 @@ export function Profile({ defaultProfile }: ProfileProps) {
                 <Button
                   size="icon-lg"
                   key={colorCode}
-                  onClick={() =>
-                    setProfile({ ...profile, avatarColorCode: colorCode })
-                  }
+                  onClick={() => setAvatarColorCode(colorCode)}
                   className={cn(
                     'relative rounded-full transition-transform hover:scale-110',
                     AVATAR_COLORS[colorCode],
                   )}
                 >
-                  {profile.avatarColorCode === colorCode && (
+                  {avatarColorCode === colorCode && (
                     <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
                   )}
                 </Button>
@@ -94,15 +193,13 @@ export function Profile({ defaultProfile }: ProfileProps) {
                 <Button
                   size="icon-lg"
                   key={colorCode}
-                  onClick={() =>
-                    setProfile({ ...profile, avatarColorCode: colorCode })
-                  }
+                  onClick={() => setAvatarColorCode(colorCode)}
                   className={cn(
                     'relative rounded-full transition-transform hover:scale-110',
                     AVATAR_COLORS[colorCode],
                   )}
                 >
-                  {profile.avatarColorCode === colorCode && (
+                  {avatarColorCode === colorCode && (
                     <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
                   )}
                 </Button>
@@ -120,68 +217,69 @@ export function Profile({ defaultProfile }: ProfileProps) {
           <ProfileFieldRow
             id="name"
             labelKey="name"
-            value={profile.name}
-            onChange={(value) => setProfile({ ...profile, name: value })}
+            value={displayName}
+            onChange={setDisplayName}
           />
           <ProfileFieldRow
             id="username"
             labelKey="username"
-            value={profile.username}
-            onChange={(value) => setProfile({ ...profile, username: value })}
+            value={username}
+            onChange={handleUsernameChange}
+            hint={
+              usernameStatus === 'checking'
+                ? 'Checking availability…'
+                : usernameStatus === 'available'
+                  ? '✓ Username is available'
+                  : usernameStatus === 'taken'
+                    ? 'Username is already taken'
+                    : usernameStatus === 'invalid'
+                      ? 'Invalid username format'
+                      : undefined
+            }
+            hintVariant={
+              usernameStatus === 'available'
+                ? 'success'
+                : usernameStatus === 'taken' || usernameStatus === 'invalid'
+                  ? 'error'
+                  : 'default'
+            }
           />
           <ProfileFieldRow
             id="email"
             labelKey="email"
             type="email"
-            value={profile.email}
-            onChange={(value) => setProfile({ ...profile, email: value })}
+            value={userEmail}
+            disabled
           />
         </FieldGroup>
       </section>
 
-      {/* Password section */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('password.title')}</h2>
-        <Separator />
-        <FieldGroup className="gap-4">
-          <ProfilePasswordRow
-            id="current_password"
-            labelKey="current_password"
-            value={currentPassword}
-            onChange={setCurrentPassword}
-          />
-          <ProfilePasswordRow
-            id="new_password"
-            labelKey="new_password"
-            value={newPassword}
-            onChange={setNewPassword}
-          />
-        </FieldGroup>
-      </section>
-
-      {/* Save button */}
-      <Button onClick={handleSaveChanges} className="w-fit">
-        {t('save_changes')}
-      </Button>
-
-      {/* Footer actions */}
-      <div className="flex flex-col">
+      {/* Save button + status */}
+      <div className="flex flex-col gap-2">
         <Button
-          variant="link"
-          size="xs"
-          onClick={handleExportData}
-          className="no-underline! w-fit px-0 text-foreground uppercase"
+          onClick={handleSaveChanges}
+          disabled={
+            isPending ||
+            saveStatus.type === 'saving' ||
+            usernameStatus === 'taken' ||
+            usernameStatus === 'checking'
+          }
+          className="w-fit"
         >
-          {t('export_data')}
+          {(isPending || saveStatus.type === 'saving') && (
+            <Loader2Icon className="mr-2 size-4 animate-spin" />
+          )}
+          {t('save_changes')}
         </Button>
-        <Button
-          variant="link"
-          size="lg"
-          onClick={handleDeleteAccount}
-          className="no-underline! w-fit px-0 text-destructive uppercase"
-        >
-          {t('delete_account')}
-        </Button>
+
+        {saveStatus.type === 'success' && (
+          <p className="text-green-600 text-sm dark:text-green-400">
+            ✓ Changes saved successfully
+          </p>
+        )}
+        {saveStatus.type === 'error' && (
+          <p className="text-destructive text-sm">{saveStatus.message}</p>
+        )}
       </div>
     </div>
   );

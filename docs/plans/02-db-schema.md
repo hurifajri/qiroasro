@@ -15,7 +15,7 @@ Schema sudah dipecah ke 4 file di `src/db/`:
 | `auth-schema.ts` | Better Auth tables (user, session, account, verification) — managed by Better Auth | ✅ Done |
 | `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
-| `user-schema.ts` | Private-app user data (`userProfiles`) | ✅ Done (Task 1.5) |
+| `user-schema.ts` | Private-app user data (`userProfiles` using `text` columns) | ✅ Done |
 
 Config files sudah di-update:
 - `drizzle.config.ts` — schema array (4 files: auth, common, playground, user)
@@ -63,7 +63,7 @@ Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 - [x] `src/db/auth-schema.ts` — auth tables
 - [x] `src/db/common-schema.ts` — master data + waitlist
 - [x] `src/db/playground-schema.ts` — materialized view
-- [x] `src/db/user-schema.ts` — user profiles ✅ Done
+- [x] `src/db/user-schema.ts` — user profiles (using `text` types for flexibility) ✅ Done
 
 ### 2.4 Finalisasi `rule_category` ENUM
 - [ ] Tentukan list final `rule_category` values

@@ -119,7 +119,7 @@ Route Handler:
 - [x] Profile nav link menggunakan real user ID dari `authClient.useSession()` di `private.tsx`
 - [ ] Update `@header` dengan user info riil (deferred — butuh gamification data)
 - [ ] Update `@sidebar` dengan user info riil (deferred — butuh gamification data)
-- [ ] Update username profile link dengan real username (akan diupdate saat fitur update-username selesai)
+- [x] Update username profile link dengan real username (akan diupdate saat fitur update-username selesai)
 
 ---
 

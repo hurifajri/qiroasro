@@ -1,12 +1,19 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { auth } from '@/lib/auth';
+import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
 import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
   MOCK_LESSON_PREFERENCES,
   MOCK_PRIVACY_SETTINGS,
-  MOCK_PROFILE_DATA,
   MOCK_SOCIAL_ACCOUNTS,
 } from '../_lib/mock-data';
 import { Notifications } from './_components/notifications';
@@ -75,13 +82,22 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   }
 
   if (slug === 'profile') {
+    const session = await auth.api.getSession({ headers: await headers() });
+    const userId = session?.user?.id ?? '';
+
+    // Prefetch profile so the Profile component gets it instantly
+    const queryClient = new QueryClient();
+    if (userId) {
+      await queryClient.prefetchQuery(getUserProfileByUserIdOpt(userId));
+    }
+
     return (
-      <>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <h1 className="mb-6 hidden font-bold text-2xl md:block">
           {t('profile.title')}
         </h1>
-        <Profile defaultProfile={MOCK_PROFILE_DATA} />
-      </>
+        <Profile userId={userId} />
+      </HydrationBoundary>
     );
   }
 
