@@ -20,8 +20,8 @@ $$ LANGUAGE plpgsql;
 
 CREATE TABLE hij_letters (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    slug VARCHAR(50) NOT NULL UNIQUE, -- e.g., 'alif', 'ba', 'ta', 'alif-maddiyyah'
-    symbol VARCHAR(10) NOT NULL, -- Arabic letter symbol
+    slug TEXT NOT NULL UNIQUE, -- e.g., 'alif', 'ba', 'ta', 'alif-maddiyyah'
+    symbol TEXT NOT NULL UNIQUE, -- Arabic letter symbol
     is_madd BOOLEAN NOT NULL DEFAULT false,
     sort_order INT NOT NULL,
 );
@@ -45,7 +45,7 @@ CREATE POLICY "Public can view hij_letters" ON hij_letters FOR SELECT USING (tru
 -- Articulation Areas (General Makhraj)
 CREATE TABLE hij_articulation_areas (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    slug VARCHAR(50) NOT NULL UNIQUE, -- e.g., 'al-halq', 'al-lisan', 'asy-syafatain', 'al-khaisyum', 'al-jauf'
+    slug TEXT NOT NULL UNIQUE, -- e.g., 'al-halq', 'al-lisan', 'asy-syafatain', 'al-khaisyum', 'al-jauf'
     is_muhaqqaq BOOLEAN NOT NULL DEFAULT TRUE,
     sort_order INT NOT NULL
 );
@@ -62,7 +62,7 @@ CREATE POLICY "Public can view hij_articulation_areas" ON hij_articulation_areas
 CREATE TABLE hij_articulation_points (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     area_id INT NOT NULL REFERENCES hij_articulation_areas(id) ON DELETE RESTRICT,
-    slug VARCHAR(100) NOT NULL UNIQUE, -- e.g., 'aqshal-halq', 'wasathul-halq', 'ma-bainas-syafatain'
+    slug TEXT NOT NULL UNIQUE, -- e.g., 'aqshal-halq', 'wasathul-halq', 'ma-bainas-syafatain'
     sort_order INT NOT NULL
 );
 
@@ -104,7 +104,7 @@ CREATE POLICY "Public can view hij_letter_articulations" ON hij_letter_articulat
 -- Trait Groups (Opposable pairs or standalone)
 CREATE TABLE hij_trait_groups (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    slug VARCHAR(50) NOT NULL UNIQUE, -- e.g., 'breath-flow', 'sound-strength', 'tongue-position'
+    slug TEXT NOT NULL UNIQUE, -- e.g., 'breath-flow', 'sound-strength', 'tongue-position'
     is_lazimah BOOLEAN NOT NULL DEFAULT TRUE,
     has_middle_trait BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order INT NOT NULL
@@ -125,7 +125,7 @@ CREATE POLICY "Public can view hij_trait_groups" ON hij_trait_groups FOR SELECT 
 CREATE TABLE hij_traits (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     group_id INT NOT NULL REFERENCES hij_trait_groups(id) ON DELETE RESTRICT,
-    slug VARCHAR(50) NOT NULL UNIQUE, -- e.g., 'hams', 'jahr', 'syiddah', 'rakhawah', 'tawassuth'
+    slug TEXT NOT NULL UNIQUE, -- e.g., 'hams', 'jahr', 'syiddah', 'rakhawah', 'tawassuth'
     is_middle_trait BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order INT NOT NULL
 );

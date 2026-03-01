@@ -2,6 +2,7 @@
 
 import { useMobile } from '@/hooks/use-mobile';
 import { usePathname } from '@/i18n/navigation';
+import { authClient } from '@/lib/auth-client';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
@@ -18,14 +19,22 @@ type PrivateProps = React.PropsWithChildren & {
 export function Private({ children, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
   const { isMobile } = useMobile();
+  const { data: session } = authClient.useSession();
 
-  // Update nav items based on current path
+  // Use real user ID as profile slug (same as username set at signup)
+  const profileUsername = session?.user?.id ?? 'me';
+
+  // Update nav items based on current path, inject real profile link
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => {
+    const href =
+      item.id === 'profile' ? `/profile/${profileUsername}` : item.href;
+
     return {
       ...item,
+      href,
       isActive:
-        pathname.endsWith(item.href) ||
-        pathname.includes(item.href) ||
+        pathname.endsWith(href) ||
+        pathname.includes(href) ||
         (pathname === '/sections' && item.href === '/learn') ||
         (isMobile &&
           pathname.startsWith('/settings') &&

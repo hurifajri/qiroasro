@@ -10,7 +10,6 @@ import {
   text,
   timestamp,
   uuid,
-  varchar,
 } from 'drizzle-orm/pg-core';
 
 // =====================================================================
@@ -21,8 +20,8 @@ export const hijLetters = pgTable(
   'hij_letters',
   {
     id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-    slug: varchar('slug', { length: 50 }).notNull().unique(),
-    symbol: varchar('symbol', { length: 10 }).notNull(),
+    slug: text('slug').notNull().unique(),
+    symbol: text('symbol').notNull().unique(),
     isMadd: boolean('is_madd').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
   },
@@ -38,7 +37,7 @@ export const hijLetters = pgTable(
 
 export const hijArticulationAreas = pgTable('hij_articulation_areas', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  slug: varchar('slug', { length: 50 }).notNull().unique(),
+  slug: text('slug').notNull().unique(),
   isMuhaqqaq: boolean('is_muhaqqaq').notNull().default(true),
   sortOrder: integer('sort_order').notNull(),
 });
@@ -50,7 +49,7 @@ export const hijArticulationPoints = pgTable(
     areaId: integer('area_id')
       .notNull()
       .references(() => hijArticulationAreas.id, { onDelete: 'restrict' }),
-    slug: varchar('slug', { length: 100 }).notNull().unique(),
+    slug: text('slug').notNull().unique(),
     sortOrder: integer('sort_order').notNull(),
   },
   (table) => [index('idx_hij_articulation_points_area').on(table.areaId)],
@@ -86,7 +85,7 @@ export const hijTraitGroups = pgTable(
   'hij_trait_groups',
   {
     id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-    slug: varchar('slug', { length: 50 }).notNull().unique(),
+    slug: text('slug').notNull().unique(),
     isLazimah: boolean('is_lazimah').notNull().default(true),
     hasMiddleTrait: boolean('has_middle_trait').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
@@ -101,7 +100,7 @@ export const hijTraits = pgTable(
     groupId: integer('group_id')
       .notNull()
       .references(() => hijTraitGroups.id, { onDelete: 'restrict' }),
-    slug: varchar('slug', { length: 50 }).notNull().unique(),
+    slug: text('slug').notNull().unique(),
     isMiddleTrait: boolean('is_middle_trait').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
   },

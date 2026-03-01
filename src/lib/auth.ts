@@ -1,5 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { DEFAULT_AVATAR_COLOR_CODE } from '@/app/[locale]/(private)/_lib/avatar';
+import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
 import { db } from '@/lib/db';
 
@@ -24,5 +26,21 @@ export const auth = betterAuth({
     enabled: true,
     window: 60, // 60 second window
     max: 100, // max 100 requests per window
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          // Auto-create a user profile after every new signup
+          await db.insert(userProfiles).values({
+            id: user.id,
+            username: user.id, // temporary unique username — user can update later
+            displayName: user.name,
+            avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
+            locale: 'id',
+          });
+        },
+      },
+    },
   },
 });

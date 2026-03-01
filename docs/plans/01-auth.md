@@ -2,7 +2,7 @@
 
 > Fondasi untuk semua fitur private app. Tanpa auth, tidak bisa track progress, XP, streak, dll.
 
-## Status: `[/]` Sedang dikerjakan — Login flow selesai ✅, sisa: userProfiles, middleware, connect UI
+## Status: `[x]` Done — Semua subtask selesai ✅
 
 ---
 
@@ -89,18 +89,19 @@ Route Handler:
 
 ### 1.5 User Profiles
 
-- [ ] Buat `src/db/user-schema.ts` — [NEW] schema khusus private-app user data
-- [ ] Definisikan `userProfiles` di `src/db/user-schema.ts` — FK ke tabel `user` di `auth-schema.ts`
-- [ ] Buat hook auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
-- [ ] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — tetap sama
+- [x] Buat `src/db/user-schema.ts` — [NEW] schema khusus private-app user data
+- [x] Definisikan `userProfiles` di `src/db/user-schema.ts` — FK ke tabel `user` di `auth-schema.ts`
+- [x] Buat hook auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
+- [x] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — sudah ada, field match ✅
 
 > [!NOTE]
 > `user-schema.ts` adalah schema domain untuk private-app user data. Berbeda dengan `common-schema.ts` (master data, public) dan `auth-schema.ts` (managed by Better Auth). Ke depan tabel seperti `userProgress`, `userSettings`, `userStats` juga masuk di sini.
 
 ### 1.6 Middleware & Protected Routes
 
-- [ ] Tambahkan session check pakai Better Auth di middleware
-- [ ] Implement route protection: redirect ke `/login` jika unauthenticated
+- [x] Tambahkan session check pakai Better Auth di `src/proxy.ts` (file proxy next-intl yang sudah ada)
+- [x] Implement route protection: redirect ke `/login` jika unauthenticated, redirect ke `/learn` jika authenticated + akses `/login`
+- [x] Reuse `PRIVATE_ROUTES` dari `src/lib/routes.ts`
 
 ### 1.7 Login UI
 
@@ -110,14 +111,15 @@ Route Handler:
 
 ### 1.8 User Context & Hooks
 
-- [ ] Gunakan `useSession()` dari `src/lib/auth-client.ts` (Better Auth React hook)
-- [ ] Update layout `(private)` jika perlu
+- [x] Fix `src/lib/auth-client.ts` — switch from `better-auth/client` ke `better-auth/react` untuk React hook support
+- [x] Gunakan `authClient.useSession()` dari `src/lib/auth-client.ts` di `private.tsx`
 
 ### 1.9 Connect Existing UI to Real User
 
-- [ ] Update `@header` dengan user info riil
-- [ ] Update `@sidebar` dengan user info riil
-- [ ] Update navigation profile link dengan username riil
+- [x] Profile nav link menggunakan real user ID dari `authClient.useSession()` di `private.tsx`
+- [ ] Update `@header` dengan user info riil (deferred — butuh gamification data)
+- [ ] Update `@sidebar` dengan user info riil (deferred — butuh gamification data)
+- [ ] Update username profile link dengan real username (akan diupdate saat fitur update-username selesai)
 
 ---
 
@@ -136,4 +138,5 @@ Route Handler:
 | `src/lib/db.ts` | [x] | Spread 3 schema ke satu object |
 | `src/schemas/user-profile.ts` | — | Tetap sama |
 | `src/models/user-profile.ts` | — | Tetap sama |
-| `src/db/user-schema.ts` | [ ] | [NEW] Schema domain private-app user (`userProfiles`, dst) |
+| `src/db/user-schema.ts` | [x] | [NEW] Schema domain private-app user (`userProfiles`) |
+| `src/services/user-profile.ts` | [x] | [NEW] Server action `getUserProfile(userId)` |

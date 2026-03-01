@@ -50,12 +50,13 @@ export const AVATAR_GRADIENT_CODES = Object.keys(
   GRADIENT_COLORS,
 ) as AvatarColorCode[];
 
+export const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
+
 /**
  * Get Tailwind classes for a given color code
  */
 export function getAvatarColorClass(colorCode?: AvatarColorCode): string {
   if (!colorCode || !(colorCode in AVATAR_COLORS)) {
-    const DEFAULT_AVATAR_COLOR_CODE: AvatarColorCode = 'gray';
     return AVATAR_COLORS[DEFAULT_AVATAR_COLOR_CODE];
   }
   return AVATAR_COLORS[colorCode];
