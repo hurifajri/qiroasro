@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
+import { routing } from '@/i18n/routing';
 import { DEFAULT_AVATAR_COLOR_CODE } from '@/lib/avatar';
 import { db } from '@/lib/db';
 
@@ -37,7 +38,7 @@ export const auth = betterAuth({
             username: user.id, // temporary unique username — user can update later
             displayName: user.name,
             avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
-            locale: 'id',
+            locale: routing.defaultLocale,
           });
         },
       },

@@ -60,7 +60,7 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 
 | # | Task | File Plan | Prioritas | Status |
 |---|---|---|---|---|
-| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[x]` Done ✅ |
+| 1 | Auth & User Management | [01-auth.md](./01-auth.md) | 🔴 Highest | `[/]` Partial done |
 | 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[/]` Partial — master + auth + user schema done, sisa: `unused.sql` tables (deferred) + services/schemas/models hijaiyyah |
 | 3 | Curriculum Engine (Sections, Units, Lessons) | [03-curriculum.md](./03-curriculum.md) | 🔴 High | `[ ]` |
 | 4 | Learn Page — Fungsionalitas | [04-learn.md](./04-learn.md) | 🔴 High | `[ ]` |
