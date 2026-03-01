@@ -1,5 +1,10 @@
+import type { Metadata } from 'next';
 import { setRequestLocale } from 'next-intl/server';
 import { Private } from './_components/private';
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 type PrivateLayoutProps = React.PropsWithChildren & {
   params: Promise<{ locale: string }>;
