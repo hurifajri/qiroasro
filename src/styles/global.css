@@ -59,6 +59,10 @@
   --node-trait-handle: oklch(0.7 0.16 280);
   --node-trait-dark: oklch(0.52 0.24 280);
   --node-trait-text: oklch(0.45 0.18 280);
+
+  /* React Flow Background */
+  --flow-bg-pattern: oklch(0 0 0 / 0.8);
+  --flow-bg-canvas: oklch(1 0 0);
 }
 
 .dark {
@@ -115,6 +119,10 @@
   --node-trait-handle: oklch(0.74 0.16 280);
   --node-trait-dark: oklch(0.56 0.24 280);
   --node-trait-text: oklch(0.92 0.04 280);
+
+  /* React Flow Background */
+  --flow-bg-pattern: oklch(1 0 0 / 0.5);
+  --flow-bg-canvas: oklch(0.13 0.028 261.692);
 }
 
 @theme inline {
