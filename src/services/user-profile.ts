@@ -10,7 +10,7 @@ import {
   type UserProfile,
 } from '@/schemas/user-profile';
 
-export async function getUserProfile(
+export async function getUserProfileByUserId(
   userId: string,
 ): Promise<UserProfile | null> {
   try {
@@ -35,7 +35,37 @@ export async function getUserProfile(
 
     return transformRemoteUserProfile(remote);
   } catch (error) {
-    console.error('[getUserProfile] Error:', error);
+    console.error('[getUserProfileByUserId] Error:', error);
+    return null;
+  }
+}
+
+export async function getUserProfileByUsername(
+  username: string,
+): Promise<UserProfile | null> {
+  try {
+    const result = await db
+      .select()
+      .from(userProfiles)
+      .where(eq(userProfiles.username, username))
+      .limit(1);
+
+    const row = result[0];
+    if (!row) return null;
+
+    const remote = parse(RemoteUserProfileSchema, {
+      id: row.id,
+      username: row.username,
+      display_name: row.displayName,
+      avatar_color_code: row.avatarColorCode,
+      locale: row.locale,
+      created_at: row.createdAt?.toISOString(),
+      updated_at: row.updatedAt?.toISOString(),
+    });
+
+    return transformRemoteUserProfile(remote);
+  } catch (error) {
+    console.error('[getUserProfileByUsername] Error:', error);
     return null;
   }
 }

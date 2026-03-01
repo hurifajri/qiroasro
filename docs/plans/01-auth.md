@@ -139,4 +139,4 @@ Route Handler:
 | `src/schemas/user-profile.ts` | — | Tetap sama |
 | `src/models/user-profile.ts` | — | Tetap sama |
 | `src/db/user-schema.ts` | [x] | [NEW] Schema domain private-app user (`userProfiles`) |
-| `src/services/user-profile.ts` | [x] | [NEW] Server action `getUserProfile(userId)` |
+| `src/services/user-profile.ts` | [x] | [NEW] Server action `getUserProfileByUserId(userId)` |
