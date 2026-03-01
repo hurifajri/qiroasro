@@ -64,5 +64,5 @@ export const config = {
   // - _vercel         → Vercel internal files
   // - files with dot  → Static assets (favicon.ico, *.svg, *.png, etc.)
   matcher:
-    '/((?!api|trpc|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|.*\\..*)?.*)',
+    '/((?!api|trpc|_next/static|_next/image|_vercel|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$|.*\\..*).*)',
 };
