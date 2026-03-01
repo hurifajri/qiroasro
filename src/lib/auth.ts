@@ -1,8 +1,8 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { getLocale } from 'next-intl/server';
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
-import { routing } from '@/i18n/routing';
 import { DEFAULT_AVATAR_COLOR_CODE } from '@/lib/avatar';
 import { db } from '@/lib/db';
 
@@ -32,13 +32,15 @@ export const auth = betterAuth({
     user: {
       create: {
         after: async (user) => {
+          const locale = await getLocale();
+
           // Auto-create a user profile after every new signup
           await db.insert(userProfiles).values({
             id: user.id,
             username: user.id, // temporary unique username — user can update later
             displayName: user.name,
             avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
-            locale: routing.defaultLocale,
+            locale,
           });
         },
       },
