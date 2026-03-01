@@ -1,5 +1,5 @@
 import { type InferOutput, object, optional, picklist, string } from 'valibot';
-import { EMOJI_COLOR_CODES } from '../_lib/colors';
+import { EMOJI_COLOR_CODES } from '@/lib/colors';
 
 /**
  * Monthly Badge Schema

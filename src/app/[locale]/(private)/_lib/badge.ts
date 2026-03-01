@@ -1,5 +1,5 @@
+import type { CardColorCode, EmojiColorCode } from '@/lib/colors';
 import type { MonthlyBadge } from '../_schemas/badge';
-import type { CardColorCode, EmojiColorCode } from './colors';
 
 /**
  * Monthly badges

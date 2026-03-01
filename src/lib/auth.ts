@@ -1,8 +1,8 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { DEFAULT_AVATAR_COLOR_CODE } from '@/app/[locale]/(private)/_lib/avatar';
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
+import { DEFAULT_AVATAR_COLOR_CODE } from '@/lib/avatar';
 import { db } from '@/lib/db';
 
 export const auth = betterAuth({

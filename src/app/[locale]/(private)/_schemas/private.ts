@@ -11,7 +11,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '../_lib/avatar';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 import { LEAGUE_NAME_KEYS } from './league';
 
 const LeagueNameKeySchema = picklist(LEAGUE_NAME_KEYS);

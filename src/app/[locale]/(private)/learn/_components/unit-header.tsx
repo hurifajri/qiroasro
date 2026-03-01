@@ -10,8 +10,8 @@ import {
   ItemDescription,
   ItemTitle,
 } from '@/components/ui/item';
+import { getCardColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
-import { getCardColorClass } from '../../_lib/colors';
 import type { Unit } from '../_schemas/learn';
 
 interface UnitHeaderProps {

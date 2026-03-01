@@ -8,7 +8,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { CARD_COLOR_CODES, EMOJI_COLOR_CODES } from '../../_lib/colors';
+import { CARD_COLOR_CODES, EMOJI_COLOR_CODES } from '@/lib/colors';
 
 /**
  * Monthly Quest Schema

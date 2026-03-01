@@ -6,13 +6,13 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
-import { UserAvatar } from '../../../_components/user-avatar';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
   AVATAR_SOLID_CODES,
-} from '../../../_lib/avatar';
+} from '@/lib/avatar';
+import { cn } from '@/lib/utils';
+import { UserAvatar } from '../../../_components/user-avatar';
 import type { ProfileForm } from '../../_schemas/settings';
 import { ProfileFieldRow } from './profile-field-row';
 import { ProfilePasswordRow } from './profile-password-row';

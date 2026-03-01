@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
+import { getEmojiColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
-import { getEmojiColorClass } from '../../../_lib/colors';
 import type { Achievement } from '../../../_schemas/achievement';
 
 interface AchievementItemProps {

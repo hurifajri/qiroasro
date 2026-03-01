@@ -9,7 +9,7 @@ import {
   pipe,
   string,
 } from 'valibot';
-import { EMOJI_COLOR_CODES } from '../_lib/colors';
+import { EMOJI_COLOR_CODES } from '@/lib/colors';
 
 /**
  * Achievement schema

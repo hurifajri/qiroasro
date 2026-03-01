@@ -12,10 +12,7 @@ import {
   string,
   union,
 } from 'valibot';
-import {
-  AVATAR_GRADIENT_CODES,
-  AVATAR_SOLID_CODES,
-} from '../../../_lib/avatar';
+import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 
 /**
  * User profile schema
