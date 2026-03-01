@@ -6,6 +6,12 @@
       "feature_list": "Graf pengetahuan interaktif,Mod kuiz,Sokongan pelbagai bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
+    "dark_mode": {
+      "title": "Mod Gelap",
+      "mode_system": "Sistem",
+      "mode_off": "Padam",
+      "mode_on": "Hidup"
+    },
     "leagues": {
       "peace": "Darussalam",
       "stability": "Darul Muqamah",
@@ -911,11 +917,7 @@
         "listening_exercises": "Latihan Pendengaran"
       },
       "appearance": {
-        "title": "Penampilan",
-        "dark_mode": "Mod Gelap",
-        "mode_system": "Sistem",
-        "mode_off": "Padam",
-        "mode_on": "Hidup"
+        "title": "Penampilan"
       }
     },
     "profile": {

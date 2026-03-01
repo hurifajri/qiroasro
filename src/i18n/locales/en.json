@@ -6,6 +6,12 @@
       "feature_list": "Interactive knowledge graphs,Quiz mode,Multi-language support",
       "keywords": "tajweed,tajwid,makharijul huruf,sifatul huruf,quran,learn quran,hijaiyyah letters,arabic"
     },
+    "dark_mode": {
+      "title": "Dark Mode",
+      "mode_system": "System",
+      "mode_off": "Off",
+      "mode_on": "On"
+    },
     "leagues": {
       "peace": "Darussalam",
       "stability": "Darul Muqamah",
@@ -911,11 +917,7 @@
         "listening_exercises": "Listening Exercises"
       },
       "appearance": {
-        "title": "Appearance",
-        "dark_mode": "Dark Mode",
-        "mode_system": "System",
-        "mode_off": "Off",
-        "mode_on": "On"
+        "title": "Appearance"
       }
     },
     "profile": {

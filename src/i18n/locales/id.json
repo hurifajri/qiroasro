@@ -6,6 +6,12 @@
       "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
+    "dark_mode": {
+      "title": "Mode Gelap",
+      "mode_system": "Sistem",
+      "mode_off": "Mati",
+      "mode_on": "Nyala"
+    },
     "leagues": {
       "peace": "Darussalam",
       "stability": "Darul Muqamah",
@@ -911,11 +917,7 @@
         "listening_exercises": "Latihan Mendengar"
       },
       "appearance": {
-        "title": "Tampilan",
-        "dark_mode": "Mode Gelap",
-        "mode_system": "Sistem",
-        "mode_off": "Mati",
-        "mode_on": "Nyala"
+        "title": "Tampilan"
       }
     },
     "profile": {

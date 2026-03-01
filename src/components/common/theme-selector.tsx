@@ -19,7 +19,7 @@ type ThemeSelectorProps = Readonly<{
 }>;
 
 export function ThemeSelector({ theme }: ThemeSelectorProps) {
-  const t = useTranslations('settings_page.preferences.appearance');
+  const t = useTranslations('global.dark_mode');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
   const router = useRouter();
@@ -48,7 +48,7 @@ export function ThemeSelector({ theme }: ThemeSelectorProps) {
         ) : (
           <MonitorIcon className="size-4" />
         )}
-        <span className="sr-only">{t('dark_mode')}</span>
+        <span className="sr-only">{t('title')}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={() => handleThemeChange('system')}>

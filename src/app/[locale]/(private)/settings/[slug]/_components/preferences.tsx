@@ -29,7 +29,7 @@ interface PreferencesProps {
 }
 
 export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
-  const t = useTranslations('settings_page.preferences');
+  const t = useTranslations();
   const router = useRouter();
   const [preferences, setPreferences] =
     useState<PreferenceToggle[]>(lessonPreferences);
@@ -55,7 +55,9 @@ export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
     <div className="flex flex-col gap-12">
       {/* Lesson experience section */}
       <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('lesson_experience.title')}</h2>
+        <h2 className="font-bold text-xl">
+          {t('settings_page.preferences.lesson_experience.title')}
+        </h2>
         <Separator />
         <FieldGroup className="gap-4">
           {preferences.map((preference) => (
@@ -70,11 +72,15 @@ export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
 
       {/* Appearance section */}
       <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('appearance.title')}</h2>
+        <h2 className="font-bold text-xl">
+          {t('settings_page.preferences.appearance.title')}
+        </h2>
         <Separator />
         <Field>
           <FieldContent>
-            <FieldLabel htmlFor="theme">{t('appearance.dark_mode')}</FieldLabel>
+            <FieldLabel htmlFor="theme">
+              {t('global.dark_mode.title')}
+            </FieldLabel>
           </FieldContent>
           <Select value={currentTheme} onValueChange={handleAppearanceChange}>
             <SelectTrigger id="theme" className="w-full">
@@ -83,12 +89,14 @@ export function Preferences({ lessonPreferences, theme }: PreferencesProps) {
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="system">
-                  {t('appearance.mode_system')}
+                  {t('global.dark_mode.mode_system')}
                 </SelectItem>
                 <SelectItem value="light">
-                  {t('appearance.mode_off')}
+                  {t('global.dark_mode.mode_off')}
                 </SelectItem>
-                <SelectItem value="dark">{t('appearance.mode_on')}</SelectItem>
+                <SelectItem value="dark">
+                  {t('global.dark_mode.mode_on')}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
