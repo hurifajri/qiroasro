@@ -9,6 +9,7 @@ export const PUBLIC_ROUTES = ['/', '/playground'] as const;
 export const PRIVATE_ROUTES = [
   '/leaderboard',
   '/learn',
+  '/sections',
   '/practice',
   '/profile',
   '/quests',
