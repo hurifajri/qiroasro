@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  ColorMode,
   Edge,
   IsValidConnection,
   Node,
@@ -11,10 +12,11 @@ import type {
 } from '@xyflow/react';
 import { CheckCircle2Icon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
-import { useGlobalStore } from '@/providers/global';
+import { useMounted } from '@/hooks/use-mounted';
 import { useQuizStore } from '../_providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -65,7 +67,9 @@ function Challenge({
   handleCheckAndNext,
 }: ChallengeProps) {
   const t = useTranslations('playground_page.quiz');
-  const theme = useGlobalStore((s) => s.theme);
+  const { theme } = useTheme();
+  const { isMounted } = useMounted();
+  const colorMode = (isMounted ? theme : 'light') as ColorMode;
 
   const isChecked = useQuizStore((s) => s.isChecked);
   const currQuestionIdx = useQuizStore((s) => s.challengeCurrQuestionIdx);
@@ -108,7 +112,7 @@ function Challenge({
         nodes={nodes}
         nodeTypes={nodeTypes}
         edges={edges}
-        theme={theme}
+        theme={colorMode}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}

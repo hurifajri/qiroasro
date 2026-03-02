@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 2. Naming Conventions
+## Naming Conventions
 
 ### Files & Folders
 

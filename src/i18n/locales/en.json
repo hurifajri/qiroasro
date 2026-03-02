@@ -6,6 +6,134 @@
       "feature_list": "Interactive knowledge graphs,Quiz mode,Multi-language support",
       "keywords": "tajweed,tajwid,makharijul huruf,sifatul huruf,quran,learn quran,hijaiyyah letters,arabic"
     },
+    "color_mode": {
+      "title": "Color Mode",
+      "mode_system": "System",
+      "mode_light": "Light",
+      "mode_dark": "Dark"
+    },
+    "language": {
+      "title": "Language"
+    },
+    "leagues": {
+      "peace": "Darussalam",
+      "stability": "Darul Muqamah",
+      "security": "Al-Maqamul Amin",
+      "merit": "Qadama Sidq",
+      "honor": "Maq'adu Sidq",
+      "eternity": "Jannatul Khuld",
+      "shelter": "Jannatul Ma'wa",
+      "bliss": "Jannatun Na'im",
+      "eden": "Jannatu 'Adn",
+      "paradise": "Jannatul Firdaus"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "view_all": "View All",
+      "level": "Level",
+      "consistency_streak": {
+        "title": "Istiqamah Flame",
+        "description": "Reach a 365-day learning streak. Consistency is beloved by Allah.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "Itqan Master",
+        "description": "Complete 100 lessons with zero mistakes. Strive for perfection.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "Al-Mahir",
+        "description": "Earn 5000 XP. Be skilled in reciting the Quran.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Fajr Seeker",
+        "description": "Complete a lesson before 7 AM. Blessings are in the early hours.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Tahajjud Warrior",
+        "description": "Complete a lesson after 10 PM. Revive the night with knowledge.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Ukhuwah Builder",
+        "description": "Follow 3 friends. Believers are like a solid building.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Tawwabin Spirit",
+        "description": "Correct 50 mistakes in practice sessions. Returning to truth is noble.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Holiday Hafiz",
+        "description": "Complete lessons on Saturday and Sunday for 4 weeks in a row.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "dawn": {
+        "title": "The Dawn",
+        "surah_ref": "Al-Fajr",
+        "description": "Start your journey like the break of dawn."
+      },
+      "pen": {
+        "title": "The Pen",
+        "surah_ref": "Al-Qalam",
+        "description": "Knowledge is captured by the pen."
+      },
+      "thunder": {
+        "title": "The Thunder",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Powerful recitation like rolling thunder."
+      },
+      "fig": {
+        "title": "The Fig",
+        "surah_ref": "At-Tin",
+        "description": "Sweet fruits of patience and learning."
+      },
+      "star": {
+        "title": "The Star",
+        "surah_ref": "An-Najm",
+        "description": "Aim high, guided by the stars."
+      },
+      "sun": {
+        "title": "The Sun",
+        "surah_ref": "Ash-Shams",
+        "description": "Shine bright with clarity in reading."
+      },
+      "iron": {
+        "title": "The Iron",
+        "surah_ref": "Al-Hadid",
+        "description": "Strong will and unbreakable consistency."
+      },
+      "stars": {
+        "title": "The Mansions of the Stars",
+        "surah_ref": "Al-Buruj",
+        "description": "A sky full of persistent efforts."
+      },
+      "mount": {
+        "title": "The Mount",
+        "surah_ref": "At-Tur",
+        "description": "Firm and steadfast like a mountain."
+      },
+      "moon": {
+        "title": "The Moon",
+        "surah_ref": "Al-Qamar",
+        "description": "Beautiful reflection of the light."
+      },
+      "night": {
+        "title": "The Night",
+        "surah_ref": "Al-Lail",
+        "description": "Peaceful dedication in the quiet hours."
+      },
+      "declining_day": {
+        "title": "The Declining Day",
+        "surah_ref": "Al-'Asr",
+        "description": "Value every moment before time passes."
+      }
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -154,6 +282,95 @@
       "reminder_error": "Something went wrong. Please try again.",
       "reminder_invalid_email": "Invalid email address",
       "reminder_email_required": "Email is required"
+    },
+    "private_layout": {
+      "nav": {
+        "learn": "Learn",
+        "practice": "Practice",
+        "reference": "Reference",
+        "leaderboard": "Leaderboard",
+        "quests": "Quests",
+        "shop": "Shop",
+        "profile": "Profile",
+        "more": "More",
+        "settings": "Settings",
+        "help": "Help",
+        "logout": "Log Out"
+      },
+      "level_card": {
+        "title": "Level up with Super",
+        "description": "No ads, personalized practice, and unlimited features!",
+        "cta": "Get Super"
+      },
+      "leaderboard": {
+        "view_league": "View Halaqah",
+        "description": "Complete a lesson to join this week's leaderboard"
+      },
+      "daily_quests": {
+        "title": "Daily Quests",
+        "view_all": "View All"
+      },
+      "ads": {
+        "title": "Discover More",
+        "placeholder": "Advertisement",
+        "remove_ads": "Remove Ads"
+      },
+      "activity_feed": {
+        "title": "Activity",
+        "celebrate": "Celebrate",
+        "view_all": "View All"
+      },
+      "activity": {
+        "completed_streak": "Completed a 500 day streak!",
+        "collected_badge": "Collected the February badge!"
+      },
+      "follow_list": {
+        "title": "Friends",
+        "following": "Following",
+        "followers": "Followers",
+        "view_more": "View {count} more"
+      },
+      "add_friends": {
+        "title": "Add Friends",
+        "find": "Find Friends",
+        "invite": "Invite Friends"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "Earn 10 XP",
+          "description": "Complete lessons to earn XP"
+        },
+        "high_accuracy": {
+          "title": "Score 90%+ in 1 lesson",
+          "description": "Achieve high accuracy in a lesson"
+        },
+        "complete_lessons": {
+          "title": "Complete 3 lessons",
+          "description": "Finish 3 lessons today"
+        }
+      },
+      "account": {
+        "title": "Account",
+        "preferences": "Preferences",
+        "profile": "Profile",
+        "notifications": "Notifications",
+        "social": "Social Accounts",
+        "privacy": "Privacy"
+      },
+      "subscription": {
+        "title": "Subscription",
+        "choose_plan": "Choose a Plan"
+      },
+      "support": {
+        "title": "Support",
+        "help_center": "Help Center"
+      },
+      "monthly_badges": {
+        "title": "Monthly Badges",
+        "view_all": "View All"
+      },
+      "set_status": "Set Status",
+      "logout": "Log Out"
     }
   },
   "home_page": {
@@ -378,5 +595,403 @@
         }
       }
     }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Tajweed Learning Path",
+      "description": "Start your journey to master Tajweed through interactive lessons and units."
+    },
+    "title": "Learn - Tajweed Learning Path",
+    "section_unit_title": "Section and Unit",
+    "start": "Start",
+    "guidebook": "Guidebook",
+    "sections": {
+      "foundation": "Section {section}, Unit {unit}",
+      "tongue_letters": "Section {section}, Unit {unit}",
+      "lips_nasal": "Section {section}, Unit {unit}",
+      "trait": "Section {section}, Unit {unit}",
+      "unknown": "Section {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Cavity Letters (Al-Jauf)",
+        "description": "Learn the Madd letters from the oral and throat cavity."
+      },
+      "halq": {
+        "title": "Throat Letters (Al-Halq)",
+        "description": "Learn letters articulated from the throat."
+      },
+      "aqsha_lisan": {
+        "title": "Back Tongue (Aqsa)",
+        "description": "Letters from the deepest part of the tongue."
+      },
+      "wasath_lisan": {
+        "title": "Middle Tongue (Wasat)",
+        "description": "Letters from the middle of the tongue."
+      },
+      "hafah_lisan": {
+        "title": "Tongue Edge (Hafah)",
+        "description": "Letters from the sides/edges of the tongue."
+      },
+      "tharaf_lisan": {
+        "title": "Tongue Tip (Tharaf)",
+        "description": "Letters from the tip of the tongue."
+      },
+      "tsanaya": {
+        "title": "Incisors Area",
+        "description": "Letters involving the front teeth (incisors)."
+      },
+      "syafatain": {
+        "title": "Two Lips (Ash-Shafatain)",
+        "description": "Letters articulated by the lips."
+      },
+      "khaisyum": {
+        "title": "Nasal (Al-Khaishum)",
+        "description": "Sounds with nasal resonance (Ghunnah)."
+      },
+      "sifat_mutadhadah": {
+        "title": "Opposing Characteristics",
+        "description": "Traits that have opposites (e.g., Jahr vs Hams)."
+      },
+      "sifat_munfaridah": {
+        "title": "Unique Characteristics",
+        "description": "Traits without opposites (e.g., Qalqalah)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Curriculum",
+      "description": "View all curriculum sections and track your progress."
+    },
+    "title": "Sections - Curriculum",
+    "section_list_title": "Section List",
+    "section_title": "Section {number}",
+    "back": "Back",
+    "completed": "Completed!",
+    "continue": "Continue",
+    "review": "Review",
+    "sections": {
+      "foundation": {
+        "title": "Foundation",
+        "description": "Master the fundamental letters and sounds."
+      },
+      "tongue_letters": {
+        "title": "Tongue Letters",
+        "description": "Learn letters articulated from different parts of the tongue."
+      },
+      "lips_nasal": {
+        "title": "Lips & Nasal",
+        "description": "Letters from the lips and nasal cavity."
+      },
+      "trait": {
+        "title": "Characteristics",
+        "description": "Master the traits and properties of letters."
+      },
+      "advanced": {
+        "title": "Advanced Topics",
+        "description": "Advanced Tajweed rules and recitation techniques."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Knowledge Library",
+      "description": "Browse the comprehensive Tajweed reference library."
+    },
+    "title": "Reference - Knowledge Library",
+    "categories": {
+      "letters": {
+        "title": "Hijaiyyah Letters",
+        "count": "30 Items"
+      },
+      "articulation": {
+        "title": "Articulation Points",
+        "count": "17 Points"
+      },
+      "trait": {
+        "title": "Characteristics",
+        "count": "17 Traits"
+      },
+      "rule": {
+        "title": "Tajweed Rules",
+        "count": "Rules & Laws"
+      },
+      "waqf": {
+        "title": "Waqf & Ibtida'",
+        "count": "Stopping Marks"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Hijaiyyah Directory",
+      "description": "Learn the Arabic alphabet and their articulation points."
+    },
+    "title": "Letters - Hijaiyyah Directory",
+    "description": "Train your ear and learn to pronounce Arabic letters correctly from their proper articulation points.",
+    "start": "Start Learning",
+    "progress": "{learned} of {total} learned",
+    "makhraj": {
+      "jauf": "Cavity (Al-Jauf)",
+      "halq": "Throat (Al-Halq)",
+      "lisan": "Tongue (Al-Lisan)",
+      "shafatayn": "Lips (Ash-Shafatain)",
+      "khayshum": "Nasal (Al-Khaishum)"
+    },
+    "letters": {
+      "alif_mad": "Alif Madd",
+      "waw_mad": "Waw Madd",
+      "ya_mad": "Ya Madd",
+      "hamza": "Hamzah",
+      "ha": "Ha",
+      "ain": "'Ayn",
+      "ha_wasath": "Ha (Middle)",
+      "ghain": "Ghain",
+      "kha": "Kha",
+      "qaf": "Qaf",
+      "kaf": "Kaf",
+      "jim": "Jim",
+      "shin": "Shin",
+      "ya": "Ya",
+      "dad": "Dhad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Ta",
+      "dal": "Dal",
+      "tha": "Tha",
+      "dhal": "Dhal",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Zay",
+      "ta_mafkhama": "Ta (Emphatic)",
+      "dha": "Zha (Emphatic)",
+      "fa": "Fa",
+      "ba": "Ba",
+      "mim": "Mim",
+      "waw": "Waw",
+      "nun_ghunna": "Nun Ghunna",
+      "mim_ghunna": "Mim Ghunna"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Skill Drills",
+      "description": "Practice your Tajweed skills with various exercises without losing hearts."
+    },
+    "title": "Practice - Skill Drills",
+    "description": "Sharpen your recitation skills with targeted exercises.",
+    "sections": {
+      "letters": "Letter Practice",
+      "rules": "Rules Practice",
+      "collections": "Your Collections"
+    },
+    "modes": {
+      "articulation": {
+        "title": "Articulation Points",
+        "description": "Practice identifying where letters come from."
+      },
+      "trait": {
+        "title": "Characteristics",
+        "description": "Identify letter traits (Sifaat)."
+      },
+      "rule": {
+        "title": "Tajweed Rules",
+        "description": "Practice rules like Idgham, Ikhfa, etc."
+      },
+      "listen": {
+        "title": "Listening Lab",
+        "description": "Audio recognition exercises."
+      },
+      "mistakes": {
+        "title": "Review Mistakes",
+        "description": "Practice your weak areas from previous lessons."
+      },
+      "saved": {
+        "title": "Saved Items",
+        "description": "Review your bookmarked content."
+      }
+    }
+  },
+  "leaderboard_page": {
+    "metadata": {
+      "title": "Weekly Leaderboard",
+      "description": "Compete with other learners in your league and climb the ranks."
+    },
+    "title": "Leaderboard - Weekly Ranking",
+    "week_info": "This week's leaderboard",
+    "ranking": "Ranking",
+    "participants": "{count} participants"
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "Daily Quests & Challenges",
+      "description": "Complete daily quests and monthly challenges to earn rewards and badges."
+    },
+    "title": "Quests - Daily Challenges",
+    "monthly_quest": {
+      "february_quest": "February Quest",
+      "days_remaining": "{count} Days",
+      "complete_quests": "Complete {target} quests"
+    },
+    "daily_quests": {
+      "title": "Daily Quests",
+      "hours_remaining": "{count} Hours"
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Shop - Power-Ups & Items",
+      "description": "Purchase hearts, power-ups, and other items to enhance your learning experience."
+    },
+    "title": "Shop - Power-Ups & Items",
+    "hearts": {
+      "title": "Hearts",
+      "full": "Full",
+      "get_super": "Get Super",
+      "refill": {
+        "title": "Refill Hearts",
+        "description": "Restore full hearts to worry less about making mistakes."
+      },
+      "unlimited": {
+        "title": "Unlimited Hearts",
+        "description": "Never run out of hearts with Super!"
+      }
+    },
+    "powerups": {
+      "title": "Power-Ups",
+      "get_for": "Get For:",
+      "equipped": "Equipped",
+      "streak_freeze": {
+        "title": "Streak Freeze",
+        "description": "Keep your streak alive for one full day of inactivity."
+      },
+      "double_xp": {
+        "title": "Double XP Boost",
+        "description": "Earn double XP for 15 minutes of learning."
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "User Profile",
+      "description": "View user statistics, achievements, and friend suggestions."
+    },
+    "title": "User Profile",
+    "user_info": {
+      "joined": "Joined {date}",
+      "following": "Following",
+      "followers": "Followers"
+    },
+    "statistics": {
+      "title": "Statistics",
+      "day_streak": "Day Streak",
+      "total_xp": "Total XP",
+      "current_league": "Current Halaqah",
+      "top_3_finishes": "Top 3 Finishes"
+    },
+    "friend_suggestions": {
+      "title": "Suggested Friends",
+      "view_all": "View All",
+      "followed_by": "Followed by {count} friends",
+      "follow": "Follow",
+      "following": "Following"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "view_all": "View All",
+      "level": "Level"
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Settings",
+      "description": "Customize your learning experience and app preferences."
+    },
+    "title": "Settings",
+    "preferences": {
+      "title": "Preferences",
+      "lesson_experience": {
+        "title": "Lesson Experience",
+        "sound_effects": "Sound Effects",
+        "animations": "Animations",
+        "motivational_messages": "Motivational Messages",
+        "listening_exercises": "Listening Exercises"
+      },
+      "appearance": {
+        "title": "Appearance"
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "avatar": {
+        "title": "Avatar",
+        "choose_color": "Choose Color",
+        "solid_colors": "Solid",
+        "gradient_colors": "Gradient"
+      },
+      "personal_info": {
+        "title": "Personal Info",
+        "name": "Name",
+        "username": "Username",
+        "email": "Email"
+      },
+      "password": {
+        "title": "Password",
+        "current_password": "Current Password",
+        "new_password": "New Password",
+        "show_password": "Show Password",
+        "hide_password": "Hide Password"
+      },
+      "save_changes": "Save Changes",
+      "export_data": "Export My Data",
+      "delete_account": "Delete My Account"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "email": "Email",
+      "general": {
+        "title": "General",
+        "product_updates": "Product Updates & Learning Tips",
+        "new_follower": "New Follower",
+        "friend_activity": "Friend Activity",
+        "weekly_progress": "Weekly Progress",
+        "special_promotions": "Special Promotions",
+        "research_participation": "Research Participation Opportunities"
+      },
+      "daily_reminders": {
+        "title": "Daily Reminders",
+        "practice_reminder": "Practice Reminder",
+        "reminder_time": "Reminder Time"
+      }
+    },
+    "social": {
+      "title": "Social Accounts",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Privacy Settings",
+      "make_profile_public": "Public Profile",
+      "make_profile_public_description": "Allow others to find and follow you. Enables following others and joining public leaderboards.",
+      "personalized_ads": "Personalized Ads",
+      "personalized_ads_description": "Allow data usage to show relevant ads.",
+      "friend_streaks": "Share Streak",
+      "friend_streaks_description": "Allow friends to see your daily learning streak.",
+      "save_changes": "Save Changes"
+    }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "Log In",
+      "description": "Log in to your account to save your Tajweed learning progress."
+    },
+    "title": "Welcome Back",
+    "description": "Log in to save your progress, track your streak, and join the Halaqah.",
+    "login_with_google": "Continue with Google",
+    "error_title": "Login Failed",
+    "error_description": "We couldn't log you in. Please try again.",
+    "terms": "By continuing, you agree to our Terms of Service & Privacy Policy."
   }
 }

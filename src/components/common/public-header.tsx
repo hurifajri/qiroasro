@@ -1,20 +1,23 @@
 'use client';
 
-import type { ColorMode } from '@xyflow/react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
+import { useMounted } from '@/hooks/use-mounted';
 import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
 interface PublicHeaderProps {
-  theme: ColorMode;
   className?: string;
 }
 
-export function PublicHeader({ theme, className }: PublicHeaderProps) {
+export function PublicHeader({ className }: PublicHeaderProps) {
   const isScrolled = useIsScrolled();
+  const { resolvedTheme } = useTheme();
+  const { isMounted } = useMounted();
+  const currentTheme = isMounted ? resolvedTheme : 'light';
 
   const pathname = usePathname();
   const isPlayground = pathname === '/playground';
@@ -29,7 +32,9 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
       )}
     >
       <Link href="/" className="shrink-0 font-semibold text-xl">
-        {theme === 'light' ? (
+        {!isMounted ? (
+          <div className="h-7 w-24" />
+        ) : currentTheme === 'light' ? (
           <Image
             src="/qiroasro-web-logo-light.png"
             alt="Qiroasro Logo"
@@ -51,7 +56,7 @@ export function PublicHeader({ theme, className }: PublicHeaderProps) {
       </Link>
       <div className="flex items-center gap-2">
         <LocaleSelector />
-        <ThemeSelector theme={theme} />
+        <ThemeSelector />
       </div>
     </header>
   );

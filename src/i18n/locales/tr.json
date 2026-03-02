@@ -6,6 +6,134 @@
       "feature_list": "Etkileşimli bilgi grafikleri,Test modu,Çoklu dil desteği",
       "keywords": "tecvid,tajweed,mahreç,mahreçler,sıfat,kuran,kuran öğrenme,arapça harfler,elifba"
     },
+    "color_mode": {
+      "title": "Renk Modu",
+      "mode_system": "Sistem",
+      "mode_light": "Açık",
+      "mode_dark": "Koyu"
+    },
+    "language": {
+      "title": "Dil"
+    },
+    "leagues": {
+      "peace": "Dâru's-Selâm",
+      "stability": "Dâru'l-Mukâme",
+      "security": "Makam-ı Emîn",
+      "merit": "Kadem-i Sıdk",
+      "honor": "Mak'ad-i Sıdk",
+      "eternity": "Cennetü'l-Huld",
+      "shelter": "Cennetü'l-Me'vâ",
+      "bliss": "Naîm Cennetleri",
+      "eden": "Adn Cennetleri",
+      "paradise": "Firdevs Cenneti"
+    },
+    "achievements": {
+      "title": "Başarılar",
+      "view_all": "Tümünü Gör",
+      "level": "Seviye",
+      "consistency_streak": {
+        "title": "İstikamet Ateşi",
+        "description": "365 günlük öğrenme serisine ulaş. İstikrar Allah katında sevilir.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "İtkan Ustası",
+        "description": "100 dersi sıfır hatayla tamamla. Mükemmellik için çabala.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "El-Mahir",
+        "description": "5000 XP kazan. Kuran okumada mahir ol.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Fecr Arayan",
+        "description": "Sabah 7'den önce bir ders tamamla. Bereket sabahın erken saatlerindedir.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Teheccüd Savaşçısı",
+        "description": "Gece 10'dan sonra bir ders tamamla. Geceyi ilimle ihya et.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Uhuvvet Mimarı",
+        "description": "3 arkadaşını takip et. Müminler sağlam bir bina gibidir.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Tevvabin Ruhu",
+        "description": "Alıştırmalarda 50 hatayı düzelt. Doğruya dönmek erdemdir.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Hafta Sonu Hafızı",
+        "description": "Arka arkaya 4 hafta boyunca Cumartesi ve Pazar günleri ders tamamla.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "dawn": {
+        "title": "Fecr",
+        "surah_ref": "Al-Fajr",
+        "description": "Yolculuğuna şafak vakti gibi başla."
+      },
+      "pen": {
+        "title": "Kalem",
+        "surah_ref": "Al-Qalam",
+        "description": "İlim kalemle kayıt altına alınır."
+      },
+      "thunder": {
+        "title": "Gök Gürültüsü",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Gök gürültüsü gibi güçlü bir kıraat."
+      },
+      "fig": {
+        "title": "İncir",
+        "surah_ref": "At-Tin",
+        "description": "Sabır ve öğrenmenin tatlı meyveleri."
+      },
+      "star": {
+        "title": "Yıldız",
+        "surah_ref": "An-Najm",
+        "description": "Yıldızların rehberliğinde yükseği hedefle."
+      },
+      "sun": {
+        "title": "Güneş",
+        "surah_ref": "Ash-Shams",
+        "description": "Okumada netlik ile parla."
+      },
+      "iron": {
+        "title": "Demir",
+        "surah_ref": "Al-Hadid",
+        "description": "Güçlü irade ve kırılmaz istikrar."
+      },
+      "stars": {
+        "title": "Burçlar",
+        "surah_ref": "Al-Buruj",
+        "description": "Azimli çabalarla dolu bir gökyüzü."
+      },
+      "mount": {
+        "title": "Tur Dağı",
+        "surah_ref": "At-Tur",
+        "description": "Bir dağ gibi sağlam ve sarsılmaz."
+      },
+      "moon": {
+        "title": "Ay",
+        "surah_ref": "Al-Qamar",
+        "description": "Işığın güzel yansıması."
+      },
+      "night": {
+        "title": "Gece",
+        "surah_ref": "Al-Lail",
+        "description": "Sessiz saatlerde huzurlu adanmışlık."
+      },
+      "declining_day": {
+        "title": "Asır",
+        "surah_ref": "Al-'Asr",
+        "description": "Zaman geçmeden önce her anın kıymetini bil."
+      }
+    },
     "letter": {
       "hamzah": "Hemze",
       "ba": "Be",
@@ -154,6 +282,95 @@
       "reminder_error": "Bir hata oluştu. Lütfen tekrar deneyin.",
       "reminder_invalid_email": "Geçersiz e-posta adresi",
       "reminder_email_required": "E-posta adresi gereklidir"
+    },
+    "private_layout": {
+      "nav": {
+        "learn": "Öğren",
+        "practice": "Pratik",
+        "reference": "Referans",
+        "leaderboard": "Liderlik Tablosu",
+        "quests": "Görevler",
+        "shop": "Mağaza",
+        "profile": "Profil",
+        "more": "Daha Fazla",
+        "settings": "Ayarlar",
+        "help": "Yardım",
+        "logout": "Çıkış Yap"
+      },
+      "level_card": {
+        "title": "Super ile Yüksel",
+        "description": "Reklamsız, kişiselleştirilmiş pratik ve sınırsız özellikler!",
+        "cta": "Super'i Al"
+      },
+      "leaderboard": {
+        "view_league": "Halkayı Gör",
+        "description": "Bu haftaki liderlik tablosuna katılmak için bir ders tamamla"
+      },
+      "daily_quests": {
+        "title": "Günlük Görevler",
+        "view_all": "Tümünü Gör"
+      },
+      "ads": {
+        "title": "Daha Fazlasını Keşfet",
+        "placeholder": "Reklam",
+        "remove_ads": "Reklamları Kaldır"
+      },
+      "activity_feed": {
+        "title": "Aktivite",
+        "celebrate": "Kutla",
+        "view_all": "Tümünü Gör"
+      },
+      "activity": {
+        "completed_streak": "500 günlük seriyi tamamladı!",
+        "collected_badge": "Şubat rozetini kazandı!"
+      },
+      "follow_list": {
+        "title": "Arkadaşlar",
+        "following": "Takip Edilen",
+        "followers": "Takipçiler",
+        "view_more": "{count} tane daha gör"
+      },
+      "add_friends": {
+        "title": "Arkadaş Ekle",
+        "find": "Arkadaş Bul",
+        "invite": "Arkadaş Davet Et"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "10 XP Kazan",
+          "description": "XP kazanmak için dersleri tamamla"
+        },
+        "high_accuracy": {
+          "title": "1 derste %90+ puan al",
+          "description": "Bir derste yüksek doğruluk oranı yakala"
+        },
+        "complete_lessons": {
+          "title": "3 ders tamamla",
+          "description": "Bugün 3 dersi bitir"
+        }
+      },
+      "account": {
+        "title": "Hesap",
+        "preferences": "Tercihler",
+        "profile": "Profil",
+        "notifications": "Bildirimler",
+        "social": "Sosyal Hesaplar",
+        "privacy": "Gizlilik"
+      },
+      "subscription": {
+        "title": "Abonelik",
+        "choose_plan": "Plan Seç"
+      },
+      "support": {
+        "title": "Destek",
+        "help_center": "Yardım Merkezi"
+      },
+      "monthly_badges": {
+        "title": "Aylık Rozetler",
+        "view_all": "Tümünü Gör"
+      },
+      "set_status": "Durum Ayarla",
+      "logout": "Çıkış Yap"
     }
   },
   "home_page": {
@@ -378,5 +595,403 @@
         }
       }
     }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Tecvid Yolculuğu",
+      "description": "Etkileşimli dersler ve ünitelerle Tecvid'de ustalaşmak için yolculuğunuza başlayın."
+    },
+    "title": "Öğren - Tecvid Yolculuğu",
+    "section_unit_title": "Bölüm ve Ünite",
+    "start": "Başla",
+    "guidebook": "Rehber Kitap",
+    "sections": {
+      "foundation": "Bölüm {section}, Ünite {unit}",
+      "tongue_letters": "Bölüm {section}, Ünite {unit}",
+      "lips_nasal": "Bölüm {section}, Ünite {unit}",
+      "trait": "Bölüm {section}, Ünite {unit}",
+      "unknown": "Bölüm {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Cevf Harfleri",
+        "description": "Ağız ve boğaz boşluğundan çıkan Med harflerini öğrenin."
+      },
+      "halq": {
+        "title": "Boğaz Harfleri (Halk)",
+        "description": "Boğazdan çıkan harfleri öğrenin."
+      },
+      "aqsha_lisan": {
+        "title": "Dil Kökü (Aksa-i Lisan)",
+        "description": "Dilin en arka kısmından çıkan harfler."
+      },
+      "wasath_lisan": {
+        "title": "Dil Ortası (Vasat-ı Lisan)",
+        "description": "Dilin orta kısmından çıkan harfler."
+      },
+      "hafah_lisan": {
+        "title": "Dil Yanı (Hafetü'l Lisan)",
+        "description": "Dilin yan taraflarından çıkan harfler."
+      },
+      "tharaf_lisan": {
+        "title": "Dil Ucu (Taraf-ı Lisan)",
+        "description": "Dilin ucundan çıkan harfler."
+      },
+      "tsanaya": {
+        "title": "Ön Dişler",
+        "description": "Ön dişlerin (kesici dişler) kullanıldığı harfler."
+      },
+      "syafatain": {
+        "title": "İki Dudak (Şefeteyn)",
+        "description": "Dudaklardan çıkan harfler."
+      },
+      "khaisyum": {
+        "title": "Geniz (Hayşum)",
+        "description": "Genizden gelen sesler (Gunne)."
+      },
+      "sifat_mutadhadah": {
+        "title": "Zıddı Olan Sıfatlar",
+        "description": "Karşıtı bulunan özellikler (örn. Cehr vs Hems)."
+      },
+      "sifat_munfaridah": {
+        "title": "Zıddı Olmayan Sıfatlar",
+        "description": "Karşıtı bulunmayan özellikler (örn. Kalkale)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Müfredat",
+      "description": "Tüm müfredat bölümlerini görüntüleyin ve ilerlemenizi takip edin."
+    },
+    "title": "Bölümler - Müfredat",
+    "section_list_title": "Bölüm Listesi",
+    "section_title": "Bölüm {number}",
+    "back": "Geri",
+    "completed": "Tamamlandı!",
+    "continue": "Devam Et",
+    "review": "Tekrar Et",
+    "sections": {
+      "foundation": {
+        "title": "Temel",
+        "description": "Temel harfleri ve sesleri öğrenin."
+      },
+      "tongue_letters": {
+        "title": "Dil Harfleri",
+        "description": "Dilin farklı bölgelerinden çıkan harfleri öğrenin."
+      },
+      "lips_nasal": {
+        "title": "Dudak ve Geniz",
+        "description": "Dudaklardan ve genizden çıkan harfler."
+      },
+      "trait": {
+        "title": "Sıfatlar",
+        "description": "Harflerin özelliklerini ve sıfatlarını kavrayın."
+      },
+      "advanced": {
+        "title": "İleri Konular",
+        "description": "İleri düzey tecvid kuralları ve okuyuş teknikleri."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Bilgi Kütüphanesi",
+      "description": "Kapsamlı Tecvid referans kütüphanesine göz atın."
+    },
+    "title": "Referans - Bilgi Kütüphanesi",
+    "categories": {
+      "letters": {
+        "title": "Harfler",
+        "count": "30 Öğe"
+      },
+      "articulation": {
+        "title": "Mahreçler",
+        "count": "17 Nokta"
+      },
+      "trait": {
+        "title": "Sıfatlar",
+        "count": "17 Sıfat"
+      },
+      "rule": {
+        "title": "Tecvid Kuralları",
+        "count": "Hükümler"
+      },
+      "waqf": {
+        "title": "Vakıf ve İbtida",
+        "count": "Durak İşaretleri"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Harf Rehberi",
+      "description": "Arap alfabesini ve çıkış noktalarını (mahreçlerini) öğrenin."
+    },
+    "title": "Harfler - Harf Rehberi",
+    "description": "Kulağınızı eğitin ve Arapça harfleri doğru mahreçlerinden telaffuz etmeyi öğrenin.",
+    "start": "Öğrenmeye Başla",
+    "progress": "{total} harften {learned} tanesi öğrenildi",
+    "makhraj": {
+      "jauf": "Cevf (Ağız Boşluğu)",
+      "halq": "Halk (Boğaz)",
+      "lisan": "Lisan (Dil)",
+      "shafatayn": "Şefeteyn (Dudaklar)",
+      "khayshum": "Hayşum (Geniz)"
+    },
+    "letters": {
+      "alif_mad": "Elif (Uzatma)",
+      "waw_mad": "Vav (Uzatma)",
+      "ya_mad": "Ye (Uzatma)",
+      "hamza": "Hemze",
+      "ha": "He",
+      "ain": "Ayın",
+      "ha_wasath": "Ha",
+      "ghain": "Gayın",
+      "kha": "Hı",
+      "qaf": "Kaf",
+      "kaf": "Kef",
+      "jim": "Cim",
+      "shin": "Şın",
+      "ya": "Ye",
+      "dad": "Dad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Te",
+      "dal": "Dal",
+      "tha": "Peltek Se",
+      "dhal": "Peltek Zel",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Ze",
+      "ta_mafkhama": "Tı",
+      "dha": "Zı",
+      "fa": "Fe",
+      "ba": "Be",
+      "mim": "Mim",
+      "waw": "Vav",
+      "nun_ghunna": "Nun (Gunneli)",
+      "mim_ghunna": "Mim (Gunneli)"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Beceri Geliştirme",
+      "description": "Can kaybetmeden çeşitli egzersizlerle Tecvid becerilerinizi geliştirin."
+    },
+    "title": "Pratik - Beceri Geliştirme",
+    "description": "Hedefe yönelik egzersizlerle okuma becerilerinizi keskinleştirin.",
+    "sections": {
+      "letters": "Harf Alıştırması",
+      "rules": "Kural Alıştırması",
+      "collections": "Koleksiyonlarınız"
+    },
+    "modes": {
+      "articulation": {
+        "title": "Mahreçler",
+        "description": "Harflerin çıkış yerlerini tanıma alıştırması."
+      },
+      "trait": {
+        "title": "Sıfatlar",
+        "description": "Harf özelliklerini (Sıfatları) tanımlayın."
+      },
+      "rule": {
+        "title": "Tecvid Kuralları",
+        "description": "İdgam, İhfa gibi kuralları uygulayın."
+      },
+      "listen": {
+        "title": "Dinleme Laboratuvarı",
+        "description": "Ses tanıma egzersizleri."
+      },
+      "mistakes": {
+        "title": "Hataları Gözden Geçir",
+        "description": "Zayıf olduğunuz alanları tekrar çalışın."
+      },
+      "saved": {
+        "title": "Kaydedilenler",
+        "description": "Kaydettiğiniz içerikleri gözden geçirin."
+      }
+    }
+  },
+  "leaderboard_page": {
+    "metadata": {
+      "title": "Haftalık Liderlik Tablosu",
+      "description": "Ligindeki diğer öğrencilerle yarış ve sıralamada yüksel."
+    },
+    "title": "Liderlik Tablosu - Haftalık Sıralama",
+    "week_info": "Bu haftanın sıralaması",
+    "ranking": "Sıralama",
+    "participants": "{count} katılımcı"
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "Günlük Görevler ve Meydan Okumalar",
+      "description": "Ödüller ve rozetler kazanmak için günlük görevleri ve aylık meydan okumaları tamamlayın."
+    },
+    "title": "Görevler - Günlük Meydan Okumalar",
+    "monthly_quest": {
+      "february_quest": "Şubat Görevi",
+      "days_remaining": "{count} Gün",
+      "complete_quests": "{target} görev tamamla"
+    },
+    "daily_quests": {
+      "title": "Günlük Görevler",
+      "hours_remaining": "{count} Saat"
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Mağaza - Güçlendirmeler & Eşyalar",
+      "description": "Öğrenme deneyiminizi geliştirmek için can, güçlendirme ve diğer eşyaları satın alın."
+    },
+    "title": "Mağaza - Güçlendirmeler",
+    "hearts": {
+      "title": "Canlar",
+      "full": "Dolu",
+      "get_super": "Super Al",
+      "refill": {
+        "title": "Canları Doldur",
+        "description": "Hata yapmaktan korkmadan öğrenmek için canları fulle."
+      },
+      "unlimited": {
+        "title": "Sınırsız Can",
+        "description": "Super ile canların asla bitmesin!"
+      }
+    },
+    "powerups": {
+      "title": "Güçlendirmeler",
+      "get_for": "Satın Al:",
+      "equipped": "Kuşanıldı",
+      "streak_freeze": {
+        "title": "Seri Dondurucu",
+        "description": "Bir gün pratik yapmasan bile serini korur."
+      },
+      "double_xp": {
+        "title": "Çifte XP Desteği",
+        "description": "15 dakikalık öğrenim boyunca iki kat XP kazan."
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Kullanıcı Profili",
+      "description": "Kullanıcı istatistiklerini, başarılarını ve arkadaş önerilerini görüntüleyin."
+    },
+    "title": "Kullanıcı Profili",
+    "user_info": {
+      "joined": "Katıldı: {date}",
+      "following": "Takip Ediliyor",
+      "followers": "Takipçiler"
+    },
+    "statistics": {
+      "title": "İstatistikler",
+      "day_streak": "Günlük Seri",
+      "total_xp": "Toplam XP",
+      "current_league": "Mevcut Halka",
+      "top_3_finishes": "İlk 3 Derece"
+    },
+    "friend_suggestions": {
+      "title": "Arkadaş Önerileri",
+      "view_all": "Tümünü Gör",
+      "followed_by": "{count} arkadaş tarafından takip ediliyor",
+      "follow": "Takip Et",
+      "following": "Takip Ediliyor"
+    },
+    "achievements": {
+      "title": "Başarılar",
+      "view_all": "Tümünü Gör",
+      "level": "Seviye"
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Ayarlar",
+      "description": "Öğrenme deneyiminizi ve uygulama tercihlerinizi özelleştirin."
+    },
+    "title": "Ayarlar",
+    "preferences": {
+      "title": "Tercihler",
+      "lesson_experience": {
+        "title": "Ders Deneyimi",
+        "sound_effects": "Ses Efektleri",
+        "animations": "Animasyonlar",
+        "motivational_messages": "Motivasyon Mesajları",
+        "listening_exercises": "Dinleme Alıştırmaları"
+      },
+      "appearance": {
+        "title": "Görünüm"
+      }
+    },
+    "profile": {
+      "title": "Profil",
+      "avatar": {
+        "title": "Avatar",
+        "choose_color": "Renk Seç",
+        "solid_colors": "Düz Renk",
+        "gradient_colors": "Gradyan"
+      },
+      "personal_info": {
+        "title": "Kişisel Bilgiler",
+        "name": "İsim",
+        "username": "Kullanıcı Adı",
+        "email": "E-posta"
+      },
+      "password": {
+        "title": "Şifre",
+        "current_password": "Mevcut Şifre",
+        "new_password": "Yeni Şifre",
+        "show_password": "Şifreyi Göster",
+        "hide_password": "Şifreyi Gizle"
+      },
+      "save_changes": "Değişiklikleri Kaydet",
+      "export_data": "Verilerimi Dışa Aktar",
+      "delete_account": "Hesabımı Sil"
+    },
+    "notifications": {
+      "title": "Bildirimler",
+      "email": "E-posta",
+      "general": {
+        "title": "Genel",
+        "product_updates": "Ürün Güncellemeleri ve İpuçları",
+        "new_follower": "Yeni Takipçi",
+        "friend_activity": "Arkadaş Aktivitesi",
+        "weekly_progress": "Haftalık İlerleme",
+        "special_promotions": "Özel Promosyonlar",
+        "research_participation": "Araştırma Katılım Fırsatları"
+      },
+      "daily_reminders": {
+        "title": "Günlük Hatırlatıcılar",
+        "practice_reminder": "Alıştırma Hatırlatıcısı",
+        "reminder_time": "Hatırlatma Zamanı"
+      }
+    },
+    "social": {
+      "title": "Sosyal Hesaplar",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Gizlilik Ayarları",
+      "make_profile_public": "Herkese Açık Profil",
+      "make_profile_public_description": "Başkalarının sizi bulmasına ve takip etmesine izin verin. Liderlik tablolarına katılmanızı sağlar.",
+      "personalized_ads": "Kişiselleştirilmiş Reklamlar",
+      "personalized_ads_description": "İlgili reklamları göstermek için veri kullanımına izin verin.",
+      "friend_streaks": "Seri Paylaşımı",
+      "friend_streaks_description": "Arkadaşlarınızın günlük serinizi görmesine izin verin.",
+      "save_changes": "Değişiklikleri Kaydet"
+    }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "Giriş Yap",
+      "description": "Tecvid öğrenme ilerlemenizi kaydetmek için giriş yapın."
+    },
+    "title": "Tekrar Hoş Geldiniz",
+    "description": "İlerlemenizi kaydetmek, serinizi takip etmek ve Halkaya katılmak için giriş yapın.",
+    "login_with_google": "Google ile Devam Et",
+    "error_title": "Giriş Başarısız",
+    "error_description": "Giriş yapılamadı. Lütfen tekrar deneyin.",
+    "terms": "Devam ederek, Hizmet Şartlarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz."
   }
 }

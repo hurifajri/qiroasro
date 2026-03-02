@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 7. Error Handling
+## Error Handling
 
 ### Service Layer
 
@@ -62,5 +62,12 @@ export function ErrorBoundary({
   <PageContent />
 </ErrorBoundary>
 ```
+
+### Anti-Patterns (Never Use)
+
+- ❌ `as any` type assertions
+- ❌ `@ts-ignore` comments
+- ❌ Empty catch blocks
+- ❌ Unhandled promise rejections
 
 ---

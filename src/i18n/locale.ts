@@ -25,10 +25,13 @@ export function getAlternateOgLocale(locale: Locale): string {
 }
 
 /**
- * Get path with locale prefix (respects as-needed mode)
+ * Get path with locale prefix (respects localePrefix: 'always')
  */
 export function getLocalePath(pathname: string, locale: Locale): string {
-  return locale === routing.defaultLocale ? pathname : `/${locale}${pathname}`;
+  // Always attach the locale prefix since we use localePrefix: 'always'
+  const cleanPathname = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const suffix = cleanPathname === '/' ? '' : cleanPathname;
+  return `/${locale}${suffix}`;
 }
 
 /**
@@ -37,10 +40,13 @@ export function getLocalePath(pathname: string, locale: Locale): string {
 export function getAlternateLanguages(
   pathname: string,
 ): Record<string, string> {
+  // With localeDetection: true, the un-prefixed pathname acts as the language negotiator
+  const cleanPathname = pathname.startsWith('/') ? pathname : `/${pathname}`;
+
   return {
     ...Object.fromEntries(
       routing.locales.map((l) => [l, getLocalePath(pathname, l)]),
     ),
-    'x-default': getLocalePath(pathname, 'en'),
+    'x-default': cleanPathname, // points to the negotiation URL
   };
 }

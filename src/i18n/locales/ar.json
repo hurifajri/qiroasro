@@ -6,6 +6,134 @@
       "feature_list": "رسوم بيانية تفاعلية,وضع الاختبار,دعم متعدد اللغات",
       "keywords": "تجويد,مخارج الحروف,صفات الحروف,قرآن,تعلم القرآن,حروف الهجاء"
     },
+    "color_mode": {
+      "title": "وضع الألوان",
+      "mode_system": "النظام",
+      "mode_light": "فاتح",
+      "mode_dark": "داكن"
+    },
+    "language": {
+      "title": "اللغة"
+    },
+    "leagues": {
+      "peace": "دار السلام",
+      "stability": "دار المقامة",
+      "security": "المقام الأمين",
+      "merit": "قدم صدق",
+      "honor": "مقعد صدق",
+      "eternity": "جنة الخلد",
+      "shelter": "جنة المأوى",
+      "bliss": "جنات النعيم",
+      "eden": "جنات عدن",
+      "paradise": "جنة الفردوس"
+    },
+    "achievements": {
+      "title": "الإنجازات",
+      "view_all": "عرض الكل",
+      "level": "المستوى",
+      "consistency_streak": {
+        "title": "شعلة الاستقامة",
+        "description": "حقق سلسلة تعلم لمدة 365 يوماً. الاستقامة أحب الأعمال إلى الله.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "أستاذ الإتقان",
+        "description": "أكمل 100 درس بدون أي خطأ. اسعَ نحو الكمال.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "الماهر",
+        "description": "اكسب 5000 نقطة خبرة. كن ماهراً في تلاوة القرآن.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "طالب الفجر",
+        "description": "أكمل درساً قبل الساعة 7 صباحاً. البركة في البكور.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "مجاهد التهجد",
+        "description": "أكمل درساً بعد الساعة 10 ليلاً. أحيِ الليل بالعلم.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "باني الأخوة",
+        "description": "تابع 3 أصدقاء. المؤمنون كالبنيان المرصوص.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "روح التوابين",
+        "description": "صحح 50 خطأ في الجلسات التدريبية. الرجوع إلى الحق فضيلة.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "حافظ العطلة",
+        "description": "أكمل الدروس يومي السبت والأحد لمدة 4 أسابيع متتالية.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "dawn": {
+        "title": "الفجر",
+        "surah_ref": "Al-Fajr",
+        "description": "ابدأ رحلتك كانبلاج الفجر."
+      },
+      "pen": {
+        "title": "القلم",
+        "surah_ref": "Al-Qalam",
+        "description": "العلم صيد والكتابة قيده."
+      },
+      "thunder": {
+        "title": "الرعد",
+        "surah_ref": "Ar-Ra'd",
+        "description": "تلاوة قوية مثل الرعد المسبح."
+      },
+      "fig": {
+        "title": "التين",
+        "surah_ref": "At-Tin",
+        "description": "ثمار حلوة للصبر والتعلم."
+      },
+      "star": {
+        "title": "النجم",
+        "surah_ref": "An-Najm",
+        "description": "طموح عالٍ يهتدي بالنجوم."
+      },
+      "sun": {
+        "title": "الشمس",
+        "surah_ref": "Ash-Shams",
+        "description": "أشرق بوضوح في تلاوتك."
+      },
+      "iron": {
+        "title": "الحديد",
+        "surah_ref": "Al-Hadid",
+        "description": "إرادة قوية واستقامة لا تلين."
+      },
+      "stars": {
+        "title": "البروج",
+        "surah_ref": "Al-Buruj",
+        "description": "سماء مليئة بالجهود المستمرة."
+      },
+      "mount": {
+        "title": "الطور",
+        "surah_ref": "At-Tur",
+        "description": "راسخ وثابت مثل الجبل."
+      },
+      "moon": {
+        "title": "القمر",
+        "surah_ref": "Al-Qamar",
+        "description": "انعكاس جميل للنور."
+      },
+      "night": {
+        "title": "الليل",
+        "surah_ref": "Al-Lail",
+        "description": "تفانٍ هادئ في ساعات السكون."
+      },
+      "declining_day": {
+        "title": "العصر",
+        "surah_ref": "Al-'Asr",
+        "description": "اغتنم كل لحظة قبل فوات الأوان."
+      }
+    },
     "letter": {
       "hamzah": "همزة",
       "ba": "باء",
@@ -154,6 +282,95 @@
       "reminder_error": "حدث خطأ ما. حاول مرة اخرى.",
       "reminder_invalid_email": "البريد الإلكتروني غير صالح",
       "reminder_email_required": "البريد الإلكتروني مطلوب"
+    },
+    "private_layout": {
+      "nav": {
+        "learn": "تَعَلَّم",
+        "practice": "التدريب",
+        "reference": "المراجع",
+        "leaderboard": "لوحة الصدارة",
+        "quests": "المهام",
+        "shop": "المتجر",
+        "profile": "الملف الشخصي",
+        "more": "المزيد",
+        "settings": "الإعدادات",
+        "help": "المساعدة",
+        "logout": "تسجيل الخروج"
+      },
+      "level_card": {
+        "title": "ارتقِ مع سوبر",
+        "description": "بدون إعلانات، تدريب مخصص، وميزات غير محدودة!",
+        "cta": "احصل على سوبر"
+      },
+      "leaderboard": {
+        "view_league": "عرض الحلقة",
+        "description": "أكمل درساً للانضمام إلى لوحة الصدارة هذا الأسبوع"
+      },
+      "daily_quests": {
+        "title": "المهام اليومية",
+        "view_all": "عرض الكل"
+      },
+      "ads": {
+        "title": "اكتشف المزيد",
+        "placeholder": "إعلان",
+        "remove_ads": "إزالة الإعلانات"
+      },
+      "activity_feed": {
+        "title": "النشاط",
+        "celebrate": "احتفل",
+        "view_all": "عرض الكل"
+      },
+      "activity": {
+        "completed_streak": "أكمل سلسلة 500 يوم!",
+        "collected_badge": "حصل على شارة فبراير!"
+      },
+      "follow_list": {
+        "title": "الأصدقاء",
+        "following": "تتابع",
+        "followers": "المتابعون",
+        "view_more": "عرض {count} آخرين"
+      },
+      "add_friends": {
+        "title": "إضافة أصدقاء",
+        "find": "البحث عن أصدقاء",
+        "invite": "دعوة أصدقاء"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "اكسب 10 نقاط خبرة",
+          "description": "أكمل الدروس لكسب النقاط"
+        },
+        "high_accuracy": {
+          "title": "احصل على 90%+ في درس واحد",
+          "description": "حقق دقة عالية في درس"
+        },
+        "complete_lessons": {
+          "title": "أكمل 3 دروس",
+          "description": "أنهِ 3 دروس اليوم"
+        }
+      },
+      "account": {
+        "title": "الحساب",
+        "preferences": "التفضيلات",
+        "profile": "الملف الشخصي",
+        "notifications": "الإشعارات",
+        "social": "الحسابات الاجتماعية",
+        "privacy": "الخصوصية"
+      },
+      "subscription": {
+        "title": "الاشتراك",
+        "choose_plan": "اختر خطة"
+      },
+      "support": {
+        "title": "الدعم",
+        "help_center": "مركز المساعدة"
+      },
+      "monthly_badges": {
+        "title": "الشارات الشهرية",
+        "view_all": "عرض الكل"
+      },
+      "set_status": "تعيين الحالة",
+      "logout": "تسجيل الخروج"
     }
   },
   "home_page": {
@@ -378,5 +595,403 @@
         }
       }
     }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "رحلة التجويد",
+      "description": "ابدأ رحلتك لإتقان التجويد من خلال دروس ووحدات تفاعلية."
+    },
+    "title": "تعلم - رحلة التجويد",
+    "section_unit_title": "القسم والوحدة",
+    "start": "ابدأ",
+    "guidebook": "الدليل",
+    "sections": {
+      "foundation": "القسم {section}، الوحدة {unit}",
+      "tongue_letters": "القسم {section}، الوحدة {unit}",
+      "lips_nasal": "القسم {section}، الوحدة {unit}",
+      "trait": "القسم {section}، الوحدة {unit}",
+      "unknown": "القسم {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "حروف الجوف",
+        "description": "تعلم حروف المد التي تخرج من الخلاء الداخل في الفم والحلق."
+      },
+      "halq": {
+        "title": "حروف الحلق",
+        "description": "تعلم الحروف التي تخرج من الحلق."
+      },
+      "aqsha_lisan": {
+        "title": "أقصى اللسان",
+        "description": "الحروف التي تخرج من أبعد جزء في اللسان."
+      },
+      "wasath_lisan": {
+        "title": "وسط اللسان",
+        "description": "الحروف التي تخرج من وسط اللسان."
+      },
+      "hafah_lisan": {
+        "title": "حافة اللسان",
+        "description": "الحروف التي تخرج من حافتي اللسان."
+      },
+      "tharaf_lisan": {
+        "title": "طرف اللسان",
+        "description": "الحروف التي تخرج من طرف اللسان."
+      },
+      "tsanaya": {
+        "title": "منطقة الثنايا",
+        "description": "الحروف التي تشترك فيها الأسنان الأمامية."
+      },
+      "syafatain": {
+        "title": "الشفتان",
+        "description": "الحروف التي تخرج من الشفتين."
+      },
+      "khaisyum": {
+        "title": "الخيشوم",
+        "description": "صوت الغنة الذي يخرج من الخيشوم."
+      },
+      "sifat_mutadhadah": {
+        "title": "الصفات المتضادة",
+        "description": "الصفات التي لها ضد (مثل الجهر والهمس)."
+      },
+      "sifat_munfaridah": {
+        "title": "الصفات المنفردة",
+        "description": "الصفات التي لا ضد لها (مثل القلقلة)."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "المنهج الدراسي",
+      "description": "عرض جميع أقسام المنهج ومتابعة تقدمك."
+    },
+    "title": "الأقسام - المنهج الدراسي",
+    "section_list_title": "قائمة الأقسام",
+    "section_title": "القسم {number}",
+    "back": "رجوع",
+    "completed": "مكتمل!",
+    "continue": "استمرار",
+    "review": "مراجعة",
+    "sections": {
+      "foundation": {
+        "title": "الأساسيات",
+        "description": "إتقان الحروف والأصوات الأساسية."
+      },
+      "tongue_letters": {
+        "title": "حروف اللسان",
+        "description": "تعلم الحروف التي تخرج من أجزاء مختلفة من اللسان."
+      },
+      "lips_nasal": {
+        "title": "الشفتان والخيشوم",
+        "description": "الحروف من الشفتين والتجويف الأنفي."
+      },
+      "trait": {
+        "title": "صفات الحروف",
+        "description": "إتقان خصائص وصفات كل حرف."
+      },
+      "advanced": {
+        "title": "مواضيع متقدمة",
+        "description": "قواعد التجويد المتقدمة وتقنيات التلاوة."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "مكتبة المعرفة",
+      "description": "تصفح مكتبة مراجع التجويد الشاملة."
+    },
+    "title": "المراجع - مكتبة المعرفة",
+    "categories": {
+      "letters": {
+        "title": "الحروف الهجائية",
+        "count": "30 عنصراً"
+      },
+      "articulation": {
+        "title": "مخارج الحروف",
+        "count": "17 مخرجاً"
+      },
+      "trait": {
+        "title": "صفات الحروف",
+        "count": "17 صفة"
+      },
+      "rule": {
+        "title": "أحكام التجويد",
+        "count": "الأحكام والقواعد"
+      },
+      "waqf": {
+        "title": "الوقف والابتداء",
+        "count": "علامات الوقف"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "دليل الحروف",
+      "description": "تعلم الحروف العربية ومخارجها الصحيحة."
+    },
+    "title": "الحروف - دليل الهجاء",
+    "description": "درب أذنك وتعلم نطق الحروف العربية بشكل صحيح من مخارجها السليمة.",
+    "start": "ابدأ التعلم",
+    "progress": "تم تعلم {learned} من {total}",
+    "makhraj": {
+      "jauf": "الجوف",
+      "halq": "الحلق",
+      "lisan": "اللسان",
+      "shafatayn": "الشفتان",
+      "khayshum": "الخيشوم"
+    },
+    "letters": {
+      "alif_mad": "ألف مدية",
+      "waw_mad": "واو مدية",
+      "ya_mad": "ياء مدية",
+      "hamza": "همزة",
+      "ha": "هاء",
+      "ain": "عين",
+      "ha_wasath": "حاء",
+      "ghain": "غين",
+      "kha": "خاء",
+      "qaf": "قاف",
+      "kaf": "كاف",
+      "jim": "جيم",
+      "shin": "شين",
+      "ya": "ياء",
+      "dad": "ضاد",
+      "lam": "لام",
+      "nun": "نون",
+      "ra": "راء",
+      "ta": "تاء",
+      "dal": "دال",
+      "tha": "ثاء",
+      "dhal": "ذال",
+      "sad": "صاد",
+      "sin": "سين",
+      "za": "زاي",
+      "ta_mafkhama": "طاء",
+      "dha": "ظاء",
+      "fa": "فاء",
+      "ba": "باء",
+      "mim": "ميم",
+      "waw": "واو",
+      "nun_ghunna": "نون (غنة)",
+      "mim_ghunna": "ميم (غنة)"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "صقل المهارات",
+      "description": "مارس مهارات التجويد بتمارين متنوعة دون فقدان القلوب."
+    },
+    "title": "تدريب - صقل المهارات",
+    "description": "صقل مهارات التلاوة بتمارين موجهة.",
+    "sections": {
+      "letters": "تدريب الحروف",
+      "rules": "تدريب الأحكام",
+      "collections": "مجموعاتك"
+    },
+    "modes": {
+      "articulation": {
+        "title": "مخارج الحروف",
+        "description": "تدريب على تحديد مخارج الحروف."
+      },
+      "trait": {
+        "title": "صفات الحروف",
+        "description": "تحديد خصائص الحروف (الصفات)."
+      },
+      "rule": {
+        "title": "أحكام التجويد",
+        "description": "ممارسة الأحكام مثل الإدغام والإخفاء."
+      },
+      "listen": {
+        "title": "مختبر الاستماع",
+        "description": "تمارين التعرف الصوتي."
+      },
+      "mistakes": {
+        "title": "مراجعة الأخطاء",
+        "description": "تدرب على نقاط ضعفك."
+      },
+      "saved": {
+        "title": "العناصر المحفوظة",
+        "description": "مراجعة المحتوى الذي قمت بحفظه."
+      }
+    }
+  },
+  "leaderboard_page": {
+    "metadata": {
+      "title": "لوحة الصدارة الأسبوعية",
+      "description": "نافس متعلمين آخرين في دوريك وارتق في التصنيف."
+    },
+    "title": "لوحة الصدارة - الترتيب الأسبوعي",
+    "week_info": "لوحة صدارة هذا الأسبوع",
+    "ranking": "الترتيب",
+    "participants": "{count} مشاركاً"
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "المهام اليومية والتحديات",
+      "description": "أكمل المهام اليومية والتحديات الشهرية لكسب الجوائز والشارات."
+    },
+    "title": "المهام - التحديات اليومية",
+    "monthly_quest": {
+      "february_quest": "مهمة فبراير",
+      "days_remaining": "{count} يوم",
+      "complete_quests": "أكمل {target} مهام"
+    },
+    "daily_quests": {
+      "title": "المهام اليومية",
+      "hours_remaining": "{count} ساعة"
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "المتجر - التعزيزات والعناصر",
+      "description": "شراء القلوب، والتعزيزات، وعناصر أخرى لتحسين تجربة التعلم الخاصة بك."
+    },
+    "title": "المتجر - التعزيزات",
+    "hearts": {
+      "title": "القلوب",
+      "full": "ممتلئ",
+      "get_super": "اشتراك سوبر",
+      "refill": {
+        "title": "تعبئة القلوب",
+        "description": "احصل على قلوب كاملة لتقليل القلق من ارتكاب الأخطاء."
+      },
+      "unlimited": {
+        "title": "قلوب غير محدودة",
+        "description": "لا تقلق بشأن نفاد القلوب مع اشتراك سوبر!"
+      }
+    },
+    "powerups": {
+      "title": "التعزيزات",
+      "get_for": "احصل عليه بـ:",
+      "equipped": "مجهز",
+      "streak_freeze": {
+        "title": "تجميد الحماس",
+        "description": "يحافظ على سلسلة حماسك ليوم كامل من عدم النشاط."
+      },
+      "double_xp": {
+        "title": "مضاعفة XP",
+        "description": "اكسب ضعف نقاط الخبرة (XP) لمدة 15 دقيقة."
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "الملف الشخصي",
+      "description": "عرض إحصائيات المستخدم والإنجازات واقتراحات الأصدقاء."
+    },
+    "title": "الملف الشخصي",
+    "user_info": {
+      "joined": "انضم في {date}",
+      "following": "تتابع",
+      "followers": "المتابعون"
+    },
+    "statistics": {
+      "title": "الإحصائيات",
+      "day_streak": "سلسلة الأيام",
+      "total_xp": "إجمالي XP",
+      "current_league": "الحلقة الحالية",
+      "top_3_finishes": "المراكز الـ 3 الأولى"
+    },
+    "friend_suggestions": {
+      "title": "اقتراحات الأصدقاء",
+      "view_all": "عرض الكل",
+      "followed_by": "يتابعه {count} من الأصدقاء",
+      "follow": "متابعة",
+      "following": "تتابع"
+    },
+    "achievements": {
+      "title": "الإنجازات",
+      "view_all": "عرض الكل",
+      "level": "المستوى"
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "الإعدادات",
+      "description": "تخصيص تجربة التعلم وتفضيلات التطبيق."
+    },
+    "title": "الإعدادات",
+    "preferences": {
+      "title": "التفضيلات",
+      "lesson_experience": {
+        "title": "تجربة الدرس",
+        "sound_effects": "المؤثرات الصوتية",
+        "animations": "الرسوم المتحركة",
+        "motivational_messages": "رسائل تحفيزية",
+        "listening_exercises": "تمارين الاستماع"
+      },
+      "appearance": {
+        "title": "المظهر"
+      }
+    },
+    "profile": {
+      "title": "الملف الشخصي",
+      "avatar": {
+        "title": "الصورة الرمزية",
+        "choose_color": "اختر لوناً",
+        "solid_colors": "لون سادة",
+        "gradient_colors": "تدرج لوني"
+      },
+      "personal_info": {
+        "title": "المعلومات الشخصية",
+        "name": "الاسم",
+        "username": "اسم المستخدم",
+        "email": "البريد الإلكتروني"
+      },
+      "password": {
+        "title": "كلمة المرور",
+        "current_password": "كلمة المرور الحالية",
+        "new_password": "كلمة المرور الجديدة",
+        "show_password": "إظهار كلمة المرور",
+        "hide_password": "إخفاء كلمة المرور"
+      },
+      "save_changes": "حفظ التغييرات",
+      "export_data": "تصدير بياناتي",
+      "delete_account": "حذف حسابي"
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "email": "البريد الإلكتروني",
+      "general": {
+        "title": "عام",
+        "product_updates": "تحديثات المنتج ونصائح التعلم",
+        "new_follower": "متابع جديد",
+        "friend_activity": "نشاط الأصدقاء",
+        "weekly_progress": "التقدم الأسبوعي",
+        "special_promotions": "عروض خاصة",
+        "research_participation": "فرص المشاركة في الأبحاث"
+      },
+      "daily_reminders": {
+        "title": "التذكيرات اليومية",
+        "practice_reminder": "تذكير التدريب",
+        "reminder_time": "وقت التذكير"
+      }
+    },
+    "social": {
+      "title": "الحسابات الاجتماعية",
+      "facebook": "فيسبوك",
+      "google": "جوجل"
+    },
+    "privacy": {
+      "title": "إعدادات الخصوصية",
+      "make_profile_public": "الملف الشخصي العام",
+      "make_profile_public_description": "السماح للآخرين بالعثور عليك ومتابعتك. يتيح لك متابعة الآخرين والانضمام إلى لوحات الصدارة.",
+      "personalized_ads": "إعلانات مخصصة",
+      "personalized_ads_description": "السماح باستخدام البيانات لعرض إعلانات تهمك.",
+      "friend_streaks": "مشاركة التتابع",
+      "friend_streaks_description": "السماح للأصدقاء برؤية سلسلة التتابع اليومي الخاصة بك.",
+      "save_changes": "حفظ التغييرات"
+    }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "تسجيل الدخول",
+      "description": "سجل الدخول لحفظ تقدمك في تعلم التجويد."
+    },
+    "title": "مرحباً بك مجدداً",
+    "description": "سجل الدخول لحفظ تقدمك، ومتابعة سلسلة تعلمك، والانضمام إلى الحلقة.",
+    "login_with_google": "المتابعة باستخدام Google",
+    "error_title": "فشل تسجيل الدخول",
+    "error_description": "تعذر تسجيل الدخول. يرجى المحاولة مرة أخرى.",
+    "terms": "بالمتابعة، فإنك توافق على شروط الخدمة وسياسة الخصوصية الخاصة بنا."
   }
 }

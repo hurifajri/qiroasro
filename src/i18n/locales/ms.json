@@ -6,6 +6,134 @@
       "feature_list": "Graf pengetahuan interaktif,Mod kuiz,Sokongan pelbagai bahasa",
       "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
     },
+    "color_mode": {
+      "title": "Mod Warna",
+      "mode_system": "Sistem",
+      "mode_light": "Terang",
+      "mode_dark": "Gelap"
+    },
+    "language": {
+      "title": "Bahasa"
+    },
+    "leagues": {
+      "peace": "Darussalam",
+      "stability": "Darul Muqamah",
+      "security": "Al-Maqamul Amin",
+      "merit": "Qadama Shidq",
+      "honor": "Maq'adu Shidq",
+      "eternity": "Jannatul Khuld",
+      "shelter": "Jannatul Ma'wa",
+      "bliss": "Jannatun Na'im",
+      "eden": "Jannatu 'Adn",
+      "paradise": "Jannatul Firdaus"
+    },
+    "achievements": {
+      "title": "Pencapaian",
+      "view_all": "Lihat Semua",
+      "level": "Tahap",
+      "consistency_streak": {
+        "title": "Api Istiqamah",
+        "description": "Capai rentetan belajar 365 hari. Istiqamah sangat dicintai Allah.",
+        "levels": [3, 7, 30, 100, 365]
+      },
+      "perfectionist": {
+        "title": "Pakar Itqan",
+        "description": "Selesaikan 100 pelajaran tanpa sebarang kesilapan. Usahakan kesempurnaan.",
+        "levels": [10, 50, 100]
+      },
+      "xp_milestone": {
+        "title": "Al-Mahir",
+        "description": "Peroleh 5000 XP. Jadilah mahir dalam tilawah Al-Quran.",
+        "levels": [1000, 5000, 20000]
+      },
+      "early_bird": {
+        "title": "Pencari Fajar",
+        "description": "Selesaikan pelajaran sebelum jam 7 pagi. Keberkatan ada di awal pagi.",
+        "levels": [1, 10, 50]
+      },
+      "night_owl": {
+        "title": "Pejuang Tahajjud",
+        "description": "Selesaikan pelajaran selepas jam 10 malam. Hidupkan malam dengan ilmu.",
+        "levels": [1, 10, 50]
+      },
+      "social_connector": {
+        "title": "Pembina Ukhuwah",
+        "description": "Ikuti 3 rakan. Orang mukmin ibarat bangunan yang kukuh.",
+        "levels": [1, 3, 10]
+      },
+      "error_corrector": {
+        "title": "Semangat Tawwabin",
+        "description": "Perbetulkan 50 kesilapan dalam latihan. Kembali kepada kebenaran itu mulia.",
+        "levels": [10, 50, 100]
+      },
+      "weekend_warrior": {
+        "title": "Hafiz Hujung Minggu",
+        "description": "Selesaikan pelajaran pada hari Sabtu dan Ahad selama 4 minggu berturut-turut.",
+        "levels": [1, 4, 12]
+      }
+    },
+    "badges": {
+      "dawn": {
+        "title": "Fajar",
+        "surah_ref": "Al-Fajr",
+        "description": "Mulakan perjalanan anda seperti menyinsing fajar."
+      },
+      "pen": {
+        "title": "Pena",
+        "surah_ref": "Al-Qalam",
+        "description": "Ilmu itu diikat dengan pena."
+      },
+      "thunder": {
+        "title": "Guruh",
+        "surah_ref": "Ar-Ra'd",
+        "description": "Bacaan yang gagah laksana guruh."
+      },
+      "fig": {
+        "title": "Buah Tin",
+        "surah_ref": "At-Tin",
+        "description": "Buah manis hasil kesabaran dan pembelajaran."
+      },
+      "star": {
+        "title": "Bintang",
+        "surah_ref": "An-Najm",
+        "description": "Bercita-cita tinggi dengan panduan bintang."
+      },
+      "sun": {
+        "title": "Matahari",
+        "surah_ref": "Ash-Shams",
+        "description": "Bersinar terang dengan kejelasan bacaan."
+      },
+      "iron": {
+        "title": "Besi",
+        "surah_ref": "Al-Hadid",
+        "description": "Kemahuan yang kental dan istiqamah yang teguh."
+      },
+      "stars": {
+        "title": "Gugusan Bintang",
+        "surah_ref": "Al-Buruj",
+        "description": "Langit yang penuh dengan usaha yang gigih."
+      },
+      "mount": {
+        "title": "Bukit Tur",
+        "surah_ref": "At-Tur",
+        "description": "Teguh dan tetap laksana gunung."
+      },
+      "moon": {
+        "title": "Bulan",
+        "surah_ref": "Al-Qamar",
+        "description": "Pantulan cahaya yang indah."
+      },
+      "night": {
+        "title": "Malam",
+        "surah_ref": "Al-Lail",
+        "description": "Dedikasi yang tenang di waktu sunyi."
+      },
+      "declining_day": {
+        "title": "Masa",
+        "surah_ref": "Al-'Asr",
+        "description": "Hargai setiap detik sebelum masa berlalu."
+      }
+    },
     "letter": {
       "hamzah": "Hamzah",
       "ba": "Ba",
@@ -154,6 +282,95 @@
       "reminder_error": "Berlaku ralat. Sila cuba lagi.",
       "reminder_invalid_email": "E-mel tidak sah",
       "reminder_email_required": "E-mel diperlukan"
+    },
+    "private_layout": {
+      "nav": {
+        "learn": "Belajar",
+        "practice": "Latihan",
+        "reference": "Rujukan",
+        "leaderboard": "Papan Pendahulu",
+        "quests": "Misi",
+        "shop": "Kedai",
+        "profile": "Profil",
+        "more": "Lagi",
+        "settings": "Tetapan",
+        "help": "Bantuan",
+        "logout": "Log Keluar"
+      },
+      "level_card": {
+        "title": "Naik Tahap dengan Super",
+        "description": "Tanpa iklan, latihan peribadi, dan ciri tanpa had!",
+        "cta": "Dapatkan Super"
+      },
+      "leaderboard": {
+        "view_league": "Lihat Halaqah",
+        "description": "Lengkapkan pelajaran untuk menyertai papan pendulu minggu ini"
+      },
+      "daily_quests": {
+        "title": "Misi Harian",
+        "view_all": "Lihat Semua"
+      },
+      "ads": {
+        "title": "Temui Lebih Banyak",
+        "placeholder": "Iklan",
+        "remove_ads": "Buang Iklan"
+      },
+      "activity_feed": {
+        "title": "Aktiviti",
+        "celebrate": "Raikan",
+        "view_all": "Lihat Semua"
+      },
+      "activity": {
+        "completed_streak": "Mencapai rekod 500 hari!",
+        "collected_badge": "Mengumpul lencana Februari!"
+      },
+      "follow_list": {
+        "title": "Rakan",
+        "following": "Mengikuti",
+        "followers": "Pengikut",
+        "view_more": "Lihat {count} lagi"
+      },
+      "add_friends": {
+        "title": "Tambah Rakan",
+        "find": "Cari Rakan",
+        "invite": "Jemput Rakan"
+      },
+      "quests": {
+        "earn_xp": {
+          "title": "Dapat 10 XP",
+          "description": "Lengkapkan pelajaran untuk mendapat XP"
+        },
+        "high_accuracy": {
+          "title": "Dapat 90%+ dalam 1 pelajaran",
+          "description": "Capai ketepatan tinggi dalam pelajaran"
+        },
+        "complete_lessons": {
+          "title": "Lengkapkan 3 pelajaran",
+          "description": "Selesaikan 3 pelajaran hari ini"
+        }
+      },
+      "account": {
+        "title": "Akaun",
+        "preferences": "Keutamaan",
+        "profile": "Profil",
+        "notifications": "Pemberitahuan",
+        "social": "Akaun Sosial",
+        "privacy": "Privasi"
+      },
+      "subscription": {
+        "title": "Langganan",
+        "choose_plan": "Pilih Pelan"
+      },
+      "support": {
+        "title": "Sokongan",
+        "help_center": "Pusat Bantuan"
+      },
+      "monthly_badges": {
+        "title": "Lencana Bulanan",
+        "view_all": "Lihat Semua"
+      },
+      "set_status": "Tetapkan Status",
+      "logout": "Log Keluar"
     }
   },
   "home_page": {
@@ -378,5 +595,403 @@
         }
       }
     }
+  },
+  "learn_page": {
+    "metadata": {
+      "title": "Perjalanan Tajwid",
+      "description": "Mulakan perjalanan anda untuk menguasai Tajwid melalui pelajaran dan unit interaktif."
+    },
+    "title": "Belajar - Perjalanan Tajwid",
+    "section_unit_title": "Bahagian dan Unit",
+    "start": "Mula",
+    "guidebook": "Buku Panduan",
+    "sections": {
+      "foundation": "Bahagian {section}, Unit {unit}",
+      "tongue_letters": "Bahagian {section}, Unit {unit}",
+      "lips_nasal": "Bahagian {section}, Unit {unit}",
+      "trait": "Bahagian {section}, Unit {unit}",
+      "unknown": "Bahagian {section}"
+    },
+    "units": {
+      "jauf": {
+        "title": "Huruf Rongga (Al-Jauf)",
+        "description": "Pelajari huruf Mad yang keluar dari rongga mulut dan kerongkong."
+      },
+      "halq": {
+        "title": "Huruf Kerongkong (Al-Halq)",
+        "description": "Pelajari huruf yang keluar dari kerongkong."
+      },
+      "aqsha_lisan": {
+        "title": "Pangkal Lidah (Aqsa)",
+        "description": "Huruf yang keluar dari pangkal lidah."
+      },
+      "wasath_lisan": {
+        "title": "Tengah Lidah (Wasat)",
+        "description": "Huruf yang keluar dari tengah lidah."
+      },
+      "hafah_lisan": {
+        "title": "Tepi Lidah (Hafah)",
+        "description": "Huruf yang keluar dari sisi/tepi lidah."
+      },
+      "tharaf_lisan": {
+        "title": "Hujung Lidah (Tharaf)",
+        "description": "Huruf yang keluar dari hujung lidah."
+      },
+      "tsanaya": {
+        "title": "Kawasan Gigi Kacip",
+        "description": "Huruf yang melibatkan gigi kacip depan."
+      },
+      "syafatain": {
+        "title": "Dua Bibir (Asy-Syafatain)",
+        "description": "Huruf yang keluar dari dua bibir."
+      },
+      "khaisyum": {
+        "title": "Pangkal Hidung (Al-Khaisyum)",
+        "description": "Suara dengung (Ghunnah) dari rongga hidung."
+      },
+      "sifat_mutadhadah": {
+        "title": "Sifat Berlawanan",
+        "description": "Sifat-sifat yang mempunyai lawan."
+      },
+      "sifat_munfaridah": {
+        "title": "Sifat Tunggal",
+        "description": "Sifat-sifat yang tidak mempunyai lawan."
+      }
+    }
+  },
+  "sections_page": {
+    "metadata": {
+      "title": "Kurikulum",
+      "description": "Lihat semua bahagian kurikulum dan pantau kemajuan anda."
+    },
+    "title": "Topik - Kurikulum",
+    "section_list_title": "Senarai Bahagian",
+    "section_title": "Bahagian {number}",
+    "back": "Kembali",
+    "completed": "Selesai!",
+    "continue": "Teruskan",
+    "review": "Ulas",
+    "sections": {
+      "foundation": {
+        "title": "Asas",
+        "description": "Kuasai huruf dan bunyi asas."
+      },
+      "tongue_letters": {
+        "title": "Huruf Lidah",
+        "description": "Pelajari huruf yang keluar dari pelbagai bahagian lidah."
+      },
+      "lips_nasal": {
+        "title": "Bibir & Hidung",
+        "description": "Huruf dari bibir dan rongga hidung."
+      },
+      "trait": {
+        "title": "Sifat Huruf",
+        "description": "Kuasai ciri-ciri dan sifat setiap huruf."
+      },
+      "advanced": {
+        "title": "Topik Lanjutan",
+        "description": "Hukum tajwid lanjutan dan teknik bacaan."
+      }
+    }
+  },
+  "reference_page": {
+    "metadata": {
+      "title": "Pustaka Ilmu",
+      "description": "Terokai perpustakaan rujukan Tajwid yang lengkap."
+    },
+    "title": "Rujukan - Pustaka Ilmu",
+    "categories": {
+      "letters": {
+        "title": "Huruf Hijaiyyah",
+        "count": "30 Item"
+      },
+      "articulation": {
+        "title": "Makharijul Huruf",
+        "count": "17 Tempat"
+      },
+      "trait": {
+        "title": "Sifatul Huruf",
+        "count": "17 Sifat"
+      },
+      "rule": {
+        "title": "Hukum Tajwid",
+        "count": "Hukum & Peraturan"
+      },
+      "waqf": {
+        "title": "Waqaf & Ibtida'",
+        "count": "Tanda Berhenti"
+      }
+    }
+  },
+  "reference_letters_page": {
+    "metadata": {
+      "title": "Direktori Hijaiyyah",
+      "description": "Pelajari abjad Arab dan tempat keluarnya."
+    },
+    "title": "Huruf - Direktori Hijaiyyah",
+    "description": "Latih pendengaran dan belajar menyebut huruf Arab dengan betul dari makhrajnya.",
+    "start": "Mula Belajar",
+    "progress": "{learned} daripada {total} dipelajari",
+    "makhraj": {
+      "jauf": "Rongga (Al-Jauf)",
+      "halq": "Kerongkong (Al-Halq)",
+      "lisan": "Lidah (Al-Lisan)",
+      "shafatayn": "Bibir (Asy-Syafatain)",
+      "khayshum": "Hidung (Al-Khaisyum)"
+    },
+    "letters": {
+      "alif_mad": "Alif Mad",
+      "waw_mad": "Wau Mad",
+      "ya_mad": "Ya Mad",
+      "hamza": "Hamzah",
+      "ha": "Ha",
+      "ain": "'Ain",
+      "ha_wasath": "Ha (Tengah)",
+      "ghain": "Ghain",
+      "kha": "Kha",
+      "qaf": "Qaf",
+      "kaf": "Kaf",
+      "jim": "Jim",
+      "shin": "Syin",
+      "ya": "Ya",
+      "dad": "Dhad",
+      "lam": "Lam",
+      "nun": "Nun",
+      "ra": "Ra",
+      "ta": "Ta",
+      "dal": "Dal",
+      "tha": "Tha",
+      "dhal": "Dzal",
+      "sad": "Sad",
+      "sin": "Sin",
+      "za": "Zai",
+      "ta_mafkhama": "Ta (Tebal)",
+      "dha": "Zha",
+      "fa": "Fa",
+      "ba": "Ba",
+      "mim": "Mim",
+      "waw": "Wau",
+      "nun_ghunna": "Nun Ghunnah",
+      "mim_ghunna": "Mim Ghunnah"
+    }
+  },
+  "practice_page": {
+    "metadata": {
+      "title": "Asah Kemahiran",
+      "description": "Latih kemahiran tajwid anda dengan pelbagai soalan tanpa kehilangan nyawa."
+    },
+    "title": "Latihan - Asah Kemahiran",
+    "description": "Tajamkan kemahiran bacaan anda dengan latihan berfokus.",
+    "sections": {
+      "letters": "Latihan Huruf",
+      "rules": "Latihan Hukum",
+      "collections": "Koleksi Anda"
+    },
+    "modes": {
+      "articulation": {
+        "title": "Makharijul Huruf",
+        "description": "Latihan mengenal pasti tempat keluar huruf."
+      },
+      "trait": {
+        "title": "Sifatul Huruf",
+        "description": "Kenal pasti ciri-ciri huruf (Sifat)."
+      },
+      "rule": {
+        "title": "Hukum Tajwid",
+        "description": "Latihan hukum seperti Idgham, Ikhfa, dll."
+      },
+      "listen": {
+        "title": "Makmal Pendengaran",
+        "description": "Latihan pengenalan suara (audio)."
+      },
+      "mistakes": {
+        "title": "Perbaiki Kesilapan",
+        "description": "Latih semula bahagian kelemahan anda."
+      },
+      "saved": {
+        "title": "Item Disimpan",
+        "description": "Semak semula kandungan yang anda simpan."
+      }
+    }
+  },
+  "leaderboard_page": {
+    "metadata": {
+      "title": "Papan Pendahulu Mingguan",
+      "description": "Bersaing dengan pelajar lain dalam liga anda dan naikkan kedudukan."
+    },
+    "title": "Papan Pendahulu - Kedudukan Mingguan",
+    "week_info": "Papan pendahulu minggu ini",
+    "ranking": "Kedudukan",
+    "participants": "{count} peserta"
+  },
+  "quests_page": {
+    "metadata": {
+      "title": "Misi Harian & Cabaran",
+      "description": "Selesaikan misi harian dan cabaran bulanan untuk meraih ganjaran dan lencana."
+    },
+    "title": "Misi - Cabaran Harian",
+    "monthly_quest": {
+      "february_quest": "Misi Februari",
+      "days_remaining": "{count} Hari",
+      "complete_quests": "Selesaikan {target} misi"
+    },
+    "daily_quests": {
+      "title": "Misi Harian",
+      "hours_remaining": "{count} Jam"
+    }
+  },
+  "shop_page": {
+    "metadata": {
+      "title": "Kedai - Kuasa & Item",
+      "description": "Beli hati, kuasa tambahan, dan item lain untuk meningkatkan pengalaman pembelajaran anda."
+    },
+    "title": "Kedai - Kuasa & Item",
+    "hearts": {
+      "title": "Hati",
+      "full": "Penuh",
+      "get_super": "Dapatkan Super",
+      "refill": {
+        "title": "Isi Semula Hati",
+        "description": "Dapatkan hati penuh supaya tidak risau melakukan kesilapan."
+      },
+      "unlimited": {
+        "title": "Hati Tanpa Had",
+        "description": "Tidak akan kehabisan hati dengan Super!"
+      }
+    },
+    "powerups": {
+      "title": "Kuasa Tambahan",
+      "get_for": "Dapatkan:",
+      "equipped": "Dilengkapi",
+      "streak_freeze": {
+        "title": "Pembeku Rekod",
+        "description": "Kekalkan rekod harian anda walaupun tidak aktif selama sehari."
+      },
+      "double_xp": {
+        "title": "Gandaan XP",
+        "description": "Raih XP berganda selama 15 minit pembelajaran."
+      }
+    }
+  },
+  "profile_page": {
+    "metadata": {
+      "title": "Profil Pengguna",
+      "description": "Lihat statistik pengguna, pencapaian, dan cadangan rakan."
+    },
+    "title": "Profil Pengguna",
+    "user_info": {
+      "joined": "Menyertai {date}",
+      "following": "Mengikuti",
+      "followers": "Pengikut"
+    },
+    "statistics": {
+      "title": "Statistik",
+      "day_streak": "Rekod Harian",
+      "total_xp": "Jumlah XP",
+      "current_league": "Halaqah Semasa",
+      "top_3_finishes": "Tamat 3 Teratas"
+    },
+    "friend_suggestions": {
+      "title": "Cadangan Rakan",
+      "view_all": "Lihat Semua",
+      "followed_by": "Diikuti oleh {count} rakan",
+      "follow": "Ikuti",
+      "following": "Mengikuti"
+    },
+    "achievements": {
+      "title": "Pencapaian",
+      "view_all": "Lihat Semua",
+      "level": "Tahap"
+    }
+  },
+  "settings_page": {
+    "metadata": {
+      "title": "Tetapan",
+      "description": "Sesuaikan pengalaman pembelajaran dan keutamaan aplikasi anda."
+    },
+    "title": "Tetapan",
+    "preferences": {
+      "title": "Keutamaan",
+      "lesson_experience": {
+        "title": "Pengalaman Pembelajaran",
+        "sound_effects": "Kesan Bunyi",
+        "animations": "Animasi",
+        "motivational_messages": "Mesej Motivasi",
+        "listening_exercises": "Latihan Pendengaran"
+      },
+      "appearance": {
+        "title": "Penampilan"
+      }
+    },
+    "profile": {
+      "title": "Profil",
+      "avatar": {
+        "title": "Avatar",
+        "choose_color": "Pilih Warna",
+        "solid_colors": "Solid",
+        "gradient_colors": "Gradien"
+      },
+      "personal_info": {
+        "title": "Maklumat Peribadi",
+        "name": "Nama",
+        "username": "Nama Pengguna",
+        "email": "E-mel"
+      },
+      "password": {
+        "title": "Kata Laluan",
+        "current_password": "Kata Laluan Semasa",
+        "new_password": "Kata Laluan Baharu",
+        "show_password": "Tunjukkan Kata Laluan",
+        "hide_password": "Sembunyikan Kata Laluan"
+      },
+      "save_changes": "Simpan Perubahan",
+      "export_data": "Eksport Data Saya",
+      "delete_account": "Padam Akaun Saya"
+    },
+    "notifications": {
+      "title": "Pemberitahuan",
+      "email": "E-mel",
+      "general": {
+        "title": "Umum",
+        "product_updates": "Kemas Kini Produk & Tip Pembelajaran",
+        "new_follower": "Pengikut Baharu",
+        "friend_activity": "Aktiviti Rakan",
+        "weekly_progress": "Kemajuan Mingguan",
+        "special_promotions": "Promosi Istimewa",
+        "research_participation": "Peluang Penyertaan Penyelidikan"
+      },
+      "daily_reminders": {
+        "title": "Peringatan Harian",
+        "practice_reminder": "Peringatan Latihan",
+        "reminder_time": "Masa Peringatan"
+      }
+    },
+    "social": {
+      "title": "Akaun Sosial",
+      "facebook": "Facebook",
+      "google": "Google"
+    },
+    "privacy": {
+      "title": "Tetapan Privasi",
+      "make_profile_public": "Profil Awam",
+      "make_profile_public_description": "Benarkan orang lain mencari dan mengikuti anda. Membolehkan anda mengikuti orang lain dan menyertai papan pendahulu.",
+      "personalized_ads": "Iklan Diperibadikan",
+      "personalized_ads_description": "Benarkan penggunaan data untuk memaparkan iklan yang relevan.",
+      "friend_streaks": "Kongsi Rekod",
+      "friend_streaks_description": "Benarkan rakan melihat rekod harian (streak) anda.",
+      "save_changes": "Simpan Perubahan"
+    }
+  },
+  "auth_page": {
+    "metadata": {
+      "title": "Log Masuk",
+      "description": "Log masuk ke akaun anda untuk menyimpan kemajuan pembelajaran Tajwid."
+    },
+    "title": "Selamat Kembali",
+    "description": "Log masuk untuk menyimpan kemajuan, mengekalkan rentetan pembelajaran, dan menyertai Halaqah.",
+    "login_with_google": "Teruskan dengan Google",
+    "error_title": "Log Masuk Gagal",
+    "error_description": "Kami tidak dapat log masuk ke akaun anda. Sila cuba lagi.",
+    "terms": "Dengan meneruskan, anda bersetuju dengan Terma Perkhidmatan & Dasar Privasi kami."
   }
 }

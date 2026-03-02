@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Background,
   BackgroundVariant,
+  type ColorMode,
   Controls,
   type Edge as FlowEdge,
   type Node as FlowNode,
@@ -19,13 +20,14 @@ import dynamic from 'next/dynamic';
 import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useMobile } from '@/hooks/use-mobile';
+import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { useGlobalStore } from '@/providers/global';
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
 import { usePlaygroundTour } from '../_hooks/use-playground-tour';
 import { generateGraphFromData } from '../_lib/graph-generator';
@@ -74,11 +76,12 @@ export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
-  const isMobile = useIsMobile();
+  const { isMobile } = useMobile();
+  const { theme } = useTheme();
+  const { isMounted } = useMounted();
+  const colorMode = (isMounted ? theme : 'light') as ColorMode;
 
-  const theme = useGlobalStore((s) => s.theme);
-  const { startTour } = usePlaygroundTour({ theme });
-
+  const { startTour } = usePlaygroundTour({ theme: colorMode });
   const viewMode = usePlaygroundStore((s) => s.viewMode);
   const layoutMode = usePlaygroundStore((s) => s.layoutMode);
   const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
@@ -340,7 +343,7 @@ export function Playground() {
           <ReactFlow
             dir={dir}
             proOptions={{ hideAttribution: true }}
-            colorMode={theme}
+            colorMode={colorMode}
             fitView
             fitViewOptions={{ padding: 0.2 }}
             nodes={isUnsupportedMobileView ? [] : highlightedNodes}
@@ -449,12 +452,8 @@ export function Playground() {
             /> */}
 
             <Background
-              color={
-                theme === 'light' ? 'oklch(0 0 0 / 0.8)' : 'oklch(1 0 0 / 0.5)'
-              }
-              bgColor={
-                theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
-              }
+              color="var(--flow-bg-pattern)"
+              bgColor="var(--flow-bg-canvas)"
               className="rounded-lg"
               variant={BackgroundVariant.Dots}
               gap={20}

@@ -96,12 +96,8 @@ export function QuizCanvas({
         className="rounded-lg"
       >
         <Background
-          color={
-            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
-          }
-          bgColor={
-            theme === 'light' ? 'oklch(1 0 0)' : 'oklch(0.13 0.028 261.692)'
-          }
+          color="var(--flow-bg-pattern)"
+          bgColor="var(--flow-bg-canvas)"
           className="rounded-lg"
         />
       </ReactFlow>

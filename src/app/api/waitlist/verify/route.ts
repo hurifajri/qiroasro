@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
-import { waitlist } from '@/db/schema';
+import { waitlist } from '@/db/common-schema';
 import { env } from '@/env';
 import { db } from '@/lib/db';
 

@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 8. Testing Guidelines
+## Testing Guidelines
 
 ### Testing Trophy Pattern
 

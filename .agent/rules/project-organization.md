@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 3. Project Organization
+## Project Organization
 
 ### Directory Structure
 

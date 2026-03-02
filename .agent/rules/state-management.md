@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-## 4. State Management
+## State Management
 
 ### Store Structure
 
