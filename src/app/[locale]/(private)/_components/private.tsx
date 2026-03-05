@@ -28,12 +28,11 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
   );
 
   // Use real username for profile link
-  const profileUsername = userProfile?.username ?? userId;
+  const username = userProfile?.username ?? userId;
 
   // Update nav items based on current path, inject real profile link
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => {
-    const href =
-      item.id === 'profile' ? `/profile/${profileUsername}` : item.href;
+    const href = item.id === 'profile' ? `/profile/${username}` : item.href;
 
     return {
       ...item,
