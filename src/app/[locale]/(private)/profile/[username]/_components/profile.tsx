@@ -1,8 +1,10 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { getUserProfileByUsernameOpt } from '@/queries/user-profile';
 import type { Achievement } from '../../../_schemas/achievement';
 import type {
   FriendSuggestion,
@@ -15,19 +17,34 @@ import { StatGrid } from './stat-grid';
 import { UserInfo } from './user-info';
 
 interface ProfileProps {
-  user: UserProfile;
+  username: string;
   stats: Statistic[];
   friendSuggestions: FriendSuggestion[];
   achievements: Achievement[];
 }
 
 export function Profile({
-  user,
+  username,
   stats,
   friendSuggestions,
   achievements,
 }: ProfileProps) {
   const t = useTranslations('profile_page');
+
+  const { data: userProfile } = useSuspenseQuery(
+    getUserProfileByUsernameOpt(username),
+  );
+
+  // Map the global UserProfile to the UI's UserProfile shape
+  const user: UserProfile = {
+    username: userProfile?.username ?? username,
+    displayName: userProfile?.displayName ?? username,
+    avatarColorCode:
+      userProfile?.avatarColorCode as UserProfile['avatarColorCode'],
+    joinedDate: userProfile?.createdAt ?? new Date().toISOString(),
+    followingCount: 0,
+    followersCount: 0,
+  };
 
   return (
     <div className="flex flex-col gap-6">
