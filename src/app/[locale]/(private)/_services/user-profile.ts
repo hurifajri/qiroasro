@@ -4,13 +4,13 @@ import { eq } from 'drizzle-orm';
 import { parse } from 'valibot';
 import { userProfiles } from '@/db/user-schema';
 import { db } from '@/lib/db';
-import { transformRemoteUserProfile } from '@/models/user-profile';
+import { transformRemoteUserProfile } from '../_models/user-profile';
 import {
   RemoteUserProfileSchema,
   type UpdateUserProfile,
   UpdateUserProfileSchema,
   type UserProfile,
-} from '@/schemas/user-profile';
+} from '../_schemas/user-profile';
 
 export async function getUserProfileByUserId(
   userId: string,

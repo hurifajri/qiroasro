@@ -2,7 +2,7 @@ import { queryOptions } from '@tanstack/react-query';
 import {
   getUserProfileByUserId,
   getUserProfileByUsername,
-} from '@/services/user-profile';
+} from '../_services/user-profile';
 
 const userProfileKeys = {
   all: ['user-profile'] as const,

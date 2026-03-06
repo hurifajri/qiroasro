@@ -4,7 +4,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { getUserProfileByUsernameOpt } from '@/queries/user-profile';
+import { getUserProfileByUsernameOpt } from '../../../_queries/user-profile';
 import type { Achievement } from '../../../_schemas/achievement';
 import type {
   FriendSuggestion,

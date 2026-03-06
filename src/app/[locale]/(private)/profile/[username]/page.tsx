@@ -6,8 +6,8 @@ import {
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getUserProfileByUsernameOpt } from '@/queries/user-profile';
 import { ACHIEVEMENTS } from '../../_lib/achievement';
+import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
 import { Profile } from './_components/profile';
 import { MOCK_FRIEND_SUGGESTIONS, MOCK_STATISTICS } from './_lib/mock-data';
 

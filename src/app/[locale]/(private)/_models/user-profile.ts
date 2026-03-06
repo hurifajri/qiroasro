@@ -2,7 +2,7 @@ import type { InferOutput } from 'valibot';
 import type {
   RemoteUserProfileSchema,
   UserProfile,
-} from '@/schemas/user-profile';
+} from '../_schemas/user-profile';
 
 type RemoteUserProfile = InferOutput<typeof RemoteUserProfileSchema>;
 

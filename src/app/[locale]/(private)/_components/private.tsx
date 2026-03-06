@@ -3,8 +3,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMobile } from '@/hooks/use-mobile';
 import { usePathname } from '@/i18n/navigation';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
+import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
 

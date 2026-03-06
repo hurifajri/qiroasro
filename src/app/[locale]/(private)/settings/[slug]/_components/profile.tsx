@@ -16,13 +16,13 @@ import {
   type AvatarColorCode,
 } from '@/lib/avatar';
 import { cn } from '@/lib/utils';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
-import { UpdateUserProfileSchema } from '@/schemas/user-profile';
+import { UserAvatar } from '../../../_components/user-avatar';
+import { getUserProfileByUserIdOpt } from '../../../_queries/user-profile';
+import { UpdateUserProfileSchema } from '../../../_schemas/user-profile';
 import {
   checkUsernameAvailability,
   updateUserProfile,
-} from '@/services/user-profile';
-import { UserAvatar } from '../../../_components/user-avatar';
+} from '../../../_services/user-profile';
 import { ProfileFieldRow } from './profile-field-row';
 
 interface ProfileProps {

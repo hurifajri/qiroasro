@@ -8,7 +8,7 @@ import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { auth } from '@/lib/auth';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
+import { getUserProfileByUserIdOpt } from '../../_queries/user-profile';
 import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
