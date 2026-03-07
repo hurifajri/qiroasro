@@ -29,13 +29,13 @@ interface ProfileProps {
   userId: string;
 }
 
-type UsernameStatus = {
-  type: 'idle' | 'checking' | 'taken' | 'invalid' | 'available';
-  message?: string;
-  variant?: 'default' | 'success' | 'error';
-};
+type UsernameStatus =
+  | { type: 'idle' }
+  | { type: 'taken' | 'invalid' | 'available'; message: string };
 
-type SaveStatus = { type: 'idle' | 'error' | 'success'; message?: string };
+type SaveStatus =
+  | { type: 'idle' }
+  | { type: 'error' | 'success'; message: string };
 
 export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
@@ -94,18 +94,12 @@ export function Profile({ userId }: ProfileProps) {
       setUsernameStatus({
         type: 'invalid',
         message: t(`validation.${issueMessage}`),
-        variant: 'error',
       });
       return;
     }
 
     // Valid form input — now check availability in DB
     usernameDebounceRef.current = setTimeout(async () => {
-      setUsernameStatus({
-        type: 'checking',
-        message: t('validation.username_checking'),
-        variant: 'default',
-      });
       try {
         const result = await checkUsernameAvailability(
           validation.output.username,
@@ -116,26 +110,22 @@ export function Profile({ userId }: ProfileProps) {
           setUsernameStatus({
             type: 'available',
             message: t('validation.username_available'),
-            variant: 'success',
           });
         } else if (result.reason === 'taken') {
           setUsernameStatus({
             type: 'taken',
             message: t('validation.username_taken'),
-            variant: 'error',
           });
         } else {
           setUsernameStatus({
             type: 'invalid',
             message: t('validation.check_failed'),
-            variant: 'error',
           });
         }
       } catch {
         setUsernameStatus({
           type: 'invalid',
           message: t('validation.check_failed'),
-          variant: 'error',
         });
       }
     }, 500);
@@ -260,8 +250,12 @@ export function Profile({ userId }: ProfileProps) {
             labelKey="username"
             value={username}
             onChange={handleUsernameChange}
-            hint={usernameStatus.message}
-            hintVariant={usernameStatus.variant}
+            hint={
+              'message' in usernameStatus ? usernameStatus.message : undefined
+            }
+            hintVariant={
+              usernameStatus.type === 'available' ? 'success' : 'error'
+            }
           />
           <ProfileFieldRow
             id="email"
@@ -283,7 +277,7 @@ export function Profile({ userId }: ProfileProps) {
           {t('save_changes')}
         </Button>
 
-        {saveStatus.message && (
+        {'message' in saveStatus && (
           <p
             className={cn(
               'text-sm',
