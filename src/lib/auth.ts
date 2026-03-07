@@ -1,10 +1,60 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { eq } from 'drizzle-orm';
 import { getLocale } from 'next-intl/server';
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
 import { DEFAULT_AVATAR_COLOR_CODE } from '@/lib/avatar';
 import { db } from '@/lib/db';
+
+// =====================================================================
+// USERNAME GENERATION HELPERS
+// =====================================================================
+
+/** Converts a display name into a lowercase slug (e.g. "Ahmad Rizal" → "ahmad_rizal") */
+function slugifyName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+    .slice(0, 20); // reserve space for suffix
+}
+
+/** Returns a random 4-digit numeric suffix (1000–9999) */
+function randomSuffix(): string {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
+/**
+ * Generates a unique username by trying up to 5 slug + random suffix
+ * combinations. Falls back to the first 30 chars of userId if all attempts
+ * result in collisions (extremely unlikely in practice).
+ */
+async function generateUniqueUsername(
+  userId: string,
+  displayName: string,
+): Promise<string> {
+  const slug = slugifyName(displayName);
+
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const candidate = `${slug}_${randomSuffix()}`;
+
+    const existing = await db
+      .select({ id: userProfiles.id })
+      .from(userProfiles)
+      .where(eq(userProfiles.username, candidate))
+      .limit(1);
+
+    if (!existing[0]) return candidate;
+  }
+
+  // Ultimate fallback — userId is always unique
+  return userId.slice(0, 30);
+}
+
+// =====================================================================
+// AUTH CONFIGURATION
+// =====================================================================
 
 export const auth = betterAuth({
   baseURL: env.NEXT_PUBLIC_APP_URL,
@@ -33,11 +83,12 @@ export const auth = betterAuth({
       create: {
         after: async (user) => {
           const locale = await getLocale();
+          const username = await generateUniqueUsername(user.id, user.name);
 
           // Auto-create a user profile after every new signup
           await db.insert(userProfiles).values({
             id: user.id,
-            username: user.id, // temporary unique username — user can update later
+            username,
             displayName: user.name,
             avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
             locale,
