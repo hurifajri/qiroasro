@@ -11,13 +11,15 @@ import { db } from '@/lib/db';
 // USERNAME GENERATION HELPERS
 // =====================================================================
 
-/** Converts a display name into a lowercase slug (e.g. "Ahmad Rizal" → "ahmad_rizal") */
+/** Converts a display name into a lowercase slug (e.g. "Ahmad Rizal" → "ahmadrizal") */
 function slugifyName(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '')
-    .slice(0, 20); // reserve space for suffix
+  return (
+    name
+      .toLowerCase()
+      .replace(/\s+/g, '') // remove spaces entirely
+      .replace(/[^a-z0-9]/g, '') // remove non-latin characters
+      .slice(0, 20) || 'user' // fallback to 'user' if name is entirely non-Latin
+  );
 }
 
 /** Returns a random 4-digit numeric suffix (1000–9999) */

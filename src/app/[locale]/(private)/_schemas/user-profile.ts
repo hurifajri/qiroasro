@@ -13,6 +13,7 @@ import {
   pipe,
   regex,
   string,
+  transform,
   union,
 } from 'valibot';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
@@ -25,9 +26,15 @@ export const UserProfileSchema = object({
   id: string(),
   username: pipe(
     string(),
+    transform((v) => v.toLowerCase()), // normalize to lowercase
     minLength(3, 'username_min_length'),
     maxLength(30, 'username_max_length'),
-    regex(/^[a-z0-9][a-z0-9_]*[a-z0-9]$|^[a-z0-9]$/, 'username_pattern'),
+    // Rules: alphanumeric start/end, underscores allowed in middle,
+    // no consecutive underscores, single char also valid
+    regex(
+      /^(?!.*__)[a-z0-9][a-z0-9_]*[a-z0-9]$|^[a-z0-9]$/,
+      'username_pattern',
+    ),
   ),
   displayName: pipe(
     string(),
