@@ -159,8 +159,9 @@ export function Profile({ userId }: ProfileProps) {
           {/* Display name */}
           <form.Field name="displayName">
             {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
+              const { meta } = field.state;
+              const { isTouched, isValid, errors } = meta;
+              const isInvalid = isTouched && !isValid;
 
               return (
                 <Field data-invalid={isInvalid}>
@@ -177,7 +178,7 @@ export function Profile({ userId }: ProfileProps) {
                   />
                   {isInvalid && (
                     <FieldError
-                      errors={translateErrors(field.state.meta.errors, (key) =>
+                      errors={translateErrors(errors, (key) =>
                         t(`validation.${key}`),
                       )}
                     />
@@ -210,12 +211,11 @@ export function Profile({ userId }: ProfileProps) {
             }}
           >
             {(field) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
+              const { meta, value } = field.state;
+              const { isTouched, isValid, errors } = meta;
+              const isInvalid = isTouched && !isValid;
               const isAvailable =
-                field.state.meta.isTouched &&
-                field.state.meta.isValid &&
-                field.state.value !== userProfile?.username;
+                isTouched && isValid && value !== userProfile?.username;
 
               return (
                 <Field data-invalid={isInvalid}>
@@ -232,7 +232,7 @@ export function Profile({ userId }: ProfileProps) {
                   />
                   {isInvalid && (
                     <FieldError
-                      errors={translateErrors(field.state.meta.errors, (key) =>
+                      errors={translateErrors(errors, (key) =>
                         t(`validation.${key}`),
                       )}
                     />
