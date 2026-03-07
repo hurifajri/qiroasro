@@ -14,6 +14,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { useMobile } from '@/hooks/use-mobile';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
@@ -40,6 +41,7 @@ type SaveStatus =
 
 export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
+  const { isMobile } = useMobile();
   const queryClient = useQueryClient();
 
   const { data: userProfile } = useSuspenseQuery(
@@ -261,7 +263,7 @@ export function Profile({ userId }: ProfileProps) {
       </section>
 
       {/* Save button + status */}
-      <Field orientation="responsive">
+      <Field orientation={isMobile ? 'vertical' : 'horizontal'}>
         <form.Subscribe selector={(state) => state.isSubmitting}>
           {(isSubmitting) => (
             <Button

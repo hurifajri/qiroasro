@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import { useMounted } from '@/hooks/use-mounted';
 import { LOCALE_CONFIG } from '@/i18n/config';
 import { usePathname, useRouter } from '@/i18n/navigation';
@@ -56,7 +55,6 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
         <h2 className="font-bold text-xl">
           {t('settings_page.preferences.lesson_experience.title')}
         </h2>
-        <Separator />
         <FieldGroup className="gap-4">
           {preferences.map((preference) => (
             <PreferenceToggleRow
@@ -73,7 +71,6 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
         <h2 className="font-bold text-xl">
           {t('settings_page.preferences.appearance.title')}
         </h2>
-        <Separator />
         <Field>
           <FieldContent>
             <FieldLabel htmlFor="theme">

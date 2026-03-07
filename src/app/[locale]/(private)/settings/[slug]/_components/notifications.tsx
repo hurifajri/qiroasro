@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import type {
   DailyReminder,
   NotificationCheckbox,
@@ -79,7 +78,6 @@ export function Notifications({
           <h2 className="font-bold text-xl">{t('general.title')}</h2>
           <span className="text-muted-foreground text-sm">{t('email')}</span>
         </div>
-        <Separator />
         <FieldGroup className="gap-4">
           {notifications.map((notification) => (
             <NotificationCheckboxRow
@@ -97,7 +95,6 @@ export function Notifications({
           <h2 className="font-bold text-xl">{t('daily_reminders.title')}</h2>
           <span className="text-muted-foreground text-sm">{t('email')}</span>
         </div>
-        <Separator />
         <FieldGroup className="gap-4">
           <Field orientation="horizontal">
             <FieldLabel htmlFor={reminder.id}>
