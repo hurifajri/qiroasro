@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 import {
-  getUserProfileByUserId,
+  getUserProfileById,
   getUserProfileByUsername,
 } from '../_services/user-profile';
 
@@ -15,7 +15,7 @@ const userProfileKeys = {
 export function getUserProfileByUserIdOpt(userId: string) {
   return queryOptions({
     queryKey: userProfileKeys.byUserId(userId),
-    queryFn: () => getUserProfileByUserId(userId),
+    queryFn: () => getUserProfileById(userId),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 }

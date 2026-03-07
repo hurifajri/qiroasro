@@ -92,6 +92,7 @@ export const auth = betterAuth({
             id: user.id,
             username,
             displayName: user.name,
+            email: user.email,
             avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
             locale,
           });

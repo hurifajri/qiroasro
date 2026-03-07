@@ -3,6 +3,7 @@ import {
   array,
   boolean,
   date,
+  email,
   integer,
   maxLength,
   minLength,
@@ -41,12 +42,13 @@ export const UserProfileSchema = object({
     minLength(1, 'display_name_required'),
     maxLength(80, 'display_name_max_length'),
   ),
+  email: pipe(string(), email()),
   avatarColorCode: picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
   locale: string(),
-  createdAt: date(),
-  updatedAt: date(),
   followingCount: pipe(number(), integer()),
   followersCount: pipe(number(), integer()),
+  createdAt: date(),
+  updatedAt: date(),
 });
 
 export type UserProfile = InferOutput<typeof UserProfileSchema>;
@@ -56,9 +58,9 @@ export type UserProfile = InferOutput<typeof UserProfileSchema>;
 // =====================================================================
 
 export const UpdateUserProfileSchema = object({
-  displayName: UserProfileSchema.entries.displayName,
   avatarColorCode: UserProfileSchema.entries.avatarColorCode,
-  username: optional(UserProfileSchema.entries.username),
+  displayName: UserProfileSchema.entries.displayName,
+  username: UserProfileSchema.entries.username,
 });
 
 export type UpdateUserProfile = InferOutput<typeof UpdateUserProfileSchema>;

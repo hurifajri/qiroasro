@@ -11,24 +11,22 @@ import {
   UserProfileSchema,
 } from '../_schemas/user-profile';
 
-export async function getUserProfileByUserId(
-  userId: string,
+export async function getUserProfileById(
+  id: string,
 ): Promise<UserProfile | null> {
   try {
     const result = await db
       .select()
       .from(userProfiles)
-      .where(eq(userProfiles.id, userId))
+      .where(eq(userProfiles.id, id))
       .limit(1);
 
     const remoteUserProfile = result[0];
-    if (!remoteUserProfile) return null;
-
     const userProfile = parse(UserProfileSchema, remoteUserProfile);
 
     return userProfile;
   } catch (error) {
-    console.error('[getUserProfileByUserId] Error:', error);
+    console.error('[getUserProfileById] Error:', error);
     return null;
   }
 }
@@ -44,8 +42,6 @@ export async function getUserProfileByUsername(
       .limit(1);
 
     const remoteUserProfile = result[0];
-    if (!remoteUserProfile) return null;
-
     const userProfile = parse(UserProfileSchema, remoteUserProfile);
 
     return userProfile;
@@ -61,11 +57,11 @@ export type UsernameAvailability =
 
 /**
  * Check if a username is available (not taken by another user).
- * currentUserId is excluded from the check (the user can keep their own username).
+ * id is excluded from the check (the user can keep their own username).
  */
 export async function checkUsernameAvailability(
   username: string,
-  currentUserId: string,
+  id: string,
 ): Promise<UsernameAvailability> {
   try {
     const result = await db
@@ -74,10 +70,9 @@ export async function checkUsernameAvailability(
       .where(eq(userProfiles.username, username))
       .limit(1);
 
-    const existing = result[0];
-
     // Username is taken by another user
-    if (existing && existing.id !== currentUserId) {
+    const remoteUserProfile = result[0];
+    if (remoteUserProfile && remoteUserProfile.id !== id) {
       return { available: false, reason: 'taken' };
     }
 
@@ -100,7 +95,7 @@ export type UpdateUserProfileResult =
  * Validates username uniqueness before updating.
  */
 export async function updateUserProfile(
-  userId: string,
+  id: string,
   input: UpdateUserProfile,
 ): Promise<UpdateUserProfileResult> {
   try {
@@ -111,37 +106,17 @@ export async function updateUserProfile(
     if (validated.username) {
       const availability = await checkUsernameAvailability(
         validated.username,
-        userId,
+        id,
       );
       if (!availability.available) {
         return { success: false, error: 'username_taken' };
       }
     }
 
-    // Build update object — only include fields that are provided
-    const updateData: Partial<{
-      displayName: string;
-      avatarColorCode: string;
-      username: string;
-      updatedAt: Date;
-    }> = {
-      updatedAt: new Date(),
-    };
-
-    updateData.displayName = validated.displayName;
-
-    if (validated.avatarColorCode !== undefined) {
-      updateData.avatarColorCode = validated.avatarColorCode;
-    }
-
-    if (validated.username !== undefined) {
-      updateData.username = validated.username;
-    }
-
     const result = await db
       .update(userProfiles)
-      .set(updateData)
-      .where(eq(userProfiles.id, userId))
+      .set(validated)
+      .where(eq(userProfiles.id, id))
       .returning();
 
     const remoteUserProfile = result[0];

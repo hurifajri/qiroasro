@@ -16,8 +16,9 @@ export const userProfiles = pgTable(
       .references(() => user.id, { onDelete: 'cascade' }),
     username: text('username').notNull().unique(),
     displayName: text('display_name').notNull(),
+    email: text('email').notNull().unique(),
     avatarColorCode: text('avatar_color_code').notNull(),
-    locale: text('locale').notNull().default('id'),
+    locale: text('locale').notNull(),
     followersCount: integer('followers_count').notNull().default(0),
     followingCount: integer('following_count').notNull().default(0),
     createdAt: timestamp('created_at', { withTimezone: true })

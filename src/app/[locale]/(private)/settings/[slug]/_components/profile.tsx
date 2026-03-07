@@ -8,7 +8,6 @@ import { safeParse } from 'valibot';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
 import { Separator } from '@/components/ui/separator';
-import { authClient } from '@/lib/auth-client';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
@@ -43,8 +42,6 @@ export function Profile({ userId }: ProfileProps) {
   const { data: userProfile } = useSuspenseQuery(
     getUserProfileByUserIdOpt(userId),
   );
-  const { data: session } = authClient.useSession();
-  const userEmail = session?.user?.email ?? '';
 
   // Local form state — seeded from real profile data
   const [displayName, setDisplayName] = useState(
@@ -78,10 +75,7 @@ export function Profile({ userId }: ProfileProps) {
     }
 
     // Skip check if same as current username
-    if (value === userProfile?.username) {
-      return;
-    }
-
+    if (value === userProfile?.username) return;
     if (!value) return;
 
     // Validate against the schema rules (length, pattern, etc)
@@ -103,7 +97,7 @@ export function Profile({ userId }: ProfileProps) {
       setUsernameStatus('checking');
       try {
         const result = await checkUsernameAvailability(
-          validation.output.username!,
+          validation.output.username,
           userId,
         );
         setUsernameStatus(result.available ? 'available' : result.reason);
@@ -120,17 +114,15 @@ export function Profile({ userId }: ProfileProps) {
       // Validate before sending
       const validation = safeParse(UpdateUserProfileSchema, {
         displayName,
-        avatarColorCode: avatarColorCode || undefined,
-        username: username !== userProfile?.username ? username : undefined,
+        avatarColorCode,
+        username,
       });
 
       if (!validation.success) {
         const issueMessage = validation.issues[0]?.message;
         setSaveStatus({
           type: 'error',
-          message: issueMessage
-            ? t(`validation.${issueMessage}`)
-            : 'Invalid input',
+          message: t(`validation.${issueMessage}`),
         });
         return;
       }
@@ -259,7 +251,7 @@ export function Profile({ userId }: ProfileProps) {
             id="email"
             labelKey="email"
             type="email"
-            value={userEmail}
+            value={userProfile?.email ?? ''}
             disabled
           />
         </FieldGroup>
