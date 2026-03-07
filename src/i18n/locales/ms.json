@@ -930,7 +930,13 @@
         "username_max_length": "Nama pengguna tidak boleh melebihi 30 aksara",
         "username_pattern": "Nama pengguna hanya boleh mengandungi huruf kecil, nombor, dan garis bawah",
         "display_name_required": "Nama paparan diperlukan",
-        "display_name_max_length": "Nama paparan tidak boleh melebihi 80 aksara"
+        "display_name_max_length": "Nama paparan tidak boleh melebihi 80 aksara",
+        "username_checking": "Menyemak ketersediaan...",
+        "username_available": "✓ Nama pengguna tersedia",
+        "username_taken": "Nama pengguna telah digunakan",
+        "check_failed": "Gagal menyemak ketersediaan. Sila cuba lagi.",
+        "save_failed": "Gagal menyimpan perubahan. Sila cuba lagi.",
+        "save_success": "✓ Perubahan berjaya disimpan"
       },
       "avatar": {
         "title": "Avatar",

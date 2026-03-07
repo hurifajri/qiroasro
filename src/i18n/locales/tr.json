@@ -930,7 +930,13 @@
         "username_max_length": "Kullanıcı adı en fazla 30 karakter olmalıdır",
         "username_pattern": "Kullanıcı adı yalnızca küçük harf, rakam ve alt çizgi içerebilir",
         "display_name_required": "Görünen ad zorunludur",
-        "display_name_max_length": "Görünen ad en fazla 80 karakter olmalıdır"
+        "display_name_max_length": "Görünen ad en fazla 80 karakter olmalıdır",
+        "username_checking": "Kullanılabilirlik kontrol ediliyor...",
+        "username_available": "✓ Kullanıcı adı kullanılabilir",
+        "username_taken": "Kullanıcı adı zaten alınmış",
+        "check_failed": "Kullanılabilirlik kontrol edilemedi. Lütfen tekrar deneyin.",
+        "save_failed": "Değişiklikler kaydedilemedi. Lütfen tekrar deneyin.",
+        "save_success": "✓ Değişiklikler başarıyla kaydedildi"
       },
       "avatar": {
         "title": "Avatar",

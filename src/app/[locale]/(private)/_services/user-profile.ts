@@ -87,7 +87,7 @@ export type UpdateUserProfileResult =
   | { success: true; profile: UserProfile }
   | {
       success: false;
-      error: 'username_taken' | 'invalid_input' | 'not_found' | 'unknown';
+      error: 'username_taken' | 'not_found' | 'unknown';
     };
 
 /**

@@ -9,6 +9,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 interface ProfileFieldRowProps {
   id: string;
@@ -53,11 +54,9 @@ export function ProfileFieldRow({
       {hint && hintVariant === 'error' && <FieldError>{hint}</FieldError>}
       {hint && hintVariant !== 'error' && (
         <FieldDescription
-          className={
-            hintVariant === 'success'
-              ? 'text-green-600 dark:text-green-400'
-              : undefined
-          }
+          className={cn(
+            hintVariant === 'success' && 'text-green-600 dark:text-green-400',
+          )}
         >
           {hint}
         </FieldDescription>

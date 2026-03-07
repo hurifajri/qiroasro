@@ -930,7 +930,13 @@
         "username_max_length": "Nama pengguna maksimal 30 karakter",
         "username_pattern": "Nama pengguna hanya boleh berisi huruf kecil, angka, dan garis bawah",
         "display_name_required": "Nama tampilan wajib diisi",
-        "display_name_max_length": "Nama tampilan maksimal 80 karakter"
+        "display_name_max_length": "Nama tampilan maksimal 80 karakter",
+        "username_checking": "Memeriksa ketersediaan...",
+        "username_available": "✓ Nama pengguna tersedia",
+        "username_taken": "Nama pengguna sudah digunakan",
+        "check_failed": "Gagal memeriksa ketersediaan. Silakan coba lagi.",
+        "save_failed": "Gagal menyimpan perubahan. Silakan coba lagi.",
+        "save_success": "✓ Perubahan berhasil disimpan"
       },
       "avatar": {
         "title": "Avatar",

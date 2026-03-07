@@ -1,7 +1,7 @@
 'use client';
 
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { CheckIcon, Loader2Icon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRef, useState, useTransition } from 'react';
 import { safeParse } from 'valibot';
@@ -13,6 +13,7 @@ import {
   AVATAR_GRADIENT_CODES,
   AVATAR_SOLID_CODES,
   type AvatarColorCode,
+  DEFAULT_AVATAR_COLOR_CODE,
 } from '@/lib/avatar';
 import { cn } from '@/lib/utils';
 import { UserAvatar } from '../../../_components/user-avatar';
@@ -28,11 +29,13 @@ interface ProfileProps {
   userId: string;
 }
 
-type SaveStatus =
-  | { type: 'idle' }
-  | { type: 'saving' }
-  | { type: 'success' }
-  | { type: 'error'; message: string };
+type UsernameStatus = {
+  type: 'idle' | 'checking' | 'taken' | 'invalid' | 'available';
+  message?: string;
+  variant?: 'default' | 'success' | 'error';
+};
+
+type SaveStatus = { type: 'idle' | 'error' | 'success'; message?: string };
 
 export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
@@ -44,18 +47,18 @@ export function Profile({ userId }: ProfileProps) {
   );
 
   // Local form state — seeded from real profile data
+  const [avatarColorCode, setAvatarColorCode] = useState<AvatarColorCode>(
+    userProfile?.avatarColorCode ?? DEFAULT_AVATAR_COLOR_CODE,
+  );
   const [displayName, setDisplayName] = useState(
     userProfile?.displayName ?? '',
   );
   const [username, setUsername] = useState(userProfile?.username ?? '');
-  const [avatarColorCode, setAvatarColorCode] = useState<AvatarColorCode>(
-    (userProfile?.avatarColorCode ?? '') as AvatarColorCode,
-  );
 
   // Username availability state
-  const [usernameStatus, setUsernameStatus] = useState<
-    'idle' | 'checking' | 'available' | 'taken' | 'invalid'
-  >('idle');
+  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>({
+    type: 'idle',
+  });
   const usernameDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
@@ -67,7 +70,7 @@ export function Profile({ userId }: ProfileProps) {
     setUsername(value);
 
     // Reset status immediately
-    setUsernameStatus('idle');
+    setUsernameStatus({ type: 'idle' });
 
     // Debounce availability check
     if (usernameDebounceRef.current) {
@@ -81,40 +84,69 @@ export function Profile({ userId }: ProfileProps) {
     // Validate against the schema rules (length, pattern, etc)
     // We pass dummy values for other required schema fields
     const validation = safeParse(UpdateUserProfileSchema, {
-      displayName: userProfile?.displayName ?? '',
-      avatarColorCode:
-        userProfile?.avatarColorCode ?? ('blue' as AvatarColorCode),
+      avatarColorCode,
+      displayName,
       username: value,
     });
 
     if (!validation.success) {
-      setUsernameStatus('invalid');
+      const issueMessage = validation.issues[0]?.message;
+      setUsernameStatus({
+        type: 'invalid',
+        message: t(`validation.${issueMessage}`),
+        variant: 'error',
+      });
       return;
     }
 
     // Valid form input — now check availability in DB
     usernameDebounceRef.current = setTimeout(async () => {
-      setUsernameStatus('checking');
+      setUsernameStatus({
+        type: 'checking',
+        message: t('validation.username_checking'),
+        variant: 'default',
+      });
       try {
         const result = await checkUsernameAvailability(
           validation.output.username,
           userId,
         );
-        setUsernameStatus(result.available ? 'available' : result.reason);
+
+        if (result.available) {
+          setUsernameStatus({
+            type: 'available',
+            message: t('validation.username_available'),
+            variant: 'success',
+          });
+        } else if (result.reason === 'taken') {
+          setUsernameStatus({
+            type: 'taken',
+            message: t('validation.username_taken'),
+            variant: 'error',
+          });
+        } else {
+          setUsernameStatus({
+            type: 'invalid',
+            message: t('validation.check_failed'),
+            variant: 'error',
+          });
+        }
       } catch {
-        setUsernameStatus('invalid');
+        setUsernameStatus({
+          type: 'invalid',
+          message: t('validation.check_failed'),
+          variant: 'error',
+        });
       }
     }, 500);
   }
 
   function handleSaveChanges() {
     startTransition(async () => {
-      setSaveStatus({ type: 'saving' });
-
       // Validate before sending
       const validation = safeParse(UpdateUserProfileSchema, {
-        displayName,
         avatarColorCode,
+        displayName,
         username,
       });
 
@@ -130,18 +162,18 @@ export function Profile({ userId }: ProfileProps) {
       const result = await updateUserProfile(userId, validation.output);
 
       if (!result.success) {
-        const msg =
+        const message =
           result.error === 'username_taken'
-            ? 'Username is already taken'
-            : 'Failed to save changes. Please try again.';
-        setSaveStatus({ type: 'error', message: msg });
+            ? t('validation.username_taken')
+            : t('validation.save_failed');
+        setSaveStatus({ type: 'error', message });
         return;
       }
 
       // Invalidate cache so profile link + profile page reflect new data
       await queryClient.invalidateQueries(getUserProfileByUserIdOpt(userId));
 
-      setSaveStatus({ type: 'success' });
+      setSaveStatus({ type: 'success', message: t('validation.save_success') });
 
       // Auto-clear success message after 3 seconds
       setTimeout(() => setSaveStatus({ type: 'idle' }), 3000);
@@ -228,24 +260,8 @@ export function Profile({ userId }: ProfileProps) {
             labelKey="username"
             value={username}
             onChange={handleUsernameChange}
-            hint={
-              usernameStatus === 'checking'
-                ? 'Checking availability…'
-                : usernameStatus === 'available'
-                  ? '✓ Username is available'
-                  : usernameStatus === 'taken'
-                    ? 'Username is already taken'
-                    : usernameStatus === 'invalid'
-                      ? 'Invalid username format'
-                      : undefined
-            }
-            hintVariant={
-              usernameStatus === 'available'
-                ? 'success'
-                : usernameStatus === 'taken' || usernameStatus === 'invalid'
-                  ? 'error'
-                  : 'default'
-            }
+            hint={usernameStatus.message}
+            hintVariant={usernameStatus.variant}
           />
           <ProfileFieldRow
             id="email"
@@ -261,27 +277,23 @@ export function Profile({ userId }: ProfileProps) {
       <div className="flex flex-col gap-2">
         <Button
           onClick={handleSaveChanges}
-          disabled={
-            isPending ||
-            saveStatus.type === 'saving' ||
-            usernameStatus === 'taken' ||
-            usernameStatus === 'checking'
-          }
+          disabled={isPending}
           className="w-fit"
         >
-          {(isPending || saveStatus.type === 'saving') && (
-            <Loader2Icon className="mr-2 size-4 animate-spin" />
-          )}
           {t('save_changes')}
         </Button>
 
-        {saveStatus.type === 'success' && (
-          <p className="text-green-600 text-sm dark:text-green-400">
-            ✓ Changes saved successfully
+        {saveStatus.message && (
+          <p
+            className={cn(
+              'text-sm',
+              saveStatus.type === 'error' && 'text-destructive',
+              saveStatus.type === 'success' &&
+                'text-green-600 dark:text-green-400',
+            )}
+          >
+            {saveStatus.message}
           </p>
-        )}
-        {saveStatus.type === 'error' && (
-          <p className="text-destructive text-sm">{saveStatus.message}</p>
         )}
       </div>
     </div>
