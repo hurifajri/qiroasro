@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { UserAvatar } from '../../../_components/user-avatar';
-import type { FriendSuggestion } from '../_schemas/profile';
+import type { FriendSuggestion } from '../../../_schemas/user-profile';
 
 interface FriendSuggestionsCardProps {
   friend: FriendSuggestion;

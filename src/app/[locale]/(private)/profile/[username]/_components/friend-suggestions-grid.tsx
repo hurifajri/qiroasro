@@ -1,4 +1,4 @@
-import type { FriendSuggestion } from '../_schemas/profile';
+import type { FriendSuggestion } from '../../../_schemas/user-profile';
 import { FriendSuggestionsItem } from './friend-suggestions-item';
 
 interface FriendSuggestionsGridProps {

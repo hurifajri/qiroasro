@@ -4,12 +4,11 @@ import { eq } from 'drizzle-orm';
 import { parse } from 'valibot';
 import { userProfiles } from '@/db/user-schema';
 import { db } from '@/lib/db';
-import { transformRemoteUserProfile } from '../_models/user-profile';
 import {
-  RemoteUserProfileSchema,
   type UpdateUserProfile,
   UpdateUserProfileSchema,
   type UserProfile,
+  UserProfileSchema,
 } from '../_schemas/user-profile';
 
 export async function getUserProfileByUserId(
@@ -22,20 +21,12 @@ export async function getUserProfileByUserId(
       .where(eq(userProfiles.id, userId))
       .limit(1);
 
-    const row = result[0];
-    if (!row) return null;
+    const remoteUserProfile = result[0];
+    if (!remoteUserProfile) return null;
 
-    const remote = parse(RemoteUserProfileSchema, {
-      id: row.id,
-      username: row.username,
-      display_name: row.displayName,
-      avatar_color_code: row.avatarColorCode,
-      locale: row.locale,
-      created_at: row.createdAt?.toISOString(),
-      updated_at: row.updatedAt?.toISOString(),
-    });
+    const userProfile = parse(UserProfileSchema, remoteUserProfile);
 
-    return transformRemoteUserProfile(remote);
+    return userProfile;
   } catch (error) {
     console.error('[getUserProfileByUserId] Error:', error);
     return null;
@@ -52,20 +43,12 @@ export async function getUserProfileByUsername(
       .where(eq(userProfiles.username, username))
       .limit(1);
 
-    const row = result[0];
-    if (!row) return null;
+    const remoteUserProfile = result[0];
+    if (!remoteUserProfile) return null;
 
-    const remote = parse(RemoteUserProfileSchema, {
-      id: row.id,
-      username: row.username,
-      display_name: row.displayName,
-      avatar_color_code: row.avatarColorCode,
-      locale: row.locale,
-      created_at: row.createdAt?.toISOString(),
-      updated_at: row.updatedAt?.toISOString(),
-    });
+    const userProfile = parse(UserProfileSchema, remoteUserProfile);
 
-    return transformRemoteUserProfile(remote);
+    return userProfile;
   } catch (error) {
     console.error('[getUserProfileByUsername] Error:', error);
     return null;
@@ -161,24 +144,16 @@ export async function updateUserProfile(
       .where(eq(userProfiles.id, userId))
       .returning();
 
-    const row = result[0];
-    if (!row) {
+    const remoteUserProfile = result[0];
+    if (!remoteUserProfile) {
       return { success: false, error: 'not_found' };
     }
 
-    const remote = parse(RemoteUserProfileSchema, {
-      id: row.id,
-      username: row.username,
-      display_name: row.displayName,
-      avatar_color_code: row.avatarColorCode,
-      locale: row.locale,
-      created_at: row.createdAt?.toISOString(),
-      updated_at: row.updatedAt?.toISOString(),
-    });
+    const userProfile = parse(UserProfileSchema, remoteUserProfile);
 
     return {
       success: true,
-      profile: transformRemoteUserProfile(remote),
+      profile: userProfile,
     };
   } catch (error) {
     console.error('[updateUserProfile] Error:', error);

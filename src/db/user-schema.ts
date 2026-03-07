@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { index, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { index, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { user } from './auth-schema';
 
 // =====================================================================
@@ -18,8 +18,15 @@ export const userProfiles = pgTable(
     displayName: text('display_name').notNull(),
     avatarColorCode: text('avatar_color_code').notNull(),
     locale: text('locale').notNull().default('id'),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow(),
+    followersCount: integer('followers_count').notNull().default(0),
+    followingCount: integer('following_count').notNull().default(0),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [index('idx_user_profiles_username').on(table.username)],
 );

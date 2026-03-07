@@ -1,20 +1,7 @@
 import type {
   FriendSuggestion,
   Statistic,
-  UserProfile,
-} from '../_schemas/profile';
-
-/**
- * Mock user profile data
- */
-export const MOCK_USER_PROFILE: UserProfile = {
-  username: 'fajri',
-  displayName: 'Baba Huri Haura',
-  avatarColorCode: 'indigo',
-  joinedDate: '2026-02-15T00:00:00.000Z',
-  followingCount: 19,
-  followersCount: 52,
-};
+} from '../../../_schemas/user-profile';
 
 /**
  * Mock statistics data

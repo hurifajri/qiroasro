@@ -925,6 +925,13 @@
     },
     "profile": {
       "title": "Profile",
+      "validation": {
+        "username_min_length": "Username must be at least 3 characters",
+        "username_max_length": "Username must be at most 30 characters",
+        "username_pattern": "Username can only contain lowercase letters, numbers, and underscores",
+        "display_name_required": "Display name is required",
+        "display_name_max_length": "Display name must be at most 80 characters"
+      },
       "avatar": {
         "title": "Avatar",
         "choose_color": "Choose Color",

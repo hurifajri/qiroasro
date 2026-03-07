@@ -110,9 +110,12 @@ export function Profile({ userId }: ProfileProps) {
       });
 
       if (!validation.success) {
+        const issueMessage = validation.issues[0]?.message;
         setSaveStatus({
           type: 'error',
-          message: validation.issues[0]?.message ?? 'Invalid input',
+          message: issueMessage
+            ? t(`validation.${issueMessage}`)
+            : 'Invalid input',
         });
         return;
       }
@@ -143,6 +146,7 @@ export function Profile({ userId }: ProfileProps) {
     avatarColorCode,
     userProfile?.username,
     queryClient,
+    t,
   ]);
 
   return (

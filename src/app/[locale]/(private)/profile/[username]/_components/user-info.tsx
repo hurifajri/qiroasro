@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
 import { UserAvatar } from '../../../_components/user-avatar';
-import type { UserProfile } from '../_schemas/profile';
+import type { UserProfile } from '../../../_schemas/user-profile';
 
 interface UserInfoProps {
   user: UserProfile;
@@ -15,7 +15,7 @@ export function UserInfo({ user }: UserInfoProps) {
   const locale = useLocale() as Locale;
 
   // Format joined date
-  const joinedDateFormatted = format(new Date(user.joinedDate), 'MMMM yyyy', {
+  const joinedDateFormatted = format(new Date(user.createdAt), 'MMMM yyyy', {
     locale: getDateLocale(locale),
   });
 

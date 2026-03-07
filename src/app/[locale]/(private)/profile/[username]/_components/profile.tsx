@@ -9,8 +9,7 @@ import type { Achievement } from '../../../_schemas/achievement';
 import type {
   FriendSuggestion,
   Statistic,
-  UserProfile,
-} from '../_schemas/profile';
+} from '../../../_schemas/user-profile';
 import { AchievementList } from './achievement-list';
 import { FriendSuggestionsGrid } from './friend-suggestions-grid';
 import { StatGrid } from './stat-grid';
@@ -35,21 +34,10 @@ export function Profile({
     getUserProfileByUsernameOpt(username),
   );
 
-  // Map the global UserProfile to the UI's UserProfile shape
-  const user: UserProfile = {
-    username: userProfile?.username ?? username,
-    displayName: userProfile?.displayName ?? username,
-    avatarColorCode:
-      userProfile?.avatarColorCode as UserProfile['avatarColorCode'],
-    joinedDate: userProfile?.createdAt ?? new Date().toISOString(),
-    followingCount: 0,
-    followersCount: 0,
-  };
-
   return (
     <div className="flex flex-col gap-6">
       {/* User Info */}
-      <UserInfo user={user} />
+      {userProfile && <UserInfo user={userProfile} />}
 
       <Separator />
 
