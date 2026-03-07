@@ -940,7 +940,6 @@
       },
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Pilih Warna",
         "solid_colors": "Solid",
         "gradient_colors": "Gradasi"
       },
