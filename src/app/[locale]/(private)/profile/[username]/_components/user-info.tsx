@@ -15,7 +15,7 @@ export function UserInfo({ user }: UserInfoProps) {
   const locale = useLocale() as Locale;
 
   // Format joined date
-  const joinedDateFormatted = format(new Date(user.createdAt), 'MMMM yyyy', {
+  const joinedDateFormatted = format(user.createdAt, 'MMMM yyyy', {
     locale: getDateLocale(locale),
   });
 
