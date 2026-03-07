@@ -3,7 +3,7 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { CheckIcon, Loader2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useRef, useState, useTransition } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import { safeParse } from 'valibot';
 import { Button } from '@/components/ui/button';
 import { FieldGroup } from '@/components/ui/field';
@@ -66,39 +66,54 @@ export function Profile({ userId }: ProfileProps) {
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ type: 'idle' });
   const [isPending, startTransition] = useTransition();
 
-  const handleUsernameChange = useCallback(
-    (value: string) => {
-      setUsername(value);
+  function handleUsernameChange(value: string) {
+    setUsername(value);
 
-      // Reset status immediately
-      setUsernameStatus('idle');
+    // Reset status immediately
+    setUsernameStatus('idle');
 
-      // Debounce availability check
-      if (usernameDebounceRef.current) {
-        clearTimeout(usernameDebounceRef.current);
+    // Debounce availability check
+    if (usernameDebounceRef.current) {
+      clearTimeout(usernameDebounceRef.current);
+    }
+
+    // Skip check if same as current username
+    if (value === userProfile?.username) {
+      return;
+    }
+
+    if (!value) return;
+
+    // Validate against the schema rules (length, pattern, etc)
+    // We pass dummy values for other required schema fields
+    const validation = safeParse(UpdateUserProfileSchema, {
+      displayName: userProfile?.displayName ?? '',
+      avatarColorCode:
+        userProfile?.avatarColorCode ?? ('blue' as AvatarColorCode),
+      username: value,
+    });
+
+    if (!validation.success) {
+      setUsernameStatus('invalid');
+      return;
+    }
+
+    // Valid form input — now check availability in DB
+    usernameDebounceRef.current = setTimeout(async () => {
+      setUsernameStatus('checking');
+      try {
+        const result = await checkUsernameAvailability(
+          validation.output.username!,
+          userId,
+        );
+        setUsernameStatus(result.available ? 'available' : result.reason);
+      } catch {
+        setUsernameStatus('invalid');
       }
+    }, 500);
+  }
 
-      // Skip check if same as current username
-      if (value === userProfile?.username) {
-        return;
-      }
-
-      if (!value) return;
-
-      usernameDebounceRef.current = setTimeout(async () => {
-        setUsernameStatus('checking');
-        try {
-          const result = await checkUsernameAvailability(value, userId);
-          setUsernameStatus(result.available ? 'available' : result.reason);
-        } catch {
-          setUsernameStatus('invalid');
-        }
-      }, 500);
-    },
-    [userId, userProfile?.username],
-  );
-
-  const handleSaveChanges = useCallback(() => {
+  function handleSaveChanges() {
     startTransition(async () => {
       setSaveStatus({ type: 'saving' });
 
@@ -139,15 +154,7 @@ export function Profile({ userId }: ProfileProps) {
       // Auto-clear success message after 3 seconds
       setTimeout(() => setSaveStatus({ type: 'idle' }), 3000);
     });
-  }, [
-    userId,
-    displayName,
-    username,
-    avatarColorCode,
-    userProfile?.username,
-    queryClient,
-    t,
-  ]);
+  }
 
   return (
     <div className="flex flex-col gap-12">

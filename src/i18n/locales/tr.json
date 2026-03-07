@@ -925,6 +925,13 @@
     },
     "profile": {
       "title": "Profil",
+      "validation": {
+        "username_min_length": "Kullanıcı adı en az 3 karakter olmalıdır",
+        "username_max_length": "Kullanıcı adı en fazla 30 karakter olmalıdır",
+        "username_pattern": "Kullanıcı adı yalnızca küçük harf, rakam ve alt çizgi içerebilir",
+        "display_name_required": "Görünen ad zorunludur",
+        "display_name_max_length": "Görünen ad en fazla 80 karakter olmalıdır"
+      },
       "avatar": {
         "title": "Avatar",
         "choose_color": "Renk Seç",

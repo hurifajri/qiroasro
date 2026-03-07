@@ -925,6 +925,13 @@
     },
     "profile": {
       "title": "Profil",
+      "validation": {
+        "username_min_length": "Nama pengguna minimal 3 karakter",
+        "username_max_length": "Nama pengguna maksimal 30 karakter",
+        "username_pattern": "Nama pengguna hanya boleh berisi huruf kecil, angka, dan garis bawah",
+        "display_name_required": "Nama tampilan wajib diisi",
+        "display_name_max_length": "Nama tampilan maksimal 80 karakter"
+      },
       "avatar": {
         "title": "Avatar",
         "choose_color": "Pilih Warna",

@@ -925,6 +925,13 @@
     },
     "profile": {
       "title": "Profil",
+      "validation": {
+        "username_min_length": "Nama pengguna mestilah sekurang-kurangnya 3 aksara",
+        "username_max_length": "Nama pengguna tidak boleh melebihi 30 aksara",
+        "username_pattern": "Nama pengguna hanya boleh mengandungi huruf kecil, nombor, dan garis bawah",
+        "display_name_required": "Nama paparan diperlukan",
+        "display_name_max_length": "Nama paparan tidak boleh melebihi 80 aksara"
+      },
       "avatar": {
         "title": "Avatar",
         "choose_color": "Pilih Warna",
