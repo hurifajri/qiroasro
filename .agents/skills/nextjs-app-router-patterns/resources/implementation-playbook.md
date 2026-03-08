@@ -202,7 +202,7 @@ export function AddToCartButton({ productId }: { productId: string }) {
 
 import { revalidateTag } from 'next/cache'
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { redirect } from '@/i18n/navigation'
 
 export async function addToCart(productId: string) {
   const cookieStore = await cookies()
