@@ -8,29 +8,79 @@
  */
 const SOLID_COLORS = {
   gray: 'bg-gray-500',
-  indigo: 'bg-indigo-500',
-  emerald: 'bg-emerald-500',
+  stone: 'bg-stone-500',
+  neutral: 'bg-neutral-500',
+  zinc: 'bg-zinc-500',
+  slate: 'bg-slate-500',
+  yellow: 'bg-yellow-500',
   amber: 'bg-amber-500',
-  rose: 'bg-rose-500',
-  sky: 'bg-sky-500',
-  violet: 'bg-violet-500',
-  teal: 'bg-teal-500',
   orange: 'bg-orange-500',
+  red: 'bg-red-500',
+  rose: 'bg-rose-500',
+  pink: 'bg-pink-500',
+  fuchsia: 'bg-fuchsia-500',
+  purple: 'bg-purple-500',
+  violet: 'bg-violet-500',
+  indigo: 'bg-indigo-500',
+  blue: 'bg-blue-500',
+  sky: 'bg-sky-500',
+  cyan: 'bg-cyan-500',
+  teal: 'bg-teal-500',
+  emerald: 'bg-emerald-500',
+  green: 'bg-green-500',
+  lime: 'bg-lime-500',
 } as const;
 
 const GRADIENT_COLORS = {
-  indigo_rose: 'bg-gradient-to-br from-indigo-500 to-rose-500',
-  rose_indigo: 'bg-gradient-to-br from-rose-500 to-indigo-500',
+  // High contrast
   emerald_rose: 'bg-gradient-to-br from-emerald-500 to-rose-500',
   rose_emerald: 'bg-gradient-to-br from-rose-500 to-emerald-500',
   amber_sky: 'bg-gradient-to-br from-amber-500 to-sky-500',
   sky_amber: 'bg-gradient-to-br from-sky-500 to-amber-500',
   teal_amber: 'bg-gradient-to-br from-teal-500 to-amber-500',
   amber_teal: 'bg-gradient-to-br from-amber-500 to-teal-500',
-  rose_violet: 'bg-gradient-to-br from-rose-500 to-violet-500',
-  violet_rose: 'bg-gradient-to-br from-violet-500 to-rose-500',
   rose_sky: 'bg-gradient-to-br from-rose-500 to-sky-500',
   sky_rose: 'bg-gradient-to-br from-sky-500 to-rose-500',
+  indigo_rose: 'bg-gradient-to-br from-indigo-500 to-rose-500',
+  rose_indigo: 'bg-gradient-to-br from-rose-500 to-indigo-500',
+  rose_violet: 'bg-gradient-to-br from-rose-500 to-violet-500',
+  violet_rose: 'bg-gradient-to-br from-violet-500 to-rose-500',
+
+  // Split-complementary (avoid muddy colors in the middle of the gradient)
+  fuchsia_cyan: 'bg-gradient-to-br from-fuchsia-500 to-cyan-500',
+  cyan_fuchsia: 'bg-gradient-to-br from-cyan-500 to-fuchsia-500',
+  purple_amber: 'bg-gradient-to-br from-purple-500 to-amber-500',
+  amber_purple: 'bg-gradient-to-br from-amber-500 to-purple-500',
+  orange_violet: 'bg-gradient-to-br from-orange-500 to-violet-500',
+  violet_orange: 'bg-gradient-to-br from-violet-500 to-orange-500',
+
+  // Analogous (smooth transition)
+  teal_indigo: 'bg-gradient-to-br from-teal-500 to-indigo-500',
+  indigo_teal: 'bg-gradient-to-br from-indigo-500 to-teal-500',
+  pink_orange: 'bg-gradient-to-br from-pink-500 to-orange-500',
+  orange_pink: 'bg-gradient-to-br from-orange-500 to-pink-500',
+  cyan_blue: 'bg-gradient-to-br from-cyan-500 to-blue-500',
+  blue_cyan: 'bg-gradient-to-br from-blue-500 to-cyan-500',
+
+  // High energy / vibrant
+  lime_blue: 'bg-gradient-to-br from-lime-500 to-blue-500',
+  blue_lime: 'bg-gradient-to-br from-blue-500 to-lime-500',
+
+  // Additional
+  indigo_purple: 'bg-gradient-to-br from-indigo-500 to-purple-500',
+  purple_indigo: 'bg-gradient-to-br from-purple-500 to-indigo-500',
+  orange_rose: 'bg-gradient-to-br from-orange-500 to-rose-500',
+  rose_orange: 'bg-gradient-to-br from-rose-500 to-orange-500',
+  amber_pink: 'bg-gradient-to-br from-amber-500 to-pink-500',
+  pink_amber: 'bg-gradient-to-br from-pink-500 to-amber-500',
+  teal_emerald: 'bg-gradient-to-br from-teal-500 to-emerald-500',
+  emerald_teal: 'bg-gradient-to-br from-emerald-500 to-teal-500',
+  lime_green: 'bg-gradient-to-br from-lime-500 to-green-500',
+  green_lime: 'bg-gradient-to-br from-green-500 to-lime-500',
+  violet_fuchsia: 'bg-gradient-to-br from-violet-500 to-fuchsia-500',
+  fuchsia_violet: 'bg-gradient-to-br from-fuchsia-500 to-violet-500',
+  purple_pink: 'bg-gradient-to-br from-purple-500 to-pink-500',
+  pink_purple: 'bg-gradient-to-br from-pink-500 to-purple-500',
 } as const;
 
 export const AVATAR_COLORS = { ...SOLID_COLORS, ...GRADIENT_COLORS } as const;
