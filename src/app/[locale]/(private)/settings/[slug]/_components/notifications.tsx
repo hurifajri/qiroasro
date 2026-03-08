@@ -3,12 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  Field,
-  FieldContent,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -21,7 +16,6 @@ import type {
   DailyReminder,
   NotificationCheckbox,
 } from '../../_schemas/settings';
-import { NotificationCheckboxRow } from './notification-checkbox-row';
 
 interface NotificationsProps {
   generalNotifications: NotificationCheckbox[];
@@ -80,11 +74,18 @@ export function Notifications({
         </div>
         <FieldGroup className="gap-4">
           {notifications.map((notification) => (
-            <NotificationCheckboxRow
-              key={notification.id}
-              notification={notification}
-              onCheckedChange={handleNotificationChange}
-            />
+            <Field key={notification.id} orientation="horizontal">
+              <FieldLabel htmlFor={notification.id}>
+                {t(notification.labelKey)}
+              </FieldLabel>
+              <Checkbox
+                id={notification.id}
+                checked={notification.checked}
+                onCheckedChange={(checked) =>
+                  handleNotificationChange(notification.id, checked as boolean)
+                }
+              />
+            </Field>
           ))}
         </FieldGroup>
       </section>
@@ -110,11 +111,9 @@ export function Notifications({
           </Field>
           {reminder.checked && (
             <Field>
-              <FieldContent>
-                <FieldLabel htmlFor="reminder_time" className="sr-only">
-                  {t('daily_reminders.reminder_time')}
-                </FieldLabel>
-              </FieldContent>
+              <FieldLabel htmlFor="reminder_time" className="sr-only">
+                {t('daily_reminders.reminder_time')}
+              </FieldLabel>
               <Select value={reminder.time} onValueChange={handleTimeChange}>
                 <SelectTrigger id="reminder_time" className="w-full">
                   <SelectValue />

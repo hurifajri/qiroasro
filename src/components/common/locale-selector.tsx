@@ -11,17 +11,25 @@ import { LOCALE_CONFIG } from '@/i18n/config';
 import { getLocaleDir } from '@/i18n/locale';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
+import { updateUserLocale } from '@/services/user-locale';
 
-export function LocaleSelector() {
+interface LocaleSelectorProps {
+  userId?: string;
+}
+
+export function LocaleSelector({ userId }: LocaleSelectorProps) {
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
   const router = useRouter();
   const pathname = usePathname();
   const currentConfig = LOCALE_CONFIG[locale];
 
-  const handleLocaleChange = (newLocale: Locale) => {
+  function handleLocaleChange(newLocale: Locale) {
     router.replace(pathname, { locale: newLocale });
-  };
+    if (userId) {
+      void updateUserLocale(userId, newLocale);
+    }
+  }
 
   return (
     <DropdownMenu dir={dir}>

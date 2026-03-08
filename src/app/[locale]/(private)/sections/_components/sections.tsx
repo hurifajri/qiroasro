@@ -1,10 +1,10 @@
 'use client';
 
 import { ArrowLeftIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from '@/i18n/navigation';
 import { MOCK_SECTIONS } from '../_lib/mock-data';
 import type { Section } from '../_schemas/sections';
 import { SectionsList } from './section-list';

@@ -3,12 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
-import {
-  Field,
-  FieldContent,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -17,20 +12,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { useMounted } from '@/hooks/use-mounted';
 import { LOCALE_CONFIG } from '@/i18n/config';
+import { getLocaleDir } from '@/i18n/locale';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
+import { updateUserLocale } from '@/services/user-locale';
 import type { PreferenceToggle } from '../../_schemas/settings';
-import { PreferenceToggleRow } from './preference-toggle-row';
 
 interface PreferencesProps {
+  userId: string;
   lessonPreferences: PreferenceToggle[];
 }
 
-export function Preferences({ lessonPreferences }: PreferencesProps) {
+export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
+  const dir = getLocaleDir(locale);
   const router = useRouter();
   const pathname = usePathname();
   const [preferences, setPreferences] =
@@ -38,8 +37,9 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
   const { theme, setTheme } = useTheme();
   const { isMounted } = useMounted();
 
-  const handleLocaleChange = (newLocale: string) => {
+  const handleLocaleChange = (newLocale: Locale) => {
     router.replace(pathname, { locale: newLocale as Locale });
+    void updateUserLocale(userId, newLocale);
   };
 
   const handleToggle = (id: string, enabled: boolean) => {
@@ -57,11 +57,19 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
         </h2>
         <FieldGroup className="gap-4">
           {preferences.map((preference) => (
-            <PreferenceToggleRow
-              key={preference.id}
-              preference={preference}
-              onToggle={handleToggle}
-            />
+            <Field key={preference.id} orientation="horizontal">
+              <FieldLabel htmlFor={preference.id}>
+                {t(`settings_page.preferences.${preference.labelKey}`)}
+              </FieldLabel>
+              <Switch
+                dir={dir}
+                id={preference.id}
+                checked={preference.enabled}
+                onCheckedChange={(checked) =>
+                  handleToggle(preference.id, checked)
+                }
+              />
+            </Field>
           ))}
         </FieldGroup>
       </section>
@@ -72,11 +80,9 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
           {t('settings_page.preferences.appearance.title')}
         </h2>
         <Field>
-          <FieldContent>
-            <FieldLabel htmlFor="theme">
-              {t('global.color_mode.title')}
-            </FieldLabel>
-          </FieldContent>
+          <FieldLabel htmlFor="theme">
+            {t('global.color_mode.title')}
+          </FieldLabel>
           <Select
             value={isMounted && theme ? theme : 'system'}
             onValueChange={setTheme}
@@ -101,11 +107,9 @@ export function Preferences({ lessonPreferences }: PreferencesProps) {
         </Field>
 
         <Field>
-          <FieldContent>
-            <FieldLabel htmlFor="language">
-              {t('global.language.title')}
-            </FieldLabel>
-          </FieldContent>
+          <FieldLabel htmlFor="language">
+            {t('global.language.title')}
+          </FieldLabel>
           <Select value={locale} onValueChange={handleLocaleChange}>
             <SelectTrigger id="language" className="w-full">
               <SelectValue />

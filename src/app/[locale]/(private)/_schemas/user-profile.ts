@@ -17,6 +17,7 @@ import {
   transform,
   union,
 } from 'valibot';
+import { LOCALES } from '@/i18n/config';
 import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
 
 // =====================================================================
@@ -44,7 +45,7 @@ export const UserProfileSchema = object({
   ),
   email: pipe(string(), email()),
   avatarColorCode: picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
-  locale: string(),
+  locale: picklist([...LOCALES]),
   followingCount: pipe(number(), integer()),
   followersCount: pipe(number(), integer()),
   createdAt: date(),

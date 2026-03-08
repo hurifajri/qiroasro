@@ -72,13 +72,19 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
   // Conditional rendering based on slug
   if (slug === 'preferences') {
+    const session = await auth.api.getSession({ headers: await headers() });
+    const userId = session?.user?.id ?? '';
+
     return (
       <>
         <h1 className="hidden pb-3 font-bold text-2xl md:block">
           {t('preferences.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
-        <Preferences lessonPreferences={MOCK_LESSON_PREFERENCES} />
+        <Preferences
+          userId={userId}
+          lessonPreferences={MOCK_LESSON_PREFERENCES}
+        />
       </>
     );
   }
