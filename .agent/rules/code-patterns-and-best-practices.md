@@ -1,1 +1,0 @@
-/Users/hurifajri/Developer/Projects/Personal/quran/qiroasro/.agents/rules/code-patterns-and-best-practices.md
