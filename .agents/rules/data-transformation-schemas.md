@@ -4,9 +4,11 @@ trigger: always_on
 
 ## Data Transformation & Schemas
 
-All data from external APIs must be validated and transformed into local types using **Valibot** for runtime schema validation.
+All data from external APIs (REST, JSON responses) must be validated and transformed into local types using **Valibot** for runtime schema validation.
 
-### Pattern: Remote → Local Types
+> **Note:** Transformers are ONLY needed when dealing with external API responses (e.g., from `fetch()`) that use `snake_case`. For data fetched directly from the database using **Drizzle ORM**, transformers are NOT needed because Drizzle automatically returns data in `camelCase` based on the schema definition.
+
+### Pattern: Remote API → Local Types
 
 External APIs return data in `snake_case` (e.g., `letter_name`, `sort_order`). Local types use `camelCase` (e.g., `letterName`, `sortOrder`).
 
@@ -49,28 +51,47 @@ export function transformRemoteLetter(remote: RemoteLetter): Letter {
 }
 ```
 
-### Usage in Services
+### Usage in Services (For External APIs)
 
 ```typescript
 'use server';
 
 import { parse } from 'valibot';
-import { db } from '@/lib/db';
-import { letters } from '@/db/schema';
-import { RemoteLetterSchema, transformRemoteLetter } from '@/schemas/letter';
+import { RemoteLetterSchema, transformRemoteLetter, type Letter } from '@/schemas/letter';
 
-export async function getLetters(): Promise<Letter[]> {
+export async function fetchLettersFromApi(): Promise<Letter[]> {
   try {
-    const result = await db.select().from(letters).orderBy(letters.sortOrder);
-    
+    const response = await fetch('https://api.example.com/letters');
+    const data = await response.json();
+
     // Validate and transform each item
-    return result.map(item => {
+    return data.map((item: unknown) => {
       const remote = parse(RemoteLetterSchema, item);
       return transformRemoteLetter(remote);
     });
   } catch (error) {
-    console.error('[getLetters] Error:', error);
-    throw new Error('Failed to fetch letters');
+    console.error('[fetchLettersFromApi] Error:', error);
+    throw new Error('Failed to fetch letters from API');
+  }
+}
+```
+
+### Usage in Services (For Drizzle ORM - No Transformer Needed)
+
+```typescript
+'use server';
+
+import { db } from '@/lib/db';
+import { letters } from '@/db/schema';
+import type { Letter } from '@/schemas/letter'; // Type alias from Drizzle schema
+
+export async function getLettersFromDb(): Promise<Letter[]> {
+  try {
+    // Drizzle already returns camelCase data matching the schema
+    return await db.select().from(letters).orderBy(letters.sortOrder);
+  } catch (error) {
+    console.error('[getLettersFromDb] Error:', error);
+    throw new Error('Failed to fetch letters from database');
   }
 }
 ```
