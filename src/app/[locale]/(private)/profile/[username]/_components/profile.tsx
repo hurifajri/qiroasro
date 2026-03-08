@@ -3,7 +3,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { getUserProfileByUsernameOpt } from '../../../_queries/user-profile';
 import type { Achievement } from '../../../_schemas/achievement';
 import type {
@@ -39,15 +38,11 @@ export function Profile({
       {/* User Info */}
       {userProfile && <UserInfo user={userProfile} />}
 
-      <Separator />
-
       {/* Statistics */}
       <section className="flex flex-col gap-4">
         <h2 className="font-bold text-xl">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
       </section>
-
-      <Separator />
 
       {/* Friend Suggestions */}
       <section className="flex flex-col gap-4">
@@ -59,8 +54,6 @@ export function Profile({
         </div>
         <FriendSuggestionsGrid friends={friendSuggestions} />
       </section>
-
-      <Separator />
 
       {/* Achievements */}
       <section className="flex flex-col gap-4">

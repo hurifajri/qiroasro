@@ -2,7 +2,6 @@
 
 import { Clock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Separator } from '@/components/ui/separator';
 import type { Quest } from '../../_schemas/private';
 import type { MonthlyQuest } from '../_schemas/quests';
 import { DailyQuestList } from './daily-quest-list';
@@ -22,8 +21,6 @@ export function Quests({ monthlyQuest, dailyQuests }: QuestsProps) {
       <section>
         <MonthlyQuestCard quest={monthlyQuest} />
       </section>
-
-      <Separator />
 
       {/* Daily Quests */}
       <section className="flex flex-col gap-4">
