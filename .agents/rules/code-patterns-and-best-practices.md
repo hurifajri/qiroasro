@@ -7,40 +7,87 @@ trigger: always_on
 ### Component Patterns
 
 ```typescript
-// ✅ Proper component structure
+// ✅ Proper Client Component structure
 'use client';
 
 import { useTranslations } from 'next-intl';
-import type { ComponentProps } from './types';
+// Import types from related components if shared
+import type { ChildComponentProps } from './child-component';
 
-interface Props extends ComponentProps {
+interface Props extends ChildComponentProps {
   // Additional props
 }
 
 export function ComponentName({ prop1, prop2 }: Props) {
+  // Client Components use `useTranslations`
   const t = useTranslations('namespace');
 
   // 1. Hooks first
   const [state, setState] = useState();
 
-  // 2. Derived state
-  const derivedValue = useMemo(() => compute(state), [state]);
-
-  // 3. Effects
+  // 2. Effects
   useEffect(() => {
     // Side effects
   }, [dependencies]);
 
+  // 3. Derived state
+  // ⚠️ Only use useMemo/memo/useCallback if computationally expensive or passed to memoized children. Avoid premature optimization!
+  const derivedValue = useMemo(() => compute(state), [state]);
+
   // 4. Handlers
+  // ⚠️ Only use useMemo/memo/useCallback if computationally expensive or passed to memoized children. Avoid premature optimization!
   const handleAction = useCallback(() => {
     // Logic
   }, [dependencies]);
+  // Otherwise, use simple function
+  function handleAction() {
+    // Logic
+  }
 
   // 5. Render
   return (
     <div>
       {/* JSX */}
     </div>
+  );
+}
+```
+
+### Page Component (Server Component) Pattern
+
+```typescript
+// ✅ Proper Page Component structure
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getPlaygroundDataOpt } from './_queries/playground';
+import { ComponentProvider } from './_providers/component-provider';
+import { Component } from './_components/component';
+
+interface PageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Page({ params }: PageProps) {
+  const { locale } = await params;
+
+  // 1. Enable static rendering
+  setRequestLocale(locale);
+
+  // Server Components use `getTranslations`
+  const t = await getTranslations({ locale, namespace: 'page.namespace' });
+
+  // 2. Prefetch data if needed by client components (for useSuspenseQuery/useQuery)
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(getPlaygroundDataOpt());
+
+  // 3. Hydrate state & provide context
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <h1 className="sr-only">{t('title')}</h1>
+      <ComponentProvider>
+        <Component />
+      </ComponentProvider>
+    </HydrationBoundary>
   );
 }
 ```
@@ -74,29 +121,44 @@ export function useCustomHook(options: UseHookOptions): UseHookReturn {
 ### Service Pattern
 
 ```typescript
-// services/entity.ts
-'use server'; // ✅ Server Action
+Transformers (`models/`) are **ONLY** required when dealing with REST API responses using `snake_case`, or when retrieving JSON data from a PostgreSQL Materialized View (`pgMaterializedView`) via Drizzle.
+For standard Drizzle tables, Drizzle automatically maps columns to `camelCase` based on schema definition, so transformers are NOT needed.
 
-import { parse } from 'valibot';
+```typescript
+// ✅ Example 1: Drizzle direct table query (NO TRANSFORMER NEEDED)
+// src/app/[locale]/(private)/_services/user-profile.ts
+'use server';
+
 import { db } from '@/lib/db';
-import { entities } from '@/db/schema';
-import { RemoteEntitySchema, type Entity } from '@/schemas/entity';
-import { transformRemoteEntity } from '@/models/entity';
+import { userProfiles } from '@/db/user-schema';
+import { parse } from 'valibot';
+import { type UserProfile, UserProfileSchema } from '../_schemas/user-profile';
+import { eq } from 'drizzle-orm';
 
-export async function getEntities(): Promise<Entity[]> {
-  try {
-    // Drizzle queries run on the server
-    const result = await db.select().from(entities).orderBy(entities.sortOrder);
+export async function getUserProfile(id: string): Promise<UserProfile | null> {
+  const result = await db.select().from(userProfiles).where(eq(userProfiles.id, id));
 
-    // Validate and transform
-    return result.map(item => {
-      const remote = parse(RemoteEntitySchema, item);
-      return transformRemoteEntity(remote);
-    });
-  } catch (error) {
-    console.error('Failed to fetch entities:', error);
-    return []; // Return empty or throw based on requirements
-  }
+  // Drizzle returns camelCase natively. Just parse and return.
+  return result[0] ? parse(UserProfileSchema, result[0]) : null;
+}
+
+// ✅ Example 2: Materialized View or REST API (TRANSFORMER REQUIRED)
+// src/app/[locale]/(public)/playground/_services/playground.ts
+'use server';
+
+import { db } from '@/lib/db';
+import { mvPlaygroundData } from '@/db/playground-schema';
+import { parse } from 'valibot';
+import { transformRemotePlaygroundData } from '../_models/playground';
+import { RemotePlaygroundDataSchema } from '../_schemas/playground';
+
+export async function getPlaygroundData() {
+  const result = await db.select({ data: mvPlaygroundData.data }).from(mvPlaygroundData);
+  const data = result[0]?.data; // Returns raw snake_case JSON tree
+
+  // Requires transformer to map deeply nested snake_case to camelCase
+  const remoteData = parse(RemotePlaygroundDataSchema, data);
+  return transformRemotePlaygroundData(remoteData);
 }
 ```
 
@@ -105,9 +167,9 @@ export async function getEntities(): Promise<Entity[]> {
 ```typescript
 // queries/entity.ts
 const entityKeys = {
-  all: ['entities'] as const,
-  list: () => [...entityKeys.all, 'list'] as const,
-  detail: (id: number) => [...entityKeys.all, 'detail', id] as const,
+  all: ['entities'],
+  list: () => [...entityKeys.all, 'list'],
+  detail: (id: number) => [...entityKeys.all, 'detail', id],
 };
 
 export function getEntitiesOpt() {
@@ -122,16 +184,18 @@ export function getEntitiesOpt() {
 ### Constants Pattern
 
 ```typescript
-// lib/constants.ts
+Constants should generally be co-located with the files/features that need them most, rather than accumulating in a single massive `constants.ts` file.
+Combine related types and constants in the same file where applicable to improve locality.
+Only truly global constants that span multiple disjoint domains should live in `src/lib/constants.ts` or `src/lib/config.ts`.
 
-// Storage keys
-export const GLOBAL_STORE_KEY = 'app_global-store';
+```typescript
+// ✅ Good: Co-located constants in module or component folder
+// src/app/[locale]/(public)/playground/_lib/constants.ts
 
-// Enum-like constants (use as const for type inference)
+export const PLAYGROUND_STORE_KEY = 'playground_store';
 export const VIEW_MODES = ['all', 'filter', 'search'] as const;
 export type ViewMode = (typeof VIEW_MODES)[number];
 
-// Configuration objects
 export const QUIZ_CONFIG = {
   MIN_QUESTIONS: 1,
   MAX_QUESTIONS: 10,
