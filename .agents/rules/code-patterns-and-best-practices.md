@@ -120,7 +120,6 @@ export function useCustomHook(options: UseHookOptions): UseHookReturn {
 
 ### Service Pattern
 
-```typescript
 Transformers (`models/`) are **ONLY** required when dealing with REST API responses using `snake_case`, or when retrieving JSON data from a PostgreSQL Materialized View (`pgMaterializedView`) via Drizzle.
 For standard Drizzle tables, Drizzle automatically maps columns to `camelCase` based on schema definition, so transformers are NOT needed.
 
@@ -135,13 +134,28 @@ import { parse } from 'valibot';
 import { type UserProfile, UserProfileSchema } from '../_schemas/user-profile';
 import { eq } from 'drizzle-orm';
 
-export async function getUserProfile(id: string): Promise<UserProfile | null> {
-  const result = await db.select().from(userProfiles).where(eq(userProfiles.id, id));
+export async function getUserProfileById(
+  id: string,
+): Promise<UserProfile | null> {
+  try {
+    const result = await db
+      .select()
+      .from(userProfiles)
+      .where(eq(userProfiles.id, id))
+      .limit(1);
 
-  // Drizzle returns camelCase natively. Just parse and return.
-  return result[0] ? parse(UserProfileSchema, result[0]) : null;
+    const remoteUserProfile = result[0];
+    const userProfile = parse(UserProfileSchema, remoteUserProfile);
+
+    return userProfile;
+  } catch (error) {
+    console.error('[getUserProfileById] Error:', error);
+    return null;
+  }
 }
+```
 
+```typescript
 // ✅ Example 2: Materialized View or REST API (TRANSFORMER REQUIRED)
 // src/app/[locale]/(public)/playground/_services/playground.ts
 'use server';
@@ -152,14 +166,99 @@ import { parse } from 'valibot';
 import { transformRemotePlaygroundData } from '../_models/playground';
 import { RemotePlaygroundDataSchema } from '../_schemas/playground';
 
-export async function getPlaygroundData() {
-  const result = await db.select({ data: mvPlaygroundData.data }).from(mvPlaygroundData);
-  const data = result[0]?.data; // Returns raw snake_case JSON tree
+export async function getPlaygroundData(): Promise<PlaygroundData> {
+  try {
+    const result = await db
+      .select({ data: mvPlaygroundData.data })
+      .from(mvPlaygroundData);
+    const data = result[0]?.data;
 
-  // Requires transformer to map deeply nested snake_case to camelCase
-  const remoteData = parse(RemotePlaygroundDataSchema, data);
-  return transformRemotePlaygroundData(remoteData);
+    const remoteData = parse(RemotePlaygroundDataSchema, data);
+    const playgroundData = transformRemotePlaygroundData(remoteData);
+
+    return playgroundData;
+  } catch (error) {
+    console.error('[getPlaygroundData] Error:', error);
+    return {
+      letters: [],
+      articulationAreas: [],
+      articulationPoints: [],
+      traitGroups: [],
+      traits: [],
+      letterArticulations: [],
+      letterTraits: [],
+    };
+  }
 }
+```
+
+#### Pattern: Remote API → Local Types (When Transformers Are Required)
+
+External APIs return data in `snake_case` (e.g., `letter_name`, `sort_order`). Local types use `camelCase` (e.g., `letterName`, `sortOrder`).
+
+**Step 1: Define Remote Schema** (prefix with `Remote`)
+
+```typescript
+import { object, number, string, type InferOutput } from 'valibot';
+
+// Remote types match API response exactly (snake_case)
+export const RemoteLetterSchema = object({
+  id: number(),
+  letter_name: string(),
+  sort_order: number(),
+});
+
+export type RemoteLetter = InferOutput<typeof RemoteLetterSchema>;
+```
+
+**Step 2: Define Local Type** (camelCase)
+
+```typescript
+// Local types use camelCase for consistency with validation schema
+export const LetterSchema = object({
+  id: number(),
+  letterName: pipe(
+    string(),
+    minLength(3, 'username_min_length'),
+    maxLength(30, 'username_max_length')
+  ),
+  sortOrder: number(),
+});
+
+export type Letter = InferOutput<typeof LetterSchema>;
+```
+
+**Step 3: Create Transformation Function**
+
+```typescript
+// Transform from Remote to Local
+export function transformRemoteLetter(remote: RemoteLetter): Letter {
+  return {
+    id: remote.id,
+    letterName: remote.letter_name,
+    sortOrder: remote.sort_order,
+  };
+}
+```
+
+#### File Organization (For External APIs)
+
+- **Schemas:** `src/schemas/entity.ts` — Valibot schemas (Remote + Local types)
+- **Transformers:** `src/models/entity.ts` — `transformRemote*` functions
+- **Services:** `src/services/entity.ts` — Fetch + validate + transform
+
+#### Anti-Patterns
+
+```typescript
+// ❌ Using API data directly without validation
+const letters = await fetch('/api/letters').then(r => r.json()); // Untyped!
+
+// ❌ Partial transformation
+return { id: remote.id, letterName: remote.letter_name }; // Inconsistent
+
+// ✅ Full validation + transformation
+const parsed = parse(RemoteLetterSchema, remoteLetter);
+return transformRemoteLetter(parsed);
 ```
 
 ### Query Options Pattern
