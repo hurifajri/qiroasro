@@ -9,41 +9,44 @@ trigger: always_on
 ```
 src/
 ├── app/                    # Next.js App Router
-│   ├── (public)/          # Public routes group
-│   │   ├── components/    # Page-specific components
-│   │   ├── hooks/         # Page-specific hooks
-│   │   ├── lib/           # Page-specific utilities
-│   │   ├── models/        # Data transformers
-│   │   ├── providers/     # React context providers
-│   │   ├── queries/       # TanStack Query options
-│   │   ├── schemas/       # Valibot schemas & types
-│   │   ├── services/      # API/data services
-│   │   └── stores/        # Zustand stores
-│   └── api/               # API routes
+│   ├── [locale]/           # i18n routing
+│   │   ├── (private)/      # Private routes group (requires auth)
+│   │   │   ├── _components/# Route-specific components (uses _ to opt-out of routing)
+│   │   │   ├── _lib/       # Route-specific utilities
+│   │   │   ├── _queries/   # Route-specific TanStack Query options
+│   │   │   ├── _schemas/   # Route-specific Valibot schemas
+│   │   │   ├── _services/  # Route-specific API/data services
+│   │   │   ├── @header/    # Parallel route for header
+│   │   │   ├── @sidebar/   # Parallel route for sidebar
+│   │   │   ├── profile/    # standard route folders...
+│   │   │   └── settings/
+│   │   └── (public)/       # Public routes group
+│   │       ├── _components/
+│   │       ├── playground/ # feature specific route folder
+│   │       └── login/
+│   └── api/                # API routes
 ├── components/
-│   ├── common/            # Shared components
-│   ├── ui/                # UI primitives (shadcn/ui)
-│   └── [feature]/         # Feature-specific shared components
-├── db/                    # Database schema and migrations
-├── hooks/                 # Global hooks
-├── i18n/                  # Internationalization configuration
-├── lib/                   # Global utilities
-├── models/                # Global data transformers
-├── providers/             # Global providers
-├── queries/               # Global query options
-├── schemas/               # Global schemas
-├── services/              # Global services
-├── stores/                # Global stores
-├── styles/                # Global styles
-├── types/                 # Global type definitions
-└── env.ts                 # Environment variables definition
+│   ├── common/             # Shared components
+│   ├── ui/                 # UI primitives (shadcn/ui)
+│   └── graph/              # Graph-specific shared components
+├── db/                     # Database schema and migrations
+├── hooks/                  # Global hooks
+├── i18n/                   # Internationalization configuration
+├── lib/                    # Global utilities
+├── providers/              # Global providers
+├── services/               # Global services
+├── stores/                 # Global stores
+├── styles/                 # Global styles
+├── types/                  # Global type definitions
+└── env.ts                  # Environment variables definition
 ```
 
 ### Placement Rules
 
 1. **Global vs Feature-specific**:
    - If used across multiple features → Global (`src/[folder]/`)
-   - If used only in one feature → Feature-specific (`src/app/[route]/[folder]/`)
+   - If used only in one feature/route → Feature-specific (`src/app/[locale]/(group)/_folder/` or `src/app/[locale]/(group)/[route]/_folder/`)
+   - **Important**: Any folder inside the `app/` directory that is NOT meant to be a route must be prefixed with an underscore `_` (e.g., `_components`, `_services`). This opts the folder out of Next.js routing.
 
 2. **Schema Organization**:
    - Remote types (snake_case from API): Defined with `Remote` prefix
