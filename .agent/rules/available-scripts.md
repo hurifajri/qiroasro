@@ -1,0 +1,1 @@
+../../.agents/rules/available-scripts.md

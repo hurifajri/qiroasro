@@ -1,0 +1,1 @@
+../../.agents/rules/seo-accessibility-and-semantic-html.md

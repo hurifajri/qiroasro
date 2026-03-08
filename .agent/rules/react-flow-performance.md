@@ -1,0 +1,1 @@
+../../.agents/rules/react-flow-performance.md

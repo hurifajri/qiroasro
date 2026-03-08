@@ -1,0 +1,1 @@
+../../.agents/rules/type-safety.md
