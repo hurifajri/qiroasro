@@ -93,12 +93,16 @@ export function Profile({ userId }: ProfileProps) {
           {(field) => {
             return (
               <>
-                <UserAvatar
-                  name={form.getFieldValue('displayName')}
-                  colorCode={field.state.value}
-                  className="size-20"
-                  textClassName="font-bold text-3xl"
-                />
+                <form.Subscribe selector={(state) => state.values.displayName}>
+                  {(displayName) => (
+                    <UserAvatar
+                      name={displayName}
+                      colorCode={field.state.value}
+                      className="size-20"
+                      textClassName="font-bold text-3xl"
+                    />
+                  )}
+                </form.Subscribe>
 
                 {/* Solid colors */}
                 <div className="flex flex-col gap-2">
