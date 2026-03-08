@@ -33,7 +33,7 @@ Pendekatan: **Schema dipecah ke 4 file** di `src/db/`:
 | `auth-schema.ts` | Better Auth tables — jangan disentuh manual | ✅ Done |
 | `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
-| `user-schema.ts` | Private-app user data (`userProfiles`, dst) | `[ ]` Pending |
+| `user-schema.ts` | Private-app user data (`userProfiles`, dst) | ✅ Done |
 
 ---
 
