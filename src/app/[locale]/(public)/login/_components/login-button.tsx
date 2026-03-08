@@ -1,6 +1,7 @@
 'use client';
 
 import { AlertCircle, Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
@@ -15,6 +16,8 @@ interface LoginButtonProps {
 export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -23,7 +26,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
     try {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: '/learn',
+        callbackURL: callbackUrl || '/learn',
       });
     } catch {
       setError(true);
