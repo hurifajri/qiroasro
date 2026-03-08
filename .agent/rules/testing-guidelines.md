@@ -1,0 +1,1 @@
+/Users/hurifajri/Developer/Projects/Personal/quran/qiroasro/.agents/rules/testing-guidelines.md

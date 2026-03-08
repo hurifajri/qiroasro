@@ -1,0 +1,1 @@
+/Users/hurifajri/Developer/Projects/Personal/quran/qiroasro/.agents/rules/seo-accessibility-and-semantic-html.md
