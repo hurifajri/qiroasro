@@ -46,7 +46,7 @@ export function UnitHeader({
           onClick={() => onClickSection(unit)}
           className="cursor-default"
         >
-          <ArrowLeftIcon className="size-5" />
+          <ArrowLeftIcon className="size-5 text-white" />
           <h3 className="font-bold text-white uppercase tracking-wider">
             {sectionTitle}
           </h3>
