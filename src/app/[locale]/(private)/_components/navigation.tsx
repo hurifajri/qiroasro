@@ -27,7 +27,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { Link, usePathname } from '@/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import type { NavItem } from '../_schemas/private';
 
@@ -53,8 +54,20 @@ function MoreMenu() {
   const t = useTranslations('global.private_layout.nav');
   const isLg = useMediaQuery('(width >= 64rem)');
   const pathname = usePathname();
+  const router = useRouter();
   const isActive =
     pathname.endsWith('/settings') || pathname.includes('/settings');
+
+  async function handleLogout() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push('/');
+          router.refresh();
+        },
+      },
+    });
+  }
 
   return (
     <DropdownMenu>
@@ -97,7 +110,10 @@ function MoreMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex items-center gap-2">
+        <DropdownMenuItem
+          className="flex items-center gap-2"
+          onClick={handleLogout}
+        >
           <LogOutIcon className="size-4" />
           {t('logout')}
         </DropdownMenuItem>
