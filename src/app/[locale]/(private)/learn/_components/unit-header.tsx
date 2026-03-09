@@ -44,24 +44,20 @@ export function UnitHeader({
       <ItemContent>
         <ItemTitle
           onClick={() => onClickSection(unit)}
-          className="cursor-default"
+          className="cursor-pointer"
         >
-          <ArrowLeftIcon className="size-5 text-white" />
-          <h3 className="font-bold text-white uppercase tracking-wider">
-            {sectionTitle}
-          </h3>
+          <ArrowLeftIcon className="size-4 text-white" />
+          <h2 className="text-white uppercase">{sectionTitle}</h2>
         </ItemTitle>
-        <ItemDescription className="font-bold text-lg text-white leading-tight">
+        <ItemDescription className="text-white">
           {t(unit.titleKey)}
         </ItemDescription>
       </ItemContent>
       {onClickGuidebook && (
         <ItemActions>
           <Button
-            variant="secondary"
-            size="sm"
             onClick={onClickGuidebook}
-            className="shrink-0 bg-white/20 text-white hover:bg-white/30"
+            className="shrink-0 cursor-pointer bg-white/20 text-white hover:bg-white/30"
           >
             <BookOpenIcon className="size-4" />
             <span className="hidden sm:inline">{t('guidebook')}</span>

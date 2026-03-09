@@ -33,9 +33,8 @@ export function Sections() {
   return (
     <div className="flex flex-col gap-4">
       <header className="flex flex-col items-start gap-2">
-        <h2 className="sr-only">{t('section_list_title')}</h2>
-        <Button variant="ghost" onClick={handleBack}>
-          <ArrowLeftIcon className="size-5" /> {t('back')}
+        <Button onClick={handleBack} variant="ghost" className="cursor-pointer">
+          <ArrowLeftIcon className="size-4" /> {t('back')}
         </Button>
         <Separator />
       </header>

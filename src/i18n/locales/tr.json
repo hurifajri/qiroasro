@@ -602,7 +602,6 @@
       "description": "Etkileşimli dersler ve ünitelerle Tecvid'de ustalaşmak için yolculuğunuza başlayın."
     },
     "title": "Öğren - Tecvid Yolculuğu",
-    "section_unit_title": "Bölüm ve Ünite",
     "start": "Başla",
     "guidebook": "Rehber Kitap",
     "sections": {
@@ -665,7 +664,6 @@
       "description": "Tüm müfredat bölümlerini görüntüleyin ve ilerlemenizi takip edin."
     },
     "title": "Bölümler - Müfredat",
-    "section_list_title": "Bölüm Listesi",
     "section_title": "Bölüm {number}",
     "back": "Geri",
     "completed": "Tamamlandı!",

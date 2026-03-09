@@ -602,7 +602,6 @@
       "description": "Start your journey to master Tajweed through interactive lessons and units."
     },
     "title": "Learn - Tajweed Learning Path",
-    "section_unit_title": "Section and Unit",
     "start": "Start",
     "guidebook": "Guidebook",
     "sections": {
@@ -665,7 +664,6 @@
       "description": "View all curriculum sections and track your progress."
     },
     "title": "Sections - Curriculum",
-    "section_list_title": "Section List",
     "section_title": "Section {number}",
     "back": "Back",
     "completed": "Completed!",

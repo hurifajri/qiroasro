@@ -15,7 +15,7 @@ interface LearnProps {
  * Layout shell is now handled by private layout.
  */
 export function Learn({ className }: LearnProps) {
-  const t = useTranslations('learn_page');
+  const _t = useTranslations('learn_page');
   const router = useRouter();
 
   function handleClickLesson(lesson: Lesson) {
@@ -37,16 +37,13 @@ export function Learn({ className }: LearnProps) {
   }
 
   return (
-    <>
-      <h2 className="sr-only">{t('section_unit_title')}</h2>
-      <LearningPath
-        units={MOCK_UNITS}
-        lessons={MOCK_LESSONS}
-        onClickLesson={handleClickLesson}
-        onClickSection={handleClickSection}
-        onClickGuidebook={handleClickGuidebook}
-        className={className}
-      />
-    </>
+    <LearningPath
+      units={MOCK_UNITS}
+      lessons={MOCK_LESSONS}
+      onClickLesson={handleClickLesson}
+      onClickSection={handleClickSection}
+      onClickGuidebook={handleClickGuidebook}
+      className={className}
+    />
   );
 }

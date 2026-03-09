@@ -602,7 +602,6 @@
       "description": "Mulakan perjalanan anda untuk menguasai Tajwid melalui pelajaran dan unit interaktif."
     },
     "title": "Belajar - Perjalanan Tajwid",
-    "section_unit_title": "Bahagian dan Unit",
     "start": "Mula",
     "guidebook": "Buku Panduan",
     "sections": {
@@ -665,7 +664,6 @@
       "description": "Lihat semua bahagian kurikulum dan pantau kemajuan anda."
     },
     "title": "Topik - Kurikulum",
-    "section_list_title": "Senarai Bahagian",
     "section_title": "Bahagian {number}",
     "back": "Kembali",
     "completed": "Selesai!",
