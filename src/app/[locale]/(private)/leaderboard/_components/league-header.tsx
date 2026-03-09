@@ -45,8 +45,7 @@ export function LeagueHeader({
             const currentIndex = leagues.findIndex(
               (l) => l.nameKey === currentLeagueNameKey,
             );
-            const distance = Math.abs(index - currentIndex);
-            const isDisguised = distance >= 2;
+            const isDisguised = index > currentIndex;
 
             return (
               <div
@@ -55,7 +54,7 @@ export function LeagueHeader({
                   'flex size-12 shrink-0 items-center justify-center rounded-xl text-2xl transition-all duration-300',
                   isActive &&
                     'scale-125 ring-2 ring-primary ring-offset-2 ring-offset-background',
-                  isDisguised ? 'opacity-20 grayscale' : 'opacity-100',
+                  isDisguised && 'grayscale',
                 )}
               >
                 {league.emoji}
