@@ -6,21 +6,15 @@ import type { LeagueNameKey } from '../../_schemas/private';
 
 interface LeagueHeaderProps {
   leagues: League[];
-  currentLeagueNameKey: LeagueNameKey;
+  nameKey: LeagueNameKey;
 }
 
-export function LeagueHeader({
-  leagues,
-  currentLeagueNameKey,
-}: LeagueHeaderProps) {
+export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
   const t = useTranslations();
 
-  const currentLeagueData = leagues.find(
-    (l) => l.nameKey === currentLeagueNameKey,
-  );
-  const leagueName = currentLeagueData
-    ? t(`global.${currentLeagueData.nameKey}`)
-    : '';
+  const currentLeague = leagues.find((l) => l.nameKey === nameKey);
+  const currentIndex = leagues.findIndex((l) => l.nameKey === nameKey);
+  const leagueName = currentLeague ? t(`global.${currentLeague.nameKey}`) : '';
 
   return (
     <section className="flex w-full flex-col items-center gap-4 overflow-hidden">
@@ -37,14 +31,11 @@ export function LeagueHeader({
         <div
           className="flex items-center gap-3 transition-transform duration-300 ease-out"
           style={{
-            transform: `translateX(calc(50% - ${leagues.findIndex((l) => l.nameKey === currentLeagueNameKey) * 60 + 24}px))`,
+            transform: `translateX(calc(50% - ${currentIndex * 60 + 24}px))`,
           }}
         >
           {leagues.map((league, index) => {
-            const isActive = league.nameKey === currentLeagueNameKey;
-            const currentIndex = leagues.findIndex(
-              (l) => l.nameKey === currentLeagueNameKey,
-            );
+            const isActive = league.nameKey === nameKey;
             const isDisguised = index > currentIndex;
 
             return (
