@@ -23,10 +23,10 @@ export function LeagueHeader({
     : '';
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <section className="flex w-full flex-col items-center gap-4 overflow-hidden">
       {/* League icons row */}
       <div
-        className="relative flex h-20 w-fit max-w-full items-center justify-center overflow-hidden"
+        className="relative flex h-20 w-full items-center justify-center overflow-hidden"
         style={{
           maskImage:
             'linear-gradient(to right, transparent, black 20%, black 80%, transparent)',

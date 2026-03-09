@@ -66,7 +66,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       {!isMobile && <LeftSidebar navItems={leftNavItems} />}
 
       {/* Main Content */}
-      <main className="flex-1 overflow-x-clip">
+      <main className="min-w-0 flex-1">
         {/* Top Stats Bar */}
         {isMobile && hasMobileHeader && (
           <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
