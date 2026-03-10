@@ -47,9 +47,9 @@ export function UnitHeader({
           className="cursor-pointer"
         >
           <ArrowLeftIcon className="size-4 text-white" />
-          <h2 className="text-white uppercase">{sectionTitle}</h2>
+          <h2 className="font-bold text-white uppercase">{sectionTitle}</h2>
         </ItemTitle>
-        <ItemDescription className="text-white">
+        <ItemDescription className="font-bold text-white">
           {t(unit.titleKey)}
         </ItemDescription>
       </ItemContent>
