@@ -14,7 +14,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
@@ -41,7 +41,7 @@ type SaveStatus =
 
 export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
   const queryClient = useQueryClient();
 
   const { data: userProfile } = useSuspenseQuery(
@@ -267,7 +267,7 @@ export function Profile({ userId }: ProfileProps) {
       </div>
 
       {/* Save button + status */}
-      <Field orientation={isMobile ? 'vertical' : 'horizontal'}>
+      <Field orientation={isMaxMd ? 'vertical' : 'horizontal'}>
         <form.Subscribe selector={(state) => state.isSubmitting}>
           {(isSubmitting) => (
             <Button

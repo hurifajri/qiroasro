@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { LOCALE_CONFIG } from '@/i18n/config';
 import { getLocaleDir } from '@/i18n/locale';
@@ -41,7 +41,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const { isMounted } = useMounted();
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
 
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ type: 'idle' });
 
@@ -209,7 +209,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
       </div>
 
       {/* Save button + status */}
-      <Field orientation={isMobile ? 'vertical' : 'horizontal'}>
+      <Field orientation={isMaxMd ? 'vertical' : 'horizontal'}>
         <form.Subscribe selector={(state) => state.isSubmitting}>
           {(isSubmitting) => (
             <Button

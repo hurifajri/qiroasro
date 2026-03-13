@@ -1,7 +1,7 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { usePathname } from '@/i18n/navigation';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
@@ -20,7 +20,7 @@ type PrivateProps = React.PropsWithChildren & {
  */
 export function Private({ children, userId, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
 
   // Fetch real user profile — data is already prefetched in layout.tsx (no waterfall)
   const { data: userProfile } = useSuspenseQuery(
@@ -41,7 +41,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
         pathname.endsWith(href) ||
         pathname.includes(href) ||
         (pathname === '/sections' && item.href === '/learn') ||
-        (isMobile &&
+        (isMaxMd &&
           pathname.startsWith('/settings') &&
           item.href.startsWith('/profile')),
     };
@@ -63,10 +63,10 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
   return (
     <div className="flex min-h-dvh justify-center bg-background">
       {/* Left Sidebar - Desktop only */}
-      {!isMobile && <LeftSidebar navItems={leftNavItems} />}
+      {!isMaxMd && <LeftSidebar navItems={leftNavItems} />}
 
       {/* Top Stats Bar */}
-      {isMobile && hasMobileHeader && (
+      {isMaxMd && hasMobileHeader && (
         <header className="fixed inset-x-0 top-0 z-50 p-2 md:hidden">
           {header}
         </header>
@@ -78,7 +78,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       </main>
 
       {/* Right Sidebar - Desktop only */}
-      {!isMobile && <RightSidebar>{sidebar}</RightSidebar>}
+      {!isMaxMd && <RightSidebar>{sidebar}</RightSidebar>}
 
       {/* Bottom Navigation - Mobile only */}
       <footer className="fixed inset-x-0 bottom-0 z-50 p-2 md:hidden">
