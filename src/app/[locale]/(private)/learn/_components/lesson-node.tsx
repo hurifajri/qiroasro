@@ -40,7 +40,7 @@ export const LessonNode = memo(function LessonNode({
     // Base classes for all 3D buttons
     const base =
       'relative flex items-center justify-center rounded-full transition-all duration-150';
-    const size = 'size-20 border-b-0'; // Increased size
+    const size = 'size-20 border-0'; // Increased size
 
     if (status === 'locked') {
       return {
