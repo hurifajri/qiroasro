@@ -23,7 +23,7 @@ export function LearningPath({
   onClickGuidebook,
 }: LearningPathProps) {
   return (
-    <div className={cn('flex flex-col gap-8', className)}>
+    <div className={cn('flex flex-col gap-6', className)}>
       {units.slice(0, 2).map((unit) => (
         <UnitPath
           key={unit.id}

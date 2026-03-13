@@ -7,7 +7,7 @@ interface LetterGridGroupProps {
 
 export function LetterGridGroup({ groups }: LetterGridGroupProps) {
   return (
-    <ul className="flex flex-col gap-12">
+    <ul className="flex flex-col gap-6">
       {groups.map((group) => (
         <LetterGrid key={group.id} group={group} />
       ))}

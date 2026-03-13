@@ -26,12 +26,12 @@ export function Leaderboard({
       <LeagueHeader leagues={leagues} nameKey={currentLeagueNameKey} />
 
       {/* Leaderboard */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('ranking')}</h2>
-          <span className="text-muted-foreground">
+      <section className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('ranking')}</h2>
+          <p className="text-muted-foreground">
             {t('participants', { count: entries.length })}
-          </span>
+          </p>
         </div>
         <LeaderboardList entries={entries} />
       </section>

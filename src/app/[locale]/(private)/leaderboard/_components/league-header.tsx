@@ -17,7 +17,7 @@ export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
   const leagueName = currentLeague ? t(`global.${currentLeague.nameKey}`) : '';
 
   return (
-    <section className="flex w-full flex-col items-center gap-4 overflow-hidden">
+    <section className="flex w-full flex-col items-center gap-3 overflow-hidden">
       {/* League icons row */}
       <div
         className="relative flex h-20 w-full items-center justify-center overflow-hidden"
@@ -57,10 +57,8 @@ export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
 
       {/* League name */}
       <div className="flex flex-col items-center gap-2">
-        <h2 className="font-bold text-2xl">{leagueName}</h2>
-        <Badge variant="secondary" className="font-medium">
-          {t('leaderboard_page.week_info')}
-        </Badge>
+        <h2 className="font-bold text-lg">{leagueName}</h2>
+        <Badge variant="secondary">{t('leaderboard_page.week_info')}</Badge>
       </div>
     </section>
   );

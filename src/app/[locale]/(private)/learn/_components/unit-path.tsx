@@ -42,7 +42,7 @@ export function UnitPath({
   }, [lessons]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       {/* Unit Header */}
       <UnitHeader
         unit={unit}
@@ -52,7 +52,7 @@ export function UnitPath({
       />
 
       {/* Lesson Nodes - zigzag pattern */}
-      <div className="flex flex-col items-center gap-4 py-4">
+      <div className="flex flex-col items-center gap-3 py-3">
         {lessonWithOffsets.map(({ lesson, offset }) => (
           <LessonNode
             key={lesson.id}
