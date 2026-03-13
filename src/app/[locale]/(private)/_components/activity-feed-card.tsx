@@ -29,10 +29,7 @@ export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
         <CardAction>
           <Link
             href="/friend-updates"
-            className={cn(
-              buttonVariants({ variant: 'link' }),
-              'px-0 uppercase',
-            )}
+            className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
           >
             {t('activity_feed.view_all')}
           </Link>

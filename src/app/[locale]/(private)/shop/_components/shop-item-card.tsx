@@ -38,7 +38,11 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
 
     // Available - show price
     return (
-      <Button variant="outline" size="sm" className="font-bold text-primary">
+      <Button
+        variant="outline"
+        size="sm"
+        className="rounded-full font-bold text-primary"
+      >
         <span>{t('powerups.get_for')}</span>
         <GemIcon className="fill-primary" />
         <span>{item.price}</span>

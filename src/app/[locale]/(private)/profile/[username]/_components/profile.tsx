@@ -39,16 +39,16 @@ export function Profile({
       {userProfile && <UserInfo user={userProfile} />}
 
       {/* Statistics */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('statistics.title')}</h2>
+      <section className="flex flex-col gap-3">
+        <h2 className="font-bold text-lg">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
       </section>
 
       {/* Friend Suggestions */}
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('friend_suggestions.title')}</h2>
-          <Button variant="link" className="px-0 uppercase">
+          <h2 className="font-bold text-lg">{t('friend_suggestions.title')}</h2>
+          <Button variant="link" className="px-0">
             {t('friend_suggestions.view_all')}
           </Button>
         </div>
@@ -56,10 +56,10 @@ export function Profile({
       </section>
 
       {/* Achievements */}
-      <section className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('achievements.title')}</h2>
-          <Button variant="link" className="px-0 uppercase">
+          <h2 className="font-bold text-lg">{t('achievements.title')}</h2>
+          <Button variant="link" className="px-0">
             {t('achievements.view_all')}
           </Button>
         </div>
