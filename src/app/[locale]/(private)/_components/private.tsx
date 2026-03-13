@@ -67,9 +67,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
 
       {/* Top Stats Bar */}
       {isMaxMd && hasMobileHeader && (
-        <header className="fixed inset-x-0 top-0 z-50 p-2 md:hidden">
-          {header}
-        </header>
+        <header className="fixed inset-x-0 top-0 z-50 p-2">{header}</header>
       )}
 
       {/* Main Content */}
@@ -81,9 +79,11 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       {!isMaxMd && <RightSidebar>{sidebar}</RightSidebar>}
 
       {/* Bottom Navigation - Mobile only */}
-      <footer className="fixed inset-x-0 bottom-0 z-50 p-2 md:hidden">
-        <BottomNav items={bottomNavItems} />
-      </footer>
+      {isMaxMd && (
+        <footer className="fixed inset-x-0 bottom-0 z-50 p-2">
+          <BottomNav items={bottomNavItems} />
+        </footer>
+      )}
     </div>
   );
 }
