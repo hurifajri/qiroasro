@@ -42,7 +42,7 @@ export function PrivacySettings({ settings }: PrivacySettingsProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      <section className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <FieldGroup className="gap-4">
           {privacySettings.map((setting) => (
             <Field key={setting.id} orientation="horizontal">
@@ -61,7 +61,7 @@ export function PrivacySettings({ settings }: PrivacySettingsProps) {
             </Field>
           ))}
         </FieldGroup>
-      </section>
+      </div>
 
       <Button onClick={handleSaveChanges} className="w-fit">
         {t('save_changes')}

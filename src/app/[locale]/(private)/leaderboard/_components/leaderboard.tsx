@@ -26,7 +26,7 @@ export function Leaderboard({
       <LeagueHeader leagues={leagues} nameKey={currentLeagueNameKey} />
 
       {/* Leaderboard */}
-      <section className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">
           <h2 className="font-bold text-lg">{t('ranking')}</h2>
           <p className="text-muted-foreground">
@@ -34,7 +34,7 @@ export function Leaderboard({
           </p>
         </div>
         <LeaderboardList entries={entries} />
-      </section>
+      </div>
     </div>
   );
 }

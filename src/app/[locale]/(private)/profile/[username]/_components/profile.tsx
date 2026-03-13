@@ -39,13 +39,13 @@ export function Profile({
       {userProfile && <UserInfo user={userProfile} />}
 
       {/* Statistics */}
-      <section className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <h2 className="font-bold text-lg">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
-      </section>
+      </div>
 
       {/* Friend Suggestions */}
-      <section className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-lg">{t('friend_suggestions.title')}</h2>
           <Button variant="link" className="px-0">
@@ -53,10 +53,10 @@ export function Profile({
           </Button>
         </div>
         <FriendSuggestionsGrid friends={friendSuggestions} />
-      </section>
+      </div>
 
       {/* Achievements */}
-      <section className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-lg">{t('achievements.title')}</h2>
           <Button variant="link" className="px-0">
@@ -64,7 +64,7 @@ export function Profile({
           </Button>
         </div>
         <AchievementList achievements={achievements} />
-      </section>
+      </div>
     </div>
   );
 }

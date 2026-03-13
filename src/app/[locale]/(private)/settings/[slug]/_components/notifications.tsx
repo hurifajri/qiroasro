@@ -66,8 +66,8 @@ export function Notifications({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* General notifications section */}
-      <section className="flex flex-col gap-3">
+      {/* General notifications */}
+      <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">
           <h2 className="font-bold text-lg">{t('general.title')}</h2>
           <p className="text-muted-foreground">{t('email')}</p>
@@ -88,10 +88,10 @@ export function Notifications({
             </Field>
           ))}
         </FieldGroup>
-      </section>
+      </div>
 
-      {/* Daily reminders section */}
-      <section className="flex flex-col gap-3">
+      {/* Daily reminders */}
+      <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">
           <h2 className="font-bold text-lg">{t('daily_reminders.title')}</h2>
           <span className="text-muted-foreground">{t('email')}</span>
@@ -131,7 +131,7 @@ export function Notifications({
             </Field>
           )}
         </FieldGroup>
-      </section>
+      </div>
     </div>
   );
 }

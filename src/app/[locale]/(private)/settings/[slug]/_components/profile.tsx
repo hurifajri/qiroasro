@@ -85,8 +85,8 @@ export function Profile({ userId }: ProfileProps) {
       }}
       className="flex flex-col gap-6"
     >
-      {/* Avatar section */}
-      <section className="flex flex-col gap-3">
+      {/* Avatar */}
+      <div className="flex flex-col gap-3">
         <h2 className="font-bold text-lg">{t('avatar.title')}</h2>
 
         <form.Field name="avatarColorCode">
@@ -155,10 +155,10 @@ export function Profile({ userId }: ProfileProps) {
             );
           }}
         </form.Field>
-      </section>
+      </div>
 
-      {/* Personal info section */}
-      <section className="flex flex-col gap-3">
+      {/* Personal info */}
+      <div className="flex flex-col gap-3">
         <h2 className="font-bold text-lg">{t('personal_info.title')}</h2>
 
         <FieldGroup className="gap-3">
@@ -264,7 +264,7 @@ export function Profile({ userId }: ProfileProps) {
             />
           </Field>
         </FieldGroup>
-      </section>
+      </div>
 
       {/* Save button + status */}
       <Field orientation={isMobile ? 'vertical' : 'horizontal'}>

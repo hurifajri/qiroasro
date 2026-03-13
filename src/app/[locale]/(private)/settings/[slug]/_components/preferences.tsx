@@ -88,8 +88,8 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
       }}
       className="flex flex-col gap-6"
     >
-      {/* Lesson experience section */}
-      <section className="flex flex-col gap-3">
+      {/* Lesson experience */}
+      <div className="flex flex-col gap-3">
         <h2 className="font-bold text-lg">
           {t('settings_page.preferences.lesson_experience.title')}
         </h2>
@@ -119,10 +119,10 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
             </FieldGroup>
           )}
         </form.Field>
-      </section>
+      </div>
 
-      {/* Appearance section */}
-      <section className="flex flex-col gap-3">
+      {/* Appearance */}
+      <div className="flex flex-col gap-3">
         <h2 className="font-bold text-lg">
           {t('settings_page.preferences.appearance.title')}
         </h2>
@@ -206,7 +206,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
             }}
           </form.Field>
         </FieldGroup>
-      </section>
+      </div>
 
       {/* Save button + status */}
       <Field orientation={isMobile ? 'vertical' : 'horizontal'}>

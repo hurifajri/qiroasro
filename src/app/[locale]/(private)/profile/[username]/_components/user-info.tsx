@@ -20,7 +20,7 @@ export function UserInfo({ user }: UserInfoProps) {
   });
 
   return (
-    <section className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {/* Avatar & Name */}
       <div className="flex items-start gap-4">
         <UserAvatar
@@ -51,6 +51,6 @@ export function UserInfo({ user }: UserInfoProps) {
           <span className="text-muted-foreground">{t('followers')}</span>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
