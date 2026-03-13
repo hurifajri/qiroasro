@@ -13,19 +13,40 @@ import {
   TrophyIcon,
   UserIcon,
 } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+const DropdownMenu = dynamic(
+  () => import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenu),
+  { ssr: false },
+);
+const DropdownMenuContent = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuContent),
+  { ssr: false },
+);
+const DropdownMenuItem = dynamic(
+  () => import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuItem),
+  { ssr: false },
+);
+const DropdownMenuSeparator = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then(
+      (m) => m.DropdownMenuSeparator,
+    ),
+  { ssr: false },
+);
+const DropdownMenuTrigger = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuTrigger),
+  { ssr: false },
+);
+
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
