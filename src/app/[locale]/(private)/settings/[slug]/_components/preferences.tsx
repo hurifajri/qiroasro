@@ -86,16 +86,16 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
         e.preventDefault();
         form.handleSubmit();
       }}
-      className="flex flex-col gap-12"
+      className="flex flex-col gap-6"
     >
       {/* Lesson experience section */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">
+      <section className="flex flex-col gap-3">
+        <h2 className="font-bold text-lg">
           {t('settings_page.preferences.lesson_experience.title')}
         </h2>
         <form.Field name="lessonPreferences">
           {(field) => (
-            <FieldGroup className="gap-4">
+            <FieldGroup className="gap-3">
               {field.state.value.map((preference, index) => (
                 <Field key={preference.id} orientation="horizontal">
                   <FieldLabel htmlFor={preference.id}>
@@ -122,12 +122,12 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
       </section>
 
       {/* Appearance section */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">
+      <section className="flex flex-col gap-3">
+        <h2 className="font-bold text-lg">
           {t('settings_page.preferences.appearance.title')}
         </h2>
 
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-3">
           <form.Field name="theme">
             {(field) => {
               const { meta } = field.state;

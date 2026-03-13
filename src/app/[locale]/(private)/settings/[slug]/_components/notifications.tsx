@@ -65,14 +65,14 @@ export function Notifications({
   };
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-6">
       {/* General notifications section */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('general.title')}</h2>
-          <span className="text-muted-foreground text-sm">{t('email')}</span>
+      <section className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('general.title')}</h2>
+          <p className="text-muted-foreground">{t('email')}</p>
         </div>
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-3">
           {notifications.map((notification) => (
             <Field key={notification.id} orientation="horizontal">
               <FieldLabel htmlFor={notification.id}>
@@ -91,12 +91,12 @@ export function Notifications({
       </section>
 
       {/* Daily reminders section */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('daily_reminders.title')}</h2>
-          <span className="text-muted-foreground text-sm">{t('email')}</span>
+      <section className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('daily_reminders.title')}</h2>
+          <span className="text-muted-foreground">{t('email')}</span>
         </div>
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-3">
           <Field orientation="horizontal">
             <FieldLabel htmlFor={reminder.id}>
               {t(reminder.labelKey)}
