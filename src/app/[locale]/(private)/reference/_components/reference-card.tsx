@@ -29,10 +29,10 @@ export function ReferenceCard({ category }: ReferenceCardProps) {
       <span className="font-arabic text-4xl">{iconSymbol}</span>
 
       {/* Title */}
-      <h3 className="font-bold text-sm">{t(titleKey)}</h3>
+      <p className="font-bold text-xs">{t(titleKey)}</p>
 
       {/* Count */}
-      <p className="text-muted-foreground text-sm">{t(countKey)}</p>
+      <p className="text-muted-foreground text-xs">{t(countKey)}</p>
     </div>
   );
 

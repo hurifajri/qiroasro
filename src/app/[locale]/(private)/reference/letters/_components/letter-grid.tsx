@@ -11,7 +11,7 @@ export function LetterGrid({ group }: LetterGridProps) {
 
   return (
     <li className="flex flex-col gap-3">
-      <h3 className="font-bold text-lg">{t(group.titleKey)}</h3>
+      <h3 className="font-bold">{t(group.titleKey)}</h3>
       <ul className="grid grid-cols-3 gap-2 xl:grid-cols-4">
         {group.letters.map((letter) => (
           <LetterItem key={letter.id} letter={letter} />

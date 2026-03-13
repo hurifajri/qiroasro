@@ -54,7 +54,7 @@ export function LetterCard({ letter }: LetterCardProps) {
       </span>
 
       {/* Letter name */}
-      <span className="text-base text-muted-foreground">{t(nameKey)}</span>
+      <p className="font-bold text-xs">{t(nameKey)}</p>
     </Button>
   );
 }

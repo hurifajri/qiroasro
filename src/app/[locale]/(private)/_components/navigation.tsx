@@ -180,7 +180,7 @@ export function BottomNav({ items }: BottomNavProps) {
   const t = useTranslations('global.private_layout');
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-around border-t bg-background/95 px-2 py-2 backdrop-blur-sm sm:hidden">
+    <nav className="flex items-center justify-around rounded-xl border bg-background/10 p-2 backdrop-blur-sm">
       {items.map((item) => {
         const Icon = iconMap[item.iconName];
 

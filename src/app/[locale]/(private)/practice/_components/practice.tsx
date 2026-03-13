@@ -13,7 +13,6 @@ export function Practice({ sections }: PracticeProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Header */}
       <div className="flex flex-col items-center">
         <h2 className="font-bold text-lg">{t('title')}</h2>
         <p className="text-muted-foreground">{t('description')}</p>

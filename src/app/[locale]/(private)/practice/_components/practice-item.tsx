@@ -58,7 +58,7 @@ export function PracticeItem({ mode }: PracticeItemProps) {
       >
         <ItemContent>
           <ItemTitle>
-            <h3 className="font-bold text-base">{t(mode.titleKey)}</h3>
+            <h4 className="font-bold">{t(mode.titleKey)}</h4>
             {mode.isPremium && <SuperBadge />}
           </ItemTitle>
           <ItemDescription>{t(mode.descriptionKey)}</ItemDescription>

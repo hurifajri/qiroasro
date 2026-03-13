@@ -32,12 +32,12 @@ export function Sections() {
 
   return (
     <div className="flex flex-col gap-4">
-      <header className="flex flex-col items-start gap-2">
+      <div className="flex flex-col items-start gap-2">
         <Button onClick={handleBack} variant="ghost" className="cursor-pointer">
           <ArrowLeftIcon className="size-4" /> {t('back')}
         </Button>
         <Separator />
-      </header>
+      </div>
       <SectionsList
         sections={MOCK_SECTIONS}
         onContinue={handleContinue}

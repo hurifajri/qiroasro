@@ -61,30 +61,29 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
   const hasMobileHeader = !['/leaderboard', '/quests'].includes(pathname);
 
   return (
-    <div className="flex min-h-dvh bg-background">
+    <div className="flex min-h-dvh justify-center bg-background">
       {/* Left Sidebar - Desktop only */}
       {!isMobile && <LeftSidebar navItems={leftNavItems} />}
 
-      {/* Main Content */}
-      <main className="min-w-0 flex-1">
-        {/* Top Stats Bar */}
-        {isMobile && hasMobileHeader && (
-          <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
-            {header}
-          </header>
-        )}
+      {/* Top Stats Bar */}
+      {isMobile && hasMobileHeader && (
+        <header className="fixed inset-x-0 top-0 z-50 p-2 md:hidden">
+          {header}
+        </header>
+      )}
 
-        {/* Page Content */}
-        <div className="mx-auto max-w-xl px-4 py-6 pb-24.25 sm:px-6 sm:pb-6">
-          {children}
-        </div>
+      {/* Main Content */}
+      <main className="mx-auto w-full min-w-0 max-w-xl px-2 pt-13.5 pb-18.5 sm:p-6">
+        {children}
       </main>
 
       {/* Right Sidebar - Desktop only */}
       {!isMobile && <RightSidebar>{sidebar}</RightSidebar>}
 
       {/* Bottom Navigation - Mobile only */}
-      <BottomNav items={bottomNavItems} />
+      <footer className="fixed inset-x-0 bottom-0 z-50 p-2 md:hidden">
+        <BottomNav items={bottomNavItems} />
+      </footer>
     </div>
   );
 }

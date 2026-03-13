@@ -48,7 +48,7 @@ export function SectionItem({
       >
         <ItemHeader>
           <ItemTitle>
-            <h2 className="font-bold uppercase">
+            <h2 className="uppercase">
               {t('section_title', { number: sectionNumber })}
             </h2>
           </ItemTitle>
