@@ -27,7 +27,7 @@ export function SettingsContentHeader() {
           <ChevronLeftIcon />
         </Link>
       )}
-      <h1 className="font-bold text-lg leading-none">
+      <h1 className="font-bold text-xl leading-none">
         {isMobileSettings ? t('nav.settings') : t(`account.${slug}`)}
       </h1>
     </div>

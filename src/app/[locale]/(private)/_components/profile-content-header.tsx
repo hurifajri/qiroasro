@@ -9,7 +9,7 @@ export function ProfileContentHeader() {
 
   return (
     <div className="relative flex items-center justify-center rounded-xl border bg-background/10 p-2 backdrop-blur-sm">
-      <h1 className="font-bold text-lg leading-none">{t('nav.profile')}</h1>
+      <h1 className="font-bold text-xl leading-none">{t('nav.profile')}</h1>
       <Link
         href="/settings"
         className={cn(

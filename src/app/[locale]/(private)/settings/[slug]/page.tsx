@@ -77,7 +77,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-lg md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('preferences.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
@@ -101,7 +101,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <h1 className="hidden pb-3 font-bold text-lg md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('profile.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
@@ -113,7 +113,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'notifications') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-lg md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('notifications.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
@@ -128,7 +128,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'social') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-lg md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('social.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
@@ -140,7 +140,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'privacy') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-lg md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('privacy.title')}
         </h1>
         <Separator className="mb-6 hidden md:block" />
