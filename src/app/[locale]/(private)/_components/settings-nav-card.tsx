@@ -44,7 +44,7 @@ export function SettingsNavCard({
                     <ItemTitle>{t(link.labelKey)}</ItemTitle>
                   </ItemContent>
                   <ItemContent className="shrink-0">
-                    <ChevronRightIcon className="size-5 text-muted-foreground" />
+                    <ChevronRightIcon className="size-4 text-muted-foreground" />
                   </ItemContent>
                 </Link>
               </li>

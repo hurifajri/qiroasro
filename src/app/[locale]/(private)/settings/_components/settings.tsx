@@ -26,7 +26,7 @@ export function Settings() {
   }, [isMounted, isMobile]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <SettingsNavCard titleKey="account.title" links={MOCK_ACCOUNT_LINKS} />
       <SettingsNavCard
         titleKey="subscription.title"
