@@ -6,6 +6,7 @@ import {
   pgTable,
   primaryKey,
   text,
+  timestamp,
 } from 'drizzle-orm/pg-core';
 
 // =====================================================================
@@ -20,6 +21,13 @@ export const hijLetters = pgTable(
     symbol: text('symbol').notNull().unique(),
     isMadd: boolean('is_madd').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [
     index('idx_hij_letters_is_madd').on(table.isMadd),
@@ -36,6 +44,13 @@ export const hijArticulationAreas = pgTable('hij_articulation_areas', {
   slug: text('slug').notNull().unique(),
   isMuhaqqaq: boolean('is_muhaqqaq').notNull().default(true),
   sortOrder: integer('sort_order').notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
 });
 
 export const hijArticulationPoints = pgTable(
@@ -47,6 +62,13 @@ export const hijArticulationPoints = pgTable(
       .references(() => hijArticulationAreas.id, { onDelete: 'restrict' }),
     slug: text('slug').notNull().unique(),
     sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [index('idx_hij_articulation_points_area').on(table.areaId)],
 );
@@ -62,6 +84,13 @@ export const hijLetterArticulations = pgTable(
       .references(() => hijArticulationPoints.id, { onDelete: 'restrict' }),
     isPrimary: boolean('is_primary').notNull().default(true),
     sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [
     primaryKey({ columns: [table.letterId, table.pointId] }),
@@ -85,6 +114,13 @@ export const hijTraitGroups = pgTable(
     isLazimah: boolean('is_lazimah').notNull().default(true),
     hasMiddleTrait: boolean('has_middle_trait').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [index('idx_hij_trait_groups_lazimah').on(table.isLazimah)],
 );
@@ -99,6 +135,13 @@ export const hijTraits = pgTable(
     slug: text('slug').notNull().unique(),
     isMiddleTrait: boolean('is_middle_trait').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [index('idx_hij_traits_group').on(table.groupId)],
 );
@@ -112,6 +155,13 @@ export const hijLetterTraits = pgTable(
     traitId: integer('trait_id')
       .notNull()
       .references(() => hijTraits.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
   },
   (table) => [
     primaryKey({ columns: [table.letterId, table.traitId] }),
