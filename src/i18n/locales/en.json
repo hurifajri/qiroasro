@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "Email",
       "reminder_title": "Notify me when the app is available",
-      "reminder_cta": "Join Waitlist",
       "reminder_playground_cta": "Visit Playground",
       "reminder_success": "Verification email sent! Please check your inbox.",
       "reminder_verified": "Email verified successfully",

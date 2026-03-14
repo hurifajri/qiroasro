@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "Email",
       "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
-      "reminder_cta": "Waitlist",
       "reminder_playground_cta": "Ke Playground",
       "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
       "reminder_verified": "Email berhasil diverifikasi",

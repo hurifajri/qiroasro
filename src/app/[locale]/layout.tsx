@@ -9,7 +9,6 @@ import { env } from '@/env';
 import { getLocaleDir } from '@/i18n/locale';
 import { routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { GlobalStoreProvider } from '@/providers/global';
 import { MotionProvider } from '@/providers/motion';
 import { QueryClientProvider } from '@/providers/query-client';
 import { ThemeProvider } from '@/providers/theme';
@@ -89,18 +88,16 @@ export default async function RootLayout({
         )}
       >
         <QueryClientProvider>
-          <GlobalStoreProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <NextIntlClientProvider>
-                <MotionProvider>{children}</MotionProvider>
-              </NextIntlClientProvider>
-            </ThemeProvider>
-          </GlobalStoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider>
+              <MotionProvider>{children}</MotionProvider>
+            </NextIntlClientProvider>
+          </ThemeProvider>
           {/* {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools
               initialIsOpen={false}

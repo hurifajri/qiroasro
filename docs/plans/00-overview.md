@@ -31,7 +31,6 @@ Pendekatan: **Schema dipecah ke beberapa file** di `src/db/`:
 | File | Domain | Status |
 |---|---|---|
 | `auth-schema.ts` | Better Auth tables — jangan disentuh manual | ✅ Done |
-| `common-schema.ts` | Waitlist | ✅ Done |
 | `master-schema.ts` | Master data (hij_*) — shared, public read | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
 | `user-schema.ts` | Private-app user data (`userProfiles`, dst) | ✅ Done |

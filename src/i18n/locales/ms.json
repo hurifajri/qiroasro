@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "E-mel",
       "reminder_title": "Beritahu apabila aplikasi tersedia",
-      "reminder_cta": "Sertai Senarai",
       "reminder_playground_cta": "Ke Playground",
       "reminder_success": "E-mel pengesahan telah dihantar! Sila semak peti masuk anda.",
       "reminder_verified": "E-mel berjaya disahkan",

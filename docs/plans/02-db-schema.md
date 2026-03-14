@@ -13,7 +13,6 @@ Schema sudah dipecah ke beberapa file di `src/db/`:
 | File | Domain | Status |
 |------|--------|--------|
 | `auth-schema.ts` | Better Auth tables (user, session, account, verification) — managed by Better Auth | ✅ Done |
-| `common-schema.ts` | Waitlist | ✅ Done |
 | `master-schema.ts` | Master data (hij_*) | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
 | `user-schema.ts` | Private-app user data (`userProfiles` using `text` columns) | ✅ Done |
@@ -62,7 +61,6 @@ Semua 7 tabel sudah ada di `src/db/master-schema.ts`:
 
 Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 - [x] `src/db/auth-schema.ts` — auth tables
-- [x] `src/db/common-schema.ts` — waitlist
 - [x] `src/db/master-schema.ts` — master data (hij_*)
 - [x] `src/db/playground-schema.ts` — materialized view
 - [x] `src/db/user-schema.ts` — user profiles (using `text` types for flexibility)
@@ -83,7 +81,6 @@ Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 | File | Status | Perubahan |
 |------|--------|-----------|
 | `src/db/auth-schema.ts` | ✅ Done | Auth tables (Better Auth managed) |
-| `src/db/common-schema.ts` | ✅ Done | Waitlist |
 | `src/db/master-schema.ts` | ✅ Done | Master data (hij_*) |
 | `src/db/playground-schema.ts` | ✅ Done | MV playground data |
 | `src/db/user-schema.ts` | ✅ Done | [NEW] User profiles (Task 1.5) |

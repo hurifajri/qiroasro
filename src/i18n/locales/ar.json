@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "البريد الإلكتروني",
       "reminder_title": "أخبرني عندما يكون التطبيق متاحاً",
-      "reminder_cta": "انضم للقائمة",
       "reminder_playground_cta": "اذهب إلى ساحة التجربة",
       "reminder_success": "تم إرسال بريد التحقق! يرجى التحقق من صندوق الوارد.",
       "reminder_verified": "تم التحقق من البريد الإلكتروني بنجاح",

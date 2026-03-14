@@ -13,7 +13,6 @@
 | Auth provider | **Better Auth** — TypeScript-first, framework-agnostic, Drizzle adapter built-in |
 | Metode login | **Social auth only** — Google (wajib), Apple (opsional, wajib jika publish ke App Store) |
 | Email+Password | ❌ Tidak untuk saat ini (bisa ditambah nanti via plugin) |
-| Waitlist integration | ❌ Tidak perlu — waitlist tetap standalone untuk broadcast email |
 | DB queries | **Drizzle ORM** (existing) — Better Auth pakai Drizzle adapter langsung |
 
 ### Packages yang Digunakan

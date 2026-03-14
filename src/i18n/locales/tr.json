@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "E-posta",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
-      "reminder_cta": "Listeye Katıl",
       "reminder_playground_cta": "Playground'a Git",
       "reminder_success": "Doğrulama e-postası gönderildi! Lütfen gelen kutunuzu kontrol edin.",
       "reminder_verified": "E-posta başarıyla doğrulandı",
