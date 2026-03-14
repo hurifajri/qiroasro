@@ -75,11 +75,10 @@ Route Handler:
 
 - [x] Generate auth schema via Better Auth CLI: `pnpm dlx @better-auth/cli@latest generate` → dipindah ke `src/db/auth-schema.ts`
 - [x] Auth tables (`user`, `session`, `account`, `verification`) sudah masuk ke DB
-- [x] Master tables dari `master.sql` sudah di-define di `src/db/common-schema.ts`
-- [x] `drizzle.config.ts` pakai schema array (3 files) + `DATABASE_URL_DIRECT` untuk drizzle-kit CLI
+- [x] `drizzle.config.ts` pakai schema array + `DATABASE_URL_DIRECT` untuk drizzle-kit CLI
 
 > [!NOTE]
-> Schema dipecah menjadi 3 file: `auth-schema.ts` (auth), `common-schema.ts` (master tables + waitlist), `playground-schema.ts` (mv). Untuk menjalankan drizzle-kit, gunakan: `pnpm drizzle-kit push` — otomatis pakai `DATABASE_URL_DIRECT` (session pooler, port 5432).
+> Untuk menjalankan drizzle-kit, gunakan: `pnpm drizzle-kit push` — otomatis pakai `DATABASE_URL_DIRECT` (session pooler, port 5432).
 
 ### 1.4 Google OAuth
 
@@ -92,10 +91,10 @@ Route Handler:
 - [x] Buat `src/db/user-schema.ts` — [NEW] schema khusus private-app user data
 - [x] Definisikan `userProfiles` di `src/db/user-schema.ts` — FK ke tabel `user` di `auth-schema.ts`
 - [x] Buat hook auto-create profile saat user signup (via Better Auth `databaseHooks.user.create.after`)
-- [x] Schemas/models (`src/schemas/user-profile.ts`, `src/models/user-profile.ts`) — sudah ada, field match ✅
+- [x] Buat schemas/queries/services (`src/app/[locale]/(private)/_schemas/user-profile.ts`, `src/app/[locale]/(private)/_queries/user-profile.ts`, `src/app/[locale]/(private)/_services/user-profile.ts`)
 
 > [!NOTE]
-> `user-schema.ts` adalah schema domain untuk private-app user data. Berbeda dengan `common-schema.ts` (master data, public) dan `auth-schema.ts` (managed by Better Auth). Ke depan tabel seperti `userProgress`, `userSettings`, `userStats` juga masuk di sini.
+> `user-schema.ts` adalah schema domain untuk private-app user data. Berbeda dengan `auth-schema.ts` (managed by Better Auth). Ke depan tabel seperti `userProgress`, `userSettings`, `userStats` juga masuk di sini.
 
 ### 1.6 Middleware & Protected Routes
 
@@ -131,12 +130,10 @@ Route Handler:
 | `src/lib/auth-client.ts` | [x] | [NEW] Better Auth React client (`authClient`) |
 | `src/app/api/auth/[...all]/route.ts` | [x] | [NEW] Catch-all route handler `toNextJsHandler(auth)` |
 | `src/db/auth-schema.ts` | [x] | [NEW] Generated auth tables schema (via Better Auth CLI) — dipindah ke `src/db/` |
-| `src/db/common-schema.ts` | [x] | [NEW] waitlist (dipecah dari schema.ts) |
-| `src/db/playground-schema.ts` | [x] | [NEW] mv_playground_data (dipecah dari schema.ts) |
 | `src/env.ts` | [x] | `BETTER_AUTH_SECRET`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `DATABASE_URL_DIRECT` |
-| `drizzle.config.ts` | [x] | Schema array (3 files), prefer `DATABASE_URL_DIRECT` (session pooler) untuk drizzle-kit |
-| `src/lib/db.ts` | [x] | Spread 3 schema ke satu object |
-| `src/schemas/user-profile.ts` | — | Tetap sama |
-| `src/models/user-profile.ts` | — | Tetap sama |
+| `drizzle.config.ts` | [x] | Schema array, prefer `DATABASE_URL_DIRECT` (session pooler) untuk drizzle-kit |
+| `src/lib/db.ts` | [x] | Spread beberapa schema ke satu object |
 | `src/db/user-schema.ts` | [x] | [NEW] Schema domain private-app user (`userProfiles`) |
-| `src/services/user-profile.ts` | [x] | [NEW] Server action `getUserProfileById(userId)` |
+| `src/app/[locale]/(private)/_schemas/user-profile.ts` | — | Tetap sama |
+| `src/app/[locale]/(private)/_queries/user-profile.ts` | — | Tetap sama |
+| `src/app/[locale]/(private)/_services/user-profile.ts` | [x] | [NEW] Server action `getUserProfileById(userId)` |
