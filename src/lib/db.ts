@@ -2,6 +2,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as authSchema from '@/db/auth-schema';
 import * as commonSchema from '@/db/common-schema';
+import * as masterSchema from '@/db/master-schema';
 import * as playgroundSchema from '@/db/playground-schema';
 import * as userSchema from '@/db/user-schema';
 import { env } from '@/env';
@@ -22,6 +23,7 @@ export const db = drizzle(conn, {
   schema: {
     ...authSchema,
     ...commonSchema,
+    ...masterSchema,
     ...playgroundSchema,
     ...userSchema,
   },

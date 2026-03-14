@@ -8,24 +8,25 @@
 
 ## Konteks
 
-Schema sudah dipecah ke 4 file di `src/db/`:
+Schema sudah dipecah ke beberapa file di `src/db/`:
 
 | File | Domain | Status |
 |------|--------|--------|
 | `auth-schema.ts` | Better Auth tables (user, session, account, verification) — managed by Better Auth | ✅ Done |
-| `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
+| `common-schema.ts` | Waitlist | ✅ Done |
+| `master-schema.ts` | Master data (hij_*) | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
 | `user-schema.ts` | Private-app user data (`userProfiles` using `text` columns) | ✅ Done |
 
 Config files sudah di-update:
-- `drizzle.config.ts` — schema array (4 files: auth, common, playground, user)
-- `src/lib/db.ts` — spread 4 schema ke satu object
+- `drizzle.config.ts` — schema array
+- `src/lib/db.ts` — spread schema ke satu object
 
 ## Subtasks
 
 ### 2.1 Tambah Tabel `master.sql` ke Drizzle — ✅ Done
 
-Semua 7 tabel sudah ada di `src/db/common-schema.ts` dengan field, tipe data, relations, dan indexes yang match persis dengan `docs/schemas/master.sql`:
+Semua 7 tabel sudah ada di `src/db/master-schema.ts`:
 
 - [x] `hij_letters`
 - [x] `hij_articulation_areas`
@@ -61,9 +62,10 @@ Semua 7 tabel sudah ada di `src/db/common-schema.ts` dengan field, tipe data, re
 
 Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 - [x] `src/db/auth-schema.ts` — auth tables
-- [x] `src/db/common-schema.ts` — master data + waitlist
+- [x] `src/db/common-schema.ts` — waitlist
+- [x] `src/db/master-schema.ts` — master data (hij_*)
 - [x] `src/db/playground-schema.ts` — materialized view
-- [x] `src/db/user-schema.ts` — user profiles (using `text` types for flexibility) ✅ Done
+- [x] `src/db/user-schema.ts` — user profiles (using `text` types for flexibility)
 
 ### 2.4 Finalisasi `rule_category` ENUM
 - [ ] Tentukan list final `rule_category` values
@@ -80,8 +82,9 @@ Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 
 | File | Status | Perubahan |
 |------|--------|-----------|
-| `src/db/common-schema.ts` | ✅ Done | Semua tabel `master.sql` + waitlist |
 | `src/db/auth-schema.ts` | ✅ Done | Auth tables (Better Auth managed) |
+| `src/db/common-schema.ts` | ✅ Done | Waitlist |
+| `src/db/master-schema.ts` | ✅ Done | Master data (hij_*) |
 | `src/db/playground-schema.ts` | ✅ Done | MV playground data |
 | `src/db/user-schema.ts` | ✅ Done | [NEW] User profiles (Task 1.5) |
 | `src/schemas/hijaiyyah.ts` | [ ] | [NEW] Valibot schemas untuk letters, articulations, traits |

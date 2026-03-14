@@ -26,12 +26,13 @@
 | `hij_letter_traits` | Edges | Quiz questions, Reference details |
 | `mv_playground_data` | Single query | Buat MV baru khusus private app jika perlu |
 
-Pendekatan: **Schema dipecah ke 4 file** di `src/db/`:
+Pendekatan: **Schema dipecah ke beberapa file** di `src/db/`:
 
 | File | Domain | Status |
 |---|---|---|
 | `auth-schema.ts` | Better Auth tables — jangan disentuh manual | ✅ Done |
-| `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
+| `common-schema.ts` | Waitlist | ✅ Done |
+| `master-schema.ts` | Master data (hij_*) — shared, public read | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
 | `user-schema.ts` | Private-app user data (`userProfiles`, dst) | ✅ Done |
 
