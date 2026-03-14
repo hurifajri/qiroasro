@@ -71,7 +71,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       )}
 
       {/* Main Content */}
-      <main className="mx-auto w-full min-w-0 max-w-xl px-2 pt-13.5 pb-18.5 sm:p-6">
+      <main className="mx-auto w-full min-w-0 max-w-xl px-2 pt-13.5 pb-18.5 sm:px-6 md:py-6">
         {children}
       </main>
 
