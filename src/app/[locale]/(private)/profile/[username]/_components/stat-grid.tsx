@@ -1,4 +1,4 @@
-import type { Statistic } from '../_schemas/profile';
+import type { Statistic } from '../../../_schemas/user-profile';
 import { StatItem } from './stat-item';
 
 interface StatGridProps {

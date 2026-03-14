@@ -23,7 +23,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
@@ -76,7 +76,7 @@ export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
   const { theme } = useTheme();
   const { isMounted } = useMounted();
   const colorMode = (isMounted ? theme : 'light') as ColorMode;
@@ -329,7 +329,7 @@ export function Playground() {
     [edgeStyle.shape, edgeStyle.isAnimated],
   );
 
-  const isUnsupportedMobileView = isMobile && viewMode !== 'letter';
+  const isUnsupportedMobileView = isMaxMd && viewMode !== 'letter';
 
   return (
     <>

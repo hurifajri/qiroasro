@@ -2,25 +2,10 @@
 
 import { RocketIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
-import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
 import { buttonVariants } from '@/components/ui/button';
 import { useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-
-/**
- * Lazy load WaitlistForm - appears below the fold, not critical for first paint.
- */
-const WaitlistForm = dynamic(
-  () =>
-    import('@/components/common/waitlist-form').then((mod) => mod.WaitlistForm),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-24 w-full animate-pulse rounded-lg bg-muted" />
-    ),
-  },
-);
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -94,11 +79,6 @@ export function Home() {
             {t('development.playground_cta')}
           </m.button>
         </div>
-
-        {/* Waitlist Form */}
-        <m.div variants={itemVariants}>
-          <WaitlistForm source="home_page" />
-        </m.div>
       </div>
     </m.div>
   );

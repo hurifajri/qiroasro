@@ -11,9 +11,10 @@ import { cn } from '@/lib/utils';
 
 interface PublicHeaderProps {
   className?: string;
+  userId?: string;
 }
 
-export function PublicHeader({ className }: PublicHeaderProps) {
+export function PublicHeader({ className, userId }: PublicHeaderProps) {
   const isScrolled = useIsScrolled();
   const { resolvedTheme } = useTheme();
   const { isMounted } = useMounted();
@@ -55,7 +56,7 @@ export function PublicHeader({ className }: PublicHeaderProps) {
         )}
       </Link>
       <div className="flex items-center gap-2">
-        <LocaleSelector />
+        <LocaleSelector userId={userId} />
         <ThemeSelector />
       </div>
     </header>

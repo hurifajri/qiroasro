@@ -7,8 +7,8 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { setRequestLocale } from 'next-intl/server';
 import { auth } from '@/lib/auth';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
 import { Private } from './_components/private';
+import { getUserProfileByUserIdOpt } from './_queries/user-profile';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

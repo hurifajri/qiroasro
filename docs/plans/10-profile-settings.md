@@ -11,7 +11,7 @@
 ## Subtasks
 
 ### 10.1 Profile Page — Real Data
-- [ ] Replace `MOCK_USER_PROFILE` → fetch dari `user_profiles` table
+- [x] Replace `MOCK_USER_PROFILE` → fetch dari `user_profiles` table
 - [ ] Replace `MOCK_STATISTICS` → fetch dari `usr_stats`
 - [ ] Replace `MOCK_FRIEND_SUGGESTIONS` → real suggestions
 - [ ] Tampilkan achievements riil (berdasarkan badges earned)
@@ -35,7 +35,7 @@
 ### 10.4 Settings Page — Real Data
 - [ ] Sound effects on/off → persist ke user preferences
 - [ ] Notification preferences → persist
-- [ ] Language preference → already handled by `next-intl`
+- [x] Language preference → already handled by `next-intl`
 - [ ] Account management (delete account) — *Note: password auth disable (Google OAuth array)*
 - [ ] Privacy settings
 

@@ -24,7 +24,7 @@ export default async function middleware(
   const { pathname } = request.nextUrl;
   const preservedLocale = pathname.match(/^\/([a-z]{2})\//)?.[1];
   const locale = preservedLocale ?? routing.defaultLocale;
-  const isLoginPage = /^\/[a-z]{2}\/login$/.test(pathname);
+  const isLoginPage = /^(?:\/[a-z]{2})?\/login$/.test(pathname);
 
   // Check auth only for private routes to avoid unnecessary session lookups
   if (isPrivateRoute(pathname)) {

@@ -20,7 +20,8 @@ export async function getPlaygroundData(): Promise<PlaygroundData> {
     const playgroundData = transformRemotePlaygroundData(remoteData);
 
     return playgroundData;
-  } catch {
+  } catch (error) {
+    console.error('[getPlaygroundData] Error:', error);
     return {
       letters: [],
       articulationAreas: [],

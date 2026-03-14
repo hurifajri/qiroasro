@@ -1,15 +1,15 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { getUserProfileByUsername } from '@/services/user-profile';
 import { ACHIEVEMENTS } from '../../_lib/achievement';
+import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
 import { Profile } from './_components/profile';
-import {
-  MOCK_FRIEND_SUGGESTIONS,
-  MOCK_STATISTICS,
-  MOCK_USER_PROFILE,
-} from './_lib/mock-data';
-import type { UserProfile as UIUserProfile } from './_schemas/profile';
+import { MOCK_FRIEND_SUGGESTIONS, MOCK_STATISTICS } from './_lib/mock-data';
 
 type GenerateMetadataProps = {
   params: Promise<{ locale: string; username: string }>;
@@ -39,35 +39,30 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   // Enable static rendering
   setRequestLocale(locale);
 
-  const dbUserProfile = await getUserProfileByUsername(username);
-
-  // If user doesn't exist, instantly show 404 page
-  if (!dbUserProfile) {
-    notFound();
-  }
-
   const t = await getTranslations({ locale, namespace: 'profile_page' });
 
-  // Map DB user profile to the UI component's expected format.
-  // We keep some mock fields (counts, joinedDate) for now until they are built in DB.
-  const userProps: UIUserProfile = {
-    ...MOCK_USER_PROFILE,
-    username: dbUserProfile.username,
-    displayName: dbUserProfile.displayName,
-    avatarColorCode:
-      dbUserProfile.avatarColorCode as UIUserProfile['avatarColorCode'],
-    joinedDate: dbUserProfile.createdAt ?? MOCK_USER_PROFILE.joinedDate,
-  };
+  const queryClient = new QueryClient();
+
+  // Check if the profile exists before rendering
+  const userProfile = await queryClient.fetchQuery(
+    getUserProfileByUsernameOpt(username),
+  );
+
+  // If user doesn't exist, instantly show 404 page
+  if (!userProfile) notFound();
+
+  // Prefetch user profile so Profile component gets it instantly via useSuspenseQuery
+  await queryClient.prefetchQuery(getUserProfileByUsernameOpt(username));
 
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <Profile
-        user={userProps}
+        username={username}
         stats={MOCK_STATISTICS}
         friendSuggestions={MOCK_FRIEND_SUGGESTIONS}
         achievements={ACHIEVEMENTS}
       />
-    </>
+    </HydrationBoundary>
   );
 }

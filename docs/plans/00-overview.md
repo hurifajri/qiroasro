@@ -17,23 +17,23 @@
 
 | Tabel `master.sql` | Digunakan di Playground | Akan Digunakan di Private App |
 |---|---|---|
-| `hij_letters` | ✅ Graph nodes | ✅ Learn (lessons), Reference, Practice |
-| `hij_articulation_areas` | ✅ Graph nodes | ✅ Learn (units), Reference |
-| `hij_articulation_points` | ✅ Graph nodes | ✅ Learn (units), Reference |
-| `hij_trait_groups` | ✅ Graph nodes | ✅ Learn (units), Reference |
-| `hij_traits` | ✅ Graph nodes | ✅ Learn (units), Reference, Practice |
-| `hij_letter_articulations` | ✅ Edges | ✅ Quiz questions, Reference details |
-| `hij_letter_traits` | ✅ Edges | ✅ Quiz questions, Reference details |
-| `mv_playground_data` | ✅ Single query | ⬜ Buat MV baru khusus private app jika perlu |
+| `hij_letters` | Graph nodes | Learn (lessons), Reference, Practice |
+| `hij_articulation_areas` | Graph nodes | Learn (units), Reference |
+| `hij_articulation_points` | Graph nodes | Learn (units), Reference |
+| `hij_trait_groups` | Graph nodes | Learn (units), Reference |
+| `hij_traits` | Graph nodes | Learn (units), Reference, Practice |
+| `hij_letter_articulations` | Edges | Quiz questions, Reference details |
+| `hij_letter_traits` | Edges | Quiz questions, Reference details |
+| `mv_playground_data` | Single query | Buat MV baru khusus private app jika perlu |
 
-Pendekatan: **Schema dipecah ke 4 file** di `src/db/`:
+Pendekatan: **Schema dipecah ke beberapa file** di `src/db/`:
 
 | File | Domain | Status |
 |---|---|---|
 | `auth-schema.ts` | Better Auth tables — jangan disentuh manual | ✅ Done |
-| `common-schema.ts` | Master data (hij_*) + waitlist — shared, public read | ✅ Done |
+| `master-schema.ts` | Master data (hij_*) — shared, public read | ✅ Done |
 | `playground-schema.ts` | `mv_playground_data` materialized view | ✅ Done |
-| `user-schema.ts` | Private-app user data (`userProfiles`, dst) | `[ ]` Pending |
+| `user-schema.ts` | Private-app user data (`userProfiles`, dst) | ✅ Done |
 
 ---
 

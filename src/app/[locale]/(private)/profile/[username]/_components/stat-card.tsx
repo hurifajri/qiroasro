@@ -23,7 +23,7 @@ export function StatCard({ label, value, icon }: StatCardProps) {
 
   return (
     <Card>
-      <CardContent className="flex items-center gap-4">
+      <CardContent className="flex items-center gap-3">
         <Icon
           className={cn(
             'size-8',
@@ -31,14 +31,14 @@ export function StatCard({ label, value, icon }: StatCardProps) {
           )}
         />
         <div className="flex flex-col">
-          <span
+          <p
             className={cn(
               'font-bold text-lg',
               isActive ? 'text-primary' : 'text-muted-foreground',
             )}
           >
             {value === '' ? '-' : value}
-          </span>
+          </p>
           <p className="text-muted-foreground text-sm">{label}</p>
         </div>
       </CardContent>

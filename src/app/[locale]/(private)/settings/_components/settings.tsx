@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { useRouter } from '@/i18n/navigation';
 import { LogoutButton } from '../../_components/logout-button';
@@ -15,18 +15,18 @@ import {
 export function Settings() {
   const router = useRouter();
   const { isMounted } = useMounted();
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
 
   // Redirect only after mounted and confirmed not mobile
   // biome-ignore lint/correctness/useExhaustiveDependencies: <router won't be changed>
   useEffect(() => {
-    if (isMounted && !isMobile) {
+    if (isMounted && !isMaxMd) {
       router.replace('/settings/preferences');
     }
-  }, [isMounted, isMobile]);
+  }, [isMounted, isMaxMd]);
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <SettingsNavCard titleKey="account.title" links={MOCK_ACCOUNT_LINKS} />
       <SettingsNavCard
         titleKey="subscription.title"

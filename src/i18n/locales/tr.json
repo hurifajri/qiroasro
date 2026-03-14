@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "E-posta",
       "reminder_title": "Uygulama hazır olduğunda haber ver",
-      "reminder_cta": "Listeye Katıl",
       "reminder_playground_cta": "Playground'a Git",
       "reminder_success": "Doğrulama e-postası gönderildi! Lütfen gelen kutunuzu kontrol edin.",
       "reminder_verified": "E-posta başarıyla doğrulandı",
@@ -602,7 +601,6 @@
       "description": "Etkileşimli dersler ve ünitelerle Tecvid'de ustalaşmak için yolculuğunuza başlayın."
     },
     "title": "Öğren - Tecvid Yolculuğu",
-    "section_unit_title": "Bölüm ve Ünite",
     "start": "Başla",
     "guidebook": "Rehber Kitap",
     "sections": {
@@ -665,7 +663,6 @@
       "description": "Tüm müfredat bölümlerini görüntüleyin ve ilerlemenizi takip edin."
     },
     "title": "Bölümler - Müfredat",
-    "section_list_title": "Bölüm Listesi",
     "section_title": "Bölüm {number}",
     "back": "Geri",
     "completed": "Tamamlandı!",
@@ -925,9 +922,21 @@
     },
     "profile": {
       "title": "Profil",
+      "validation": {
+        "username_min_length": "Kullanıcı adı en az 3 karakter olmalıdır",
+        "username_max_length": "Kullanıcı adı en fazla 30 karakter olmalıdır",
+        "username_pattern": "Kullanıcı adı yalnızca küçük harf, rakam ve alt çizgi içerebilir",
+        "display_name_required": "Görünen ad zorunludur",
+        "display_name_max_length": "Görünen ad en fazla 80 karakter olmalıdır",
+        "username_checking": "Kullanılabilirlik kontrol ediliyor...",
+        "username_available": "✓ Kullanıcı adı kullanılabilir",
+        "username_taken": "Kullanıcı adı zaten alınmış",
+        "check_failed": "Kullanılabilirlik kontrol edilemedi. Lütfen tekrar deneyin.",
+        "save_failed": "Değişiklikler kaydedilemedi. Lütfen tekrar deneyin.",
+        "save_success": "✓ Değişiklikler başarıyla kaydedildi"
+      },
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Renk Seç",
         "solid_colors": "Düz Renk",
         "gradient_colors": "Gradyan"
       },

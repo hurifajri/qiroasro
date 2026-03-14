@@ -3,12 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  Field,
-  FieldContent,
-  FieldGroup,
-  FieldLabel,
-} from '@/components/ui/field';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -17,12 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
 import type {
   DailyReminder,
   NotificationCheckbox,
 } from '../../_schemas/settings';
-import { NotificationCheckboxRow } from './notification-checkbox-row';
 
 interface NotificationsProps {
   generalNotifications: NotificationCheckbox[];
@@ -72,33 +65,38 @@ export function Notifications({
   };
 
   return (
-    <div className="flex flex-col gap-12">
-      {/* General notifications section */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('general.title')}</h2>
-          <span className="text-muted-foreground text-sm">{t('email')}</span>
+    <div className="flex flex-col gap-6">
+      {/* General notifications */}
+      <div className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('general.title')}</h2>
+          <p className="text-muted-foreground">{t('email')}</p>
         </div>
-        <Separator />
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-3">
           {notifications.map((notification) => (
-            <NotificationCheckboxRow
-              key={notification.id}
-              notification={notification}
-              onCheckedChange={handleNotificationChange}
-            />
+            <Field key={notification.id} orientation="horizontal">
+              <FieldLabel htmlFor={notification.id}>
+                {t(notification.labelKey)}
+              </FieldLabel>
+              <Checkbox
+                id={notification.id}
+                checked={notification.checked}
+                onCheckedChange={(checked) =>
+                  handleNotificationChange(notification.id, checked as boolean)
+                }
+              />
+            </Field>
           ))}
         </FieldGroup>
-      </section>
+      </div>
 
-      {/* Daily reminders section */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('daily_reminders.title')}</h2>
-          <span className="text-muted-foreground text-sm">{t('email')}</span>
+      {/* Daily reminders */}
+      <div className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('daily_reminders.title')}</h2>
+          <span className="text-muted-foreground">{t('email')}</span>
         </div>
-        <Separator />
-        <FieldGroup className="gap-4">
+        <FieldGroup className="gap-3">
           <Field orientation="horizontal">
             <FieldLabel htmlFor={reminder.id}>
               {t(reminder.labelKey)}
@@ -113,11 +111,9 @@ export function Notifications({
           </Field>
           {reminder.checked && (
             <Field>
-              <FieldContent>
-                <FieldLabel htmlFor="reminder_time" className="sr-only">
-                  {t('daily_reminders.reminder_time')}
-                </FieldLabel>
-              </FieldContent>
+              <FieldLabel htmlFor="reminder_time" className="sr-only">
+                {t('daily_reminders.reminder_time')}
+              </FieldLabel>
               <Select value={reminder.time} onValueChange={handleTimeChange}>
                 <SelectTrigger id="reminder_time" className="w-full">
                   <SelectValue />
@@ -135,7 +131,7 @@ export function Notifications({
             </Field>
           )}
         </FieldGroup>
-      </section>
+      </div>
     </div>
   );
 }

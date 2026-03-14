@@ -50,7 +50,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
         <CardTitle className="font-bold text-2xl text-white">
           {t(quest.titleKey)}
         </CardTitle>
-        <CardDescription className="flex items-center gap-1 font-semibold text-sm text-white">
+        <CardDescription className="flex items-center gap-1 font-semibold text-white">
           <Clock className="size-4" />
           {timeLabel}
         </CardDescription>

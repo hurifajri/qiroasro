@@ -2,7 +2,6 @@
 
 import { Clock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Separator } from '@/components/ui/separator';
 import type { Quest } from '../../_schemas/private';
 import type { MonthlyQuest } from '../_schemas/quests';
 import { DailyQuestList } from './daily-quest-list';
@@ -19,25 +18,21 @@ export function Quests({ monthlyQuest, dailyQuests }: QuestsProps) {
   return (
     <div className="flex flex-col gap-6">
       {/* Monthly Quest Hero */}
-      <section>
-        <MonthlyQuestCard quest={monthlyQuest} />
-      </section>
-
-      <Separator />
+      <MonthlyQuestCard quest={monthlyQuest} />
 
       {/* Daily Quests */}
-      <section className="flex flex-col gap-4">
-        <div className="flex w-full items-center justify-between gap-2">
-          <h2 className="font-bold text-xl">{t('daily_quests.title')}</h2>
-          <div className="flex items-center gap-1 text-amber-600 text-sm dark:text-amber-500">
+      <div className="flex flex-col gap-3">
+        <div className="flex w-full items-center justify-between">
+          <h2 className="font-bold text-lg">{t('daily_quests.title')}</h2>
+          <div className="flex items-center gap-1 text-amber-600 dark:text-amber-500">
             <Clock className="size-4" />
-            <span className="font-semibold uppercase">
+            <p className="font-semibold text-sm uppercase">
               {t('daily_quests.hours_remaining', { count: 7 })}
-            </span>
+            </p>
           </div>
         </div>
         <DailyQuestList quests={dailyQuests} />
-      </section>
+      </div>
     </div>
   );
 }

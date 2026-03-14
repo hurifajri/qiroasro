@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
 import { UserAvatar } from '../../../_components/user-avatar';
-import type { UserProfile } from '../_schemas/profile';
+import type { UserProfile } from '../../../_schemas/user-profile';
 
 interface UserInfoProps {
   user: UserProfile;
@@ -15,12 +15,12 @@ export function UserInfo({ user }: UserInfoProps) {
   const locale = useLocale() as Locale;
 
   // Format joined date
-  const joinedDateFormatted = format(new Date(user.joinedDate), 'MMMM yyyy', {
+  const joinedDateFormatted = format(user.createdAt, 'MMMM yyyy', {
     locale: getDateLocale(locale),
   });
 
   return (
-    <section className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       {/* Avatar & Name */}
       <div className="flex items-start gap-4">
         <UserAvatar
@@ -31,7 +31,7 @@ export function UserInfo({ user }: UserInfoProps) {
         />
 
         <div className="flex flex-col gap-1">
-          <h2 className="font-bold text-xl">{user.displayName}</h2>
+          <h2 className="font-bold text-lg">{user.displayName}</h2>
           <p className="text-muted-foreground">{user.username}</p>
           <div className="flex items-center gap-1 text-muted-foreground text-sm">
             <Calendar className="size-4" />
@@ -51,6 +51,6 @@ export function UserInfo({ user }: UserInfoProps) {
           <span className="text-muted-foreground">{t('followers')}</span>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

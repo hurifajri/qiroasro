@@ -15,7 +15,7 @@ export function SettingsContentHeader() {
   const slug = pathname.split('/').pop() || 'preferences';
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className="relative flex items-center justify-center rounded-xl border bg-background/10 p-2 backdrop-blur-sm">
       {!isMobileSettings && (
         <Link
           href="/settings"
@@ -27,7 +27,7 @@ export function SettingsContentHeader() {
           <ChevronLeftIcon />
         </Link>
       )}
-      <h1 className="font-bold text-xl">
+      <h1 className="font-bold text-xl leading-none">
         {isMobileSettings ? t('nav.settings') : t(`account.${slug}`)}
       </h1>
     </div>

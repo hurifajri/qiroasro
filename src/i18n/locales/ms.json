@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "E-mel",
       "reminder_title": "Beritahu apabila aplikasi tersedia",
-      "reminder_cta": "Sertai Senarai",
       "reminder_playground_cta": "Ke Playground",
       "reminder_success": "E-mel pengesahan telah dihantar! Sila semak peti masuk anda.",
       "reminder_verified": "E-mel berjaya disahkan",
@@ -602,7 +601,6 @@
       "description": "Mulakan perjalanan anda untuk menguasai Tajwid melalui pelajaran dan unit interaktif."
     },
     "title": "Belajar - Perjalanan Tajwid",
-    "section_unit_title": "Bahagian dan Unit",
     "start": "Mula",
     "guidebook": "Buku Panduan",
     "sections": {
@@ -665,7 +663,6 @@
       "description": "Lihat semua bahagian kurikulum dan pantau kemajuan anda."
     },
     "title": "Topik - Kurikulum",
-    "section_list_title": "Senarai Bahagian",
     "section_title": "Bahagian {number}",
     "back": "Kembali",
     "completed": "Selesai!",
@@ -925,9 +922,21 @@
     },
     "profile": {
       "title": "Profil",
+      "validation": {
+        "username_min_length": "Nama pengguna mestilah sekurang-kurangnya 3 aksara",
+        "username_max_length": "Nama pengguna tidak boleh melebihi 30 aksara",
+        "username_pattern": "Nama pengguna hanya boleh mengandungi huruf kecil, nombor, dan garis bawah",
+        "display_name_required": "Nama paparan diperlukan",
+        "display_name_max_length": "Nama paparan tidak boleh melebihi 80 aksara",
+        "username_checking": "Menyemak ketersediaan...",
+        "username_available": "✓ Nama pengguna tersedia",
+        "username_taken": "Nama pengguna telah digunakan",
+        "check_failed": "Gagal menyemak ketersediaan. Sila cuba lagi.",
+        "save_failed": "Gagal menyimpan perubahan. Sila cuba lagi.",
+        "save_success": "✓ Perubahan berjaya disimpan"
+      },
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Pilih Warna",
         "solid_colors": "Solid",
         "gradient_colors": "Gradien"
       },

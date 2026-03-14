@@ -7,7 +7,7 @@ interface LeftSidebarProps {
 
 export function LeftSidebar({ navItems }: LeftSidebarProps) {
   return (
-    <aside className="hidden w-18.25 shrink-0 border-r bg-card p-3 sm:block lg:w-56">
+    <aside className="hidden shrink-0 border-r bg-card p-3 sm:block sm:w-18.25 lg:w-52">
       <div className="sticky top-4">
         <SidebarNav items={navItems} />
       </div>
@@ -17,7 +17,7 @@ export function LeftSidebar({ navItems }: LeftSidebarProps) {
 
 export function RightSidebar({ children }: React.PropsWithChildren) {
   return (
-    <aside className="hidden w-96 shrink-0 border-l bg-card p-4 md:block">
+    <aside className="hidden shrink-0 border-l bg-card p-4 md:block md:w-72 lg:w-96">
       <div className="sticky top-4 flex flex-col gap-4">{children}</div>
     </aside>
   );

@@ -25,11 +25,14 @@ export function getAlternateOgLocale(locale: Locale): string {
 }
 
 /**
- * Get path with locale prefix (respects localePrefix: 'always')
+ * Get path with locale prefix (respects localePrefix: 'as-needed')
  */
 export function getLocalePath(pathname: string, locale: Locale): string {
-  // Always attach the locale prefix since we use localePrefix: 'always'
   const cleanPathname = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  // Default locale uses no prefix (as-needed strategy)
+  if (locale === routing.defaultLocale) {
+    return cleanPathname === '/' ? '/' : cleanPathname;
+  }
   const suffix = cleanPathname === '/' ? '' : cleanPathname;
   return `/${locale}${suffix}`;
 }

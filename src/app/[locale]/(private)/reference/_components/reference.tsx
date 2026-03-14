@@ -14,10 +14,9 @@ export function Reference({ categories }: ReferenceProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Header */}
       <div className="flex items-center gap-2">
         <BookOpenIcon className="size-6 text-primary" />
-        <h2 className="font-bold text-xl">{t('title')}</h2>
+        <h2 className="font-bold text-lg">{t('title')}</h2>
       </div>
 
       {/* Categories Grid */}

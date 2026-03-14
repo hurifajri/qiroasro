@@ -1,10 +1,10 @@
 'use client';
 
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { useMobile } from '@/hooks/use-mobile';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import { usePathname } from '@/i18n/navigation';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
+import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
 
@@ -20,7 +20,7 @@ type PrivateProps = React.PropsWithChildren & {
  */
 export function Private({ children, userId, header, sidebar }: PrivateProps) {
   const pathname = usePathname();
-  const { isMobile } = useMobile();
+  const isMaxMd = useMediaQuery('(width < 48rem)');
 
   // Fetch real user profile — data is already prefetched in layout.tsx (no waterfall)
   const { data: userProfile } = useSuspenseQuery(
@@ -28,12 +28,11 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
   );
 
   // Use real username for profile link
-  const profileUsername = userProfile?.username ?? userId;
+  const username = userProfile?.username ?? userId;
 
   // Update nav items based on current path, inject real profile link
   const leftNavItems = MOCK_NAV_ITEMS.map((item) => {
-    const href =
-      item.id === 'profile' ? `/profile/${profileUsername}` : item.href;
+    const href = item.id === 'profile' ? `/profile/${username}` : item.href;
 
     return {
       ...item,
@@ -42,7 +41,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
         pathname.endsWith(href) ||
         pathname.includes(href) ||
         (pathname === '/sections' && item.href === '/learn') ||
-        (isMobile &&
+        (isMaxMd &&
           pathname.startsWith('/settings') &&
           item.href.startsWith('/profile')),
     };
@@ -62,30 +61,29 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
   const hasMobileHeader = !['/leaderboard', '/quests'].includes(pathname);
 
   return (
-    <div className="flex min-h-dvh bg-background">
+    <div className="flex min-h-dvh justify-center bg-background">
       {/* Left Sidebar - Desktop only */}
-      {!isMobile && <LeftSidebar navItems={leftNavItems} />}
+      {!isMaxMd && <LeftSidebar navItems={leftNavItems} />}
+
+      {/* Top Stats Bar */}
+      {isMaxMd && hasMobileHeader && (
+        <header className="fixed inset-x-0 top-0 z-50 p-2">{header}</header>
+      )}
 
       {/* Main Content */}
-      <main className="flex-1 overflow-x-hidden">
-        {/* Top Stats Bar */}
-        {isMobile && hasMobileHeader && (
-          <header className="sticky top-0 z-20 border-b bg-background px-4 py-2 md:hidden">
-            {header}
-          </header>
-        )}
-
-        {/* Page Content */}
-        <div className="mx-auto max-w-xl px-4 py-6 pb-24.25 sm:px-6 sm:pb-6">
-          {children}
-        </div>
+      <main className="mx-auto w-full min-w-0 max-w-xl px-2 pt-13.5 pb-18.5 sm:px-6 md:py-6">
+        {children}
       </main>
 
       {/* Right Sidebar - Desktop only */}
-      {!isMobile && <RightSidebar>{sidebar}</RightSidebar>}
+      {!isMaxMd && <RightSidebar>{sidebar}</RightSidebar>}
 
       {/* Bottom Navigation - Mobile only */}
-      <BottomNav items={bottomNavItems} />
+      {isMaxMd && (
+        <footer className="fixed inset-x-0 bottom-0 z-50 p-2">
+          <BottomNav items={bottomNavItems} />
+        </footer>
+      )}
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function SocialAccounts({ accounts }: SocialAccountsProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      <section className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <FieldGroup className="gap-4">
           {socialAccounts.map((account) => (
             <Field key={account.id} orientation="horizontal">
@@ -46,7 +46,7 @@ export function SocialAccounts({ accounts }: SocialAccountsProps) {
             </Field>
           ))}
         </FieldGroup>
-      </section>
+      </div>
     </div>
   );
 }

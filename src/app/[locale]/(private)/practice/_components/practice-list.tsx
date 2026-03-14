@@ -12,7 +12,7 @@ export function PracticeList({ section }: PracticeListProps) {
 
   return (
     <li className="flex flex-col gap-3">
-      <h2 className="font-bold text-xl">{t(section.titleKey)}</h2>
+      <h3 className="font-bold">{t(section.titleKey)}</h3>
       <ItemGroup>
         {section.modes.map((mode) => (
           <PracticeItem key={mode.id} mode={mode} />

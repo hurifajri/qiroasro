@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "البريد الإلكتروني",
       "reminder_title": "أخبرني عندما يكون التطبيق متاحاً",
-      "reminder_cta": "انضم للقائمة",
       "reminder_playground_cta": "اذهب إلى ساحة التجربة",
       "reminder_success": "تم إرسال بريد التحقق! يرجى التحقق من صندوق الوارد.",
       "reminder_verified": "تم التحقق من البريد الإلكتروني بنجاح",
@@ -602,7 +601,6 @@
       "description": "ابدأ رحلتك لإتقان التجويد من خلال دروس ووحدات تفاعلية."
     },
     "title": "تعلم - رحلة التجويد",
-    "section_unit_title": "القسم والوحدة",
     "start": "ابدأ",
     "guidebook": "الدليل",
     "sections": {
@@ -665,7 +663,6 @@
       "description": "عرض جميع أقسام المنهج ومتابعة تقدمك."
     },
     "title": "الأقسام - المنهج الدراسي",
-    "section_list_title": "قائمة الأقسام",
     "section_title": "القسم {number}",
     "back": "رجوع",
     "completed": "مكتمل!",
@@ -925,9 +922,21 @@
     },
     "profile": {
       "title": "الملف الشخصي",
+      "validation": {
+        "username_min_length": "يجب أن يتكون اسم المستخدم من 3 أحرف على الأقل",
+        "username_max_length": "يجب ألا يزيد اسم المستخدم عن 30 حرفاً",
+        "username_pattern": "يمكن أن يحتوي اسم المستخدم على أحرف صغيرة وأرقام وشرطات سفلية فقط",
+        "display_name_required": "اسم العرض مطلوب",
+        "display_name_max_length": "يجب ألا يزيد اسم العرض عن 80 حرفاً",
+        "username_checking": "جارٍ التحقق من التوفر...",
+        "username_available": "✓ اسم المستخدم متاح",
+        "username_taken": "اسم المستخدم مستخدم بالفعل",
+        "check_failed": "فشل التحقق من التوفر. يرجى المحاولة مرة أخرى.",
+        "save_failed": "فشل حفظ التغييرات. يرجى المحاولة مرة أخرى.",
+        "save_success": "✓ تم حفظ التغييرات بنجاح"
+      },
       "avatar": {
         "title": "الصورة الرمزية",
-        "choose_color": "اختر لوناً",
         "solid_colors": "لون سادة",
         "gradient_colors": "تدرج لوني"
       },

@@ -12,7 +12,6 @@ trigger: always_on
 | Hooks | `use-*.ts` | `use-quiz-timer.ts` |
 | Utilities | `kebab-case.ts` | `graph-helpers.ts` |
 | Types/Schemas | `kebab-case.ts` | `quiz.ts` |
-| Constants | `kebab-case.ts` | `constants.ts` |
 
 ### Code Elements
 

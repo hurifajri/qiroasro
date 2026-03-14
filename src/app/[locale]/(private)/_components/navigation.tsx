@@ -13,21 +13,43 @@ import {
   TrophyIcon,
   UserIcon,
 } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+
+const DropdownMenu = dynamic(
+  () => import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenu),
+  { ssr: false },
+);
+const DropdownMenuContent = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuContent),
+  { ssr: false },
+);
+const DropdownMenuItem = dynamic(
+  () => import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuItem),
+  { ssr: false },
+);
+const DropdownMenuSeparator = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then(
+      (m) => m.DropdownMenuSeparator,
+    ),
+  { ssr: false },
+);
+const DropdownMenuTrigger = dynamic(
+  () =>
+    import('@/components/ui/dropdown-menu').then((m) => m.DropdownMenuTrigger),
+  { ssr: false },
+);
+
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { Link, usePathname } from '@/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/i18n/navigation';
+import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 import type { NavItem } from '../_schemas/private';
 
@@ -53,8 +75,20 @@ function MoreMenu() {
   const t = useTranslations('global.private_layout.nav');
   const isLg = useMediaQuery('(width >= 64rem)');
   const pathname = usePathname();
+  const router = useRouter();
   const isActive =
     pathname.endsWith('/settings') || pathname.includes('/settings');
+
+  async function handleLogout() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push('/');
+          router.refresh();
+        },
+      },
+    });
+  }
 
   return (
     <DropdownMenu>
@@ -97,7 +131,10 @@ function MoreMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex items-center gap-2">
+        <DropdownMenuItem
+          className="flex items-center gap-2"
+          onClick={handleLogout}
+        >
           <LogOutIcon className="size-4" />
           {t('logout')}
         </DropdownMenuItem>
@@ -164,7 +201,7 @@ export function BottomNav({ items }: BottomNavProps) {
   const t = useTranslations('global.private_layout');
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 flex items-center justify-around border-t bg-background/95 px-2 py-2 backdrop-blur-sm sm:hidden">
+    <nav className="flex items-center justify-around rounded-xl border bg-background/10 p-2 backdrop-blur-sm">
       {items.map((item) => {
         const Icon = iconMap[item.iconName];
 

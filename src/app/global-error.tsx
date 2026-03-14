@@ -1,7 +1,7 @@
 'use client';
 
 import NextError from 'next/error';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 
 // type GlobalErrorProps = Readonly<{

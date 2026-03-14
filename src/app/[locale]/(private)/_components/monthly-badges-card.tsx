@@ -27,10 +27,7 @@ export function MonthlyBadgesCard({ badges }: MonthlyBadgesCardProps) {
         <CardAction>
           <Link
             href="/friend-updates"
-            className={cn(
-              buttonVariants({ variant: 'link' }),
-              'px-0 uppercase',
-            )}
+            className={cn(buttonVariants({ variant: 'link' }), 'px-0')}
           >
             {t('monthly_badges.view_all')}
           </Link>

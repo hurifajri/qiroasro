@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type React from 'react';
 import { PublicHeader } from '@/components/common/public-header';
 import { env } from '@/env';
 import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
+import { auth } from '@/lib/auth';
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
 const APP_URL = env.NEXT_PUBLIC_APP_URL;
@@ -37,9 +39,12 @@ export default async function PublicLayout({
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
+  const session = await auth.api.getSession({ headers: await headers() });
+  const userId = session?.user?.id;
+
   return (
     <>
-      <PublicHeader />
+      <PublicHeader userId={userId} />
       <main>{children}</main>
       <script
         type="application/ld+json"

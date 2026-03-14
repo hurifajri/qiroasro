@@ -6,8 +6,10 @@ trigger: always_on
 
 ### SEO Requirements
 
+> **Note**: SEO metadata generation (`generateMetadata`) is primarily required for **public pages** (pages that do not require login). For private/authenticated routes, metadata can be simpler as they are not indexed by search engines.
+
 ```typescript
-// Every page.tsx must have generateMetadata
+// Every public page.tsx must have generateMetadata
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('page.metadata');
   const locale = await getLocale();

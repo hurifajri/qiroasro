@@ -1,29 +1,35 @@
 'use client';
 
+import { useForm } from '@tanstack/react-form';
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
-import { CheckIcon, Loader2Icon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useCallback, useRef, useState, useTransition } from 'react';
-import { safeParse } from 'valibot';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { FieldGroup } from '@/components/ui/field';
-import { Separator } from '@/components/ui/separator';
-import { authClient } from '@/lib/auth-client';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { useMediaQuery } from '@/hooks/use-media-query';
 import {
   AVATAR_COLORS,
   AVATAR_GRADIENT_CODES,
   AVATAR_SOLID_CODES,
-  type AvatarColorCode,
+  DEFAULT_AVATAR_COLOR_CODE,
 } from '@/lib/avatar';
+import { translateErrors } from '@/lib/form';
 import { cn } from '@/lib/utils';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
-import { UpdateUserProfileSchema } from '@/schemas/user-profile';
+import { UserAvatar } from '../../../_components/user-avatar';
+import { getUserProfileByUserIdOpt } from '../../../_queries/user-profile';
+import { UpdateUserProfileSchema } from '../../../_schemas/user-profile';
 import {
   checkUsernameAvailability,
   updateUserProfile,
-} from '@/services/user-profile';
-import { UserAvatar } from '../../../_components/user-avatar';
-import { ProfileFieldRow } from './profile-field-row';
+} from '../../../_services/user-profile';
 
 interface ProfileProps {
   userId: string;
@@ -31,256 +37,263 @@ interface ProfileProps {
 
 type SaveStatus =
   | { type: 'idle' }
-  | { type: 'saving' }
-  | { type: 'success' }
-  | { type: 'error'; message: string };
+  | { type: 'error' | 'success'; messageKey: string };
 
 export function Profile({ userId }: ProfileProps) {
   const t = useTranslations('settings_page.profile');
+  const isMaxMd = useMediaQuery('(width < 48rem)');
   const queryClient = useQueryClient();
 
-  // Fetch real user profile from cache (prefetched in page.tsx)
   const { data: userProfile } = useSuspenseQuery(
     getUserProfileByUserIdOpt(userId),
   );
-  const { data: session } = authClient.useSession();
-  const userEmail = session?.user?.email ?? '';
-
-  // Local form state — seeded from real profile data
-  const [displayName, setDisplayName] = useState(
-    userProfile?.displayName ?? '',
-  );
-  const [username, setUsername] = useState(userProfile?.username ?? '');
-  const [avatarColorCode, setAvatarColorCode] = useState<AvatarColorCode>(
-    (userProfile?.avatarColorCode ?? '') as AvatarColorCode,
-  );
-
-  // Username availability state
-  const [usernameStatus, setUsernameStatus] = useState<
-    'idle' | 'checking' | 'available' | 'taken' | 'invalid'
-  >('idle');
-  const usernameDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
 
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ type: 'idle' });
-  const [isPending, startTransition] = useTransition();
 
-  const handleUsernameChange = useCallback(
-    (value: string) => {
-      setUsername(value);
-
-      // Reset status immediately
-      setUsernameStatus('idle');
-
-      // Debounce availability check
-      if (usernameDebounceRef.current) {
-        clearTimeout(usernameDebounceRef.current);
-      }
-
-      // Skip check if same as current username
-      if (value === userProfile?.username) {
-        return;
-      }
-
-      if (!value) return;
-
-      usernameDebounceRef.current = setTimeout(async () => {
-        setUsernameStatus('checking');
-        try {
-          const result = await checkUsernameAvailability(value, userId);
-          setUsernameStatus(result.available ? 'available' : result.reason);
-        } catch {
-          setUsernameStatus('invalid');
-        }
-      }, 500);
+  const form = useForm({
+    defaultValues: {
+      avatarColorCode:
+        userProfile?.avatarColorCode ?? DEFAULT_AVATAR_COLOR_CODE,
+      displayName: userProfile?.displayName ?? '',
+      username: userProfile?.username ?? '',
     },
-    [userId, userProfile?.username],
-  );
+    validators: {
+      onSubmit: UpdateUserProfileSchema,
+    },
+    onSubmit: async ({ value }) => {
+      setSaveStatus({ type: 'idle' });
 
-  const handleSaveChanges = useCallback(() => {
-    startTransition(async () => {
-      setSaveStatus({ type: 'saving' });
+      const result = await updateUserProfile(userId, value);
 
-      // Validate before sending
-      const validation = safeParse(UpdateUserProfileSchema, {
-        displayName,
-        avatarColorCode: avatarColorCode || undefined,
-        username: username !== userProfile?.username ? username : undefined,
-      });
+      if (result.success) {
+        await queryClient.invalidateQueries(getUserProfileByUserIdOpt(userId));
 
-      if (!validation.success) {
-        setSaveStatus({
-          type: 'error',
-          message: validation.issues[0]?.message ?? 'Invalid input',
-        });
-        return;
+        setSaveStatus({ type: 'success', messageKey: 'save_success' });
+        setTimeout(() => setSaveStatus({ type: 'idle' }), 3000);
+      } else {
+        setSaveStatus({ type: 'error', messageKey: 'save_failed' });
       }
-
-      const result = await updateUserProfile(userId, validation.output);
-
-      if (!result.success) {
-        const msg =
-          result.error === 'username_taken'
-            ? 'Username is already taken'
-            : 'Failed to save changes. Please try again.';
-        setSaveStatus({ type: 'error', message: msg });
-        return;
-      }
-
-      // Invalidate cache so profile link + profile page reflect new data
-      await queryClient.invalidateQueries(getUserProfileByUserIdOpt(userId));
-
-      setSaveStatus({ type: 'success' });
-
-      // Auto-clear success message after 3 seconds
-      setTimeout(() => setSaveStatus({ type: 'idle' }), 3000);
-    });
-  }, [
-    userId,
-    displayName,
-    username,
-    avatarColorCode,
-    userProfile?.username,
-    queryClient,
-  ]);
+    },
+  });
 
   return (
-    <div className="flex flex-col gap-12">
-      {/* Avatar section */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('avatar.title')}</h2>
-        <UserAvatar
-          name={displayName}
-          colorCode={avatarColorCode}
-          className="size-20"
-          textClassName="font-bold text-3xl"
-        />
+    <form
+      id="profile-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="flex flex-col gap-6"
+    >
+      {/* Avatar */}
+      <div className="flex flex-col gap-3">
+        <h2 className="font-bold text-lg">{t('avatar.title')}</h2>
 
-        {/* Color picker */}
-        <div className="flex flex-col gap-3">
-          <p className="text-muted-foreground text-sm">
-            {t('avatar.choose_color')}
-          </p>
+        <form.Field name="avatarColorCode">
+          {(field) => {
+            return (
+              <>
+                <form.Subscribe selector={(state) => state.values.displayName}>
+                  {(displayName) => (
+                    <UserAvatar
+                      name={displayName}
+                      colorCode={field.state.value}
+                      className="size-20"
+                      textClassName="font-bold text-3xl"
+                    />
+                  )}
+                </form.Subscribe>
 
-          {/* Solid colors */}
-          <div className="flex flex-col gap-2">
-            <p className="font-medium text-sm">{t('avatar.solid_colors')}</p>
-            <div className="flex flex-wrap gap-2">
-              {AVATAR_SOLID_CODES.map((colorCode) => (
-                <Button
-                  size="icon-lg"
-                  key={colorCode}
-                  onClick={() => setAvatarColorCode(colorCode)}
-                  className={cn(
-                    'relative rounded-full transition-transform hover:scale-110',
-                    AVATAR_COLORS[colorCode],
-                  )}
-                >
-                  {avatarColorCode === colorCode && (
-                    <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+                {/* Solid colors */}
+                <div className="flex flex-col gap-2">
+                  <p className="font-medium text-sm">
+                    {t('avatar.solid_colors')}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {AVATAR_SOLID_CODES.map((colorCode) => (
+                      <Button
+                        size="icon-lg"
+                        key={colorCode}
+                        onClick={() => field.handleChange(colorCode)}
+                        className={cn(
+                          'relative rounded-full transition-transform hover:scale-110',
+                          AVATAR_COLORS[colorCode],
+                        )}
+                      >
+                        {field.state.value === colorCode && (
+                          <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
+                        )}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Gradient colors */}
-          <div className="flex flex-col gap-2">
-            <p className="font-medium text-sm">{t('avatar.gradient_colors')}</p>
-            <div className="flex flex-wrap gap-2">
-              {AVATAR_GRADIENT_CODES.map((colorCode) => (
-                <Button
-                  size="icon-lg"
-                  key={colorCode}
-                  onClick={() => setAvatarColorCode(colorCode)}
-                  className={cn(
-                    'relative rounded-full transition-transform hover:scale-110',
-                    AVATAR_COLORS[colorCode],
-                  )}
-                >
-                  {avatarColorCode === colorCode && (
-                    <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+                {/* Gradient colors */}
+                <div className="flex flex-col gap-2">
+                  <p className="font-medium text-sm">
+                    {t('avatar.gradient_colors')}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {AVATAR_GRADIENT_CODES.map((colorCode) => (
+                      <Button
+                        size="icon-lg"
+                        key={colorCode}
+                        onClick={() => field.handleChange(colorCode)}
+                        className={cn(
+                          'relative rounded-full transition-transform hover:scale-110',
+                          AVATAR_COLORS[colorCode],
+                        )}
+                      >
+                        {field.state.value === colorCode && (
+                          <CheckIcon className="absolute inset-0 m-auto size-5 text-white" />
+                        )}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </>
+            );
+          }}
+        </form.Field>
+      </div>
 
-      {/* Personal info section */}
-      <section className="flex flex-col gap-4">
-        <h2 className="font-bold text-xl">{t('personal_info.title')}</h2>
-        <Separator />
-        <FieldGroup className="gap-4">
-          <ProfileFieldRow
-            id="name"
-            labelKey="name"
-            value={displayName}
-            onChange={setDisplayName}
-          />
-          <ProfileFieldRow
-            id="username"
-            labelKey="username"
-            value={username}
-            onChange={handleUsernameChange}
-            hint={
-              usernameStatus === 'checking'
-                ? 'Checking availability…'
-                : usernameStatus === 'available'
-                  ? '✓ Username is available'
-                  : usernameStatus === 'taken'
-                    ? 'Username is already taken'
-                    : usernameStatus === 'invalid'
-                      ? 'Invalid username format'
-                      : undefined
-            }
-            hintVariant={
-              usernameStatus === 'available'
-                ? 'success'
-                : usernameStatus === 'taken' || usernameStatus === 'invalid'
-                  ? 'error'
-                  : 'default'
-            }
-          />
-          <ProfileFieldRow
-            id="email"
-            labelKey="email"
-            type="email"
-            value={userEmail}
-            disabled
-          />
+      {/* Personal info */}
+      <div className="flex flex-col gap-3">
+        <h2 className="font-bold text-lg">{t('personal_info.title')}</h2>
+
+        <FieldGroup className="gap-3">
+          {/* Display name */}
+          <form.Field name="displayName">
+            {(field) => {
+              const { meta } = field.state;
+              const { isTouched, isValid, errors } = meta;
+              const isInvalid = isTouched && !isValid;
+
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    {t('personal_info.name')}
+                  </FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && (
+                    <FieldError
+                      errors={translateErrors(errors, (key) =>
+                        t(`validation.${key}`),
+                      )}
+                    />
+                  )}
+                </Field>
+              );
+            }}
+          </form.Field>
+
+          {/* Username */}
+          <form.Field
+            name="username"
+            validators={{
+              onChange: UpdateUserProfileSchema.entries.username,
+              onChangeAsync: async ({ value }) => {
+                // Skip check if same as current username
+                if (!value || value === userProfile?.username) return;
+
+                try {
+                  const result = await checkUsernameAvailability(value, userId);
+
+                  if (result.available) return;
+                  if (result.reason === 'taken') return 'username_taken';
+                  return 'check_failed';
+                } catch {
+                  return 'check_failed';
+                }
+              },
+              onChangeAsyncDebounceMs: 500,
+            }}
+          >
+            {(field) => {
+              const { meta, value } = field.state;
+              const { isTouched, isValid, errors } = meta;
+              const isInvalid = isTouched && !isValid;
+              const isAvailable =
+                isTouched && isValid && value !== userProfile?.username;
+
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    {t('personal_info.username')}
+                  </FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                  />
+                  {isInvalid && (
+                    <FieldError
+                      errors={translateErrors(errors, (key) =>
+                        t(`validation.${key}`),
+                      )}
+                    />
+                  )}
+                  {isAvailable && !isInvalid && (
+                    <FieldDescription className="text-green-600 dark:text-green-400">
+                      {t('validation.username_available')}
+                    </FieldDescription>
+                  )}
+                </Field>
+              );
+            }}
+          </form.Field>
+
+          {/* Email (read-only) */}
+          <Field>
+            <FieldLabel htmlFor="email">{t('personal_info.email')}</FieldLabel>
+            <Input
+              id="email"
+              type="email"
+              value={userProfile?.email ?? ''}
+              disabled
+            />
+          </Field>
         </FieldGroup>
-      </section>
+      </div>
 
       {/* Save button + status */}
-      <div className="flex flex-col gap-2">
-        <Button
-          onClick={handleSaveChanges}
-          disabled={
-            isPending ||
-            saveStatus.type === 'saving' ||
-            usernameStatus === 'taken' ||
-            usernameStatus === 'checking'
-          }
-          className="w-fit"
-        >
-          {(isPending || saveStatus.type === 'saving') && (
-            <Loader2Icon className="mr-2 size-4 animate-spin" />
+      <Field orientation={isMaxMd ? 'vertical' : 'horizontal'}>
+        <form.Subscribe selector={(state) => state.isSubmitting}>
+          {(isSubmitting) => (
+            <Button
+              type="submit"
+              form="profile-form"
+              disabled={isSubmitting}
+              className="w-fit"
+            >
+              {t('save_changes')}
+            </Button>
           )}
-          {t('save_changes')}
-        </Button>
+        </form.Subscribe>
 
-        {saveStatus.type === 'success' && (
-          <p className="text-green-600 text-sm dark:text-green-400">
-            ✓ Changes saved successfully
+        {'messageKey' in saveStatus && (
+          <p
+            className={cn(
+              'text-sm',
+              saveStatus.type === 'error' && 'text-destructive',
+              saveStatus.type === 'success' &&
+                'text-green-600 dark:text-green-400',
+            )}
+          >
+            {t(`validation.${saveStatus.messageKey}`)}
           </p>
         )}
-        {saveStatus.type === 'error' && (
-          <p className="text-destructive text-sm">{saveStatus.message}</p>
-        )}
-      </div>
-    </div>
+      </Field>
+    </form>
   );
 }

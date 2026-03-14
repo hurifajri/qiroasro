@@ -2,7 +2,7 @@
 
 -- Muqaddar groups (is_muhaqqaq = false)
 INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES
-('al-jauf', FALSE, 1),           -- Rongga mulut dan tenggorokan (Mad letters only)
+('al-jauf', FALSE, 1);           -- Rongga mulut dan tenggorokan (Mad letters only)
 
 -- Muhaqqaq groups (is_muhaqqaq = true)
 INSERT INTO hij_articulation_areas (slug, is_muhaqqaq, sort_order) VALUES

@@ -273,7 +273,6 @@
     "development": {
       "email_placeholder": "Email",
       "reminder_title": "Notify me when the app is available",
-      "reminder_cta": "Join Waitlist",
       "reminder_playground_cta": "Visit Playground",
       "reminder_success": "Verification email sent! Please check your inbox.",
       "reminder_verified": "Email verified successfully",
@@ -602,7 +601,6 @@
       "description": "Start your journey to master Tajweed through interactive lessons and units."
     },
     "title": "Learn - Tajweed Learning Path",
-    "section_unit_title": "Section and Unit",
     "start": "Start",
     "guidebook": "Guidebook",
     "sections": {
@@ -665,7 +663,6 @@
       "description": "View all curriculum sections and track your progress."
     },
     "title": "Sections - Curriculum",
-    "section_list_title": "Section List",
     "section_title": "Section {number}",
     "back": "Back",
     "completed": "Completed!",
@@ -925,9 +922,21 @@
     },
     "profile": {
       "title": "Profile",
+      "validation": {
+        "username_min_length": "Username must be at least 3 characters",
+        "username_max_length": "Username cannot exceed 30 characters",
+        "username_pattern": "Username can only contain lowercase letters, numbers, and underscores",
+        "display_name_required": "Display name is required",
+        "display_name_max_length": "Display name cannot exceed 80 characters",
+        "username_checking": "Checking availability...",
+        "username_available": "✓ Username is available",
+        "username_taken": "Username is already taken",
+        "check_failed": "Failed to check availability. Please try again.",
+        "save_failed": "Failed to save changes. Please try again.",
+        "save_success": "✓ Changes saved successfully"
+      },
       "avatar": {
         "title": "Avatar",
-        "choose_color": "Choose Color",
         "solid_colors": "Solid",
         "gradient_colors": "Gradient"
       },

@@ -48,9 +48,9 @@ export function SectionItem({
       >
         <ItemHeader>
           <ItemTitle>
-            <h3 className="font-bold text-lg">
+            <h2 className="uppercase">
               {t('section_title', { number: sectionNumber })}
-            </h3>
+            </h2>
           </ItemTitle>
         </ItemHeader>
         <ItemContent>
@@ -65,40 +65,34 @@ export function SectionItem({
                 style={{ width: `${Math.max(progress, 0)}%` }}
               />
             </div>
-            <span className="w-8.25 shrink-0 text-right font-medium text-muted-foreground text-sm">
+            <p className="w-8.25 shrink-0 text-right text-muted-foreground">
               {progress}%
-            </span>
+            </p>
           </div>
         </ItemContent>
         <ItemActions className="flex w-24 shrink-0 items-center justify-center">
           {isLocked && (
             <Button
-              variant="outline"
-              size="lg"
               onClick={() => onContinue(section)}
+              variant="outline"
               className="w-full"
               disabled
             >
-              <LockIcon className="size-6 text-muted-foreground" />
+              <LockIcon className="size-4 text-muted-foreground" />
             </Button>
           )}
 
           {isInProgress && (
-            <Button
-              size="lg"
-              onClick={() => onContinue(section)}
-              className="w-full font-semibold"
-            >
+            <Button onClick={() => onContinue(section)} className="w-full">
               {t('continue')}
             </Button>
           )}
 
           {isCompleted && (
             <Button
-              variant="outline"
-              size="lg"
               onClick={() => onReview(section)}
-              className="w-full font-semibold"
+              variant="outline"
+              className="w-full"
             >
               {t('review')}
             </Button>
@@ -107,16 +101,14 @@ export function SectionItem({
         <ItemFooter>
           {/* Description for in-progress section */}
           {(isLocked || isInProgress) && (
-            <p className="text-muted-foreground text-sm">
-              {t(section.descriptionKey)}
-            </p>
+            <p className="text-muted-foreground">{t(section.descriptionKey)}</p>
           )}
 
           {/* Completion Status */}
           {isCompleted && (
-            <div className="flex items-center gap-1.5 text-emerald-600 text-sm dark:text-emerald-400">
+            <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
               <CheckCircleIcon className="size-4" />
-              <span>{t('completed')}</span>
+              <p>{t('completed')}</p>
             </div>
           )}
         </ItemFooter>

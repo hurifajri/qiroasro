@@ -1,10 +1,10 @@
 'use client';
 
 import { ArrowLeftIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from '@/i18n/navigation';
 import { MOCK_SECTIONS } from '../_lib/mock-data';
 import type { Section } from '../_schemas/sections';
 import { SectionsList } from './section-list';
@@ -32,13 +32,12 @@ export function Sections() {
 
   return (
     <div className="flex flex-col gap-4">
-      <header className="flex flex-col items-start gap-2">
-        <h2 className="sr-only">{t('section_list_title')}</h2>
-        <Button variant="ghost" onClick={handleBack}>
-          <ArrowLeftIcon className="size-5" /> {t('back')}
+      <div className="flex flex-col items-start gap-2">
+        <Button onClick={handleBack} variant="ghost" className="cursor-pointer">
+          <ArrowLeftIcon className="size-4" /> {t('back')}
         </Button>
         <Separator />
-      </header>
+      </div>
       <SectionsList
         sections={MOCK_SECTIONS}
         onContinue={handleContinue}

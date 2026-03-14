@@ -7,8 +7,9 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Separator } from '@/components/ui/separator';
 import { auth } from '@/lib/auth';
-import { getUserProfileByUserIdOpt } from '@/queries/user-profile';
+import { getUserProfileByUserIdOpt } from '../../_queries/user-profile';
 import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
@@ -71,12 +72,19 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
   // Conditional rendering based on slug
   if (slug === 'preferences') {
+    const session = await auth.api.getSession({ headers: await headers() });
+    const userId = session?.user?.id ?? '';
+
     return (
       <>
-        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('preferences.title')}
         </h1>
-        <Preferences lessonPreferences={MOCK_LESSON_PREFERENCES} />
+        <Separator className="mb-6 hidden md:block" />
+        <Preferences
+          userId={userId}
+          lessonPreferences={MOCK_LESSON_PREFERENCES}
+        />
       </>
     );
   }
@@ -93,9 +101,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('profile.title')}
         </h1>
+        <Separator className="mb-6 hidden md:block" />
         <Profile userId={userId} />
       </HydrationBoundary>
     );
@@ -104,9 +113,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'notifications') {
     return (
       <>
-        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('notifications.title')}
         </h1>
+        <Separator className="mb-6 hidden md:block" />
         <Notifications
           generalNotifications={MOCK_GENERAL_NOTIFICATIONS}
           dailyReminder={MOCK_DAILY_REMINDER}
@@ -118,9 +128,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'social') {
     return (
       <>
-        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('social.title')}
         </h1>
+        <Separator className="mb-6 hidden md:block" />
         <SocialAccounts accounts={MOCK_SOCIAL_ACCOUNTS} />
       </>
     );
@@ -129,22 +140,14 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'privacy') {
     return (
       <>
-        <h1 className="mb-6 hidden font-bold text-2xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:block">
           {t('privacy.title')}
         </h1>
+        <Separator className="mb-6 hidden md:block" />
         <PrivacySettings settings={MOCK_PRIVACY_SETTINGS} />
       </>
     );
   }
 
-  // Placeholder for other settings pages
-  return (
-    <>
-      <h1 className="sr-only">{t('title')}</h1>
-      <div className="rounded-lg border border-dashed p-8 text-center text-muted-foreground">
-        <p>Settings for: {slug}</p>
-        <p className="mt-2 text-sm">This page is not yet implemented.</p>
-      </div>
-    </>
-  );
+  return null;
 }

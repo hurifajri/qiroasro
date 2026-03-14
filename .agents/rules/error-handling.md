@@ -14,7 +14,7 @@ export async function getLetters(): Promise<Letter[]> {
   try {
     return await db.select().from(letters).orderBy(letters.sortOrder);
   } catch (error) {
-    console.error('[getLetters] DB Error:', error);
+    console.error('[getLetters] Error:', error);
     // Throw error or safe fallback depending on requirement
     throw new Error('Failed to fetch letters from database');
   }

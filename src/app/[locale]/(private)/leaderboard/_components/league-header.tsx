@@ -6,27 +6,21 @@ import type { LeagueNameKey } from '../../_schemas/private';
 
 interface LeagueHeaderProps {
   leagues: League[];
-  currentLeagueNameKey: LeagueNameKey;
+  nameKey: LeagueNameKey;
 }
 
-export function LeagueHeader({
-  leagues,
-  currentLeagueNameKey,
-}: LeagueHeaderProps) {
+export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
   const t = useTranslations();
 
-  const currentLeagueData = leagues.find(
-    (l) => l.nameKey === currentLeagueNameKey,
-  );
-  const leagueName = currentLeagueData
-    ? t(`global.${currentLeagueData.nameKey}`)
-    : '';
+  const currentLeague = leagues.find((l) => l.nameKey === nameKey);
+  const currentIndex = leagues.findIndex((l) => l.nameKey === nameKey);
+  const leagueName = currentLeague ? t(`global.${currentLeague.nameKey}`) : '';
 
   return (
-    <section className="flex flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-3 overflow-hidden">
       {/* League icons row */}
       <div
-        className="relative flex h-20 w-fit max-w-full items-center justify-center overflow-hidden"
+        className="relative flex h-20 w-full items-center justify-center overflow-hidden"
         style={{
           maskImage:
             'linear-gradient(to right, transparent, black 20%, black 80%, transparent)',
@@ -37,16 +31,12 @@ export function LeagueHeader({
         <div
           className="flex items-center gap-3 transition-transform duration-300 ease-out"
           style={{
-            transform: `translateX(calc(50% - ${leagues.findIndex((l) => l.nameKey === currentLeagueNameKey) * 60 + 24}px))`,
+            transform: `translateX(calc(50% - ${currentIndex * 60 + 24}px))`,
           }}
         >
           {leagues.map((league, index) => {
-            const isActive = league.nameKey === currentLeagueNameKey;
-            const currentIndex = leagues.findIndex(
-              (l) => l.nameKey === currentLeagueNameKey,
-            );
-            const distance = Math.abs(index - currentIndex);
-            const isDisguised = distance >= 2;
+            const isActive = league.nameKey === nameKey;
+            const isDisguised = index > currentIndex;
 
             return (
               <div
@@ -55,7 +45,7 @@ export function LeagueHeader({
                   'flex size-12 shrink-0 items-center justify-center rounded-xl text-2xl transition-all duration-300',
                   isActive &&
                     'scale-125 ring-2 ring-primary ring-offset-2 ring-offset-background',
-                  isDisguised ? 'opacity-20 grayscale' : 'opacity-100',
+                  isDisguised && 'grayscale',
                 )}
               >
                 {league.emoji}
@@ -67,11 +57,9 @@ export function LeagueHeader({
 
       {/* League name */}
       <div className="flex flex-col items-center gap-2">
-        <h2 className="font-bold text-2xl">{leagueName}</h2>
-        <Badge variant="secondary" className="font-medium">
-          {t('leaderboard_page.week_info')}
-        </Badge>
+        <h2 className="font-bold text-lg">{leagueName}</h2>
+        <Badge variant="secondary">{t('leaderboard_page.week_info')}</Badge>
       </div>
-    </section>
+    </div>
   );
 }

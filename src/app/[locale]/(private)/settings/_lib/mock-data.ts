@@ -3,7 +3,6 @@ import type {
   NotificationCheckbox,
   PreferenceToggle,
   PrivacySetting,
-  ProfileForm,
   SettingsLink,
   SocialAccount,
 } from '../_schemas/settings';
@@ -86,16 +85,6 @@ export const MOCK_SUPPORT_LINKS: SettingsLink[] = [
     href: '/help',
   },
 ];
-
-/**
- * Mock profile data
- */
-export const MOCK_PROFILE_DATA: ProfileForm = {
-  name: 'Baba Huri Haura',
-  username: 'hurifajri',
-  email: 'hurifajri@gmail.com',
-  avatarColorCode: 'indigo',
-};
 
 /**
  * Mock general notification settings

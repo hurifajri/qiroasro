@@ -71,7 +71,7 @@ src/
 │   ├── ui/                 # shadcn/ui primitives
 │   └── graph/              # React Flow components
 ├── hooks/                  # Global custom hooks
-├── lib/                    # Global utilities (cn, db, resend, etc.)
+├── lib/                    # Global utilities (cn, db, etc.)
 ├── providers/              # Global React providers
 ├── stores/                 # Zustand global stores
 ├── db/                     # Drizzle database schema

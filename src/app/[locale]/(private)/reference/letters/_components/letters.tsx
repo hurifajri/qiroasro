@@ -21,11 +21,10 @@ export function Letters({ groups, learnedCount, totalCount }: LettersProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Header */}
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="flex flex-col gap-1 text-center">
-          <h2 className="font-bold text-2xl">{t('title')}</h2>
-          <p className="text-lg text-muted-foreground">{t('description')}</p>
+      <div className="flex flex-col items-center gap-3 text-center">
+        <div className="flex flex-col text-center">
+          <h2 className="font-bold text-lg">{t('title')}</h2>
+          <p className="text-muted-foreground">{t('description')}</p>
         </div>
 
         {/* Start button */}
@@ -38,11 +37,9 @@ export function Letters({ groups, learnedCount, totalCount }: LettersProps) {
         </Button>
 
         {/* Progress indicator */}
-        <div className="flex items-center gap-2 text-muted-foreground text-sm">
-          <span>
-            {t('progress', { learned: learnedCount, total: totalCount })}
-          </span>
-        </div>
+        <p className="text-muted-foreground text-sm">
+          {t('progress', { learned: learnedCount, total: totalCount })}
+        </p>
       </div>
 
       {/* Letter grouped by articulation */}

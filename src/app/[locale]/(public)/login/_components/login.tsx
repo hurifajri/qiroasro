@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { Suspense } from 'react';
 import {
   Card,
   CardContent,
@@ -20,11 +21,13 @@ export function Login() {
           <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginButton
-            text={t('login_with_google')}
-            errorTitle={t('error_title')}
-            errorDesc={t('error_description')}
-          />
+          <Suspense fallback={null}>
+            <LoginButton
+              text={t('login_with_google')}
+              errorTitle={t('error_title')}
+              errorDesc={t('error_description')}
+            />
+          </Suspense>
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-center text-muted-foreground text-xs">

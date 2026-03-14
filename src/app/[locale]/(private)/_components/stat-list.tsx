@@ -1,20 +1,22 @@
 import { FlameIcon, GemIcon, HeartIcon, ZapIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import type { UserStats } from '../_schemas/private';
 import { StatItem } from './stat-item';
 
 interface StatListProps {
   stats: UserStats;
+  className?: string;
 }
 
 /**
  * Top stats bar showing XP, Streak, Hearts, and Gems.
  * Responsive: horizontal on desktop, compact on mobile.
  */
-export function StatList({ stats }: StatListProps) {
+export function StatList({ stats, className }: StatListProps) {
   const { xp, streak, hearts, gems } = stats;
 
   return (
-    <ul className="flex items-center justify-evenly gap-2 p-2">
+    <ul className={cn('flex items-center justify-evenly gap-2 p-2', className)}>
       {/* XP */}
       <StatItem
         icon={<ZapIcon className="size-5 fill-amber-400 text-amber-500" />}
