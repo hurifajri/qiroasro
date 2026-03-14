@@ -13,7 +13,7 @@ export function Practice({ sections }: PracticeProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col text-center">
         <h2 className="font-bold text-lg">{t('title')}</h2>
         <p className="text-muted-foreground">{t('description')}</p>
       </div>
