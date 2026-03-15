@@ -9,8 +9,6 @@ export function kebabToSnakeCase(str: string): string {
   return str.replace(/-/g, '_');
 }
 
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export interface Duration {
   minutes: number;
   seconds: number;
