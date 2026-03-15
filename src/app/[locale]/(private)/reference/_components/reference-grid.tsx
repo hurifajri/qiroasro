@@ -1,4 +1,4 @@
-import type { ReferenceCategory } from '../_lib/mock-data';
+import type { ReferenceCategory } from '../_lib/reference';
 import { ReferenceItem } from './reference-item';
 
 interface ReferenceGridProps {

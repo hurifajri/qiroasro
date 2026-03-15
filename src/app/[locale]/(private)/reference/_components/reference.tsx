@@ -2,7 +2,7 @@
 
 import { BookOpenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { ReferenceCategory } from '../_lib/mock-data';
+import type { ReferenceCategory } from '../_lib/reference';
 import { ReferenceGrid } from './reference-grid';
 
 interface ReferenceProps {

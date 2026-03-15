@@ -696,27 +696,103 @@
       "title": "Pustaka Ilmu",
       "description": "Terokai perpustakaan rujukan Tajwid yang lengkap."
     },
-    "title": "Rujukan - Pustaka Ilmu",
+    "title": "Rujukan",
     "categories": {
-      "letters": {
-        "title": "Huruf Hijaiyyah",
-        "subtitle": "30 Item"
+      "noble_quran": {
+        "title": "Al-Quran yang Mulia",
+        "subtitle": "Definisi, fasa kodifikasi, dan proses penyampaian Al-Quran"
       },
-      "articulation": {
-        "title": "Makharijul Huruf",
-        "subtitle": "17 Tempat"
+      "tajweed_science": {
+        "title": "Ilmu Tajwid",
+        "subtitle": "Definisi, perbincangan umum, dan hukum mengaplikasikan Tajwid"
       },
-      "trait": {
-        "title": "Sifatul Huruf",
-        "subtitle": "17 Sifat"
+      "istiadah_basmalah": {
+        "title": "Ta'awuz dan Basmalah",
+        "subtitle": "Peraturan dalam membaca ta'awuz dan basmalah"
       },
-      "rule": {
-        "title": "Hukum Tajwid",
-        "subtitle": "Hukum & Peraturan"
+      "arabic_letters": {
+        "title": "Huruf-Huruf Arab",
+        "subtitle": "Memahami huruf-huruf Hijaiyah dan Abjadiyah"
       },
-      "waqf": {
-        "title": "Waqaf & Ibtida'",
-        "subtitle": "Tanda Berhenti"
+      "vocal_organs": {
+        "title": "Organ Suara",
+        "subtitle": "Organ suara dan bagaimana proses pembentukan bunyi dan huruf"
+      },
+      "articulation_points": {
+        "title": "Artikulasi Huruf",
+        "subtitle": "Titik-titik spesifik tempat keluar (Makharij) huruf hijaiyah"
+      },
+      "letter_characteristics": {
+        "title": "Sifat-Sifat Huruf",
+        "subtitle": "Sifat-sifat intrinsik (lazimah) dan kondisional ('aridhoh) huruf hijaiyah"
+      },
+      "common_mistakes": {
+        "title": "Kesilapan Umum",
+        "subtitle": "Kesilapan-kesilapan yang paling ketara ketika menyebut huruf hijaiyah"
+      },
+      "meeting_letters": {
+        "title": "Hukum Dua Huruf yang Bertemu",
+        "subtitle": "Peraturan dan hubungan apabila dua huruf saling bertemu"
+      },
+      "mim_nun_rules": {
+        "title": "Hukum Mim dan Nun",
+        "subtitle": "Peraturan sukun, sabdu, dan tempoh dengung (ghunnah) yang tepat"
+      },
+      "mad_rules": {
+        "title": "Hukum Mad",
+        "subtitle": "Peraturan memanjangkan suara dalam bacaan Al-Quran"
+      },
+      "vowel_completion": {
+        "title": "Penyempurnaan Harakat",
+        "subtitle": "Menyempurnakan pergerakan baris harakat pada huruf"
+      },
+      "meeting_sukoons": {
+        "title": "Pertemuan Dua Sukun",
+        "subtitle": "Dua sukun yang bertemu dalam satu perkataan dan dua perkataan"
+      },
+      "miscellaneous": {
+        "title": "Perbincangan Pelbagai",
+        "subtitle": "Pelbagai perbincangan lain dalam ilmu Tajwid"
+      },
+      "nabr": {
+        "title": "Nabr dalam Tilawah",
+        "subtitle": "Penekanan dan hentakan suara dalam membaca Al-Quran"
+      },
+      "special_words": {
+        "title": "Perkataan Istimewa",
+        "subtitle": "Beberapa perkataan dalam Al-Quran yang mempunyai keadaan istimewa menurut riwayat Hafs"
+      },
+      "waqf_ibtida": {
+        "title": "Waqaf dan Ibtida'",
+        "subtitle": "Peraturan berhenti dan memulakan kembali bacaan"
+      },
+      "roum_ishmam": {
+        "title": "Roum dan Ishmam",
+        "subtitle": "Cara sebutan halus (sebahagian harakat atau isyarat bibir) ketika berhenti"
+      },
+      "seven_alifs": {
+        "title": "Tujuh Alif",
+        "subtitle": "Peraturan khusus untuk Alifat (Alif yang tujuh)"
+      },
+      "hamzat_wasl": {
+        "title": "Hamzah Wasal",
+        "subtitle": "Hamzah penyambung bacaan"
+      },
+      "hamzat_qata": {
+        "title": "Hamzah Qata'",
+        "subtitle": "Hamzah pemutus bacaan"
+      },
+      "mushaf_signs": {
+        "title": "Tanda Pada Mushaf",
+        "subtitle": "Fasa-fasa perkembangan penulisan dan tanda pada resam mushaf Al-Quran"
+      },
+      "modern_spelling": {
+        "title": "Ejaan Moden",
+        "subtitle": "Perbezaan antara penulisan mushaf dan penyesuaian imla' (ejaan) moden"
+      },
+      "memorization": {
+        "title": "Menghafal Al-Quran",
+        "subtitle": "Kaedah dan panduan untuk menghafal Al-Quran"
       }
     }
   },

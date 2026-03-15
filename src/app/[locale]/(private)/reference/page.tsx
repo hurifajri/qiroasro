@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reference } from './_components/reference';
-import { REFERENCE_CATEGORIES } from './_lib/mock-data';
+import { REFERENCE_CATEGORIES } from './_lib/reference';
 
 type GenerateMetadataProps = {
   params: Promise<{ locale: string }>;

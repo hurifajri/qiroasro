@@ -696,27 +696,103 @@
       "title": "Knowledge Library",
       "description": "Browse the comprehensive Tajweed reference library."
     },
-    "title": "Reference - Knowledge Library",
+    "title": "Reference",
     "categories": {
-      "letters": {
-        "title": "Hijaiyyah Letters",
-        "subtitle": "30 Items"
+      "noble_quran": {
+        "title": "The Noble Quran",
+        "subtitle": "Definition, codification phases, and the transmission process of the Quran"
       },
-      "articulation": {
+      "tajweed_science": {
+        "title": "Science of Tajweed",
+        "subtitle": "Definition, general discussions, and the rulings on applying Tajweed"
+      },
+      "istiadah_basmalah": {
+        "title": "Isti'adah and Basmalah",
+        "subtitle": "Rules for reciting the Isti'adah and Basmalah"
+      },
+      "arabic_letters": {
+        "title": "Arabic Letters",
+        "subtitle": "Understanding the Hijaiyah and Abjadiyah alphabets"
+      },
+      "vocal_organs": {
+        "title": "Vocal Organs",
+        "subtitle": "The vocal organs and how sounds and letters are produced"
+      },
+      "articulation_points": {
         "title": "Articulation Points",
-        "subtitle": "17 Points"
+        "subtitle": "Specific articulation points (Makharij) of Hijaiyah letters"
       },
-      "trait": {
-        "title": "Characteristics",
-        "subtitle": "17 Traits"
+      "letter_characteristics": {
+        "title": "Characteristics of Letters",
+        "subtitle": "Intrinsic (Lazimah) and conditional ('Aridhah) characteristics of Hijaiyah letters"
       },
-      "rule": {
-        "title": "Tajweed Rules",
-        "subtitle": "Rules & Laws"
+      "common_mistakes": {
+        "title": "Common Mistakes",
+        "subtitle": "The most prominent errors when pronouncing Hijaiyah letters"
       },
-      "waqf": {
-        "title": "Waqf & Ibtida'",
-        "subtitle": "Stopping Marks"
+      "meeting_letters": {
+        "title": "Rules for Adjacent Letters",
+        "subtitle": "Rules and relationships when two letters meet"
+      },
+      "mim_nun_rules": {
+        "title": "Rules of Mim and Nun",
+        "subtitle": "Rules for sukoon, tashdeed, and the proper duration of ghunnah"
+      },
+      "mad_rules": {
+        "title": "Rules of Mad",
+        "subtitle": "Rules for elongating the sound in Quranic recitation"
+      },
+      "vowel_completion": {
+        "title": "Completion of Harakat",
+        "subtitle": "Perfecting the vowel movements on letters"
+      },
+      "meeting_sukoons": {
+        "title": "Meeting of Two Sukoons",
+        "subtitle": "Two sukoons meeting within one word and two words"
+      },
+      "miscellaneous": {
+        "title": "Miscellaneous Topics",
+        "subtitle": "Various other discussions in the science of Tajweed"
+      },
+      "nabr": {
+        "title": "Nabr in Recitation",
+        "subtitle": "Accentuation and stress when reciting the Quran"
+      },
+      "special_words": {
+        "title": "Special Words",
+        "subtitle": "Several words in the Quran with special conditions according to Hafs"
+      },
+      "waqf_ibtida": {
+        "title": "Waqf and Ibtida'",
+        "subtitle": "Rules for stopping and starting the recitation"
+      },
+      "roum_ishmam": {
+        "title": "Roum and Ishmam",
+        "subtitle": "Subtle pronunciations (partial vowel or lip signaling) when stopping"
+      },
+      "seven_alifs": {
+        "title": "The Seven Alifs",
+        "subtitle": "Special rules for the Alifat (The seven Alifs)"
+      },
+      "hamzat_wasl": {
+        "title": "Hamzat Al-Wasl",
+        "subtitle": "The connecting Hamzah"
+      },
+      "hamzat_qata": {
+        "title": "Hamzat Al-Qat'",
+        "subtitle": "The cutting Hamzah"
+      },
+      "mushaf_signs": {
+        "title": "Signs in the Mushaf",
+        "subtitle": "Development phases of orthography and signs in the Quranic Mushaf"
+      },
+      "modern_spelling": {
+        "title": "Modern Spelling",
+        "subtitle": "Differences between Mushaf orthography and modern spelling adjustments"
+      },
+      "memorization": {
+        "title": "Memorizing the Quran",
+        "subtitle": "Methods and guidelines for memorizing the Quran"
       }
     }
   },

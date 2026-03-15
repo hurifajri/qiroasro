@@ -1,5 +1,5 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import type { ReferenceCategory } from '../_lib/mock-data';
+import type { ReferenceCategory } from '../_lib/reference';
 import { ReferenceCard } from './reference-card';
 
 interface ReferenceItemProps {

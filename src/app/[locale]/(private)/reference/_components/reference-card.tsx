@@ -2,7 +2,7 @@ import { LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { ReferenceCategory } from '../_lib/mock-data';
+import type { ReferenceCategory } from '../_lib/reference';
 
 interface ReferenceCardProps {
   category: ReferenceCategory;

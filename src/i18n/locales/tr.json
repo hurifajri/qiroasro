@@ -696,27 +696,103 @@
       "title": "Bilgi Kütüphanesi",
       "description": "Kapsamlı Tecvid referans kütüphanesine göz atın."
     },
-    "title": "Referans - Bilgi Kütüphanesi",
+    "title": "Referans",
     "categories": {
-      "letters": {
-        "title": "Harfler",
-        "subtitle": "30 Öğe"
+      "noble_quran": {
+        "title": "Kur'an-ı Kerim",
+        "subtitle": "Kur'an'ın tanımı, kodifikasyon evreleri ve aktarım süreci"
       },
-      "articulation": {
-        "title": "Mahreçler",
-        "subtitle": "17 Nokta"
+      "tajweed_science": {
+        "title": "Tecvid İlmi",
+        "subtitle": "Tanımı, genel konuları ve Tecvid uygulamasının hükmü"
       },
-      "trait": {
-        "title": "Sıfatlar",
-        "subtitle": "17 Sıfat"
+      "istiadah_basmalah": {
+        "title": "İstiaze ve Besmele",
+        "subtitle": "İstiaze ve besmele okuma kuralları"
       },
-      "rule": {
-        "title": "Tecvid Kuralları",
-        "subtitle": "Hükümler"
+      "arabic_letters": {
+        "title": "Arap Harfleri",
+        "subtitle": "Hecai ve Ebced alfabelerini anlamak"
       },
-      "waqf": {
+      "vocal_organs": {
+        "title": "Ses Organları",
+        "subtitle": "Ses organları ve seslerin, harflerin oluşum süreci"
+      },
+      "articulation_points": {
+        "title": "Harflerin Mahreçleri",
+        "subtitle": "Hecai harflerin spesifik çıkış noktaları (Mahreçler)"
+      },
+      "letter_characteristics": {
+        "title": "Harflerin Sıfatları",
+        "subtitle": "Hecai harflerin asli (lazıme) ve arızi (geçici) sıfatları"
+      },
+      "common_mistakes": {
+        "title": "Yaygın Hatalar",
+        "subtitle": "Hecai harfleri telaffuz ederken yapılan en belirgin hatalar"
+      },
+      "meeting_letters": {
+        "title": "İki Harfin Yan Yana Gelmesi",
+        "subtitle": "İki harf yan yana geldiğindeki kurallar ve ilişkiler"
+      },
+      "mim_nun_rules": {
+        "title": "Mim ve Nun Kuralları",
+        "subtitle": "Sükun, şedde ve doğru gunne süresi kuralları"
+      },
+      "mad_rules": {
+        "title": "Med Kuralları",
+        "subtitle": "Kur'an okurken sesi uzatma kuralları"
+      },
+      "vowel_completion": {
+        "title": "Harekelerin Tamamlanması",
+        "subtitle": "Harflerdeki hareke hareketlerinin kusursuzlaştırılması (İtmam-ı Harekât)"
+      },
+      "meeting_sukoons": {
+        "title": "İki Sükunun Yan Yana Gelmesi",
+        "subtitle": "Bir kelimede ve iki kelimede yan yana gelen iki sükun"
+      },
+      "miscellaneous": {
+        "title": "Çeşitli Konular",
+        "subtitle": "Tecvid ilminde diğer çeşitli tartışmalar"
+      },
+      "nabr": {
+        "title": "Tilavette Nabr",
+        "subtitle": "Kur'an okurken seste yapılan vurgu ve baskı"
+      },
+      "special_words": {
+        "title": "Özel Kelimeler",
+        "subtitle": "Kur'an'da Hafs rivayetine göre özel durumu olan bazı kelimeler"
+      },
+      "waqf_ibtida": {
         "title": "Vakıf ve İbtida",
-        "subtitle": "Durak İşaretleri"
+        "subtitle": "Kıraati durdurma ve yeniden başlama kuralları"
+      },
+      "roum_ishmam": {
+        "title": "Revm ve İşmam",
+        "subtitle": "Dururken yapılan ince telaffuz (kısmi hareke veya dudak işareti)"
+      },
+      "seven_alifs": {
+        "title": "Yedi Elif",
+        "subtitle": "Elifat (Yedi Elif) için özel kurallar"
+      },
+      "hamzat_wasl": {
+        "title": "Hemze-i Vasıl",
+        "subtitle": "Bağlayıcı hemze"
+      },
+      "hamzat_qata": {
+        "title": "Hemze-i Katı",
+        "subtitle": "Kesici hemze"
+      },
+      "mushaf_signs": {
+        "title": "Mushaf İşaretleri",
+        "subtitle": "Kur'an mushafındaki yazım ve işaretlerin gelişim evreleri"
+      },
+      "modern_spelling": {
+        "title": "Modern Yazım",
+        "subtitle": "Mushaf yazımı ile modern imla uyarlamaları arasındaki farklar"
+      },
+      "memorization": {
+        "title": "Kur'an Ezberleme",
+        "subtitle": "Kur'an'ı hıfzetmek için yöntemler ve rehberlik"
       }
     }
   },
