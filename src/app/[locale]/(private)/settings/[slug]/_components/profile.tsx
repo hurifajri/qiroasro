@@ -112,6 +112,7 @@ export function Profile({ userId }: ProfileProps) {
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_SOLID_CODES.map((colorCode) => (
                       <Button
+                        type="button"
                         size="icon-lg"
                         key={colorCode}
                         onClick={() => field.handleChange(colorCode)}
@@ -136,6 +137,7 @@ export function Profile({ userId }: ProfileProps) {
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_GRADIENT_CODES.map((colorCode) => (
                       <Button
+                        type="button"
                         size="icon-lg"
                         key={colorCode}
                         onClick={() => field.handleChange(colorCode)}
