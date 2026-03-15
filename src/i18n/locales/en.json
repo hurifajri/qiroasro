@@ -700,23 +700,23 @@
     "categories": {
       "letters": {
         "title": "Hijaiyyah Letters",
-        "count": "30 Items"
+        "subtitle": "30 Items"
       },
       "articulation": {
         "title": "Articulation Points",
-        "count": "17 Points"
+        "subtitle": "17 Points"
       },
       "trait": {
         "title": "Characteristics",
-        "count": "17 Traits"
+        "subtitle": "17 Traits"
       },
       "rule": {
         "title": "Tajweed Rules",
-        "count": "Rules & Laws"
+        "subtitle": "Rules & Laws"
       },
       "waqf": {
         "title": "Waqf & Ibtida'",
-        "count": "Stopping Marks"
+        "subtitle": "Stopping Marks"
       }
     }
   },

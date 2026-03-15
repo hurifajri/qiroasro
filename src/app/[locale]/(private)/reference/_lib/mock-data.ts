@@ -4,7 +4,7 @@
 export interface ReferenceCategory {
   id: string;
   titleKey: string;
-  countKey: string;
+  subtitleKey: string;
   iconSymbol: string;
   href: string;
   available: boolean;
@@ -14,7 +14,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     id: 'letters',
     titleKey: 'categories.letters.title',
-    countKey: 'categories.letters.count',
+    subtitleKey: 'categories.letters.subtitle',
     iconSymbol: '📖',
     href: '/reference/letters',
     available: true,
@@ -22,7 +22,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     id: 'articulation',
     titleKey: 'categories.articulation.title',
-    countKey: 'categories.articulation.count',
+    subtitleKey: 'categories.articulation.subtitle',
     iconSymbol: '🗣️',
     href: '/reference/articulation',
     available: false, // Coming soon
@@ -30,7 +30,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     id: 'trait',
     titleKey: 'categories.trait.title',
-    countKey: 'categories.trait.count',
+    subtitleKey: 'categories.trait.subtitle',
     iconSymbol: '⚡',
     href: '/reference/trait',
     available: false, // Coming soon
@@ -38,7 +38,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     id: 'rule',
     titleKey: 'categories.rule.title',
-    countKey: 'categories.rule.count',
+    subtitleKey: 'categories.rule.subtitle',
     iconSymbol: '📐',
     href: '/reference/rule',
     available: false, // Coming soon
@@ -46,7 +46,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
     id: 'waqf',
     titleKey: 'categories.waqf.title',
-    countKey: 'categories.waqf.count',
+    subtitleKey: 'categories.waqf.subtitle',
     iconSymbol: '🚛',
     href: '/reference/waqf',
     available: false, // Coming soon

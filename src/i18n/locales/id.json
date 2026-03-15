@@ -700,23 +700,23 @@
     "categories": {
       "letters": {
         "title": "Huruf Hijaiyyah",
-        "count": "30 Item"
+        "subtitle": "30 Item"
       },
       "articulation": {
         "title": "Makhorijul Huruf",
-        "count": "17 Tempat"
+        "subtitle": "17 Tempat"
       },
       "trait": {
         "title": "Sifatul Huruf",
-        "count": "17 Sifat"
+        "subtitle": "17 Sifat"
       },
       "rule": {
         "title": "Hukum Tajwid",
-        "count": "Hukum & Aturan"
+        "subtitle": "Hukum & Aturan"
       },
       "waqf": {
         "title": "Waqaf & Ibtida'",
-        "count": "Tanda Berhenti"
+        "subtitle": "Tanda Berhenti"
       }
     }
   },

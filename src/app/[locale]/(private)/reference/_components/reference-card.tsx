@@ -10,7 +10,7 @@ interface ReferenceCardProps {
 
 export function ReferenceCard({ category }: ReferenceCardProps) {
   const t = useTranslations('reference_page');
-  const { titleKey, countKey, iconSymbol, href, available } = category;
+  const { titleKey, subtitleKey, iconSymbol, href, available } = category;
 
   const content = (
     <div
@@ -32,7 +32,7 @@ export function ReferenceCard({ category }: ReferenceCardProps) {
       <p className="font-bold text-xs">{t(titleKey)}</p>
 
       {/* Count */}
-      <p className="text-muted-foreground text-xs">{t(countKey)}</p>
+      <p className="text-muted-foreground text-xs">{t(subtitleKey)}</p>
     </div>
   );
 

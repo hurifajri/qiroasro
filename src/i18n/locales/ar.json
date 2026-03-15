@@ -700,23 +700,23 @@
     "categories": {
       "letters": {
         "title": "الحروف الهجائية",
-        "count": "30 عنصراً"
+        "subtitle": "30 عنصراً"
       },
       "articulation": {
         "title": "مخارج الحروف",
-        "count": "17 مخرجاً"
+        "subtitle": "17 مخرجاً"
       },
       "trait": {
         "title": "صفات الحروف",
-        "count": "17 صفة"
+        "subtitle": "17 صفة"
       },
       "rule": {
         "title": "أحكام التجويد",
-        "count": "الأحكام والقواعد"
+        "subtitle": "الأحكام والقواعد"
       },
       "waqf": {
         "title": "الوقف والابتداء",
-        "count": "علامات الوقف"
+        "subtitle": "علامات الوقف"
       }
     }
   },

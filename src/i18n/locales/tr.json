@@ -700,23 +700,23 @@
     "categories": {
       "letters": {
         "title": "Harfler",
-        "count": "30 Öğe"
+        "subtitle": "30 Öğe"
       },
       "articulation": {
         "title": "Mahreçler",
-        "count": "17 Nokta"
+        "subtitle": "17 Nokta"
       },
       "trait": {
         "title": "Sıfatlar",
-        "count": "17 Sıfat"
+        "subtitle": "17 Sıfat"
       },
       "rule": {
         "title": "Tecvid Kuralları",
-        "count": "Hükümler"
+        "subtitle": "Hükümler"
       },
       "waqf": {
         "title": "Vakıf ve İbtida",
-        "count": "Durak İşaretleri"
+        "subtitle": "Durak İşaretleri"
       }
     }
   },
