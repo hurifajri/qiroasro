@@ -8,7 +8,7 @@ interface PracticeListGroupProps {
 
 export function PracticeListGroup({ sections }: PracticeListGroupProps) {
   return (
-    <ul className="flex flex-col gap-6">
+    <ul className="grid @3xl:grid-cols-2 @5xl:grid-cols-3 grid-cols-1 gap-6">
       {sections.map((section) => (
         <Fragment key={section.id}>
           <PracticeList section={section} />
