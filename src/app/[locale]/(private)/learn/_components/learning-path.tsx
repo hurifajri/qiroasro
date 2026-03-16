@@ -1,11 +1,9 @@
-import { cn } from '@/lib/utils';
 import type { Lesson, Unit } from '../_schemas/learn';
 import { UnitPath } from './unit-path';
 
 interface LearningPathProps {
   units: Unit[];
   lessons: Lesson[];
-  className?: string;
   onClickLesson: (lesson: Lesson) => void;
   onClickSection: (unit: Unit) => void;
   onClickGuidebook: () => void;
@@ -17,13 +15,12 @@ interface LearningPathProps {
 export function LearningPath({
   units,
   lessons,
-  className,
   onClickLesson,
   onClickSection,
   onClickGuidebook,
 }: LearningPathProps) {
   return (
-    <div className={cn('flex flex-col gap-6', className)}>
+    <div className="flex flex-col gap-6">
       {units.slice(0, 2).map((unit) => (
         <UnitPath
           key={unit.id}

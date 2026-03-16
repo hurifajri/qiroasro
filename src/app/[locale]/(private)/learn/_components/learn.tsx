@@ -1,21 +1,15 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/navigation';
 import { MOCK_LESSONS, MOCK_UNITS } from '../_lib/mock-data';
 import type { Lesson, Unit } from '../_schemas/learn';
 import { LearningPath } from './learning-path';
 
-interface LearnProps {
-  className?: string;
-}
-
 /**
  * Main Learn component - Duolingo-style learning path UI.
  * Layout shell is now handled by private layout.
  */
-export function Learn({ className }: LearnProps) {
-  const _t = useTranslations('learn_page');
+export function Learn() {
   const router = useRouter();
 
   function handleClickLesson(lesson: Lesson) {
@@ -43,7 +37,6 @@ export function Learn({ className }: LearnProps) {
       onClickLesson={handleClickLesson}
       onClickSection={handleClickSection}
       onClickGuidebook={handleClickGuidebook}
-      className={className}
     />
   );
 }
