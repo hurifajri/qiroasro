@@ -21,7 +21,7 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
 
   return (
     <Card size="sm" className="relative h-full">
-      <CardContent className="flex h-full items-center gap-3 p-4 sm:flex-col sm:text-center">
+      <CardContent className="flex h-full @md:flex-col items-center gap-3 p-4 @md:text-center">
         {/* Avatar */}
         <UserAvatar
           name={friend.displayName}
