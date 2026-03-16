@@ -65,7 +65,7 @@ export function Notifications({
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       {/* General notifications */}
       <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">

@@ -86,7 +86,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
         e.preventDefault();
         form.handleSubmit();
       }}
-      className="flex flex-col gap-6"
+      className="mx-auto flex max-w-3xl flex-col gap-6"
     >
       {/* Lesson experience */}
       <div className="flex flex-col gap-3">
