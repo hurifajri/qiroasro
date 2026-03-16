@@ -39,7 +39,7 @@ export function Profile({
       {userProfile && <UserInfo user={userProfile} />}
 
       {/* Statistics */}
-      <div className="flex flex-col gap-3">
+      <div className="@container flex flex-col gap-3">
         <h2 className="font-bold text-lg">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
       </div>
