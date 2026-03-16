@@ -19,7 +19,7 @@ export function SectionsList({
   onReview,
 }: SectionsListProps) {
   return (
-    <ItemGroup className="gap-4">
+    <ItemGroup className="grid @3xl:grid-cols-2 @5xl:grid-cols-3 grid-cols-1 gap-4">
       {/* Section Cards */}
       {sections.map((section) => (
         <SectionItem
