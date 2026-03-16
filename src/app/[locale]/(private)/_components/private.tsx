@@ -3,6 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { usePathname } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
 import { BottomNav } from './navigation';
@@ -71,7 +72,12 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       )}
 
       {/* Main Content */}
-      <main className="w-full min-w-0 px-2 pt-13.5 pb-18.5 sm:px-6 md:py-6">
+      <main
+        className={cn(
+          'w-full min-w-0 px-2 pb-18.5 sm:px-6 md:py-6',
+          hasMobileHeader ? 'pt-13.5' : 'pt-2',
+        )}
+      >
         {children}
       </main>
 
