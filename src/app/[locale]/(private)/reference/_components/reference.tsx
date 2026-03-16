@@ -13,7 +13,7 @@ export function Reference({ categories }: ReferenceProps) {
   const t = useTranslations('reference_page');
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="@container flex flex-col gap-6">
       <div className="flex items-center gap-2">
         <BookOpenIcon className="size-6 text-primary" />
         <h2 className="font-bold text-lg">{t('title')}</h2>

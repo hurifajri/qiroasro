@@ -7,7 +7,7 @@ interface ReferenceGridProps {
 
 export function ReferenceGrid({ categories }: ReferenceGridProps) {
   return (
-    <ul className="grid 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 grid-cols-2 gap-2 max-[20rem]:grid-cols-1 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+    <ul className="grid @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6 @lg:grid-cols-3 @max-xs:grid-cols-1 grid-cols-2 gap-2">
       {categories.map((category) => (
         <ReferenceItem key={category.id} category={category} />
       ))}
