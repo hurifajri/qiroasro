@@ -34,7 +34,7 @@ export function Profile({
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       {/* User Info */}
       {userProfile && <UserInfo user={userProfile} />}
 

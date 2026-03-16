@@ -16,7 +16,7 @@ export function Quests({ monthlyQuest, dailyQuests }: QuestsProps) {
   const t = useTranslations('quests_page');
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       {/* Monthly Quest Hero */}
       <MonthlyQuestCard quest={monthlyQuest} />
 
