@@ -28,7 +28,7 @@ export default async function NobleQuranPage({ params }: PageProps) {
   const { default: Content } = await import(`./_contents/${locale}.mdx`);
 
   return (
-    <article>
+    <article className="prose dark:prose-invert max-w-none">
       <Content />
     </article>
   );
