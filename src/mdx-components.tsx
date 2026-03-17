@@ -22,7 +22,7 @@ const components: MDXComponents = {
     </h4>
   ),
   p: ({ children }) => (
-    <p className="mb-4 leading-7 [&:not(:first-child)]:mt-4">{children}</p>
+    <p className="not-first:mt-4 mb-4 leading-7">{children}</p>
   ),
   ul: ({ children }) => (
     <ul className="my-4 ml-6 list-disc space-y-2 [&>li]:mt-2">{children}</ul>
