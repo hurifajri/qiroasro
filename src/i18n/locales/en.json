@@ -796,6 +796,12 @@
       }
     }
   },
+  "reference_noble_quran_page": {
+    "metadata": {
+      "title": "The Noble Quran",
+      "description": "Definition, codification phases, and the transmission process of the Quran"
+    }
+  },
   "reference_letters_page": {
     "metadata": {
       "title": "Hijaiyyah Directory",

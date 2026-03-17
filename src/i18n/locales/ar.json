@@ -796,6 +796,12 @@
       }
     }
   },
+  "reference_noble_quran_page": {
+    "metadata": {
+      "title": "القرآن الكريم",
+      "description": "تعريف القرآن، مراحل تدوينه، وعملية نقله"
+    }
+  },
   "reference_letters_page": {
     "metadata": {
       "title": "دليل الحروف",

@@ -796,6 +796,12 @@
       }
     }
   },
+  "reference_noble_quran_page": {
+    "metadata": {
+      "title": "Kur'an-ı Kerim",
+      "description": "Kur'an'ın tanımı, kodifikasyon evreleri ve aktarım süreci"
+    }
+  },
   "reference_letters_page": {
     "metadata": {
       "title": "Harf Rehberi",

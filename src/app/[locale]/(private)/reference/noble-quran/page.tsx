@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LOCALES } from '@/i18n/config';
-import type { Locale } from '@/i18n/routing';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -13,7 +11,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: 'reference_page.noble_quran',
+    namespace: 'reference_noble_quran_page.metadata',
   });
 
   return {
@@ -23,21 +21,15 @@ export async function generateMetadata({
   };
 }
 
-export function generateStaticParams() {
-  return LOCALES.map((locale) => ({ locale }));
-}
-
 export default async function NobleQuranPage({ params }: PageProps) {
   const { locale } = await params;
-  setRequestLocale(locale as Locale);
+  setRequestLocale(locale);
 
   const { default: Content } = await import(`./_contents/${locale}.mdx`);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-10">
-      <article>
-        <Content />
-      </article>
-    </div>
+    <article>
+      <Content />
+    </article>
   );
 }
