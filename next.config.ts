@@ -44,6 +44,23 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-const withMDX = createMDX({ extension: /\.(md|mdx)$/ });
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: ['remark-gfm'],
+    rehypePlugins: [
+      'rehype-slug',
+      [
+        'rehype-autolink-headings',
+        {
+          behavior: 'wrap',
+          properties: {
+            className: ['subheading-anchor'],
+          },
+        },
+      ],
+    ],
+  },
+});
 
 export default withNextIntl(withMDX(nextConfig));

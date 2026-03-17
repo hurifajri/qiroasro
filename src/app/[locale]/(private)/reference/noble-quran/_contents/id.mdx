@@ -43,3 +43,28 @@ Untuk membaca Al-Quran dengan benar, seseorang harus mempelajari:
 2. **Sifat** — Karakteristik setiap huruf
 3. **Tajwid** — Kaidah bacaan yang benar
 4. **Waqaf & Ibtida'** — Kaidah berhenti dan memulai bacaan
+
+---
+
+## Demonstrasi Plugin MDX
+
+Bagian ini ditambahkan agar Anda bisa melihat langsung fitur dari plugin **remark** dan **rehype** yang baru saja di-*install*. Coba arahkan kursor Anda ke judul "Demonstrasi Plugin MDX" di atas, Anda akan melihat *link anchor* muncul yang membuktikan `rehype-slug` dan `rehype-autolink-headings` bekerja!
+
+### 1. Tabel (Membutuhkan `remark-gfm`)
+Tanpa plugin `remark-gfm`, *Tabel* Markdown standar tidak bisa di-render oleh MDX.
+
+| Fitur | Status Plugin | Keterangan |
+|-------|---------------|------------|
+| Heading Link | Aktif | Menggunakan `rehype-autolink-headings` |
+| Heading ID | Aktif | Menggunakan `rehype-slug` |
+| Tabel & Coretan | Aktif | Menggunakan `remark-gfm` |
+| Frontmatter | Aktif | Menggunakan `remark-frontmatter` |
+
+### 2. Coretan Teks (Strikethrough)
+Bisa membuat teks coretan: ~~Tulisan ini dicoret~~. (Juga bagian dari fitur `remark-gfm`).
+
+### 3. Checklist (Task List)
+- [x] Install remark-gfm
+- [x] Install rehype-slug
+- [x] Install rehype-autolink-headings
+- [ ] Buat 23 halaman lainnya
