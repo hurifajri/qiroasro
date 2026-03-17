@@ -3,15 +3,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Letters } from './_components/letters';
 import { getLettersStats, MAKHRAJ_GROUPS } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type LettersPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -25,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LettersPage({ params }: LettersPageProps) {
+export default async function LettersPage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 

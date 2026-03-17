@@ -4,15 +4,13 @@ import { MOCK_QUESTS } from '../_lib/mock-data';
 import { Quests } from './_components/quests';
 import { MOCK_MONTHLY_QUEST } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type QuestsPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -26,7 +24,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function QuestsPage({ params }: QuestsPageProps) {
+export default async function QuestsPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

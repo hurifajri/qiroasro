@@ -17,15 +17,13 @@ import { PlaygroundStoreProvider } from './_providers/playground';
 import { QuizStoreProvider } from './_providers/quiz';
 import { getPlaygroundDataOpt } from './_queries/playground';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type PlaygroundPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -47,7 +45,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PlaygroundPage({ params }: PlaygroundPageProps) {
+export default async function PlaygroundPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

@@ -3,15 +3,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Practice } from './_components/practice';
 import { PRACTICE_SECTIONS } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type PracticePageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -25,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PracticePage({ params }: PracticePageProps) {
+export default async function PracticePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 

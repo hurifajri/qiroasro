@@ -11,15 +11,13 @@ import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
 import { Profile } from './_components/profile';
 import { MOCK_FRIEND_SUGGESTIONS, MOCK_STATISTICS } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string; username: string }>;
 };
 
-type ProfilePageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -33,7 +31,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProfilePage({ params }: ProfilePageProps) {
+export default async function ProfilePage({ params }: PageProps) {
   const { locale, username } = await params;
 
   // Enable static rendering

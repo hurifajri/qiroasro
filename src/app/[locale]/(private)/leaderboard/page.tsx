@@ -5,15 +5,13 @@ import { MOCK_USER_STATS } from '../_lib/mock-data';
 import { Leaderboard } from './_components/leaderboard';
 import { MOCK_FULL_LEADERBOARD } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type LeaderboardPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -27,9 +25,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LeaderboardPage({
-  params,
-}: LeaderboardPageProps) {
+export default async function LeaderboardPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

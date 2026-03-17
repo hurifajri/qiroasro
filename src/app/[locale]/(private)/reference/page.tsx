@@ -3,15 +3,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reference } from './_components/reference';
 import { REFERENCE_CATEGORIES } from './_lib/reference';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type ReferencePageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -25,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ReferencePage({ params }: ReferencePageProps) {
+export default async function ReferencePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 

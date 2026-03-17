@@ -2,15 +2,13 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Sections } from './_components/sections';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type SectionsPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -24,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function SectionsPage({ params }: SectionsPageProps) {
+export default async function SectionsPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering
