@@ -218,6 +218,21 @@
   body {
     @apply font-latin bg-background text-foreground;
   }
+
+  /* MDX Heading Anchor Customization */
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    @apply relative;
+  }
+  .prose a.subheading-anchor {
+    @apply no-underline!;
+  }
+  .prose a.subheading-anchor::before {
+    content: "#";
+    @apply absolute -left-6 top-1/2 -translate-y-1/2 text-muted-foreground/30 font-normal opacity-0 transition-opacity text-[0.8em];
+  }
+  .prose :is(h1, h2, h3, h4, h5, h6):hover a.subheading-anchor::before {
+    @apply opacity-100 text-muted-foreground;
+  }
 }
 
 /* Node Appendix - Question Mark Button Animation */
