@@ -246,12 +246,8 @@
     @apply font-arabic text-xl leading-loose;
   }
 
-  html[lang="ar"] .prose :is(h1, h2, h3, h4, h5, h6) {
-    @apply font-arabic;
-  }
-
   html[lang="ar"] .prose blockquote {
-    @apply font-arabic text-2xl leading-loose;
+    @apply text-2xl;
   }
 }
 
