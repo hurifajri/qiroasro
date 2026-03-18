@@ -4,7 +4,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     wrapper: ({ children }) => (
-      <article className="prose dark:prose-invert mx-auto px-6">
+      <article className="prose dark:prose-invert mx-auto px-6 text-xl">
         {children}
       </article>
     ),
@@ -19,7 +19,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <blockquote
         lang="ar"
         dir="rtl"
-        className="text-right font-arabic text-2xl leading-loose"
+        className="text-right font-arabic text-xl leading-loose"
       >
         {children}
       </blockquote>

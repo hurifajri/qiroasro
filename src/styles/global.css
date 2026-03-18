@@ -238,7 +238,7 @@
   }
 
   .prose :is(blockquote) {
-    @apply not-italic!;
+    @apply not-italic! font-normal!;
   }
 
   /* Arabic Locale Specific Styling for MDX */
@@ -251,7 +251,7 @@
   }
 
   html[lang="ar"] .prose blockquote {
-    @apply font-arabic text-2xl leading-loose;
+    @apply font-arabic text-xl leading-loose;
   }
 }
 
