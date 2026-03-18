@@ -47,7 +47,16 @@ const withNextIntl = createNextIntlPlugin();
 const withMDX = createMDX({
   extension: /\.(md|mdx)$/,
   options: {
-    remarkPlugins: ['remark-gfm'],
+    remarkPlugins: [
+      'remark-gfm',
+      [
+        'remark-toc',
+        {
+          heading:
+            'table[ -]of[ -]contents?|toc|daftar[ -]isi|isi[ -]kandungan|kandungan|içindekiler|الفهرس|المحتويات',
+        },
+      ],
+    ],
     rehypePlugins: [
       'rehype-slug',
       [
