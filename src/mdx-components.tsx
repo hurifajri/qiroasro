@@ -10,7 +10,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     // Component for Arabic text in the middle of a sentence (inline)
     Arabic: ({ children }) => (
-      <span lang="ar" dir="rtl" className="font-arabic leading-normal">
+      <span lang="ar" dir="rtl" className="font-arabic">
         {children}
       </span>
     ),
@@ -19,9 +19,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <blockquote
         lang="ar"
         dir="rtl"
-        className="text-right font-arabic text-xl leading-loose"
+        className="font-arabic text-2xl leading-loose"
       >
-        {children}
+        <p>{children}</p>
       </blockquote>
     ),
   };
