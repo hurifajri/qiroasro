@@ -2,6 +2,7 @@
 
 import { MenuIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -15,6 +16,7 @@ import {
 import { ReferenceSidebar } from './reference-sidebar';
 
 export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
+  const t = useTranslations('reference_page.categories_menu');
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,24 +31,30 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
   return (
     <div className="@container flex @3xl/main:flex-row flex-col gap-6">
       {/* Mobile Trigger & Sidebar Sheet */}
-      <div className="@3xl:hidden w-full">
+      <div className="@3xl:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="outline" className="w-full justify-start">
+            <Button
+              size="lg"
+              variant="outline"
+              className="cursor-pointer justify-start"
+            >
               <MenuIcon />
-              Menu Referensi
+              {t('trigger')}
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
-            <SheetTitle>Menu Navigasi</SheetTitle>
-            <SheetDescription>Navigasi halaman referensi</SheetDescription>
-            <ReferenceSidebar onLinkClick={() => setIsOpen(false)} />
+          <SheetContent side="left" className="p-4">
+            <SheetTitle>{t('title')}</SheetTitle>
+            <SheetDescription>{t('description')}</SheetDescription>
+            <div className="no-scrollbar overflow-y-auto">
+              <ReferenceSidebar onLinkClick={() => setIsOpen(false)} />
+            </div>
           </SheetContent>
         </Sheet>
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="sticky top-0 @3xl:block hidden h-dvh">
+      <aside className="sticky top-6 @3xl:block hidden h-dvh">
         <ScrollArea className="h-full w-72">
           <ReferenceSidebar />
           <ScrollBar orientation="vertical" />

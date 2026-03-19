@@ -697,6 +697,11 @@
       "description": "Kapsamlı Tecvid referans kütüphanesine göz atın."
     },
     "title": "Referans",
+    "categories_menu": {
+      "trigger": "Konu Seçin",
+      "title": "Öğrenim Konuları",
+      "description": "Bugün öğrenmek istediğiniz materyali seçin."
+    },
     "categories": {
       "noble_quran": {
         "title": "Kur'an-ı Kerim",

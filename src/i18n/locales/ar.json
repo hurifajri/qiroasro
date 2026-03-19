@@ -697,6 +697,11 @@
       "description": "تصفح مكتبة مراجع التجويد الشاملة."
     },
     "title": "المراجع",
+    "categories_menu": {
+      "trigger": "اختر الموضوع",
+      "title": "موضوعات التعلم",
+      "description": "اختر المادة التي ترغب في تعلمها اليوم."
+    },
     "categories": {
       "noble_quran": {
         "title": "القرآن الكريم",

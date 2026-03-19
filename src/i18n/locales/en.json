@@ -697,6 +697,11 @@
       "description": "Browse the comprehensive Tajweed reference library."
     },
     "title": "Reference",
+    "categories_menu": {
+      "trigger": "Select Topic",
+      "title": "Learning Topics",
+      "description": "Select the material you wish to learn today."
+    },
     "categories": {
       "noble_quran": {
         "title": "The Noble Quran",

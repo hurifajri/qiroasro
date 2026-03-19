@@ -697,6 +697,11 @@
       "description": "Terokai perpustakaan rujukan Tajwid yang lengkap."
     },
     "title": "Rujukan",
+    "categories_menu": {
+      "trigger": "Pilih Topik",
+      "title": "Topik Pembelajaran",
+      "description": "Pilih bahan yang ingin anda pelajari pada hari ini."
+    },
     "categories": {
       "noble_quran": {
         "title": "Al-Quran yang Mulia",
