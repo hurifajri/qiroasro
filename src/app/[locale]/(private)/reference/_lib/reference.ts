@@ -12,7 +12,7 @@ export interface ReferenceCategory {
 
 export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
   {
-    id: 'noble_quran',
+    id: 'noble-quran',
     titleKey: 'categories.noble_quran.title',
     subtitleKey: 'categories.noble_quran.subtitle',
     iconSymbol: '📖',
@@ -20,7 +20,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: true,
   },
   {
-    id: 'tajweed_science',
+    id: 'tajweed-science',
     titleKey: 'categories.tajweed_science.title',
     subtitleKey: 'categories.tajweed_science.subtitle',
     iconSymbol: '📚',
@@ -28,7 +28,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'istiadah_basmalah',
+    id: 'istiadah-basmalah',
     titleKey: 'categories.istiadah_basmalah.title',
     subtitleKey: 'categories.istiadah_basmalah.subtitle',
     iconSymbol: '🤲',
@@ -36,7 +36,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'arabic_letters',
+    id: 'arabic-letters',
     titleKey: 'categories.arabic_letters.title',
     subtitleKey: 'categories.arabic_letters.subtitle',
     iconSymbol: '🔠',
@@ -44,7 +44,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'vocal_organs',
+    id: 'vocal-organs',
     titleKey: 'categories.vocal_organs.title',
     subtitleKey: 'categories.vocal_organs.subtitle',
     iconSymbol: '🗣️',
@@ -52,7 +52,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'articulation_points',
+    id: 'articulation-points',
     titleKey: 'categories.articulation_points.title',
     subtitleKey: 'categories.articulation_points.subtitle',
     iconSymbol: '📍',
@@ -60,7 +60,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'letter_characteristics',
+    id: 'letter-characteristics',
     titleKey: 'categories.letter_characteristics.title',
     subtitleKey: 'categories.letter_characteristics.subtitle',
     iconSymbol: '⚡',
@@ -68,7 +68,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'common_mistakes',
+    id: 'common-mistakes',
     titleKey: 'categories.common_mistakes.title',
     subtitleKey: 'categories.common_mistakes.subtitle',
     iconSymbol: '⚠️',
@@ -76,7 +76,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'meeting_letters',
+    id: 'meeting-letters',
     titleKey: 'categories.meeting_letters.title',
     subtitleKey: 'categories.meeting_letters.subtitle',
     iconSymbol: '🤝',
@@ -84,7 +84,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'mim_nun_rules',
+    id: 'mim-nun-rules',
     titleKey: 'categories.mim_nun_rules.title',
     subtitleKey: 'categories.mim_nun_rules.subtitle',
     iconSymbol: '⚖️',
@@ -92,7 +92,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'mad_rules',
+    id: 'mad-rules',
     titleKey: 'categories.mad_rules.title',
     subtitleKey: 'categories.mad_rules.subtitle',
     iconSymbol: '〰️',
@@ -100,7 +100,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'vowel_completion',
+    id: 'vowel-completion',
     titleKey: 'categories.vowel_completion.title',
     subtitleKey: 'categories.vowel_completion.subtitle',
     iconSymbol: '🎯',
@@ -108,7 +108,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'meeting_sukoons',
+    id: 'meeting-sukoons',
     titleKey: 'categories.meeting_sukoons.title',
     subtitleKey: 'categories.meeting_sukoons.subtitle',
     iconSymbol: '⏸️',
@@ -132,7 +132,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'special_words',
+    id: 'special-words',
     titleKey: 'categories.special_words.title',
     subtitleKey: 'categories.special_words.subtitle',
     iconSymbol: '⭐',
@@ -140,7 +140,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'waqf_ibtida',
+    id: 'waqf-ibtida',
     titleKey: 'categories.waqf_ibtida.title',
     subtitleKey: 'categories.waqf_ibtida.subtitle',
     iconSymbol: '🛑',
@@ -148,7 +148,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'roum_ishmam',
+    id: 'roum-ishmam',
     titleKey: 'categories.roum_ishmam.title',
     subtitleKey: 'categories.roum_ishmam.subtitle',
     iconSymbol: '🤏',
@@ -156,7 +156,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'seven_alifs',
+    id: 'seven-alifs',
     titleKey: 'categories.seven_alifs.title',
     subtitleKey: 'categories.seven_alifs.subtitle',
     iconSymbol: '7️⃣',
@@ -164,7 +164,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'hamzat_wasl',
+    id: 'hamzat-wasl',
     titleKey: 'categories.hamzat_wasl.title',
     subtitleKey: 'categories.hamzat_wasl.subtitle',
     iconSymbol: '🔗',
@@ -172,7 +172,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'hamzat_qata',
+    id: 'hamzat-qata',
     titleKey: 'categories.hamzat_qata.title',
     subtitleKey: 'categories.hamzat_qata.subtitle',
     iconSymbol: '✂️',
@@ -180,7 +180,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'mushaf_signs',
+    id: 'mushaf-signs',
     titleKey: 'categories.mushaf_signs.title',
     subtitleKey: 'categories.mushaf_signs.subtitle',
     iconSymbol: '📝',
@@ -188,7 +188,7 @@ export const REFERENCE_CATEGORIES: ReferenceCategory[] = [
     available: false,
   },
   {
-    id: 'modern_spelling',
+    id: 'modern-spelling',
     titleKey: 'categories.modern_spelling.title',
     subtitleKey: 'categories.modern_spelling.subtitle',
     iconSymbol: '🔤',

@@ -74,7 +74,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
       {/* Main Content */}
       <main
         className={cn(
-          'w-full min-w-0 px-2 pb-18.5 sm:px-6 md:py-6',
+          '@container/main w-full min-w-0 px-2 pb-18.5 sm:px-6 md:py-6',
           hasMobileHeader ? 'pt-13.5' : 'pt-2',
         )}
       >
