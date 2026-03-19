@@ -37,7 +37,7 @@ export function UnitHeader({
     <Item
       variant="muted"
       className={cn(
-        'sticky top-14 z-10 rounded-xl p-4 md:top-6',
+        'sticky top-15.5 z-10 rounded-xl p-4 md:top-6',
         getCardColorClass(unit.colorCode),
       )}
     >
