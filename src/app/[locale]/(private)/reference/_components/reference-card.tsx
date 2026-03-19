@@ -15,7 +15,7 @@ export function ReferenceCard({ category }: ReferenceCardProps) {
   const content = (
     <div
       className={cn(
-        'group relative flex h-full flex-col items-center justify-center gap-2 rounded-2xl border-2 p-4 text-center transition-all',
+        'relative flex h-full flex-col items-center justify-center gap-2 rounded-2xl border-2 p-4 text-center transition-all',
         available
           ? 'border-border bg-card hover:border-primary hover:bg-primary/5'
           : 'cursor-not-allowed border-muted bg-muted/30 opacity-60',

@@ -20,17 +20,13 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
       {REFERENCE_CATEGORIES.map((category) => {
         const isActive = pathname.includes(`/reference/${category.id}`);
 
-        return (
-          <Link
+        const content = (
+          <div
             key={category.id}
-            href={category.href}
-            onClick={onLinkClick}
             className={cn(
               'relative flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
-              isActive
-                ? 'bg-primary/15 text-primary'
-                : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-              !category.available && 'pointer-events-none opacity-50',
+              isActive && 'bg-primary/15 text-primary',
+              !category.available && 'cursor-not-allowed opacity-50',
             )}
           >
             <span>{category.iconSymbol}</span>
@@ -38,6 +34,16 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
             {!category.available && (
               <LockIcon className="ml-auto size-5 shrink-0 text-muted-foreground" />
             )}
+          </div>
+        );
+
+        if (!category.available) {
+          return content;
+        }
+
+        return (
+          <Link key={category.id} href={category.href} onClick={onLinkClick}>
+            {content}
           </Link>
         );
       })}
