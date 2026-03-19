@@ -1,5 +1,6 @@
 'use client';
 
+import { LockIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -25,7 +26,7 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
             href={category.href}
             onClick={onLinkClick}
             className={cn(
-              'flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
+              'relative flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
               isActive
                 ? 'bg-primary/15 text-primary'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
@@ -34,6 +35,9 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
           >
             <span>{category.iconSymbol}</span>
             <span>{t(category.titleKey)}</span>
+            {!category.available && (
+              <LockIcon className="ml-auto size-5 shrink-0 text-muted-foreground" />
+            )}
           </Link>
         );
       })}
