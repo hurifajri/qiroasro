@@ -29,9 +29,9 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
   if (isRoot) return children;
 
   return (
-    <div className="@container flex @3xl/main:flex-row flex-col gap-6">
+    <div className="@container flex @6xl/main:flex-row flex-col gap-6">
       {/* Mobile Trigger & Sidebar Sheet */}
-      <div className="@3xl:hidden">
+      <div className="@6xl:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button
@@ -43,7 +43,7 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
               {t('trigger')}
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="p-4">
+          <SheetContent side="left" className="p-3">
             <SheetTitle>{t('title')}</SheetTitle>
             <SheetDescription>{t('description')}</SheetDescription>
             <div className="no-scrollbar overflow-y-auto">
@@ -54,7 +54,7 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="sticky top-6 @3xl:block hidden h-dvh">
+      <aside className="sticky top-6 @6xl:block hidden h-dvh">
         <ScrollArea className="h-full w-72">
           <ReferenceSidebar />
           <ScrollBar orientation="vertical" />
