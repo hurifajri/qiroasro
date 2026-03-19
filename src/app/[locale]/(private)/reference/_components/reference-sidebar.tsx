@@ -29,8 +29,7 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
               isActive
                 ? 'bg-primary/15 text-primary'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-              !category.available &&
-                'pointer-events-none cursor-not-allowed opacity-50',
+              !category.available && 'pointer-events-none opacity-50',
             )}
           >
             <span>{category.iconSymbol}</span>
