@@ -3,6 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { usePathname } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
 import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
 import { BottomNav } from './navigation';
@@ -67,11 +68,16 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
 
       {/* Top Stats Bar */}
       {isMaxMd && hasMobileHeader && (
-        <header className="fixed inset-x-0 top-0 z-50 p-2">{header}</header>
+        <header className="fixed inset-x-0 top-0 z-50 p-3">{header}</header>
       )}
 
       {/* Main Content */}
-      <main className="mx-auto w-full min-w-0 max-w-xl px-2 pt-13.5 pb-18.5 sm:px-6 md:py-6">
+      <main
+        className={cn(
+          '@container/main w-full min-w-0 px-3 pb-20.5 sm:px-6 md:py-6',
+          hasMobileHeader ? 'pt-15.5' : 'pt-3',
+        )}
+      >
         {children}
       </main>
 
@@ -80,7 +86,7 @@ export function Private({ children, userId, header, sidebar }: PrivateProps) {
 
       {/* Bottom Navigation - Mobile only */}
       {isMaxMd && (
-        <footer className="fixed inset-x-0 bottom-0 z-50 p-2">
+        <footer className="fixed inset-x-0 bottom-0 z-50 p-3">
           <BottomNav items={bottomNavItems} />
         </footer>
       )}

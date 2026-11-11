@@ -1,377 +1,4 @@
 {
-  "global": {
-    "metadata": {
-      "title": "The 1st Graph-Based Tajweed App",
-      "description": "Learn Articulation Points (Makharij) & Characteristics (Sifat) through interactive knowledge graphs. The first app that visualizes tajweed rules as interconnected nodes.",
-      "feature_list": "Interactive knowledge graphs,Quiz mode,Multi-language support",
-      "keywords": "tajweed,tajwid,makharijul huruf,sifatul huruf,quran,learn quran,hijaiyyah letters,arabic"
-    },
-    "color_mode": {
-      "title": "Color Mode",
-      "mode_system": "System",
-      "mode_light": "Light",
-      "mode_dark": "Dark"
-    },
-    "language": {
-      "title": "Language"
-    },
-    "leagues": {
-      "peace": "Darussalam",
-      "stability": "Darul Muqamah",
-      "security": "Al-Maqamul Amin",
-      "merit": "Qadama Sidq",
-      "honor": "Maq'adu Sidq",
-      "eternity": "Jannatul Khuld",
-      "shelter": "Jannatul Ma'wa",
-      "bliss": "Jannatun Na'im",
-      "eden": "Jannatu 'Adn",
-      "paradise": "Jannatul Firdaus"
-    },
-    "achievements": {
-      "title": "Achievements",
-      "view_all": "View All",
-      "level": "Level",
-      "consistency_streak": {
-        "title": "Istiqamah Flame",
-        "description": "Reach a 365-day learning streak. Consistency is beloved by Allah.",
-        "levels": [3, 7, 30, 100, 365]
-      },
-      "perfectionist": {
-        "title": "Itqan Master",
-        "description": "Complete 100 lessons with zero mistakes. Strive for perfection.",
-        "levels": [10, 50, 100]
-      },
-      "xp_milestone": {
-        "title": "Al-Mahir",
-        "description": "Earn 5000 XP. Be skilled in reciting the Quran.",
-        "levels": [1000, 5000, 20000]
-      },
-      "early_bird": {
-        "title": "Fajr Seeker",
-        "description": "Complete a lesson before 7 AM. Blessings are in the early hours.",
-        "levels": [1, 10, 50]
-      },
-      "night_owl": {
-        "title": "Tahajjud Warrior",
-        "description": "Complete a lesson after 10 PM. Revive the night with knowledge.",
-        "levels": [1, 10, 50]
-      },
-      "social_connector": {
-        "title": "Ukhuwah Builder",
-        "description": "Follow 3 friends. Believers are like a solid building.",
-        "levels": [1, 3, 10]
-      },
-      "error_corrector": {
-        "title": "Tawwabin Spirit",
-        "description": "Correct 50 mistakes in practice sessions. Returning to truth is noble.",
-        "levels": [10, 50, 100]
-      },
-      "weekend_warrior": {
-        "title": "Holiday Hafiz",
-        "description": "Complete lessons on Saturday and Sunday for 4 weeks in a row.",
-        "levels": [1, 4, 12]
-      }
-    },
-    "badges": {
-      "dawn": {
-        "title": "The Dawn",
-        "surah_ref": "Al-Fajr",
-        "description": "Start your journey like the break of dawn."
-      },
-      "pen": {
-        "title": "The Pen",
-        "surah_ref": "Al-Qalam",
-        "description": "Knowledge is captured by the pen."
-      },
-      "thunder": {
-        "title": "The Thunder",
-        "surah_ref": "Ar-Ra'd",
-        "description": "Powerful recitation like rolling thunder."
-      },
-      "fig": {
-        "title": "The Fig",
-        "surah_ref": "At-Tin",
-        "description": "Sweet fruits of patience and learning."
-      },
-      "star": {
-        "title": "The Star",
-        "surah_ref": "An-Najm",
-        "description": "Aim high, guided by the stars."
-      },
-      "sun": {
-        "title": "The Sun",
-        "surah_ref": "Ash-Shams",
-        "description": "Shine bright with clarity in reading."
-      },
-      "iron": {
-        "title": "The Iron",
-        "surah_ref": "Al-Hadid",
-        "description": "Strong will and unbreakable consistency."
-      },
-      "stars": {
-        "title": "The Mansions of the Stars",
-        "surah_ref": "Al-Buruj",
-        "description": "A sky full of persistent efforts."
-      },
-      "mount": {
-        "title": "The Mount",
-        "surah_ref": "At-Tur",
-        "description": "Firm and steadfast like a mountain."
-      },
-      "moon": {
-        "title": "The Moon",
-        "surah_ref": "Al-Qamar",
-        "description": "Beautiful reflection of the light."
-      },
-      "night": {
-        "title": "The Night",
-        "surah_ref": "Al-Lail",
-        "description": "Peaceful dedication in the quiet hours."
-      },
-      "declining_day": {
-        "title": "The Declining Day",
-        "surah_ref": "Al-'Asr",
-        "description": "Value every moment before time passes."
-      }
-    },
-    "letter": {
-      "hamzah": "Hamzah",
-      "ba": "Ba",
-      "ta": "Ta",
-      "tsa": "Tsa",
-      "jim": "Jim",
-      "ha_wasath": "Ha'",
-      "kha": "Kha",
-      "dal": "Dal",
-      "dhal": "Dhal",
-      "ra": "Ra",
-      "zay": "Zay",
-      "sin": "Sin",
-      "shin": "Shin",
-      "shad": "Sad",
-      "dhad": "Dhad",
-      "tha": "Tha",
-      "zha": "Za",
-      "ayn": "'Ayn",
-      "ghain": "Ghain",
-      "fa": "Fa",
-      "qaf": "Qaf",
-      "kaf": "Kaf",
-      "lam": "Lam",
-      "mim": "Mim",
-      "nun": "Nun",
-      "waw": "Waw",
-      "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
-      "ya": "Ya",
-      "alif_madd": "Alif Madd",
-      "waw_madd": "Waw Madd",
-      "ya_madd": "Ya Madd"
-    },
-    "articulation_area": {
-      "al_jauf": "The Oral and Throat Cavity",
-      "al_halq": "The Throat",
-      "al_lisan": "The Tongue",
-      "asy_syafatain": "The Two Lips",
-      "al_khaisyum": "The Nasal Cavity"
-    },
-    "articulation_point": {
-      "jauf": "Al-Jauf",
-      "aqsha_halq": "Aqsa Al-Halq",
-      "wasath_halq": "Wasat Al-Halq",
-      "adna_halq": "Adna Al-Halq",
-      "aqsha_lisan": "Aqsa Al-Lisan",
-      "aqsha_lisan_asfal": "Aqsa Al-Lisan (Asfal)",
-      "wasath_lisan": "Wasat Al-Lisan",
-      "hafah_lisan": "Hafah Al-Lisan",
-      "adna_hafah_lisan": "Adna Hafah Al-Lisan",
-      "tharaf_lisan": "Tharaf Al-Lisan",
-      "tharaf_lisan_zhahr_adkhal": "Tharaf Al-Lisan (Zhahr)",
-      "tharaf_lisan_ulya_tsanaya": "Tharaf Al-Lisan & Usul Ath-Thanaya",
-      "tharaf_lisan_tsanaya_sufla": "Tharaf Al-Lisan & Ath-Thanaya As-Sufla",
-      "tharaf_lisan_athraf_tsanaya_ulya": "Tharaf Al-Lisan & Atraf Ath-Thanaya",
-      "bathn_syafah": "Batn Ash-Shafah",
-      "syafatain": "Ash-Shafatain",
-      "khaisyum": "Al-Khaishum"
-    },
-    "articulation_point_description": {
-      "jauf": "The empty space within the mouth and throat cavity.",
-      "aqsha_halq": "The deepest part of the throat (furthest from the mouth), specifically at the vocal cords (larynx).",
-      "wasath_halq": "The middle part of the throat, specifically at the epiglottis.",
-      "adna_halq": "The closest part of the throat (nearest to the mouth), where the root of the tongue meets the uvula.",
-      "aqsha_lisan": "The back of the tongue touching the soft palate (the fleshy part of the roof of the mouth).",
-      "aqsha_lisan_asfal": "The back of the tongue (slightly below the Qaf articulation point) touching the junction of the soft and hard palates.",
-      "wasath_lisan": "The middle of the tongue rising to the roof of the mouth. (Touching for Jim; rising without touching for Shin and Ya).",
-      "hafah_lisan": "The edge of the tongue (extending from the back to the tip) pressing against the inner wall of the upper molars on the left, right, or both.",
-      "adna_hafah_lisan": "The nearest part of the tongue's edge (from the end of the Dhad articulation point to the tip) touching the palate near the gums of the upper incisors.",
-      "tharaf_lisan": "The tip of the tongue touching the palate near the gums of the upper incisors (slightly below the Lam articulation point).",
-      "tharaf_lisan_zhahr_adkhal": "The tip of the tongue slightly curling into the back of the tongue (close to the Nun articulation point).",
-      "tharaf_lisan_ulya_tsanaya": "The tip of the tongue touching the base (root) of the upper incisors.",
-      "tharaf_lisan_tsanaya_sufla": "The tip of the tongue positioned just above the lower incisors (without touching).",
-      "tharaf_lisan_athraf_tsanaya_ulya": "The tip of the tongue touching the cutting edge of the upper incisors.",
-      "bathn_syafah": "The inner part of the lower lip touching the cutting edge of the upper incisors.",
-      "syafatain": "The two lips. (Rounding lips for Waw; Closing lips for Ba; Closing lips with ghunnah for Mim).",
-      "khaisyum": "The nasal cavity (base of the nose), from where the Ghunnah (nasal sound) of Nun and Mim is emitted."
-    },
-    "trait_group": {
-      "nafas": "Breath Flow",
-      "shaut": "Sound Flow",
-      "ittijah_shaut": "Direction of Sound",
-      "inhishar_shaut": "Containment of Sound",
-      "khiffah_nuthq": "Fluency of Pronunciation",
-      "munfaridah": "Characteristics without Opposites",
-      "siman_shaut": "Temporary Characteristics"
-    },
-    "trait": {
-      "jahr": "Jahr",
-      "hams": "Hams",
-      "syiddah": "Shiddah",
-      "rakhawah": "Rakhawah",
-      "tawassuth": "Tawassut / Bayniyyah",
-      "istila": "Isti'la",
-      "istifal": "Istifal",
-      "itbaq": "Itbaq",
-      "infitah": "Infitah",
-      "idzlaq": "Idhlaq",
-      "ishmat": "Ishmat",
-      "safir": "Safir",
-      "qalqalah": "Qalqalah",
-      "lin": "Lin",
-      "inhiraf": "Inhiraf",
-      "takrir": "Takrir",
-      "tafasyi": "Tafashi",
-      "istithalah": "Istitalah",
-      "ghunnah": "Ghunnah",
-      "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Others"
-    },
-    "trait_description": {
-      "jahr": "The stoppage of breath flow (audible/clear sound).",
-      "hams": "The flow of breath (whispery sound).",
-      "syiddah": "The stoppage of sound flow (strong).",
-      "rakhawah": "The flow of sound (soft).",
-      "tawassuth": "The moderate flow of sound (between Syiddah and Rakhawah).",
-      "istila": "The elevation of the back of the tongue.",
-      "istifal": "The lowering of the back of the tongue.",
-      "itbaq": "The tongue elevates until it almost adheres to the palate, causing the sound to be trapped.",
-      "infitah": "The opening of the space between the tongue and the palate.",
-      "idzlaq": "Easier and faster to pronounce due to proximity to the tip of the tongue or lips.",
-      "ishmat": "Heavier/more difficult to pronounce.",
-      "safir": "A sharp (whistling) sound.",
-      "qalqalah": "Vibration/bouncing of the sound (Echo).",
-      "lin": "Softness. (Waw or Ya with Sukoon preceded by a Fathah).",
-      "inhiraf": "Drifting. (The sound drifts from its articulation point).",
-      "takrir": "A gentle trill/repetition of the tongue tip.",
-      "tafasyi": "Spreading of air throughout the mouth.",
-      "istithalah": "Elongation of the sound from the beginning to the end of the tongue's edge.",
-      "ghunnah": "A nasal sound emitted from the nasal cavity.",
-      "tafkhim": "A thick (heavy) sound caused by the elevation of the back of the tongue. There are 7 letters that are always pronounced thick, namely the letters possessing the trait of Isti'la.",
-      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition.",
-      "others": "Some characteristics have not been added yet; inshaa Allah, they will be added soon."
-    },
-    "development": {
-      "email_placeholder": "Email",
-      "reminder_title": "Notify me when the app is available",
-      "reminder_playground_cta": "Visit Playground",
-      "reminder_success": "Verification email sent! Please check your inbox.",
-      "reminder_verified": "Email verified successfully",
-      "reminder_verified_message": "We will notify you via email when the app becomes available, insyaa Allah. To get a preview, you can visit the Playground page.",
-      "reminder_already_verified": "Your email is already verified.",
-      "reminder_error": "Something went wrong. Please try again.",
-      "reminder_invalid_email": "Invalid email address",
-      "reminder_email_required": "Email is required"
-    },
-    "private_layout": {
-      "nav": {
-        "learn": "Learn",
-        "practice": "Practice",
-        "reference": "Reference",
-        "leaderboard": "Leaderboard",
-        "quests": "Quests",
-        "shop": "Shop",
-        "profile": "Profile",
-        "more": "More",
-        "settings": "Settings",
-        "help": "Help",
-        "logout": "Log Out"
-      },
-      "level_card": {
-        "title": "Level up with Super",
-        "description": "No ads, personalized practice, and unlimited features!",
-        "cta": "Get Super"
-      },
-      "leaderboard": {
-        "view_league": "View Halaqah",
-        "description": "Complete a lesson to join this week's leaderboard"
-      },
-      "daily_quests": {
-        "title": "Daily Quests",
-        "view_all": "View All"
-      },
-      "ads": {
-        "title": "Discover More",
-        "placeholder": "Advertisement",
-        "remove_ads": "Remove Ads"
-      },
-      "activity_feed": {
-        "title": "Activity",
-        "celebrate": "Celebrate",
-        "view_all": "View All"
-      },
-      "activity": {
-        "completed_streak": "Completed a 500 day streak!",
-        "collected_badge": "Collected the February badge!"
-      },
-      "follow_list": {
-        "title": "Friends",
-        "following": "Following",
-        "followers": "Followers",
-        "view_more": "View {count} more"
-      },
-      "add_friends": {
-        "title": "Add Friends",
-        "find": "Find Friends",
-        "invite": "Invite Friends"
-      },
-      "quests": {
-        "earn_xp": {
-          "title": "Earn 10 XP",
-          "description": "Complete lessons to earn XP"
-        },
-        "high_accuracy": {
-          "title": "Score 90%+ in 1 lesson",
-          "description": "Achieve high accuracy in a lesson"
-        },
-        "complete_lessons": {
-          "title": "Complete 3 lessons",
-          "description": "Finish 3 lessons today"
-        }
-      },
-      "account": {
-        "title": "Account",
-        "preferences": "Preferences",
-        "profile": "Profile",
-        "notifications": "Notifications",
-        "social": "Social Accounts",
-        "privacy": "Privacy"
-      },
-      "subscription": {
-        "title": "Subscription",
-        "choose_plan": "Choose a Plan"
-      },
-      "support": {
-        "title": "Support",
-        "help_center": "Help Center"
-      },
-      "monthly_badges": {
-        "title": "Monthly Badges",
-        "view_all": "View All"
-      },
-      "set_status": "Set Status",
-      "logout": "Log Out"
-    }
-  },
   "home_page": {
     "metadata": {
       "title": "The 1st Graph-Based Tajweed App",
@@ -602,58 +229,67 @@
     },
     "title": "Learn - Tajweed Learning Path",
     "start": "Start",
-    "guidebook": "Guidebook",
-    "sections": {
-      "foundation": "Section {section}, Unit {unit}",
-      "tongue_letters": "Section {section}, Unit {unit}",
-      "lips_nasal": "Section {section}, Unit {unit}",
-      "trait": "Section {section}, Unit {unit}",
-      "unknown": "Section {section}"
-    },
+    "read_reference": "Review Material",
     "units": {
       "jauf": {
-        "title": "Cavity Letters (Al-Jauf)",
-        "description": "Learn the Madd letters from the oral and throat cavity."
+        "title": "Al-Jauf",
+        "description": "Letters emanating from the oral and throat cavity"
       },
       "halq": {
-        "title": "Throat Letters (Al-Halq)",
-        "description": "Learn letters articulated from the throat."
+        "title": "Al-Halq",
+        "description": "Letters emanating from the throat"
       },
       "aqsha_lisan": {
-        "title": "Back Tongue (Aqsa)",
-        "description": "Letters from the deepest part of the tongue."
+        "title": "Aqsha Al-Lisan",
+        "description": "Base of the tongue near the throat"
       },
       "wasath_lisan": {
-        "title": "Middle Tongue (Wasat)",
-        "description": "Letters from the middle of the tongue."
+        "title": "Wasath Al-Lisan",
+        "description": "Middle of the tongue meeting the palate"
       },
       "hafah_lisan": {
-        "title": "Tongue Edge (Hafah)",
-        "description": "Letters from the sides/edges of the tongue."
+        "title": "Hafah Al-Lisan (Edge)",
+        "description": "Edge of the tongue meeting upper molars"
       },
       "tharaf_lisan": {
-        "title": "Tongue Tip (Tharaf)",
-        "description": "Letters from the tip of the tongue."
+        "title": "Tharaf Al-Lisan",
+        "description": "Tip of the tongue in various positions"
       },
       "tsanaya": {
-        "title": "Incisors Area",
-        "description": "Letters involving the front teeth (incisors)."
+        "title": "Al-Tsanaya",
+        "description": "Upper incisors as articulation point"
       },
       "syafatain": {
-        "title": "Two Lips (Ash-Shafatain)",
-        "description": "Letters articulated by the lips."
+        "title": "Al-Shafatayn",
+        "description": "Labial letters (lips)"
       },
       "khaisyum": {
-        "title": "Nasal (Al-Khaishum)",
-        "description": "Sounds with nasal resonance (Ghunnah)."
+        "title": "Al-Khayshoum",
+        "description": "Letters emanating from the nasal cavity (ghunnah)"
       },
       "sifat_mutadhadah": {
-        "title": "Opposing Characteristics",
-        "description": "Traits that have opposites (e.g., Jahr vs Hams)."
+        "title": "Opposing Traits",
+        "description": "Traits with opposites (e.g. Jahr vs Hams)"
       },
       "sifat_munfaridah": {
-        "title": "Unique Characteristics",
-        "description": "Traits without opposites (e.g., Qalqalah)."
+        "title": "Singular Traits",
+        "description": "Traits with no opposites (e.g. Qalqalah)"
+      },
+      "quran_delivery_method": {
+        "title": "Quran Delivery Method",
+        "description": "How the Prophet transmitted the Quran to the community"
+      },
+      "mutawatir_definition": {
+        "title": "Definition of Mutawatir",
+        "description": "The concept of mutawatir in Quran transmission"
+      },
+      "oral_transmission_process": {
+        "title": "Oral Transmission Process",
+        "description": "Stages of Quran oral transmission"
+      },
+      "quran_codification": {
+        "title": "Quran Codification Phases",
+        "description": "Five phases of writing and compiling the Quran"
       }
     }
   },
@@ -663,60 +299,119 @@
       "description": "View all curriculum sections and track your progress."
     },
     "title": "Sections - Curriculum",
-    "section_title": "Section {number}",
     "back": "Back",
+    "start": "Start",
     "completed": "Completed!",
     "continue": "Continue",
-    "review": "Review",
-    "sections": {
-      "foundation": {
-        "title": "Foundation",
-        "description": "Master the fundamental letters and sounds."
-      },
-      "tongue_letters": {
-        "title": "Tongue Letters",
-        "description": "Learn letters articulated from different parts of the tongue."
-      },
-      "lips_nasal": {
-        "title": "Lips & Nasal",
-        "description": "Letters from the lips and nasal cavity."
-      },
-      "trait": {
-        "title": "Characteristics",
-        "description": "Master the traits and properties of letters."
-      },
-      "advanced": {
-        "title": "Advanced Topics",
-        "description": "Advanced Tajweed rules and recitation techniques."
-      }
-    }
+    "review": "Review"
   },
   "reference_page": {
     "metadata": {
       "title": "Knowledge Library",
       "description": "Browse the comprehensive Tajweed reference library."
     },
-    "title": "Reference - Knowledge Library",
+    "title": "Reference",
+    "categories_menu": {
+      "trigger": "Select Topic",
+      "title": "Learning Topics",
+      "description": "Select the material you wish to learn today."
+    },
     "categories": {
-      "letters": {
-        "title": "Hijaiyyah Letters",
-        "count": "30 Items"
+      "noble_quran": {
+        "title": "The Noble Quran",
+        "subtitle": "Definition, codification phases, and the transmission process of the Quran"
       },
-      "articulation": {
+      "tajweed_science": {
+        "title": "Science of Tajweed",
+        "subtitle": "Definition, general discussions, and the rulings on applying Tajweed"
+      },
+      "istiadah_basmalah": {
+        "title": "Isti'adah and Basmalah",
+        "subtitle": "Rules for reciting the Isti'adah and Basmalah"
+      },
+      "arabic_letters": {
+        "title": "Arabic Letters",
+        "subtitle": "Understanding the Hijaiyah and Abjadiyah alphabets"
+      },
+      "vocal_organs": {
+        "title": "Vocal Organs",
+        "subtitle": "The vocal organs and how sounds and letters are produced"
+      },
+      "articulation_points": {
         "title": "Articulation Points",
-        "count": "17 Points"
+        "subtitle": "Specific articulation points (Makharij) of Hijaiyah letters"
       },
-      "trait": {
-        "title": "Characteristics",
-        "count": "17 Traits"
+      "letter_characteristics": {
+        "title": "Characteristics of Letters",
+        "subtitle": "Intrinsic (Lazimah) and conditional ('Aridhah) characteristics of Hijaiyah letters"
       },
-      "rule": {
-        "title": "Tajweed Rules",
-        "count": "Rules & Laws"
+      "common_mistakes": {
+        "title": "Common Mistakes",
+        "subtitle": "The most prominent errors when pronouncing Hijaiyah letters"
       },
-      "waqf": {
-        "title": "Waqf & Ibtida'",
-        "count": "Stopping Marks"
+      "meeting_letters": {
+        "title": "Rules for Adjacent Letters",
+        "subtitle": "Rules and relationships when two letters meet"
+      },
+      "mim_nun_rules": {
+        "title": "Rules of Mim and Nun",
+        "subtitle": "Rules for sukoon, tashdeed, and the proper duration of ghunnah"
+      },
+      "mad_rules": {
+        "title": "Rules of Mad",
+        "subtitle": "Rules for elongating the sound in Quranic recitation"
+      },
+      "vowel_completion": {
+        "title": "Completion of Harakat",
+        "subtitle": "Perfecting the vowel movements on letters"
+      },
+      "meeting_sukoons": {
+        "title": "Meeting of Two Sukoons",
+        "subtitle": "Two sukoons meeting within one word and two words"
+      },
+      "miscellaneous": {
+        "title": "Miscellaneous Topics",
+        "subtitle": "Various other discussions in the science of Tajweed"
+      },
+      "nabr": {
+        "title": "Nabr in Recitation",
+        "subtitle": "Accentuation and stress when reciting the Quran"
+      },
+      "special_words": {
+        "title": "Special Words",
+        "subtitle": "Several words in the Quran with special conditions according to Hafs"
+      },
+      "waqf_ibtida": {
+        "title": "Waqf and Ibtida'",
+        "subtitle": "Rules for stopping and starting the recitation"
+      },
+      "roum_ishmam": {
+        "title": "Roum and Ishmam",
+        "subtitle": "Subtle pronunciations (partial vowel or lip signaling) when stopping"
+      },
+      "seven_alifs": {
+        "title": "The Seven Alifs",
+        "subtitle": "Special rules for the Alifat (The seven Alifs)"
+      },
+      "hamzat_wasl": {
+        "title": "Hamzat Al-Wasl",
+        "subtitle": "The connecting Hamzah"
+      },
+      "hamzat_qata": {
+        "title": "Hamzat Al-Qat'",
+        "subtitle": "The cutting Hamzah"
+      },
+      "mushaf_signs": {
+        "title": "Signs in the Mushaf",
+        "subtitle": "Development phases of orthography and signs in the Quranic Mushaf"
+      },
+      "modern_spelling": {
+        "title": "Modern Spelling",
+        "subtitle": "Differences between Mushaf orthography and modern spelling adjustments"
+      },
+      "memorization": {
+        "title": "Memorizing the Quran",
+        "subtitle": "Methods and guidelines for memorizing the Quran"
       }
     }
   },

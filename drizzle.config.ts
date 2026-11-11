@@ -18,6 +18,7 @@ export default defineConfig({
   out: './drizzle',
   schema: [
     './src/db/auth-schema.ts',
+    './src/db/curriculum-schema.ts',
     './src/db/master-schema.ts',
     './src/db/playground-schema.ts',
     './src/db/user-schema.ts',

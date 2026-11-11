@@ -1,15 +1,11 @@
-import type { ReferenceCategory } from '../_lib/mock-data';
+import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
 import { ReferenceItem } from './reference-item';
 
-interface ReferenceGridProps {
-  categories: ReferenceCategory[];
-}
-
-export function ReferenceGrid({ categories }: ReferenceGridProps) {
+export function ReferenceGrid() {
   return (
-    <ul className="grid grid-cols-2 gap-2 max-[20rem]:grid-cols-1 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3">
-      {categories.map((category) => (
-        <ReferenceItem key={category.id} category={category} />
+    <ul className="grid @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6 @lg:grid-cols-3 @max-xs:grid-cols-1 grid-cols-2 gap-2">
+      {CURRICULUM_TOPICS.map((topic) => (
+        <ReferenceItem key={topic.slug} topic={topic} />
       ))}
     </ul>
   );

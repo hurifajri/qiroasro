@@ -1,49 +1,35 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { useRouter } from '@/i18n/navigation';
-import { MOCK_LESSONS, MOCK_UNITS } from '../_lib/mock-data';
-import type { Lesson, Unit } from '../_schemas/learn';
-import { LearningPath } from './learning-path';
-
-interface LearnProps {
-  className?: string;
-}
+import { useSearchParams } from 'next/navigation';
+import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
+import { UnitPath } from './unit-path';
 
 /**
- * Main Learn component - Duolingo-style learning path UI.
- * Layout shell is now handled by private layout.
+ * Main Learn component with zigzag lesson nodes.
+ *
+ * Uses CURRICULUM_TOPICS as the source of truth for units and lessons.
+ * The active topic is determined by the `section` URL search param (topic slug).
+ * Defaults to the first topic in CURRICULUM_TOPICS if no param is provided.
  */
-export function Learn({ className }: LearnProps) {
-  const _t = useTranslations('learn_page');
-  const router = useRouter();
+export function Learn() {
+  const searchParams = useSearchParams();
 
-  function handleClickLesson(lesson: Lesson) {
-    if (lesson.status === 'locked') return;
-
-    // TODO: Navigate to lesson or open lesson modal
-    console.log('Lesson clicked:', lesson);
-  }
-
-  function handleClickSection(unit: Unit) {
-    // TODO: Navigate to section or open section modal
-    console.log('Section clicked:', unit);
-    router.push('/sections');
-  }
-
-  function handleClickGuidebook() {
-    // TODO: Open guidebook modal
-    console.log('Guidebook clicked');
-  }
+  // Determine active topic — fall back to first topic
+  const sectionSlug = searchParams.get('section');
+  const defaultTopic = CURRICULUM_TOPICS[0];
+  const currentTopic = CURRICULUM_TOPICS.find((t) => t.slug === sectionSlug);
+  const topic = currentTopic ?? defaultTopic;
 
   return (
-    <LearningPath
-      units={MOCK_UNITS}
-      lessons={MOCK_LESSONS}
-      onClickLesson={handleClickLesson}
-      onClickSection={handleClickSection}
-      onClickGuidebook={handleClickGuidebook}
-      className={className}
-    />
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
+      {topic.units.map((unit) => (
+        <UnitPath
+          key={unit.slug}
+          unit={unit}
+          topicSlug={topic.slug}
+          topicTitleKey={topic.titleKey}
+        />
+      ))}
+    </div>
   );
 }

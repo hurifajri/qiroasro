@@ -13,7 +13,7 @@ export function Shop({ heartsItems, powerupItems }: ShopProps) {
   const t = useTranslations('shop_page');
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       {/* Hearts Section */}
       <ShopSection title={t('hearts.title')} items={heartsItems} />
 

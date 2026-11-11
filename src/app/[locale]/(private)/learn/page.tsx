@@ -2,15 +2,13 @@ import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Learn } from './_components/learn';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type LearnPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -24,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function LearnPage({ params }: LearnPageProps) {
+export default async function LearnPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

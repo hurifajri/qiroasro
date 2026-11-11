@@ -34,18 +34,18 @@ export function Profile({
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6">
       {/* User Info */}
       {userProfile && <UserInfo user={userProfile} />}
 
       {/* Statistics */}
-      <div className="flex flex-col gap-3">
+      <div className="@container flex flex-col gap-3">
         <h2 className="font-bold text-lg">{t('statistics.title')}</h2>
         <StatGrid stats={stats} />
       </div>
 
       {/* Friend Suggestions */}
-      <div className="flex flex-col gap-3">
+      <div className="@container flex flex-col gap-3">
         <div className="flex w-full items-center justify-between gap-2">
           <h2 className="font-bold text-lg">{t('friend_suggestions.title')}</h2>
           <Button variant="link" className="px-0">

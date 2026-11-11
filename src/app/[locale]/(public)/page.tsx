@@ -8,15 +8,13 @@ import {
 import type { Locale } from '@/i18n/routing';
 import { Home } from './_components/home';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type HomePageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home_page.metadata' });
 
@@ -35,7 +33,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function HomePage({ params }: HomePageProps) {
+export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

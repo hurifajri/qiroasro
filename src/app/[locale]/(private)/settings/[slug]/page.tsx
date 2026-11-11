@@ -77,10 +77,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
           {t('preferences.title')}
         </h1>
-        <Separator className="mb-6 hidden md:block" />
+        <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
         <Preferences
           userId={userId}
           lessonPreferences={MOCK_LESSON_PREFERENCES}
@@ -101,10 +101,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <h1 className="hidden pb-3 font-bold text-xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
           {t('profile.title')}
         </h1>
-        <Separator className="mb-6 hidden md:block" />
+        <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
         <Profile userId={userId} />
       </HydrationBoundary>
     );
@@ -113,10 +113,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'notifications') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
           {t('notifications.title')}
         </h1>
-        <Separator className="mb-6 hidden md:block" />
+        <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
         <Notifications
           generalNotifications={MOCK_GENERAL_NOTIFICATIONS}
           dailyReminder={MOCK_DAILY_REMINDER}
@@ -128,10 +128,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'social') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
           {t('social.title')}
         </h1>
-        <Separator className="mb-6 hidden md:block" />
+        <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
         <SocialAccounts accounts={MOCK_SOCIAL_ACCOUNTS} />
       </>
     );
@@ -140,10 +140,10 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'privacy') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:block">
+        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
           {t('privacy.title')}
         </h1>
-        <Separator className="mb-6 hidden md:block" />
+        <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
         <PrivacySettings settings={MOCK_PRIVACY_SETTINGS} />
       </>
     );

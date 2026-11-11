@@ -3,15 +3,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Shop } from './_components/shop';
 import { MOCK_HEARTS_ITEMS, MOCK_POWERUP_ITEMS } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type ShopPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -25,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ShopPage({ params }: ShopPageProps) {
+export default async function ShopPage({ params }: PageProps) {
   const { locale } = await params;
 
   // Enable static rendering

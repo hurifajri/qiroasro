@@ -1,4 +1,5 @@
 import '@/env';
+import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
@@ -12,6 +13,9 @@ const nextConfig: NextConfig = {
 
   // Enable source maps for better debugging
   productionBrowserSourceMaps: true,
+
+  // Configure `pageExtensions` to include markdown and MDX files
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
   async headers() {
     return [
@@ -40,4 +44,32 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: [
+      'remark-gfm',
+      [
+        'remark-toc',
+        {
+          heading:
+            'table[ -]of[ -]contents?|toc|daftar[ -]isi|isi[ -]kandungan|kandungan|içindekiler|الفهرس|المحتويات',
+        },
+      ],
+    ],
+    rehypePlugins: [
+      'rehype-slug',
+      [
+        'rehype-autolink-headings',
+        {
+          behavior: 'wrap',
+          properties: {
+            className: ['subheading-anchor'],
+          },
+        },
+      ],
+    ],
+  },
+});
+
+export default withNextIntl(withMDX(nextConfig));

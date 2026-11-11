@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as authSchema from '@/db/auth-schema';
+import * as curriculumSchema from '@/db/curriculum-schema';
 import * as masterSchema from '@/db/master-schema';
 import * as playgroundSchema from '@/db/playground-schema';
 import * as userSchema from '@/db/user-schema';
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') globalForDb.conn = conn;
 export const db = drizzle(conn, {
   schema: {
     ...authSchema,
+    ...curriculumSchema,
     ...masterSchema,
     ...playgroundSchema,
     ...userSchema,

@@ -83,7 +83,7 @@ export function Profile({ userId }: ProfileProps) {
         e.preventDefault();
         form.handleSubmit();
       }}
-      className="flex flex-col gap-6"
+      className="mx-auto flex max-w-3xl flex-col gap-6"
     >
       {/* Avatar */}
       <div className="flex flex-col gap-3">
@@ -112,6 +112,7 @@ export function Profile({ userId }: ProfileProps) {
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_SOLID_CODES.map((colorCode) => (
                       <Button
+                        type="button"
                         size="icon-lg"
                         key={colorCode}
                         onClick={() => field.handleChange(colorCode)}
@@ -136,6 +137,7 @@ export function Profile({ userId }: ProfileProps) {
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_GRADIENT_CODES.map((colorCode) => (
                       <Button
+                        type="button"
                         size="icon-lg"
                         key={colorCode}
                         onClick={() => field.handleChange(colorCode)}

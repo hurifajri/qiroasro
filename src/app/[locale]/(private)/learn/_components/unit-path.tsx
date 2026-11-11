@@ -1,69 +1,48 @@
 import { useTranslations } from 'next-intl';
-import { useMemo } from 'react';
-import { getSectionTitleKey } from '../_lib/mock-data';
-import type { Lesson, Unit } from '../_schemas/learn';
+import type { CurriculumLesson, CurriculumUnit } from '../../_lib/curriculum';
 import { LessonNode } from './lesson-node';
 import { UnitHeader } from './unit-header';
 
 interface UnitPathProps {
-  unit: Unit;
-  lessons: Lesson[];
-  onClickLesson: (lesson: Lesson) => void;
-  onClickSection: (unit: Unit) => void;
-  onClickGuidebook: () => void;
+  unit: CurriculumUnit;
+  topicSlug: string;
+  /** i18n key for the parent section name, e.g. 'sections_page.sections.noble_quran.title' */
+  topicTitleKey: string;
 }
 
-export function UnitPath({
-  unit,
-  lessons,
-  onClickLesson,
-  onClickSection,
-  onClickGuidebook,
-}: UnitPathProps) {
-  const t = useTranslations('learn_page');
+export function UnitPath({ unit, topicSlug, topicTitleKey }: UnitPathProps) {
+  const t = useTranslations();
 
-  const sectionTitle = t(getSectionTitleKey(unit.sectionNumber), {
-    section: unit.sectionNumber,
-    unit: unit.unitNumber,
-  });
-
-  // Calculate zigzag offsets
-  const lessonWithOffsets = useMemo(() => {
-    return lessons.map((lesson, index) => {
-      // Create zigzag pattern: 0, 1, 0, -1, 0, 1, 0, -1, ...
-      const patternIndex = index % 4;
-      let offset: -1 | 0 | 1 = 0;
-
-      if (patternIndex === 1) offset = 1;
-      else if (patternIndex === 3) offset = -1;
-
-      return { lesson, offset };
-    });
-  }, [lessons]);
+  function handleClickLesson(lesson: CurriculumLesson) {
+    if (lesson.status === 'locked') return;
+    // TODO: Navigate to lesson or open lesson modal
+    console.log('Lesson clicked:', lesson);
+  }
 
   return (
     <div className="flex flex-col gap-3">
-      {/* Unit Header */}
       <UnitHeader
         unit={unit}
-        sectionTitle={sectionTitle}
-        onClickSection={onClickSection}
-        onClickGuidebook={onClickGuidebook}
+        topicTitle={t(topicTitleKey)}
+        topicSlug={topicSlug}
       />
-
-      {/* Lesson Nodes - zigzag pattern */}
       <div className="flex flex-col items-center gap-3 py-3">
-        {lessonWithOffsets.map(({ lesson, offset }) => (
-          <LessonNode
-            key={lesson.id}
-            lesson={lesson}
-            offset={offset}
-            onClick={() => onClickLesson(lesson)}
-          />
-        ))}
-      </div>
+        {unit.lessons.map((lesson, index) => {
+          const patternIndex = index % 4;
+          let offset: -1 | 0 | 1 = 0;
+          if (patternIndex === 1) offset = 1;
+          else if (patternIndex === 3) offset = -1;
 
-      {/* Section divider with next section title */}
+          return (
+            <LessonNode
+              key={`${unit.slug}-${index}`}
+              lesson={lesson}
+              offset={offset}
+              onClick={() => handleClickLesson(lesson)}
+            />
+          );
+        })}
+      </div>
       <div className="mx-auto flex items-center gap-3 text-muted-foreground">
         <div className="h-px w-16 bg-border" />
         <span className="text-center font-medium text-xs uppercase tracking-wider">

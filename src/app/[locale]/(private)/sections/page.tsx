@@ -1,16 +1,20 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getSectionsWithProgressOpt } from '../_queries/curriculum-progress';
 import { Sections } from './_components/sections';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type SectionsPageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -24,18 +28,20 @@ export async function generateMetadata({
   };
 }
 
-export default async function SectionsPage({ params }: SectionsPageProps) {
+export default async function SectionsPage({ params }: PageProps) {
   const { locale } = await params;
 
-  // Enable static rendering
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'sections_page' });
 
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(getSectionsWithProgressOpt());
+
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <Sections />
-    </>
+    </HydrationBoundary>
   );
 }

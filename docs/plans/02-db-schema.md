@@ -74,6 +74,15 @@ Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 - [x] Seed data compatible (master tables sudah live di DB)
 - [ ] Test query via Drizzle matches raw SQL (akan diverifikasi saat buat services)
 
+### 2.6 Curriculum Progress Tracking Tables — Lihat [03-curriculum.md](./03-curriculum.md)
+
+- [ ] Buat `src/db/curriculum-schema.ts`:
+  - `user_section_progress` (PK: userId + topicSlug)
+  - `user_unit_progress` (PK: userId + topicSlug + unitSlug)
+  - `user_lesson_progress` (PK: userId + topicSlug + unitSlug + lessonOrder)
+- [ ] Update `drizzle.config.ts` + `src/lib/db.ts`
+- [ ] Generate + run migration
+
 ---
 
 ## Files yang Akan Ditambah/Modify
@@ -84,6 +93,7 @@ Schema sudah dipecah ke file terpisah (bukan monolithic `schema.ts`):
 | `src/db/master-schema.ts` | ✅ Done | Master data (hij_*) |
 | `src/db/playground-schema.ts` | ✅ Done | MV playground data |
 | `src/db/user-schema.ts` | ✅ Done | [NEW] User profiles (Task 1.5) |
+| `src/db/curriculum-schema.ts` | [ ] | [NEW] Progress tracking (3 tables) |
 | `src/schemas/hijaiyyah.ts` | [ ] | [NEW] Valibot schemas untuk letters, articulations, traits |
 | `src/schemas/tajwid.ts` | [ ] | [NEW] Valibot schemas untuk tajwid rules (blocked: unused.sql) |
 | `src/schemas/reference.ts` | [ ] | [NEW] Valibot schemas untuk ref sources & verses (blocked: unused.sql) |

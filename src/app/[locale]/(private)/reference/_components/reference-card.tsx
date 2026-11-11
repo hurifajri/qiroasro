@@ -2,20 +2,20 @@ import { LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { ReferenceCategory } from '../_lib/mock-data';
+import type { CurriculumTopic } from '../../_lib/curriculum';
 
 interface ReferenceCardProps {
-  category: ReferenceCategory;
+  topic: CurriculumTopic;
 }
 
-export function ReferenceCard({ category }: ReferenceCardProps) {
-  const t = useTranslations('reference_page');
-  const { titleKey, countKey, iconSymbol, href, available } = category;
+export function ReferenceCard({ topic }: ReferenceCardProps) {
+  const t = useTranslations();
+  const { titleKey, subtitleKey, iconSymbol, href, available } = topic;
 
   const content = (
     <div
       className={cn(
-        'group relative flex h-full flex-col items-center justify-center gap-2 rounded-2xl border-2 p-4 text-center transition-all',
+        'relative flex h-full flex-col items-center justify-center gap-2 rounded-2xl border-2 p-4 text-center transition-all',
         available
           ? 'border-border bg-card hover:border-primary hover:bg-primary/5'
           : 'cursor-not-allowed border-muted bg-muted/30 opacity-60',
@@ -32,7 +32,7 @@ export function ReferenceCard({ category }: ReferenceCardProps) {
       <p className="font-bold text-xs">{t(titleKey)}</p>
 
       {/* Count */}
-      <p className="text-muted-foreground text-xs">{t(countKey)}</p>
+      <p className="text-muted-foreground text-xs">{t(subtitleKey)}</p>
     </div>
   );
 

@@ -1,0 +1,154 @@
+{
+  "quiz_content": {
+    "noble_quran": {
+      "quran_delivery_method": {
+        "q1": {
+          "question": "Melalui berapa cara utama Rasulullah menyampaikan Al-Quran kepada umatnya?",
+          "a1": "2 cara: bertulis dan lisan",
+          "a2": "1 cara: lisan sahaja",
+          "a3": "3 cara: bertulis, lisan dan isyarat",
+          "a4": "4 cara: tulisan, lisan, isyarat dan mimpi"
+        },
+        "q2": {
+          "question": "Yang mana antara berikut mewakili cara penyampaian Al-Quran secara BERTULIS?",
+          "a1": "Menghafal Al-Quran",
+          "a2": "Merakamkan teks wahyu secara bertulis",
+          "a3": "Membaca secara langsung kepada sahabat",
+          "a4": "Melalui mimpi Nabi"
+        },
+        "q3": {
+          "question": "Cara penyampaian Al-Quran secara LISAN merujuk kepada...",
+          "a1": "Catatan oleh para sahabat",
+          "a2": "Menghantar surat ke pelbagai wilayah",
+          "a3": "Periwayatan melalui suara atau hafazan",
+          "a4": "Penulisan Mushaf standard"
+        },
+        "q4": {
+          "question": "Siapa yang paling berperanan dalam merakamkan wahyu secara langsung semasa hayat Nabi?",
+          "a1": "Generasi Tabi'in",
+          "a2": "Khalifah Abu Bakar",
+          "a3": "Khalifah Umar ibn al-Khattab",
+          "a4": "Penulis-penulis wahyu seperti Zaid ibn Sabit"
+        },
+        "q5": {
+          "question": "Apakah tujuan mempunyai dua cara (bertulis dan lisan) untuk menyampaikan Al-Quran?",
+          "a1": "Memastikan Al-Quran terpelihara dan disampaikan dengan tepat kepada generasi akan datang",
+          "a2": "Untuk tujuan akademik sahaja",
+          "a3": "Memudahkan penterjemahan ke bahasa lain",
+          "a4": "Untuk tujuan perdagangan"
+        }
+      },
+      "mutawatir_definition": {
+        "q1": {
+          "question": "Apakah yang dimaksudkan dengan istilah mutawatir?",
+          "a1": "Periwayatan oleh seorang yang amat dipercayai",
+          "a2": "Periwayatan oleh bilangan perawi yang sangat ramai di setiap generasi",
+          "a3": "Periwayatan yang hanya wujud pada satu era sahaja",
+          "a4": "Periwayatan yang telah disahkan oleh ulama moden"
+        },
+        "q2": {
+          "question": "Mengapa riwayat mutawatir dianggap mustahil untuk dipalsukan?",
+          "a1": "Kerana bilangan perawi yang ramai dan tersebar luas menjadikan konspirasi pemalsuan tidak mungkin",
+          "a2": "Kerana hanya orang tertentu sahaja yang dibenarkan meriwayatkan",
+          "a3": "Kerana ia telah didokumenkan secara bertulis dari awal",
+          "a4": "Kerana ia diawasi oleh kerajaan"
+        },
+        "q3": {
+          "question": "Al-Quran sampai kepada kita melalui jalan mutawatir bermaksud...",
+          "a1": "Melalui satu sanad yang sangat kukuh",
+          "a2": "Melalui beberapa individu terpilih sahaja",
+          "a3": "Melalui jutaan perawi di setiap generasi sehingga terpelihara dengan sempurna",
+          "a4": "Melalui terjemahan dari bahasa asalnya"
+        },
+        "q4": {
+          "question": "Dalam takrifan mutawatir, apa yang dimaksudkan dengan \"setiap generasi\"?",
+          "a1": "Hanya pada zaman sahabat sahaja",
+          "a2": "Hanya pada zaman Tabi'in sahaja",
+          "a3": "Pada zaman tertentu sahaja mengikut keperluan",
+          "a4": "Dari awal sanad hingga akhirnya, melewati setiap generasi tanpa putus"
+        },
+        "q5": {
+          "question": "Selain secara lisan, Al-Quran juga sampai kepada kita secara mutawatir melalui...",
+          "a1": "Rakaman audio",
+          "a2": "Mushaf yang ditulis dan diedarkan secara meluas",
+          "a3": "Terjemahan ke pelbagai bahasa",
+          "a4": "Pangkalan data digital"
+        }
+      },
+      "oral_transmission_process": {
+        "q1": {
+          "question": "Siapa yang pertama menurunkan wahyu Al-Quran ke dalam hati Nabi Muhammad ﷺ?",
+          "a1": "Malaikat Mika'il",
+          "a2": "Malaikat Israfil",
+          "a3": "Malaikat Jibril",
+          "a4": "Malaikat Munkar"
+        },
+        "q2": {
+          "question": "Bagaimana para sahabat memastikan bacaan mereka adalah betul?",
+          "a1": "Mereka menyemak hafazan mereka di hadapan Rasulullah untuk mendapat pembetulan",
+          "a2": "Mereka membandingkan dengan nota bertulis Nabi",
+          "a3": "Mereka mengadakan perbincangan kumpulan",
+          "a4": "Mereka mendapatkan kelulusan daripada ulama ketika itu"
+        },
+        "q3": {
+          "question": "Apakah yang Malaikat Jibril sampaikan kepada Nabi bersama Al-Quran?",
+          "a1": "Teks bertulis sahaja",
+          "a2": "Lafaz, makna dan keseluruhan cara sebutannya",
+          "a3": "Makna sahaja",
+          "a4": "Suara sahaja"
+        },
+        "q4": {
+          "question": "Generasi selepas sahabat (Tabi'in) mempelajari Al-Quran dengan cara...",
+          "a1": "Daripada sumber bertulis sahaja",
+          "a2": "Daripada terjemahan ulama",
+          "a3": "Mengajar dan meriwayatkan kepada generasi seterusnya dengan kaedah yang sama",
+          "a4": "Daripada rakaman audio para sahabat"
+        },
+        "q5": {
+          "question": "Rantaian pengajaran Al-Quran dari Nabi hingga ke zaman kita bersifat...",
+          "a1": "Terputus pada beberapa generasi",
+          "a2": "Hanya melalui dokumen bertulis",
+          "a3": "Tidak boleh disahkan",
+          "a4": "Bersambung tanpa putus hingga hari ini"
+        }
+      },
+      "quran_codification": {
+        "q1": {
+          "question": "Berapa fasa penting dalam sejarah kodifikasi Al-Quran?",
+          "a1": "3 fasa",
+          "a2": "4 fasa",
+          "a3": "5 fasa",
+          "a4": "7 fasa"
+        },
+        "q2": {
+          "question": "Semasa fasa pertama kodifikasi, siapa yang bertanggungjawab merakamkan wahyu?",
+          "a1": "Penulis-penulis wahyu semasa hayat Nabi, termasuk Zaid ibn Sabit",
+          "a2": "Khalifah Abu Bakar",
+          "a3": "Khalifah Uthman",
+          "a4": "Generasi Tabi'in"
+        },
+        "q3": {
+          "question": "Fasa pengumpulan catatan wahyu ke dalam suhuf (helaian bersepadu) berlaku pada zaman...",
+          "a1": "Rasulullah",
+          "a2": "Umar ibn al-Khattab",
+          "a3": "Ali ibn Abi Talib",
+          "a4": "Abu Bakar al-Siddiq"
+        },
+        "q4": {
+          "question": "Peranan Khalifah Uthman dalam kodifikasi Al-Quran adalah dengan...",
+          "a1": "Merakamkan wahyu yang diturunkan",
+          "a2": "Menghantar Mushaf standard ke pelbagai wilayah disertai seorang qari",
+          "a3": "Menterjemahkan Al-Quran ke dialek Quraisy",
+          "a4": "Memusnahkan semua salinan lama tanpa penggantinya"
+        },
+        "q5": {
+          "question": "Ilmu penulisan Mushaf secara keilmuan dikenali sebagai...",
+          "a1": "Riwayat Al-Quran",
+          "a2": "Tajwid Al-Quran",
+          "a3": "Rasmul Quran",
+          "a4": "Qiraat Al-Quran"
+        }
+      }
+    }
+  }
+}

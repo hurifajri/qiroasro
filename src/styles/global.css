@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --breakpoint-3xl: 120rem; /* 1920px - Monitor Full HD (1080p) */
+  --breakpoint-4xl: 160rem; /* 2560px - Monitor 2K / QHD */
+  --breakpoint-5xl: 240rem; /* 3840px - Monitor 4K / UHD */
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -210,6 +217,37 @@
   }
   body {
     @apply font-latin bg-background text-foreground;
+  }
+
+  /* MDX Heading Anchor Customization */
+  .prose a.subheading-anchor {
+    @apply no-underline!;
+  }
+
+  .prose a.subheading-anchor::before {
+    content: "#";
+    @apply absolute -left-6 top-1/2 -translate-y-1/2 text-muted-foreground/30 font-normal opacity-0 transition-opacity text-[0.8em];
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    @apply relative;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6):hover a.subheading-anchor::before {
+    @apply opacity-100 text-muted-foreground;
+  }
+
+  .prose :is(blockquote) {
+    @apply not-italic! font-normal!;
+  }
+
+  /* Arabic Locale Specific Styling for MDX */
+  html[lang="ar"] .prose {
+    @apply font-arabic text-xl leading-loose;
+  }
+
+  html[lang="ar"] .prose blockquote {
+    @apply text-2xl;
   }
 }
 

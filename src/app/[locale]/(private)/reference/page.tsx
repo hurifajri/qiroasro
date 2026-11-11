@@ -1,17 +1,14 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reference } from './_components/reference';
-import { REFERENCE_CATEGORIES } from './_lib/mock-data';
 
-type GenerateMetadataProps = {
+type PageProps = {
   params: Promise<{ locale: string }>;
 };
 
-type ReferencePageProps = GenerateMetadataProps;
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({
     locale,
@@ -25,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ReferencePage({ params }: ReferencePageProps) {
+export default async function ReferencePage({ params }: PageProps) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -34,7 +31,7 @@ export default async function ReferencePage({ params }: ReferencePageProps) {
   return (
     <>
       <h1 className="sr-only">{t('title')}</h1>
-      <Reference categories={REFERENCE_CATEGORIES} />
+      <Reference />
     </>
   );
 }

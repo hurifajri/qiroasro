@@ -10,24 +10,27 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
-import type { Section } from '../_schemas/sections';
+import type { SectionWithProgress } from '../../_schemas/curriculum-progress';
 
 interface SectionItemProps {
-  section: Section;
-  onContinue: (section: Section) => void;
-  onReview: (section: Section) => void;
+  section: SectionWithProgress;
+  onStart: (section: SectionWithProgress) => void;
+  onContinue: (section: SectionWithProgress) => void;
+  onReview: (section: SectionWithProgress) => void;
 }
 
 export function SectionItem({
   section,
+  onStart,
   onContinue,
   onReview,
 }: SectionItemProps) {
-  const t = useTranslations('sections_page');
-  const { status, progress, number: sectionNumber } = section;
+  const t = useTranslations();
+  const { status, progress } = section;
 
   const isCompleted = status === 'completed';
   const isInProgress = status === 'in-progress';
+  const isAvailable = status === 'available';
   const isLocked = status === 'locked';
 
   const progressColor = isCompleted
@@ -48,9 +51,7 @@ export function SectionItem({
       >
         <ItemHeader>
           <ItemTitle>
-            <h2 className="uppercase">
-              {t('section_title', { number: sectionNumber })}
-            </h2>
+            <h2 className="uppercase">{t(section.titleKey)}</h2>
           </ItemTitle>
         </ItemHeader>
         <ItemContent>
@@ -71,9 +72,37 @@ export function SectionItem({
           </div>
         </ItemContent>
         <ItemActions className="flex w-24 shrink-0 items-center justify-center">
-          {isLocked && (
+          {isCompleted && (
+            <Button
+              onClick={() => onReview(section)}
+              variant="outline"
+              className="w-full cursor-pointer"
+            >
+              {t('sections_page.review')}
+            </Button>
+          )}
+
+          {isInProgress && (
             <Button
               onClick={() => onContinue(section)}
+              className="w-full cursor-pointer"
+            >
+              {t('sections_page.continue')}
+            </Button>
+          )}
+
+          {isAvailable && (
+            <Button
+              onClick={() => onStart(section)}
+              className="w-full cursor-pointer"
+            >
+              {t('sections_page.start')}
+            </Button>
+          )}
+
+          {isLocked && (
+            <Button
+              onClick={() => null}
               variant="outline"
               className="w-full"
               disabled
@@ -81,26 +110,10 @@ export function SectionItem({
               <LockIcon className="size-4 text-muted-foreground" />
             </Button>
           )}
-
-          {isInProgress && (
-            <Button onClick={() => onContinue(section)} className="w-full">
-              {t('continue')}
-            </Button>
-          )}
-
-          {isCompleted && (
-            <Button
-              onClick={() => onReview(section)}
-              variant="outline"
-              className="w-full"
-            >
-              {t('review')}
-            </Button>
-          )}
         </ItemActions>
         <ItemFooter>
           {/* Description for in-progress section */}
-          {(isLocked || isInProgress) && (
+          {(isInProgress || isAvailable || isLocked) && (
             <p className="text-muted-foreground">{t(section.descriptionKey)}</p>
           )}
 
@@ -108,7 +121,7 @@ export function SectionItem({
           {isCompleted && (
             <div className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400">
               <CheckCircleIcon className="size-4" />
-              <p>{t('completed')}</p>
+              <p>{t('sections_page.completed')}</p>
             </div>
           )}
         </ItemFooter>
