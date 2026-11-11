@@ -2,14 +2,9 @@
 
 import { BookOpenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import type { ReferenceCategory } from '../_lib/reference';
 import { ReferenceGrid } from './reference-grid';
 
-interface ReferenceProps {
-  categories: ReferenceCategory[];
-}
-
-export function Reference({ categories }: ReferenceProps) {
+export function Reference() {
   const t = useTranslations('reference_page');
 
   return (
@@ -20,7 +15,7 @@ export function Reference({ categories }: ReferenceProps) {
       </div>
 
       {/* Categories Grid */}
-      <ReferenceGrid categories={categories} />
+      <ReferenceGrid />
     </div>
   );
 }

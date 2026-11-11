@@ -5,16 +5,29 @@ import { routing } from './routing';
 type LocaleMessages = Record<string, string>;
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  // Typically corresponds to the `[locale]` segment
   const requested = await requestLocale;
   const locale = hasLocale(routing.locales, requested)
     ? requested
     : routing.defaultLocale;
 
-  const importedMessages = (await import(`./locales/${locale}.json`)) as {
-    default: LocaleMessages;
-  };
-  const messages = importedMessages.default;
+  const [globalMessages, pageMessages, quizMessages] = await Promise.all([
+    import(`./locales/${locale}/global.json`).then(
+      (m) => m.default as LocaleMessages,
+    ),
+    import(`./locales/${locale}/page.json`).then(
+      (m) => m.default as LocaleMessages,
+    ),
+    import(`./locales/${locale}/quiz.json`)
+      .then((m) => m.default as LocaleMessages)
+      .catch(() => ({}) as LocaleMessages),
+  ]);
 
-  return { locale, messages };
+  return {
+    locale,
+    messages: {
+      ...globalMessages,
+      ...pageMessages,
+      ...quizMessages,
+    },
+  };
 });

@@ -1,0 +1,154 @@
+{
+  "quiz_content": {
+    "noble_quran": {
+      "quran_delivery_method": {
+        "q1": {
+          "question": "Peygamber ﷺ Kuranı ümmetine kaç temel yolla tebliğ etti?",
+          "a1": "2 yolla: yazılı ve sözlü",
+          "a2": "1 yolla: yalnızca sözlü",
+          "a3": "3 yolla: yazılı, sözlü ve işaret",
+          "a4": "4 yolla: yazılı, sözlü, işaret ve rüya"
+        },
+        "q2": {
+          "question": "Aşağıdakilerden hangisi Kuranın YAZILI tebliğ yöntemini temsil eder?",
+          "a1": "Kuranı ezberleme",
+          "a2": "Vahyin yazıya geçirilmesi",
+          "a3": "Sahabilere doğrudan okuma",
+          "a4": "Peygamberin rüyaları aracılığıyla"
+        },
+        "q3": {
+          "question": "Kuranın SÖZLÜ tebliğ yöntemi şu anlama gelir...",
+          "a1": "Sahabe tarafından yazıya geçirilmesi",
+          "a2": "Bölgelere mektup gönderilmesi",
+          "a3": "Ses ve ezber yoluyla aktarım",
+          "a4": "Standart bir Mushaf yazılması"
+        },
+        "q4": {
+          "question": "Peygamberin hayatında vahyi doğrudan kaydetmede en önemli rolü kimler oynadı?",
+          "a1": "Tabiin nesli",
+          "a2": "Halife Hz. Ebu Bekir",
+          "a3": "Halife Hz. Ömer",
+          "a4": "Zeyd ibn Sabit gibi vahiy kâtipleri"
+        },
+        "q5": {
+          "question": "Kuranın iki yolla (yazılı ve sözlü) tebliğ edilmesinin amacı neydi?",
+          "a1": "Kuranın korunmasını ve gelecek nesillere doğru aktarılmasını sağlamak",
+          "a2": "Yalnızca akademik amaçlar için",
+          "a3": "Diğer dillere çeviriyi kolaylaştırmak için",
+          "a4": "Ticari amaçlar için"
+        }
+      },
+      "mutawatir_definition": {
+        "q1": {
+          "question": "Mütevatir terimi ne anlama gelir?",
+          "a1": "Son derece güvenilir tek bir kişinin rivayeti",
+          "a2": "Her nesilde çok sayıda ravi tarafından yapılan rivayet",
+          "a3": "Yalnızca tek bir dönemde var olan rivayet",
+          "a4": "Modern âlimler tarafından doğrulanmış rivayet"
+        },
+        "q2": {
+          "question": "Mütevatir bir rivayetin neden uydurulması imkânsız sayılır?",
+          "a1": "Çünkü ravilerin sayısı o kadar büyük ve yaygındır ki yalan üzerine anlaşmaları düşünülemez",
+          "a2": "Çünkü yalnızca belirli kişilerin rivayet etmesine izin verilmiştir",
+          "a3": "Çünkü baştan beri yazılı olarak belgelenmiştir",
+          "a4": "Çünkü devlet denetiminde olmuştur"
+        },
+        "q3": {
+          "question": "Kuranın bize mütevatir yoluyla ulaşması şu anlama gelir...",
+          "a1": "Tek, çok güçlü bir sened aracılığıyla",
+          "a2": "Yalnızca seçilmiş birkişi aracılığıyla",
+          "a3": "Her nesilde milyonlarca ravi aracılığıyla kusursuz biçimde korunarak",
+          "a4": "Asıl dilinden tercüme edilerek"
+        },
+        "q4": {
+          "question": "Mütevatir tanımında \"her nesil\" ne anlama gelir?",
+          "a1": "Yalnızca sahabe döneminde",
+          "a2": "Yalnızca Tabiin döneminde",
+          "a3": "İhtiyaç duyulan belirli dönemlerde",
+          "a4": "Senedin başından sonuna kadar kesintisiz her nesilde"
+        },
+        "q5": {
+          "question": "Kuran sözlü aktarımın yanı sıra mütevatir yoluyla bize aynı zamanda ...... üzerinden ulaşmıştır.",
+          "a1": "Ses kayıtları",
+          "a2": "Geniş çapta dağıtılan ve yazılan Mushaf",
+          "a3": "Çeşitli dillere çeviriler",
+          "a4": "Dijital veritabanları"
+        }
+      },
+      "oral_transmission_process": {
+        "q1": {
+          "question": "Kur'an vahyini ilk olarak Hz. Muhammed'in kalbine kim indirdi?",
+          "a1": "Mikail as",
+          "a2": "İsrafil as",
+          "a3": "Cebrail as",
+          "a4": "Münker"
+        },
+        "q2": {
+          "question": "Sahabe okuyuşlarının doğru olduğunu nasıl doğrular?",
+          "a1": "Ezberlerini Hz. Peygamber'e sunup düzeltme alırlardı",
+          "a2": "Peygamberin yazılı notlarıyla karşılaştırırlardı",
+          "a3": "Grup istişaresi yaparlardı",
+          "a4": "Dönemin âlimlerinden onay alırlardı"
+        },
+        "q3": {
+          "question": "Cebrail as, Kuranla birlikte Peygambere ne aktardı?",
+          "a1": "Yalnızca yazılı metni",
+          "a2": "Lafzı, anlamı ve telaffuz tarzının tamamını",
+          "a3": "Yalnızca anlamı",
+          "a4": "Yalnızca sesi"
+        },
+        "q4": {
+          "question": "Sahabeden sonraki nesil (Tabiin) Kuranı nasıl öğrendi?",
+          "a1": "Yalnızca yazılı kaynaklardan",
+          "a2": "Âlimlerin çevirilerinden",
+          "a3": "Aynı yöntemle sonraki nesle öğreterek ve aktararak",
+          "a4": "Sahabenin ses kayıtlarından"
+        },
+        "q5": {
+          "question": "Hz. Peygamberden günümüze uzanan Kuran öğretim zinciri...",
+          "a1": "Birkaç nesilde kesilmiştir",
+          "a2": "Yalnızca yazılı belgeler aracılığıyladır",
+          "a3": "Doğrulanamaz",
+          "a4": "Günümüze kadar kesintisiz sürmektedir"
+        }
+      },
+      "quran_codification": {
+        "q1": {
+          "question": "Kuranın tedvin tarihinde kaç önemli aşama vardır?",
+          "a1": "3 aşama",
+          "a2": "4 aşama",
+          "a3": "5 aşama",
+          "a4": "7 aşama"
+        },
+        "q2": {
+          "question": "Tedvinin ilk aşamasında vahyi yazmakla kim sorumluydu?",
+          "a1": "Zeyd ibn Sabit dahil Peygamber dönemindeki vahiy kâtipleri",
+          "a2": "Halife Hz. Ebu Bekir",
+          "a3": "Halife Hz. Osman",
+          "a4": "Tabiin nesli"
+        },
+        "q3": {
+          "question": "Yazılı vahiylerin birleşik sayfalarda (suhuf) toplanması hangi dönemde gerçekleşti?",
+          "a1": "Hz. Peygamber dönemi",
+          "a2": "Hz. Ömer dönemi",
+          "a3": "Hz. Ali dönemi",
+          "a4": "Hz. Ebu Bekir es-Sıddık dönemi"
+        },
+        "q4": {
+          "question": "Halife Hz. Osman'ın Kuranın tedvinindeki rolü şuydu...",
+          "a1": "Nazil olan vahyi kaydetmek",
+          "a2": "Standart Mushafları bölgelere göndermek ve yanlarına bir kâri vermek",
+          "a3": "Kuranı Kureyş lehçesine tercüme etmek",
+          "a4": "Önceki tüm nüshaları alternatif sağlamadan imha etmek"
+        },
+        "q5": {
+          "question": "Mushaf yazısrının ilmi akademik olarak ne adla bilinir?",
+          "a1": "Rivayetü'l-Kuran",
+          "a2": "Tecvidu'l-Kuran",
+          "a3": "Resmu'l-Kuran",
+          "a4": "Kıraatü'l-Kuran"
+        }
+      }
+    }
+  }
+}

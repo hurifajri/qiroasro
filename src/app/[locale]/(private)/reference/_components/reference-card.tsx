@@ -2,15 +2,15 @@ import { LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
-import type { ReferenceCategory } from '../_lib/reference';
+import type { CurriculumTopic } from '../../_lib/curriculum';
 
 interface ReferenceCardProps {
-  category: ReferenceCategory;
+  topic: CurriculumTopic;
 }
 
-export function ReferenceCard({ category }: ReferenceCardProps) {
-  const t = useTranslations('reference_page');
-  const { titleKey, subtitleKey, iconSymbol, href, available } = category;
+export function ReferenceCard({ topic }: ReferenceCardProps) {
+  const t = useTranslations();
+  const { titleKey, subtitleKey, iconSymbol, href, available } = topic;
 
   const content = (
     <div

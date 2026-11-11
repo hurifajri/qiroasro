@@ -1,136 +1,141 @@
 # Task 3: Curriculum Engine
 
-> Sistem yang mengatur urutan belajar: Sections → Units → Lessons, plus tracking progress user.
+> Sistem kurikulum terpadu: satu sumber data (`CURRICULUM_TOPICS`) untuk reference, sections, dan learn pages + progress tracking di DB.
 
-## Status: `[ ]` Belum dimulai
+## Status: `[x]` Selesai
 
 **Depends on:** Task 1 (Auth), Task 2 (DB Schema)
 
 ---
 
-## Konteks
+## Arsitektur
 
-Dari mock data, struktur kurikulum sudah jelas:
+### Sumber Data Tunggal (Application-Level)
+
+Semua definisi kurikulum disimpan di **file TypeScript**, bukan di database:
 
 ```
-Section 1: Foundation (Al-Jauf, Al-Halq)
-  ├── Unit 1: Huruf Jauf (Mad Letters)
-  │   ├── Lesson 1: Alif Mad (ـَا) — lesson
-  │   ├── Lesson 2: Waw Mad (ـُو) — lesson
-  │   ├── Lesson 3: Practice Review — practice
-  │   ├── Lesson 4: Ya Mad (ـِي) — lesson
-  │   ├── Lesson 5: Treasure Chest — chest (milestone)
-  │   ├── Lesson 6: Bonus Lesson — lesson
-  │   └── Lesson 7: Trophy — trophy (unit complete)
-  └── Unit 2: Huruf Halq
-      ├── Lesson 1: Hamza (ء) — lesson
-      └── ...
-
-Section 2: Tongue Letters
-  ├── Unit 1: Aqsha Lisan
-  └── ...
+CURRICULUM_TOPICS[]              ← Single source of truth
+├── slug, sortOrder, iconSymbol
+├── titleKey, subtitleKey        ← Reference page
+├── sectionTitleKey, sectionDescriptionKey  ← Sections page
+└── units[]                      ← Learn page
+    ├── slug, titleKey, descriptionKey
+    ├── colorCode, iconKey
+    └── lessons[]
+        ├── type: 'quiz' | 'trophy'
+        └── quizSource?: 'relational' | 'authored'
 ```
 
-**Key insight:** Units = Articulation Points (makhraj), Lessons = Letters dari point tersebut. Data ini sudah ada di `master.sql`!
+**24 topik = 24 section = 24 reference categories (1:1 mapping)**
+
+| Data | Disimpan di | Alasan |
+|------|-------------|--------|
+| Definisi kurikulum (topik, unit, lesson) | TS file | Statis, jarang berubah, developer-managed |
+| Konten reference | MDX files | Konten long-form, per-locale |
+| Konten quiz (authored) | TS file + i18n JSON | Statis, git-tracked, ~480 pertanyaan |
+| User progress | DB (PostgreSQL) | Per-user, dinamis, butuh persistence |
+
+### Lesson Structure
+
+Setiap unit memiliki **2 lessons (fixed)**:
+
+| # | Tipe | Deskripsi |
+|---|------|-----------|
+| 1 | `quiz` | Sesi kuis (5 pertanyaan) |
+| 2 | `trophy` | Penanda unit selesai + XP reward |
+
+> Expandable: Practice Review dan Chest bisa ditambahkan nanti tanpa breaking changes.
+
+### Quiz Content — Hybrid Approach
+
+| Kategori | Quiz Source | Contoh Topik |
+|----------|------------|--------------|
+| Topik huruf hijaiyyah | `relational` — random dari `hij_*` tables | articulation-points, letter-characteristics |
+| Topik non-huruf | `authored` — pre-defined di TS + i18n | noble-quran, mad-rules, waqf-ibtida |
 
 ## Subtasks
 
-### 3.1 Buat Schema DB — Curriculum
-- [ ] Buat `docs/schemas/curriculum.sql`
-- [ ] Tabel `cur_sections` (section metadata, linked to makhraj areas)
-- [ ] Tabel `cur_units` (unit metadata, linked to articulation points)
-- [ ] Tabel `cur_lessons` (lesson metadata, linked to letters)
-- [ ] Tabel `cur_user_progress` (user's section/unit/lesson progress)
-- [ ] Tabel `cur_user_lesson_results` (individual lesson attempt results)
+### 3.1 Unified Curriculum Definition
+- [x] Rewrite `src/app/[locale]/(private)/_lib/curriculum.ts` → `CURRICULUM_TOPICS[]`
+- [x] Definisikan 24 topik + units (dari h2 MDX) + lessons
+- [ ] Hapus `MOCK_SECTIONS` di `sections/_lib/mock-data.ts` ← saat wiring selesai
+- [ ] Hapus `MOCK_UNITS` + `MOCK_LESSONS` di `learn/_lib/mock-data.ts` ← saat wiring selesai
 
-```sql
--- Contoh schema (akan difinalisasi)
-CREATE TABLE cur_sections (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    slug VARCHAR(50) NOT NULL UNIQUE,
-    sort_order INT NOT NULL,
-    -- auto-derived from units' articulation areas
-);
+### 3.2 Authored Quiz Content
+- [x] `src/app/[locale]/(private)/_lib/quiz-content/types.ts`
+- [x] Quiz content noble-quran: `quiz-content/noble-quran.ts` (4 units × 5 pertanyaan)
+- [x] `quiz-content/index.ts` — registry topicSlug → content
+- [x] i18n quiz namespace: `src/i18n/locales/{locale}/quiz.json` (5 locale)
 
-CREATE TABLE cur_units (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    section_id INT NOT NULL REFERENCES cur_sections(id),
-    articulation_point_id INT REFERENCES hij_articulation_points(id),
-    trait_group_id INT REFERENCES hij_trait_groups(id),
-    slug VARCHAR(50) NOT NULL UNIQUE,
-    color_code VARCHAR(30),
-    icon_key VARCHAR(50),
-    sort_order INT NOT NULL
-);
+### 3.3 DB Progress Tracking
+- [x] `src/db/curriculum-schema.ts`: 3 tabel progress (section, unit, lesson)
+- [x] `drizzle.config.ts` — tambah schema
+- [x] `src/lib/db.ts` — import schema baru
+- [ ] Generate + run migration (pending live DB connection)
 
-CREATE TABLE cur_lessons (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    unit_id INT NOT NULL REFERENCES cur_units(id),
-    letter_id INT REFERENCES hij_letters(id),
-    type VARCHAR(20) NOT NULL DEFAULT 'lesson',
-    -- CHECK (type IN ('lesson', 'practice', 'chest', 'trophy'))
-    xp_reward INT NOT NULL DEFAULT 10,
-    sort_order INT NOT NULL
-);
-
-CREATE TABLE cur_user_progress (
-    user_id UUID NOT NULL REFERENCES auth.users(id),
-    lesson_id INT NOT NULL REFERENCES cur_lessons(id),
-    status VARCHAR(20) NOT NULL DEFAULT 'locked',
-    -- CHECK (status IN ('locked', 'available', 'in-progress', 'completed'))
-    crowns INT NOT NULL DEFAULT 0,
-    completed_at TIMESTAMPTZ,
-    PRIMARY KEY (user_id, lesson_id)
-);
-```
-
-### 3.2 Tambah ke Drizzle ORM
-- [ ] Tambah tabel curriculum ke `src/db/schema.ts`
-- [ ] Buat Valibot schemas di `src/schemas/curriculum.ts`
-- [ ] Buat transformers di `src/models/curriculum.ts`
-
-### 3.3 Seed Data Curriculum
-- [ ] Buat `docs/schemas/seed.curriculum.sql`
-- [ ] Map sections ke articulation areas dari `master.sql`
-- [ ] Map units ke articulation points/trait groups
-- [ ] Map lessons ke letters
-
-### 3.4 Services — Curriculum
-- [ ] `src/services/curriculum.ts` — Server actions:
-  - `getSections(userId)` — Get sections with user progress
-  - `getUnits(sectionId, userId)` — Get units with progress
-  - `getLessons(unitId, userId)` — Get lessons with progress
-  - `startLesson(userId, lessonId)` — Mark lesson as in-progress
-  - `completeLesson(userId, lessonId, crowns)` — Complete + unlock next
-- [ ] Buat TanStack Query options di `src/app/[locale]/(private)/learn/_queries/`
+### 3.4 Services & Queries
+- [x] `_services/curriculum-progress.ts`: `getSectionsWithProgress`, `getUnitsWithProgress`, `completeLessonAction` (cascading completion)
+- [x] `_queries/curriculum-progress.ts` — TanStack Query options
+- [x] `_schemas/curriculum-progress.ts` — Valibot schemas
 
 ### 3.5 Unlocking Logic
-- [ ] Implement unlock chain: complete lesson → unlock next lesson
-- [ ] Complete all lessons in unit → unlock next unit
-- [ ] Complete all units in section → unlock next section
-- [ ] Milestone lessons (chest, trophy) unlock conditions
-
-### 3.6 Materialized View (Optional Optimization)
-- [ ] Evaluasi apakah perlu MV untuk curriculum data (seperti `mv_playground_data`)
-- [ ] Jika ya, buat MV yang join sections → units → lessons → letters
+- [x] Complete semua lessons di unit → unlock next unit (via `completeLessonAction` cascade)
+- [x] Complete semua units di section → unlock next section
+- [x] Section 1 + reference topik 1 → available by default (sortOrder === 1 logic)
 
 ---
 
-## New Schema Files
+## DB Schema — Progress Tracking
 
-| File | Deskripsi |
-|---|---|
-| `docs/schemas/curriculum.sql` | Tabel sections, units, lessons, user progress |
-| `docs/schemas/seed.curriculum.sql` | Seed data mapping makhraj → curriculum |
+```sql
+CREATE TABLE user_section_progress (
+    user_id TEXT NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    topic_slug VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'locked',
+    -- CHECK (status IN ('locked', 'available', 'in-progress', 'completed'))
+    completed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (user_id, topic_slug)
+);
 
-## Hubungan dengan `master.sql`
+CREATE TABLE user_unit_progress (
+    user_id TEXT NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    topic_slug VARCHAR(50) NOT NULL,
+    unit_slug VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'locked',
+    completed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (user_id, topic_slug, unit_slug)
+);
 
-```mermaid
-erDiagram
-    cur_sections ||--o{ cur_units : has
-    cur_units ||--o{ cur_lessons : has
-    cur_units }o--o| hij_articulation_points : "linked to"
-    cur_units }o--o| hij_trait_groups : "linked to"
-    cur_lessons }o--o| hij_letters : "teaches"
-    hij_articulation_points }o--|| hij_articulation_areas : "belongs to"
+CREATE TABLE user_lesson_progress (
+    user_id TEXT NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    topic_slug VARCHAR(50) NOT NULL,
+    unit_slug VARCHAR(50) NOT NULL,
+    lesson_order INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'locked',
+    score INT NOT NULL DEFAULT 0,  -- 0-5 crowns
+    completed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (user_id, topic_slug, unit_slug, lesson_order)
+);
 ```
+
+---
+
+## Files yang Akan Ditambah/Modify
+
+| File | Status | Perubahan |
+|------|--------|-----------|
+| `src/app/[locale]/(private)/_lib/curriculum.ts` | REWRITE | `CURRICULUM_TOPICS[]` unified definition |
+| `src/app/[locale]/(private)/_lib/quiz-content/` | [NEW] | Authored quiz content per topik |
+| `src/db/curriculum-schema.ts` | [NEW] | 3 progress tracking tables |
+| `src/app/[locale]/(private)/_services/curriculum-progress.ts` | [NEW] | Server actions |
+| `src/app/[locale]/(private)/_queries/curriculum-progress.ts` | [NEW] | TanStack Query options |
+| `src/app/[locale]/(private)/_schemas/curriculum-progress.ts` | [NEW] | Valibot schemas |
+| `src/app/[locale]/(private)/sections/_lib/mock-data.ts` | [DELETE] | Replaced |
+| `src/app/[locale]/(private)/learn/_lib/mock-data.ts` | [DELETE] | Replaced |

@@ -1,67 +1,69 @@
 # Task 4: Learn Page — Fungsionalitas
 
-> Menghubungkan Learn page ke data riil dan menambahkan lesson flow.
+> Menghubungkan Learn page ke `CURRICULUM_TOPICS` dan user progress dari DB.
 
-## Status: `[ ]` Belum dimulai
+## Status: `[/]` Sebagian selesai (4.1 & 4.4 done, 4.2 & 4.3 pending)
 
 **Depends on:** Task 3 (Curriculum Engine)
 
 ---
 
+## Konteks
+
+Learn page menampilkan **units dari section yang sedang aktif** dalam tampilan zig-zag Duolingo-style. Saat ini menggunakan mock data (`MOCK_UNITS`, `MOCK_LESSONS`). Akan diganti dengan data dari `CURRICULUM_TOPICS` + user progress DB.
+
+### Lesson Flow
+
+```
+User buka Learn Page
+  → Load section aktif dari progress DB
+  → Render units dari CURRICULUM_TOPICS[activeSection].units
+  → Render lessons per unit (Quiz + Trophy buttons)
+  → User klik Quiz button
+  → Masuk ke halaman kuis (5 pertanyaan)
+  → Submit hasil → update progress DB → unlock next
+```
+
 ## Subtasks
 
 ### 4.1 Replace Mock Data dengan Real Data
-- [ ] Replace `MOCK_UNITS` → fetch dari `getSections` + `getUnits` services
-- [ ] Replace `MOCK_LESSONS` → fetch dari `getLessons` service
-- [ ] Update `Learn` component untuk terima server data via props
-- [ ] Tambah loading states + error handling
+- [x] Replace `MOCK_UNITS` → derive dari `CURRICULUM_TOPICS[activeSection].units`
+- [x] Replace `MOCK_LESSONS` → derive dari unit.lessons (type + order)
+- [x] `learn.tsx` reads `?section=` URL param, defaults ke first topic
+- [x] `sections/page.tsx` prefetches via TanStack `useSuspenseQuery`
 
-### 4.2 Lesson Detail Page
-- [ ] Buat route `(private)/learn/lesson/[lessonId]/page.tsx`
-- [ ] Tampilkan info huruf: symbol, nama, makhraj, sifat (dari `master.sql`)
-- [ ] Tampilkan audio pronunciation (jika ada)
+### 4.2 Lesson Quiz Page
+- [ ] Buat route `(private)/learn/quiz/page.tsx` (atau modal)
+- [ ] Params: `topicSlug`, `unitSlug`, `lessonOrder`
+- [ ] Determine quiz source dari curriculum definition (`relational` vs `authored`)
+- [ ] Untuk `relational`: reuse quiz-generator dari playground
+- [ ] Untuk `authored`: load dari quiz-content TS + i18n namespace
 
-### 4.3 Lesson Quiz Flow
-- [ ] Buat quiz engine untuk lesson (bisa reuse logic dari playground quiz)
-- [ ] Tipe soal:
-  - Pilih huruf yang benar dari symbol
-  - Pilih makhraj yang benar
-  - Pilih sifat yang benar
-  - Pasangkan huruf dengan makhraj
-- [ ] Generate questions dari `hij_letter_articulations` dan `hij_letter_traits`
-- [ ] Tampilkan hasil + XP earned + crowns
+### 4.3 Lesson Completion Flow
+- [ ] Submit hasil → `completeLesson(userId, topicSlug, unitSlug, lessonOrder, score)`
+- [ ] Auto-unlock next lesson / unit / section
+- [ ] Tampilkan celebration + XP earned
+- [ ] Update progress state (invalidate TanStack Query)
 
-### 4.4 Lesson Completion Flow
-- [ ] Submit hasil lesson ke server → `completeLesson(userId, lessonId, crowns)`
-- [ ] Unlock next lesson / unit / section otomatis
-- [ ] Tampilkan celebration animation
-- [ ] Update XP dan hearts di sidebar
-
-### 4.5 Hearts System Integration
-- [ ] Cek hearts sebelum mulai lesson
-- [ ] Kurangi heart saat jawab salah
-- [ ] Jika hearts habis → tampilkan "Out of hearts" dialog
-- [ ] Link ke shop untuk refill
-
-### 4.6 Section Completion
-- [ ] Tampilkan section summary saat semua units selesai
-- [ ] Unlock next section badge
+### 4.4 Section Navigation
+- [x] Learn page reads `?section=topicSlug` URL param
+- [x] Sections component `handleContinue` pushes `?section={slug}` to router
+- [x] `handleBack()` links ke `/sections` dari Learn
 
 ---
 
-## Catatan: Reuse dari Playground
+## Catatan: Reuse Quiz Engine
 
-Quiz engine di playground (`_hooks/use-quiz-generator.ts`, `_lib/quiz-generator.ts`, `_lib/quiz-checker.ts`) bisa di-refactor ke global level (`src/lib/quiz/`) agar bisa digunakan di:
-- Playground quiz (existing)
-- Learn lesson quiz (baru)
-- Practice page quiz (nanti)
+Quiz engine di playground (`_hooks/use-quiz-generator.ts`, `_lib/quiz-generator.ts`, `_lib/quiz-checker.ts`) bisa di-refactor ke global level (`src/lib/quiz/`) saat dibutuhkan oleh learn page:
+- Playground quiz (existing) — relational
+- Learn lesson quiz (baru) — relational + authored
+- Practice page quiz (nanti) — relational + authored
 
 ## Files yang Akan Ditambah/Modify
 
 | File | Perubahan |
-|---|---|
+|------|-----------|
 | `src/app/[locale]/(private)/learn/page.tsx` | Fetch real data, hapus mock import |
 | `src/app/[locale]/(private)/learn/_components/learn.tsx` | Terima server data |
-| `src/app/[locale]/(private)/learn/lesson/[lessonId]/page.tsx` | [NEW] Lesson detail + quiz |
-| `src/app/[locale]/(private)/learn/_queries/` | [NEW] TanStack Query options |
-| `src/lib/quiz/` | [NEW] Shared quiz engine (refactor dari playground) |
+| `src/app/[locale]/(private)/learn/_lib/mock-data.ts` | [DELETE] |
+| `src/app/[locale]/(private)/learn/quiz/page.tsx` | [NEW] Quiz session page |

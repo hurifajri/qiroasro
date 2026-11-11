@@ -1,5 +1,3 @@
-import type { Locale } from './routing';
-
 export const LOCALES = [
   'id',
   'en',
@@ -23,6 +21,8 @@ export const LOCALES = [
   // 'hi',
   // 'ko',
 ] as const;
+
+export type Locale = (typeof LOCALES)[number];
 
 /**
  * Locale metadata with emoji flags and display names

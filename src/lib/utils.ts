@@ -5,6 +5,15 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export function spaceToKebabCase(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[^\p{L}0-9\s-]/gu, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 export function kebabToSnakeCase(str: string): string {
   return str.replace(/-/g, '_');
 }

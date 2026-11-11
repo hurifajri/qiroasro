@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Reference } from './_components/reference';
-import { REFERENCE_CATEGORIES } from './_lib/reference';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -32,7 +31,7 @@ export default async function ReferencePage({ params }: PageProps) {
   return (
     <>
       <h1 className="sr-only">{t('title')}</h1>
-      <Reference categories={REFERENCE_CATEGORIES} />
+      <Reference />
     </>
   );
 }

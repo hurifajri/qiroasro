@@ -1,16 +1,16 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-import type { ReferenceCategory } from '../_lib/reference';
+import type { CurriculumTopic } from '../../_lib/curriculum';
 import { ReferenceCard } from './reference-card';
 
 interface ReferenceItemProps {
-  category: ReferenceCategory;
+  topic: CurriculumTopic;
 }
 
-export function ReferenceItem({ category }: ReferenceItemProps) {
+export function ReferenceItem({ topic }: ReferenceItemProps) {
   return (
     <li>
       <AspectRatio ratio={1 / 1}>
-        <ReferenceCard category={category} />
+        <ReferenceCard topic={topic} />
       </AspectRatio>
     </li>
   );

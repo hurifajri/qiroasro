@@ -1,0 +1,154 @@
+{
+  "quiz_content": {
+    "noble_quran": {
+      "quran_delivery_method": {
+        "q1": {
+          "question": "How many main ways did the Prophet transmit the Quran to his community?",
+          "a1": "2 ways: written and oral",
+          "a2": "1 way: oral only",
+          "a3": "3 ways: written, oral, and gesture",
+          "a4": "4 ways: writing, oral, gesture, and dream"
+        },
+        "q2": {
+          "question": "Which of the following represents the WRITTEN method of transmitting the Quran?",
+          "a1": "Memorizing the Quran",
+          "a2": "Recording the revealed text in writing",
+          "a3": "Reciting directly to companions",
+          "a4": "Through the Prophet's dreams"
+        },
+        "q3": {
+          "question": "The ORAL method of transmitting the Quran refers to...",
+          "a1": "Recording by companions",
+          "a2": "Sending letters to regions",
+          "a3": "Transmission through voice and memorization",
+          "a4": "Writing a standard Mushaf"
+        },
+        "q4": {
+          "question": "Who played the most prominent role in recording the revelation directly during the Prophet's lifetime?",
+          "a1": "The Tabi'in generation",
+          "a2": "Caliph Abu Bakr",
+          "a3": "Caliph Umar ibn al-Khattab",
+          "a4": "Scribes of revelation such as Zaid ibn Thabit"
+        },
+        "q5": {
+          "question": "What was the purpose of having two methods (written and oral) for transmitting the Quran?",
+          "a1": "To ensure the Quran is preserved and delivered accurately to future generations",
+          "a2": "For academic purposes only",
+          "a3": "To facilitate translation to other languages",
+          "a4": "For commercial purposes"
+        }
+      },
+      "mutawatir_definition": {
+        "q1": {
+          "question": "What does the term mutawatir mean?",
+          "a1": "Narration by a single, highly trusted person",
+          "a2": "Narration by a very large number of narrators at every generation",
+          "a3": "Narration that exists only in one era",
+          "a4": "Narration verified by modern scholars"
+        },
+        "q2": {
+          "question": "Why is it considered impossible for a mutawatir narration to be falsified?",
+          "a1": "Because the number of narrators is so large and widespread that it is inconceivable for them to conspire",
+          "a2": "Because only certain people were allowed to narrate",
+          "a3": "Because it was documented in writing from the very beginning",
+          "a4": "Because it was supervised by the government"
+        },
+        "q3": {
+          "question": "The Quran reaching us through the path of mutawatir means...",
+          "a1": "Through a single very strong chain of narration",
+          "a2": "Through a select few individuals only",
+          "a3": "Through millions of narrators in every generation keeping it perfectly preserved",
+          "a4": "Through translation from its original language"
+        },
+        "q4": {
+          "question": "In the definition of mutawatir, what does \"at every generation\" mean?",
+          "a1": "Only during the companions era",
+          "a2": "Only during the Tabi'in era",
+          "a3": "At certain eras as needed",
+          "a4": "From the beginning of the chain to its end, passing through every generation without interruption"
+        },
+        "q5": {
+          "question": "Besides orally, the Quran also reached us via mutawatir through...",
+          "a1": "Audio recordings",
+          "a2": "The Mushaf written and distributed widely",
+          "a3": "Translations into various languages",
+          "a4": "Digital databases"
+        }
+      },
+      "oral_transmission_process": {
+        "q1": {
+          "question": "Who first transmitted the Quranic revelation into the heart of Prophet Muhammad?",
+          "a1": "Angel Mika'il",
+          "a2": "Angel Israfil",
+          "a3": "Angel Jibril",
+          "a4": "Angel Munkar"
+        },
+        "q2": {
+          "question": "How did the companions verify that their recitation was correct?",
+          "a1": "They submitted their memorization before the Prophet for correction",
+          "a2": "They compared it to the Prophet's written notes",
+          "a3": "They held group consultations",
+          "a4": "They sought approval from scholars of the time"
+        },
+        "q3": {
+          "question": "What did Angel Jibril transmit along with the Quran to the Prophet?",
+          "a1": "Only the written text",
+          "a2": "The wording, meaning, and the complete manner of its pronunciation",
+          "a3": "Only the meaning",
+          "a4": "Only the sound"
+        },
+        "q4": {
+          "question": "The generation after the companions (Tabi'in) learned the Quran by...",
+          "a1": "From written sources only",
+          "a2": "From translations by scholars",
+          "a3": "Teaching and transmitting to the next generation in the exact same method",
+          "a4": "From audio recordings of the companions"
+        },
+        "q5": {
+          "question": "The chain of Quranic teaching from the Prophet to our time is...",
+          "a1": "Interrupted in several generations",
+          "a2": "Only through written documents",
+          "a3": "Unverifiable",
+          "a4": "Continuous and unbroken to this day"
+        }
+      },
+      "quran_codification": {
+        "q1": {
+          "question": "How many important phases are there in the history of Quran codification?",
+          "a1": "3 phases",
+          "a2": "4 phases",
+          "a3": "5 phases",
+          "a4": "7 phases"
+        },
+        "q2": {
+          "question": "During the first phase of codification, who was responsible for recording the revelation?",
+          "a1": "The scribes of revelation during the Prophet's lifetime, including Zaid ibn Thabit",
+          "a2": "Caliph Abu Bakr",
+          "a3": "Caliph Uthman",
+          "a4": "The Tabi'in generation"
+        },
+        "q3": {
+          "question": "The phase of gathering recorded verses into unified suhuf (folios) occurred during the era of...",
+          "a1": "The Prophet",
+          "a2": "Umar ibn al-Khattab",
+          "a3": "Ali ibn Abi Talib",
+          "a4": "Abu Bakr al-Siddiq"
+        },
+        "q4": {
+          "question": "Caliph Uthman's role in the codification of the Quran was to...",
+          "a1": "Record the descending revelation",
+          "a2": "Send standardized Mushafs to various regions accompanied by a qari",
+          "a3": "Translate the Quran into Qurayshi Arabic",
+          "a4": "Destroy all previous copies without replacement"
+        },
+        "q5": {
+          "question": "The science of Mushaf writing is academically known as...",
+          "a1": "Riwayat al-Qur'an",
+          "a2": "Tajwid al-Qur'an",
+          "a3": "Rasm al-Qur'an",
+          "a4": "Qira'at al-Qur'an"
+        }
+      }
+    }
+  }
+}

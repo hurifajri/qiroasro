@@ -64,20 +64,22 @@ Tabel dari `unused.sql` **bisa digunakan** sebagai berikut:
 | 2 | Drizzle Schema & DB Layer | [02-db-schema.md](./02-db-schema.md) | 🔴 Highest | `[/]` Partial — master + auth + user schema done, sisa: `unused.sql` tables (deferred) + services/schemas/models hijaiyyah |
 | 3 | Curriculum Engine (Sections, Units, Lessons) | [03-curriculum.md](./03-curriculum.md) | 🔴 High | `[ ]` |
 | 4 | Learn Page — Fungsionalitas | [04-learn.md](./04-learn.md) | 🔴 High | `[ ]` |
-| 5 | Reference Page — Data Riil | [05-reference.md](./05-reference.md) | 🟡 Medium | `[ ]` |
+| 5 | Reference Page — Dynamic Route | [05-reference.md](./05-reference.md) | 🟡 Medium | `[ ]` |
 | 6 | Practice Page — Quiz Engine | [06-practice.md](./06-practice.md) | 🟡 Medium | `[ ]` |
 | 7 | Gamification (XP, Hearts, Streak, Gems) | [07-gamification.md](./07-gamification.md) | 🟡 Medium | `[ ]` |
 | 8 | Leaderboard & Social | [08-leaderboard-social.md](./08-leaderboard-social.md) | 🟢 Low | `[ ]` |
 | 9 | Quests & Shop | [09-quests-shop.md](./09-quests-shop.md) | 🟢 Low | `[ ]` |
 | 10 | Profile & Settings | [10-profile-settings.md](./10-profile-settings.md) | 🟢 Low | `[/]` Partial done |
+| 11 | Split i18n per Namespace | [11-i18n-split.md](./11-i18n-split.md) | 🔴 High | `[ ]` |
 
 ### Dependency Graph
 
 ```mermaid
 graph TD
     A["1. Auth & User"] --> B["2. DB Schema"]
+    K["11. i18n Split"] --> C
     B --> C["3. Curriculum Engine"]
-    B --> E["5. Reference"]
+    C --> E["5. Reference"]
     C --> D["4. Learn Page"]
     C --> F["6. Practice"]
     D --> G["7. Gamification"]
@@ -94,10 +96,10 @@ graph TD
 | File | Isi | Status |
 |---|---|---|
 | `docs/schemas/auth.sql` | Tabel `user_profiles` (auth tables di-manage oleh Better Auth via `src/db/auth-schema.ts`) | `[x]` |
-| `docs/schemas/curriculum.sql` | Sections, units, lessons, user progress | `[ ]` |
+| `docs/schemas/curriculum.sql` | User progress tracking (section, unit, lesson) — definisi kurikulum di TS file | `[ ]` |
 | `docs/schemas/gamification.sql` | XP, hearts, streak, gems, achievements | `[ ]` |
 | `docs/schemas/social.sql` | Follows, leaderboard, activity feed | `[ ]` |
 | `docs/schemas/shop.sql` | Shop items, purchases, inventory | `[ ]` |
 | `docs/schemas/quest.sql` | Daily/weekly/monthly quests, user quest progress | `[ ]` |
 
-> Tabel dari `master.sql` dan `unused.sql` tetap digunakan as-is (tidak dimodifikasi). Schema baru akan me-reference tabel tersebut via foreign keys.
+> **Arsitektur data:** Definisi kurikulum (topik, unit, lesson) disimpan di **application-level TS**, bukan DB. DB hanya menyimpan **user progress**. Konten quiz authored disimpan di **TS + i18n split namespace**. Tabel dari `master.sql` dan `unused.sql` tetap digunakan as-is.

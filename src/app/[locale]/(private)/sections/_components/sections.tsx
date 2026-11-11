@@ -1,33 +1,43 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useRouter } from '@/i18n/navigation';
-import { MOCK_SECTIONS } from '../_lib/mock-data';
-import type { Section } from '../_schemas/sections';
+import { getSectionsWithProgressOpt } from '../../_queries/curriculum-progress';
+import type { SectionWithProgress } from '../../_schemas/curriculum-progress';
 import { SectionsList } from './section-list';
 
 /**
  * Main Sections component - shows all curriculum sections with progress.
+ * Data is sourced from CURRICULUM_TOPICS merged with user DB progress.
  */
 export function Sections() {
   const t = useTranslations('sections_page');
   const router = useRouter();
 
+  const { data: sections } = useSuspenseQuery(getSectionsWithProgressOpt());
+  console.log('getSectionsWithProgressOpt', sections);
+
   function handleBack() {
     router.push('/learn');
   }
 
-  function handleContinue(section: Section) {
-    // Navigate to learning path (filtered by section)
-    router.push(`/learn?section=${section.id}`);
+  function handleStart(section: SectionWithProgress) {
+    if (!section) return;
+    router.push(`/learn?section=${section.slug}`);
   }
 
-  function handleReview(section: Section) {
-    // Navigate to review/practice for completed section
-    router.push(`/learn?section=${section.id}&mode=review`);
+  function handleContinue(section: SectionWithProgress) {
+    if (!section) return;
+    router.push(`/learn?section=${section.slug}`);
+  }
+
+  function handleReview(section: SectionWithProgress) {
+    if (!section) return;
+    router.push(`/learn?section=${section.slug}&mode=review`);
   }
 
   return (
@@ -39,7 +49,8 @@ export function Sections() {
         <Separator />
       </div>
       <SectionsList
-        sections={MOCK_SECTIONS}
+        sections={sections}
+        onStart={handleStart}
         onContinue={handleContinue}
         onReview={handleReview}
       />

@@ -1,22 +1,14 @@
 'use client';
 
-import {
-  BookOpenIcon,
-  CheckIcon,
-  CrownIcon,
-  GiftIcon,
-  LockIcon,
-  StarIcon,
-  TrophyIcon,
-} from 'lucide-react';
+import { CheckIcon, LockIcon, StarIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import type { Lesson } from '../_schemas/learn';
+import type { CurriculumLesson } from '../../_lib/curriculum';
 
 interface LessonNodeProps {
-  lesson: Lesson;
+  lesson: CurriculumLesson;
   /** Horizontal offset for zigzag pattern (-1, 0, 1) */
   offset?: number;
   onClick?: () => void;
@@ -25,6 +17,7 @@ interface LessonNodeProps {
 /**
  * Circular lesson node component like Duolingo's learning path nodes.
  * Displays different states: locked, available, in-progress, completed.
+ * Status defaults to 'available' when not set on the lesson.
  */
 export const LessonNode = memo(function LessonNode({
   lesson,
@@ -32,7 +25,8 @@ export const LessonNode = memo(function LessonNode({
   onClick,
 }: LessonNodeProps) {
   const t = useTranslations('learn_page');
-  const { type, status, letterSymbol, crowns } = lesson;
+  const { type, letterSymbol } = lesson;
+  const status = lesson.status ?? 'available';
   const isInteractive = status !== 'locked';
 
   // Determine styles based on status and type
@@ -54,20 +48,7 @@ export const LessonNode = memo(function LessonNode({
       };
     }
 
-    // Special types (Chest, Trophy)
-    if (type === 'chest') {
-      return {
-        container: cn(
-          base,
-          size,
-          'bg-gradient-to-b from-amber-400 to-amber-600 shadow-[0_6px_0_var(--color-accent-amber-light)]',
-          !isInteractive && 'opacity-50 grayscale',
-        ),
-        icon: 'drop-shadow-md text-white',
-        inner: 'bg-white/20',
-      };
-    }
-
+    // Trophy nodes
     if (type === 'trophy') {
       return {
         container: cn(
@@ -128,12 +109,8 @@ export const LessonNode = memo(function LessonNode({
       return <CheckIcon className={cn('size-10 stroke-3', styles.icon)} />;
 
     switch (type) {
-      case 'chest':
-        return <GiftIcon className={iconClass} />;
       case 'trophy':
         return <TrophyIcon className={iconClass} />;
-      case 'practice':
-        return <BookOpenIcon className={iconClass} />;
       default:
         if (letterSymbol) {
           return (
@@ -174,21 +151,7 @@ export const LessonNode = memo(function LessonNode({
       >
         {/* Content */}
         <span className="flex items-center justify-center">{renderIcon()}</span>
-
-        {/* Crowns (Inside or Outside? existing design had them outside, Duolingo puts them around or top-right. Let's keep outside for now but cleaner) */}
       </Button>
-
-      {/* External Crown Indicator */}
-      {status === 'completed' && crowns > 0 && (
-        <div className="absolute -bottom-5 flex scale-75 items-center gap-0.5 rounded-full border-2 border-border bg-background p-1 shadow-sm">
-          {Array.from({ length: Math.min(crowns, 5) }).map((_, i) => (
-            <CrownIcon
-              key={`crown-${lesson.id}-${i}`}
-              className="size-3 fill-amber-400 text-amber-500"
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 });

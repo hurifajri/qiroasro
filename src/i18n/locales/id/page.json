@@ -1,377 +1,4 @@
 {
-  "global": {
-    "metadata": {
-      "title": "Aplikasi Tajwid Berbasis Graph Pertama",
-      "description": "Pelajari Makhorijul Huruf & Sifatul Huruf melalui knowledge graph interaktif. Aplikasi pertama yang memvisualisasikan aturan tajwid sebagai node yang saling terhubung.",
-      "feature_list": "Knowledge graph interaktif,Mode kuis,Dukungan multi-bahasa",
-      "keywords": "tajwid,tajweed,makharijul huruf,sifatul huruf,quran,belajar quran,huruf hijaiyyah"
-    },
-    "color_mode": {
-      "title": "Mode Warna",
-      "mode_system": "Sistem",
-      "mode_light": "Terang",
-      "mode_dark": "Gelap"
-    },
-    "language": {
-      "title": "Bahasa"
-    },
-    "leagues": {
-      "peace": "Darussalam",
-      "stability": "Darul Muqamah",
-      "security": "Al-Maqamul Amin",
-      "merit": "Qadama Shidq",
-      "honor": "Maq'adu Shidq",
-      "eternity": "Jannatul Khuld",
-      "shelter": "Jannatul Ma'wa",
-      "bliss": "Jannatun Na'im",
-      "eden": "Jannatu 'Adn",
-      "paradise": "Jannatul Firdaus"
-    },
-    "achievements": {
-      "title": "Pencapaian",
-      "view_all": "Lihat Semua",
-      "level": "Level",
-      "consistency_streak": {
-        "title": "Api Istiqamah",
-        "description": "Raih rentetan belajar 365 hari. Konsistensi sangat dicintai Allah.",
-        "levels": [3, 7, 30, 100, 365]
-      },
-      "perfectionist": {
-        "title": "Ahli Itqan",
-        "description": "Selesaikan 100 pelajaran tanpa kesalahan. Kejarlah kesempurnaan.",
-        "levels": [10, 50, 100]
-      },
-      "xp_milestone": {
-        "title": "Al-Mahir",
-        "description": "Dapatkan 5000 XP. Jadilah mahir dalam membaca Al-Quran.",
-        "levels": [1000, 5000, 20000]
-      },
-      "early_bird": {
-        "title": "Pencari Fajar",
-        "description": "Selesaikan pelajaran sebelum jam 7 pagi. Keberkahan ada di waktu pagi.",
-        "levels": [1, 10, 50]
-      },
-      "night_owl": {
-        "title": "Pejuang Tahajjud",
-        "description": "Selesaikan pelajaran setelah jam 10 malam. Hidupkan malam dengan ilmu.",
-        "levels": [1, 10, 50]
-      },
-      "social_connector": {
-        "title": "Pembangun Ukhuwah",
-        "description": "Ikuti 3 teman. Orang beriman ibarat bangunan yang kokoh.",
-        "levels": [1, 3, 10]
-      },
-      "error_corrector": {
-        "title": "Jiwa Tawwabin",
-        "description": "Perbaiki 50 kesalahan dalam latihan. Kembali pada kebenaran itu mulia.",
-        "levels": [10, 50, 100]
-      },
-      "weekend_warrior": {
-        "title": "Hafiz Akhir Pekan",
-        "description": "Selesaikan pelajaran pada Sabtu dan Minggu selama 4 minggu berturut-turut.",
-        "levels": [1, 4, 12]
-      }
-    },
-    "badges": {
-      "dawn": {
-        "title": "Sang Fajar",
-        "surah_ref": "Al-Fajr",
-        "description": "Mulailah perjalananmu seperti menyingsingnya fajar."
-      },
-      "pen": {
-        "title": "Sang Pena",
-        "surah_ref": "Al-Qalam",
-        "description": "Ilmu itu diikat dengan pena."
-      },
-      "thunder": {
-        "title": "Guruh",
-        "surah_ref": "Ar-Ra'd",
-        "description": "Bacaan yang kuat laksana guruh yang bertasbih."
-      },
-      "fig": {
-        "title": "Buah Tin",
-        "surah_ref": "At-Tin",
-        "description": "Buah manis dari kesabaran dan pembelajaran."
-      },
-      "star": {
-        "title": "Sang Bintang",
-        "surah_ref": "An-Najm",
-        "description": "Bercita-cita tinggi dengan petunjuk bintang."
-      },
-      "sun": {
-        "title": "Sang Matahari",
-        "surah_ref": "Ash-Shams",
-        "description": "Bersinar terang dengan kejelasan dalam membaca."
-      },
-      "iron": {
-        "title": "Besi",
-        "surah_ref": "Al-Hadid",
-        "description": "Kemauan yang kuat dan konsistensi yang tak tergoyahkan."
-      },
-      "stars": {
-        "title": "Gugusan Bintang",
-        "surah_ref": "Al-Buruj",
-        "description": "Langit yang penuh dengan usaha yang gigih."
-      },
-      "mount": {
-        "title": "Bukit Tursina",
-        "surah_ref": "At-Tur",
-        "description": "Teguh dan kokoh laksana gunung."
-      },
-      "moon": {
-        "title": "Sang Bulan",
-        "surah_ref": "Al-Qamar",
-        "description": "Pantulan cahaya yang indah."
-      },
-      "night": {
-        "title": "Sang Malam",
-        "surah_ref": "Al-Lail",
-        "description": "Dedikasi yang damai di waktu-waktu sunyi."
-      },
-      "declining_day": {
-        "title": "Masa",
-        "surah_ref": "Al-'Asr",
-        "description": "Hargai setiap detik sebelum waktu berlalu."
-      }
-    },
-    "letter": {
-      "hamzah": "Hamzah",
-      "ba": "Ba",
-      "ta": "Ta",
-      "tsa": "Tsa",
-      "jim": "Jim",
-      "ha_wasath": "Ha'",
-      "kha": "Kha",
-      "dal": "Dal",
-      "dhal": "Dzal",
-      "ra": "Ra",
-      "zay": "Zay",
-      "sin": "Sin",
-      "shin": "Syin",
-      "shad": "Shad",
-      "dhad": "Dhad",
-      "tha": "Tha",
-      "zha": "Zha",
-      "ayn": "'Ain",
-      "ghain": "Ghain",
-      "fa": "Fa",
-      "qaf": "Qaf",
-      "kaf": "Kaf",
-      "lam": "Lam",
-      "mim": "Mim",
-      "nun": "Nun",
-      "waw": "Wawu",
-      "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
-      "ya": "Ya",
-      "alif_madd": "Alif Mad",
-      "waw_madd": "Wawu Mad",
-      "ya_madd": "Ya Mad"
-    },
-    "articulation_area": {
-      "al_jauf": "Rongga",
-      "al_halq": "Tenggorokan",
-      "al_lisan": "Lidah",
-      "asy_syafatain": "Dua Bibir",
-      "al_khaisyum": "Pangkal Hidung"
-    },
-    "articulation_point": {
-      "jauf": "Al-Jauf",
-      "aqsha_halq": "Aqsha Al-Halq",
-      "wasath_halq": "Wasath Al-Halq",
-      "adna_halq": "Adna Al-Halq",
-      "aqsha_lisan": "Aqsha Al-Lisan",
-      "aqsha_lisan_asfal": "Aqsha Al-Lisan (Asfal)",
-      "wasath_lisan": "Wasath Al-Lisan",
-      "hafah_lisan": "Hafah Al-Lisan",
-      "adna_hafah_lisan": "Adna Hafah Al-Lisan",
-      "tharaf_lisan": "Tharaf Al-Lisan",
-      "tharaf_lisan_zhahr_adkhal": "Tharaf Al-Lisan (Zhahr)",
-      "tharaf_lisan_ulya_tsanaya": "Tharaf Al-Lisan & Ushul Ats-Tsanaya",
-      "tharaf_lisan_tsanaya_sufla": "Tharaf Al-Lisan & Ats-Tsanaya As-Sufla",
-      "tharaf_lisan_athraf_tsanaya_ulya": "Tharaf Al-Lisan & Athraf Ats-Tsanaya",
-      "bathn_syafah": "Bathn Asy-Syafah",
-      "syafatain": "Asy-Syafatain",
-      "khaisyum": "Al-Khaisyum"
-    },
-    "articulation_point_description": {
-      "jauf": "Rongga (mulut dan tenggorokan).",
-      "aqsha_halq": "Tenggorokan bagian bawah (terjauh dari rongga mulut), tepatnya pada pangkal pita suara (laring).",
-      "wasath_halq": "Tenggorokan bagian tengah, tepatnya pada katup epiglotis (lisanul mizmar).",
-      "adna_halq": "Tenggorokan bagian atas (terdekat dari rongga mulut), yakni pertemuan antara akar lidah dengan uvula (anak tekak).",
-      "aqsha_lisan": "Pangkal lidah menempel pada langit-langit bagian lunak.",
-      "aqsha_lisan_asfal": "Pangkal lidah (sedikit di bawah makhraj Qaf) menempel pada pertemuan langit-langit bagian lunak dan keras.",
-      "wasath_lisan": "Tengah lidah bertemu dengan langit-langit. (Menempel untuk huruf Jim; mendekat tanpa menempel untuk huruf Syin dan Ya).",
-      "hafah_lisan": "Tepi lidah (memanjang dari pangkal sampai ujung tepi) menekan dinding bagian dalam gigi geraham atas bagian kiri, kanan, atau keduanya.",
-      "adna_hafah_lisan": "Ujung tepi lidah (akhir dari makhraj huruf Dhad sampai ujung lidah) menempel pada langit-langit yang dekat dengan gusi gigi seri atas.",
-      "tharaf_lisan": "Ujung lidah menempel pada langit-langit yang dekat dengan gusi gigi seri atas (sedikit di bawah makhraj huruf Lam).",
-      "tharaf_lisan_zhahr_adkhal": "Ujung lidah sedikit masuk ke bagian ujung punggung lidah (dekat dengan makhraj huruf Nun).",
-      "tharaf_lisan_ulya_tsanaya": "Ujung lidah menempel pada pangkal gigi seri atas.",
-      "tharaf_lisan_tsanaya_sufla": "Ujung lidah berada di bagian atas gigi seri bawah (posisi tidak menempel).",
-      "tharaf_lisan_athraf_tsanaya_ulya": "Ujung lidah menyentuh ujung gigi seri atas.",
-      "bathn_syafah": "Bibir bawah bagian dalam menyentuh ujung gigi seri atas.",
-      "syafatain": "Dua bibir. (Membulat untuk Wawu; Mengatup untuk Ba; Mengatup disertai dengung untuk Mim).",
-      "khaisyum": "Rongga hidung (pangkal hidung), tempat keluarnya suara dengung (ghunnah) yang dimiliki oleh huruf Nun dan Mim."
-    },
-    "trait_group": {
-      "nafas": "Aliran Udara",
-      "shaut": "Aliran Suara",
-      "ittijah_shaut": "Arah Suara",
-      "inhishar_shaut": "Gumpalan Suara",
-      "khiffah_nuthq": "Kemudahan Pengucapan",
-      "munfaridah": "Sifat Khusus",
-      "siman_shaut": "Sifat Aridhah"
-    },
-    "trait": {
-      "jahr": "Jahr",
-      "hams": "Hams",
-      "syiddah": "Syiddah",
-      "rakhawah": "Rakhawah",
-      "tawassuth": "Tawassuth / Bainiyyah",
-      "istila": "Isti'la",
-      "istifal": "Istifal",
-      "itbaq": "Itbaq",
-      "infitah": "Infitah",
-      "idzlaq": "Idzlaq",
-      "ishmat": "Ishmat",
-      "safir": "Safir",
-      "qalqalah": "Qalqalah",
-      "lin": "Lin",
-      "inhiraf": "Inhiraf",
-      "takrir": "Takrir",
-      "tafasyi": "Tafasyi",
-      "istithalah": "Istithalah",
-      "ghunnah": "Ghunnah",
-      "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Lainnya"
-    },
-    "trait_description": {
-      "jahr": "Tertahannya udara (jelas).",
-      "hams": "Mengalirnya udara.",
-      "syiddah": "Tertahannya suara (kuat).",
-      "rakhawah": "Mengalirnya suara (lemah).",
-      "tawassuth": "Mengalirnya suara (sedang, antara Syiddah dan Rakhawah).",
-      "istila": "Terangkatnya pangkal lidah.",
-      "istifal": "Terhamparnya pangkal lidah.",
-      "itbaq": "Terangkatnya lidah hingga seolah-olah menempel pada langit-langit, sehingga suara memenuhi ruang antara lidah dan langit-langit.",
-      "infitah": "Terbukanya ruang antara lidah dan langit-langit.",
-      "idzlaq": "Lebih mudah dan cepat dikeluarkan karena dekatnya dengan ujung lidah.",
-      "ishmat": "Lebih sulit dikeluarkan.",
-      "safir": "Suara yang tajam.",
-      "qalqalah": "Goncangan (memantul).",
-      "lin": "Lembut. (Huruf Wawu atau Ya dalam keadaan sukun dan huruf sebelumnya berharakat fathah).",
-      "inhiraf": "Menyimpang. (Makhraj huruf Lam menyimpang ke makhraj huruf Nun saat diucapkan tebal, dan makhraj huruf Ra menyimpang ke makhraj huruf Lam saat diucapkan tipis).",
-      "takrir": "Getaran yang lembut.",
-      "tafasyi": "Udara yang berhembus deras dan menyebar di dalam mulut.",
-      "istithalah": "Memanjangnya makhraj huruf Dhad.",
-      "ghunnah": "Suara dengung yang keluar dari pangkal hidung.",
-      "tafkhim": "Suara tebal yang disebabkan oleh terangkatnya pangkal lidah. Terdapat 7 huruf yang senantiasa dibaca tebal, yaitu huruf-huruf yang memiliki sifat Isti'la.",
-      "tarqiq": "Suara tipis yang disebabkan oleh terhamparnya pangkal lidah. Terdapat 19 huruf yang senantiasa dibaca tipis (huruf Istifal), kecuali Alif, Lam, dan Ra karena ketiganya dapat dibaca tebal atau tipis tergantung kondisi tertentu.",
-      "others": "Ada beberapa yang belum ditambahkan, insyaa Allah akan segera ditambahkan."
-    },
-    "development": {
-      "email_placeholder": "Email",
-      "reminder_title": "Beri tahu ketika aplikasi sudah tersedia",
-      "reminder_playground_cta": "Ke Playground",
-      "reminder_success": "Email verifikasi telah dikirim! Silakan cek inbox ya.",
-      "reminder_verified": "Email berhasil diverifikasi",
-      "reminder_verified_message": "Kami akan memberi tahu melalui email ketika aplikasi sudah tersedia, insyaa Allah. Untuk mengetahui gambaran aplikasinya, silakan kunjungi halaman Playground.",
-      "reminder_already_verified": "Email sudah terverifikasi sebelumnya.",
-      "reminder_error": "Terjadi kesalahan. Silakan coba lagi.",
-      "reminder_invalid_email": "Email tidak valid",
-      "reminder_email_required": "Email tidak boleh kosong"
-    },
-    "private_layout": {
-      "nav": {
-        "learn": "Belajar",
-        "practice": "Latihan",
-        "reference": "Referensi",
-        "leaderboard": "Papan Peringkat",
-        "quests": "Misi",
-        "shop": "Toko",
-        "profile": "Profil",
-        "more": "Lainnya",
-        "settings": "Pengaturan",
-        "help": "Bantuan",
-        "logout": "Keluar"
-      },
-      "level_card": {
-        "title": "Naik Level dengan Super",
-        "description": "Tanpa iklan, latihan personal, dan fitur tak terbatas!",
-        "cta": "Dapatkan Super"
-      },
-      "leaderboard": {
-        "view_league": "Lihat Halaqah",
-        "description": "Selesaikan pelajaran untuk bergabung di papan peringkat minggu ini"
-      },
-      "daily_quests": {
-        "title": "Misi Harian",
-        "view_all": "Lihat Semua"
-      },
-      "ads": {
-        "title": "Temukan Lebih Banyak",
-        "placeholder": "Iklan",
-        "remove_ads": "Hapus Iklan"
-      },
-      "activity_feed": {
-        "title": "Aktivitas",
-        "celebrate": "Rayakan",
-        "view_all": "Lihat Semua"
-      },
-      "activity": {
-        "completed_streak": "Mencapai rekor 500 hari!",
-        "collected_badge": "Meraih lencana Februari!"
-      },
-      "follow_list": {
-        "title": "Teman",
-        "following": "Mengikuti",
-        "followers": "Pengikut",
-        "view_more": "Lihat {count} lagi"
-      },
-      "add_friends": {
-        "title": "Tambah Teman",
-        "find": "Cari Teman",
-        "invite": "Undang Teman"
-      },
-      "quests": {
-        "earn_xp": {
-          "title": "Raih 10 XP",
-          "description": "Selesaikan pelajaran untuk mendapat XP"
-        },
-        "high_accuracy": {
-          "title": "Raih 90%+ di 1 pelajaran",
-          "description": "Capai akurasi tinggi dalam pelajaran"
-        },
-        "complete_lessons": {
-          "title": "Selesaikan 3 pelajaran",
-          "description": "Selesaikan 3 pelajaran hari ini"
-        }
-      },
-      "account": {
-        "title": "Akun",
-        "preferences": "Preferensi",
-        "profile": "Profil",
-        "notifications": "Notifikasi",
-        "social": "Akun Sosial",
-        "privacy": "Privasi"
-      },
-      "subscription": {
-        "title": "Langganan",
-        "choose_plan": "Pilih Paket"
-      },
-      "support": {
-        "title": "Bantuan",
-        "help_center": "Pusat Bantuan"
-      },
-      "monthly_badges": {
-        "title": "Lencana Bulanan",
-        "view_all": "Lihat Semua"
-      },
-      "set_status": "Atur Status",
-      "logout": "Keluar"
-    }
-  },
   "home_page": {
     "metadata": {
       "title": "Aplikasi Tajwid Berbasis Graph Pertama",
@@ -602,58 +229,67 @@
     },
     "title": "Belajar - Perjalanan Tajwid",
     "start": "Mulai",
-    "guidebook": "Buku Panduan",
-    "sections": {
-      "foundation": "Bagian {section}, Unit {unit}",
-      "tongue_letters": "Bagian {section}, Unit {unit}",
-      "lips_nasal": "Bagian {section}, Unit {unit}",
-      "trait": "Bagian {section}, Unit {unit}",
-      "unknown": "Bagian {section}"
-    },
+    "read_reference": "Baca Materi",
     "units": {
       "jauf": {
-        "title": "Huruf Rongga (Al-Jauf)",
-        "description": "Pelajari huruf Mad yang keluar dari rongga mulut dan tenggorokan."
+        "title": "Al-Jauf",
+        "description": "Huruf-huruf yang keluar dari rongga mulut dan tenggorokan"
       },
       "halq": {
-        "title": "Huruf Tenggorokan (Al-Halq)",
-        "description": "Pelajari huruf yang keluar dari tenggorokan."
+        "title": "Al-Halq",
+        "description": "Huruf-huruf yang keluar dari tenggorokan"
       },
       "aqsha_lisan": {
-        "title": "Pangkal Lidah (Aqsha)",
-        "description": "Huruf yang keluar dari pangkal lidah."
+        "title": "Aqsha Al-Lisan",
+        "description": "Pangkal lidah, dekat tenggorokan"
       },
       "wasath_lisan": {
-        "title": "Tengah Lidah (Wasath)",
-        "description": "Huruf yang keluar dari tengah lidah."
+        "title": "Wasath Al-Lisan",
+        "description": "Pertengahan lidah bertemu langit-langit"
       },
       "hafah_lisan": {
-        "title": "Tepi Lidah (Hafah)",
-        "description": "Huruf yang keluar dari sisi/tepi lidah."
+        "title": "Hafah Al-Lisan (Tepi)",
+        "description": "Tepi lidah bertemu gigi geraham atas"
       },
       "tharaf_lisan": {
-        "title": "Ujung Lidah (Tharaf)",
-        "description": "Huruf yang keluar dari ujung lidah."
+        "title": "Tharaf Al-Lisan",
+        "description": "Ujung lidah dengan berbagai posisi"
       },
       "tsanaya": {
-        "title": "Area Gigi Seri",
-        "description": "Huruf yang melibatkan gigi seri depan."
+        "title": "Ats-Tsanaya",
+        "description": "Gigi seri atas sebagai titik artikulasi"
       },
       "syafatain": {
-        "title": "Dua Bibir (Asy-Syafatain)",
-        "description": "Huruf yang keluar dari dua bibir."
+        "title": "Asy-Syafatain",
+        "description": "Huruf-huruf bibir"
       },
       "khaisyum": {
-        "title": "Pangkal Hidung (Al-Khaisyum)",
-        "description": "Suara dengung (Ghunnah) dari rongga hidung."
+        "title": "Al-Khaisyum",
+        "description": "Huruf-huruf yang keluar dari rongga hidung (ghunnah)"
       },
       "sifat_mutadhadah": {
         "title": "Sifat Berlawanan",
-        "description": "Sifat-sifat yang memiliki lawan (cth: Jahr vs Hams)."
+        "description": "Sifat-sifat yang memiliki lawan (cth: Jahr vs Hams)"
       },
       "sifat_munfaridah": {
         "title": "Sifat Tunggal",
-        "description": "Sifat-sifat yang tidak memiliki lawan (cth: Qalqalah)."
+        "description": "Sifat-sifat yang tidak memiliki lawan (cth: Qalqalah)"
+      },
+      "quran_delivery_method": {
+        "title": "Metode Penyampaian Al-Qur'an",
+        "description": "Cara Rasulullah mewariskan Al-Qur'an kepada umatnya"
+      },
+      "mutawatir_definition": {
+        "title": "Pengertian Mutawatir",
+        "description": "Konsep mutawatir dalam periwayatan Al-Qur'an"
+      },
+      "oral_transmission_process": {
+        "title": "Proses Penyampaian Lisan",
+        "description": "Tahapan penyampaian Al-Qur'an secara lisan"
+      },
+      "quran_codification": {
+        "title": "Fase Kodifikasi Al-Qur'an",
+        "description": "Lima fase penulisan dan pengumpulan Al-Qur'an"
       }
     }
   },
@@ -663,33 +299,11 @@
       "description": "Lihat semua bagian kurikulum dan pantau kemajuan Anda."
     },
     "title": "Materi - Kurikulum",
-    "section_title": "Bagian {number}",
     "back": "Kembali",
+    "start": "Mulai",
     "completed": "Selesai!",
     "continue": "Lanjut",
-    "review": "Ulas",
-    "sections": {
-      "foundation": {
-        "title": "Pondasi",
-        "description": "Kuasai huruf dan bunyi dasar."
-      },
-      "tongue_letters": {
-        "title": "Huruf Lidah",
-        "description": "Pelajari huruf yang keluar dari berbagai bagian lidah."
-      },
-      "lips_nasal": {
-        "title": "Bibir & Hidung",
-        "description": "Huruf dari bibir dan rongga hidung."
-      },
-      "trait": {
-        "title": "Sifat Huruf",
-        "description": "Kuasai karakteristik dan sifat setiap huruf."
-      },
-      "advanced": {
-        "title": "Topik Lanjutan",
-        "description": "Hukum tajwid lanjutan dan teknik bacaan."
-      }
-    }
+    "review": "Ulas"
   },
   "reference_page": {
     "metadata": {
@@ -799,12 +413,6 @@
         "title": "Menghafal Al-Quran",
         "subtitle": "Metode dan panduan untuk menghafal Al-Quran"
       }
-    }
-  },
-  "reference_noble_quran_page": {
-    "metadata": {
-      "title": "Al-Quran yang Mulia",
-      "description": "Definisi, fase kodifikasi, dan proses penyampaian Al-Quran"
     }
   },
   "reference_letters_page": {
