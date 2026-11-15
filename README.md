@@ -1,8 +1,8 @@
 # Qiroasro
 
 <p align="center">
-  <strong>An interactive visual playground and curriculum for mastering Makharijul Huruf and Sifatul Huruf.</strong><br>
-  Built for the Ummah — free for non-commercial educational use, open-source, and privacy-conscious.
+  <strong>A comprehensive interactive platform for learning Tajweed and Quranic recitation — from Makharijul Huruf and Sifatul Huruf to full Tajweed rules.</strong><br>
+  Built for the Ummah — source-available (non-commercial), free for educational use, and privacy-conscious.
 </p>
 
 <p align="center">
@@ -26,7 +26,7 @@
 
 ## About Qiroasro
 
-**Qiroasro** is an interactive learning platform designed to make Quranic phonetics (*Tajweed*, *Makharijul Huruf*, and *Sifatul Huruf*) visually engaging and intuitive. By combining interactive relationship graphs, structured curriculum tracks, and practice quizzes, Qiroasro helps learners understand how Arabic letters originate from articulation points and how phonetic attributes shape their pronunciation.
+**Qiroasro** is a comprehensive, gamified learning platform designed to make mastering **Tajweed and Quranic recitation** engaging, structured, and intuitive. Starting from foundational Arabic phonetics (*Makharijul Huruf* and *Sifatul Huruf*) to broader *Tajweed* rules and recitation mastery, Qiroasro combines interactive relationship graphs, structured curriculum tracks, bite-sized practice quizzes, and gamified progression (quests, streaks, XP, and rankings) to help learners build lasting fluency.
 
 ---
 
@@ -42,9 +42,9 @@
   - Timed challenges, instant feedback, scoring analysis, and visual answer reviews.
   - Interactive onboarding tour for new learners.
 
-- **📚 Structured Curriculum & Progressive Tracks**
-  - Section-based progression tracks to systematically master tajweed concepts from basics to advanced levels.
-  - Quests and achievement tracking to maintain learning momentum.
+- **📚 Structured Tajweed Curriculum & Gamified Progression**
+  - Section-based progression tracks to systematically master *Tajweed*, *Makharijul Huruf*, and *Sifatul Huruf* from fundamentals to advanced levels.
+  - Gamified learning mechanics—including quests, streaks, achievements, and rankings—to keep daily practice consistent and motivating.
 
 - **🌍 Multi-language & Localization (i18n)**
   - Full interface and content localization across 5 languages:
@@ -134,4 +134,4 @@ If you discover a security vulnerability, please review our [Security Policy](SE
 
 ## License
 
-This project is licensed under the **PolyForm Noncommercial License 1.0.0**. See the [LICENSE](LICENSE) file for complete details. Free for personal, educational, and non-commercial community use.
+This project is **source-available (non-commercial)** and licensed under the **PolyForm Noncommercial License 1.0.0**. See the [LICENSE](LICENSE) file for complete details. Free for personal, educational, and non-commercial community use.
