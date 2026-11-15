@@ -1,0 +1,38 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_PUBLIC_APP_NAME: 'Qiroasro'
+      NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+      BETTER_AUTH_SECRET: 'dummy_secret_for_ci_build_minimum_32_characters_long'
+      DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/qiroasro'
+      DATABASE_URL_DIRECT: 'postgresql://postgres:postgres@localhost:5432/qiroasro'
+      GOOGLE_CLIENT_ID: 'dummy_google_client_id'
+      GOOGLE_CLIENT_SECRET: 'dummy_google_client_secret'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm check:types
+      - run: pnpm build
