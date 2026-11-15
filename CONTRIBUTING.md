@@ -1,6 +1,6 @@
 # Contributing to Qiroasro
 
-Thank you for your interest in contributing to **Qiroasro**! This project is an open-source, non-commercial, interactive web application designed to help Muslims learn and master *makharijul huruf* (articulation points), phonetic traits (*sifatul huruf*), and Quranic recitation. Every contribution — whether reporting a bug, proposing features, verifying phonetics/tajweed content, or contributing code — is a valuable community service (*amal jariyah*).
+Thank you for your interest in contributing to **Qiroasro**! This project is a source-available (non-commercial), interactive web application designed to help Muslims learn and master *Tajweed*, *makharijul huruf* (articulation points), phonetic traits (*sifatul huruf*), and Quranic recitation. Every contribution — whether reporting a bug, proposing features, verifying phonetics/tajweed content, or contributing code — is a valuable community service (*amal jariyah*).
 
 ---
 
