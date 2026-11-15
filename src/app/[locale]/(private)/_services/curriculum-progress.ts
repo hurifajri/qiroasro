@@ -2,6 +2,7 @@
 
 import { and, eq } from 'drizzle-orm';
 import { headers } from 'next/headers';
+import { unstable_rethrow } from 'next/navigation';
 import { parse } from 'valibot';
 import {
   userLessonProgress,
@@ -26,10 +27,10 @@ import {
  * - locked: prerequisites not met (section before this not started)
  */
 function deriveSectionStatus(
-  sortOrder: number,
-  completedUnits: number,
-  totalUnits: number,
-  prevIsStarted: boolean,
+  _sortOrder: number,
+  _completedUnits: number,
+  _totalUnits: number,
+  _prevIsStarted: boolean,
 ): SectionWithProgress['status'] {
   // if (totalUnits > 0 && completedUnits >= totalUnits) return 'completed';
   // if (completedUnits > 0) return 'in-progress';
@@ -111,6 +112,7 @@ export async function getSectionsWithProgress(): Promise<
 
     return parse(SectionProgressListSchema, sectionProgressList);
   } catch (error) {
+    unstable_rethrow(error);
     console.error('[getSectionsWithProgress] Error:', error);
     return [];
   }
@@ -184,6 +186,7 @@ export async function getUnitsWithProgress(
 
     return parse(UnitProgressListSchema, unitProgressList);
   } catch (error) {
+    unstable_rethrow(error);
     console.error('[getUnitsWithProgress] Error:', error);
     return [];
   }
