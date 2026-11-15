@@ -1,1 +1,0 @@
-../../.agents/rules/code-patterns-and-best-practices.md

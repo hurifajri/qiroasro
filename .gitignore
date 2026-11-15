@@ -40,3 +40,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ai tools & skills
+/.agent/
+/.agents/
+/.mcp.json
+/.vscode/mcp.json
+/AGENTS.md
+/skills-lock.json
+
+# internal docs
+/docs/
