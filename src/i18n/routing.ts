@@ -8,3 +8,5 @@ export const routing = defineRouting({
   localeDetection: true,
   alternateLinks: true,
 });
+
+export type Locale = (typeof routing.locales)[number];
