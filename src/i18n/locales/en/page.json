@@ -55,8 +55,9 @@
       "trait_lazimah_description": "An intrinsic characteristic that is always present (permanent) in a letter.",
       "trait_aridhah": "Aridhah Characteristic",
       "trait_aridhah_description": "A temporary characteristic that is only present in a letter under certain conditions.",
-      "letter": "Letter",
-      "letterMadd": "Madd Letter"
+      "letter_tafkhim": "Always Thick (Tafkhim)",
+      "letter_conditional": "Thick or Thin (Alif, Lam, Ra)",
+      "letter_tarqiq": "Always Thin (Tarqiq)"
     },
     "quiz": {
       "trigger": "Start Quiz",

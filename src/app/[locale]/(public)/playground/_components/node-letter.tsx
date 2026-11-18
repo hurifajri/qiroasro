@@ -5,6 +5,7 @@ import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 import { useNodeLayout } from '../_hooks/use-node-layout';
+import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 import type { Letter } from '../_schemas/letter';
 import type { BaseNodeData } from '../_schemas/node';
 
@@ -23,9 +24,8 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
     <BaseNode
       className={cn(
         'flex size-24 items-center justify-center rounded-full border-0 transition-transform duration-300 hover:ring-0',
-        nodeData.isMadd
-          ? 'bg-linear-to-br from-node-letter-madd to-node-letter-madd-dark'
-          : 'bg-linear-to-br from-node-letter to-node-letter-dark',
+        'bg-linear-to-br',
+        LETTER_TAFKHIM_GRADIENT[nodeData.tafkhimType],
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -41,7 +41,7 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         <span className="font-arabic font-bold text-4xl">
           {nodeData.symbol}
         </span>
-        <span className="text-xs">{label}</span>
+        <span className="px-1 text-center text-xs leading-tight">{label}</span>
       </BaseNodeContent>
 
       <BaseHandle

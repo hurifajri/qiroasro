@@ -55,8 +55,9 @@
       "trait_lazimah_description": "Sıfat-ı Lazime, harften hiçbir zaman ayrılmayan kalıcı sıfatlardır.",
       "trait_aridhah": "Sıfat-ı Arıza",
       "trait_aridhah_description": "Sıfat-ı Arıza, harfte sadece belirli durumlarda bulunan geçici sıfatlardır.",
-      "letter": "Harf",
-      "letterMadd": "Med (Uzatma) Harfi"
+      "letter_tafkhim": "Her Zaman Kalın (Tefhim)",
+      "letter_conditional": "Kalın veya İnce (Elif, Lam, Ra)",
+      "letter_tarqiq": "Her Zaman İnce (Terkik)"
     },
     "quiz": {
       "trigger": "Teste Başla",

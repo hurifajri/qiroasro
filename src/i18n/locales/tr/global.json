@@ -135,6 +135,7 @@
       }
     },
     "letter": {
+      "alif": "Elif",
       "hamzah": "Hemze",
       "ba": "Be",
       "ta": "Te",
@@ -161,12 +162,12 @@
       "mim": "Mim",
       "nun": "Nun",
       "waw": "Vav",
+      "waw_maddiyyah": "Vav (Uzatma)",
+      "waw_ghairu_maddiyyah": "Vav (Uzatmasız)",
       "ha_aqsha": "He",
-      "lam_alif": "Lamelif",
       "ya": "Ye",
-      "alif_madd": "Elif (Uzatma)",
-      "waw_madd": "Vav (Uzatma)",
-      "ya_madd": "Ye (Uzatma)"
+      "ya_maddiyyah": "Ye (Uzatma)",
+      "ya_ghairu_maddiyyah": "Ye (Uzatmasız)"
     },
     "articulation_area": {
       "al_jauf": "Cevf (Ağız ve Boğaz Boşluğu)",
@@ -242,9 +243,9 @@
       "tafasyi": "Tefeşşi",
       "istithalah": "İstitali",
       "ghunnah": "Gunne",
+      "khafa": "Hafâ",
       "tafkhim": "Tefhim",
-      "tarqiq": "Terkik",
-      "others": "Diğerleri"
+      "tarqiq": "Terkik"
     },
     "trait_description": {
       "jahr": "Nefes akışının kesilmesi (sesin net ve güçlü çıkması).",
@@ -266,9 +267,9 @@
       "tafasyi": "Sesin ve havanın ağız içinde yayılması.",
       "istithalah": "Sesin ve mahrecin uzaması (Dad harfinde).",
       "ghunnah": "Genizden gelen inilti/vınlama sesi.",
+      "khafa": "Gizlilik: med harflerinin (elif, vav, ye) sesinin cevf bölgesinde bitmesi nedeniyle hafif çıkması.",
       "tafkhim": "Harfin kalın okunması (İsti'la sıfatı olan 7 harf).",
-      "tarqiq": "Harfin ince okunması.",
-      "others": "Henüz eklenmemiş bazı özellikler var, inşallah yakında eklenecek."
+      "tarqiq": "Harfin ince okunması."
     },
     "development": {
       "email_placeholder": "E-posta",

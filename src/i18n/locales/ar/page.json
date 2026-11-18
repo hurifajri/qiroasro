@@ -55,8 +55,9 @@
       "trait_lazimah_description": "الصفة اللازمة هي التي تلازم الحرف في كل أحواله.",
       "trait_aridhah": "صفة عارضة",
       "trait_aridhah_description": "الصفة العارضة هي التي تعرض للحرف في أحوال معينة وتفارقه في أخرى.",
-      "letter": "حرف",
-      "letterMadd": "حرف مد"
+      "letter_tafkhim": "مفخم دائماً",
+      "letter_conditional": "مفخم أو مرقق (ألف، لام، راء)",
+      "letter_tarqiq": "مرقق دائماً"
     },
     "quiz": {
       "trigger": "بدء الاختبار",

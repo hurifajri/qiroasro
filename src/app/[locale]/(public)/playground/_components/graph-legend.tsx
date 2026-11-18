@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 import type { ViewMode } from '../_schemas/graph';
 
 interface GraphLegendProps {
@@ -98,19 +99,20 @@ export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
         ]
       : []),
     {
-      id: 'letter',
-      label: t('letter'),
-      color: 'from-node-letter to-node-letter-dark',
+      id: 'letterTafkhim',
+      label: t('letter_tafkhim'),
+      color: LETTER_TAFKHIM_GRADIENT.always_tafkhim,
     },
-    ...(['all', 'articulation', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'letterMadd',
-            label: t('letterMadd'),
-            color: 'from-node-letter-madd to-node-letter-madd-dark',
-          },
-        ]
-      : []),
+    {
+      id: 'letterConditional',
+      label: t('letter_conditional'),
+      color: LETTER_TAFKHIM_GRADIENT.conditional,
+    },
+    {
+      id: 'letterTarqiq',
+      label: t('letter_tarqiq'),
+      color: LETTER_TAFKHIM_GRADIENT.always_tarqiq,
+    },
   ];
 
   const legendInfo: Record<LegendId, { title: string; description: string }> = {

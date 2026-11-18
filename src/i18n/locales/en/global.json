@@ -135,6 +135,7 @@
       }
     },
     "letter": {
+      "alif": "Alif",
       "hamzah": "Hamzah",
       "ba": "Ba",
       "ta": "Ta",
@@ -161,12 +162,12 @@
       "mim": "Mim",
       "nun": "Nun",
       "waw": "Waw",
+      "waw_maddiyyah": "Waw Maddiyyah",
+      "waw_ghairu_maddiyyah": "Waw Ghairu Maddiyyah",
       "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alif_madd": "Alif Madd",
-      "waw_madd": "Waw Madd",
-      "ya_madd": "Ya Madd"
+      "ya_maddiyyah": "Ya Maddiyyah",
+      "ya_ghairu_maddiyyah": "Ya Ghairu Maddiyyah"
     },
     "articulation_area": {
       "al_jauf": "The Oral and Throat Cavity",
@@ -242,9 +243,9 @@
       "tafasyi": "Tafashi",
       "istithalah": "Istitalah",
       "ghunnah": "Ghunnah",
+      "khafa": "Khafa'",
       "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Others"
+      "tarqiq": "Tarqiq"
     },
     "trait_description": {
       "jahr": "The stoppage of breath flow (audible/clear sound).",
@@ -266,9 +267,9 @@
       "tafasyi": "Spreading of air throughout the mouth.",
       "istithalah": "Elongation of the sound from the beginning to the end of the tongue's edge.",
       "ghunnah": "A nasal sound emitted from the nasal cavity.",
+      "khafa": "Subtlety: the faint sound of the madd letters (Alif, Waw, Ya) as their sound ends in the Jauf.",
       "tafkhim": "A thick (heavy) sound caused by the elevation of the back of the tongue. There are 7 letters that are always pronounced thick, namely the letters possessing the trait of Isti'la.",
-      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition.",
-      "others": "Some characteristics have not been added yet; inshaa Allah, they will be added soon."
+      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition."
     },
     "development": {
       "email_placeholder": "Email",

@@ -35,6 +35,7 @@ import {
   applyHierarchicalLayout,
   applyRadialLayout,
 } from '../_lib/graph-layout';
+import { getRootLetters } from '../_lib/letter';
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
@@ -317,8 +318,8 @@ export function Playground() {
     }, 100);
   }, [edges, updateHighlight]);
 
-  // Memoized letters for filter
-  const memoizedLetters = useMemo(() => letters, [letters]);
+  // Letter selector lists the 29 root letters (waw/ya show both variants)
+  const memoizedLetters = useMemo(() => getRootLetters(letters), [letters]);
 
   // Memoize defaultEdgeOptions to prevent new object reference on every render
   const defaultEdgeOptions = useMemo(

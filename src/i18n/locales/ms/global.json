@@ -135,6 +135,7 @@
       }
     },
     "letter": {
+      "alif": "Alif",
       "hamzah": "Hamzah",
       "ba": "Ba",
       "ta": "Ta",
@@ -161,12 +162,12 @@
       "mim": "Mim",
       "nun": "Nun",
       "waw": "Wau",
+      "waw_maddiyyah": "Wau Maddiyah",
+      "waw_ghairu_maddiyyah": "Wau Ghairu Maddiyah",
       "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alif_madd": "Alif Mad",
-      "waw_madd": "Wau Mad",
-      "ya_madd": "Ya Mad"
+      "ya_maddiyyah": "Ya Maddiyah",
+      "ya_ghairu_maddiyyah": "Ya Ghairu Maddiyah"
     },
     "articulation_area": {
       "al_jauf": "Rongga",
@@ -242,9 +243,9 @@
       "tafasyi": "Tafasyi",
       "istithalah": "Istithalah",
       "ghunnah": "Ghunnah",
+      "khafa": "Khafa'",
       "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Lain-lain"
+      "tarqiq": "Tarqiq"
     },
     "trait_description": {
       "jahr": "Tertahannya nafas (jelas).",
@@ -266,9 +267,9 @@
       "tafasyi": "Udara yang berhembus deras dan menyebar di dalam mulut.",
       "istithalah": "Memanjangnya suara dari tepi pangkal lidah hingga ke hujung.",
       "ghunnah": "Suara dengung yang keluar dari pangkal hidung.",
+      "khafa": "Samar: bunyi huruf mad (alif, wau, ya) yang melemah kerana berakhir di rongga mulut (al-jauf).",
       "tafkhim": "Suara tebal (Mufakhkham).",
-      "tarqiq": "Suara nipis (Muraqqaq).",
-      "others": "Ada beberapa yang belum ditambah, insya-Allah akan segera ditambah."
+      "tarqiq": "Suara nipis (Muraqqaq)."
     },
     "development": {
       "email_placeholder": "E-mel",

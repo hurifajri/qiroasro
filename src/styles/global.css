@@ -49,8 +49,10 @@
   --node-letter: oklch(0.79 0.17 75);
   --node-letter-handle: oklch(0.87 0.12 85);
   --node-letter-dark: oklch(0.68 0.17 55);
-  --node-letter-madd: oklch(0.63 0.24 28);
-  --node-letter-madd-dark: oklch(0.55 0.23 25);
+  --node-letter-tafkhim: oklch(0.63 0.24 28);
+  --node-letter-tafkhim-dark: oklch(0.55 0.23 25);
+  --node-letter-conditional: oklch(0.68 0.14 175);
+  --node-letter-conditional-dark: oklch(0.58 0.13 175);
   --node-letter-text: oklch(1 0 0);
 
   /* Node Colors - Articulation (Azure/Sky) */
@@ -109,8 +111,10 @@
   --node-letter: oklch(0.82 0.17 75);
   --node-letter-handle: oklch(0.89 0.12 85);
   --node-letter-dark: oklch(0.72 0.17 55);
-  --node-letter-madd: oklch(0.66 0.24 28);
-  --node-letter-madd-dark: oklch(0.58 0.23 25);
+  --node-letter-tafkhim: oklch(0.66 0.24 28);
+  --node-letter-tafkhim-dark: oklch(0.58 0.23 25);
+  --node-letter-conditional: oklch(0.71 0.14 175);
+  --node-letter-conditional-dark: oklch(0.61 0.13 175);
   --node-letter-text: oklch(1 0 0);
 
   /* Node Colors - Articulation (Azure/Sky) - slightly brighter for dark mode */
@@ -178,8 +182,10 @@
   --color-node-letter: var(--node-letter);
   --color-node-letter-handle: var(--node-letter-handle);
   --color-node-letter-dark: var(--node-letter-dark);
-  --color-node-letter-madd: var(--node-letter-madd);
-  --color-node-letter-madd-dark: var(--node-letter-madd-dark);
+  --color-node-letter-tafkhim: var(--node-letter-tafkhim);
+  --color-node-letter-tafkhim-dark: var(--node-letter-tafkhim-dark);
+  --color-node-letter-conditional: var(--node-letter-conditional);
+  --color-node-letter-conditional-dark: var(--node-letter-conditional-dark);
   --color-node-letter-text: var(--node-letter-text);
 
   /* Node Colors - Articulation (Azure/Sky) */
@@ -203,8 +209,8 @@
   --color-accent-sky-dark: var(--node-articulation-dark);
   --color-accent-amber: var(--node-letter);
   --color-accent-amber-light: var(--node-letter-handle);
-  --color-accent-rose: var(--node-letter-madd);
-  --color-accent-rose-light: var(--node-letter-madd-dark);
+  --color-accent-rose: var(--node-letter-tafkhim);
+  --color-accent-rose-light: var(--node-letter-tafkhim-dark);
 }
 
 @layer base {

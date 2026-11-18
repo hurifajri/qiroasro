@@ -10,7 +10,7 @@ interface HierarchicalLayoutOptions {
 
 /**
  * Apply hierarchical layout to nodes
- * Places nodes in layers based on their connections
+ * Places nodes in layers based on their longest path from a root node
  */
 export function applyHierarchicalLayout(
   nodes: Node[],
@@ -32,40 +32,37 @@ export function applyHierarchicalLayout(
     parents.set(edge.target, targetParents);
   }
 
-  // Step 2: Find root nodes (no incoming edges)
-  const roots = nodes.filter((n) => {
-    const nodeParents = parents.get(n.id);
-    return !nodeParents || nodeParents.length === 0;
-  });
-
-  // Step 3: Assign layers using BFS
+  // Step 2: Assign layers by longest path (Kahn's algorithm) so every node
+  // sits after all of its parents, e.g. waw -> waw-maddiyyah -> makhraj.
   const layers = new Map<string, number>();
-  const queue = [...roots.map((r) => ({ id: r.id, layer: 0 }))];
+  const inDegree = new Map<string, number>();
+  const queue: string[] = [];
 
-  while (queue.length > 0) {
-    const item = queue.shift();
-    if (!item) {
-      break;
-    }
-    const { id, layer } = item;
-    if (layers.has(id)) {
-      continue;
-    }
-    layers.set(id, layer);
-
-    for (const childId of children.get(id) || []) {
-      queue.push({ id: childId, layer: layer + 1 });
-    }
-  }
-
-  // Handle nodes without connections (assign to layer 0)
   for (const node of nodes) {
-    if (!layers.has(node.id)) {
-      layers.set(node.id, 0);
+    const parentCount = parents.get(node.id)?.length ?? 0;
+    layers.set(node.id, 0);
+    inDegree.set(node.id, parentCount);
+    if (parentCount === 0) {
+      queue.push(node.id);
     }
   }
 
-  // Step 4: Group nodes by layer
+  for (let index = 0; index < queue.length; index++) {
+    const id = queue[index];
+    const layer = layers.get(id) ?? 0;
+
+    for (const childId of children.get(id) ?? []) {
+      layers.set(childId, Math.max(layers.get(childId) ?? 0, layer + 1));
+
+      const remainingParents = (inDegree.get(childId) ?? 0) - 1;
+      inDegree.set(childId, remainingParents);
+      if (remainingParents === 0) {
+        queue.push(childId);
+      }
+    }
+  }
+
+  // Step 3: Group nodes by layer
   const nodesByLayer = new Map<number, Node[]>();
   for (const node of nodes) {
     const layer = layers.get(node.id) ?? 0;
@@ -77,7 +74,7 @@ export function applyHierarchicalLayout(
     nodesByLayer.set(layer, layerNodes);
   }
 
-  // Step 5: Position nodes
+  // Step 4: Position nodes
   const layoutedNodes: Node[] = [];
   const isVertical = direction === 'vertical';
 
