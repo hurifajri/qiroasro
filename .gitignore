@@ -50,4 +50,6 @@ next-env.d.ts
 /skills-lock.json
 
 # internal docs
-/docs/
+/docs/*
+!/docs/books/
+!/docs/schemas/
