@@ -239,20 +239,20 @@
         "title": "Al-Halq",
         "description": "Letters emanating from the throat"
       },
-      "aqsha_lisan": {
-        "title": "Aqsha Al-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aqsha Al-Lisan (Fauq)",
         "description": "Base of the tongue near the throat"
       },
       "wasath_lisan": {
         "title": "Wasath Al-Lisan",
         "description": "Middle of the tongue meeting the palate"
       },
-      "hafah_lisan": {
-        "title": "Hafah Al-Lisan (Edge)",
+      "hafah_lisan_adhras": {
+        "title": "Hafah Al-Lisan & Al-Adras",
         "description": "Edge of the tongue meeting upper molars"
       },
-      "tharaf_lisan": {
-        "title": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tharaf Al-Lisan (Taht)",
         "description": "Tip of the tongue in various positions"
       },
       "tsanaya": {

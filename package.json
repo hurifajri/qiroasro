@@ -11,7 +11,9 @@
     "check": "biome check && biome format",
     "check:types": "tsc --noEmit --pretty",
     "check:packages": "pnpm exec npm-check-updates -u",
-    "fix": "biome check --write --unsafe && biome format --write"
+    "fix": "biome check --write --unsafe && biome format --write",
+    "db:push": "drizzle-kit push",
+    "db:seed": "tsx src/db/seed.ts"
   },
   "license": "PolyForm-Noncommercial-1.0.0",
   "packageManager": "pnpm@12.18.0",

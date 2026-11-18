@@ -1,24 +1,50 @@
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
+  type AnyPgColumn,
   boolean,
+  check,
   index,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   text,
   timestamp,
 } from 'drizzle-orm/pg-core';
 
+const KEBAB_SLUG_REGEX = '^[a-z0-9]+(-[a-z0-9]+)*$';
+
+function kebabCheck(name: string, column: AnyPgColumn) {
+  return check(name, sql`${column} ~ ${sql.raw(`'${KEBAB_SLUG_REGEX}'`)}`);
+}
+
+function positiveCheck(name: string, column: AnyPgColumn) {
+  return check(name, sql`${column} > 0`);
+}
+
 // =====================================================================
 // MASTER DATA — LETTERS (HIJ_LETTERS)
 // =====================================================================
+
+export const letterTafkhimTypeEnum = pgEnum('letter_tafkhim_type', [
+  'always_tafkhim',
+  'conditional',
+  'always_tarqiq',
+]);
 
 export const hijLetters = pgTable(
   'hij_letters',
   {
     id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
     slug: text('slug').notNull().unique(),
-    symbol: text('symbol').notNull().unique(),
+    parentLetterSlug: text('parent_letter_slug').references(
+      (): AnyPgColumn => hijLetters.slug,
+      { onUpdate: 'cascade', onDelete: 'cascade' },
+    ),
+    symbol: text('symbol').notNull(),
+    tafkhimType: letterTafkhimTypeEnum('tafkhim_type')
+      .notNull()
+      .default('always_tarqiq'),
     isMadd: boolean('is_madd').notNull().default(false),
     sortOrder: integer('sort_order').notNull(),
     createdAt: timestamp('created_at', { withTimezone: true })
@@ -30,8 +56,21 @@ export const hijLetters = pgTable(
       .notNull(),
   },
   (table) => [
+    index('idx_hij_letters_parent').on(table.parentLetterSlug),
+    index('idx_hij_letters_tafkhim_type').on(table.tafkhimType),
     index('idx_hij_letters_is_madd').on(table.isMadd),
     index('idx_hij_letters_sort_order').on(table.sortOrder),
+    index('idx_hij_letters_madd_sort').on(table.isMadd, table.sortOrder),
+    kebabCheck('chk_hij_letters_slug_kebab', table.slug),
+    check(
+      'chk_hij_letters_symbol_nonempty',
+      sql`length(btrim(${table.symbol})) > 0`,
+    ),
+    positiveCheck('chk_hij_letters_sort_positive', table.sortOrder),
+    check(
+      'chk_hij_letters_no_self_parent',
+      sql`${table.parentLetterSlug} IS NULL OR ${table.parentLetterSlug} <> ${table.slug}`,
+    ),
   ],
 );
 
@@ -39,19 +78,26 @@ export const hijLetters = pgTable(
 // MASTER DATA — ARTICULATIONS (MAKHRAJ)
 // =====================================================================
 
-export const hijArticulationAreas = pgTable('hij_articulation_areas', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
-  slug: text('slug').notNull().unique(),
-  isMuhaqqaq: boolean('is_muhaqqaq').notNull().default(true),
-  sortOrder: integer('sort_order').notNull(),
-  createdAt: timestamp('created_at', { withTimezone: true })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp('updated_at', { withTimezone: true })
-    .defaultNow()
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
-});
+export const hijArticulationAreas = pgTable(
+  'hij_articulation_areas',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    slug: text('slug').notNull().unique(),
+    isMuhaqqaq: boolean('is_muhaqqaq').notNull().default(true),
+    sortOrder: integer('sort_order').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .$onUpdate(() => /* @__PURE__ */ new Date())
+      .notNull(),
+  },
+  (table) => [
+    kebabCheck('chk_hij_art_areas_slug_kebab', table.slug),
+    positiveCheck('chk_hij_art_areas_sort_positive', table.sortOrder),
+  ],
+);
 
 export const hijArticulationPoints = pgTable(
   'hij_articulation_points',
@@ -70,7 +116,11 @@ export const hijArticulationPoints = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index('idx_hij_articulation_points_area').on(table.areaId)],
+  (table) => [
+    index('idx_hij_articulation_points_area').on(table.areaId),
+    kebabCheck('chk_hij_art_points_slug_kebab', table.slug),
+    positiveCheck('chk_hij_art_points_sort_positive', table.sortOrder),
+  ],
 );
 
 export const hijLetterArticulations = pgTable(
@@ -99,6 +149,7 @@ export const hijLetterArticulations = pgTable(
       table.letterId,
       table.isPrimary,
     ),
+    positiveCheck('chk_hij_letter_art_sort_positive', table.sortOrder),
   ],
 );
 
@@ -122,7 +173,11 @@ export const hijTraitGroups = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index('idx_hij_trait_groups_lazimah').on(table.isLazimah)],
+  (table) => [
+    index('idx_hij_trait_groups_lazimah').on(table.isLazimah),
+    kebabCheck('chk_hij_trait_groups_slug_kebab', table.slug),
+    positiveCheck('chk_hij_trait_groups_sort_positive', table.sortOrder),
+  ],
 );
 
 export const hijTraits = pgTable(
@@ -143,7 +198,12 @@ export const hijTraits = pgTable(
       .$onUpdate(() => /* @__PURE__ */ new Date())
       .notNull(),
   },
-  (table) => [index('idx_hij_traits_group').on(table.groupId)],
+  (table) => [
+    index('idx_hij_traits_group').on(table.groupId),
+    index('idx_hij_traits_group_sort').on(table.groupId, table.sortOrder),
+    kebabCheck('chk_hij_traits_slug_kebab', table.slug),
+    positiveCheck('chk_hij_traits_sort_positive', table.sortOrder),
+  ],
 );
 
 export const hijLetterTraits = pgTable(
@@ -173,7 +233,15 @@ export const hijLetterTraits = pgTable(
 // RELATIONS
 // =====================================================================
 
-export const hijLettersRelations = relations(hijLetters, ({ many }) => ({
+export const hijLettersRelations = relations(hijLetters, ({ one, many }) => ({
+  parentLetter: one(hijLetters, {
+    fields: [hijLetters.parentLetterSlug],
+    references: [hijLetters.slug],
+    relationName: 'letter_hierarchy',
+  }),
+  childVariants: many(hijLetters, {
+    relationName: 'letter_hierarchy',
+  }),
   articulations: many(hijLetterArticulations),
   traits: many(hijLetterTraits),
 }));

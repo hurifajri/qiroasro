@@ -239,20 +239,20 @@
         "title": "الحلق",
         "description": "الحروف الحلقية"
       },
-      "aqsha_lisan": {
-        "title": "أقصى اللسان",
+      "aqsha_lisan_fauq": {
+        "title": "أقصى اللسان (فوق)",
         "description": "أقصى اللسان مع ما يحاذيه من الحلق"
       },
       "wasath_lisan": {
         "title": "وسط اللسان",
         "description": "وسط اللسان مع وسط الحنك الأعلى"
       },
-      "hafah_lisan": {
-        "title": "حافة اللسان",
+      "hafah_lisan_adhras": {
+        "title": "حافة اللسان والأضراس",
         "description": "إحدى حافتَي اللسان مع الأضراس العلوية"
       },
-      "tharaf_lisan": {
-        "title": "طرف اللسان",
+      "tharaf_lisan_taht": {
+        "title": "طرف اللسان (تحت اللام)",
         "description": "طرف اللسان في مواضع متعددة"
       },
       "tsanaya": {

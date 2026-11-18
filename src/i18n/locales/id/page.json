@@ -239,20 +239,20 @@
         "title": "Al-Halq",
         "description": "Huruf-huruf yang keluar dari tenggorokan"
       },
-      "aqsha_lisan": {
-        "title": "Aqsha Al-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aqsha Al-Lisan (Fauq)",
         "description": "Pangkal lidah, dekat tenggorokan"
       },
       "wasath_lisan": {
         "title": "Wasath Al-Lisan",
         "description": "Pertengahan lidah bertemu langit-langit"
       },
-      "hafah_lisan": {
-        "title": "Hafah Al-Lisan (Tepi)",
+      "hafah_lisan_adhras": {
+        "title": "Hafah Al-Lisan & Al-Adhras",
         "description": "Tepi lidah bertemu gigi geraham atas"
       },
-      "tharaf_lisan": {
-        "title": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tharaf Al-Lisan (Taht)",
         "description": "Ujung lidah dengan berbagai posisi"
       },
       "tsanaya": {

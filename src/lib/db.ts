@@ -2,8 +2,10 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as authSchema from '@/db/auth-schema';
 import * as curriculumSchema from '@/db/curriculum-schema';
-import * as masterSchema from '@/db/master-schema';
+import * as gamificationSchema from '@/db/gamification-schema';
+import * as hijaiyyahSchema from '@/db/hijaiyyah-schema';
 import * as playgroundSchema from '@/db/playground-schema';
+import * as tajwidSchema from '@/db/tajwid-schema';
 import * as userSchema from '@/db/user-schema';
 import { env } from '@/env';
 
@@ -23,8 +25,10 @@ export const db = drizzle(conn, {
   schema: {
     ...authSchema,
     ...curriculumSchema,
-    ...masterSchema,
+    ...gamificationSchema,
+    ...hijaiyyahSchema,
     ...playgroundSchema,
+    ...tajwidSchema,
     ...userSchema,
   },
 });

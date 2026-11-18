@@ -239,20 +239,20 @@
         "title": "El-Halk",
         "description": "Boğazdan çıkan harfler"
       },
-      "aqsha_lisan": {
-        "title": "Aksa'l-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aksa'l-Lisan (Fevk)",
         "description": "Dilin kökü, boğaza yakın bölge"
       },
       "wasath_lisan": {
         "title": "Vasatü'l-Lisan",
         "description": "Dilin ortası, üst damakla buluşma noktası"
       },
-      "hafah_lisan": {
-        "title": "Hafetü'l-Lisan (Kenar)",
+      "hafah_lisan_adhras": {
+        "title": "Hafetü'l-Lisan ve Azı Dişler",
         "description": "Dilin kenarı, üst küçük azılarla temas"
       },
-      "tharaf_lisan": {
-        "title": "Tarafü'l-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tarafü'l-Lisan (Taht)",
         "description": "Dilin ucu çeşitli pozisyonlarda"
       },
       "tsanaya": {
