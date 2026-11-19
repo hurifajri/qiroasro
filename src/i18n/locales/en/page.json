@@ -56,7 +56,7 @@
       "trait_aridhah": "Aridhah Characteristic",
       "trait_aridhah_description": "A temporary characteristic that is only present in a letter under certain conditions.",
       "letter_tafkhim": "Always Thick (Tafkhim)",
-      "letter_conditional": "Thick or Thin (Alif, Lam, Ra)",
+      "letter_conditional": "Can Be Thick or Thin",
       "letter_tarqiq": "Always Thin (Tarqiq)"
     },
     "quiz": {

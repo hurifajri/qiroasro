@@ -56,7 +56,7 @@
       "trait_aridhah": "Sifat Aridhoh",
       "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang hanya ada pada sebuah huruf dalam kondisi tertentu.",
       "letter_tafkhim": "Selalu Tebal (Tafkhim)",
-      "letter_conditional": "Tebal atau Tipis (Alif, Lam, Ra)",
+      "letter_conditional": "Bisa Tebal atau Tipis",
       "letter_tarqiq": "Selalu Tipis (Tarqiq)"
     },
     "quiz": {
