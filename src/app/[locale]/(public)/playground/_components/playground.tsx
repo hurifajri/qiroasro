@@ -163,7 +163,7 @@ export function Playground() {
       traitGroups,
     };
 
-    async function updateLayout() {
+    function updateLayout() {
       // Generate nodes and edges (without positions)
       const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
         viewMode,
@@ -180,7 +180,7 @@ export function Playground() {
       if (layoutMode === 'radial') {
         layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
       } else {
-        layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
+        layoutedNodes = applyHierarchicalLayout(rawNodes, {
           direction: hierarchyDirection,
           nodeSpacing: 30,
           layerSpacing: viewMode === 'letter' ? 200 : 600,
@@ -214,7 +214,7 @@ export function Playground() {
       setEdges(edgesWithStyle);
 
       setTimeout(() => {
-        fitView({ padding: 0.2, duration: 300 });
+        void fitView({ padding: 0.2, duration: 300 });
       }, 50);
     }
 
@@ -267,7 +267,7 @@ export function Playground() {
     return edges.map((edge) => {
       const isConnected = connectedEdgeIds.has(edge.id);
       const targetStrokeWidth = isConnected ? 3 : 1;
-      const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
+      const targetOpacity = selectedNodeId && !isConnected ? 0.2 : 1;
       const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
       // Only create new object if style changed
