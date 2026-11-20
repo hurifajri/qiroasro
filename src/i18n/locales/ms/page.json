@@ -20,10 +20,12 @@
     "filter": {
       "title": "Tetapan",
       "view_mode": {
-        "all": "Semua",
+        "letter": "Per Huruf",
+        "all": "Semua Huruf"
+      },
+      "visibility": {
         "articulation": "Makhraj",
-        "trait": "Sifat",
-        "letter": "Huruf"
+        "trait": "Sifat"
       },
       "layout_mode": {
         "radial": "Radial",
@@ -166,11 +168,15 @@
         },
         "view_mode": {
           "title": "Mod Paparan",
-          "description": "Pilih apa yang ingin dipaparkan: Semua, Makhraj sahaja, Sifat sahaja, atau fokus pada Huruf tertentu. Sila klik 'Huruf' untuk meneruskan."
+          "description": "Pilih untuk fokus pada Satu Huruf tertentu atau paparkan Semua Huruf sekaligus. Sila klik 'Per Huruf' untuk meneruskan."
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
           "description": "Masya-Allah, terdapat 29 huruf hijaiyyah yang boleh diterokai. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara terperinci."
+        },
+        "visibility_filter": {
+          "title": "Penapis Paparan",
+          "description": "Butang ini boleh diklik untuk menyembunyikan atau memaparkan Makhraj dan Sifat pada graf. Secara lalai kedua-duanya dipaparkan."
         },
         "layout_mode": {
           "title": "Mod Susun Atur",

@@ -20,10 +20,12 @@
     "filter": {
       "title": "Settings",
       "view_mode": {
-        "all": "All",
+        "letter": "Per Letter",
+        "all": "All Letters"
+      },
+      "visibility": {
         "articulation": "Articulation",
-        "trait": "Characteristics",
-        "letter": "Letter"
+        "trait": "Characteristics"
       },
       "layout_mode": {
         "radial": "Radial",
@@ -166,11 +168,15 @@
         },
         "view_mode": {
           "title": "View Mode",
-          "description": "Choose what to display: All, Articulation only, Characteristics only, or focus on a specific Letter. Please click 'Letter' to continue."
+          "description": "Choose to focus on a single Letter or display All Letters at once. Please click 'Per Letter' to continue."
         },
         "letter_selector": {
           "title": "Hijaiyyah Selection",
           "description": "Masya Allah, there are 29 Hijaiyyah letters to explore. Select one letter to see its Articulation and Characteristics in detail."
+        },
+        "visibility_filter": {
+          "title": "Visibility Filter",
+          "description": "Click these buttons to hide or show Articulation and Characteristics on the graph. Both are shown by default."
         },
         "layout_mode": {
           "title": "Layout Mode",

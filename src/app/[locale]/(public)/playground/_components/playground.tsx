@@ -89,6 +89,10 @@ export function Playground() {
   const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
   const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
   const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+  const isTraitVisible = usePlaygroundStore((s) => s.isTraitVisible);
+  const isArticulationVisible = usePlaygroundStore(
+    (s) => s.isArticulationVisible,
+  );
   const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
   const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
@@ -98,6 +102,10 @@ export function Playground() {
   );
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
+  const setIsTraitVisible = usePlaygroundStore((s) => s.setIsTraitVisible);
+  const setIsArticulationVisible = usePlaygroundStore(
+    (s) => s.setIsArticulationVisible,
+  );
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
@@ -162,6 +170,8 @@ export function Playground() {
         layoutMode,
         hierarchyDirection,
         selectedId: selectedLetterId,
+        isTraitVisible,
+        isArticulationVisible,
       });
 
       // Apply layout based on mode
@@ -215,6 +225,8 @@ export function Playground() {
     hierarchyDirection,
     edgeStyle.shape,
     selectedLetterId,
+    isTraitVisible,
+    isArticulationVisible,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
@@ -375,17 +387,25 @@ export function Playground() {
                 layoutMode={layoutMode}
                 hierarchyDirection={hierarchyDirection}
                 edgeStyle={edgeStyle}
+                isTraitVisible={isTraitVisible}
+                isArticulationVisible={isArticulationVisible}
                 letters={memoizedLetters}
                 selectedLetterId={selectedLetterId}
                 onViewModeChange={setViewMode}
                 onLayoutModeChange={setLayoutMode}
                 onHierarchyDirectionChange={setHierarchyDirection}
                 onEdgeStyleChange={setEdgeStyle}
+                onTraitVisibleChange={setIsTraitVisible}
+                onArticulationVisibleChange={setIsArticulationVisible}
                 onLetterSelect={setSelectedLetterId}
               />
 
               {!isUnsupportedMobileView && (
-                <GraphLegend dir={dir} viewMode={viewMode} />
+                <GraphLegend
+                  dir={dir}
+                  isTraitVisible={isTraitVisible}
+                  isArticulationVisible={isArticulationVisible}
+                />
               )}
             </Panel>
 

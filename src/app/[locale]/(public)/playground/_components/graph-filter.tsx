@@ -4,6 +4,7 @@ import {
   ChevronsUpDown,
   CircleIcon,
   CompassIcon,
+  EyeIcon,
   FilterIcon,
   LayoutGridIcon,
   NetworkIcon,
@@ -55,12 +56,16 @@ interface GraphFilterProps {
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
   edgeStyle: EdgeStyleOptions;
+  isArticulationVisible: boolean;
+  isTraitVisible: boolean;
   letters: Letter[];
   selectedLetterId: number;
   onViewModeChange: (mode: ViewMode) => void;
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
   onEdgeStyleChange: (style: Partial<EdgeStyleOptions>) => void;
+  onArticulationVisibleChange: (isVisible: boolean) => void;
+  onTraitVisibleChange: (isVisible: boolean) => void;
   onLetterSelect: (id: number) => void;
 }
 
@@ -70,12 +75,16 @@ export function GraphFilter({
   layoutMode,
   hierarchyDirection,
   edgeStyle,
+  isArticulationVisible,
+  isTraitVisible,
   letters,
   selectedLetterId,
   onViewModeChange,
   onLayoutModeChange,
   onHierarchyDirectionChange,
   onEdgeStyleChange,
+  onArticulationVisibleChange,
+  onTraitVisibleChange,
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
@@ -115,6 +124,19 @@ export function GraphFilter({
     },
     [searchParams],
   );
+
+  const visibilityToggles = [
+    {
+      key: 'articulation',
+      isVisible: isArticulationVisible,
+      onChange: onArticulationVisibleChange,
+    },
+    {
+      key: 'trait',
+      isVisible: isTraitVisible,
+      onChange: onTraitVisibleChange,
+    },
+  ] as const;
 
   return (
     <Collapsible
@@ -160,6 +182,30 @@ export function GraphFilter({
                     )}
                   >
                     {t(`view_mode.${mode}`)}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </li>
+
+            {/* Visibility toggles (hide/unhide articulation & traits) */}
+            <li id="tour-visibility-filter" className="flex items-center gap-2">
+              <EyeIcon className="size-4 shrink-0 text-muted-foreground" />
+              <ButtonGroup dir={dir} className="flex-1">
+                {visibilityToggles.map((toggle) => (
+                  <Button
+                    key={toggle.key}
+                    variant="outline"
+                    size="sm"
+                    aria-pressed={toggle.isVisible}
+                    onClick={() => toggle.onChange(!toggle.isVisible)}
+                    className={cn(
+                      'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
+                      toggle.isVisible
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
+                        : 'text-muted-foreground',
+                    )}
+                  >
+                    {t(`visibility.${toggle.key}`)}
                   </Button>
                 ))}
               </ButtonGroup>

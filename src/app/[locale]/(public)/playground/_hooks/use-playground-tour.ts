@@ -63,6 +63,22 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         },
       },
       {
+        element: '#tour-locale-selector',
+        popover: {
+          title: t('steps.locale_selector.title'),
+          description: t('steps.locale_selector.description'),
+        },
+        disableActiveInteraction: true,
+      },
+      {
+        element: '#tour-theme-selector',
+        popover: {
+          title: t('steps.theme_selector.title'),
+          description: t('steps.theme_selector.description'),
+        },
+        disableActiveInteraction: true,
+      },
+      {
         element: '#tour-canvas',
         popover: {
           title: t('steps.canvas.title'),
@@ -119,6 +135,14 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.letter_selector.title'),
           description: t('steps.letter_selector.description'),
         },
+      },
+      {
+        element: '#tour-visibility-filter',
+        popover: {
+          title: t('steps.visibility_filter.title'),
+          description: t('steps.visibility_filter.description'),
+        },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-layout-mode',
@@ -211,22 +235,6 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.download.title'),
           description: t('steps.download.description'),
-        },
-        disableActiveInteraction: true,
-      },
-      {
-        element: '#tour-locale-selector',
-        popover: {
-          title: t('steps.locale_selector.title'),
-          description: t('steps.locale_selector.description'),
-        },
-        disableActiveInteraction: true,
-      },
-      {
-        element: '#tour-theme-selector',
-        popover: {
-          title: t('steps.theme_selector.title'),
-          description: t('steps.theme_selector.description'),
         },
         disableActiveInteraction: true,
       },

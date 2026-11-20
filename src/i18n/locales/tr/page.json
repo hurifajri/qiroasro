@@ -20,10 +20,12 @@
     "filter": {
       "title": "Ayarlar",
       "view_mode": {
-        "all": "Tümü",
+        "letter": "Harf Bazında",
+        "all": "Tüm Harfler"
+      },
+      "visibility": {
         "articulation": "Mahreç",
-        "trait": "Sıfat",
-        "letter": "Harf"
+        "trait": "Sıfat"
       },
       "layout_mode": {
         "radial": "Radyal (Dairesel)",
@@ -166,11 +168,15 @@
         },
         "view_mode": {
           "title": "Görünüm Modu",
-          "description": "Neyi görüntülemek istediğinizi seçin: Tümü, Sadece Mahreç, Sadece Sıfat veya belirli bir Harfe odaklanma. Devam etmek için lütfen 'Harf'e tıklayın."
+          "description": "Tek bir Harfe odaklanmayı veya Tüm Harfleri birden göstermeyi seçin. Devam etmek için lütfen 'Harf Bazında'ya tıklayın."
         },
         "letter_selector": {
           "title": "Harf Seçimi",
           "description": "Maşallah, keşfedilecek 29 Kur'an harfi var. Mahreç ve Sıfatlarını detaylı görmek için bir harf seçin."
+        },
+        "visibility_filter": {
+          "title": "Görünürlük Filtresi",
+          "description": "Grafikteki Mahreç ve Sıfatları gizlemek veya göstermek için bu düğmelere tıklayın. Varsayılan olarak ikisi de gösterilir."
         },
         "layout_mode": {
           "title": "Düzen Modu",

@@ -16,6 +16,8 @@ interface PlaygroundState {
   selectedLetterId: number;
   selectedNodeId: string | null;
   edgeStyle: EdgeStyleOptions;
+  isTraitVisible: boolean;
+  isArticulationVisible: boolean;
   // Highlight state - computed once when selection changes
   connectedNodeIds: Set<string>;
   connectedEdgeIds: Set<string>;
@@ -28,6 +30,8 @@ interface PlaygroundAction {
   setSelectedLetterId: (id: number) => void;
   setSelectedNodeId: (id: string | null) => void;
   setEdgeStyle: (style: Partial<EdgeStyleOptions>) => void;
+  setIsTraitVisible: (isVisible: boolean) => void;
+  setIsArticulationVisible: (isVisible: boolean) => void;
   setIsFloating: (isFloating: boolean) => void;
   setIsAnimated: (isAnimated: boolean) => void;
   setEdgeShape: (shape: EdgeShape) => void;
@@ -50,6 +54,8 @@ export function createPlaygroundStore() {
       isAnimated: false,
       shape: 'default',
     },
+    isTraitVisible: true,
+    isArticulationVisible: true,
     connectedNodeIds: new Set<string>(),
     connectedEdgeIds: new Set<string>(),
     setViewMode: (mode) => {
@@ -70,6 +76,21 @@ export function createPlaygroundStore() {
       set((state) => ({
         edgeStyle: { ...state.edgeStyle, ...style },
       })),
+    setIsTraitVisible: (isTraitVisible) =>
+      set({
+        isTraitVisible,
+        // Reset highlight state since hidden nodes can't stay selected
+        selectedNodeId: null,
+        connectedNodeIds: new Set<string>(),
+        connectedEdgeIds: new Set<string>(),
+      }),
+    setIsArticulationVisible: (isArticulationVisible) =>
+      set({
+        isArticulationVisible,
+        selectedNodeId: null,
+        connectedNodeIds: new Set<string>(),
+        connectedEdgeIds: new Set<string>(),
+      }),
     setIsFloating: (isFloating) =>
       set((state) => ({
         edgeStyle: { ...state.edgeStyle, isFloating },
