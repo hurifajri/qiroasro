@@ -25,6 +25,18 @@ ON CONFLICT (slug) DO UPDATE SET
   updated_at = CURRENT_TIMESTAMP;
 
 -- Aridhah groups (is_lazimah = FALSE)
+-- NOTE: Some scholars enumerate 11 sifat 'aridhah: tafkhim, tarqiq, izhar,
+-- idgham, qalb, ikhfa', mad, qashr, tahrik, sukun, saktah (e.g. La'ali
+-- al-Bayan by as-Samannudi, cited in Hidayat al-Qari by al-Marshafi).
+-- Others count only 8 (as-Sindi, Shafahat fi 'Ulum al-Qira'at).
+-- Only tafkhim & tarqiq are modeled here because they are the only 'aridhah
+-- that are per-letter attributes (mapped in hij_letter_traits). The other 9
+-- are contextual rulings (between letters / per position / per riwayah), not
+-- properties of a single letter, so mapping them to letters would be
+-- redundant (tahrik/sukun apply to every letter) or meaningless
+-- (izhar/idgham/qalb/ikhfa'/mad/qashr/saktah depend on neighboring letters).
+-- If these rulings are needed, model them as a separate tajwid-rules feature
+-- (see src/db/tajwid-schema.ts), not as hij_traits.
 INSERT INTO hij_trait_groups (slug, is_lazimah, has_middle_trait, sort_order) VALUES
   ('siman-shaut', FALSE, FALSE, 7)        -- Tafkhim vs Tarqiq
 ON CONFLICT (slug) DO UPDATE SET

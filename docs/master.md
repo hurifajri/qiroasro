@@ -18,6 +18,8 @@
 - **اصطلاحاً (Secara Istilah):** إخراج كل حرف من مخرجه وإعطاؤه حقه ومستحقه (Mengeluarkan setiap huruf dari makhrajnya serta memberikan **haqq** dan **mustahaqq**-nya tanpa berlebihan atau memaksakan diri).
   - **حق الحرف (Haqqul Harf):** Sifat-sifat asli yang melekat tetap pada huruf (*Makhraj* dan *Sifat Lazimah* seperti Jahr, Hams, Syiddah, Isti'la, Qalqalah, dll).
   - **مستحق الحرف (Mustahaqqul Harf):** Hukum-hukum turunan yang timbul akibat sifat asli atau pertemuan huruf (*Sifat 'Aridhah* seperti Tafkhim, Tarqiq, Izhar, Idgham, Iqlab, Ikhfa, Madd, dan Qashr).
+    - *Catatan jumlah:* Sebagian ulama menghimpun **11** sifat 'aridhah: التفخيم، الترقيق، الإظهار، الإدغام، القلب، الإخفاء، المد، القصر، التحريك، السكون، السكت (nazham as-Samannudi dalam *Lā'ālī al-Bayān*, dinukil al-Marshafi dalam *Hidāyat al-Qāri'*). Ulama lain hanya menghitung **8** (4 yang berlawanan: mad, qashr, tafkhim, tarqiq; 4 yang tidak berlawanan: izhar, idgham, qalb, ikhfa' — as-Sindi). Angka 11 bukan ketetapan baku.
+    - *Catatan pemodelan DB:* Di `hij_traits` hanya **Tafkhim & Tarqiq** yang dimodelkan (grup `siman-shaut`), karena hanya keduanya yang merupakan sifat per-huruf. Sembilan lainnya adalah hukum kontekstual (bergantung huruf sesudahnya, posisi, atau riwayat) sehingga tidak dipetakan ke `hij_letter_traits`; jika dibutuhkan, modelkan sebagai fitur hukum tajwid terpisah.
   - *Syahid (Jazariyyah 30–32):* «إِعْطَاءُ الحُرُوفِ حَقَّهَا مِنْ صِفَةٍ لَهَا وَمُسْتَحَقَّهَا... بِاللُّطْفِ فِي النُّطْقِ بِلَا تَعَسُّفِ».
   - *Syahid (Al-Khaqaniyyah 12, 26; Nuniyyah As-Sakhawi 5):* Menimbang kadar setiap huruf tanpa melampaui batas atau menguranginya («لِلْحَرْفِ مِيزَانٌ فَلَا تَكُ طَاغِياً»).
 
