@@ -187,6 +187,41 @@ export function GraphFilter({
               </ButtonGroup>
             </li>
 
+            {/* Letter Selector (only visible in letter mode) */}
+            {viewMode === 'letter' && (
+              <li id="tour-letter-selector">
+                <ScrollArea
+                  dir={dir}
+                  className="w-full whitespace-nowrap rounded-lg border"
+                >
+                  <div className="flex w-max items-center gap-2 p-4">
+                    {letters.map((letter) => (
+                      <Button
+                        key={letter.id}
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => {
+                          onLetterSelect(letter.id);
+                          router.push(
+                            `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
+                          );
+                        }}
+                        className={cn(
+                          'rounded-full',
+                          selectedLetterId === letter.id
+                            ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                            : 'text-muted-foreground',
+                        )}
+                      >
+                        {letter.symbol}
+                      </Button>
+                    ))}
+                  </div>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </li>
+            )}
+
             {/* Visibility toggles (hide/unhide articulation & traits) */}
             <li id="tour-visibility-filter" className="flex items-center gap-2">
               <EyeIcon className="size-4 shrink-0 text-muted-foreground" />
@@ -336,40 +371,6 @@ export function GraphFilter({
               </li>
             )}
           </ul>
-
-          {/* Letter Selector (only visible in letter mode) */}
-          {viewMode === 'letter' && (
-            <ScrollArea
-              dir={dir}
-              id="tour-letter-selector"
-              className="w-full whitespace-nowrap rounded-lg border"
-            >
-              <div className="flex w-max items-center gap-2 p-4">
-                {letters.map((letter) => (
-                  <Button
-                    key={letter.id}
-                    variant="outline"
-                    size="icon-sm"
-                    onClick={() => {
-                      onLetterSelect(letter.id);
-                      router.push(
-                        `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
-                      );
-                    }}
-                    className={cn(
-                      'rounded-full',
-                      selectedLetterId === letter.id
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                  >
-                    {letter.symbol}
-                  </Button>
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-          )}
         </div>
       </CollapsibleContent>
     </Collapsible>

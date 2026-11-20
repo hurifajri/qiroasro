@@ -61,6 +61,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.welcome.title'),
           description: t('steps.welcome.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-locale-selector',
@@ -84,6 +85,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.canvas.title'),
           description: t('steps.canvas.description'),
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-controls',
@@ -97,17 +99,8 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.graph_filter.title'),
           description: t('steps.graph_filter.description'),
-          onNextClick: () => {
-            // Check if settings panel content is visible (user has opened it)
-            if (!isElementVisible('#tour-view-mode')) {
-              // Flash the trigger to indicate user needs to click it
-              const trigger = document.querySelector('#tour-graph-filter');
-              flashElement(trigger);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-view-mode',
@@ -169,24 +162,6 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.hierarchy_direction.title'),
           description: t('steps.hierarchy_direction.description'),
-          onNextClick: () => {
-            const buttons = document.querySelectorAll(
-              '#tour-hierarchy-direction button',
-            );
-            const lastButton = buttons[buttons.length - 1];
-
-            // Check if last button (Horizontal) is active by checking for active styling class
-            const isLastButtonActive =
-              lastButton?.classList.contains('from-amber-500') ||
-              lastButton?.className.includes('from-amber-500');
-
-            if (!isLastButtonActive) {
-              // Flash the trigger to indicate user needs to click it
-              flashElement(lastButton);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
         },
       },
       {
@@ -202,17 +177,8 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.graph_legend.title'),
           description: t('steps.graph_legend.description'),
-          onNextClick: () => {
-            // Check if legend content is visible (user has opened it)
-            if (!isElementVisible('#tour-legend-detail')) {
-              // Flash the trigger to indicate user needs to click it
-              const trigger = document.querySelector('#tour-graph-legend');
-              flashElement(trigger);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-legend-detail',
@@ -251,6 +217,7 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.end.title'),
           description: t('steps.end.description'),
         },
+        disableActiveInteraction: true,
       },
     ];
   }
@@ -273,6 +240,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       progressText: `{{current}} / {{total}}`,
       animate: true,
       allowClose: true,
+      overlayClickBehavior: () => {
+        // Prevent closing tour when clicking outside; user must use the close (X) button
+      },
       stagePadding: 8,
       stageRadius: 8,
       nextBtnText: t('next'),
