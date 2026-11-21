@@ -23,6 +23,14 @@ type GraphDownloadProps = Readonly<{
   edges: Edge[];
 }>;
 
+function waitForNextPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve());
+    });
+  });
+}
+
 export function GraphDownload({ edges }: GraphDownloadProps) {
   const t = useTranslations('playground_page.download');
   const { resolvedTheme } = useTheme();
@@ -34,17 +42,19 @@ export function GraphDownload({ edges }: GraphDownloadProps) {
   const [isDownloading, setIsDownloading] = useState(false);
 
   async function downloadImage() {
+    const nodes = getNodes();
+    if (nodes.length === 0) return;
+
+    // Get the viewport element
+    const viewportElement = document.querySelector(
+      '.react-flow__viewport',
+    ) as HTMLElement | null;
+    if (!viewportElement) return;
+
     setIsDownloading(true);
 
     try {
-      const nodes = getNodes();
-      if (nodes.length === 0) return;
-
-      // Get the viewport element
-      const viewportElement = document.querySelector(
-        '.react-flow__viewport',
-      ) as HTMLElement | null;
-      if (!viewportElement) return;
+      await waitForNextPaint();
 
       // Calculate the bounds of all nodes
       const nodesBounds = getNodesBounds(nodes);
