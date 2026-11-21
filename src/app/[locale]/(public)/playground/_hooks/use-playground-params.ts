@@ -1,7 +1,8 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import type {
   EdgeShape,
   HierarchyDirection,
@@ -19,6 +20,14 @@ import {
   PARAM_VIEW,
   VIEW_MODES,
 } from '../_schemas/graph';
+
+const PLAYGROUND_QUERY_PARAMS = [
+  PARAM_VIEW,
+  PARAM_LAYOUT,
+  PARAM_DIRECTION,
+  PARAM_SHAPE,
+  PARAM_LETTER,
+] as const;
 
 // Type guards for validation
 function isValidViewMode(value: string | null): value is ViewMode {
@@ -79,6 +88,27 @@ export function usePlaygroundParams({
   onLetterSelect,
 }: UsePlaygroundParamsOptions) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const clearPlaygroundParams = useCallback(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    let hasPlaygroundParams = false;
+
+    for (const key of PLAYGROUND_QUERY_PARAMS) {
+      if (params.has(key)) {
+        params.delete(key);
+        hasPlaygroundParams = true;
+      }
+    }
+
+    if (!hasPlaygroundParams) return;
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, {
+      scroll: false,
+    });
+  }, [pathname, router, searchParams]);
 
   // Read from URL and update store on mount
   // biome-ignore lint/correctness/useExhaustiveDependencies: <Read only once>
@@ -122,4 +152,6 @@ export function usePlaygroundParams({
       }
     }
   }, []);
+
+  return { clearPlaygroundParams };
 }

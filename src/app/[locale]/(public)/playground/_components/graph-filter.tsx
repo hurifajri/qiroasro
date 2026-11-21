@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -53,6 +53,8 @@ import type { Letter } from '../_schemas/letter';
 
 type GraphFilterProps = Readonly<{
   dir: 'ltr' | 'rtl';
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
@@ -72,6 +74,8 @@ type GraphFilterProps = Readonly<{
 
 export function GraphFilter({
   dir,
+  isOpen,
+  onOpenChange,
   viewMode,
   layoutMode,
   hierarchyDirection,
@@ -89,7 +93,6 @@ export function GraphFilter({
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
-  const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -144,7 +147,7 @@ export function GraphFilter({
       id="tour-graph-filter"
       dir={dir}
       open={isOpen}
-      onOpenChange={setIsOpen}
+      onOpenChange={onOpenChange}
       className="flex w-full flex-col gap-2 rounded-lg border bg-background sm:w-96"
     >
       <CollapsibleTrigger

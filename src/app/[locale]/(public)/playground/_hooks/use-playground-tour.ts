@@ -11,13 +11,22 @@ const TOUR_COMPLETED_KEY = 'playground_tour-completed';
 
 interface UsePlaygroundTourProps {
   theme: ColorMode;
+  onBeforeStart?: () => void;
 }
 
-export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
+export function usePlaygroundTour({
+  theme,
+  onBeforeStart,
+}: UsePlaygroundTourProps) {
   const t = useTranslations('playground_page.tour');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
   const driverRef = useRef<Driver | null>(null);
+  const onBeforeStartRef = useRef(onBeforeStart);
+
+  useEffect(() => {
+    onBeforeStartRef.current = onBeforeStart;
+  }, [onBeforeStart]);
 
   function getTourSteps(): DriveStep[] {
     return [
@@ -178,11 +187,20 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
       driverRef.current.destroy();
     }
 
+    onBeforeStartRef.current?.();
+
     // Lazy load driver.js and its CSS
     const [{ driver }] = await Promise.all([
       import('driver.js'),
       import('driver.js/dist/driver.css'),
     ]);
+
+    // Wait for React to commit and paint any expanded panels / reset filter controls
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => resolve());
+      });
+    });
 
     const driverInstance = driver({
       showProgress: true,

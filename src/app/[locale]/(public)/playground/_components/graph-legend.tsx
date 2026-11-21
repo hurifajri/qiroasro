@@ -16,11 +16,13 @@ import {
 import { cn } from '@/lib/utils';
 import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 
-interface GraphLegendProps {
+type GraphLegendProps = Readonly<{
   dir: 'ltr' | 'rtl';
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean) => void;
   isArticulationVisible: boolean;
   isTraitVisible: boolean;
-}
+}>;
 
 type LegendId =
   | 'articulationMuhaqqaq'
@@ -37,11 +39,12 @@ interface LegendItem {
 
 export function GraphLegend({
   dir,
+  isOpen,
+  onOpenChange,
   isArticulationVisible,
   isTraitVisible,
 }: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
-  const [isOpen, setIsOpen] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedLegendId, setSelectedLegendId] = useState<LegendId | null>(
     null,
@@ -137,7 +140,7 @@ export function GraphLegend({
         id="tour-graph-legend"
         dir={dir}
         open={isOpen}
-        onOpenChange={setIsOpen}
+        onOpenChange={onOpenChange}
         className="flex w-48 flex-col gap-2 rounded-lg border bg-background"
       >
         <CollapsibleTrigger
