@@ -138,6 +138,53 @@ export function Playground() {
     [setViewMode, setIsTraitVisible, setIsArticulationVisible],
   );
 
+  const handleTraitVisibleChange = useCallback(
+    (isVisible: boolean) => {
+      setIsTraitVisible(isVisible);
+
+      const isMobileViewport =
+        typeof window !== 'undefined' &&
+        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
+      if (isVisible && isMobileViewport && viewMode === 'all') {
+        setIsArticulationVisible(false);
+      }
+    },
+    [viewMode, setIsTraitVisible, setIsArticulationVisible],
+  );
+
+  const handleArticulationVisibleChange = useCallback(
+    (isVisible: boolean) => {
+      setIsArticulationVisible(isVisible);
+
+      const isMobileViewport =
+        typeof window !== 'undefined' &&
+        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
+      if (isVisible && isMobileViewport && viewMode === 'all') {
+        setIsTraitVisible(false);
+      }
+    },
+    [viewMode, setIsArticulationVisible, setIsTraitVisible],
+  );
+
+  useEffect(() => {
+    if (
+      isMaxMd &&
+      viewMode === 'all' &&
+      isTraitVisible &&
+      isArticulationVisible
+    ) {
+      setIsTraitVisible(false);
+      setIsArticulationVisible(false);
+    }
+  }, [
+    isMaxMd,
+    viewMode,
+    isTraitVisible,
+    isArticulationVisible,
+    setIsTraitVisible,
+    setIsArticulationVisible,
+  ]);
+
   // Sync playground settings with URL query params
   const { clearPlaygroundParams } = usePlaygroundParams({
     currentSettings: {
@@ -403,6 +450,8 @@ export function Playground() {
     [edgeStyle.isFloating, edgeStyle.shape, edgeStyle.isAnimated],
   );
 
+  const isMobileAllView = isMaxMd && viewMode === 'all';
+
   return (
     <>
       {/*
@@ -434,6 +483,9 @@ export function Playground() {
             selectNodesOnDrag={false}
             elevateNodesOnSelect={false}
             elevateEdgesOnSelect={false}
+            panOnDrag={!isMobileAllView}
+            zoomOnScroll={!isMobileAllView}
+            zoomOnPinch={!isMobileAllView}
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
@@ -463,8 +515,8 @@ export function Playground() {
                 onLayoutModeChange={setLayoutMode}
                 onHierarchyDirectionChange={setHierarchyDirection}
                 onEdgeStyleChange={setEdgeStyle}
-                onTraitVisibleChange={setIsTraitVisible}
-                onArticulationVisibleChange={setIsArticulationVisible}
+                onTraitVisibleChange={handleTraitVisibleChange}
+                onArticulationVisibleChange={handleArticulationVisibleChange}
                 onLetterSelect={setSelectedLetterId}
               />
 
@@ -513,7 +565,7 @@ export function Playground() {
               position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
               className="m-3!"
             >
-              <Controls className="static! m-0!" />
+              <Controls showZoom={!isMobileAllView} className="static! m-0!" />
             </Panel>
 
             {/* <MiniMap
