@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/hurifajri/qiroasro/compare/v0.2.0...v0.3.0) (2026-11-21)
+
+
+### Features
+
+* redesign database schema and enhance playground graph controls ([#37](https://github.com/hurifajri/qiroasro/issues/37)) ([2d0726a](https://github.com/hurifajri/qiroasro/commit/2d0726aeb59025f012fc12beeea6b883b64b1fa9))
+
 ## [0.2.0](https://github.com/hurifajri/qiroasro/compare/v0.1.0...v0.2.0) (2026-11-15)
 
 
