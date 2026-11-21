@@ -24,7 +24,9 @@ export function useNodeLayout(
   // Memoized to prevent new function reference on each render
   const getHandleClass = useCallback(
     (hasEdge: boolean) => {
-      if (nodeData.isFloating || !hasEdge) return 'hidden';
+      if (nodeData.isFloating || !hasEdge) {
+        return 'pointer-events-none opacity-0';
+      }
       return `size-2 border-0! ${handleColorClass}`;
     },
     [nodeData.isFloating, handleColorClass],

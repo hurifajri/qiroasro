@@ -133,11 +133,6 @@
       "trigger": "Download Image",
       "downloading": "Downloading..."
     },
-    "mobile_unsupported": {
-      "title": "Optimized for Desktop",
-      "description": "This visualization is best experienced on a larger screen. Please switch to Letter mode or use a desktop device.",
-      "switch_to_letter": "Switch to Letter Mode"
-    },
     "error": {
       "title": "Something went wrong",
       "description": "An error occurred while loading the playground. Please try again.",

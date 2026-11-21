@@ -8,7 +8,14 @@ import { getEdgeParams } from '../../_lib/edge';
  * the nodes, connecting at the closest points rather than fixed handles.
  */
 export const FloatingEdge = memo(
-  ({ id, source, target, style, markerEnd }: EdgeProps) => {
+  ({
+    id,
+    source,
+    target,
+    style,
+    markerEnd,
+    interactionWidth = 20,
+  }: EdgeProps) => {
     // Use equality function to prevent re-renders when positions haven't changed
     const { sourceNode, targetNode } = useStore(
       (s) => {
@@ -66,14 +73,16 @@ export const FloatingEdge = memo(
     return (
       <g className="react-flow__edge">
         {/* Invisible wider path for easier click interaction */}
-        <path
-          d={path}
-          fill="none"
-          strokeWidth={20}
-          stroke="transparent"
-          style={{ pointerEvents: 'stroke' }}
-          className="react-flow__edge-interaction"
-        />
+        {interactionWidth > 0 && (
+          <path
+            d={path}
+            fill="none"
+            strokeWidth={interactionWidth}
+            stroke="transparent"
+            style={{ pointerEvents: 'stroke' }}
+            className="react-flow__edge-interaction"
+          />
+        )}
         <path
           id={id}
           className="react-flow__edge-path"
