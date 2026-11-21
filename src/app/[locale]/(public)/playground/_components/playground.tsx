@@ -6,6 +6,7 @@ import {
   BackgroundVariant,
   type ColorMode,
   Controls,
+  type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
@@ -35,6 +36,7 @@ import {
   applyHierarchicalLayout,
   applyRadialLayout,
 } from '../_lib/graph-layout';
+import { getRootLetters } from '../_lib/letter';
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
@@ -47,6 +49,7 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
+import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -72,6 +75,11 @@ const nodeTypes: NodeTypes = {
   trait: TraitNode,
 };
 
+// Register custom edge types
+const edgeTypes: EdgeTypes = {
+  floating: FloatingEdge,
+};
+
 export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
@@ -88,6 +96,10 @@ export function Playground() {
   const selectedLetterId = usePlaygroundStore((s) => s.selectedLetterId);
   const selectedNodeId = usePlaygroundStore((s) => s.selectedNodeId);
   const edgeStyle = usePlaygroundStore((s) => s.edgeStyle);
+  const isTraitVisible = usePlaygroundStore((s) => s.isTraitVisible);
+  const isArticulationVisible = usePlaygroundStore(
+    (s) => s.isArticulationVisible,
+  );
   const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
   const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
@@ -97,6 +109,10 @@ export function Playground() {
   );
   const setSelectedLetterId = usePlaygroundStore((s) => s.setSelectedLetterId);
   const setEdgeStyle = usePlaygroundStore((s) => s.setEdgeStyle);
+  const setIsTraitVisible = usePlaygroundStore((s) => s.setIsTraitVisible);
+  const setIsArticulationVisible = usePlaygroundStore(
+    (s) => s.setIsArticulationVisible,
+  );
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
@@ -154,22 +170,24 @@ export function Playground() {
       traitGroups,
     };
 
-    async function updateLayout() {
+    function updateLayout() {
       // Generate nodes and edges (without positions)
       const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
         viewMode,
         layoutMode,
         hierarchyDirection,
         selectedId: selectedLetterId,
+        isTraitVisible,
+        isArticulationVisible,
       });
 
       // Apply layout based on mode
       // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, { viewMode });
       } else {
-        layoutedNodes = applyHierarchicalLayout(rawNodes, newEdges, {
+        layoutedNodes = applyHierarchicalLayout(rawNodes, {
           direction: hierarchyDirection,
           nodeSpacing: 30,
           layerSpacing: viewMode === 'letter' ? 200 : 600,
@@ -185,6 +203,7 @@ export function Playground() {
         ...node,
         data: {
           ...node.data,
+          isFloating: edgeStyle.isFloating,
           layoutMode,
           hierarchyDirection,
           hasSourceEdge: nodesWithSourceEdge.has(node.id),
@@ -193,9 +212,10 @@ export function Playground() {
       }));
 
       // Apply edge type based on current edgeStyle
+      const edgeType = edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
       const edgesWithStyle = newEdges.map((edge) => ({
         ...edge,
-        type: edgeStyle.shape,
+        type: edgeType,
         animated: edgeStyle.isAnimated,
       }));
 
@@ -203,7 +223,7 @@ export function Playground() {
       setEdges(edgesWithStyle);
 
       setTimeout(() => {
-        fitView({ padding: 0.2, duration: 300 });
+        void fitView({ padding: 0.2, duration: 300 });
       }, 50);
     }
 
@@ -212,8 +232,11 @@ export function Playground() {
     viewMode,
     layoutMode,
     hierarchyDirection,
+    edgeStyle.isFloating,
     edgeStyle.shape,
     selectedLetterId,
+    isTraitVisible,
+    isArticulationVisible,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
@@ -254,7 +277,7 @@ export function Playground() {
     return edges.map((edge) => {
       const isConnected = connectedEdgeIds.has(edge.id);
       const targetStrokeWidth = isConnected ? 3 : 1;
-      const targetOpacity = selectedNodeId ? (isConnected ? 1 : 0.2) : 1;
+      const targetOpacity = selectedNodeId && !isConnected ? 0.2 : 1;
       const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
       // Only create new object if style changed
@@ -317,16 +340,16 @@ export function Playground() {
     }, 100);
   }, [edges, updateHighlight]);
 
-  // Memoized letters for filter
-  const memoizedLetters = useMemo(() => letters, [letters]);
+  // Letter selector lists the 29 root letters (waw/ya show both variants)
+  const memoizedLetters = useMemo(() => getRootLetters(letters), [letters]);
 
   // Memoize defaultEdgeOptions to prevent new object reference on every render
   const defaultEdgeOptions = useMemo(
     () => ({
-      type: edgeStyle.shape,
+      type: edgeStyle.isFloating ? 'floating' : edgeStyle.shape,
       animated: edgeStyle.isAnimated,
     }),
-    [edgeStyle.shape, edgeStyle.isAnimated],
+    [edgeStyle.isFloating, edgeStyle.shape, edgeStyle.isAnimated],
   );
 
   const isUnsupportedMobileView = isMaxMd && viewMode !== 'letter';
@@ -351,6 +374,7 @@ export function Playground() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             defaultEdgeOptions={defaultEdgeOptions}
@@ -374,17 +398,25 @@ export function Playground() {
                 layoutMode={layoutMode}
                 hierarchyDirection={hierarchyDirection}
                 edgeStyle={edgeStyle}
+                isTraitVisible={isTraitVisible}
+                isArticulationVisible={isArticulationVisible}
                 letters={memoizedLetters}
                 selectedLetterId={selectedLetterId}
                 onViewModeChange={setViewMode}
                 onLayoutModeChange={setLayoutMode}
                 onHierarchyDirectionChange={setHierarchyDirection}
                 onEdgeStyleChange={setEdgeStyle}
+                onTraitVisibleChange={setIsTraitVisible}
+                onArticulationVisibleChange={setIsArticulationVisible}
                 onLetterSelect={setSelectedLetterId}
               />
 
               {!isUnsupportedMobileView && (
-                <GraphLegend dir={dir} viewMode={viewMode} />
+                <GraphLegend
+                  dir={dir}
+                  isTraitVisible={isTraitVisible}
+                  isArticulationVisible={isArticulationVisible}
+                />
               )}
             </Panel>
 

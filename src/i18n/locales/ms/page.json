@@ -20,10 +20,12 @@
     "filter": {
       "title": "Tetapan",
       "view_mode": {
-        "all": "Semua",
+        "letter": "Per Huruf",
+        "all": "Semua Huruf"
+      },
+      "visibility": {
         "articulation": "Makhraj",
-        "trait": "Sifat",
-        "letter": "Huruf"
+        "trait": "Sifat"
       },
       "layout_mode": {
         "radial": "Radial",
@@ -55,8 +57,9 @@
       "trait_lazimah_description": "Sifat Lazimah adalah sifat yang sentiasa ada pada huruf dalam setiap keadaan.",
       "trait_aridhah": "Sifat 'Aridhah",
       "trait_aridhah_description": "Sifat 'Aridhah adalah sifat yang hanya ada pada huruf dalam keadaan tertentu.",
-      "letter": "Huruf",
-      "letterMadd": "Huruf Mad"
+      "letter_tafkhim": "Sentiasa Tebal (Tafkhim)",
+      "letter_conditional": "Boleh Tebal atau Nipis",
+      "letter_tarqiq": "Sentiasa Nipis (Tarqiq)"
     },
     "quiz": {
       "trigger": "Mula Kuiz",
@@ -153,7 +156,7 @@
         },
         "canvas": {
           "title": "Kawasan Interaktif",
-          "description": "Ini adalah kawasan utama untuk meneroka hubungan antara huruf, makhraj, dan sifatnya. Sila cuba klik salah satu huruf, makhraj, atau sifat yang ada di skrin."
+          "description": "Ini adalah kawasan utama untuk meneroka hubungan antara huruf, makhraj, dan sifatnya. Setiap huruf, makhraj, atau sifat pada skrin boleh diklik untuk melihat kaitannya."
         },
         "controls": {
           "title": "Kawalan Paparan",
@@ -161,35 +164,39 @@
         },
         "graph_filter": {
           "title": "Panel Tetapan",
-          "description": "Di sini untuk melaraskan paparan graf mengikut keperluan. Sila klik untuk membuka panel tetapan."
+          "description": "Di sini untuk melaraskan paparan graf mengikut keperluan. Panel ini boleh dibuka dan ditutup mengikut keperluan."
         },
         "view_mode": {
           "title": "Mod Paparan",
-          "description": "Pilih apa yang ingin dipaparkan: Semua, Makhraj sahaja, Sifat sahaja, atau fokus pada Huruf tertentu. Sila klik 'Huruf' untuk meneruskan."
+          "description": "Pilih untuk fokus pada Satu Huruf tertentu atau paparkan Semua Huruf sekaligus."
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
-          "description": "Masya-Allah, terdapat 29 huruf hijaiyyah yang boleh diterokai. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara terperinci."
+          "description": "Masya-Allah, terdapat 29 huruf hijaiyyah yang boleh diterokai. Klik salah satu huruf untuk melihat makhraj dan sifatnya secara terperinci."
+        },
+        "visibility_filter": {
+          "title": "Penapis Paparan",
+          "description": "Butang ini boleh diklik untuk menyembunyikan atau memaparkan Makhraj dan Sifat pada graf. Secara lalai kedua-duanya dipaparkan."
         },
         "layout_mode": {
           "title": "Mod Susun Atur",
-          "description": "Pilih antara susun atur Radial (membulat) atau Hierarki (bertingkat). Sila cuba mod Hierarki."
+          "description": "Pilih antara susun atur Radial (membulat) atau Hierarki (bertingkat)."
         },
         "hierarchy_direction": {
           "title": "Arah Hierarki",
-          "description": "Tetapkan arah aliran: Menegak (atas ke bawah) atau Mendatar (kiri ke kanan). Sila pilih Mendatar."
+          "description": "Tetapkan arah aliran: Menegak (atas ke bawah) atau Mendatar (kiri ke kanan)."
         },
         "edge_style": {
           "title": "Gaya Garis Penghubung",
-          "description": "Aktifkan garisan dinamik yang mengikut posisi nod, atau nyahaktifkan untuk memilih bentuk garisan statik."
+          "description": "Butang ini digunakan untuk mengaktifkan garisan dinamik yang mengikut posisi nod, atau menyahaktifkannya bagi memilih bentuk garisan statik."
         },
         "edge_shape": {
           "title": "Bentuk Garis Penghubung",
-          "description": "Pilih bentuk garisan penghubung: Bezier, Lurus, Langkah, atau Halus."
+          "description": "Pilihan ini digunakan untuk menentukan bentuk garisan penghubung: Bezier, Lurus, Langkah, atau Halus."
         },
         "graph_legend": {
           "title": "Petunjuk Warna",
-          "description": "Panel ini menjelaskan makna warna setiap nod. Sila buka untuk meneruskan."
+          "description": "Panel ini menjelaskan makna warna setiap nod dan boleh dibuka atau ditutup mengikut keperluan."
         },
         "legend_detail": {
           "title": "Maklumat Terperinci",
@@ -197,23 +204,23 @@
         },
         "download": {
           "title": "Muat Turun Imej",
-          "description": "Klik butang ini untuk memuat turun imej graf."
+          "description": "Butang ini boleh diklik untuk memuat turun imej graf."
         },
         "quiz": {
           "title": "Kuiz",
-          "description": "Klik butang ini untuk mencuba beberapa contoh kuiz."
+          "description": "Butang ini boleh diklik untuk mencuba beberapa contoh kuiz."
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang dikehendaki."
+          "description": "Menu ini boleh digunakan untuk menukar bahasa aplikasi mengikut kehendak anda."
         },
         "theme_selector": {
           "title": "Pilih Tema",
-          "description": "Pilih tema antara mod terang atau gelap."
+          "description": "Menu ini boleh digunakan untuk menukar tema aplikasi antara mod terang atau gelap."
         },
         "help": {
           "title": "Bantuan",
-          "description": "Klik butang ini untuk memulakan semula panduan halaman."
+          "description": "Butang ini boleh diklik untuk memulakan semula panduan halaman."
         },
         "end": {
           "title": "Selesai",
@@ -239,20 +246,20 @@
         "title": "Al-Halq",
         "description": "Huruf-huruf yang keluar dari tekak"
       },
-      "aqsha_lisan": {
-        "title": "Aqsha Al-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aqsha Al-Lisan (Fauq)",
         "description": "Pangkal lidah berhampiran tekak"
       },
       "wasath_lisan": {
         "title": "Wasath Al-Lisan",
         "description": "Tengah lidah bertemu lelangit"
       },
-      "hafah_lisan": {
-        "title": "Hafah Al-Lisan (Tepi)",
+      "hafah_lisan_adhras": {
+        "title": "Hafah Al-Lisan & Al-Adhras",
         "description": "Tepi lidah bertemu gigi geraham atas"
       },
-      "tharaf_lisan": {
-        "title": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tharaf Al-Lisan (Taht)",
         "description": "Hujung lidah dalam pelbagai kedudukan"
       },
       "tsanaya": {

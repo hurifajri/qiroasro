@@ -3,6 +3,7 @@ import {
   type InferOutput,
   integer,
   minLength,
+  nullable,
   number,
   object,
   omit,
@@ -11,56 +12,31 @@ import {
   string,
 } from 'valibot';
 
-export const LETTERS = [
-  'ء',
-  'ب',
-  'ت',
-  'ث',
-  'ج',
-  'ح',
-  'خ',
-  'د',
-  'ذ',
-  'ر',
-  'ز',
-  'س',
-  'ش',
-  'ص',
-  'ض',
-  'ط',
-  'ظ',
-  'ع',
-  'غ',
-  'ف',
-  'ق',
-  'ك',
-  'ل',
-  'م',
-  'ن',
-  'و',
-  'ه',
-  'لا',
-  'ي',
-  'ـَا',
-  'ـُو',
-  'ـِي',
+export const LETTER_TAFKHIM_TYPES = [
+  'always_tafkhim',
+  'conditional',
+  'always_tarqiq',
 ] as const;
+
+export type LetterTafkhimType = (typeof LETTER_TAFKHIM_TYPES)[number];
 
 export const RemoteLetterSchema = object({
   id: pipe(number(), integer()),
   slug: pipe(string(), minLength(1)),
-  symbol: picklist(LETTERS),
-  is_madd: boolean(),
+  parent_letter_slug: nullable(string()),
+  symbol: pipe(string(), minLength(1)),
+  tafkhim_type: picklist(LETTER_TAFKHIM_TYPES),
   sort_order: pipe(number(), integer()),
 });
 
 const LetterSchema = omit(
   object({
     ...RemoteLetterSchema.entries,
-    isMadd: boolean(),
+    parentLetterSlug: nullable(string()),
+    tafkhimType: picklist(LETTER_TAFKHIM_TYPES),
     sortOrder: pipe(number(), integer()),
   }),
-  ['is_madd', 'sort_order'],
+  ['parent_letter_slug', 'tafkhim_type', 'sort_order'],
 );
 
 export type RemoteLetter = InferOutput<typeof RemoteLetterSchema>;

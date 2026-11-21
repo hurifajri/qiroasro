@@ -1,5 +1,5 @@
 // Graph Constants
-export const VIEW_MODES = ['letter', 'articulation', 'trait', 'all'] as const;
+export const VIEW_MODES = ['letter', 'all'] as const;
 export const LAYOUT_MODES = ['hierarchical', 'radial'] as const;
 export const HIERARCHY_DIRECTIONS = ['horizontal', 'vertical'] as const;
 export const EDGE_SHAPES = [

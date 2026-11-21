@@ -20,10 +20,12 @@
     "filter": {
       "title": "Ayarlar",
       "view_mode": {
-        "all": "Tümü",
+        "letter": "Harf Bazında",
+        "all": "Tüm Harfler"
+      },
+      "visibility": {
         "articulation": "Mahreç",
-        "trait": "Sıfat",
-        "letter": "Harf"
+        "trait": "Sıfat"
       },
       "layout_mode": {
         "radial": "Radyal (Dairesel)",
@@ -55,8 +57,9 @@
       "trait_lazimah_description": "Sıfat-ı Lazime, harften hiçbir zaman ayrılmayan kalıcı sıfatlardır.",
       "trait_aridhah": "Sıfat-ı Arıza",
       "trait_aridhah_description": "Sıfat-ı Arıza, harfte sadece belirli durumlarda bulunan geçici sıfatlardır.",
-      "letter": "Harf",
-      "letterMadd": "Med (Uzatma) Harfi"
+      "letter_tafkhim": "Her Zaman Kalın (Tefhim)",
+      "letter_conditional": "Kalın veya İnce Olabilir",
+      "letter_tarqiq": "Her Zaman İnce (Terkik)"
     },
     "quiz": {
       "trigger": "Teste Başla",
@@ -153,7 +156,7 @@
         },
         "canvas": {
           "title": "Etkileşimli Alan",
-          "description": "Burası harfler, mahreçler ve sıfatlar arasındaki ilişkileri keşfedebileceğiniz ana alandır. Lütfen ekrandaki herhangi bir harfe, mahrece veya sıfata tıklayın."
+          "description": "Burası harfler, mahreçler ve sıfatlar arasındaki ilişkileri keşfedebileceğiniz ana alandır. Ekrandaki her bir harf, mahreç veya sıfat bağlantıları görmek için tıklanabilir."
         },
         "controls": {
           "title": "Görünüm Kontrolleri",
@@ -161,35 +164,39 @@
         },
         "graph_filter": {
           "title": "Ayarlar Paneli",
-          "description": "Buradan grafik görünümünü ihtiyaçlarınıza göre ayarlayabilirsiniz. Ayarlar panelini açmak için lütfen tıklayın."
+          "description": "Buradan grafik görünümünü ihtiyaçlarınıza göre ayarlayabilirsiniz. Bu panel gerektiğinde genişletilip daraltılabilir."
         },
         "view_mode": {
           "title": "Görünüm Modu",
-          "description": "Neyi görüntülemek istediğinizi seçin: Tümü, Sadece Mahreç, Sadece Sıfat veya belirli bir Harfe odaklanma. Devam etmek için lütfen 'Harf'e tıklayın."
+          "description": "Tek bir Harfe odaklanmayı veya Tüm Harfleri birden göstermeyi seçin."
         },
         "letter_selector": {
           "title": "Harf Seçimi",
-          "description": "Maşallah, keşfedilecek 29 Kur'an harfi var. Mahreç ve Sıfatlarını detaylı görmek için bir harf seçin."
+          "description": "Maşallah, keşfedilecek 29 Kur'an harfi var. Mahreç ve Sıfatlarını detaylı görmek için bir harfe tıklayın."
+        },
+        "visibility_filter": {
+          "title": "Görünürlük Filtresi",
+          "description": "Grafikteki Mahreç ve Sıfatları gizlemek veya göstermek için bu düğmelere tıklayın. Varsayılan olarak ikisi de gösterilir."
         },
         "layout_mode": {
           "title": "Düzen Modu",
-          "description": "Radyal (güneş gibi dairesel) veya Hiyerarşik (ağaç gibi katmanlı) düzen arasında seçim yapın. Lütfen Hiyerarşik modu deneyin."
+          "description": "Radyal (güneş gibi dairesel) veya Hiyerarşik (ağaç gibi katmanlı) düzen arasında seçim yapın."
         },
         "hierarchy_direction": {
           "title": "Hiyerarşi Yönü",
-          "description": "Akış yönünü ayarlayın: Dikey (yukarıdan aşağıya) veya Yatay (soldan sağa). Lütfen Yatay'ı seçin."
+          "description": "Akış yönünü ayarlayın: Dikey (yukarıdan aşağıya) veya Yatay (soldan sağa)."
         },
         "edge_style": {
           "title": "Çizgi Stili",
-          "description": "Düğüm pozisyonlarını takip eden dinamik çizgileri etkinleştirin veya statik çizgi şekillerini seçmek için devre dışı bırakın."
+          "description": "Bu düğme, düğüm pozisyonlarını takip eden dinamik çizgileri etkinleştirmek veya statik çizgi şekillerini seçmek üzere devre dışı bırakmak için kullanılır."
         },
         "edge_shape": {
           "title": "Çizgi Şekli",
-          "description": "Bağlantı çizgisi şeklini seçin: Bezier (yumuşak eğri), Düz, Basamak veya Yumuşak Basamak."
+          "description": "Bu seçenek, bağlantı çizgisi şeklini belirlemek için kullanılır: Bezier (yumuşak eğri), Düz, Basamak veya Yumuşak Basamak."
         },
         "graph_legend": {
           "title": "Renk Göstergesi",
-          "description": "Bu panel her düğüm renginin anlamını açıklar. Devam etmek için lütfen paneli açın."
+          "description": "Bu panel her düğüm renginin anlamını açıklar ve gerektiğinde genişletilip daraltılabilir."
         },
         "legend_detail": {
           "title": "Detaylı Bilgi",
@@ -197,23 +204,23 @@
         },
         "download": {
           "title": "Görüntüyü İndir",
-          "description": "Grafiğin görüntüsünü indirmek için bu butona tıklayın."
+          "description": "Grafiğin görüntüsünü indirmek için bu buton kullanılabilir."
         },
         "quiz": {
           "title": "Test",
-          "description": "Bazı test örneklerini denemek için bu butona tıklayın."
+          "description": "Bazı test örneklerini denemek için bu buton kullanılabilir."
         },
         "locale_selector": {
           "title": "Dil Seçimi",
-          "description": "Uygulamayı istediğiniz dilde kullanmak için buradan seçim yapın."
+          "description": "Bu menü, uygulamayı istediğiniz dilde kullanmanız için dil değiştirmenizi sağlar."
         },
         "theme_selector": {
           "title": "Tema Seçimi",
-          "description": "Uygulamayı açık veya koyu modda kullanmak için buradan tema seçin."
+          "description": "Bu menü, uygulamanın temasını açık veya koyu mod arasında değiştirmenizi sağlar."
         },
         "help": {
           "title": "Yardım",
-          "description": "Rehberi yeniden başlatmak için bu butona tıklayın."
+          "description": "Rehberi dilediğiniz zaman yeniden başlatmak için bu buton kullanılabilir."
         },
         "end": {
           "title": "Tamamladık!",
@@ -239,20 +246,20 @@
         "title": "El-Halk",
         "description": "Boğazdan çıkan harfler"
       },
-      "aqsha_lisan": {
-        "title": "Aksa'l-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aksa'l-Lisan (Fevk)",
         "description": "Dilin kökü, boğaza yakın bölge"
       },
       "wasath_lisan": {
         "title": "Vasatü'l-Lisan",
         "description": "Dilin ortası, üst damakla buluşma noktası"
       },
-      "hafah_lisan": {
-        "title": "Hafetü'l-Lisan (Kenar)",
+      "hafah_lisan_adhras": {
+        "title": "Hafetü'l-Lisan ve Azı Dişler",
         "description": "Dilin kenarı, üst küçük azılarla temas"
       },
-      "tharaf_lisan": {
-        "title": "Tarafü'l-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tarafü'l-Lisan (Taht)",
         "description": "Dilin ucu çeşitli pozisyonlarda"
       },
       "tsanaya": {

@@ -4,8 +4,10 @@ import {
   ChevronsUpDown,
   CircleIcon,
   CompassIcon,
+  EyeIcon,
   FilterIcon,
   LayoutGridIcon,
+  LinkIcon,
   NetworkIcon,
   SplineIcon,
 } from 'lucide-react';
@@ -49,20 +51,24 @@ import {
 } from '../_schemas/graph';
 import type { Letter } from '../_schemas/letter';
 
-interface GraphFilterProps {
+type GraphFilterProps = Readonly<{
   dir: 'ltr' | 'rtl';
   viewMode: ViewMode;
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
   edgeStyle: EdgeStyleOptions;
+  isArticulationVisible: boolean;
+  isTraitVisible: boolean;
   letters: Letter[];
   selectedLetterId: number;
   onViewModeChange: (mode: ViewMode) => void;
   onLayoutModeChange: (mode: LayoutMode) => void;
   onHierarchyDirectionChange: (direction: HierarchyDirection) => void;
   onEdgeStyleChange: (style: Partial<EdgeStyleOptions>) => void;
+  onArticulationVisibleChange: (isVisible: boolean) => void;
+  onTraitVisibleChange: (isVisible: boolean) => void;
   onLetterSelect: (id: number) => void;
-}
+}>;
 
 export function GraphFilter({
   dir,
@@ -70,12 +76,16 @@ export function GraphFilter({
   layoutMode,
   hierarchyDirection,
   edgeStyle,
+  isArticulationVisible,
+  isTraitVisible,
   letters,
   selectedLetterId,
   onViewModeChange,
   onLayoutModeChange,
   onHierarchyDirectionChange,
   onEdgeStyleChange,
+  onArticulationVisibleChange,
+  onTraitVisibleChange,
   onLetterSelect,
 }: GraphFilterProps) {
   const t = useTranslations('playground_page.filter');
@@ -115,6 +125,19 @@ export function GraphFilter({
     },
     [searchParams],
   );
+
+  const visibilityToggles = [
+    {
+      key: 'articulation',
+      isVisible: isArticulationVisible,
+      onChange: onArticulationVisibleChange,
+    },
+    {
+      key: 'trait',
+      isVisible: isTraitVisible,
+      onChange: onTraitVisibleChange,
+    },
+  ] as const;
 
   return (
     <Collapsible
@@ -160,6 +183,65 @@ export function GraphFilter({
                     )}
                   >
                     {t(`view_mode.${mode}`)}
+                  </Button>
+                ))}
+              </ButtonGroup>
+            </li>
+
+            {/* Letter Selector (only visible in letter mode) */}
+            {viewMode === 'letter' && (
+              <li id="tour-letter-selector">
+                <ScrollArea
+                  dir={dir}
+                  className="w-full whitespace-nowrap rounded-lg border"
+                >
+                  <div className="flex w-max items-center gap-2 p-4">
+                    {letters.map((letter) => (
+                      <Button
+                        key={letter.id}
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={() => {
+                          onLetterSelect(letter.id);
+                          router.push(
+                            `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
+                          );
+                        }}
+                        className={cn(
+                          'rounded-full',
+                          selectedLetterId === letter.id
+                            ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
+                            : 'text-muted-foreground',
+                        )}
+                      >
+                        {letter.symbol}
+                      </Button>
+                    ))}
+                  </div>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </li>
+            )}
+
+            {/* Visibility toggles (hide/unhide articulation & traits) */}
+            <li id="tour-visibility-filter" className="flex items-center gap-2">
+              <EyeIcon className="size-4 shrink-0 text-muted-foreground" />
+              <ButtonGroup dir={dir} className="flex-1">
+                {visibilityToggles.map((toggle) => (
+                  <Button
+                    key={toggle.key}
+                    variant="outline"
+                    size="sm"
+                    aria-pressed={toggle.isVisible}
+                    onClick={() => toggle.onChange(!toggle.isVisible)}
+                    className={cn(
+                      'flex-1 hover:bg-linear-to-r hover:from-amber-500 hover:to-amber-600 hover:text-white',
+                      toggle.isVisible
+                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white'
+                        : 'text-muted-foreground',
+                    )}
+                  >
+                    {t(`visibility.${toggle.key}`)}
                   </Button>
                 ))}
               </ButtonGroup>
@@ -239,7 +321,7 @@ export function GraphFilter({
             )}
 
             {/* Edge Type */}
-            {/* <li id="tour-edge-style" className="flex items-center gap-2">
+            <li id="tour-edge-style" className="flex items-center gap-2">
               <LinkIcon className="size-4 text-muted-foreground" />
               <Button
                 dir={dir}
@@ -257,7 +339,7 @@ export function GraphFilter({
               >
                 {t('edge.dynamic')}
               </Button>
-            </li> */}
+            </li>
 
             {/* Edge Shape Selector - only visible when floating is OFF */}
             {!edgeStyle.isFloating && (
@@ -290,40 +372,6 @@ export function GraphFilter({
               </li>
             )}
           </ul>
-
-          {/* Letter Selector (only visible in letter mode) */}
-          {viewMode === 'letter' && (
-            <ScrollArea
-              dir={dir}
-              id="tour-letter-selector"
-              className="w-full whitespace-nowrap rounded-lg border"
-            >
-              <div className="flex w-max items-center gap-2 p-4">
-                {letters.map((letter) => (
-                  <Button
-                    key={letter.id}
-                    variant="outline"
-                    size="icon-sm"
-                    onClick={() => {
-                      onLetterSelect(letter.id);
-                      router.push(
-                        `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
-                      );
-                    }}
-                    className={cn(
-                      'rounded-full',
-                      selectedLetterId === letter.id
-                        ? 'bg-linear-to-r from-amber-500 to-amber-600 text-white hover:text-white'
-                        : 'text-muted-foreground',
-                    )}
-                  >
-                    {letter.symbol}
-                  </Button>
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-          )}
         </div>
       </CollapsibleContent>
     </Collapsible>

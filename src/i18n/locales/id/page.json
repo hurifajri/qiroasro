@@ -20,10 +20,12 @@
     "filter": {
       "title": "Pengaturan",
       "view_mode": {
-        "all": "Semua",
+        "letter": "Per Huruf",
+        "all": "Semua Huruf"
+      },
+      "visibility": {
         "articulation": "Makhraj",
-        "trait": "Sifat",
-        "letter": "Huruf"
+        "trait": "Sifat"
       },
       "layout_mode": {
         "radial": "Radial",
@@ -55,8 +57,9 @@
       "trait_lazimah_description": "Sifat Lazimah adalah sifat yang selalu melekat pada sebuah huruf dalam setiap kondisi.",
       "trait_aridhah": "Sifat Aridhoh",
       "trait_aridhah_description": "Sifat Aridhoh adalah sifat yang hanya ada pada sebuah huruf dalam kondisi tertentu.",
-      "letter": "Huruf",
-      "letterMadd": "Huruf Mad"
+      "letter_tafkhim": "Selalu Tebal (Tafkhim)",
+      "letter_conditional": "Bisa Tebal atau Tipis",
+      "letter_tarqiq": "Selalu Tipis (Tarqiq)"
     },
     "quiz": {
       "trigger": "Mulai Kuis",
@@ -153,7 +156,7 @@
         },
         "canvas": {
           "title": "Area Interaktif",
-          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan dan keterangan. Silakan coba klik salah satu huruf, makhraj, atau sifat yang ada di layar."
+          "description": "Ini adalah area utama untuk mengeksplorasi hubungan antar huruf, makhraj, dan sifatnya dengan dilengkapi pengaturan dan keterangan. Setiap huruf, makhraj, atau sifat di layar dapat diklik untuk melihat keterkaitannya."
         },
         "controls": {
           "title": "Kontrol Tampilan",
@@ -161,35 +164,39 @@
         },
         "graph_filter": {
           "title": "Panel Pengaturan",
-          "description": "Di sini untuk mengatur tampilan graph sesuai kebutuhan. Silakan klik untuk membuka panel pengaturan."
+          "description": "Di sini untuk mengatur tampilan graph sesuai kebutuhan. Panel ini dapat dibuka dan ditutup sesuai keperluan."
         },
         "view_mode": {
           "title": "Mode Tampilan",
-          "description": "Pilih apa yang ingin ditampilkan: Semua, Makhraj saja, Sifat saja, atau fokus ke satu Huruf tertentu. Silakan klik 'Huruf' untuk melanjutkan."
+          "description": "Pilih fokus ke Satu Huruf tertentu atau tampilkan Semua Huruf sekaligus."
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
-          "description": "Masyaa Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
+          "description": "Masyaa Allah, ada 29 huruf hijaiyyah yang bisa dieksplorasi. Klik salah satu huruf untuk melihat makhraj dan sifatnya secara detail."
+        },
+        "visibility_filter": {
+          "title": "Filter Tampilan",
+          "description": "Tombol ini bisa diklik untuk menyembunyikan atau menampilkan Makhraj dan Sifat di graph. Secara bawaan keduanya ditampilkan."
         },
         "layout_mode": {
           "title": "Mode Tata Letak",
-          "description": "Pilih antara tata letak Radial (melingkar seperti matahari) atau Hierarki (berjenjang seperti pohon). Silakan coba mode Hierarki."
+          "description": "Pilih antara tata letak Radial (melingkar seperti matahari) atau Hierarki (berjenjang seperti pohon)."
         },
         "hierarchy_direction": {
           "title": "Arah Hierarki",
-          "description": "Atur arah tampilan: Vertikal (atas ke bawah) atau Horizontal (kiri ke kanan). Silakan pilih Horizontal."
+          "description": "Atur arah tampilan: Vertikal (atas ke bawah) atau Horizontal (kiri ke kanan)."
         },
         "edge_style": {
           "title": "Gaya Garis Penghubung",
-          "description": "Aktifkan garis dinamis yang mengikuti posisi node, atau nonaktifkan untuk memilih bentuk garis statis. Silakan nonaktifkan untuk melihat pilihan bentuk garis."
+          "description": "Tombol ini digunakan untuk mengaktifkan garis dinamis yang mengikuti posisi node, atau menonaktifkannya untuk memilih bentuk garis statis."
         },
         "edge_shape": {
           "title": "Bentuk Garis Penghubung",
-          "description": "Pilih bentuk garis penghubung: Bezier (melengkung halus), Straight (lurus), Step (bertingkat), atau Smoothstep (bertingkat halus)."
+          "description": "Pilihan ini digunakan untuk menentukan bentuk garis penghubung: Bezier (melengkung halus), Straight (lurus), Step (bertingkat), atau Smoothstep (bertingkat halus)."
         },
         "graph_legend": {
           "title": "Keterangan Warna",
-          "description": "Panel ini menjelaskan makna warna setiap node. Silakan buka untuk melanjutkan."
+          "description": "Panel ini menjelaskan makna warna setiap node dan dapat dibuka atau ditutup sesuai kebutuhan."
         },
         "legend_detail": {
           "title": "Info Detail",
@@ -197,23 +204,23 @@
         },
         "download": {
           "title": "Unduh Gambar",
-          "description": "Klik tombol ini untuk mengunduh gambar graph."
+          "description": "Tombol ini dapat diklik untuk mengunduh gambar graph."
         },
         "quiz": {
           "title": "Kuis",
-          "description": "Klik tombol ini untuk mencoba beberapa contoh kuis."
+          "description": "Tombol ini dapat diklik untuk mencoba beberapa contoh kuis."
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang diinginkan."
+          "description": "Menu ini dapat digunakan untuk mengganti bahasa aplikasi sesuai yang diinginkan."
         },
         "theme_selector": {
           "title": "Pilih Tema",
-          "description": "Pilih tema untuk menggunakan aplikasi dalam tema yang diinginkan. Tersedia tema terang dan gelap."
+          "description": "Menu ini dapat digunakan untuk mengganti tema tampilan aplikasi. Tersedia tema terang dan gelap."
         },
         "help": {
           "title": "Bantuan",
-          "description": "Klik tombol ini untuk memulai kembali panduan halaman."
+          "description": "Tombol ini dapat diklik untuk memulai kembali panduan halaman."
         },
         "end": {
           "title": "Selesai",
@@ -239,20 +246,20 @@
         "title": "Al-Halq",
         "description": "Huruf-huruf yang keluar dari tenggorokan"
       },
-      "aqsha_lisan": {
-        "title": "Aqsha Al-Lisan",
+      "aqsha_lisan_fauq": {
+        "title": "Aqsha Al-Lisan (Fauq)",
         "description": "Pangkal lidah, dekat tenggorokan"
       },
       "wasath_lisan": {
         "title": "Wasath Al-Lisan",
         "description": "Pertengahan lidah bertemu langit-langit"
       },
-      "hafah_lisan": {
-        "title": "Hafah Al-Lisan (Tepi)",
+      "hafah_lisan_adhras": {
+        "title": "Hafah Al-Lisan & Al-Adhras",
         "description": "Tepi lidah bertemu gigi geraham atas"
       },
-      "tharaf_lisan": {
-        "title": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": {
+        "title": "Tharaf Al-Lisan (Taht)",
         "description": "Ujung lidah dengan berbagai posisi"
       },
       "tsanaya": {

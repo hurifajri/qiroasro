@@ -11,6 +11,7 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+import { getLeafLetters } from '../_lib/letter';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
 import { PRACTICE_QUIZ_TYPE_CONFIG } from '../_schemas/quiz';
@@ -39,8 +40,8 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
   const letters = playgroundData?.letters ?? [];
 
-  // Memoized letters for filter
-  const memoizedLetters = useMemo(() => letters, [letters]);
+  // Only quizzable letters (waw/ya are represented by their variant nodes)
+  const memoizedLetters = useMemo(() => getLeafLetters(letters), [letters]);
 
   // Get config for current type (default to trait if no type selected)
   const config = type

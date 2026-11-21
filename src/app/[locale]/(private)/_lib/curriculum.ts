@@ -176,9 +176,9 @@ export const CURRICULUM_TOPICS: CurriculumTopic[] = [
         ],
       },
       {
-        slug: 'aqsha-lisan',
-        titleKey: 'learn_page.units.aqsha_lisan.title',
-        descriptionKey: 'learn_page.units.aqsha_lisan.description',
+        slug: 'aqsha-lisan-fauq',
+        titleKey: 'learn_page.units.aqsha_lisan_fauq.title',
+        descriptionKey: 'learn_page.units.aqsha_lisan_fauq.description',
         colorCode: 'blue',
         iconKey: 'move-up',
         lessons: [
@@ -198,9 +198,9 @@ export const CURRICULUM_TOPICS: CurriculumTopic[] = [
         ],
       },
       {
-        slug: 'hafah-lisan',
-        titleKey: 'learn_page.units.hafah_lisan.title',
-        descriptionKey: 'learn_page.units.hafah_lisan.description',
+        slug: 'hafah-lisan-adhras',
+        titleKey: 'learn_page.units.hafah_lisan_adhras.title',
+        descriptionKey: 'learn_page.units.hafah_lisan_adhras.description',
         colorCode: 'blue',
         iconKey: 'sliders-horizontal',
         lessons: [
@@ -209,9 +209,9 @@ export const CURRICULUM_TOPICS: CurriculumTopic[] = [
         ],
       },
       {
-        slug: 'tharaf-lisan',
-        titleKey: 'learn_page.units.tharaf_lisan.title',
-        descriptionKey: 'learn_page.units.tharaf_lisan.description',
+        slug: 'tharaf-lisan-taht',
+        titleKey: 'learn_page.units.tharaf_lisan_taht.title',
+        descriptionKey: 'learn_page.units.tharaf_lisan_taht.description',
         colorCode: 'blue',
         iconKey: 'locate',
         lessons: [

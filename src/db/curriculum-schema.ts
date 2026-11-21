@@ -1,21 +1,27 @@
+import { relations, sql } from 'drizzle-orm';
 import {
   boolean,
+  check,
   index,
   integer,
+  pgEnum,
   pgTable,
   primaryKey,
   smallint,
   text,
   timestamp,
+  unique,
 } from 'drizzle-orm/pg-core';
+import { user } from './auth-schema';
 
 /**
  * User progress tables for the curriculum learning flow.
  *
  * Progress is tracked at three granularities:
  *   section (topic) → unit → lesson
+ * Plus Spaced Repetition mistake tracking and bookmarked items for /practice/*.
  *
- * All slugs are kebab-case strings matching CURRICULUM_TOPICS definitions.
+ * All slugs are kebab-case strings matching CURRICULUM_TOPICS / master definitions.
  */
 
 const timestamps = {
@@ -27,6 +33,16 @@ const timestamps = {
     .defaultNow()
     .$onUpdate(() => new Date()),
 };
+
+export const practiceTargetTypeEnum = pgEnum('practice_target_type', [
+  'letter',
+  'point',
+  'trait',
+  'rule',
+  'example',
+  'verse',
+  'question',
+]);
 
 /** Tracks whether a user has started / completed a section (topic). */
 export const userSectionProgress = pgTable(
@@ -100,3 +116,97 @@ export const userLessonProgress = pgTable(
     ),
   ],
 );
+
+/**
+ * Tracks per-user Spaced Repetition (SM-2) review items recorded from mistakes
+ * in lessons and practice sessions, powering /practice/mistakes.
+ */
+export const userMistakeItems = pgTable(
+  'user_mistake_items',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    targetType: practiceTargetTypeEnum('target_type').notNull(),
+    /** Stable kebab-case slug referencing letter/point/trait/rule/example/verse/question */
+    targetSlug: text('target_slug').notNull(),
+    mistakeCount: integer('mistake_count').notNull().default(1),
+    consecutiveCorrect: smallint('consecutive_correct').notNull().default(0),
+    /** SM-2 ease factor in permille (2500 = 2.50x) */
+    easeFactor: integer('ease_factor').notNull().default(2500),
+    intervalDays: smallint('interval_days').notNull().default(1),
+    lastMistakeAt: timestamp('last_mistake_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    nextReviewAt: timestamp('next_review_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    isResolved: boolean('is_resolved').notNull().default(false),
+    resolvedAt: timestamp('resolved_at', { withTimezone: true }),
+    ...timestamps,
+  },
+  (table) => [
+    unique('uq_user_mistake_target').on(
+      table.userId,
+      table.targetType,
+      table.targetSlug,
+    ),
+    index('idx_user_mistake_review_queue').on(
+      table.userId,
+      table.isResolved,
+      table.nextReviewAt,
+    ),
+    check(
+      'chk_umi_slug_kebab',
+      sql`${table.targetSlug} ~ '^[a-z0-9]+(-[a-z0-9]+)*$'`,
+    ),
+    check('chk_umi_mistake_count', sql`${table.mistakeCount} >= 1`),
+    check('chk_umi_consecutive_nonneg', sql`${table.consecutiveCorrect} >= 0`),
+    check('chk_umi_ease_floor', sql`${table.easeFactor} >= 1300`),
+    check('chk_umi_interval_pos', sql`${table.intervalDays} >= 1`),
+  ],
+);
+
+/** Tracks user-bookmarked items for /practice/saved. */
+export const userSavedItems = pgTable(
+  'user_saved_items',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    targetType: practiceTargetTypeEnum('target_type').notNull(),
+    targetSlug: text('target_slug').notNull(),
+    ...timestamps,
+  },
+  (table) => [
+    unique('uq_user_saved_target').on(
+      table.userId,
+      table.targetType,
+      table.targetSlug,
+    ),
+    index('idx_user_saved_type').on(table.userId, table.targetType),
+    check(
+      'chk_usi_slug_kebab',
+      sql`${table.targetSlug} ~ '^[a-z0-9]+(-[a-z0-9]+)*$'`,
+    ),
+  ],
+);
+
+export const userMistakeItemsRelations = relations(
+  userMistakeItems,
+  ({ one }) => ({
+    user: one(user, {
+      fields: [userMistakeItems.userId],
+      references: [user.id],
+    }),
+  }),
+);
+
+export const userSavedItemsRelations = relations(userSavedItems, ({ one }) => ({
+  user: one(user, {
+    fields: [userSavedItems.userId],
+    references: [user.id],
+  }),
+}));

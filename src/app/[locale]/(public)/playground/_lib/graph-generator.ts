@@ -37,11 +37,44 @@ interface GenerateGraphOptions {
   layoutMode: LayoutMode;
   hierarchyDirection: HierarchyDirection;
   selectedId: number;
+  isArticulationVisible: boolean;
+  isTraitVisible: boolean;
 }
 
 interface GraphView {
   nodes: Node[];
   edges: Edge[];
+}
+
+const ARTICULATION_NODE_TYPES = new Set([
+  'articulationArea',
+  'articulationPoint',
+]);
+const TRAIT_NODE_TYPES = new Set(['traitGroup', 'trait']);
+
+/** Removes hidden node types along with every edge touching them. */
+function filterHiddenNodes(
+  view: GraphView,
+  options: Pick<
+    GenerateGraphOptions,
+    'isArticulationVisible' | 'isTraitVisible'
+  >,
+): GraphView {
+  const { isArticulationVisible, isTraitVisible } = options;
+  if (isArticulationVisible && isTraitVisible) return view;
+
+  const nodes = view.nodes.filter(
+    (node) =>
+      (isArticulationVisible ||
+        !ARTICULATION_NODE_TYPES.has(node.type ?? '')) &&
+      (isTraitVisible || !TRAIT_NODE_TYPES.has(node.type ?? '')),
+  );
+  const nodeIds = new Set(nodes.map((node) => node.id));
+  const edges = view.edges.filter(
+    (edge) => nodeIds.has(edge.source) && nodeIds.has(edge.target),
+  );
+
+  return { nodes, edges };
 }
 
 export function generateGraphFromData(
@@ -50,40 +83,87 @@ export function generateGraphFromData(
 ): GraphView {
   const { viewMode, selectedId } = options;
 
-  switch (viewMode) {
-    case 'all':
-      return generateAllView(data);
-    case 'articulation':
-      return generateByArticulationView(data);
-    case 'trait':
-      return generateByTraitView(data);
-    case 'letter':
-      return generateByLetterView(data, selectedId);
-    default:
-      return { nodes: [], edges: [] };
-  }
+  const view =
+    viewMode === 'all'
+      ? generateAllView(data)
+      : generateByLetterView(data, selectedId);
+
+  return filterHiddenNodes(view, options);
+}
+
+interface GraphBuilder {
+  addNode: (node: Node) => void;
+  addEdge: (edge: Edge) => void;
+  build: () => GraphView;
+}
+
+/** Collects nodes/edges while ignoring duplicates (shared points/traits). */
+function createGraphBuilder(): GraphBuilder {
+  const nodes = new Map<string, Node>();
+  const edges = new Map<string, Edge>();
+
+  return {
+    addNode: (node) => {
+      if (!nodes.has(node.id)) nodes.set(node.id, node);
+    },
+    addEdge: (edge) => {
+      if (!edges.has(edge.id)) edges.set(edge.id, edge);
+    },
+    build: () => ({ nodes: [...nodes.values()], edges: [...edges.values()] }),
+  };
+}
+
+/**
+ * Edge between a root letter (waw/ya) and one of its variant child nodes
+ * (maddiyyah / ghairu maddiyyah). `flow` follows the direction of the view's
+ * hierarchy so the layout keeps a single left-to-right (or top-down) flow.
+ */
+function createVariantEdge(
+  parent: Letter,
+  child: Letter,
+  flow: 'parent-first' | 'child-first',
+): Edge {
+  const parentNodeId = `letter-${parent.id}`;
+  const childNodeId = `letter-${child.id}`;
+
+  return {
+    id: `edge-letter-${parent.id}-variant-${child.id}`,
+    source: flow === 'parent-first' ? parentNodeId : childNodeId,
+    target: flow === 'parent-first' ? childNodeId : parentNodeId,
+    type: 'default',
+    style: { stroke: '#F59E0B', strokeWidth: 1.5, strokeDasharray: '6 4' },
+  };
+}
+
+function getLetterBySlug(letters: Letter[]) {
+  return new Map(letters.map((letter) => [letter.slug, letter]));
 }
 
 function generateAllView(data: GraphData): GraphView {
-  const nodes: Node[] = [];
-  const edges: Edge[] = [];
+  const builder = createGraphBuilder();
+  const letterBySlug = getLetterBySlug(data.letters);
 
-  // Add letters
+  // Add letters (29 root letters + waw/ya variant children) and variant edges
   for (const letter of data.letters) {
-    nodes.push(createLetterNode(letter));
+    builder.addNode(createLetterNode(letter));
+
+    const parent = letter.parentLetterSlug
+      ? letterBySlug.get(letter.parentLetterSlug)
+      : undefined;
+    if (parent) {
+      builder.addEdge(createVariantEdge(parent, letter, 'parent-first'));
+    }
   }
 
   // Add articulation areas
   for (const area of data.articulationAreas) {
-    nodes.push(createArticulationAreaNode(area));
+    builder.addNode(createArticulationAreaNode(area));
   }
 
-  // Add articulation points
+  // Add articulation points and point-area edges
   for (const point of data.articulationPoints) {
-    nodes.push(createArticulationPointNode(point));
-
-    // Add point-area edges
-    edges.push({
+    builder.addNode(createArticulationPointNode(point));
+    builder.addEdge({
       id: `edge-area-${point.areaId}-point-${point.id}`,
       source: `point-${point.id}`,
       target: `area-${point.areaId}`,
@@ -94,15 +174,13 @@ function generateAllView(data: GraphData): GraphView {
 
   // Add trait groups
   for (const group of data.traitGroups) {
-    nodes.push(createTraitGroupNode(group));
+    builder.addNode(createTraitGroupNode(group));
   }
 
-  // Add traits
+  // Add traits and trait-group edges
   for (const trait of data.traits) {
-    nodes.push(createTraitNode(trait));
-
-    // Add trait-group edges
-    edges.push({
+    builder.addNode(createTraitNode(trait));
+    builder.addEdge({
       id: `edge-group-${trait.groupId}-trait-${trait.id}`,
       source: `trait-${trait.id}`,
       target: `trait-group-${trait.groupId}`,
@@ -113,7 +191,7 @@ function generateAllView(data: GraphData): GraphView {
 
   // Add letter-point edges
   for (const rel of data.letterArticulations) {
-    edges.push({
+    builder.addEdge({
       id: `edge-letter-${rel.letterId}-point-${rel.pointId}`,
       source: `letter-${rel.letterId}`,
       target: `point-${rel.pointId}`,
@@ -128,7 +206,7 @@ function generateAllView(data: GraphData): GraphView {
 
   // Add letter-trait edges
   for (const rel of data.letterTraits) {
-    edges.push({
+    builder.addEdge({
       id: `edge-letter-${rel.letterId}-trait-${rel.traitId}`,
       source: `letter-${rel.letterId}`,
       target: `trait-${rel.traitId}`,
@@ -141,207 +219,91 @@ function generateAllView(data: GraphData): GraphView {
     });
   }
 
-  return { nodes, edges };
-}
-
-function generateByArticulationView(data: GraphData): GraphView {
-  const nodes: Node[] = [];
-  const edges: Edge[] = [];
-
-  // Group letters by articulation point
-  const lettersByPoint = new Map<number, Letter[]>();
-  for (const rel of data.letterArticulations) {
-    const letter = data.letters.find((l) => l.id === rel.letterId);
-    if (letter) {
-      if (!lettersByPoint.has(rel.pointId)) {
-        lettersByPoint.set(rel.pointId, []);
-      }
-      lettersByPoint.get(rel.pointId)?.push(letter);
-    }
-  }
-
-  // Add articulation areas
-  for (const area of data.articulationAreas) {
-    nodes.push(createArticulationAreaNode(area));
-  }
-
-  // Add articulation points
-  for (const point of data.articulationPoints) {
-    nodes.push(createArticulationPointNode(point));
-
-    // Add area-point edges
-    edges.push({
-      id: `edge-area-${point.areaId}-point-${point.id}`,
-      source: `area-${point.areaId}`,
-      target: `point-${point.id}`,
-      type: 'default',
-      style: { stroke: '#0EA5E9', strokeWidth: 2 },
-    });
-
-    // Add letters
-    const letters = lettersByPoint.get(point.id) || [];
-    for (const letter of letters) {
-      if (!nodes.find((n) => n.id === `letter-${letter.id}`)) {
-        nodes.push(createLetterNode(letter));
-      }
-
-      // Add point-letter edges
-      edges.push({
-        id: `edge-point-${point.id}-letter-${letter.id}`,
-        source: `point-${point.id}`,
-        target: `letter-${letter.id}`,
-        type: 'default',
-        style: { stroke: '#F59E0B' },
-      });
-    }
-  }
-
-  return { nodes, edges };
-}
-
-function generateByTraitView(data: GraphData): GraphView {
-  const nodes: Node[] = [];
-  const edges: Edge[] = [];
-
-  // Group letters by trait
-  const lettersByTrait = new Map<number, Letter[]>();
-  for (const rel of data.letterTraits) {
-    const letter = data.letters.find((l) => l.id === rel.letterId);
-    if (letter) {
-      if (!lettersByTrait.has(rel.traitId)) {
-        lettersByTrait.set(rel.traitId, []);
-      }
-      lettersByTrait.get(rel.traitId)?.push(letter);
-    }
-  }
-
-  // Add trait groups
-  for (const group of data.traitGroups) {
-    nodes.push(createTraitGroupNode(group));
-  }
-
-  // Add traits
-  for (const trait of data.traits) {
-    nodes.push(createTraitNode(trait));
-
-    // Add group-trait edges
-    edges.push({
-      id: `edge-group-${trait.groupId}-trait-${trait.id}`,
-      source: `trait-group-${trait.groupId}`,
-      target: `trait-${trait.id}`,
-      type: 'default',
-      style: { stroke: '#8B5CF6' },
-    });
-
-    // Add letters
-    const letters = lettersByTrait.get(trait.id) || [];
-    for (const letter of letters) {
-      if (!nodes.find((n) => n.id === `letter-${letter.id}`)) {
-        nodes.push(createLetterNode(letter));
-      }
-
-      // Add trait-letter edges
-      edges.push({
-        id: `edge-trait-${trait.id}-letter-${letter.id}`,
-        source: `trait-${trait.id}`,
-        target: `letter-${letter.id}`,
-        type: 'default',
-        style: { stroke: '#F59E0B', opacity: 0.7 },
-      });
-    }
-  }
-
-  return { nodes, edges };
+  return builder.build();
 }
 
 function generateByLetterView(data: GraphData, selectedId: number): GraphView {
-  const nodes: Node[] = [];
-  const edges: Edge[] = [];
+  const builder = createGraphBuilder();
+  const letterBySlug = getLetterBySlug(data.letters);
 
-  // Find selected letter
-  const letter = data.letters.find((l) => l.id === selectedId);
-  if (!letter) return { nodes, edges };
+  const selected = data.letters.find((l) => l.id === selectedId);
+  if (!selected) return builder.build();
 
-  // Add selected letter
-  nodes.push(createLetterNode(letter));
+  // Selecting a waw/ya variant child shows the whole family of its root letter
+  const root =
+    (selected.parentLetterSlug
+      ? letterBySlug.get(selected.parentLetterSlug)
+      : undefined) ?? selected;
+  const variants = data.letters.filter((l) => l.parentLetterSlug === root.slug);
 
-  // Find related articulation points
-  const relatedArticulations = data.letterArticulations.filter(
-    (rel) => rel.letterId === selectedId,
-  );
-
-  // Add articulation points
-  for (const rel of relatedArticulations) {
-    const point = data.articulationPoints.find((p) => p.id === rel.pointId);
-    if (!point) continue;
-
-    nodes.push(createArticulationPointNode(point));
-
-    // Add letter-point edges
-    edges.push({
-      id: `edge-letter-${letter.id}-point-${point.id}`,
-      source: `letter-${letter.id}`,
-      target: `point-${point.id}`,
-      type: 'default',
-      style: {
-        stroke: '#0EA5E9',
-        strokeWidth: 1,
-      },
-    });
-
-    // Add articulation areas
-    const area = data.articulationAreas.find((a) => a.id === point.areaId);
-    if (area && !nodes.find((n) => n.id === `area-${area.id}`)) {
-      nodes.push(createArticulationAreaNode(area));
-
-      // Add point-area edges
-      edges.push({
-        id: `edge-area-${area.id}-point-${point.id}`,
-        source: `point-${point.id}`,
-        target: `area-${area.id}`,
-        type: 'default',
-        style: { stroke: '#0EA5E9' },
-      });
-    }
+  builder.addNode(createLetterNode(root));
+  for (const variant of variants) {
+    builder.addNode(createLetterNode(variant));
+    builder.addEdge(createVariantEdge(root, variant, 'parent-first'));
   }
 
-  // Find related traits
-  const relatedTraitRels = data.letterTraits.filter(
-    (rel) => rel.letterId === selectedId,
-  );
+  // Root letters with variants delegate their relations to the variants
+  const relatedLetters = variants.length > 0 ? variants : [root];
 
-  for (const rel of relatedTraitRels) {
-    const trait = data.traits.find((t) => t.id === rel.traitId);
-    if (!trait) continue;
+  for (const letter of relatedLetters) {
+    // Articulation points & areas
+    for (const rel of data.letterArticulations) {
+      if (rel.letterId !== letter.id) continue;
 
-    nodes.push(createTraitNode(trait));
+      const point = data.articulationPoints.find((p) => p.id === rel.pointId);
+      if (!point) continue;
 
-    // Add letter-trait edges
-    edges.push({
-      id: `edge-letter-${letter.id}-trait-${trait.id}`,
-      source: `letter-${letter.id}`,
-      target: `trait-${trait.id}`,
-      type: 'default',
-      style: { stroke: '#8B5CF6' },
-    });
+      builder.addNode(createArticulationPointNode(point));
+      builder.addEdge({
+        id: `edge-letter-${letter.id}-point-${point.id}`,
+        source: `letter-${letter.id}`,
+        target: `point-${point.id}`,
+        type: 'default',
+        style: { stroke: '#0EA5E9', strokeWidth: 1 },
+      });
 
-    // Add trait group node if not exists
-    const group = data.traitGroups.find((g) => g.id === trait.groupId);
-    if (group && !nodes.find((n) => n.id === `trait-group-${group.id}`)) {
-      nodes.push(createTraitGroupNode(group));
+      const area = data.articulationAreas.find((a) => a.id === point.areaId);
+      if (area) {
+        builder.addNode(createArticulationAreaNode(area));
+        builder.addEdge({
+          id: `edge-area-${area.id}-point-${point.id}`,
+          source: `point-${point.id}`,
+          target: `area-${area.id}`,
+          type: 'default',
+          style: { stroke: '#0EA5E9' },
+        });
+      }
     }
 
-    // Add trait-group edges
-    if (group) {
-      edges.push({
-        id: `edge-trait-${trait.id}-group-${group.id}`,
-        source: `trait-${trait.id}`,
-        target: `trait-group-${group.id}`,
+    // Traits & trait groups
+    for (const rel of data.letterTraits) {
+      if (rel.letterId !== letter.id) continue;
+
+      const trait = data.traits.find((t) => t.id === rel.traitId);
+      if (!trait) continue;
+
+      builder.addNode(createTraitNode(trait));
+      builder.addEdge({
+        id: `edge-letter-${letter.id}-trait-${trait.id}`,
+        source: `letter-${letter.id}`,
+        target: `trait-${trait.id}`,
         type: 'default',
         style: { stroke: '#8B5CF6' },
       });
+
+      const group = data.traitGroups.find((g) => g.id === trait.groupId);
+      if (group) {
+        builder.addNode(createTraitGroupNode(group));
+        builder.addEdge({
+          id: `edge-trait-${trait.id}-group-${group.id}`,
+          source: `trait-${trait.id}`,
+          target: `trait-group-${group.id}`,
+          type: 'default',
+          style: { stroke: '#8B5CF6' },
+        });
+      }
     }
   }
 
-  return { nodes, edges };
+  return builder.build();
 }

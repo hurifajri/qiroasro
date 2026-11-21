@@ -8,8 +8,9 @@ function transformRemoteLetter(remoteLetter: RemoteLetter) {
   return {
     id: remoteLetter.id,
     slug: remoteLetter.slug,
+    parentLetterSlug: remoteLetter.parent_letter_slug,
     symbol: remoteLetter.symbol,
-    isMadd: remoteLetter.is_madd,
+    tafkhimType: remoteLetter.tafkhim_type,
     sortOrder: remoteLetter.sort_order,
   };
 }

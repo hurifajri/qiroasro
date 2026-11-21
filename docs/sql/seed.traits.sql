@@ -1,0 +1,309 @@
+-- =====================================================================
+-- SEED DATA — TRAIT GROUPS, TRAITS & LETTER MAPPINGS (SIFATUL HURUF)
+-- =====================================================================
+-- Source of truth: docs/master.md & Muqaddimah Al-Jazariyyah (vv. 19-26)
+-- Idempotent seed resolved via slugs, safe across arbitrary identity IDs.
+
+BEGIN;
+
+-- Reset identity IDs & clear stale trait mappings before canonical seed
+TRUNCATE TABLE hij_letter_traits, hij_traits, hij_trait_groups RESTART IDENTITY CASCADE;
+
+-- 1. Trait Groups (6 for Lazimah, 1 for Aridhah)
+-- Lazimah groups (is_lazimah = TRUE)
+INSERT INTO hij_trait_groups (slug, is_lazimah, has_middle_trait, sort_order) VALUES
+  ('nafas', TRUE, FALSE, 1),              -- Hams vs Jahr
+  ('shaut', TRUE, TRUE, 2),               -- Syiddah vs Rakhawah (+ Tawassuth)
+  ('ittijah-shaut', TRUE, FALSE, 3),      -- Isti'la vs Istifal
+  ('inhishar-shaut', TRUE, FALSE, 4),     -- Itbaq vs Infitah
+  ('khiffah-nuthq', TRUE, FALSE, 5),      -- Idzlaq vs Ishmat
+  ('munfaridah', TRUE, FALSE, 6)          -- Safir, Qalqalah, Lin, Inhiraf, Takrir, Tafasyi, Istithalah, Ghunnah, Khafa
+ON CONFLICT (slug) DO UPDATE SET
+  is_lazimah = EXCLUDED.is_lazimah,
+  has_middle_trait = EXCLUDED.has_middle_trait,
+  sort_order = EXCLUDED.sort_order,
+  updated_at = CURRENT_TIMESTAMP;
+
+-- Aridhah groups (is_lazimah = FALSE)
+-- NOTE: Some scholars enumerate 11 sifat 'aridhah: tafkhim, tarqiq, izhar,
+-- idgham, qalb, ikhfa', mad, qashr, tahrik, sukun, saktah (e.g. La'ali
+-- al-Bayan by as-Samannudi, cited in Hidayat al-Qari by al-Marshafi).
+-- Others count only 8 (as-Sindi, Shafahat fi 'Ulum al-Qira'at).
+-- Only tafkhim & tarqiq are modeled here because they are the only 'aridhah
+-- that are per-letter attributes (mapped in hij_letter_traits). The other 9
+-- are contextual rulings (between letters / per position / per riwayah), not
+-- properties of a single letter, so mapping them to letters would be
+-- redundant (tahrik/sukun apply to every letter) or meaningless
+-- (izhar/idgham/qalb/ikhfa'/mad/qashr/saktah depend on neighboring letters).
+-- If these rulings are needed, model them as a separate tajwid-rules feature
+-- (see src/db/tajwid-schema.ts), not as hij_traits.
+INSERT INTO hij_trait_groups (slug, is_lazimah, has_middle_trait, sort_order) VALUES
+  ('siman-shaut', FALSE, FALSE, 7)        -- Tafkhim vs Tarqiq
+ON CONFLICT (slug) DO UPDATE SET
+  is_lazimah = EXCLUDED.is_lazimah,
+  has_middle_trait = EXCLUDED.has_middle_trait,
+  sort_order = EXCLUDED.sort_order,
+  updated_at = CURRENT_TIMESTAMP;
+
+-- 2. Individual Traits (22 traits), ordered strictly by group
+-- Group 1 (nafas): Hams vs Jahr (1-2)
+-- Group 2 (shaut): Syiddah, Tawassuth, Rakhawah (3-5)
+-- Group 3 (ittijah-shaut): Isti'la vs Istifal (6-7)
+-- Group 4 (inhishar-shaut): Itbaq vs Infitah (8-9)
+-- Group 5 (khiffah-nuthq): Idzlaq vs Ishmat (10-11)
+-- Group 6 (munfaridah): Safir, Qalqalah, Lin, Inhiraf, Takrir, Tafasyi, Istithalah, Ghunnah, Khafa (12-20)
+-- Group 7 (siman-shaut): Tafkhim vs Tarqiq (21-22)
+INSERT INTO hij_traits (group_id, slug, is_middle_trait, sort_order)
+SELECT g.id, v.slug, v.is_middle_trait, v.sort_order
+FROM (VALUES
+  ('nafas', 'hams', FALSE, 1),
+  ('nafas', 'jahr', FALSE, 2),
+  ('shaut', 'syiddah', FALSE, 3),
+  ('shaut', 'tawassuth', TRUE, 4),
+  ('shaut', 'rakhawah', FALSE, 5),
+  ('ittijah-shaut', 'istila', FALSE, 6),
+  ('ittijah-shaut', 'istifal', FALSE, 7),
+  ('inhishar-shaut', 'itbaq', FALSE, 8),
+  ('inhishar-shaut', 'infitah', FALSE, 9),
+  ('khiffah-nuthq', 'idzlaq', FALSE, 10),
+  ('khiffah-nuthq', 'ishmat', FALSE, 11),
+  ('munfaridah', 'safir', FALSE, 12),
+  ('munfaridah', 'qalqalah', FALSE, 13),
+  ('munfaridah', 'lin', FALSE, 14),
+  ('munfaridah', 'inhiraf', FALSE, 15),
+  ('munfaridah', 'takrir', FALSE, 16),
+  ('munfaridah', 'tafasyi', FALSE, 17),
+  ('munfaridah', 'istithalah', FALSE, 18),
+  ('munfaridah', 'ghunnah', FALSE, 19),
+  ('munfaridah', 'khafa', FALSE, 20),
+  ('siman-shaut', 'tafkhim', FALSE, 21),
+  ('siman-shaut', 'tarqiq', FALSE, 22)
+) AS v(group_slug, slug, is_middle_trait, sort_order)
+JOIN hij_trait_groups g ON g.slug = v.group_slug
+ON CONFLICT (slug) DO UPDATE SET
+  group_id = EXCLUDED.group_id,
+  is_middle_trait = EXCLUDED.is_middle_trait,
+  sort_order = EXCLUDED.sort_order,
+  updated_at = CURRENT_TIMESTAMP;
+
+-- 3. Letter -> Trait mapping (27 other roots + 4 Waw/Ya branch nodes)
+-- Root 'waw' and 'ya' delegate their traits to their 2 child variant nodes each.
+INSERT INTO hij_letter_traits (letter_id, trait_id)
+SELECT l.id, t.id
+FROM (VALUES
+  ('alif', 'jahr'),
+  ('alif', 'rakhawah'),
+  ('alif', 'istifal'),
+  ('alif', 'infitah'),
+  ('alif', 'ishmat'),
+  ('alif', 'khafa'),
+  ('alif', 'tafkhim'),
+  ('alif', 'tarqiq'),
+  ('hamzah', 'jahr'),
+  ('hamzah', 'syiddah'),
+  ('hamzah', 'istifal'),
+  ('hamzah', 'infitah'),
+  ('hamzah', 'ishmat'),
+  ('hamzah', 'tarqiq'),
+  ('ba', 'jahr'),
+  ('ba', 'syiddah'),
+  ('ba', 'istifal'),
+  ('ba', 'infitah'),
+  ('ba', 'idzlaq'),
+  ('ba', 'qalqalah'),
+  ('ba', 'tarqiq'),
+  ('ta', 'hams'),
+  ('ta', 'syiddah'),
+  ('ta', 'istifal'),
+  ('ta', 'infitah'),
+  ('ta', 'ishmat'),
+  ('ta', 'tarqiq'),
+  ('tsa', 'hams'),
+  ('tsa', 'rakhawah'),
+  ('tsa', 'istifal'),
+  ('tsa', 'infitah'),
+  ('tsa', 'ishmat'),
+  ('tsa', 'tarqiq'),
+  ('jim', 'jahr'),
+  ('jim', 'syiddah'),
+  ('jim', 'istifal'),
+  ('jim', 'infitah'),
+  ('jim', 'ishmat'),
+  ('jim', 'qalqalah'),
+  ('jim', 'tarqiq'),
+  ('ha-wasath', 'hams'),
+  ('ha-wasath', 'rakhawah'),
+  ('ha-wasath', 'istifal'),
+  ('ha-wasath', 'infitah'),
+  ('ha-wasath', 'ishmat'),
+  ('ha-wasath', 'tarqiq'),
+  ('kha', 'hams'),
+  ('kha', 'rakhawah'),
+  ('kha', 'istila'),
+  ('kha', 'infitah'),
+  ('kha', 'ishmat'),
+  ('kha', 'tafkhim'),
+  ('dal', 'jahr'),
+  ('dal', 'syiddah'),
+  ('dal', 'istifal'),
+  ('dal', 'infitah'),
+  ('dal', 'ishmat'),
+  ('dal', 'qalqalah'),
+  ('dal', 'tarqiq'),
+  ('dhal', 'jahr'),
+  ('dhal', 'rakhawah'),
+  ('dhal', 'istifal'),
+  ('dhal', 'infitah'),
+  ('dhal', 'ishmat'),
+  ('dhal', 'tarqiq'),
+  ('ra', 'jahr'),
+  ('ra', 'tawassuth'),
+  ('ra', 'istifal'),
+  ('ra', 'infitah'),
+  ('ra', 'idzlaq'),
+  ('ra', 'inhiraf'),
+  ('ra', 'takrir'),
+  ('ra', 'tafkhim'),
+  ('ra', 'tarqiq'),
+  ('zay', 'jahr'),
+  ('zay', 'rakhawah'),
+  ('zay', 'istifal'),
+  ('zay', 'infitah'),
+  ('zay', 'ishmat'),
+  ('zay', 'safir'),
+  ('zay', 'tarqiq'),
+  ('sin', 'hams'),
+  ('sin', 'rakhawah'),
+  ('sin', 'istifal'),
+  ('sin', 'infitah'),
+  ('sin', 'ishmat'),
+  ('sin', 'safir'),
+  ('sin', 'tarqiq'),
+  ('shin', 'hams'),
+  ('shin', 'rakhawah'),
+  ('shin', 'istifal'),
+  ('shin', 'infitah'),
+  ('shin', 'ishmat'),
+  ('shin', 'tafasyi'),
+  ('shin', 'tarqiq'),
+  ('shad', 'hams'),
+  ('shad', 'rakhawah'),
+  ('shad', 'istila'),
+  ('shad', 'itbaq'),
+  ('shad', 'ishmat'),
+  ('shad', 'safir'),
+  ('shad', 'tafkhim'),
+  ('dhad', 'jahr'),
+  ('dhad', 'rakhawah'),
+  ('dhad', 'istila'),
+  ('dhad', 'itbaq'),
+  ('dhad', 'ishmat'),
+  ('dhad', 'istithalah'),
+  ('dhad', 'tafkhim'),
+  ('tha', 'jahr'),
+  ('tha', 'syiddah'),
+  ('tha', 'istila'),
+  ('tha', 'itbaq'),
+  ('tha', 'ishmat'),
+  ('tha', 'qalqalah'),
+  ('tha', 'tafkhim'),
+  ('zha', 'jahr'),
+  ('zha', 'rakhawah'),
+  ('zha', 'istila'),
+  ('zha', 'itbaq'),
+  ('zha', 'ishmat'),
+  ('zha', 'tafkhim'),
+  ('ayn', 'jahr'),
+  ('ayn', 'tawassuth'),
+  ('ayn', 'istifal'),
+  ('ayn', 'infitah'),
+  ('ayn', 'ishmat'),
+  ('ayn', 'tarqiq'),
+  ('ghain', 'jahr'),
+  ('ghain', 'rakhawah'),
+  ('ghain', 'istila'),
+  ('ghain', 'infitah'),
+  ('ghain', 'ishmat'),
+  ('ghain', 'tafkhim'),
+  ('fa', 'hams'),
+  ('fa', 'rakhawah'),
+  ('fa', 'istifal'),
+  ('fa', 'infitah'),
+  ('fa', 'idzlaq'),
+  ('fa', 'tarqiq'),
+  ('qaf', 'jahr'),
+  ('qaf', 'syiddah'),
+  ('qaf', 'istila'),
+  ('qaf', 'infitah'),
+  ('qaf', 'ishmat'),
+  ('qaf', 'qalqalah'),
+  ('qaf', 'tafkhim'),
+  ('kaf', 'hams'),
+  ('kaf', 'syiddah'),
+  ('kaf', 'istifal'),
+  ('kaf', 'infitah'),
+  ('kaf', 'ishmat'),
+  ('kaf', 'tarqiq'),
+  ('lam', 'jahr'),
+  ('lam', 'tawassuth'),
+  ('lam', 'istifal'),
+  ('lam', 'infitah'),
+  ('lam', 'idzlaq'),
+  ('lam', 'inhiraf'),
+  ('lam', 'tafkhim'),
+  ('lam', 'tarqiq'),
+  ('mim', 'jahr'),
+  ('mim', 'tawassuth'),
+  ('mim', 'istifal'),
+  ('mim', 'infitah'),
+  ('mim', 'idzlaq'),
+  ('mim', 'ghunnah'),
+  ('mim', 'tarqiq'),
+  ('nun', 'jahr'),
+  ('nun', 'tawassuth'),
+  ('nun', 'istifal'),
+  ('nun', 'infitah'),
+  ('nun', 'idzlaq'),
+  ('nun', 'ghunnah'),
+  ('nun', 'tarqiq'),
+  ('waw-ghairu-maddiyyah', 'jahr'),
+  ('waw-ghairu-maddiyyah', 'rakhawah'),
+  ('waw-ghairu-maddiyyah', 'istifal'),
+  ('waw-ghairu-maddiyyah', 'infitah'),
+  ('waw-ghairu-maddiyyah', 'ishmat'),
+  ('waw-ghairu-maddiyyah', 'lin'),
+  ('waw-ghairu-maddiyyah', 'tarqiq'),
+  ('ha-aqsha', 'hams'),
+  ('ha-aqsha', 'rakhawah'),
+  ('ha-aqsha', 'istifal'),
+  ('ha-aqsha', 'infitah'),
+  ('ha-aqsha', 'ishmat'),
+  ('ha-aqsha', 'khafa'),
+  ('ha-aqsha', 'tarqiq'),
+  ('ya-ghairu-maddiyyah', 'jahr'),
+  ('ya-ghairu-maddiyyah', 'rakhawah'),
+  ('ya-ghairu-maddiyyah', 'istifal'),
+  ('ya-ghairu-maddiyyah', 'infitah'),
+  ('ya-ghairu-maddiyyah', 'ishmat'),
+  ('ya-ghairu-maddiyyah', 'lin'),
+  ('ya-ghairu-maddiyyah', 'tarqiq'),
+  ('waw-maddiyyah', 'jahr'),
+  ('waw-maddiyyah', 'rakhawah'),
+  ('waw-maddiyyah', 'istifal'),
+  ('waw-maddiyyah', 'infitah'),
+  ('waw-maddiyyah', 'ishmat'),
+  ('waw-maddiyyah', 'khafa'),
+  ('waw-maddiyyah', 'tarqiq'),
+  ('ya-maddiyyah', 'jahr'),
+  ('ya-maddiyyah', 'rakhawah'),
+  ('ya-maddiyyah', 'istifal'),
+  ('ya-maddiyyah', 'infitah'),
+  ('ya-maddiyyah', 'ishmat'),
+  ('ya-maddiyyah', 'khafa'),
+  ('ya-maddiyyah', 'tarqiq')
+) AS v(letter_slug, trait_slug)
+JOIN hij_letters l ON l.slug = v.letter_slug
+JOIN hij_traits t ON t.slug = v.trait_slug
+ON CONFLICT (letter_id, trait_id) DO NOTHING;
+
+COMMIT;

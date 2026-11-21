@@ -70,8 +70,7 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
           'rounded-lg border-2 border-node-trait/50 bg-node-trait-secondary px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
-          ['tafkhim', 'tarqiq', 'others'].includes(nodeData.slug) &&
-            'border-dashed',
+          ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
         {isActive && (

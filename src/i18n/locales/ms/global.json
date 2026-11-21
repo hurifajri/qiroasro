@@ -135,6 +135,7 @@
       }
     },
     "letter": {
+      "alif": "Alif",
       "hamzah": "Hamzah",
       "ba": "Ba",
       "ta": "Ta",
@@ -161,12 +162,12 @@
       "mim": "Mim",
       "nun": "Nun",
       "waw": "Wau",
+      "waw_maddiyyah": "Wau Maddiyah",
+      "waw_ghairu_maddiyyah": "Wau Ghairu Maddiyah",
       "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alif_madd": "Alif Mad",
-      "waw_madd": "Wau Mad",
-      "ya_madd": "Ya Mad"
+      "ya_maddiyyah": "Ya Maddiyah",
+      "ya_ghairu_maddiyyah": "Ya Ghairu Maddiyah"
     },
     "articulation_area": {
       "al_jauf": "Rongga",
@@ -180,17 +181,17 @@
       "aqsha_halq": "Aqsa Al-Halq",
       "wasath_halq": "Wasat Al-Halq",
       "adna_halq": "Adna Al-Halq",
-      "aqsha_lisan": "Aqsa Al-Lisan",
+      "aqsha_lisan_fauq": "Aqsa Al-Lisan (Fauq)",
       "aqsha_lisan_asfal": "Aqsa Al-Lisan (Asfal)",
       "wasath_lisan": "Wasat Al-Lisan",
-      "hafah_lisan": "Hafah Al-Lisan",
+      "hafah_lisan_adhras": "Hafah Al-Lisan & Al-Adhras",
       "adna_hafah_lisan": "Adna Hafah Al-Lisan",
-      "tharaf_lisan": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": "Tharaf Al-Lisan (Taht)",
       "tharaf_lisan_zhahr_adkhal": "Tharaf Al-Lisan (Zahr)",
-      "tharaf_lisan_ulya_tsanaya": "Tharaf Al-Lisan & Usul Ats-Tsanaya",
-      "tharaf_lisan_tsanaya_sufla": "Tharaf Al-Lisan & Ats-Tsanaya As-Sufla",
+      "tharaf_lisan_ushul_tsanaya": "Tharaf Al-Lisan & Usul Ats-Tsanaya",
+      "tharaf_lisan_fauq_tsanaya_sufla": "Tharaf Al-Lisan & Fauq Ats-Tsanaya As-Sufla",
       "tharaf_lisan_athraf_tsanaya_ulya": "Tharaf Al-Lisan & Atraf Ats-Tsanaya",
-      "bathn_syafah": "Batn Asy-Syafah",
+      "bathn_syafah_sufla": "Batn Asy-Syafah As-Sufla",
       "syafatain": "Asy-Syafatain",
       "khaisyum": "Al-Khaisyum"
     },
@@ -199,17 +200,17 @@
       "aqsha_halq": "Kerongkong bahagian bawah (paling jauh dari mulut), tepat pada pita suara.",
       "wasath_halq": "Kerongkong bahagian tengah, tepat pada epiglotis.",
       "adna_halq": "Kerongkong bahagian atas (paling dekat dengan mulut), pertemuan antara akar lidah dan anak tekak.",
-      "aqsha_lisan": "Pangkal lidah menyentuh langit-langit lembut (daging).",
+      "aqsha_lisan_fauq": "Pangkal lidah menyentuh langit-langit lembut (daging).",
       "aqsha_lisan_asfal": "Pangkal lidah (sedikit di bawah makhraj Qaf) menyentuh pertemuan langit-langit lembut dan keras.",
       "wasath_lisan": "Tengah lidah naik ke langit-langit. (Menempel untuk huruf Jim; mendekat tanpa menempel untuk Syin dan Ya).",
-      "hafah_lisan": "Tepi lidah (dari pangkal hingga hujung tepi) menekan dinding gigi geraham atas (kiri, kanan, atau keduanya).",
+      "hafah_lisan_adhras": "Tepi lidah (dari pangkal hingga hujung tepi) menekan dinding gigi geraham atas (kiri, kanan, atau keduanya).",
       "adna_hafah_lisan": "Tepi lidah bahagian depan (selepas makhraj Dhad hingga hujung) menyentuh gusi gigi kacip atas.",
-      "tharaf_lisan": "Hujung lidah menyentuh gusi gigi kacip atas (sedikit di bawah makhraj Lam).",
+      "tharaf_lisan_taht": "Hujung lidah menyentuh gusi gigi kacip atas (sedikit di bawah makhraj Lam).",
       "tharaf_lisan_zhahr_adkhal": "Hujung lidah sedikit masuk ke bahagian belakang lidah (bergetar).",
-      "tharaf_lisan_ulya_tsanaya": "Hujung lidah menyentuh pangkal (akar) gigi kacip atas.",
-      "tharaf_lisan_tsanaya_sufla": "Hujung lidah berada di belakang gigi kacip bawah (posisi lidah istifal).",
+      "tharaf_lisan_ushul_tsanaya": "Hujung lidah menyentuh pangkal (akar) gigi kacip atas.",
+      "tharaf_lisan_fauq_tsanaya_sufla": "Hujung lidah berada di belakang gigi kacip bawah (posisi lidah istifal).",
       "tharaf_lisan_athraf_tsanaya_ulya": "Hujung lidah menyentuh hujung gigi kacip atas.",
-      "bathn_syafah": "Bibir bawah bahagian dalam menyentuh hujung gigi kacip atas.",
+      "bathn_syafah_sufla": "Bibir bawah bahagian dalam menyentuh hujung gigi kacip atas.",
       "syafatain": "Dua bibir. (Membulat untuk Wau; Menutup untuk Ba; Menutup dengan dengung untuk Mim).",
       "khaisyum": "Rongga hidung (pangkal hidung), tempat keluarnya suara dengung (ghunnah)."
     },
@@ -242,9 +243,9 @@
       "tafasyi": "Tafasyi",
       "istithalah": "Istithalah",
       "ghunnah": "Ghunnah",
+      "khafa": "Khafa'",
       "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Lain-lain"
+      "tarqiq": "Tarqiq"
     },
     "trait_description": {
       "jahr": "Tertahannya nafas (jelas).",
@@ -266,9 +267,9 @@
       "tafasyi": "Udara yang berhembus deras dan menyebar di dalam mulut.",
       "istithalah": "Memanjangnya suara dari tepi pangkal lidah hingga ke hujung.",
       "ghunnah": "Suara dengung yang keluar dari pangkal hidung.",
+      "khafa": "Samar: bunyi huruf mad (alif, wau, ya) yang melemah kerana berakhir di rongga mulut (al-jauf).",
       "tafkhim": "Suara tebal (Mufakhkham).",
-      "tarqiq": "Suara nipis (Muraqqaq).",
-      "others": "Ada beberapa yang belum ditambah, insya-Allah akan segera ditambah."
+      "tarqiq": "Suara nipis (Muraqqaq)."
     },
     "development": {
       "email_placeholder": "E-mel",

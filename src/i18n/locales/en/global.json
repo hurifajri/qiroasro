@@ -135,6 +135,7 @@
       }
     },
     "letter": {
+      "alif": "Alif",
       "hamzah": "Hamzah",
       "ba": "Ba",
       "ta": "Ta",
@@ -161,12 +162,12 @@
       "mim": "Mim",
       "nun": "Nun",
       "waw": "Waw",
+      "waw_maddiyyah": "Waw Maddiyyah",
+      "waw_ghairu_maddiyyah": "Waw Ghairu Maddiyyah",
       "ha_aqsha": "Ha",
-      "lam_alif": "Lam Alif",
       "ya": "Ya",
-      "alif_madd": "Alif Madd",
-      "waw_madd": "Waw Madd",
-      "ya_madd": "Ya Madd"
+      "ya_maddiyyah": "Ya Maddiyyah",
+      "ya_ghairu_maddiyyah": "Ya Ghairu Maddiyyah"
     },
     "articulation_area": {
       "al_jauf": "The Oral and Throat Cavity",
@@ -180,17 +181,17 @@
       "aqsha_halq": "Aqsa Al-Halq",
       "wasath_halq": "Wasat Al-Halq",
       "adna_halq": "Adna Al-Halq",
-      "aqsha_lisan": "Aqsa Al-Lisan",
+      "aqsha_lisan_fauq": "Aqsa Al-Lisan (Fauq)",
       "aqsha_lisan_asfal": "Aqsa Al-Lisan (Asfal)",
       "wasath_lisan": "Wasat Al-Lisan",
-      "hafah_lisan": "Hafah Al-Lisan",
+      "hafah_lisan_adhras": "Hafah Al-Lisan & Al-Adras",
       "adna_hafah_lisan": "Adna Hafah Al-Lisan",
-      "tharaf_lisan": "Tharaf Al-Lisan",
+      "tharaf_lisan_taht": "Tharaf Al-Lisan (Taht)",
       "tharaf_lisan_zhahr_adkhal": "Tharaf Al-Lisan (Zhahr)",
-      "tharaf_lisan_ulya_tsanaya": "Tharaf Al-Lisan & Usul Ath-Thanaya",
-      "tharaf_lisan_tsanaya_sufla": "Tharaf Al-Lisan & Ath-Thanaya As-Sufla",
+      "tharaf_lisan_ushul_tsanaya": "Tharaf Al-Lisan & Usul Ath-Thanaya",
+      "tharaf_lisan_fauq_tsanaya_sufla": "Tharaf Al-Lisan & Fauq Ath-Thanaya As-Sufla",
       "tharaf_lisan_athraf_tsanaya_ulya": "Tharaf Al-Lisan & Atraf Ath-Thanaya",
-      "bathn_syafah": "Batn Ash-Shafah",
+      "bathn_syafah_sufla": "Batn Ash-Shafah As-Sufla",
       "syafatain": "Ash-Shafatain",
       "khaisyum": "Al-Khaishum"
     },
@@ -199,17 +200,17 @@
       "aqsha_halq": "The deepest part of the throat (furthest from the mouth), specifically at the vocal cords (larynx).",
       "wasath_halq": "The middle part of the throat, specifically at the epiglottis.",
       "adna_halq": "The closest part of the throat (nearest to the mouth), where the root of the tongue meets the uvula.",
-      "aqsha_lisan": "The back of the tongue touching the soft palate (the fleshy part of the roof of the mouth).",
+      "aqsha_lisan_fauq": "The back of the tongue touching the soft palate (the fleshy part of the roof of the mouth).",
       "aqsha_lisan_asfal": "The back of the tongue (slightly below the Qaf articulation point) touching the junction of the soft and hard palates.",
       "wasath_lisan": "The middle of the tongue rising to the roof of the mouth. (Touching for Jim; rising without touching for Shin and Ya).",
-      "hafah_lisan": "The edge of the tongue (extending from the back to the tip) pressing against the inner wall of the upper molars on the left, right, or both.",
+      "hafah_lisan_adhras": "The edge of the tongue (extending from the back to the tip) pressing against the inner wall of the upper molars on the left, right, or both.",
       "adna_hafah_lisan": "The nearest part of the tongue's edge (from the end of the Dhad articulation point to the tip) touching the palate near the gums of the upper incisors.",
-      "tharaf_lisan": "The tip of the tongue touching the palate near the gums of the upper incisors (slightly below the Lam articulation point).",
+      "tharaf_lisan_taht": "The tip of the tongue touching the palate near the gums of the upper incisors (slightly below the Lam articulation point).",
       "tharaf_lisan_zhahr_adkhal": "The tip of the tongue slightly curling into the back of the tongue (close to the Nun articulation point).",
-      "tharaf_lisan_ulya_tsanaya": "The tip of the tongue touching the base (root) of the upper incisors.",
-      "tharaf_lisan_tsanaya_sufla": "The tip of the tongue positioned just above the lower incisors (without touching).",
+      "tharaf_lisan_ushul_tsanaya": "The tip of the tongue touching the base (root) of the upper incisors.",
+      "tharaf_lisan_fauq_tsanaya_sufla": "The tip of the tongue positioned just above the lower incisors (without touching).",
       "tharaf_lisan_athraf_tsanaya_ulya": "The tip of the tongue touching the cutting edge of the upper incisors.",
-      "bathn_syafah": "The inner part of the lower lip touching the cutting edge of the upper incisors.",
+      "bathn_syafah_sufla": "The inner part of the lower lip touching the cutting edge of the upper incisors.",
       "syafatain": "The two lips. (Rounding lips for Waw; Closing lips for Ba; Closing lips with ghunnah for Mim).",
       "khaisyum": "The nasal cavity (base of the nose), from where the Ghunnah (nasal sound) of Nun and Mim is emitted."
     },
@@ -242,9 +243,9 @@
       "tafasyi": "Tafashi",
       "istithalah": "Istitalah",
       "ghunnah": "Ghunnah",
+      "khafa": "Khafa'",
       "tafkhim": "Tafkhim",
-      "tarqiq": "Tarqiq",
-      "others": "Others"
+      "tarqiq": "Tarqiq"
     },
     "trait_description": {
       "jahr": "The stoppage of breath flow (audible/clear sound).",
@@ -266,9 +267,9 @@
       "tafasyi": "Spreading of air throughout the mouth.",
       "istithalah": "Elongation of the sound from the beginning to the end of the tongue's edge.",
       "ghunnah": "A nasal sound emitted from the nasal cavity.",
+      "khafa": "Subtlety: the faint sound of the madd letters (Alif, Waw, Ya) as their sound ends in the Jauf.",
       "tafkhim": "A thick (heavy) sound caused by the elevation of the back of the tongue. There are 7 letters that are always pronounced thick, namely the letters possessing the trait of Isti'la.",
-      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition.",
-      "others": "Some characteristics have not been added yet; inshaa Allah, they will be added soon."
+      "tarqiq": "A thin (light) sound caused by the lowering of the back of the tongue. There are 19 letters that are always pronounced thin (letters with Istifal), except for Alif, Lam, and Ra, as these three can be pronounced thick or thin depending on the condition."
     },
     "development": {
       "email_placeholder": "Email",

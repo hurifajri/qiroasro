@@ -13,6 +13,8 @@ import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
+import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
+import type { LetterTafkhimType } from '../_schemas/letter';
 import type { ChallengeQuizAnalytic, QuizType } from '../_schemas/quiz';
 
 interface ChallengeAnalyticsProps {
@@ -112,7 +114,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                   // Letter Visualization
                   <LetterNode
                     symbol={analytic.letters[0].symbol}
-                    isMadd={analytic.letters[0].isMadd}
+                    tafkhimType={analytic.letters[0].tafkhimType}
                     className="size-12 text-3xl"
                   />
                 )}
@@ -134,7 +136,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                           <LetterNode
                             key={letter.id}
                             symbol={letter.symbol}
-                            isMadd={letter.isMadd}
+                            tafkhimType={letter.tafkhimType}
                             className="size-8 text-base"
                           />
                         ))
@@ -182,7 +184,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                             <LetterNode
                               key={letterId}
                               symbol={letter.symbol}
-                              isMadd={letter.isMadd}
+                              tafkhimType={letter.tafkhimType}
                               className="size-8 text-base"
                             />
                           );
@@ -246,7 +248,7 @@ export function ChallengeAnalytics({ analytics }: ChallengeAnalyticsProps) {
                           <div key={letterId} className="relative">
                             <LetterNode
                               symbol={letter.symbol}
-                              isMadd={letter.isMadd}
+                              tafkhimType={letter.tafkhimType}
                               className="size-8 text-base"
                             />
                             {isCorrect ? (
@@ -319,18 +321,17 @@ function TitleNode({ title, icon, className }: TitleNodeProps) {
 
 interface LetterNodeProps {
   symbol: string;
-  isMadd: boolean;
+  tafkhimType: LetterTafkhimType;
   className?: string;
 }
 
-function LetterNode({ symbol, isMadd, className }: LetterNodeProps) {
+function LetterNode({ symbol, tafkhimType, className }: LetterNodeProps) {
   return (
     <div
       className={cn(
         'flex items-center justify-center rounded-full font-arabic font-bold text-node-letter-text',
-        isMadd
-          ? 'bg-linear-to-br from-node-letter-madd to-node-letter-madd-dark'
-          : 'bg-linear-to-br from-node-letter to-node-letter-dark',
+        'bg-linear-to-br',
+        LETTER_TAFKHIM_GRADIENT[tafkhimType],
         className,
       )}
     >

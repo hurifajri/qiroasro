@@ -30,7 +30,7 @@ export function calculateAnswer(
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
   // Collect data for single analytic
-  const allLetters: Array<{ id: number; symbol: string; isMadd: boolean }> = [];
+  const allLetters: ChallengeQuizAnalytic['letters'] = [];
   const allCorrectTargets: QuizTarget[] = [];
   const allUserAnswers: QuizTarget[] = [];
   const targetType = questions[0]?.targetType || 'articulation_point';
@@ -46,7 +46,7 @@ export function calculateAnswer(
     allLetters.push({
       id: question.letter.id,
       symbol: question.letter.symbol,
-      isMadd: question.letter.isMadd,
+      tafkhimType: question.letter.tafkhimType,
     });
 
     // Filter correctTargetIds to only include targets that are displayed on screen

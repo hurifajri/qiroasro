@@ -44,10 +44,15 @@ next-env.d.ts
 # ai tools & skills
 /.agent/
 /.agents/
+/.claude/
 /.mcp.json
 /.vscode/mcp.json
 /AGENTS.md
+/CLAUDE.md
 /skills-lock.json
 
 # internal docs
-/docs/
+/docs/*
+!/docs/books/
+!/docs/sql/
+!/docs/master.md

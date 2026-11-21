@@ -14,11 +14,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import type { ViewMode } from '../_schemas/graph';
+import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 
 interface GraphLegendProps {
   dir: 'ltr' | 'rtl';
-  viewMode: ViewMode;
+  isArticulationVisible: boolean;
+  isTraitVisible: boolean;
 }
 
 type LegendId =
@@ -27,7 +28,18 @@ type LegendId =
   | 'traitLazimah'
   | 'traitAridhah';
 
-export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
+interface LegendItem {
+  id: string;
+  label: string;
+  color: string;
+  hasInfo?: boolean;
+}
+
+export function GraphLegend({
+  dir,
+  isArticulationVisible,
+  isTraitVisible,
+}: GraphLegendProps) {
   const t = useTranslations('playground_page.legend');
   const [isOpen, setIsOpen] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -35,82 +47,69 @@ export function GraphLegend({ dir, viewMode }: GraphLegendProps) {
     null,
   );
 
-  const legends = [
-    ...(['all', 'articulation', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'articulationArea',
-            label: t('articulation_area'),
-            color: 'from-node-articulation to-node-articulation-dark',
-          },
-        ]
-      : []),
-    ...(['all', 'articulation', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'articulationMuhaqqaq',
-            label: t('articulation_muhaqqaq'),
-            color:
-              'border-2 border-node-articulation/50 bg-node-articulation/20',
-            hasInfo: true,
-          },
-        ]
-      : []),
-    ...(['all', 'articulation', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'articulationMuqaddar',
-            label: t('articulation_muqaddar'),
-            color:
-              'border-2 border-dashed border-node-articulation/50 bg-node-articulation/20',
-            hasInfo: true,
-          },
-        ]
-      : []),
-    ...(['all', 'trait', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'traitGroup',
-            label: t('trait_group'),
-            color: 'from-node-trait to-node-trait-dark',
-          },
-        ]
-      : []),
-    ...(['all', 'trait', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'traitLazimah',
-            label: t('trait_lazimah'),
-            color: 'border-2 border-node-trait/50 bg-node-trait/20',
-            hasInfo: true,
-          },
-        ]
-      : []),
-    ...(['all', 'trait', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'traitAridhah',
-            label: t('trait_aridhah'),
-            color:
-              'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
-            hasInfo: true,
-          },
-        ]
-      : []),
+  const articulationLegends: LegendItem[] = [
     {
-      id: 'letter',
-      label: t('letter'),
-      color: 'from-node-letter to-node-letter-dark',
+      id: 'articulationArea',
+      label: t('articulation_area'),
+      color: 'from-node-articulation to-node-articulation-dark',
     },
-    ...(['all', 'articulation', 'letter'].includes(viewMode)
-      ? [
-          {
-            id: 'letterMadd',
-            label: t('letterMadd'),
-            color: 'from-node-letter-madd to-node-letter-madd-dark',
-          },
-        ]
-      : []),
+    {
+      id: 'articulationMuhaqqaq',
+      label: t('articulation_muhaqqaq'),
+      color: 'border-2 border-node-articulation/50 bg-node-articulation/20',
+      hasInfo: true,
+    },
+    {
+      id: 'articulationMuqaddar',
+      label: t('articulation_muqaddar'),
+      color:
+        'border-2 border-dashed border-node-articulation/50 bg-node-articulation/20',
+      hasInfo: true,
+    },
+  ];
+
+  const traitLegends: LegendItem[] = [
+    {
+      id: 'traitGroup',
+      label: t('trait_group'),
+      color: 'from-node-trait to-node-trait-dark',
+    },
+    {
+      id: 'traitLazimah',
+      label: t('trait_lazimah'),
+      color: 'border-2 border-node-trait/50 bg-node-trait/20',
+      hasInfo: true,
+    },
+    {
+      id: 'traitAridhah',
+      label: t('trait_aridhah'),
+      color: 'border-2 border-dashed border-node-trait/50 bg-node-trait/20',
+      hasInfo: true,
+    },
+  ];
+
+  const letterLegends: LegendItem[] = [
+    {
+      id: 'letterTafkhim',
+      label: t('letter_tafkhim'),
+      color: LETTER_TAFKHIM_GRADIENT.always_tafkhim,
+    },
+    {
+      id: 'letterConditional',
+      label: t('letter_conditional'),
+      color: LETTER_TAFKHIM_GRADIENT.conditional,
+    },
+    {
+      id: 'letterTarqiq',
+      label: t('letter_tarqiq'),
+      color: LETTER_TAFKHIM_GRADIENT.always_tarqiq,
+    },
+  ];
+
+  const legends = [
+    ...(isArticulationVisible ? articulationLegends : []),
+    ...(isTraitVisible ? traitLegends : []),
+    ...letterLegends,
   ];
 
   const legendInfo: Record<LegendId, { title: string; description: string }> = {
