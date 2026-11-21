@@ -6,6 +6,7 @@ import {
   BackgroundVariant,
   type ColorMode,
   Controls,
+  type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
@@ -48,6 +49,7 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
+import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -71,6 +73,11 @@ const nodeTypes: NodeTypes = {
   articulationPoint: ArticulationPointNode,
   traitGroup: TraitGroupNode,
   trait: TraitNode,
+};
+
+// Register custom edge types
+const edgeTypes: EdgeTypes = {
+  floating: FloatingEdge,
 };
 
 export function Playground() {
@@ -196,6 +203,7 @@ export function Playground() {
         ...node,
         data: {
           ...node.data,
+          isFloating: edgeStyle.isFloating,
           layoutMode,
           hierarchyDirection,
           hasSourceEdge: nodesWithSourceEdge.has(node.id),
@@ -204,9 +212,10 @@ export function Playground() {
       }));
 
       // Apply edge type based on current edgeStyle
+      const edgeType = edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
       const edgesWithStyle = newEdges.map((edge) => ({
         ...edge,
-        type: edgeStyle.shape,
+        type: edgeType,
         animated: edgeStyle.isAnimated,
       }));
 
@@ -223,6 +232,7 @@ export function Playground() {
     viewMode,
     layoutMode,
     hierarchyDirection,
+    edgeStyle.isFloating,
     edgeStyle.shape,
     selectedLetterId,
     isTraitVisible,
@@ -336,10 +346,10 @@ export function Playground() {
   // Memoize defaultEdgeOptions to prevent new object reference on every render
   const defaultEdgeOptions = useMemo(
     () => ({
-      type: edgeStyle.shape,
+      type: edgeStyle.isFloating ? 'floating' : edgeStyle.shape,
       animated: edgeStyle.isAnimated,
     }),
-    [edgeStyle.shape, edgeStyle.isAnimated],
+    [edgeStyle.isFloating, edgeStyle.shape, edgeStyle.isAnimated],
   );
 
   const isUnsupportedMobileView = isMaxMd && viewMode !== 'letter';
@@ -364,6 +374,7 @@ export function Playground() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             defaultEdgeOptions={defaultEdgeOptions}

@@ -17,7 +17,7 @@ export const FloatingEdge = memo(
         return { sourceNode, targetNode };
       },
       (prev, next) => {
-        // Only re-render if node positions actually changed
+        // Re-render when node positions or measured dimensions change
         const prevSourcePos = prev.sourceNode?.internals?.positionAbsolute;
         const nextSourcePos = next.sourceNode?.internals?.positionAbsolute;
         const prevTargetPos = prev.targetNode?.internals?.positionAbsolute;
@@ -27,12 +27,25 @@ export const FloatingEdge = memo(
           prevSourcePos?.x === nextSourcePos?.x &&
           prevSourcePos?.y === nextSourcePos?.y &&
           prevTargetPos?.x === nextTargetPos?.x &&
-          prevTargetPos?.y === nextTargetPos?.y
+          prevTargetPos?.y === nextTargetPos?.y &&
+          prev.sourceNode?.measured?.width ===
+            next.sourceNode?.measured?.width &&
+          prev.sourceNode?.measured?.height ===
+            next.sourceNode?.measured?.height &&
+          prev.targetNode?.measured?.width ===
+            next.targetNode?.measured?.width &&
+          prev.targetNode?.measured?.height ===
+            next.targetNode?.measured?.height
         );
       },
     );
 
-    if (!sourceNode || !targetNode) {
+    if (
+      !sourceNode?.measured?.width ||
+      !sourceNode?.measured?.height ||
+      !targetNode?.measured?.width ||
+      !targetNode?.measured?.height
+    ) {
       return null;
     }
 
