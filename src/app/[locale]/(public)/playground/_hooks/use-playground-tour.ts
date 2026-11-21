@@ -9,41 +9,6 @@ import type { Locale } from '@/i18n/routing';
 
 const TOUR_COMPLETED_KEY = 'playground_tour-completed';
 
-// Helper to check if an element is visible in DOM
-function isElementVisible(selector: string): boolean {
-  const element = document.querySelector(selector);
-  if (!element) return false;
-  const style = window.getComputedStyle(element);
-  return (
-    style.display !== 'none' &&
-    style.visibility !== 'hidden' &&
-    style.opacity !== '0'
-  );
-}
-
-// Helper to apply eye-catching highlight effect
-function flashElement(element: Element | null) {
-  if (!element) return;
-
-  // const el = element.parentElement as HTMLElement;
-  const el = element as HTMLElement;
-  if (!el) return;
-  const originalStyles = {
-    borderRadius: el.style.borderRadius,
-    border: el.style.border,
-  };
-
-  // Apply red highlight with border radius
-  el.style.borderRadius = '4px';
-  el.style.border = '1px solid red';
-
-  // Reset after 1.5 seconds
-  setTimeout(() => {
-    el.style.borderRadius = originalStyles.borderRadius;
-    el.style.border = originalStyles.border;
-  }, 500);
-}
-
 interface UsePlaygroundTourProps {
   theme: ColorMode;
 }
@@ -107,20 +72,8 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.view_mode.title'),
           description: t('steps.view_mode.description'),
-          onNextClick: () => {
-            // Check if settings panel content is visible (user has opened it)
-            if (!isElementVisible('#tour-letter-selector')) {
-              // Flash the trigger to indicate user needs to click it
-              const buttons = document.querySelectorAll(
-                '#tour-view-mode button',
-              );
-              const trigger = buttons[0];
-              flashElement(trigger);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-letter-selector',
@@ -142,20 +95,8 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
         popover: {
           title: t('steps.layout_mode.title'),
           description: t('steps.layout_mode.description'),
-          onNextClick: () => {
-            // Check if settings panel content is visible (user has opened it)
-            if (!isElementVisible('#tour-hierarchy-direction')) {
-              // Flash the trigger to indicate user needs to click it
-              const buttons = document.querySelectorAll(
-                '#tour-layout-mode button',
-              );
-              const trigger = buttons[0];
-              flashElement(trigger);
-              return;
-            }
-            driverRef.current?.moveNext();
-          },
         },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-hierarchy-direction',
@@ -163,6 +104,14 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
           title: t('steps.hierarchy_direction.title'),
           description: t('steps.hierarchy_direction.description'),
         },
+      },
+      {
+        element: '#tour-edge-style',
+        popover: {
+          title: t('steps.edge_style.title'),
+          description: t('steps.edge_style.description'),
+        },
+        disableActiveInteraction: true,
       },
       {
         element: '#tour-edge-shape',
@@ -270,7 +219,9 @@ export function usePlaygroundTour({ theme }: UsePlaygroundTourProps) {
 
     // Delay to allow the graph to render before starting the tour
     const timeout = setTimeout(() => {
-      startTour();
+      startTour().catch((error) => {
+        console.error('[usePlaygroundTour] Failed to start tour:', error);
+      });
     }, 1000);
 
     // Cleanup on unmount
