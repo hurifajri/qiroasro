@@ -156,7 +156,7 @@
         },
         "canvas": {
           "title": "Kawasan Interaktif",
-          "description": "Ini adalah kawasan utama untuk meneroka hubungan antara huruf, makhraj, dan sifatnya. Sila cuba klik salah satu huruf, makhraj, atau sifat yang ada di skrin."
+          "description": "Ini adalah kawasan utama untuk meneroka hubungan antara huruf, makhraj, dan sifatnya. Setiap huruf, makhraj, atau sifat pada skrin boleh diklik untuk melihat kaitannya."
         },
         "controls": {
           "title": "Kawalan Paparan",
@@ -164,15 +164,15 @@
         },
         "graph_filter": {
           "title": "Panel Tetapan",
-          "description": "Di sini untuk melaraskan paparan graf mengikut keperluan. Sila klik untuk membuka panel tetapan."
+          "description": "Di sini untuk melaraskan paparan graf mengikut keperluan. Panel ini boleh dibuka dan ditutup mengikut keperluan."
         },
         "view_mode": {
           "title": "Mod Paparan",
-          "description": "Pilih untuk fokus pada Satu Huruf tertentu atau paparkan Semua Huruf sekaligus. Sila klik 'Per Huruf' untuk meneruskan."
+          "description": "Pilih untuk fokus pada Satu Huruf tertentu atau paparkan Semua Huruf sekaligus."
         },
         "letter_selector": {
           "title": "Pilihan Huruf Hijaiyyah",
-          "description": "Masya-Allah, terdapat 29 huruf hijaiyyah yang boleh diterokai. Pilih salah satu huruf untuk melihat makhraj dan sifatnya secara terperinci."
+          "description": "Masya-Allah, terdapat 29 huruf hijaiyyah yang boleh diterokai. Klik salah satu huruf untuk melihat makhraj dan sifatnya secara terperinci."
         },
         "visibility_filter": {
           "title": "Penapis Paparan",
@@ -180,23 +180,23 @@
         },
         "layout_mode": {
           "title": "Mod Susun Atur",
-          "description": "Pilih antara susun atur Radial (membulat) atau Hierarki (bertingkat). Sila cuba mod Hierarki."
+          "description": "Pilih antara susun atur Radial (membulat) atau Hierarki (bertingkat)."
         },
         "hierarchy_direction": {
           "title": "Arah Hierarki",
-          "description": "Tetapkan arah aliran: Menegak (atas ke bawah) atau Mendatar (kiri ke kanan). Sila pilih Mendatar."
+          "description": "Tetapkan arah aliran: Menegak (atas ke bawah) atau Mendatar (kiri ke kanan)."
         },
         "edge_style": {
           "title": "Gaya Garis Penghubung",
-          "description": "Aktifkan garisan dinamik yang mengikut posisi nod, atau nyahaktifkan untuk memilih bentuk garisan statik."
+          "description": "Butang ini digunakan untuk mengaktifkan garisan dinamik yang mengikut posisi nod, atau menyahaktifkannya bagi memilih bentuk garisan statik."
         },
         "edge_shape": {
           "title": "Bentuk Garis Penghubung",
-          "description": "Pilih bentuk garisan penghubung: Bezier, Lurus, Langkah, atau Halus."
+          "description": "Pilihan ini digunakan untuk menentukan bentuk garisan penghubung: Bezier, Lurus, Langkah, atau Halus."
         },
         "graph_legend": {
           "title": "Petunjuk Warna",
-          "description": "Panel ini menjelaskan makna warna setiap nod. Sila buka untuk meneruskan."
+          "description": "Panel ini menjelaskan makna warna setiap nod dan boleh dibuka atau ditutup mengikut keperluan."
         },
         "legend_detail": {
           "title": "Maklumat Terperinci",
@@ -204,23 +204,23 @@
         },
         "download": {
           "title": "Muat Turun Imej",
-          "description": "Klik butang ini untuk memuat turun imej graf."
+          "description": "Butang ini boleh diklik untuk memuat turun imej graf."
         },
         "quiz": {
           "title": "Kuiz",
-          "description": "Klik butang ini untuk mencuba beberapa contoh kuiz."
+          "description": "Butang ini boleh diklik untuk mencuba beberapa contoh kuiz."
         },
         "locale_selector": {
           "title": "Pilih Bahasa",
-          "description": "Pilih bahasa untuk menggunakan aplikasi dalam bahasa yang dikehendaki."
+          "description": "Menu ini boleh digunakan untuk menukar bahasa aplikasi mengikut kehendak anda."
         },
         "theme_selector": {
           "title": "Pilih Tema",
-          "description": "Pilih tema antara mod terang atau gelap."
+          "description": "Menu ini boleh digunakan untuk menukar tema aplikasi antara mod terang atau gelap."
         },
         "help": {
           "title": "Bantuan",
-          "description": "Klik butang ini untuk memulakan semula panduan halaman."
+          "description": "Butang ini boleh diklik untuk memulakan semula panduan halaman."
         },
         "end": {
           "title": "Selesai",

@@ -156,7 +156,7 @@
         },
         "canvas": {
           "title": "Interactive Area",
-          "description": "This is the main area to explore the relationships between letters, Articulation Points, and Characteristics. Please click any letter, articulation point, or characteristic shown on the screen."
+          "description": "This is the main area to explore the relationships between letters, Articulation Points, and Characteristics. Each letter, articulation point, or characteristic on the screen can be clicked to inspect its connections."
         },
         "controls": {
           "title": "View Controls",
@@ -164,15 +164,15 @@
         },
         "graph_filter": {
           "title": "Settings Panel",
-          "description": "Here you can adjust the graph display. Please click to open the settings panel."
+          "description": "Here you can adjust the graph display. This panel can be expanded or collapsed as needed."
         },
         "view_mode": {
           "title": "View Mode",
-          "description": "Choose to focus on a single Letter or display All Letters at once. Please click 'Per Letter' to continue."
+          "description": "Choose to focus on a single Letter or display All Letters at once."
         },
         "letter_selector": {
           "title": "Hijaiyyah Selection",
-          "description": "Masya Allah, there are 29 Hijaiyyah letters to explore. Select one letter to see its Articulation and Characteristics in detail."
+          "description": "Masya Allah, there are 29 Hijaiyyah letters to explore. Click one letter to see its Articulation and Characteristics in detail."
         },
         "visibility_filter": {
           "title": "Visibility Filter",
@@ -180,23 +180,23 @@
         },
         "layout_mode": {
           "title": "Layout Mode",
-          "description": "Choose between Radial layout (circular) or Hierarchical (tiered). Please try the Hierarchical mode."
+          "description": "Choose between Radial layout (circular) or Hierarchical (tiered)."
         },
         "hierarchy_direction": {
           "title": "Hierarchy Direction",
-          "description": "Set the flow direction: Vertical (top to bottom) or Horizontal (left to right). Please select Horizontal."
+          "description": "Set the flow direction: Vertical (top to bottom) or Horizontal (left to right)."
         },
         "edge_style": {
           "title": "Edge Style",
-          "description": "Enable dynamic lines that follow node positions, or disable to select static line shapes."
+          "description": "This toggle lets you enable dynamic lines that follow node positions, or disable them to choose static line shapes."
         },
         "edge_shape": {
           "title": "Edge Shape",
-          "description": "Choose the connecting line shape: Bezier (smooth curve), Straight, Step, or Smoothstep."
+          "description": "This selector lets you pick the connecting line shape: Bezier (smooth curve), Straight, Step, or Smoothstep."
         },
         "graph_legend": {
           "title": "Color Legend",
-          "description": "This panel explains the meaning of each node color. Please open it to continue."
+          "description": "This panel explains the meaning of each node color and can be expanded or collapsed as needed."
         },
         "legend_detail": {
           "title": "Detail Info",
@@ -204,23 +204,23 @@
         },
         "download": {
           "title": "Download Image",
-          "description": "Click the button to download an image of the graph."
+          "description": "This button can be clicked to download an image of the graph."
         },
         "quiz": {
           "title": "Quiz",
-          "description": "Click the button to try some sample quizzes."
+          "description": "This button can be clicked to try some sample quizzes."
         },
         "locale_selector": {
           "title": "Language",
-          "description": "Select your preferred language."
+          "description": "This menu lets you switch the application to your preferred language."
         },
         "theme_selector": {
           "title": "Theme",
-          "description": "Select between Light or Dark mode."
+          "description": "This menu lets you switch the application theme between Light and Dark mode."
         },
         "help": {
           "title": "Help",
-          "description": "Click here to restart the guide."
+          "description": "This button can be clicked to restart the guide anytime."
         },
         "end": {
           "title": "You're all set!",
