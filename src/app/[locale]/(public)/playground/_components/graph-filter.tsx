@@ -1,3 +1,5 @@
+'use client';
+
 import {
   ArrowDownIcon,
   ArrowRightIcon,
@@ -117,7 +119,7 @@ export function GraphFilter({
       if (name === PARAM_LAYOUT) {
         // Auto-set direction when switching to hierarchical layout
         if (value === 'hierarchical') {
-          params.set(PARAM_DIRECTION, 'vertical');
+          params.set(PARAM_DIRECTION, hierarchyDirection);
         } else {
           // Remove direction param when switching to radial layout
           params.delete(PARAM_DIRECTION);
@@ -126,7 +128,7 @@ export function GraphFilter({
 
       return params.toString();
     },
-    [searchParams],
+    [hierarchyDirection, searchParams],
   );
 
   const visibilityToggles = [
@@ -174,8 +176,9 @@ export function GraphFilter({
                     onClick={() => {
                       onViewModeChange(mode);
                       if (mode !== 'letter') onLetterSelect(1);
-                      router.push(
+                      router.replace(
                         `${pathname}?${updateQueryParams(PARAM_VIEW, mode)}`,
+                        { scroll: false },
                       );
                     }}
                     className={cn(
@@ -206,8 +209,9 @@ export function GraphFilter({
                         size="icon-sm"
                         onClick={() => {
                           onLetterSelect(letter.id);
-                          router.push(
+                          router.replace(
                             `${pathname}?${updateQueryParams(PARAM_LETTER, letter.id.toString())}`,
+                            { scroll: false },
                           );
                         }}
                         className={cn(
@@ -261,10 +265,9 @@ export function GraphFilter({
                     size="sm"
                     onClick={() => {
                       onLayoutModeChange(mode);
-                      if (mode !== 'hierarchical')
-                        onHierarchyDirectionChange('vertical');
-                      router.push(
+                      router.replace(
                         `${pathname}?${updateQueryParams(PARAM_LAYOUT, mode)}`,
+                        { scroll: false },
                       );
                     }}
                     className={cn(
@@ -300,8 +303,9 @@ export function GraphFilter({
                       size="sm"
                       onClick={() => {
                         onHierarchyDirectionChange(direction);
-                        router.push(
+                        router.replace(
                           `${pathname}?${updateQueryParams(PARAM_DIRECTION, direction)}`,
+                          { scroll: false },
                         );
                       }}
                       className={cn(
@@ -353,8 +357,9 @@ export function GraphFilter({
                   value={edgeStyle.shape}
                   onValueChange={(value) => {
                     onEdgeStyleChange({ shape: value as EdgeShape });
-                    router.push(
+                    router.replace(
                       `${pathname}?${updateQueryParams(PARAM_SHAPE, value)}`,
+                      { scroll: false },
                     );
                   }}
                 >

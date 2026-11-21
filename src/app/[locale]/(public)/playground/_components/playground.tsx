@@ -72,6 +72,8 @@ const nodeTypes: NodeTypes = {
 };
 
 const EMPTY_EDGES: FlowEdge[] = [];
+const PRO_OPTIONS = { hideAttribution: true };
+const FIT_VIEW_OPTIONS = { padding: 0.2 };
 
 export function Playground() {
   const t = useTranslations('playground_page');
@@ -162,25 +164,19 @@ export function Playground() {
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
   const letters = playgroundData?.letters ?? [];
-  const letterArticulations = playgroundData?.letterArticulations ?? [];
-  const letterTraits = playgroundData?.letterTraits ?? [];
-  const articulationAreas = playgroundData?.articulationAreas ?? [];
-  const articulationPoints = playgroundData?.articulationPoints ?? [];
-  const traits = playgroundData?.traits ?? [];
-  const traitGroups = playgroundData?.traitGroups ?? [];
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
   // biome-ignore lint/correctness/useExhaustiveDependencies: <perf optimization>
   useEffect(() => {
     const data = {
-      letters,
-      letterArticulations,
-      letterTraits,
-      articulationAreas,
-      articulationPoints,
-      traits,
-      traitGroups,
+      letters: playgroundData?.letters ?? [],
+      letterArticulations: playgroundData?.letterArticulations ?? [],
+      letterTraits: playgroundData?.letterTraits ?? [],
+      articulationAreas: playgroundData?.articulationAreas ?? [],
+      articulationPoints: playgroundData?.articulationPoints ?? [],
+      traits: playgroundData?.traits ?? [],
+      traitGroups: playgroundData?.traitGroups ?? [],
     };
 
     function updateLayout() {
@@ -223,16 +219,8 @@ export function Playground() {
         },
       }));
 
-      // Apply edge type based on current edgeStyle
-      const edgeType = edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
-      const edgesWithStyle = newEdges.map((edge) => ({
-        ...edge,
-        type: edgeType,
-        animated: edgeStyle.isAnimated,
-      }));
-
       setNodes(nodesWithLayoutInfo);
-      setEdges(edgesWithStyle);
+      setEdges(newEdges);
 
       return setTimeout(() => {
         void fitView({ padding: 0.2, duration: 300 });
@@ -242,11 +230,11 @@ export function Playground() {
     const timer = updateLayout();
     return () => clearTimeout(timer);
   }, [
+    playgroundData,
     viewMode,
     layoutMode,
     hierarchyDirection,
     edgeStyle.isFloating,
-    edgeStyle.shape,
     selectedLetterId,
     isTraitVisible,
     isArticulationVisible,
@@ -287,16 +275,19 @@ export function Playground() {
   // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
   // Optimized: only create new objects when values actually change
   const highlightedEdges = useMemo(() => {
+    const edgeType = edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
+
     return edges.map((edge) => {
       const isConnected = connectedEdgeIds.has(edge.id);
       const targetStrokeWidth = isConnected ? 3 : 1;
       const targetOpacity = selectedNodeId && !isConnected ? 0.2 : 1;
       const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
 
-      // Only create new object if style changed
+      // Only create new object if style or type changed
       const currentStyle = edge.style as Record<string, unknown> | undefined;
       if (
         edge.hidden !== true &&
+        edge.type === edgeType &&
         currentStyle?.strokeWidth === targetStrokeWidth &&
         currentStyle?.opacity === targetOpacity &&
         edge.animated === targetAnimated
@@ -306,6 +297,7 @@ export function Playground() {
 
       return {
         ...edge,
+        type: edgeType,
         hidden: false,
         style: {
           ...edge.style,
@@ -315,12 +307,27 @@ export function Playground() {
         animated: targetAnimated,
       };
     });
-  }, [edges, connectedEdgeIds, selectedNodeId, edgeStyle.isAnimated]);
+  }, [
+    edges,
+    connectedEdgeIds,
+    selectedNodeId,
+    edgeStyle.isAnimated,
+    edgeStyle.isFloating,
+    edgeStyle.shape,
+  ]);
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null,
   );
+
+  useEffect(() => {
+    return () => {
+      if (highlightTimeoutRef.current) {
+        clearTimeout(highlightTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Handle node click - debounced to prevent rapid highlight recalculations
   const handleNodeClick = useCallback(
@@ -367,10 +374,10 @@ export function Playground() {
         <div id="tour-canvas" className="h-[calc(100dvh-49px)]">
           <ReactFlow
             dir={dir}
-            proOptions={{ hideAttribution: true }}
+            proOptions={PRO_OPTIONS}
             colorMode={colorMode}
             fitView
-            fitViewOptions={{ padding: 0.2 }}
+            fitViewOptions={FIT_VIEW_OPTIONS}
             nodes={highlightedNodes}
             edges={EMPTY_EDGES}
             onNodesChange={onNodesChange}

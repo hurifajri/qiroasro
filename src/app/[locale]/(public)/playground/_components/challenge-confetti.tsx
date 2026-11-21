@@ -16,30 +16,35 @@ const CONFETTI_COLORS = [
 const CONFETTI_COUNT = 50;
 const CONFETTI_DURATION_MS = 4000;
 
-interface ConfettiParticleProps {
+type ConfettiParticleData = Readonly<{
+  id: number;
   delay: number;
   x: number;
+  driftX: number;
+  duration: number;
   color: string;
   rotation: number;
-}
+}>;
 
 function ConfettiParticle({
   delay,
   x,
+  driftX,
+  duration,
   color,
   rotation,
-}: ConfettiParticleProps) {
+}: Omit<ConfettiParticleData, 'id'>) {
   return (
     <m.div
       className="pointer-events-none fixed z-50"
       initial={{ y: -20, x, opacity: 1, rotate: 0 }}
       animate={{
         y: '100vh',
-        x: x + (Math.random() - 0.5) * 200,
+        x: x + driftX,
         opacity: 0,
         rotate: rotation,
       }}
-      transition={{ duration: 3 + Math.random() * 2, delay, ease: 'easeOut' }}
+      transition={{ duration, delay, ease: 'easeOut' }}
       style={{ left: x }}
     >
       <div className="size-3 rounded-sm" style={{ backgroundColor: color }} />
@@ -47,25 +52,22 @@ function ConfettiParticle({
   );
 }
 
-function useConfettiParticles() {
-  const width = window !== undefined ? window.innerWidth : 500;
-  const confettiParticles = Array.from({ length: CONFETTI_COUNT }).map(
-    (_, i) => ({
-      id: i,
-      delay: Math.random() * 0.5,
-      x: Math.random() * width,
-      color:
-        CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-      rotation: Math.random() * 720 - 360,
-    }),
-  );
-
-  return confettiParticles;
+function createConfettiParticles(): ConfettiParticleData[] {
+  const width = typeof window !== 'undefined' ? window.innerWidth : 500;
+  return Array.from({ length: CONFETTI_COUNT }).map((_, i) => ({
+    id: i,
+    delay: Math.random() * 0.5,
+    x: Math.random() * width,
+    driftX: (Math.random() - 0.5) * 200,
+    duration: 3 + Math.random() * 2,
+    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
+    rotation: Math.random() * 720 - 360,
+  }));
 }
 
 export function ChallengeConfetti() {
   const [showConfetti, setShowConfetti] = useState(true);
-  const particles = useConfettiParticles();
+  const [particles] = useState<ConfettiParticleData[]>(createConfettiParticles);
 
   useEffect(() => {
     const timer = setTimeout(
@@ -83,6 +85,8 @@ export function ChallengeConfetti() {
             key={p.id}
             delay={p.delay}
             x={p.x}
+            driftX={p.driftX}
+            duration={p.duration}
             color={p.color}
             rotation={p.rotation}
           />

@@ -91,7 +91,13 @@ export function createPlaygroundStore() {
     setLayoutMode: (mode) => set({ layoutMode: mode }),
     setHierarchyDirection: (direction) =>
       set({ hierarchyDirection: direction }),
-    setSelectedLetterId: (id) => set({ selectedLetterId: id }),
+    setSelectedLetterId: (id) =>
+      set({
+        selectedLetterId: id,
+        selectedNodeId: null,
+        connectedNodeIds: new Set<string>(),
+        connectedEdgeIds: new Set<string>(),
+      }),
     setSelectedNodeId: (id) => set({ selectedNodeId: id }),
     setEdgeStyle: (style) =>
       set((state) => ({

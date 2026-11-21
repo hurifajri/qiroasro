@@ -1,8 +1,12 @@
-import type { ColorMode, EdgeTypes, IsValidConnection } from '@xyflow/react';
+'use client';
+
 import {
   Background,
+  type ColorMode,
   type Edge,
   type EdgeMouseHandler,
+  type EdgeTypes,
+  type IsValidConnection,
   type Node,
   type NodeTypes,
   type OnConnect,
@@ -18,8 +22,10 @@ import { FloatingEdge } from './ui/floating-edge';
 
 const edgeTypes: EdgeTypes = { floating: FloatingEdge };
 const defaultEdgeOptions = { type: 'floating' };
+const PRO_OPTIONS = { hideAttribution: true };
+const FIT_VIEW_OPTIONS = { padding: 0.2 };
 
-interface QuizCanvasProps {
+type QuizCanvasProps = Readonly<{
   nodes: Node[];
   edges: Edge[];
   nodeTypes: NodeTypes;
@@ -29,7 +35,7 @@ interface QuizCanvasProps {
   onConnect: OnConnect;
   isValidConnection: IsValidConnection;
   height: number;
-}
+}>;
 
 export function QuizCanvas({
   nodes,
@@ -55,24 +61,25 @@ export function QuizCanvas({
     [isChecked, onEdgesChange],
   );
 
-  // Auto-fit when nodes change (new question loaded)
+  // Auto-fit only when the set of node IDs changes (new question loaded)
+  const nodeIdsKey = nodes.map((n) => n.id).join(',');
   useEffect(() => {
-    if (nodes.length > 0) {
-      // Small delay to ensure nodes are rendered
-      const timer = setTimeout(() => {
-        fitView({ padding: 0.2, duration: 200 });
-      }, 50);
-      return () => clearTimeout(timer);
-    }
-  }, [nodes, fitView]);
+    if (!nodeIdsKey) return;
+
+    // Small delay to ensure nodes are rendered
+    const timer = setTimeout(() => {
+      void fitView({ padding: 0.2, duration: 200 });
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [nodeIdsKey, fitView]);
 
   return (
     <div style={{ height }}>
       <ReactFlow
-        proOptions={{ hideAttribution: true }}
+        proOptions={PRO_OPTIONS}
         colorMode={theme}
         fitView
-        fitViewOptions={{ padding: 0.2 }}
+        fitViewOptions={FIT_VIEW_OPTIONS}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}

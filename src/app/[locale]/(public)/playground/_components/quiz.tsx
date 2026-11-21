@@ -93,7 +93,7 @@ export function Quiz() {
     let title = t('select_mode_title');
     let description = t('select_mode_description');
 
-    if (mode === 'practice') {
+    if (mode === 'practice' && type) {
       if (!isStarted) {
         title = t('practice_settings_title');
         description = t(`practice_settings_description_${type}`);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface UseQuizTimerOptions {
   /** Timer duration in seconds */
@@ -43,46 +43,45 @@ export function useQuizTimer({
     onTimeUpRef.current = onTimeUp;
   }, [onTimeUp]);
 
-  function start() {
+  const start = useCallback(() => {
     if (!enabled) return;
 
     setTimeRemaining(duration);
     hasCalledTimeUpRef.current = false;
-  }
+  }, [duration, enabled]);
 
-  function reset() {
+  const reset = useCallback(() => {
     if (!enabled) return;
 
     setTimeRemaining(duration);
     hasCalledTimeUpRef.current = false;
-  }
+  }, [duration, enabled]);
 
-  function stop() {
-    if (!enabled) return;
-
+  const stop = useCallback(() => {
     setTimeRemaining(null);
     hasCalledTimeUpRef.current = false;
-  }
+  }, []);
 
-  // Countdown effect
+  const isRunning = timeRemaining !== null && timeRemaining > 0 && !isPaused;
+
+  // Countdown interval effect (runs stably without recreating every second)
   useEffect(() => {
-    if (timeRemaining === null || isPaused) return;
-
-    if (timeRemaining <= 0) {
-      // Only call onTimeUp once per timer cycle
-      if (!hasCalledTimeUpRef.current) {
-        hasCalledTimeUpRef.current = true;
-        onTimeUpRef.current?.();
-      }
-      return;
-    }
+    if (!isRunning) return;
 
     const timer = setInterval(() => {
-      setTimeRemaining((prev) => (prev !== null ? prev - 1 : null));
+      setTimeRemaining((prev) => (prev !== null && prev > 0 ? prev - 1 : prev));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeRemaining, isPaused]);
+  }, [isRunning]);
+
+  // Trigger onTimeUp once when countdown reaches zero
+  useEffect(() => {
+    if (timeRemaining === 0 && !hasCalledTimeUpRef.current) {
+      hasCalledTimeUpRef.current = true;
+      onTimeUpRef.current?.();
+    }
+  }, [timeRemaining]);
 
   return {
     start,
