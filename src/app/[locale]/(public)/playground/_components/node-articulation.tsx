@@ -29,8 +29,8 @@ export const ArticulationAreaNode = memo(({ data, selected }: NodeProps) => {
   return (
     <BaseNode
       className={cn(
-        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 hover:ring-0 md:transition-transform md:duration-300',
-        isActive ? 'scale-110' : 'md:hover:scale-105',
+        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 transition-transform duration-300 hover:ring-0',
+        isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
@@ -70,8 +70,8 @@ export const ArticulationPointNode = memo(({ data, selected }: NodeProps) => {
     <>
       <BaseNode
         className={cn(
-          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation-secondary px-4 py-2 text-node-articulation-text hover:ring-0 md:transition-transform md:duration-300',
-          isActive ? 'scale-110' : 'md:hover:scale-105',
+          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation-secondary px-4 py-2 text-node-articulation-text transition-transform duration-300 hover:ring-0',
+          isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
           ['jauf'].includes(nodeData.slug) && 'border-dashed',
         )}

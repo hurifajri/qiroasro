@@ -6,14 +6,12 @@ import {
   BackgroundVariant,
   type ColorMode,
   Controls,
-  type EdgeTypes,
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
   type NodeTypes,
   Panel,
   ReactFlow,
-  useEdgesState,
   useNodesState,
   useReactFlow,
 } from '@xyflow/react';
@@ -22,9 +20,8 @@ import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
@@ -40,7 +37,7 @@ import { getRootLetters } from '../_lib/letter';
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
-import type { ViewMode } from '../_schemas/graph';
+import { CanvasEdges } from './canvas-edges';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
 import {
@@ -49,7 +46,6 @@ import {
 } from './node-articulation';
 import { LetterNode } from './node-letter';
 import { TraitGroupNode, TraitNode } from './node-trait';
-import { FloatingEdge } from './ui/floating-edge';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -75,18 +71,12 @@ const nodeTypes: NodeTypes = {
   trait: TraitNode,
 };
 
-// Register custom edge types
-const edgeTypes: EdgeTypes = {
-  floating: FloatingEdge,
-};
-
-const MAX_MD_MEDIA_QUERY = '(width < 48rem)';
+const EMPTY_EDGES: FlowEdge[] = [];
 
 export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
-  const isMaxMd = useMediaQuery(MAX_MD_MEDIA_QUERY);
   const { theme } = useTheme();
   const { isMounted } = useMounted();
   const colorMode = (isMounted ? theme : 'light') as ColorMode;
@@ -121,70 +111,6 @@ export function Playground() {
   const resetFilterSettings = usePlaygroundStore((s) => s.resetFilterSettings);
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
-  const handleViewModeChange = useCallback(
-    (mode: ViewMode) => {
-      const isMobileViewport =
-        typeof window !== 'undefined' &&
-        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
-
-      setViewMode(mode);
-
-      if (isMobileViewport) {
-        const isLetterView = mode === 'letter';
-        setIsTraitVisible(isLetterView);
-        setIsArticulationVisible(isLetterView);
-      }
-    },
-    [setViewMode, setIsTraitVisible, setIsArticulationVisible],
-  );
-
-  const handleTraitVisibleChange = useCallback(
-    (isVisible: boolean) => {
-      setIsTraitVisible(isVisible);
-
-      const isMobileViewport =
-        typeof window !== 'undefined' &&
-        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
-      if (isVisible && isMobileViewport && viewMode === 'all') {
-        setIsArticulationVisible(false);
-      }
-    },
-    [viewMode, setIsTraitVisible, setIsArticulationVisible],
-  );
-
-  const handleArticulationVisibleChange = useCallback(
-    (isVisible: boolean) => {
-      setIsArticulationVisible(isVisible);
-
-      const isMobileViewport =
-        typeof window !== 'undefined' &&
-        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
-      if (isVisible && isMobileViewport && viewMode === 'all') {
-        setIsTraitVisible(false);
-      }
-    },
-    [viewMode, setIsArticulationVisible, setIsTraitVisible],
-  );
-
-  useEffect(() => {
-    if (
-      isMaxMd &&
-      viewMode === 'all' &&
-      isTraitVisible &&
-      isArticulationVisible
-    ) {
-      setIsTraitVisible(false);
-      setIsArticulationVisible(false);
-    }
-  }, [
-    isMaxMd,
-    viewMode,
-    isTraitVisible,
-    isArticulationVisible,
-    setIsTraitVisible,
-    setIsArticulationVisible,
-  ]);
-
   // Sync playground settings with URL query params
   const { clearPlaygroundParams } = usePlaygroundParams({
     currentSettings: {
@@ -194,7 +120,7 @@ export function Playground() {
       edgeShape: edgeStyle.shape,
       selectedLetterId,
     },
-    onViewModeChange: handleViewModeChange,
+    onViewModeChange: setViewMode,
     onLayoutModeChange: setLayoutMode,
     onHierarchyDirectionChange: setHierarchyDirection,
     onEdgeShapeChange: (shape) => setEdgeStyle({ shape }),
@@ -231,7 +157,7 @@ export function Playground() {
   // ReactFlow state (local, managed by ReactFlow)
   const { fitView } = useReactFlow();
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
+  const [edges, setEdges] = useState<FlowEdge[]>([]);
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
@@ -269,21 +195,14 @@ export function Playground() {
       });
 
       // Apply layout based on mode
-      // On mobile, use compact spacing to reduce bounding box size and GPU backing store usage
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, {
-          viewMode,
-          scale: isMaxMd && viewMode === 'all' ? 0.65 : 1,
-        });
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, { viewMode });
       } else {
-        const allViewLayerSpacing = isMaxMd ? 280 : 600;
-        const layerSpacing = viewMode === 'letter' ? 200 : allViewLayerSpacing;
-
         layoutedNodes = applyHierarchicalLayout(rawNodes, {
           direction: hierarchyDirection,
-          nodeSpacing: isMaxMd && viewMode === 'all' ? 12 : 30,
-          layerSpacing,
+          nodeSpacing: 30,
+          layerSpacing: viewMode === 'letter' ? 200 : 600,
         });
       }
 
@@ -331,7 +250,6 @@ export function Playground() {
     selectedLetterId,
     isTraitVisible,
     isArticulationVisible,
-    isMaxMd,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
@@ -438,20 +356,6 @@ export function Playground() {
   // Letter selector lists the 29 root letters (waw/ya show both variants)
   const memoizedLetters = useMemo(() => getRootLetters(letters), [letters]);
 
-  // Memoize defaultEdgeOptions to prevent new object reference on every render
-  const defaultEdgeOptions = useMemo(
-    () => ({
-      type: edgeStyle.isFloating ? 'floating' : edgeStyle.shape,
-      animated: edgeStyle.isAnimated,
-      selectable: false,
-      focusable: false,
-      interactionWidth: 0,
-    }),
-    [edgeStyle.isFloating, edgeStyle.shape, edgeStyle.isAnimated],
-  );
-
-  const isMobileAllView = isMaxMd && viewMode === 'all';
-
   return (
     <>
       {/*
@@ -468,30 +372,25 @@ export function Playground() {
             fitView
             fitViewOptions={{ padding: 0.2 }}
             nodes={highlightedNodes}
-            edges={highlightedEdges}
+            edges={EMPTY_EDGES}
             onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
-            defaultEdgeOptions={defaultEdgeOptions}
-            nodesDraggable={!isMaxMd || viewMode === 'letter'}
+            nodeDragThreshold={5}
             nodesConnectable={false}
             nodesFocusable={false}
             edgesFocusable={false}
             selectNodesOnDrag={false}
             elevateNodesOnSelect={false}
             elevateEdgesOnSelect={false}
-            panOnDrag={!isMobileAllView}
-            zoomOnScroll={!isMobileAllView}
-            zoomOnPinch={!isMobileAllView}
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={0.15}
-            maxZoom={1.5}
+            minZoom={0.1}
+            maxZoom={2}
           >
+            <CanvasEdges edges={highlightedEdges} />
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
               className={cn(
@@ -511,12 +410,12 @@ export function Playground() {
                 isArticulationVisible={isArticulationVisible}
                 letters={memoizedLetters}
                 selectedLetterId={selectedLetterId}
-                onViewModeChange={handleViewModeChange}
+                onViewModeChange={setViewMode}
                 onLayoutModeChange={setLayoutMode}
                 onHierarchyDirectionChange={setHierarchyDirection}
                 onEdgeStyleChange={setEdgeStyle}
-                onTraitVisibleChange={handleTraitVisibleChange}
-                onArticulationVisibleChange={handleArticulationVisibleChange}
+                onTraitVisibleChange={setIsTraitVisible}
+                onArticulationVisibleChange={setIsArticulationVisible}
                 onLetterSelect={setSelectedLetterId}
               />
 
@@ -546,7 +445,7 @@ export function Playground() {
                 <TrophyIcon className="size-4" />
                 {t('quiz.trigger')}
               </Button>
-              <GraphDownload />
+              <GraphDownload edges={highlightedEdges} />
               <Button
                 id="tour-help"
                 dir={dir}
@@ -565,7 +464,7 @@ export function Playground() {
               position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
               className="m-3!"
             >
-              <Controls showZoom={!isMobileAllView} className="static! m-0!" />
+              <Controls className="static! m-0!" />
             </Panel>
 
             {/* <MiniMap
