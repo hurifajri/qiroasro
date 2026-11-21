@@ -1,5 +1,5 @@
 import type { Node } from '@xyflow/react';
-import type { HierarchyDirection } from '../_schemas/graph';
+import type { HierarchyDirection, ViewMode } from '../_schemas/graph';
 import { getNodeHeight, getNodeWidth } from './node';
 
 interface HierarchicalLayoutOptions {
@@ -94,18 +94,54 @@ export function applyHierarchicalLayout(
   return layoutedNodes;
 }
 
+interface RadialLayoutOptions {
+  viewMode?: ViewMode;
+  scale?: number;
+}
+
 type RadialRing = 'letterChild' | 'letter' | 'detail' | 'group';
 
-// Define ring radii (inner to outer):
+// Ring radii (inner to outer) for full graph view:
 // letter child -> letter parent -> articulation point + trait -> trait group + articulation area
-const RADIAL_RING_RADIUS: Record<RadialRing, number> = {
+const ALL_VIEW_RADIAL_RADIUS: Record<RadialRing, number> = {
   letterChild: 370,
   letter: 490,
   detail: 630,
   group: 760,
 };
 
+// Ring radii (inner to outer) for single-letter view:
+// letter (center) -> articulation point + trait -> trait group + articulation area
+const LETTER_VIEW_RADIAL_RADIUS: Record<RadialRing, number> = {
+  letterChild: 0,
+  letter: 0,
+  detail: 260,
+  group: 460,
+};
+
+// Ring radii when single-letter view includes child variants (e.g., waw/ya):
+// parent letter (center) -> child variants -> articulation point + trait -> trait group + articulation area
+const LETTER_VIEW_WITH_CHILDREN_RADIAL_RADIUS: Record<RadialRing, number> = {
+  letterChild: 150,
+  letter: 0,
+  detail: 360,
+  group: 560,
+};
+
 const CHILD_LETTER_ARC_SPACING = getNodeWidth('letter') + 10;
+
+function getRadialRingRadii(
+  viewMode: ViewMode,
+  hasChildLetters: boolean,
+): Record<RadialRing, number> {
+  if (viewMode === 'letter') {
+    return hasChildLetters
+      ? LETTER_VIEW_WITH_CHILDREN_RADIAL_RADIUS
+      : LETTER_VIEW_RADIAL_RADIUS;
+  }
+
+  return ALL_VIEW_RADIAL_RADIUS;
+}
 
 function getRadialRing(node: Node): RadialRing {
   switch (node.type) {
@@ -252,17 +288,18 @@ function layoutChildLetters(
 }
 
 /**
- * Apply radial layout to nodes
- * Places nodes in 4 concentric rings when child letters exist (3 otherwise),
- * ordered outer to inner:
- * trait group + articulation area -> articulation point + trait -> letter parent -> letter child
+ * Apply radial layout to nodes.
+ * - `all` view: concentric rings (outer to inner) for group -> detail -> letter parent -> letter child.
+ * - `letter` view: letter centered at (centerX, centerY) (layer 1), with optional child variants around it,
+ *   followed by trait + articulation point (layer 2), and trait group + articulation area (layer 3).
  */
 export function applyRadialLayout(
   nodes: Node[],
   centerX: number,
   centerY: number,
-  scale = 1,
+  options: RadialLayoutOptions = {},
 ): Node[] {
+  const { viewMode = 'all', scale = 1 } = options;
   const nodesByRing = new Map<Exclude<RadialRing, 'letterChild'>, Node[]>();
   const childLetterNodes: Node[] = [];
 
@@ -278,11 +315,12 @@ export function applyRadialLayout(
     nodesByRing.set(ring, group);
   }
 
+  const ringRadii = getRadialRingRadii(viewMode, childLetterNodes.length > 0);
   const layoutedNodes: Node[] = [];
   const parentLetterAngles = new Map<string, number>();
 
   for (const [ring, ringNodes] of nodesByRing) {
-    const radius = RADIAL_RING_RADIUS[ring] * scale;
+    const radius = ringRadii[ring] * scale;
 
     ringNodes.forEach((node, index) => {
       const angle = (2 * Math.PI * index) / ringNodes.length - Math.PI / 2;
@@ -299,14 +337,20 @@ export function applyRadialLayout(
     return layoutedNodes;
   }
 
-  const innerRadius = RADIAL_RING_RADIUS.letterChild * scale;
-  const placedChildren = layoutChildLetters(
-    childLetterNodes,
-    parentLetterAngles,
-    centerX,
-    centerY,
-    innerRadius,
-  );
+  const innerRadius = ringRadii.letterChild * scale;
+  const placedChildren =
+    viewMode === 'letter'
+      ? childLetterNodes.map((node, index) => {
+          const angle = (2 * Math.PI * index) / childLetterNodes.length;
+          return placeOnRing(node, centerX, centerY, innerRadius, angle);
+        })
+      : layoutChildLetters(
+          childLetterNodes,
+          parentLetterAngles,
+          centerX,
+          centerY,
+          innerRadius,
+        );
 
   return [...layoutedNodes, ...placedChildren];
 }

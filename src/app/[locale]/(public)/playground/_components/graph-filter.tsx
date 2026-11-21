@@ -50,7 +50,7 @@ import {
 } from '../_schemas/graph';
 import type { Letter } from '../_schemas/letter';
 
-interface GraphFilterProps {
+type GraphFilterProps = Readonly<{
   dir: 'ltr' | 'rtl';
   viewMode: ViewMode;
   layoutMode: LayoutMode;
@@ -67,7 +67,7 @@ interface GraphFilterProps {
   onArticulationVisibleChange: (isVisible: boolean) => void;
   onTraitVisibleChange: (isVisible: boolean) => void;
   onLetterSelect: (id: number) => void;
-}
+}>;
 
 export function GraphFilter({
   dir,

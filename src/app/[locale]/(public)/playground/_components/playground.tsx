@@ -178,7 +178,7 @@ export function Playground() {
       // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400);
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, { viewMode });
       } else {
         layoutedNodes = applyHierarchicalLayout(rawNodes, {
           direction: hierarchyDirection,
