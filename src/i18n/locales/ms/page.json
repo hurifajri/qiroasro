@@ -133,11 +133,6 @@
       "trigger": "Muat Turun Imej",
       "downloading": "Sedang memuat turun..."
     },
-    "mobile_unsupported": {
-      "title": "Lebih Baik di Desktop",
-      "description": "Paparan visual ini lebih selesa dilihat pada skrin besar. Sila tukar ke mod Huruf atau gunakan peranti desktop untuk pengalaman terbaik.",
-      "switch_to_letter": "Tukar ke Mod Huruf"
-    },
     "error": {
       "title": "Berlaku Ralat",
       "description": "Berlaku ralat semasa memuatkan halaman. Sila cuba lagi.",

@@ -282,6 +282,19 @@
 }
 
 /* ============================================
+   React Flow Mobile Canvas Performance
+   ============================================ */
+
+.react-flow__pane,
+.react-flow__renderer {
+  touch-action: none;
+}
+
+.react-flow .react-flow__edges svg {
+  @apply z-auto!;
+}
+
+/* ============================================
    Driver.js Theme Styles
    ============================================ */
 

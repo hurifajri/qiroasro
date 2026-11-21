@@ -42,7 +42,6 @@ import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
-import { MobileUnsupported } from './mobile-unsupported';
 import {
   ArticulationAreaNode,
   ArticulationPointNode,
@@ -203,15 +202,21 @@ export function Playground() {
       });
 
       // Apply layout based on mode
-      // On mobile, use compact spacing to prevent browser crashes from large SVG viewports
+      // On mobile, use compact spacing to reduce bounding box size and GPU backing store usage
       let layoutedNodes: FlowNode[];
       if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, { viewMode });
+        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, {
+          viewMode,
+          scale: isMaxMd && viewMode === 'all' ? 0.65 : 1,
+        });
       } else {
+        const allViewLayerSpacing = isMaxMd ? 280 : 600;
+        const layerSpacing = viewMode === 'letter' ? 200 : allViewLayerSpacing;
+
         layoutedNodes = applyHierarchicalLayout(rawNodes, {
           direction: hierarchyDirection,
-          nodeSpacing: 30,
-          layerSpacing: viewMode === 'letter' ? 200 : 600,
+          nodeSpacing: isMaxMd && viewMode === 'all' ? 12 : 30,
+          layerSpacing,
         });
       }
 
@@ -243,12 +248,13 @@ export function Playground() {
       setNodes(nodesWithLayoutInfo);
       setEdges(edgesWithStyle);
 
-      setTimeout(() => {
+      return setTimeout(() => {
         void fitView({ padding: 0.2, duration: 300 });
       }, 50);
     }
 
-    updateLayout();
+    const timer = updateLayout();
+    return () => clearTimeout(timer);
   }, [
     viewMode,
     layoutMode,
@@ -258,6 +264,7 @@ export function Playground() {
     selectedLetterId,
     isTraitVisible,
     isArticulationVisible,
+    isMaxMd,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
@@ -369,11 +376,12 @@ export function Playground() {
     () => ({
       type: edgeStyle.isFloating ? 'floating' : edgeStyle.shape,
       animated: edgeStyle.isAnimated,
+      selectable: false,
+      focusable: false,
+      interactionWidth: 0,
     }),
     [edgeStyle.isFloating, edgeStyle.shape, edgeStyle.isAnimated],
   );
-
-  const isUnsupportedMobileView = isMaxMd && viewMode !== 'letter';
 
   return (
     <>
@@ -390,8 +398,8 @@ export function Playground() {
             colorMode={colorMode}
             fitView
             fitViewOptions={{ padding: 0.2 }}
-            nodes={isUnsupportedMobileView ? [] : highlightedNodes}
-            edges={isUnsupportedMobileView ? [] : highlightedEdges}
+            nodes={highlightedNodes}
+            edges={highlightedEdges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             nodeTypes={nodeTypes}
@@ -399,12 +407,18 @@ export function Playground() {
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             defaultEdgeOptions={defaultEdgeOptions}
-            onlyRenderVisibleElements
+            nodesDraggable={!isMaxMd || viewMode === 'letter'}
+            nodesConnectable={false}
+            nodesFocusable={false}
             edgesFocusable={false}
+            selectNodesOnDrag={false}
+            elevateNodesOnSelect={false}
+            elevateEdgesOnSelect={false}
             zoomOnDoubleClick={false}
             autoPanOnNodeDrag={false}
             autoPanOnNodeFocus={false}
-            minZoom={0.1}
+            minZoom={0.15}
+            maxZoom={1.5}
           >
             <Panel
               position={dir === 'ltr' ? 'top-left' : 'top-right'}
@@ -434,59 +448,53 @@ export function Playground() {
                 onLetterSelect={setSelectedLetterId}
               />
 
-              {!isUnsupportedMobileView && (
-                <GraphLegend
-                  dir={dir}
-                  isOpen={isLegendOpen}
-                  onOpenChange={setIsLegendOpen}
-                  isTraitVisible={isTraitVisible}
-                  isArticulationVisible={isArticulationVisible}
-                />
-              )}
+              <GraphLegend
+                dir={dir}
+                isOpen={isLegendOpen}
+                onOpenChange={setIsLegendOpen}
+                isTraitVisible={isTraitVisible}
+                isArticulationVisible={isArticulationVisible}
+              />
             </Panel>
 
-            {!isUnsupportedMobileView && (
-              <>
-                <Panel
-                  position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
-                  className={cn(
-                    'm-0! flex flex-col gap-2 p-3',
-                    dir === 'ltr' ? 'items-start' : 'items-end',
-                  )}
-                >
-                  <Button
-                    id="tour-quiz"
-                    dir={dir}
-                    size="sm"
-                    onClick={handleOpenQuizDialog}
-                    className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
-                  >
-                    <TrophyIcon className="size-4" />
-                    {t('quiz.trigger')}
-                  </Button>
-                  <GraphDownload />
-                  <Button
-                    id="tour-help"
-                    dir={dir}
-                    variant="outline"
-                    size="sm"
-                    onClick={startTour}
-                    className="bg-background!"
-                  >
-                    <CircleHelpIcon className="size-4" />
-                    {t('tour.help_button')}
-                  </Button>
-                </Panel>
+            <Panel
+              position={dir === 'ltr' ? 'bottom-left' : 'bottom-right'}
+              className={cn(
+                'm-0! flex flex-col gap-2 p-3',
+                dir === 'ltr' ? 'items-start' : 'items-end',
+              )}
+            >
+              <Button
+                id="tour-quiz"
+                dir={dir}
+                size="sm"
+                onClick={handleOpenQuizDialog}
+                className="bg-linear-to-r from-accent-sky to-accent-sky-dark text-white"
+              >
+                <TrophyIcon className="size-4" />
+                {t('quiz.trigger')}
+              </Button>
+              <GraphDownload />
+              <Button
+                id="tour-help"
+                dir={dir}
+                variant="outline"
+                size="sm"
+                onClick={startTour}
+                className="bg-background!"
+              >
+                <CircleHelpIcon className="size-4" />
+                {t('tour.help_button')}
+              </Button>
+            </Panel>
 
-                <Panel
-                  id="tour-controls"
-                  position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
-                  className="m-3!"
-                >
-                  <Controls className="static! m-0!" />
-                </Panel>
-              </>
-            )}
+            <Panel
+              id="tour-controls"
+              position={dir === 'ltr' ? 'bottom-right' : 'bottom-left'}
+              className="m-3!"
+            >
+              <Controls className="static! m-0!" />
+            </Panel>
 
             {/* <MiniMap
               position="bottom-left"
@@ -513,15 +521,9 @@ export function Playground() {
               bgColor="var(--flow-bg-canvas)"
               className="rounded-lg"
               variant={BackgroundVariant.Dots}
-              gap={20}
-              size={1}
+              gap={viewMode === 'all' ? 50 : 20}
+              size={viewMode === 'all' ? 2 : 1}
             />
-
-            {isUnsupportedMobileView && (
-              <MobileUnsupported
-                onSwitchToLetter={() => setViewMode('letter')}
-              />
-            )}
           </ReactFlow>
         </div>
       )}
