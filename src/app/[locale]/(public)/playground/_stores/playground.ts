@@ -18,6 +18,8 @@ interface PlaygroundState {
   edgeStyle: EdgeStyleOptions;
   isTraitVisible: boolean;
   isArticulationVisible: boolean;
+  isFilterOpen: boolean;
+  isLegendOpen: boolean;
   // Highlight state - computed once when selection changes
   connectedNodeIds: Set<string>;
   connectedEdgeIds: Set<string>;
@@ -32,9 +34,12 @@ interface PlaygroundAction {
   setEdgeStyle: (style: Partial<EdgeStyleOptions>) => void;
   setIsTraitVisible: (isVisible: boolean) => void;
   setIsArticulationVisible: (isVisible: boolean) => void;
+  setIsFilterOpen: (isOpen: boolean) => void;
+  setIsLegendOpen: (isOpen: boolean) => void;
   setIsFloating: (isFloating: boolean) => void;
   setIsAnimated: (isAnimated: boolean) => void;
   setEdgeShape: (shape: EdgeShape) => void;
+  resetFilterSettings: () => void;
   getEffectiveEdgeType: () => string;
   // New: Update highlight state based on selected node and edges
   updateHighlight: (selectedNodeId: string | null, edges: Edge[]) => void;
@@ -42,20 +47,36 @@ interface PlaygroundAction {
 
 export type PlaygroundStore = PlaygroundState & PlaygroundAction;
 
+const INITIAL_FILTER_SETTINGS: Pick<
+  PlaygroundState,
+  | 'viewMode'
+  | 'layoutMode'
+  | 'hierarchyDirection'
+  | 'selectedLetterId'
+  | 'edgeStyle'
+  | 'isTraitVisible'
+  | 'isArticulationVisible'
+> = {
+  viewMode: 'letter',
+  layoutMode: 'hierarchical',
+  hierarchyDirection: 'horizontal',
+  selectedLetterId: 1,
+  edgeStyle: {
+    isFloating: false,
+    isAnimated: false,
+    shape: 'default',
+  },
+  isTraitVisible: true,
+  isArticulationVisible: true,
+};
+
 export function createPlaygroundStore() {
   return createStore<PlaygroundStore>()((set, get) => ({
-    viewMode: 'letter',
-    layoutMode: 'hierarchical',
-    hierarchyDirection: 'horizontal',
-    selectedLetterId: 1,
+    ...INITIAL_FILTER_SETTINGS,
+    edgeStyle: { ...INITIAL_FILTER_SETTINGS.edgeStyle },
     selectedNodeId: null,
-    edgeStyle: {
-      isFloating: false,
-      isAnimated: false,
-      shape: 'default',
-    },
-    isTraitVisible: true,
-    isArticulationVisible: true,
+    isFilterOpen: true,
+    isLegendOpen: true,
     connectedNodeIds: new Set<string>(),
     connectedEdgeIds: new Set<string>(),
     setViewMode: (mode) => {
@@ -91,6 +112,8 @@ export function createPlaygroundStore() {
         connectedNodeIds: new Set<string>(),
         connectedEdgeIds: new Set<string>(),
       }),
+    setIsFilterOpen: (isFilterOpen) => set({ isFilterOpen }),
+    setIsLegendOpen: (isLegendOpen) => set({ isLegendOpen }),
     setIsFloating: (isFloating) =>
       set((state) => ({
         edgeStyle: { ...state.edgeStyle, isFloating },
@@ -103,6 +126,34 @@ export function createPlaygroundStore() {
       set((state) => ({
         edgeStyle: { ...state.edgeStyle, shape },
       })),
+    resetFilterSettings: () => {
+      const state = get();
+      const isAlreadyDefault =
+        state.viewMode === INITIAL_FILTER_SETTINGS.viewMode &&
+        state.layoutMode === INITIAL_FILTER_SETTINGS.layoutMode &&
+        state.hierarchyDirection ===
+          INITIAL_FILTER_SETTINGS.hierarchyDirection &&
+        state.selectedLetterId === INITIAL_FILTER_SETTINGS.selectedLetterId &&
+        state.edgeStyle.isFloating ===
+          INITIAL_FILTER_SETTINGS.edgeStyle.isFloating &&
+        state.edgeStyle.isAnimated ===
+          INITIAL_FILTER_SETTINGS.edgeStyle.isAnimated &&
+        state.edgeStyle.shape === INITIAL_FILTER_SETTINGS.edgeStyle.shape &&
+        state.isTraitVisible === INITIAL_FILTER_SETTINGS.isTraitVisible &&
+        state.isArticulationVisible ===
+          INITIAL_FILTER_SETTINGS.isArticulationVisible &&
+        state.selectedNodeId === null;
+
+      if (isAlreadyDefault) return;
+
+      set({
+        ...INITIAL_FILTER_SETTINGS,
+        edgeStyle: { ...INITIAL_FILTER_SETTINGS.edgeStyle },
+        selectedNodeId: null,
+        connectedNodeIds: new Set<string>(),
+        connectedEdgeIds: new Set<string>(),
+      });
+    },
     getEffectiveEdgeType: () => {
       const { edgeStyle } = get();
       return edgeStyle.isFloating ? 'floating' : edgeStyle.shape;

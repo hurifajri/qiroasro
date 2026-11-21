@@ -89,7 +89,6 @@ export function Playground() {
   const { isMounted } = useMounted();
   const colorMode = (isMounted ? theme : 'light') as ColorMode;
 
-  const { startTour } = usePlaygroundTour({ theme: colorMode });
   const viewMode = usePlaygroundStore((s) => s.viewMode);
   const layoutMode = usePlaygroundStore((s) => s.layoutMode);
   const hierarchyDirection = usePlaygroundStore((s) => s.hierarchyDirection);
@@ -100,6 +99,8 @@ export function Playground() {
   const isArticulationVisible = usePlaygroundStore(
     (s) => s.isArticulationVisible,
   );
+  const isFilterOpen = usePlaygroundStore((s) => s.isFilterOpen);
+  const isLegendOpen = usePlaygroundStore((s) => s.isLegendOpen);
   const connectedNodeIds = usePlaygroundStore((s) => s.connectedNodeIds);
   const connectedEdgeIds = usePlaygroundStore((s) => s.connectedEdgeIds);
   const setViewMode = usePlaygroundStore((s) => s.setViewMode);
@@ -113,10 +114,13 @@ export function Playground() {
   const setIsArticulationVisible = usePlaygroundStore(
     (s) => s.setIsArticulationVisible,
   );
+  const setIsFilterOpen = usePlaygroundStore((s) => s.setIsFilterOpen);
+  const setIsLegendOpen = usePlaygroundStore((s) => s.setIsLegendOpen);
+  const resetFilterSettings = usePlaygroundStore((s) => s.resetFilterSettings);
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
   // Sync playground settings with URL query params
-  usePlaygroundParams({
+  const { clearPlaygroundParams } = usePlaygroundParams({
     currentSettings: {
       viewMode,
       layoutMode,
@@ -129,6 +133,23 @@ export function Playground() {
     onHierarchyDirectionChange: setHierarchyDirection,
     onEdgeShapeChange: (shape) => setEdgeStyle({ shape }),
     onLetterSelect: setSelectedLetterId,
+  });
+
+  const handleBeforeTourStart = useCallback(() => {
+    setIsFilterOpen(true);
+    setIsLegendOpen(true);
+    resetFilterSettings();
+    clearPlaygroundParams();
+  }, [
+    setIsFilterOpen,
+    setIsLegendOpen,
+    resetFilterSettings,
+    clearPlaygroundParams,
+  ]);
+
+  const { startTour } = usePlaygroundTour({
+    theme: colorMode,
+    onBeforeStart: handleBeforeTourStart,
   });
 
   // Quiz state - to unmount playground canvas when quiz is active (performance optimization)
@@ -394,6 +415,8 @@ export function Playground() {
             >
               <GraphFilter
                 dir={dir}
+                isOpen={isFilterOpen}
+                onOpenChange={setIsFilterOpen}
                 viewMode={viewMode}
                 layoutMode={layoutMode}
                 hierarchyDirection={hierarchyDirection}
@@ -414,6 +437,8 @@ export function Playground() {
               {!isUnsupportedMobileView && (
                 <GraphLegend
                   dir={dir}
+                  isOpen={isLegendOpen}
+                  onOpenChange={setIsLegendOpen}
                   isTraitVisible={isTraitVisible}
                   isArticulationVisible={isArticulationVisible}
                 />
