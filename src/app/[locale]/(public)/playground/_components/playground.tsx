@@ -40,6 +40,7 @@ import { getRootLetters } from '../_lib/letter';
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
+import type { ViewMode } from '../_schemas/graph';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
 import {
@@ -79,11 +80,13 @@ const edgeTypes: EdgeTypes = {
   floating: FloatingEdge,
 };
 
+const MAX_MD_MEDIA_QUERY = '(width < 48rem)';
+
 export function Playground() {
   const t = useTranslations('playground_page');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
-  const isMaxMd = useMediaQuery('(width < 48rem)');
+  const isMaxMd = useMediaQuery(MAX_MD_MEDIA_QUERY);
   const { theme } = useTheme();
   const { isMounted } = useMounted();
   const colorMode = (isMounted ? theme : 'light') as ColorMode;
@@ -118,6 +121,23 @@ export function Playground() {
   const resetFilterSettings = usePlaygroundStore((s) => s.resetFilterSettings);
   const updateHighlight = usePlaygroundStore((s) => s.updateHighlight);
 
+  const handleViewModeChange = useCallback(
+    (mode: ViewMode) => {
+      const isMobileViewport =
+        typeof window !== 'undefined' &&
+        window.matchMedia(MAX_MD_MEDIA_QUERY).matches;
+
+      setViewMode(mode);
+
+      if (isMobileViewport) {
+        const isLetterView = mode === 'letter';
+        setIsTraitVisible(isLetterView);
+        setIsArticulationVisible(isLetterView);
+      }
+    },
+    [setViewMode, setIsTraitVisible, setIsArticulationVisible],
+  );
+
   // Sync playground settings with URL query params
   const { clearPlaygroundParams } = usePlaygroundParams({
     currentSettings: {
@@ -127,7 +147,7 @@ export function Playground() {
       edgeShape: edgeStyle.shape,
       selectedLetterId,
     },
-    onViewModeChange: setViewMode,
+    onViewModeChange: handleViewModeChange,
     onLayoutModeChange: setLayoutMode,
     onHierarchyDirectionChange: setHierarchyDirection,
     onEdgeShapeChange: (shape) => setEdgeStyle({ shape }),
@@ -439,7 +459,7 @@ export function Playground() {
                 isArticulationVisible={isArticulationVisible}
                 letters={memoizedLetters}
                 selectedLetterId={selectedLetterId}
-                onViewModeChange={setViewMode}
+                onViewModeChange={handleViewModeChange}
                 onLayoutModeChange={setLayoutMode}
                 onHierarchyDirectionChange={setHierarchyDirection}
                 onEdgeStyleChange={setEdgeStyle}
