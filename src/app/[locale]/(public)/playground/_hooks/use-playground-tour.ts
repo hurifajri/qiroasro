@@ -9,6 +9,23 @@ import type { Locale } from '@/i18n/routing';
 
 const TOUR_COMPLETED_KEY = 'playground_tour-completed';
 
+function hasCompletedTour(): boolean {
+  try {
+    return Boolean(localStorage.getItem(TOUR_COMPLETED_KEY));
+  } catch (error) {
+    console.warn('[usePlaygroundTour] Failed to read localStorage:', error);
+    return false;
+  }
+}
+
+function markTourCompleted(): void {
+  try {
+    localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+  } catch (error) {
+    console.warn('[usePlaygroundTour] Failed to write localStorage:', error);
+  }
+}
+
 interface UsePlaygroundTourProps {
   theme: ColorMode;
   onBeforeStart?: () => void;
@@ -28,7 +45,7 @@ export function usePlaygroundTour({
     onBeforeStartRef.current = onBeforeStart;
   }, [onBeforeStart]);
 
-  function getTourSteps(): DriveStep[] {
+  const getTourSteps = useCallback((): DriveStep[] => {
     return [
       {
         popover: {
@@ -178,9 +195,8 @@ export function usePlaygroundTour({
         disableActiveInteraction: true,
       },
     ];
-  }
+  }, [t]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <ignore>
   const startTour = useCallback(async () => {
     // Destroy existing driver if any
     if (driverRef.current) {
@@ -220,24 +236,25 @@ export function usePlaygroundTour({
       steps: getTourSteps(),
       onDestroyStarted: () => {
         // Mark tour as completed when user finishes or dismisses
-        localStorage.setItem(TOUR_COMPLETED_KEY, 'true');
+        markTourCompleted();
         driverRef.current?.destroy();
       },
     });
 
     driverRef.current = driverInstance;
     driverInstance.drive();
-  }, []);
+  }, [dir, getTourSteps, t, theme]);
+
+  const startTourRef = useRef(startTour);
+  startTourRef.current = startTour;
 
   // Auto-start tour on first visit
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <ignore>
   useEffect(() => {
-    const hasCompletedTour = localStorage.getItem(TOUR_COMPLETED_KEY);
-    if (hasCompletedTour) return;
+    if (hasCompletedTour()) return;
 
     // Delay to allow the graph to render before starting the tour
     const timeout = setTimeout(() => {
-      startTour().catch((error) => {
+      startTourRef.current().catch((error) => {
         console.error('[usePlaygroundTour] Failed to start tour:', error);
       });
     }, 1000);

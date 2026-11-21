@@ -12,7 +12,7 @@ import type {
   QuizTarget,
   QuizType,
 } from '../_schemas/quiz';
-import type { Trait } from '../_schemas/trait';
+import type { Trait, TraitGroup } from '../_schemas/trait';
 import { createLetterQuizNode, createTargetQuizNode } from './node';
 
 interface QuizGeneratorData {
@@ -21,6 +21,16 @@ interface QuizGeneratorData {
   letterTraits: LetterTrait[];
   articulationPoints: ArticulationPoint[];
   traits: Trait[];
+  traitGroups: TraitGroup[];
+}
+
+function shuffleArray<T>(items: readonly T[]): T[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
 
 interface QuizSettings {
@@ -53,12 +63,18 @@ export function generateQuizData(
     letterTraits,
     articulationPoints,
     traits,
+    traitGroups,
   } = data;
   const { lettersPerQuiz, targetsPerQuiz, multiEdge, specificLetterId } =
     settings;
 
+  const lazimahGroupIds = new Set(
+    traitGroups.filter((group) => group.isLazimah).map((group) => group.id),
+  );
   const validTraitIds = new Set(
-    traits.filter((t) => t.groupId !== 7).map((t) => t.id),
+    traits
+      .filter((t) => traitGroups.length === 0 || lazimahGroupIds.has(t.groupId))
+      .map((t) => t.id),
   );
 
   // Filter by specific letter if provided
@@ -76,7 +92,7 @@ export function generateQuizData(
     );
   });
 
-  const shuffledLetters = [...availableLetters].sort(() => Math.random() - 0.5);
+  const shuffledLetters = shuffleArray(availableLetters);
 
   const allTargets: QuizTarget[] =
     type === 'articulation_point'
@@ -105,7 +121,11 @@ export function generateQuizData(
   const isCase4 = multiEdge && lettersPerQuiz > 1 && targetsPerQuiz === 1;
   const isSupportedConfig = isCase1 || isCase2 || isCase3 || isCase4;
 
-  if (!isSupportedConfig) {
+  if (
+    !isSupportedConfig ||
+    shuffledLetters.length === 0 ||
+    allTargets.length === 0
+  ) {
     return {
       questions: [],
       targets: [],
@@ -160,6 +180,16 @@ export function generateQuizData(
     selectedTargets = result.targets;
   }
 
+  if (newQuestions.length === 0 || selectedTargets.length === 0) {
+    return {
+      questions: [],
+      targets: [],
+      nodes: [],
+      edges: [],
+      isUnsupported: true,
+    };
+  }
+
   const letterNodes: Node[] = newQuestions.map((q, index) => {
     const letter: QuizLetter = { ...q.letter, status: 'none' };
     const position = { x: 50, y: 30 + index * 70 };
@@ -196,23 +226,23 @@ function generateCase1(
 ) {
   const letter = shuffledLetters[0];
   const letterCorrectIds = getCorrectTargetIds(letter);
-  const shuffledCorrectIds = [...letterCorrectIds].sort(
-    () => Math.random() - 0.5,
-  );
+  const shuffledCorrectIds = shuffleArray(letterCorrectIds);
   const selectedTargetId = shuffledCorrectIds[0];
+  if (selectedTargetId === undefined) {
+    return { questions: [], targets: [] };
+  }
 
   const questions: QuizQuestion[] = [
     { letter, correctTargetIds: [selectedTargetId], targetType: type },
   ];
 
   const correctTarget = allTargets.find((t) => t.id === selectedTargetId);
-  const distractorTargets = allTargets
-    .filter((t) => !letterCorrectIds.includes(t.id))
-    .sort(() => Math.random() - 0.5)
-    .slice(0, settings.targetsPerQuiz - 1);
+  const distractorTargets = shuffleArray(
+    allTargets.filter((t) => !letterCorrectIds.includes(t.id)),
+  ).slice(0, settings.targetsPerQuiz - 1);
 
   const targets = correctTarget
-    ? [correctTarget, ...distractorTargets].sort(() => Math.random() - 0.5)
+    ? shuffleArray([correctTarget, ...distractorTargets])
     : distractorTargets;
 
   return { questions, targets };
@@ -233,17 +263,16 @@ function generateCase2(
     { letter, correctTargetIds: letterCorrectIds, targetType: type },
   ];
 
-  const correctTargets = allTargets
-    .filter((t) => letterCorrectIds.includes(t.id))
-    .sort(() => Math.random() - 0.5)
-    .slice(0, settings.targetsPerQuiz - 1);
+  const correctTargets = shuffleArray(
+    allTargets.filter((t) => letterCorrectIds.includes(t.id)),
+  ).slice(0, settings.targetsPerQuiz - 1);
 
-  const distractorTarget = allTargets
-    .filter((t) => !letterCorrectIds.includes(t.id))
-    .sort(() => Math.random() - 0.5)[0];
+  const distractorTarget = shuffleArray(
+    allTargets.filter((t) => !letterCorrectIds.includes(t.id)),
+  )[0];
 
   const targets = distractorTarget
-    ? [...correctTargets, distractorTarget].sort(() => Math.random() - 0.5)
+    ? shuffleArray([...correctTargets, distractorTarget])
     : correctTargets;
 
   return { questions, targets };
@@ -259,10 +288,11 @@ function generateCase3(
 ) {
   const firstLetter = shuffledLetters[0];
   const firstLetterCorrectIds = getCorrectTargetIds(firstLetter);
-  const shuffledCorrectIds = [...firstLetterCorrectIds].sort(
-    () => Math.random() - 0.5,
-  );
+  const shuffledCorrectIds = shuffleArray(firstLetterCorrectIds);
   const selectedTargetId = shuffledCorrectIds[0];
+  if (selectedTargetId === undefined) {
+    return { questions: [], targets: [] };
+  }
 
   const distractorLetters = shuffledLetters.slice(1).filter((letter) => {
     const letterTargetIds = getCorrectTargetIds(letter);
@@ -273,13 +303,13 @@ function generateCase3(
     firstLetter,
     ...distractorLetters.slice(0, settings.lettersPerQuiz - 1),
   ];
-  const questions: QuizQuestion[] = selectedLetters
-    .map((letter, index) => ({
+  const questions: QuizQuestion[] = shuffleArray(
+    selectedLetters.map((letter, index) => ({
       letter,
       correctTargetIds: index === 0 ? [selectedTargetId] : [],
       targetType: type,
-    }))
-    .sort(() => Math.random() - 0.5);
+    })),
+  );
 
   const targets = allTargets.filter((t) => t.id === selectedTargetId);
 
@@ -294,8 +324,11 @@ function generateCase4(
   type: QuizType,
   settings: QuizSettings,
 ) {
-  const shuffledTargets = [...allTargets].sort(() => Math.random() - 0.5);
+  const shuffledTargets = shuffleArray(allTargets);
   const targetItem = shuffledTargets[0];
+  if (!targetItem) {
+    return { questions: [], targets: [] };
+  }
 
   const lettersWithTarget = shuffledLetters.filter((letter) => {
     const letterTargetIds = getCorrectTargetIds(letter);
@@ -312,7 +345,7 @@ function generateCase4(
     settings.lettersPerQuiz - 1,
   );
   const selectedLetters = distractorLetter
-    ? [...correctLetters, distractorLetter].sort(() => Math.random() - 0.5)
+    ? shuffleArray([...correctLetters, distractorLetter])
     : correctLetters;
 
   const questions: QuizQuestion[] = selectedLetters.map((letter) => {

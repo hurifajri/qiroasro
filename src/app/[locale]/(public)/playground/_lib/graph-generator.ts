@@ -222,6 +222,78 @@ function generateAllView(data: GraphData): GraphView {
   return builder.build();
 }
 
+function addLetterArticulationRelations(
+  builder: GraphBuilder,
+  letterId: number,
+  letterArticulations: LetterArticulation[],
+  pointById: Map<number, ArticulationPoint>,
+  areaById: Map<number, ArticulationArea>,
+): void {
+  for (const rel of letterArticulations) {
+    if (rel.letterId !== letterId) continue;
+
+    const point = pointById.get(rel.pointId);
+    if (!point) continue;
+
+    builder.addNode(createArticulationPointNode(point));
+    builder.addEdge({
+      id: `edge-letter-${letterId}-point-${point.id}`,
+      source: `letter-${letterId}`,
+      target: `point-${point.id}`,
+      type: 'default',
+      style: { stroke: '#0EA5E9', strokeWidth: 1 },
+    });
+
+    const area = areaById.get(point.areaId);
+    if (area) {
+      builder.addNode(createArticulationAreaNode(area));
+      builder.addEdge({
+        id: `edge-area-${area.id}-point-${point.id}`,
+        source: `point-${point.id}`,
+        target: `area-${area.id}`,
+        type: 'default',
+        style: { stroke: '#0EA5E9' },
+      });
+    }
+  }
+}
+
+function addLetterTraitRelations(
+  builder: GraphBuilder,
+  letterId: number,
+  letterTraits: LetterTrait[],
+  traitById: Map<number, Trait>,
+  traitGroupById: Map<number, TraitGroup>,
+): void {
+  for (const rel of letterTraits) {
+    if (rel.letterId !== letterId) continue;
+
+    const trait = traitById.get(rel.traitId);
+    if (!trait) continue;
+
+    builder.addNode(createTraitNode(trait));
+    builder.addEdge({
+      id: `edge-letter-${letterId}-trait-${trait.id}`,
+      source: `letter-${letterId}`,
+      target: `trait-${trait.id}`,
+      type: 'default',
+      style: { stroke: '#8B5CF6' },
+    });
+
+    const group = traitGroupById.get(trait.groupId);
+    if (group) {
+      builder.addNode(createTraitGroupNode(group));
+      builder.addEdge({
+        id: `edge-group-${group.id}-trait-${trait.id}`,
+        source: `trait-${trait.id}`,
+        target: `trait-group-${group.id}`,
+        type: 'default',
+        style: { stroke: '#8B5CF6' },
+      });
+    }
+  }
+}
+
 function generateByLetterView(data: GraphData, selectedId: number): GraphView {
   const builder = createGraphBuilder();
   const letterBySlug = getLetterBySlug(data.letters);
@@ -244,65 +316,26 @@ function generateByLetterView(data: GraphData, selectedId: number): GraphView {
 
   // Root letters with variants delegate their relations to the variants
   const relatedLetters = variants.length > 0 ? variants : [root];
+  const pointById = new Map(data.articulationPoints.map((p) => [p.id, p]));
+  const areaById = new Map(data.articulationAreas.map((a) => [a.id, a]));
+  const traitById = new Map(data.traits.map((t) => [t.id, t]));
+  const traitGroupById = new Map(data.traitGroups.map((g) => [g.id, g]));
 
   for (const letter of relatedLetters) {
-    // Articulation points & areas
-    for (const rel of data.letterArticulations) {
-      if (rel.letterId !== letter.id) continue;
-
-      const point = data.articulationPoints.find((p) => p.id === rel.pointId);
-      if (!point) continue;
-
-      builder.addNode(createArticulationPointNode(point));
-      builder.addEdge({
-        id: `edge-letter-${letter.id}-point-${point.id}`,
-        source: `letter-${letter.id}`,
-        target: `point-${point.id}`,
-        type: 'default',
-        style: { stroke: '#0EA5E9', strokeWidth: 1 },
-      });
-
-      const area = data.articulationAreas.find((a) => a.id === point.areaId);
-      if (area) {
-        builder.addNode(createArticulationAreaNode(area));
-        builder.addEdge({
-          id: `edge-area-${area.id}-point-${point.id}`,
-          source: `point-${point.id}`,
-          target: `area-${area.id}`,
-          type: 'default',
-          style: { stroke: '#0EA5E9' },
-        });
-      }
-    }
-
-    // Traits & trait groups
-    for (const rel of data.letterTraits) {
-      if (rel.letterId !== letter.id) continue;
-
-      const trait = data.traits.find((t) => t.id === rel.traitId);
-      if (!trait) continue;
-
-      builder.addNode(createTraitNode(trait));
-      builder.addEdge({
-        id: `edge-letter-${letter.id}-trait-${trait.id}`,
-        source: `letter-${letter.id}`,
-        target: `trait-${trait.id}`,
-        type: 'default',
-        style: { stroke: '#8B5CF6' },
-      });
-
-      const group = data.traitGroups.find((g) => g.id === trait.groupId);
-      if (group) {
-        builder.addNode(createTraitGroupNode(group));
-        builder.addEdge({
-          id: `edge-trait-${trait.id}-group-${group.id}`,
-          source: `trait-${trait.id}`,
-          target: `trait-group-${group.id}`,
-          type: 'default',
-          style: { stroke: '#8B5CF6' },
-        });
-      }
-    }
+    addLetterArticulationRelations(
+      builder,
+      letter.id,
+      data.letterArticulations,
+      pointById,
+      areaById,
+    );
+    addLetterTraitRelations(
+      builder,
+      letter.id,
+      data.letterTraits,
+      traitById,
+      traitGroupById,
+    );
   }
 
   return builder.build();

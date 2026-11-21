@@ -1,25 +1,23 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
-import type {
-  ChallengeQuizAnalytic,
-  ChallengeQuizDifficulty,
-  ChallengeQuizQuestion,
-  ChallengeQuizQuestionScore,
-  ChallengeQuizResult,
-  ChallengeQuizScore,
-  PracticeQuizScore,
-  QuizMode,
-  QuizQuestion,
-  QuizTarget,
-  QuizType,
-} from '../_schemas/quiz';
 import {
+  type ChallengeQuizAnalytic,
+  type ChallengeQuizDifficulty,
+  type ChallengeQuizQuestion,
+  type ChallengeQuizQuestionScore,
+  type ChallengeQuizResult,
+  type ChallengeQuizScore,
   CORRECT_POINT,
   DEFAULT_CHALLENGE_QUIZ_SCORE,
   INCORRECT_POINT,
   PRACTICE_QUIZ_DEFAULT_SETTINGS,
+  type PracticeQuizScore,
   type PracticeQuizSettings,
+  type QuizMode,
+  type QuizQuestion,
+  type QuizTarget,
+  type QuizType,
 } from '../_schemas/quiz';
 
 interface QuizState {
@@ -146,12 +144,17 @@ export function createQuizStore() {
     startChallenge: () =>
       set({
         isStarted: true,
+        isChecked: false,
+        questions: [],
+        targets: [],
+        challengeCurrQuestion: null,
         challengeCurrQuestionIdx: 0,
         challengeTotalTime: 0,
         challengeQuestionScores: [],
         challengeScore: DEFAULT_CHALLENGE_QUIZ_SCORE,
         challengeAnalytics: [],
         challengeResult: null,
+        challengeLastPointChange: null,
       }),
     nextChallengeQuestion: () =>
       set((state) => ({

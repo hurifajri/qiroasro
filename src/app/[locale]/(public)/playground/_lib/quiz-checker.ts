@@ -12,6 +12,155 @@ interface CalculateAnswerResult {
   questionAnalytics: ChallengeQuizAnalytic[];
 }
 
+interface QuestionConnectionsEvaluation {
+  correctCount: number;
+  wrongConnectionCount: number;
+  correctTargets: QuizTarget[];
+  userAnswers: QuizTarget[];
+}
+
+function evaluateQuestionConnections(
+  question: QuizQuestion,
+  edges: Edge[],
+  displayedTargets: QuizTarget[],
+  displayedTargetIds: Set<number>,
+  letterResults: Map<string, 'correct' | 'incorrect'>,
+  targetResults: Map<string, 'correct' | 'incorrect'>,
+): QuestionConnectionsEvaluation {
+  const letterId = `letter-quiz-${question.letter.id}`;
+  const letterConnections = edges.filter((e) => e.source === letterId);
+
+  const validCorrectTargetIdSet = new Set(
+    question.correctTargetIds.filter((id) => displayedTargetIds.has(id)),
+  );
+  const correctTargets = displayedTargets.filter((t) =>
+    validCorrectTargetIdSet.has(t.id),
+  );
+
+  const userAnswerIds = new Set(
+    letterConnections.map((c) =>
+      Number.parseInt(c.target.replace('target-quiz-', ''), 10),
+    ),
+  );
+  const userAnswers = displayedTargets.filter((t) => userAnswerIds.has(t.id));
+
+  let correctCount = 0;
+  let wrongConnectionCount = 0;
+
+  for (const connection of letterConnections) {
+    const targetIdNum = Number.parseInt(
+      connection.target.replace('target-quiz-', ''),
+      10,
+    );
+    const isCorrect = validCorrectTargetIdSet.has(targetIdNum);
+    targetResults.set(connection.target, isCorrect ? 'correct' : 'incorrect');
+
+    if (isCorrect) {
+      correctCount++;
+    } else {
+      wrongConnectionCount++;
+    }
+  }
+
+  if (correctCount > 0) {
+    letterResults.set(letterId, 'correct');
+  } else if (letterConnections.length > 0 || validCorrectTargetIdSet.size > 0) {
+    letterResults.set(letterId, 'incorrect');
+  }
+
+  return { correctCount, wrongConnectionCount, correctTargets, userAnswers };
+}
+
+function getMultiLetterSelection(
+  questions: QuizQuestion[],
+  edges: Edge[],
+  targetId: number | undefined,
+): {
+  correctLetterIds?: number[];
+  userSelectedLetterIds?: number[];
+} {
+  if (!targetId) return {};
+
+  const targetNodeId = `target-quiz-${targetId}`;
+  const userSelectedLetterIds = edges
+    .filter((e) => e.target === targetNodeId)
+    .map((c) => Number.parseInt(c.source.replace('letter-quiz-', ''), 10));
+
+  const correctLetterIds = questions
+    .filter((q) => q.correctTargetIds.includes(targetId))
+    .map((q) => q.letter.id);
+
+  return { correctLetterIds, userSelectedLetterIds };
+}
+
+function evaluateQuestionOutcome(params: {
+  isMultiLetter: boolean;
+  correctLetterIds?: number[];
+  userSelectedLetterIds?: number[];
+  allCorrectTargets: QuizTarget[];
+  allUserAnswers: QuizTarget[];
+  correctCount: number;
+  wrongConnectionCount: number;
+}): {
+  incorrectCount: number;
+  isUnanswered: boolean;
+  isPerfect: boolean;
+  hasPartialCorrect: boolean;
+} {
+  const {
+    isMultiLetter,
+    correctLetterIds,
+    userSelectedLetterIds,
+    allCorrectTargets,
+    allUserAnswers,
+    correctCount,
+    wrongConnectionCount,
+  } = params;
+
+  if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
+    const correctLetterIdSet = new Set(correctLetterIds);
+    const selectedLetterIdSet = new Set(userSelectedLetterIds);
+    const actualCorrect = userSelectedLetterIds.filter((id) =>
+      correctLetterIdSet.has(id),
+    ).length;
+    const incorrectCount = Math.max(
+      correctLetterIds.length - actualCorrect,
+      wrongConnectionCount,
+    );
+    const isUnanswered = userSelectedLetterIds.length === 0;
+    const isPerfect =
+      !isUnanswered &&
+      userSelectedLetterIds.length === correctLetterIds.length &&
+      userSelectedLetterIds.every((uid) => correctLetterIdSet.has(uid)) &&
+      correctLetterIds.every((cid) => selectedLetterIdSet.has(cid));
+
+    return {
+      incorrectCount,
+      isUnanswered,
+      isPerfect,
+      hasPartialCorrect: !isPerfect && !isUnanswered,
+    };
+  }
+
+  const correctTargetIdSet = new Set(allCorrectTargets.map((ct) => ct.id));
+  const incorrectCount = Math.max(
+    allCorrectTargets.length - correctCount,
+    wrongConnectionCount,
+  );
+  const isUnanswered = allUserAnswers.length === 0;
+  const isPerfect =
+    !isUnanswered &&
+    allUserAnswers.length === allCorrectTargets.length &&
+    allUserAnswers.every((ua) => correctTargetIdSet.has(ua.id));
+
+  return {
+    incorrectCount,
+    isUnanswered,
+    isPerfect,
+    hasPartialCorrect: !isPerfect && !isUnanswered,
+  };
+}
+
 /**
  * Pure function to check quiz answers and determine results.
  * @param questions - Quiz questions with letters and their correct target IDs
@@ -26,150 +175,54 @@ export function calculateAnswer(
   questionNumber: number = 1,
 ): CalculateAnswerResult {
   let correctCount = 0;
+  let wrongConnectionCount = 0;
   const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
   const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
 
-  // Collect data for single analytic
   const allLetters: ChallengeQuizAnalytic['letters'] = [];
   const allCorrectTargets: QuizTarget[] = [];
   const allUserAnswers: QuizTarget[] = [];
   const targetType = questions[0]?.targetType || 'articulation_point';
-
-  // Get set of displayed target IDs for fast lookup
   const displayedTargetIds = new Set(displayedTargets.map((t) => t.id));
 
   for (const question of questions) {
-    const letterId = `letter-quiz-${question.letter.id}`;
-    const letterConnections = edges.filter((e) => e.source === letterId);
-
-    // Collect letter
     allLetters.push({
       id: question.letter.id,
       symbol: question.letter.symbol,
       tafkhimType: question.letter.tafkhimType,
     });
 
-    // Filter correctTargetIds to only include targets that are displayed on screen
-    const validCorrectTargetIds = question.correctTargetIds.filter((id) =>
-      displayedTargetIds.has(id),
+    const evaluation = evaluateQuestionConnections(
+      question,
+      edges,
+      displayedTargets,
+      displayedTargetIds,
+      letterResults,
+      targetResults,
     );
 
-    // Get correct targets for this letter
-    const correctTargets = displayedTargets.filter((t) =>
-      validCorrectTargetIds.includes(t.id),
-    );
-    allCorrectTargets.push(...correctTargets);
-
-    // Get user's answers from edges for this letter
-    const userAnswerIds = letterConnections.map((c) =>
-      Number.parseInt(c.target.replace('target-quiz-', ''), 10),
-    );
-    const userAnswers = displayedTargets.filter((t) =>
-      userAnswerIds.includes(t.id),
-    );
-    allUserAnswers.push(...userAnswers);
-
-    // Track connections for scoring
-    for (const connection of letterConnections) {
-      const targetIdNum = Number.parseInt(
-        connection.target.replace('target-quiz-', ''),
-        10,
-      );
-      const isCorrect = validCorrectTargetIds.includes(targetIdNum);
-      const status = isCorrect ? 'correct' : 'incorrect';
-
-      const currentLetterStatus = letterResults.get(letterId);
-      if (
-        !currentLetterStatus ||
-        (isCorrect && currentLetterStatus === 'incorrect')
-      ) {
-        letterResults.set(letterId, status);
-      }
-      targetResults.set(connection.target, status);
-
-      if (isCorrect) {
-        correctCount++;
-      }
-    }
-
-    // Set letter status for unanswered
-    if (letterConnections.length === 0 && validCorrectTargetIds.length > 0) {
-      letterResults.set(letterId, 'incorrect');
-    }
+    correctCount += evaluation.correctCount;
+    wrongConnectionCount += evaluation.wrongConnectionCount;
+    allCorrectTargets.push(...evaluation.correctTargets);
+    allUserAnswers.push(...evaluation.userAnswers);
   }
 
-  // Detect multi-letter scenario (multiple letters, single target)
   const isMultiLetter = allLetters.length > 1;
+  const { correctLetterIds, userSelectedLetterIds } = isMultiLetter
+    ? getMultiLetterSelection(questions, edges, allCorrectTargets[0]?.id)
+    : {};
 
-  // For multi-letter, track which letters are correct and which user selected
-  let correctLetterIds: number[] | undefined;
-  let userSelectedLetterIds: number[] | undefined;
+  const { incorrectCount, isUnanswered, isPerfect, hasPartialCorrect } =
+    evaluateQuestionOutcome({
+      isMultiLetter,
+      correctLetterIds,
+      userSelectedLetterIds,
+      allCorrectTargets,
+      allUserAnswers,
+      correctCount,
+      wrongConnectionCount,
+    });
 
-  if (isMultiLetter) {
-    // For multi-letter, user still makes connections FROM letter TO target
-    const targetId = allCorrectTargets[0]?.id;
-    if (targetId) {
-      const targetNodeId = `target-quiz-${targetId}`;
-
-      // Get all edges going TO this target
-      const targetConnections = edges.filter((e) => e.target === targetNodeId);
-
-      // Extract letter IDs from edge sources
-      userSelectedLetterIds = targetConnections.map((c) =>
-        Number.parseInt(c.source.replace('letter-quiz-', ''), 10),
-      );
-
-      // Correct letter IDs are from questions where this target is in correctTargetIds
-      correctLetterIds = questions
-        .filter((q) => q.correctTargetIds.includes(targetId))
-        .map((q) => q.letter.id);
-    }
-  }
-
-  // Calculate incorrect count = expected correct - actual correct
-  // This is the single source of truth for incorrect calculations
-  let incorrectCount: number;
-  if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
-    // Multi-letter: expectedCorrect = number of letters that should connect
-    // actualCorrect = number of correct letters user selected
-    const expectedCorrect = correctLetterIds.length;
-    const actualCorrect = userSelectedLetterIds.filter((id) =>
-      correctLetterIds.includes(id),
-    ).length;
-    incorrectCount = expectedCorrect - actualCorrect;
-  } else {
-    // Single-letter: expectedCorrect = number of correct targets
-    // actualCorrect = correctCount (already calculated above)
-    const expectedCorrect = allCorrectTargets.length;
-    incorrectCount = expectedCorrect - correctCount;
-  }
-
-  // Determine overall status for this question
-  const isUnanswered = isMultiLetter
-    ? (userSelectedLetterIds?.length ?? 0) === 0
-    : allUserAnswers.length === 0;
-
-  let isPerfect: boolean;
-  if (isMultiLetter && correctLetterIds && userSelectedLetterIds) {
-    // For multi-letter: compare letter IDs
-    isPerfect =
-      !isUnanswered &&
-      userSelectedLetterIds.length === correctLetterIds.length &&
-      userSelectedLetterIds.every((uid) => correctLetterIds.includes(uid)) &&
-      correctLetterIds.every((cid) => userSelectedLetterIds.includes(cid));
-  } else {
-    // For single-letter: compare targets
-    isPerfect =
-      !isUnanswered &&
-      allUserAnswers.length === allCorrectTargets.length &&
-      allUserAnswers.every((ua) =>
-        allCorrectTargets.some((ct) => ct.id === ua.id),
-      );
-  }
-
-  const hasPartialCorrect = !isPerfect && !isUnanswered;
-
-  // Create single analytic for this quiz screen
   const questionAnalytics: ChallengeQuizAnalytic[] = [
     {
       questionNumber,

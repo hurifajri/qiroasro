@@ -26,6 +26,15 @@ interface UseQuizGeneratorProps {
 
 export type UseQuizGeneratorReturn = ReturnType<typeof useQuizGenerator>;
 
+function isValidConnection(connection: Edge | Connection) {
+  const sourceId = connection.source;
+  const targetId = connection.target;
+  const isLetterQuiz = sourceId.startsWith('letter-quiz-');
+  const isTargetQuiz = targetId.startsWith('target-quiz-');
+
+  return isLetterQuiz && isTargetQuiz;
+}
+
 export function useQuizGenerator({
   nodes,
   edges,
@@ -70,9 +79,18 @@ export function useQuizGenerator({
   const letterTraits = playgroundData?.letterTraits ?? [];
   const articulationPoints = playgroundData?.articulationPoints ?? [];
   const traits = playgroundData?.traits ?? [];
+  const traitGroups = playgroundData?.traitGroups ?? [];
 
   // Generate quiz questions and nodes
-  function generateQuiz(type: QuizType) {
+  function generateQuiz(
+    type: QuizType,
+    overrideSettings?: Partial<{
+      lettersPerQuiz: number;
+      targetsPerQuiz: number;
+      multiEdge: boolean;
+      specificLetterId: number | null;
+    }>,
+  ) {
     const result = generateQuizData(
       type,
       {
@@ -81,8 +99,17 @@ export function useQuizGenerator({
         letterTraits,
         articulationPoints,
         traits,
+        traitGroups,
       },
-      { lettersPerQuiz, targetsPerQuiz, multiEdge, specificLetterId },
+      {
+        lettersPerQuiz: overrideSettings?.lettersPerQuiz ?? lettersPerQuiz,
+        targetsPerQuiz: overrideSettings?.targetsPerQuiz ?? targetsPerQuiz,
+        multiEdge: overrideSettings?.multiEdge ?? multiEdge,
+        specificLetterId:
+          overrideSettings?.specificLetterId !== undefined
+            ? overrideSettings.specificLetterId
+            : specificLetterId,
+      },
     );
 
     if (result.isUnsupported) {
@@ -98,16 +125,6 @@ export function useQuizGenerator({
     setNodes(result.nodes);
     setEdges(result.edges);
     setIsChecked(false);
-  }
-
-  // Validate connection
-  function isValidConnection(connection: Edge | Connection) {
-    const sourceId = connection.source;
-    const targetId = connection.target;
-    const isLetterQuiz = sourceId.startsWith('letter-quiz-');
-    const isTargetQuiz = targetId.startsWith('target-quiz-');
-
-    return isLetterQuiz && isTargetQuiz;
   }
 
   // Handle new connection

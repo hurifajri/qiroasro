@@ -1,7 +1,13 @@
 'use client';
 
 import type { Edge, Node } from '@xyflow/react';
-import { type Dispatch, type SetStateAction, useEffect } from 'react';
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import { useQuizStore } from '../_providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -51,6 +57,22 @@ export function useQuizChallenge({
   const currentConfig = CHALLENGE_QUIZ_LEVEL[difficulty ?? 'easy'];
   const currentQuestion = currentConfig.questions[currQuestionIdx];
 
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const lastGeneratedKeyRef = useRef<string | null>(null);
+  const generateQuizRef = useRef(generateQuiz);
+  generateQuizRef.current = generateQuiz;
+
+  const clearPendingTimeouts = useCallback(() => {
+    for (const timer of timeoutsRef.current) {
+      clearTimeout(timer);
+    }
+    timeoutsRef.current = [];
+  }, []);
+
+  useEffect(() => {
+    return () => clearPendingTimeouts();
+  }, [clearPendingTimeouts]);
+
   function handleCheckAndNext() {
     processAnswer();
   }
@@ -67,11 +89,18 @@ export function useQuizChallenge({
     isPaused: isChecked,
   });
 
+  const startTimerRef = useRef(startTimer);
+  const resetTimerRef = useRef(resetTimer);
+  startTimerRef.current = startTimer;
+  resetTimerRef.current = resetTimer;
+
   function handlePlayAgain() {
     if (!difficulty) return;
 
     // trackEvent('challenge_retry', { locale, theme, difficulty });
 
+    clearPendingTimeouts();
+    lastGeneratedKeyRef.current = null;
     setNodes([]);
     setEdges([]);
     reset();
@@ -80,6 +109,8 @@ export function useQuizChallenge({
   }
 
   function handleChangeMode() {
+    clearPendingTimeouts();
+    lastGeneratedKeyRef.current = null;
     stopTimer();
     setNodes([]);
     setEdges([]);
@@ -88,6 +119,8 @@ export function useQuizChallenge({
 
   // Shared function to process challenge answer (used by both timeout and manual check)
   function processAnswer() {
+    clearPendingTimeouts();
+
     // Calculate time spent on this question from timer
     const timeSpent = currentConfig.timerDuration - (timeRemaining ?? 0);
     addChallengeTimeSpent(timeSpent);
@@ -106,7 +139,8 @@ export function useQuizChallenge({
 
     // Use incorrectCount from analytics as single source of truth
     const incorrectConnection = currentAnalytic?.incorrectCount ?? 0;
-    const isPerfect = currentScore.correct === currentScore.total;
+    const isPerfect =
+      currentAnalytic?.isPerfect ?? currentScore.correct === currentScore.total;
 
     const stat = {
       correctConnection: currentScore.correct,
@@ -118,38 +152,58 @@ export function useQuizChallenge({
     // Animate score changes with delay
     let delay = 0;
     for (let i = 0; i < currentScore.correct; i++) {
-      setTimeout(() => addConnectionScore(true), delay);
+      timeoutsRef.current.push(
+        setTimeout(() => addConnectionScore(true), delay),
+      );
       delay += ANIMATION_DELAY;
     }
     for (let i = 0; i < incorrectConnection; i++) {
-      setTimeout(() => addConnectionScore(false), delay);
+      timeoutsRef.current.push(
+        setTimeout(() => addConnectionScore(false), delay),
+      );
       delay += ANIMATION_DELAY;
     }
 
     const totalAnimations = currentScore.correct + incorrectConnection;
     const animationDuration = totalAnimations * ANIMATION_DELAY + 800;
 
-    setTimeout(() => {
-      if (currQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
-        finish();
-      } else {
-        nextQuestion();
-      }
-    }, animationDuration);
+    timeoutsRef.current.push(
+      setTimeout(() => {
+        if (currQuestionIdx >= TOTAL_CHALLENGE_QUESTION - 1) {
+          finish();
+        } else {
+          nextQuestion();
+        }
+      }, animationDuration),
+    );
   }
 
   // Generate challenge question when index changes
   useEffect(() => {
-    if (mode === 'challenge' && isStarted && currentQuestion && !result) {
-      setChallengeCurrQuestion(currentQuestion);
-      generateQuiz(currentQuestion.type);
-      setType(currentQuestion.type);
-      resetTimer();
+    if (mode !== 'challenge' || !isStarted || result) {
+      lastGeneratedKeyRef.current = null;
+      return;
+    }
 
-      if (currQuestionIdx === 0 && difficulty) {
-        // trackEvent('challenge_started', { locale, theme, difficulty });
-        startTimer();
-      }
+    if (!currentQuestion) return;
+
+    const questionKey = `${difficulty ?? 'easy'}-${currQuestionIdx}`;
+    if (lastGeneratedKeyRef.current === questionKey) return;
+    lastGeneratedKeyRef.current = questionKey;
+
+    setChallengeCurrQuestion(currentQuestion);
+    generateQuizRef.current(currentQuestion.type, {
+      lettersPerQuiz: currentQuestion.lettersPerQuiz,
+      targetsPerQuiz: currentQuestion.targetsPerQuiz,
+      multiEdge: currentQuestion.allowMultiEdge,
+      specificLetterId: null,
+    });
+    setType(currentQuestion.type);
+    resetTimerRef.current();
+
+    if (currQuestionIdx === 0 && difficulty) {
+      // trackEvent('challenge_started', { locale, theme, difficulty });
+      startTimerRef.current();
     }
   }, [
     mode,
@@ -157,10 +211,7 @@ export function useQuizChallenge({
     currQuestionIdx,
     currentQuestion,
     result,
-    generateQuiz,
     setType,
-    resetTimer,
-    startTimer,
     setChallengeCurrQuestion,
     difficulty,
   ]);
