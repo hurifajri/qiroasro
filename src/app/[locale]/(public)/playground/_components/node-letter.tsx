@@ -23,10 +23,10 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
   return (
     <BaseNode
       className={cn(
-        'flex size-24 items-center justify-center rounded-full border-0 hover:ring-0 md:transition-transform md:duration-300',
+        'flex size-24 items-center justify-center rounded-full border-0 transition-transform duration-300 hover:ring-0',
         'bg-linear-to-br',
         LETTER_TAFKHIM_GRADIENT[nodeData.tafkhimType],
-        isActive ? 'scale-110' : 'md:hover:scale-105',
+        isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
