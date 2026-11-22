@@ -4,8 +4,11 @@ import { useTranslations } from 'next-intl';
 import { memo, useState } from 'react';
 
 import { BaseHandle } from '@/components/graph/base-handle';
-import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
+import {
+  ArticulationAreaNodeShell,
+  ArticulationPointNodeShell,
+} from '@/components/graph/tajweed-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
 import { useNodeLayout } from '../_hooks/use-node-layout';
@@ -32,9 +35,10 @@ export const ArticulationAreaNode = memo(function ArticulationAreaNode({
     useNodeLayout(nodeData, 'bg-node-articulation-handle!', selected);
 
   return (
-    <BaseNode
+    <ArticulationAreaNodeShell
+      label={label}
       className={cn(
-        'rounded-xl border-0 bg-linear-to-br from-node-articulation to-node-articulation-dark px-6 py-4 transition-transform duration-300 hover:ring-0',
+        'transition-transform duration-300',
         isActive ? 'scale-110' : 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
@@ -46,17 +50,13 @@ export const ArticulationAreaNode = memo(function ArticulationAreaNode({
         isConnectable={false}
       />
 
-      <BaseNodeContent className="p-0 text-sm font-semibold text-node-letter-text capitalize select-none">
-        {label}
-      </BaseNodeContent>
-
       <BaseHandle
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
         isConnectable={false}
       />
-    </BaseNode>
+    </ArticulationAreaNodeShell>
   );
 });
 
@@ -76,12 +76,13 @@ export const ArticulationPointNode = memo(function ArticulationPointNode({
 
   return (
     <>
-      <BaseNode
+      <ArticulationPointNodeShell
+        label={label}
+        isDashed={['jauf'].includes(nodeData.slug)}
         className={cn(
-          'rounded-lg border-2 border-node-articulation/50 bg-node-articulation-secondary px-4 py-2 text-node-articulation-text transition-transform duration-300 hover:ring-0',
+          'transition-transform duration-300',
           isActive ? 'scale-110' : 'hover:scale-105',
           isDimmed && 'opacity-30',
-          ['jauf'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
         {isActive && (
@@ -105,17 +106,13 @@ export const ArticulationPointNode = memo(function ArticulationPointNode({
           isConnectable={false}
         />
 
-        <BaseNodeContent className="p-0 text-xs font-medium capitalize select-none">
-          {label}
-        </BaseNodeContent>
-
         <BaseHandle
           type="source"
           position={sourcePosition}
           className={getHandleClass(nodeData.hasSourceEdge ?? false)}
           isConnectable={false}
         />
-      </BaseNode>
+      </ArticulationPointNodeShell>
 
       {isDialogOpen && (
         <NodeInfoDialog

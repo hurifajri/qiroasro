@@ -1,6 +1,8 @@
 import type { LucideIcon } from 'lucide-react';
 
-import type { Letter, LetterTafkhimType } from './letter';
+import type { LetterTafkhimType } from '@/components/graph/tajweed-node';
+
+import type { Letter } from './letter';
 import type { NODE_TYPES } from './node';
 
 // Quiz Constants

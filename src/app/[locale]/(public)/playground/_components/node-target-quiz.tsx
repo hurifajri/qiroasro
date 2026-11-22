@@ -4,8 +4,11 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { BaseHandle } from '@/components/graph/base-handle';
-import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
+import {
+  ArticulationPointNodeShell,
+  TraitNodeShell,
+} from '@/components/graph/tajweed-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
 import type { TargetQuizNodeData } from '../_schemas/node';
@@ -19,17 +22,14 @@ export function TargetQuizNode({ data }: NodeProps) {
   const description = t(`${nodeData.type}_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const ShellComponent =
+    nodeData.type === 'articulation_point'
+      ? ArticulationPointNodeShell
+      : TraitNodeShell;
+
   return (
     <>
-      <BaseNode
-        className={cn(
-          'rounded-lg border-2 px-4 py-2 hover:ring-0',
-          nodeData.type === 'articulation_point' &&
-            'border-node-articulation/50 bg-node-articulation-secondary text-node-articulation-text',
-          nodeData.type === 'trait' &&
-            'border-node-trait/50 bg-node-trait-secondary text-node-trait-text',
-        )}
-      >
+      <ShellComponent label={label}>
         <NodeAppendix
           position="top"
           className={cn(
@@ -58,11 +58,7 @@ export function TargetQuizNode({ data }: NodeProps) {
           position={Position.Left}
           className="absolute! inset-0! h-full! w-full! transform-none! rounded-lg! border-0! bg-transparent!"
         />
-
-        <BaseNodeContent className="p-0 text-xs font-medium capitalize select-none">
-          {label}
-        </BaseNodeContent>
-      </BaseNode>
+      </ShellComponent>
 
       {isDialogOpen && (
         <NodeInfoDialog

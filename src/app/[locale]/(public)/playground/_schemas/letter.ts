@@ -11,13 +11,7 @@ import {
   string,
 } from 'valibot';
 
-export const LETTER_TAFKHIM_TYPES = [
-  'always_tafkhim',
-  'conditional',
-  'always_tarqiq',
-] as const;
-
-export type LetterTafkhimType = (typeof LETTER_TAFKHIM_TYPES)[number];
+import { LETTER_TAFKHIM_TYPES } from '@/components/graph/tajweed-node';
 
 export const LetterSchema = object({
   id: pipe(number(), integer()),

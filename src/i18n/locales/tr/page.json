@@ -9,6 +9,120 @@
       "title": "Geliştirme Aşamasında",
       "subtitle": "Etkileşimli bir tecvid öğrenme uygulaması geliştiriyoruz. Allah'ın kolaylaştırması için dualarınızı bekleriz. Amin...",
       "playground_cta": "Örneği İncele"
+    },
+    "hero": {
+      "badge": "Etkileşimli Grafik Tabanlı Tecvid Platformu",
+      "title": "Mahreç ve Sıfatları Görselleştirin, Tecvidi Adım Adım Öğrenin.",
+      "subtitle": "Playground'da 29 harfin bilgi grafiğini hemen keşfedin ya da 24 konuluk tam müfredat, beceri alıştırmaları ve günlük İstikamet takibi için giriş yapın.",
+      "cta_login": "Öğrenmeye Başlamak İçin Giriş Yap",
+      "cta_playground": "Grafik Playground'u Keşfet",
+      "preview_title": "Bilgi Grafiği: Dad Harfi (ض)",
+      "preview_citation": "Mukaddimetü'l-Cezeriyye • 13–14 ve 26. Beyitler"
+    },
+    "nav_bar": {
+      "prev": "Önceki modüller",
+      "next": "Sonraki modüller",
+      "aria_label": "Tecvid öğrenme modülleri",
+      "items": {
+        "al_jauf": "El-Cevf (3 Harf)",
+        "al_halq": "El-Halk (6 Harf)",
+        "al_lisan": "El-Lisan (18 Harf)",
+        "asy_syafatain": "Eş-Şefeteyn (4 Harf)",
+        "al_khaisyum": "El-Hayşum (Gunne)",
+        "sifatul_huruf": "22 Harf Sıfatı",
+        "hijaiyyah_29": "29 Arapça Harf",
+        "matan_klasik": "4 Klasik Metin"
+      }
+    },
+    "features": {
+      "knowledge_graph": {
+        "badge": "Görsel Bilgi Grafiği",
+        "title": "Her harfin mahreç ve sıfatlarla bağlantısını görsel olarak görün.",
+        "description": "Kuru tablolar ezberlemek yerine 29 temel harf, 17 özel mahreç ve 22 sıfat arasındaki etkileşimli düğüm bağlantılarını inceleyin. Radyal veya Hiyerarşik düzenleri seçip diyagramları indirin.",
+        "card_title": "Playground Grafik Tuvali",
+        "card_subtitle": "3 Tefhim seviyesi • Düğüm ve çizgi filtreleri"
+      },
+      "structured_curriculum": {
+        "badge": "Yapılandırılmış Öğrenme Yolu",
+        "title": "Temelden ustalığa uzanan 24 konuluk müfredatı takip edin.",
+        "description": "Kur'an nakli, Mahreci'l-Huruf ve Sıfatü'l-Huruf'tan Nun/Mim kuralları, Med ve Vakıf konularına kadar zikzak ünite kontrol noktalarıyla ilerlemek için giriş yapın.",
+        "unit_category": "24 Müfredat Konusu",
+        "unit_progress": "Ünite 2 • Boğaz Harfleri (El-Halk)"
+      },
+      "classical_sanad": {
+        "badge": "Klasik Metinlere Dayalı",
+        "title": "Her kural doğrulanmış beyitlere ve Kur'an örneklerine bağlanır.",
+        "description": "Tecvidi Mukaddimetü'l-Cezeriyye, Tuhfetü'l-Etfal, Nûniyye es-Sehâvî ve Kasîde-i Hâkâniyye referanslarıyla ve ayet örnekleriyle öğrenin.",
+        "jazariyyah_title": "Mukaddimetü'l-Cezeriyye",
+        "jazariyyah_meta": "9. Beyit • 17 Mahreç Noktası",
+        "tuhfah_title": "Tuhfetü'l-Etfal",
+        "tuhfah_meta": "6. Beyit • Sakin Nun ve Tenvin",
+        "example_label": "Fecr Suresi • Kalkale-i Kübrâ"
+      },
+      "interactive_evaluation": {
+        "badge": "Testler, Görevler ve Halka",
+        "title": "Düğüm eşleştirme testleri ve günlük alışkanlıklarla doğruluğu pekiştirin.",
+        "description": "Süreli Meydan Okuma modunda harfleri mahreç ve sıfatlarıyla eşleştirin, Beceri Alıştırmaları'nda zayıf noktaları gözden geçirin ve Halka tablolarında ilerleyin.",
+        "stats_streak_days": "İstikamet Serisi",
+        "quest_progress_label": "Günlük Görevler",
+        "challenge_mode_label": "Düğüm Bağlantı Meydan Okuması"
+      }
+    },
+    "access_modes": {
+      "title": "Qiroasro'da İki Öğrenme Modu",
+      "subtitle": "Hesap açmadan görsel grafik keşfini deneyin veya tam rehberli müfredat için giriş yapın.",
+      "playground": {
+        "badge": "Açık Erişim • Giriş Gerekmez",
+        "title": "Tecvid Grafik Playground",
+        "description": "Harfler, mahreçler ve sıfatlar arasındaki ilişkisel haritayı özgürce keşfedin.",
+        "feature_1": "29 harf, 17 mahreç ve 22 sıfatı keşfedin",
+        "feature_2": "Çizgi kontrollü Radyal ve Hiyerarşik düzenler",
+        "feature_3": "Alıştırma ve süreli Meydan Okuma düğüm testleri",
+        "feature_4": "Yüksek çözünürlüklü PNG diyagram indirme",
+        "cta": "Playground'u Aç"
+      },
+      "full_learning": {
+        "badge": "Tam Platform • Giriş Gerekli",
+        "title": "Rehberli Öğrenme Yolu ve Alıştırmalar",
+        "description": "Her tecvid konusunda kayıtlı ilerlemeyle kapsamlı öğrenme deneyiminin kilidini açın.",
+        "feature_1": "24 konuluk yapılandırılmış müfredat ve zikzak üniteler",
+        "feature_2": "Tam Bilgi Kütüphanesi ve 29 harf rehberi",
+        "feature_3": "Hedefli beceri alıştırmaları ve hata tekrarı",
+        "feature_4": "Günlük Görevler, XP serileri ve Halka liderlik tabloları",
+        "cta": "Devam Etmek İçin Giriş Yap"
+      }
+    },
+    "bottom_cta": {
+      "title": "Tecvid ustalığınızı haritalamaya hazır mısınız?",
+      "subtitle": "Tam müfredata başlamak için giriş yapın ya da önce Playground'da etkileşimli harf grafiğini inceleyin.",
+      "cta_login": "Öğrenmek İçin Giriş Yap",
+      "cta_playground": "Önce Playground'u Dene"
+    },
+    "footer": {
+      "about_title": "Qiroasro Hakkında",
+      "about_mission": "Vizyon ve Yöntem",
+      "about_methodology": "Grafik Görselleştirme",
+      "about_sources": "Klasik Metin Kaynakları",
+      "about_curriculum": "24 Konuluk Müfredat",
+      "products_title": "Öğrenme Modları",
+      "products_playground": "Tecvid Playground",
+      "products_learn": "Öğrenme Yolu",
+      "products_practice": "Beceri Alıştırmaları",
+      "products_quests": "Günlük Görevler",
+      "modules_title": "Temel Modüller",
+      "modules_makharij": "Mahreci'l-Huruf",
+      "modules_sifat": "Sıfatü'l-Huruf",
+      "modules_letters": "Harf Rehberi",
+      "modules_library": "Bilgi Kütüphanesi",
+      "support_title": "Erişim ve Rehber",
+      "support_tour": "Playground Rehberi",
+      "support_faq": "Müfredat Özeti",
+      "support_login": "Hesap Girişi",
+      "legal_title": "Politikalar",
+      "legal_guidelines": "Topluluk İlkeleri",
+      "legal_terms": "Hizmet Şartları",
+      "legal_privacy": "Gizlilik Politikası",
+      "site_language": "Site dili:"
     }
   },
   "playground_page": {

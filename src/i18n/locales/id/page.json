@@ -9,6 +9,120 @@
       "title": "Sedang Dalam Pengembangan",
       "subtitle": "Kami sedang mengembangkan aplikasi pembelajaran tajwid interaktif. Mohon doanya, semoga Allah mudahkan. Aamiin Allahumma Aamiin...",
       "playground_cta": "Lihat Contohnya"
+    },
+    "hero": {
+      "badge": "Platform Belajar Tajwid Berbasis Graph",
+      "title": "Pahami Makhraj & Sifat Secara Visual, Kuasai Tajwid Bertahap.",
+      "subtitle": "Jelajahi langsung peta relasi 29 huruf Hijaiyyah di Playground, atau masuk akun untuk membuka kurikulum lengkap 24 topik, latihan terarah, dan pelacakan Istiqamah harian.",
+      "cta_login": "Masuk untuk Mulai Belajar",
+      "cta_playground": "Eksplorasi Graph Playground",
+      "preview_title": "Peta Pengetahuan: Huruf Dhad (ض)",
+      "preview_citation": "Muqaddimah Al-Jazariyyah • Bait 13–14 & 26"
+    },
+    "nav_bar": {
+      "prev": "Modul sebelumnya",
+      "next": "Modul berikutnya",
+      "aria_label": "Modul pembelajaran tajwid",
+      "items": {
+        "al_jauf": "Al-Jauf (3 Huruf)",
+        "al_halq": "Al-Halq (6 Huruf)",
+        "al_lisan": "Al-Lisan (18 Huruf)",
+        "asy_syafatain": "Asy-Syafatain (4 Huruf)",
+        "al_khaisyum": "Al-Khaisyum (Ghunnah)",
+        "sifatul_huruf": "22 Sifatul Huruf",
+        "hijaiyyah_29": "29 Huruf Hijaiyyah",
+        "matan_klasik": "4 Matan Klasik"
+      }
+    },
+    "features": {
+      "knowledge_graph": {
+        "badge": "Knowledge Graph Visual",
+        "title": "Lihat langsung keterkaitan tiap huruf, makhraj, dan sifatnya.",
+        "description": "Alih-alih menghafal tabel kaku, telusuri koneksi node interaktif antara 29 huruf Hijaiyyah, 17 Makhraj Khas, dan 22 Sifatul Huruf. Atur tata letak Radial atau Hierarki serta unduh gambar diagramnya kapan saja.",
+        "card_title": "Kanvas Graph Playground",
+        "card_subtitle": "3 tingkat Tafkhim • Filter node & garis"
+      },
+      "structured_curriculum": {
+        "badge": "Jalur Belajar Terstruktur",
+        "title": "Ikuti kurikulum bertahap 24 topik dari dasar hingga mahir.",
+        "description": "Masuk ke akun Anda untuk menuntaskan pelajaran per unit—mulai dari periwayatan Al-Quran, Makhorijul Huruf, dan Sifatul Huruf hingga hukum Nun/Mim, Mad, dan Waqaf—melalui jalur belajar zigzag.",
+        "unit_category": "24 Topik Kurikulum",
+        "unit_progress": "Unit 2 • Huruf Tenggorokan (Al-Halq)"
+      },
+      "classical_sanad": {
+        "badge": "Berbasis Matan & Dalil Klasik",
+        "title": "Setiap kaidah ditautkan ke bait matan dan contoh ayat Al-Quran.",
+        "description": "Pelajari tajwid dengan rujukan terverifikasi dari Muqaddimah Al-Jazariyyah, Tuhfatul Athfal, Nuniyah As-Sakhawi, dan Qasidah Al-Khaqaniyyah lengkap beserta contoh ayat berharakat.",
+        "jazariyyah_title": "Muqaddimah Al-Jazariyyah",
+        "jazariyyah_meta": "Bait 9 • 17 Makhorijul Huruf",
+        "tuhfah_title": "Tuhfatul Athfal",
+        "tuhfah_meta": "Bait 6 • Nun Sukun & Tanwin",
+        "example_label": "Surah Al-Fajr • Qalqalah Kubra"
+      },
+      "interactive_evaluation": {
+        "badge": "Kuis, Misi & Halaqah",
+        "title": "Uji ketepatan bacaan lewat kuis koneksi node dan kebiasaan harian.",
+        "description": "Hubungkan huruf ke makhraj dan sifatnya dalam mode Challenge berwaktu, perbaiki kelemahan di Latihan Keterampilan, selesaikan Misi Harian, dan bertumbuh bersama di papan peringkat Halaqah.",
+        "stats_streak_days": "Rekor Istiqamah",
+        "quest_progress_label": "Misi Harian",
+        "challenge_mode_label": "Tantangan Koneksi Node"
+      }
+    },
+    "access_modes": {
+      "title": "Dua Mode Belajar di Qiroasro",
+      "subtitle": "Coba eksplorasi graph visual langsung tanpa akun, atau masuk untuk mengakses kurikulum terpadu.",
+      "playground": {
+        "badge": "Akses Terbuka • Tanpa Login",
+        "title": "Playground Graph Tajwid",
+        "description": "Jelajahi secara bebas peta relasi huruf Hijaiyyah, titik keluar suara, dan sifat-sifatnya.",
+        "feature_1": "Eksplorasi 29 huruf Hijaiyyah, 17 Makhraj & 22 Sifat",
+        "feature_2": "Tata letak Radial & Hierarki dengan kontrol garis",
+        "feature_3": "Kuis latihan & mode Challenge berwaktu berbasis node",
+        "feature_4": "Unduh diagram graph resolusi tinggi format PNG",
+        "cta": "Buka Playground"
+      },
+      "full_learning": {
+        "badge": "Platform Lengkap • Perlu Masuk",
+        "title": "Jalur Belajar & Latihan Terarah",
+        "description": "Buka pengalaman belajar menyeluruh dengan progres penguasaan tersimpan di setiap topik.",
+        "feature_1": "Kurikulum terstruktur 24 topik & unit belajar zigzag",
+        "feature_2": "Pustaka Ilmu lengkap & Direktori 29 huruf Hijaiyyah",
+        "feature_3": "Latihan keterampilan, ulasan kesalahan & item tersimpan",
+        "feature_4": "Misi Harian, rekor XP & papan peringkat Halaqah",
+        "cta": "Masuk untuk Belajar"
+      }
+    },
+    "bottom_cta": {
+      "title": "Siap memetakan penguasaan tajwid Anda?",
+      "subtitle": "Mulai jalur belajar lengkap dengan masuk akun, atau jelajahi dulu peta huruf interaktif di Playground.",
+      "cta_login": "Masuk & Mulai Belajar",
+      "cta_playground": "Coba Playground Dulu"
+    },
+    "footer": {
+      "about_title": "Tentang Qiroasro",
+      "about_mission": "Visi & Metode",
+      "about_methodology": "Visualisasi Graph",
+      "about_sources": "Rujukan Matan Klasik",
+      "about_curriculum": "Silabus 24 Topik",
+      "products_title": "Mode Belajar",
+      "products_playground": "Playground Tajwid",
+      "products_learn": "Jalur Belajar",
+      "products_practice": "Latihan Keterampilan",
+      "products_quests": "Misi Harian",
+      "modules_title": "Modul Inti",
+      "modules_makharij": "Makhorijul Huruf",
+      "modules_sifat": "Sifatul Huruf",
+      "modules_letters": "Direktori Hijaiyyah",
+      "modules_library": "Pustaka Ilmu",
+      "support_title": "Akses & Panduan",
+      "support_tour": "Panduan Playground",
+      "support_faq": "Ringkasan Kurikulum",
+      "support_login": "Masuk Akun",
+      "legal_title": "Kebijakan",
+      "legal_guidelines": "Pedoman Komunitas",
+      "legal_terms": "Ketentuan Layanan",
+      "legal_privacy": "Kebijakan Privasi",
+      "site_language": "Bahasa situs:"
     }
   },
   "playground_page": {

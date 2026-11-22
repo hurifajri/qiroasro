@@ -2,10 +2,10 @@ import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
 
 import { LeaderboardRow } from '../../_components/leaderboard-row';
-import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
+import type { LeaderboardEntry } from '../../_schemas/private';
 
 interface LeaderboardListProps {
-  entries: FullLeaderboardEntry[];
+  entries: LeaderboardEntry[];
 }
 
 export function LeaderboardList({ entries }: Readonly<LeaderboardListProps>) {

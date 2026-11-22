@@ -3,8 +3,9 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { NodeButton } from '@/components/common/node-button';
+
 import type { CurriculumLesson, CurriculumUnit } from '../../_lib/curriculum';
-import { LessonNode } from './lesson-node';
 import { LessonQuizDialog } from './lesson-quiz-dialog';
 import { UnitHeader } from './unit-header';
 
@@ -45,10 +46,13 @@ export function UnitPath({
           else if (patternIndex === 3) offset = -1;
 
           return (
-            <LessonNode
+            <NodeButton
               key={`${unit.slug}-${index}`}
-              lesson={lesson}
+              type={lesson.type}
+              status={lesson.status ?? 'available'}
+              letterSymbol={lesson.letterSymbol}
               offset={offset}
+              startLabel={t('learn_page.start')}
               onClick={() => handleClickLesson(lesson, index)}
             />
           );
