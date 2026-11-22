@@ -215,9 +215,9 @@ function HeroWithLetterNavigation() {
   const activeLetterId = useTajweedLetterCycle(rootLetters);
 
   return (
-    <>
+    <div className="flex flex-col lg:min-h-[calc(100dvh-49px)]">
       {/* 1. Hero Split Section */}
-      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:gap-14 lg:py-20">
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-1 lg:flex-row lg:gap-14 lg:py-8">
         <m.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -226,7 +226,7 @@ function HeroWithLetterNavigation() {
         >
           <TajweedGraphShowcase
             activeLetterId={activeLetterId}
-            className="w-full max-w-xl"
+            className="w-full max-w-xl lg:h-[min(560px,calc(100dvh-190px))]"
           />
         </m.div>
 
@@ -274,7 +274,7 @@ function HeroWithLetterNavigation() {
         letters={rootLetters}
         activeLetterId={activeLetterId}
       />
-    </>
+    </div>
   );
 }
 
