@@ -1,48 +1,24 @@
 import { array, type InferOutput, object } from 'valibot';
 
 import {
-  type ArticulationArea,
-  type ArticulationPoint,
-  RemoteArticulationAreaSchema,
-  RemoteArticulationPointSchema,
+  ArticulationAreaSchema,
+  ArticulationPointSchema,
 } from './articulation';
 import {
-  type Letter,
-  type LetterArticulation,
-  type LetterTrait,
-  RemoteLetterArticulationSchema,
-  RemoteLetterSchema,
-  RemoteLetterTraitSchema,
+  LetterArticulationSchema,
+  LetterSchema,
+  LetterTraitSchema,
 } from './letter';
-import {
-  RemoteTraitGroupSchema,
-  RemoteTraitSchema,
-  type Trait,
-  type TraitGroup,
-} from './trait';
+import { TraitGroupSchema, TraitSchema } from './trait';
 
-// Reuse existing remote schemas for the MV response
-export const RemotePlaygroundDataSchema = object({
-  letters: array(RemoteLetterSchema),
-  articulation_areas: array(RemoteArticulationAreaSchema),
-  articulation_points: array(RemoteArticulationPointSchema),
-  trait_groups: array(RemoteTraitGroupSchema),
-  traits: array(RemoteTraitSchema),
-  letter_articulations: array(RemoteLetterArticulationSchema),
-  letter_traits: array(RemoteLetterTraitSchema),
+export const PlaygroundDataSchema = object({
+  letters: array(LetterSchema),
+  articulationAreas: array(ArticulationAreaSchema),
+  articulationPoints: array(ArticulationPointSchema),
+  traitGroups: array(TraitGroupSchema),
+  traits: array(TraitSchema),
+  letterArticulations: array(LetterArticulationSchema),
+  letterTraits: array(LetterTraitSchema),
 });
 
-export type RemotePlaygroundData = InferOutput<
-  typeof RemotePlaygroundDataSchema
->;
-
-// Reuse existing transformed types
-export interface PlaygroundData {
-  letters: Letter[];
-  articulationAreas: ArticulationArea[];
-  articulationPoints: ArticulationPoint[];
-  traitGroups: TraitGroup[];
-  traits: Trait[];
-  letterArticulations: LetterArticulation[];
-  letterTraits: LetterTrait[];
-}
+export type PlaygroundData = InferOutput<typeof PlaygroundDataSchema>;

@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
 
-import type { ArticulationGroup } from '../_lib/mock-data';
+import type { ArticulationGroup } from '../../../_schemas/reference';
 import { LetterGridGroup } from './letter-grid-group';
 
 interface LettersProps {

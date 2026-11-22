@@ -44,7 +44,7 @@ src/
 │   ├── components/           # Feature UI
 │   ├── hooks/                # Feature hooks
 │   ├── lib/                  # Feature constants & pure helpers
-│   ├── models/               # Remote-to-local transformers (snake_case only)
+│   ├── models/               # Remote-to-local transformers (external snake_case responses only)
 │   ├── providers/            # Feature store/context providers
 │   ├── queries/              # TanStack Query key factories & queryOptions
 │   ├── schemas/              # Valibot schemas & inferred domain types
@@ -90,7 +90,7 @@ src/
 Configured in `eslint.config.mjs` (ESLint 9 Flat Config) and `prettier.config.mjs` (Prettier 3): **80-char** line width, **2 spaces**, LF, single quotes JS / double JSX, trailing commas (`all`), semicolons always, auto-removed unused imports (`unused-imports/no-unused-imports`), auto-sorted imports/exports (`simple-import-sort`), Tailwind v4 class sorting (`prettier-plugin-tailwindcss` for `clsx`/`cva`/`cn`/`tw`), SonarQube rules (`eslint-plugin-sonarjs`), Next.js Core Web Vitals + React Compiler (`eslint-config-next`), type-aware `typescript-eslint`, TanStack Query (`@tanstack/eslint-plugin-query`), and Drizzle ORM (`eslint-plugin-drizzle`).
 
 - **Files:** `kebab-case.tsx` (components), `use-*.ts` (hooks), `kebab-case.ts` (helpers/schemas/stores/services), `*.test.ts(x)` (unit/integration), `*.spec.ts` (Playwright E2E), Next.js conventions (`page.tsx`, `layout.tsx`, `error.tsx`, `proxy.ts`).
-- **Symbols:** `PascalCase` components & types; `<ComponentName>Props`; `camelCase` functions/vars; `SCREAMING_SNAKE_CASE` constants; `<Entity>Schema` / `Remote<Entity>Schema`; `<Domain>Store` / `create<Domain>Store`; `<entity>Keys` / `get<Entity>Opt`; `handle*` internal handlers vs `on*` callback props; booleans prefixed with `is`/`has`/`should`/`can`.
+- **Symbols:** `PascalCase` components & types; `<ComponentName>Props`; `camelCase` functions/vars; `SCREAMING_SNAKE_CASE` constants; `<Entity>Schema` / `Remote<Entity>Schema` (external `snake_case` payloads only); `<Domain>Store` / `create<Domain>Store`; `<entity>Keys` / `get<Entity>Opt`; `handle*` internal handlers vs `on*` callback props; booleans prefixed with `is`/`has`/`should`/`can`.
 
 ---
 
@@ -131,7 +131,7 @@ type LocalePageProps = Readonly<{
 ### Strict Type Rules
 
 - **Never use `any`, `@ts-ignore`, unjustified `@ts-expect-error`, or unsafe `!`.**
-- Model untrusted inputs (APIs, forms, `searchParams`, materialized views, `localStorage`) as `unknown` and validate at boundaries with **Valibot** (`parse` / `safeParse`) or type guards.
+- Model untrusted or `unknown` boundaries (external APIs, forms/mutations, `searchParams`, `jsonb` columns/materialized views, `localStorage`) with **Valibot** (`parse` / `safeParse`) or type guards; direct Drizzle table queries (`$inferSelect`) and internal UI/domain types use plain TypeScript types without runtime `parse()`.
 - Use `satisfies` to validate shapes while preserving literal inference, and discriminated unions with exhaustive `never` checks.
 - Use `type` for `Readonly<{ ... }>` props, unions, tuples, and `v.InferOutput`; use `interface` for extendable contracts (`extends ComponentProps<...>`) or declaration merging.
 - Omit redundant JSDoc; add JSDoc only for public APIs, non-obvious invariants, `@throws`, or `@deprecated`.
@@ -144,7 +144,7 @@ type LocalePageProps = Readonly<{
 - **React 19 APIs:** Pass `ref` as a regular prop (**never** `forwardRef`); use `<Context value={...}>` (**never** `<Context.Provider>`) and `use(Context)`.
 - **React Compiler (`reactCompiler: true`):** Do **not** add premature `useMemo`, `useCallback`, or `React.memo` unless profiling proves a specific bottleneck.
 - **Forms:** Use `@tanstack/react-form` v1 + Valibot v1 directly (Valibot implements Standard Schema natively — no adapter needed), or Server Actions with `v.safeParse` + React 19 `useActionState`.
-- **Services & Transformers:** Direct Drizzle tables already map to `camelCase` — **no `models/` transformer needed**; always check `if (!row) return null;` before `parse()`. Use `Remote*Schema` + `models/` transformers only for `snake_case` REST APIs or materialized view JSONB.
+- **Services & Transformers:** Direct Drizzle tables and camelCase JSONB materialized views (`docs/sql/views.sql`) already map to `camelCase` — **no `models/` transformer needed**. Direct Drizzle queries (`$inferSelect`) do not need runtime Valibot `parse()`; reserve `parse()`/`safeParse()` for untrusted or `unknown` boundaries (form/mutation inputs, `searchParams`, `localStorage`, external APIs, and `jsonb` materialized view payloads). Use `Remote*Schema` + `models/` transformers **only** when an external response is `snake_case`.
 - **TanStack Query v5:** Co-locate `as const` query key factories (`<entity>Keys`) and `queryOptions(...)` (`get<Entity>Opt`) in `queries/`; prefetch on the server with `QueryClient` + `HydrationBoundary` + `dehydrate(queryClient)`.
 
 ---

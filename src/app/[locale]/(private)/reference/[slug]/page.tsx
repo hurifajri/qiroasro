@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
 import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
+import { getTopicReferenceDetails } from '../../_services/reference';
+import { TopicReferenceSupplement } from '../_components/topic-reference-supplement';
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -38,15 +40,26 @@ export default async function ReferenceSlugPage({
   const topic = CURRICULUM_TOPICS.find((t) => t.slug === slug);
   if (!topic?.available) notFound();
 
-  let Content: React.ComponentType;
+  const sections = await getTopicReferenceDetails(slug);
+
+  let Content: React.ComponentType | null = null;
   try {
     const mod = (await import(`../_contents/${slug}/${locale}.mdx`)) as {
       default: React.ComponentType;
     };
     Content = mod.default;
   } catch {
+    Content = null;
+  }
+
+  if (!Content && sections.length === 0) {
     notFound();
   }
 
-  return <Content />;
+  return (
+    <div className="w-full min-w-0">
+      {Content && <Content />}
+      {sections.length > 0 && <TopicReferenceSupplement sections={sections} />}
+    </div>
+  );
 }

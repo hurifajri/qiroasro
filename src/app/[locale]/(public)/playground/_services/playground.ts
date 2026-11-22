@@ -5,10 +5,9 @@ import { parse } from 'valibot';
 import { mvPlaygroundData } from '@/db/playground-schema';
 import { db } from '@/lib/db';
 
-import { transformRemotePlaygroundData } from '../_models/playground';
 import {
   type PlaygroundData,
-  RemotePlaygroundDataSchema,
+  PlaygroundDataSchema,
 } from '../_schemas/playground';
 
 export async function getPlaygroundData(): Promise<PlaygroundData> {
@@ -18,10 +17,7 @@ export async function getPlaygroundData(): Promise<PlaygroundData> {
       .from(mvPlaygroundData);
     const data = result[0]?.data;
 
-    const remoteData = parse(RemotePlaygroundDataSchema, data);
-    const playgroundData = transformRemotePlaygroundData(remoteData);
-
-    return playgroundData;
+    return parse(PlaygroundDataSchema, data);
   } catch (error) {
     console.error('[getPlaygroundData] Error:', error);
     return {

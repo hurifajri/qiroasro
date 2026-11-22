@@ -1,6 +1,6 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
-import type { Letter } from '../_lib/mock-data';
+import type { Letter } from '../../../_schemas/reference';
 import { LetterCard } from './letter-card';
 
 interface LetterItemProps {

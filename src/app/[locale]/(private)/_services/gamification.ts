@@ -4,7 +4,6 @@ import { and, asc, count, desc, eq, gt, lte, sql } from 'drizzle-orm';
 import { headers } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { array, parse } from 'valibot';
 
 import {
   leagueCohorts,
@@ -20,24 +19,12 @@ import { db } from '@/lib/db';
 
 import { ACHIEVEMENTS } from '../_lib/achievement';
 import { getMonthlyTheme, MONTHLY_BADGES } from '../_lib/badge';
-import { type Achievement, AchievementsSchema } from '../_schemas/achievement';
-import { type MonthlyBadge, MonthlyBadgeSchema } from '../_schemas/badge';
-import {
-  type XpLedgerEntry,
-  XpLedgerListSchema,
-} from '../_schemas/gamification';
-import {
-  type LeagueNameKey,
-  type Quest,
-  QuestSchema,
-  type UserStats,
-  UserStatsSchema,
-} from '../_schemas/private';
-import { type Statistic, StatisticsSchema } from '../_schemas/user-profile';
-import {
-  type MonthlyQuest,
-  MonthlyQuestSchema,
-} from '../quests/_schemas/quests';
+import type { Achievement } from '../_schemas/achievement';
+import type { MonthlyBadge } from '../_schemas/badge';
+import type { XpLedgerEntry } from '../_schemas/gamification';
+import type { LeagueNameKey, Quest, UserStats } from '../_schemas/private';
+import type { Statistic } from '../_schemas/user-profile';
+import type { MonthlyQuest } from '../quests/_schemas/quests';
 
 const LEAGUE_SLUG_TO_KEY: Record<string, LeagueNameKey> = {
   peace: 'leagues.peace',
@@ -187,13 +174,13 @@ export async function getUserStatsById(userId: string): Promise<UserStats> {
 
     const row = rows[0];
     if (!row) {
-      return parse(UserStatsSchema, {
+      return {
         ...DEFAULT_USER_STATS,
         leagueRank,
-      });
+      };
     }
 
-    return parse(UserStatsSchema, {
+    return {
       xp: row.totalXp,
       level: row.level,
       streak: row.currentStreak,
@@ -201,7 +188,7 @@ export async function getUserStatsById(userId: string): Promise<UserStats> {
       gems: row.gems,
       leagueNameKey: getLeagueNameKey(row.currentLeagueSlug),
       leagueRank,
-    });
+    };
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserStatsById] Error:', error);
@@ -280,7 +267,7 @@ export async function getUserDailyQuestsById(userId: string): Promise<Quest[]> {
         .orderBy(asc(userDailyQuests.id));
     }
 
-    const mapped = rows.map((row) => {
+    return rows.map((row) => {
       const template = QUEST_TEMPLATE_BY_SLUG.get(row.questSlug);
       return {
         id: row.id,
@@ -294,8 +281,6 @@ export async function getUserDailyQuestsById(userId: string): Promise<Quest[]> {
         iconType: template?.iconType ?? 'xp',
       };
     });
-
-    return parse(array(QuestSchema), mapped);
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserDailyQuestsById] Error:', error);
@@ -458,7 +443,7 @@ export async function getUserMonthlyQuestById(
     emojiColorCode: theme.emojiColorCode,
   };
 
-  if (!userId) return parse(MonthlyQuestSchema, fallback);
+  if (!userId) return fallback;
 
   try {
     const [row] = await db
@@ -473,15 +458,15 @@ export async function getUserMonthlyQuestById(
       )
       .limit(1);
 
-    return parse(MonthlyQuestSchema, {
+    return {
       ...fallback,
       target: row?.targetProgress ?? 20,
       current: row?.currentProgress ?? 0,
-    });
+    };
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserMonthlyQuestById] Error:', error);
-    return parse(MonthlyQuestSchema, fallback);
+    return fallback;
   }
 }
 
@@ -499,7 +484,7 @@ export async function getCurrentUserMonthlyQuest(): Promise<MonthlyQuest> {
 export async function getUserMonthlyBadgesById(
   userId: string,
 ): Promise<MonthlyBadge[]> {
-  if (!userId) return parse(array(MonthlyBadgeSchema), MONTHLY_BADGES);
+  if (!userId) return MONTHLY_BADGES;
 
   try {
     const rows = await db
@@ -527,11 +512,11 @@ export async function getUserMonthlyBadgesById(
       }
     }
 
-    return parse(array(MonthlyBadgeSchema), orderedBadges);
+    return orderedBadges;
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserMonthlyBadgesById] Error:', error);
-    return parse(array(MonthlyBadgeSchema), MONTHLY_BADGES);
+    return MONTHLY_BADGES;
   }
 }
 
@@ -542,14 +527,14 @@ export async function getCurrentUserMonthlyBadges(): Promise<MonthlyBadge[]> {
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getCurrentUserMonthlyBadges] Error:', error);
-    return parse(array(MonthlyBadgeSchema), MONTHLY_BADGES);
+    return MONTHLY_BADGES;
   }
 }
 
 export async function getUserAchievementsById(
   userId: string,
 ): Promise<Achievement[]> {
-  if (!userId) return parse(AchievementsSchema, ACHIEVEMENTS);
+  if (!userId) return ACHIEVEMENTS;
 
   try {
     const rows = await db
@@ -561,16 +546,14 @@ export async function getUserAchievementsById(
       rows.map((row) => [row.achievementSlug, row.currentLevel]),
     );
 
-    const merged = ACHIEVEMENTS.map((achievement) => ({
+    return ACHIEVEMENTS.map((achievement) => ({
       ...achievement,
       level: Math.max(1, levelMap.get(achievement.id) ?? 1),
     }));
-
-    return parse(AchievementsSchema, merged);
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserAchievementsById] Error:', error);
-    return parse(AchievementsSchema, ACHIEVEMENTS);
+    return ACHIEVEMENTS;
   }
 }
 
@@ -600,7 +583,7 @@ export async function getUserProfileStatistics(
     const gamification = gamificationRows[0];
     const leagueNameKey = getLeagueNameKey(gamification?.currentLeagueSlug);
 
-    return parse(StatisticsSchema, [
+    return [
       {
         id: 'streak',
         labelKey: 'day_streak',
@@ -625,7 +608,7 @@ export async function getUserProfileStatistics(
         value: top3Rows[0]?.top3Count ?? 0,
         icon: 'trophy',
       },
-    ]);
+    ];
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserProfileStatistics] Error:', error);
@@ -640,14 +623,12 @@ export async function getUserXpHistory(
   if (!userId) return [];
 
   try {
-    const rows = await db
+    return await db
       .select()
       .from(userXpLedger)
       .where(eq(userXpLedger.userId, userId))
       .orderBy(desc(userXpLedger.createdAt))
       .limit(limit);
-
-    return parse(XpLedgerListSchema, rows);
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUserXpHistory] Error:', error);

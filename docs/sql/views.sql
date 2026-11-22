@@ -19,45 +19,45 @@ SELECT
                 jsonb_build_object(
                     'id', l.id,
                     'slug', l.slug,
-                    'parent_letter_slug', l.parent_letter_slug,
+                    'parentLetterSlug', l.parent_letter_slug,
                     'symbol', l.symbol,
-                    'tafkhim_type', l.tafkhim_type,
-                    'is_madd', l.is_madd,
-                    'sort_order', l.sort_order
+                    'tafkhimType', l.tafkhim_type,
+                    'isMadd', l.is_madd,
+                    'sortOrder', l.sort_order
                 ) ORDER BY l.sort_order
             ), '[]'::jsonb)
             FROM hij_letters l
         ),
-        'articulation_areas', (
+        'articulationAreas', (
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', aa.id,
                     'slug', aa.slug,
-                    'is_muhaqqaq', aa.is_muhaqqaq,
-                    'sort_order', aa.sort_order
+                    'isMuhaqqaq', aa.is_muhaqqaq,
+                    'sortOrder', aa.sort_order
                 ) ORDER BY aa.sort_order
             ), '[]'::jsonb)
             FROM hij_articulation_areas aa
         ),
-        'articulation_points', (
+        'articulationPoints', (
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', ap.id,
-                    'area_id', ap.area_id,
+                    'areaId', ap.area_id,
                     'slug', ap.slug,
-                    'sort_order', ap.sort_order
+                    'sortOrder', ap.sort_order
                 ) ORDER BY ap.sort_order
             ), '[]'::jsonb)
             FROM hij_articulation_points ap
         ),
-        'trait_groups', (
+        'traitGroups', (
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', tg.id,
                     'slug', tg.slug,
-                    'is_lazimah', tg.is_lazimah,
-                    'has_middle_trait', tg.has_middle_trait,
-                    'sort_order', tg.sort_order
+                    'isLazimah', tg.is_lazimah,
+                    'hasMiddleTrait', tg.has_middle_trait,
+                    'sortOrder', tg.sort_order
                 ) ORDER BY tg.sort_order
             ), '[]'::jsonb)
             FROM hij_trait_groups tg
@@ -66,30 +66,30 @@ SELECT
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', t.id,
-                    'group_id', t.group_id,
+                    'groupId', t.group_id,
                     'slug', t.slug,
-                    'is_middle_trait', t.is_middle_trait,
-                    'sort_order', t.sort_order
+                    'isMiddleTrait', t.is_middle_trait,
+                    'sortOrder', t.sort_order
                 ) ORDER BY t.sort_order
             ), '[]'::jsonb)
             FROM hij_traits t
         ),
-        'letter_articulations', (
+        'letterArticulations', (
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
-                    'letter_id', la.letter_id,
-                    'point_id', la.point_id,
-                    'is_primary', la.is_primary,
-                    'sort_order', la.sort_order
+                    'letterId', la.letter_id,
+                    'pointId', la.point_id,
+                    'isPrimary', la.is_primary,
+                    'sortOrder', la.sort_order
                 ) ORDER BY la.sort_order
             ), '[]'::jsonb)
             FROM hij_letter_articulations la
         ),
-        'letter_traits', (
+        'letterTraits', (
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
-                    'letter_id', lt.letter_id,
-                    'trait_id', lt.trait_id
+                    'letterId', lt.letter_id,
+                    'traitId', lt.trait_id
                 ) ORDER BY lt.letter_id, lt.trait_id
             ), '[]'::jsonb)
             FROM hij_letter_traits lt
@@ -110,9 +110,9 @@ SELECT
                 jsonb_build_object(
                     'id', r.id,
                     'slug', r.slug,
-                    'parent_rule_slug', r.parent_rule_slug,
+                    'parentRuleSlug', r.parent_rule_slug,
                     'category', r.category,
-                    'sort_order', r.sort_order
+                    'sortOrder', r.sort_order
                 ) ORDER BY r.sort_order
             ), '[]'::jsonb)
             FROM taj_rules r
@@ -121,11 +121,11 @@ SELECT
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', d.id,
-                    'rule_id', d.rule_id,
-                    'trigger_category', d.trigger_category,
-                    'source_letter_id', d.source_letter_id,
-                    'meeting_letter_id', d.meeting_letter_id,
-                    'condition_metadata', d.condition_metadata
+                    'ruleId', d.rule_id,
+                    'triggerCategory', d.trigger_category,
+                    'sourceLetterId', d.source_letter_id,
+                    'meetingLetterId', d.meeting_letter_id,
+                    'conditionMetadata', d.condition_metadata
                 ) ORDER BY d.rule_id, d.id
             ), '[]'::jsonb)
             FROM taj_rule_definitions d
@@ -135,14 +135,14 @@ SELECT
                 jsonb_build_object(
                     'id', e.id,
                     'slug', e.slug,
-                    'rule_id', e.rule_id,
-                    'letter_id', e.letter_id,
-                    'surah_number', e.surah_number,
-                    'ayah_number', e.ayah_number,
-                    'arabic_text', e.arabic_text,
-                    'highlight_text', e.highlight_text,
-                    'audio_url', e.audio_url,
-                    'sort_order', e.sort_order
+                    'ruleId', e.rule_id,
+                    'letterId', e.letter_id,
+                    'surahNumber', e.surah_number,
+                    'ayahNumber', e.ayah_number,
+                    'arabicText', e.arabic_text,
+                    'highlightText', e.highlight_text,
+                    'audioUrl', e.audio_url,
+                    'sortOrder', e.sort_order
                 ) ORDER BY e.rule_id, e.sort_order
             ), '[]'::jsonb)
             FROM taj_examples e
@@ -151,15 +151,15 @@ SELECT
             SELECT COALESCE(jsonb_agg(
                 jsonb_build_object(
                     'id', c.id,
-                    'rule_id', c.rule_id,
-                    'source_slug', s.slug,
-                    'verse_start', c.verse_start,
-                    'verse_end', c.verse_end,
+                    'ruleId', c.rule_id,
+                    'sourceSlug', s.slug,
+                    'verseStart', c.verse_start,
+                    'verseEnd', c.verse_end,
                     'verses', (
                         SELECT COALESCE(jsonb_agg(
                             jsonb_build_object(
-                                'verse_number', rv.verse_number,
-                                'arabic_text', rv.arabic_text
+                                'verseNumber', rv.verse_number,
+                                'arabicText', rv.arabic_text
                             ) ORDER BY rv.verse_number
                         ), '[]'::jsonb)
                         FROM ref_verses rv
