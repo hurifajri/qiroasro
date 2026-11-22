@@ -1,13 +1,20 @@
 import { MonthlyBadgesCard } from '../../_components/monthly-badges-card';
 import { StatList } from '../../_components/stat-list';
-import { MONTHLY_BADGES } from '../../_lib/badge';
-import { MOCK_USER_STATS } from '../../_lib/mock-data';
+import {
+  getCurrentUserMonthlyBadges,
+  getCurrentUserStats,
+} from '../../_services/gamification';
 
-export default function QuestsSidebar() {
+export default async function QuestsSidebar() {
+  const [stats, badges] = await Promise.all([
+    getCurrentUserStats(),
+    getCurrentUserMonthlyBadges(),
+  ]);
+
   return (
     <>
-      <StatList stats={MOCK_USER_STATS} />
-      <MonthlyBadgesCard badges={MONTHLY_BADGES} />
+      <StatList stats={stats} />
+      <MonthlyBadgesCard badges={badges} />
     </>
   );
 }
