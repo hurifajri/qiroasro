@@ -1,7 +1,11 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import type { CurriculumLesson, CurriculumUnit } from '../../_lib/curriculum';
 import { LessonNode } from './lesson-node';
+import { LessonQuizDialog } from './lesson-quiz-dialog';
 import { UnitHeader } from './unit-header';
 
 interface UnitPathProps {
@@ -17,11 +21,13 @@ export function UnitPath({
   topicTitleKey,
 }: Readonly<UnitPathProps>) {
   const t = useTranslations();
+  const [activeLessonOrder, setActiveLessonOrder] = useState<number | null>(
+    null,
+  );
 
-  function handleClickLesson(lesson: CurriculumLesson) {
+  function handleClickLesson(lesson: CurriculumLesson, index: number) {
     if (lesson.status === 'locked') return;
-    // TODO: Navigate to lesson or open lesson modal
-    console.log('Lesson clicked:', lesson);
+    setActiveLessonOrder(index);
   }
 
   return (
@@ -43,7 +49,7 @@ export function UnitPath({
               key={`${unit.slug}-${index}`}
               lesson={lesson}
               offset={offset}
-              onClick={() => handleClickLesson(lesson)}
+              onClick={() => handleClickLesson(lesson, index)}
             />
           );
         })}
@@ -55,6 +61,18 @@ export function UnitPath({
         </span>
         <div className="h-px w-16 bg-border" />
       </div>
+
+      {activeLessonOrder !== null && (
+        <LessonQuizDialog
+          topicSlug={topicSlug}
+          unitSlug={unit.slug}
+          lessonOrder={activeLessonOrder}
+          open
+          onOpenChange={(open) => {
+            if (!open) setActiveLessonOrder(null);
+          }}
+        />
+      )}
     </div>
   );
 }

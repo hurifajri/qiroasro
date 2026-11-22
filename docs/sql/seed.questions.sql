@@ -45,7 +45,7 @@ FROM (VALUES
     NULL,
     'muqoddimah-jazariyyah',
     28,
-    '{"prompt_key": "curriculum.questions.nq_delivery_q1.prompt", "options": [{"id": "a", "text_key": "curriculum.questions.nq_delivery_q1.opt_a"}, {"id": "b", "text_key": "curriculum.questions.nq_delivery_q1.opt_b"}, {"id": "c", "text_key": "curriculum.questions.nq_delivery_q1.opt_c"}], "correct_option_id": "a", "explanation_key": "curriculum.questions.nq_delivery_q1.explanation"}',
+    '{"promptKey": "quiz_content.noble_quran.quran_delivery_method.q1.question", "options": [{"id": "a1", "textKey": "quiz_content.noble_quran.quran_delivery_method.q1.a1"}, {"id": "a2", "textKey": "quiz_content.noble_quran.quran_delivery_method.q1.a2"}, {"id": "a3", "textKey": "quiz_content.noble_quran.quran_delivery_method.q1.a3"}, {"id": "a4", "textKey": "quiz_content.noble_quran.quran_delivery_method.q1.a4"}], "correctOptionId": "a1"}',
     1
   ),
   (
@@ -58,7 +58,7 @@ FROM (VALUES
     NULL,
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.nq_delivery_q2.prompt", "correct_boolean": true, "explanation_key": "curriculum.questions.nq_delivery_q2.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_delivery_q2.prompt", "correctBoolean": true, "explanationKey": "curriculum.questions.nq_delivery_q2.explanation"}',
     2
   ),
   (
@@ -71,7 +71,7 @@ FROM (VALUES
     NULL,
     'muqoddimah-jazariyyah',
     28,
-    '{"prompt_key": "curriculum.questions.nq_delivery_q3.prompt", "missing_word": "إِلَيْنَا", "choices": ["إِلَيْنَا", "أُنْزِلَا", "تَوَاتُرًا", "لَازِمًا"], "explanation_key": "curriculum.questions.nq_delivery_q3.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_delivery_q3.prompt", "missingWord": "إِلَيْنَا", "choices": ["إِلَيْنَا", "أُنْزِلَا", "تَوَاتُرًا", "لَازِمًا"], "explanationKey": "curriculum.questions.nq_delivery_q3.explanation"}',
     3
   ),
 
@@ -86,7 +86,7 @@ FROM (VALUES
     NULL,
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.nq_mutawatir_q1.prompt", "options": [{"id": "a", "text_key": "curriculum.questions.nq_mutawatir_q1.opt_a"}, {"id": "b", "text_key": "curriculum.questions.nq_mutawatir_q1.opt_b"}, {"id": "c", "text_key": "curriculum.questions.nq_mutawatir_q1.opt_c"}], "correct_option_id": "b", "explanation_key": "curriculum.questions.nq_mutawatir_q1.explanation"}',
+    '{"promptKey": "quiz_content.noble_quran.mutawatir_definition.q1.question", "options": [{"id": "a1", "textKey": "quiz_content.noble_quran.mutawatir_definition.q1.a1"}, {"id": "a2", "textKey": "quiz_content.noble_quran.mutawatir_definition.q1.a2"}, {"id": "a3", "textKey": "quiz_content.noble_quran.mutawatir_definition.q1.a3"}, {"id": "a4", "textKey": "quiz_content.noble_quran.mutawatir_definition.q1.a4"}], "correctOptionId": "a2"}',
     1
   ),
   (
@@ -99,7 +99,7 @@ FROM (VALUES
     NULL,
     'qosidah-alkhoqoniyyah',
     8,
-    '{"prompt_key": "curriculum.questions.nq_mutawatir_q2.prompt", "pairs": [{"left_key": "sanad", "right_key": "continuous_chain_to_prophet"}, {"left_key": "rasm", "right_key": "matches_utsmani_mushaf"}, {"left_key": "lughah", "right_key": "valid_arabic_grammar"}], "explanation_key": "curriculum.questions.nq_mutawatir_q2.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_mutawatir_q2.prompt", "pairs": [{"leftKey": "sanad", "rightKey": "continuous_chain_to_prophet"}, {"leftKey": "rasm", "rightKey": "matches_utsmani_mushaf"}, {"leftKey": "lughah", "rightKey": "valid_arabic_grammar"}], "explanationKey": "curriculum.questions.nq_mutawatir_q2.explanation"}',
     2
   ),
 
@@ -114,7 +114,7 @@ FROM (VALUES
     NULL,
     'qosidah-alkhoqoniyyah',
     7,
-    '{"prompt_key": "curriculum.questions.nq_oral_q1.prompt", "options": [{"id": "a", "text_key": "curriculum.questions.nq_oral_q1.opt_a"}, {"id": "b", "text_key": "curriculum.questions.nq_oral_q1.opt_b"}, {"id": "c", "text_key": "curriculum.questions.nq_oral_q1.opt_c"}], "correct_option_id": "a", "explanation_key": "curriculum.questions.nq_oral_q1.explanation"}',
+    '{"promptKey": "quiz_content.noble_quran.oral_transmission_process.q1.question", "options": [{"id": "a1", "textKey": "quiz_content.noble_quran.oral_transmission_process.q1.a1"}, {"id": "a2", "textKey": "quiz_content.noble_quran.oral_transmission_process.q1.a2"}, {"id": "a3", "textKey": "quiz_content.noble_quran.oral_transmission_process.q1.a3"}, {"id": "a4", "textKey": "quiz_content.noble_quran.oral_transmission_process.q1.a4"}], "correctOptionId": "a3"}',
     1
   ),
   (
@@ -127,7 +127,7 @@ FROM (VALUES
     NULL,
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.nq_oral_q2.prompt", "correct_boolean": false, "explanation_key": "curriculum.questions.nq_oral_q2.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_oral_q2.prompt", "correctBoolean": false, "explanationKey": "curriculum.questions.nq_oral_q2.explanation"}',
     2
   ),
 
@@ -142,7 +142,7 @@ FROM (VALUES
     NULL,
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.nq_codification_q1.prompt", "pairs": [{"left_key": "abu_bakr", "right_key": "first_compilation_suhuf"}, {"left_key": "utsman", "right_key": "standard_mushaf_copies"}, {"left_key": "zaid_ibn_tsabit", "right_key": "chief_scribe"}], "explanation_key": "curriculum.questions.nq_codification_q1.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_codification_q1.prompt", "pairs": [{"leftKey": "abu_bakr", "rightKey": "first_compilation_suhuf"}, {"leftKey": "utsman", "rightKey": "standard_mushaf_copies"}, {"leftKey": "zaid_ibn_tsabit", "rightKey": "chief_scribe"}], "explanationKey": "curriculum.questions.nq_codification_q1.explanation"}',
     1
   ),
   (
@@ -155,7 +155,7 @@ FROM (VALUES
     NULL,
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.nq_codification_q2.prompt", "correct_boolean": true, "explanation_key": "curriculum.questions.nq_codification_q2.explanation"}',
+    '{"promptKey": "curriculum.questions.nq_codification_q2.prompt", "correctBoolean": true, "explanationKey": "curriculum.questions.nq_codification_q2.explanation"}',
     2
   ),
 
@@ -170,7 +170,7 @@ FROM (VALUES
     NULL,
     'muqoddimah-jazariyyah',
     27,
-    '{"prompt_key": "curriculum.questions.taj_science_matan_hukm.prompt", "missing_word": "حَتْمٌ", "choices": ["حَتْمٌ", "سُنَّةٌ", "مَنْدُوبٌ", "فَرْضُ كِفَايَةٍ"], "explanation_key": "curriculum.questions.taj_science_matan_hukm.explanation"}',
+    '{"promptKey": "curriculum.questions.taj_science_matan_hukm.prompt", "missingWord": "حَتْمٌ", "choices": ["حَتْمٌ", "سُنَّةٌ", "مَنْدُوبٌ", "فَرْضُ كِفَايَةٍ"], "explanationKey": "curriculum.questions.taj_science_matan_hukm.explanation"}',
     1
   ),
   (
@@ -183,7 +183,7 @@ FROM (VALUES
     NULL,
     'qosidah-alkhoqoniyyah',
     24,
-    '{"prompt_key": "curriculum.questions.common_mistakes_lahn_diff.prompt", "pairs": [{"left_key": "lahn_jali", "right_key": "changes_letter_or_harakat"}, {"left_key": "lahn_khafi", "right_key": "violates_ghunnah_or_madd"}], "explanation_key": "curriculum.questions.common_mistakes_lahn_diff.explanation"}',
+    '{"promptKey": "curriculum.questions.common_mistakes_lahn_diff.prompt", "pairs": [{"leftKey": "lahn_jali", "rightKey": "changes_letter_or_harakat"}, {"leftKey": "lahn_khafi", "rightKey": "violates_ghunnah_or_madd"}], "explanationKey": "curriculum.questions.common_mistakes_lahn_diff.explanation"}',
     1
   ),
   (
@@ -196,7 +196,7 @@ FROM (VALUES
     'ex-iqlab-min-badi',
     'tuhfatul-athfal',
     13,
-    '{"prompt_key": "curriculum.questions.mim_nun_spot_iqlab.prompt", "correct_highlight": "مِن بَ", "tokens": ["يَنقُضُونَ", "عَهْدَ", "اللَّهِ", "مِن بَعْدِ", "مِيثَاقِهِ"], "correct_token": "مِن بَعْدِ"}',
+    '{"promptKey": "curriculum.questions.mim_nun_spot_iqlab.prompt", "correctHighlight": "مِن بَ", "tokens": ["يَنقُضُونَ", "عَهْدَ", "اللَّهِ", "مِن بَعْدِ", "مِيثَاقِهِ"], "correctToken": "مِن بَعْدِ"}',
     1
   ),
   (
@@ -209,7 +209,7 @@ FROM (VALUES
     'ex-izhar-muthlaq-dunya',
     'tuhfatul-athfal',
     11,
-    '{"prompt_key": "curriculum.questions.mim_nun_izhar_muthlaq_tf.prompt", "correct_boolean": false, "explanation_key": "curriculum.questions.mim_nun_izhar_muthlaq_tf.explanation"}',
+    '{"promptKey": "curriculum.questions.mim_nun_izhar_muthlaq_tf.prompt", "correctBoolean": false, "explanationKey": "curriculum.questions.mim_nun_izhar_muthlaq_tf.explanation"}',
     1
   ),
   (
@@ -222,7 +222,7 @@ FROM (VALUES
     'ex-mutajanisan-tha-ta',
     'muqoddimah-jazariyyah',
     46,
-    '{"prompt_key": "curriculum.questions.meeting_letters_ahattu.prompt", "arabic_focus": "أَحَطتُ", "options": [{"id": "a", "text_key": "idgham_naqish"}, {"id": "b", "text_key": "idgham_kamil"}, {"id": "c", "text_key": "izhar_muthlaq"}], "correct_option_id": "a", "explanation_key": "curriculum.questions.meeting_letters_ahattu.explanation"}',
+    '{"promptKey": "curriculum.questions.meeting_letters_ahattu.prompt", "arabicFocus": "أَحَطتُ", "options": [{"id": "a", "textKey": "idgham_naqish"}, {"id": "b", "textKey": "idgham_kamil"}, {"id": "c", "textKey": "izhar_muthlaq"}], "correctOptionId": "a", "explanationKey": "curriculum.questions.meeting_letters_ahattu.explanation"}',
     1
   ),
   (
@@ -235,7 +235,7 @@ FROM (VALUES
     'ex-madd-farq-dzakarain',
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.mad_rules_farq_spot.prompt", "correct_token": "ءآلذَّكَرَيْنِ", "expected_harakat": 6}',
+    '{"promptKey": "curriculum.questions.mad_rules_farq_spot.prompt", "correctToken": "ءآلذَّكَرَيْنِ", "expectedHarakat": 6}',
     1
   ),
   (
@@ -248,7 +248,7 @@ FROM (VALUES
     'ex-saktah-kahf',
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.special_words_saktah_spot.prompt", "pairs": [{"left": "Al-Kahf 18:1", "right": "عِوَجَا ۜ"}, {"left": "Yasin 36:52", "right": "مَّرْقَدِنَا ۜ"}, {"left": "Al-Qiyamah 75:27", "right": "مَنْ ۜ رَاقٍ"}, {"left": "Al-Muthaffifin 83:14", "right": "بَلْ ۜ رَانَ"}]}',
+    '{"promptKey": "curriculum.questions.special_words_saktah_spot.prompt", "pairs": [{"left": "Al-Kahf 18:1", "right": "عِوَجَا ۜ"}, {"left": "Yasin 36:52", "right": "مَّرْقَدِنَا ۜ"}, {"left": "Al-Qiyamah 75:27", "right": "مَنْ ۜ رَاقٍ"}, {"left": "Al-Muthaffifin 83:14", "right": "بَلْ ۜ رَانَ"}]}',
     1
   ),
   (
@@ -261,7 +261,7 @@ FROM (VALUES
     'ex-imalah-majreha',
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.special_words_imalah_audio.prompt", "arabic_target": "مَجْر۪يهَا", "options": ["imalah", "tashil", "isymam", "saktah"], "correct_option": "imalah"}',
+    '{"promptKey": "curriculum.questions.special_words_imalah_audio.prompt", "arabicTarget": "مَجْر۪يهَا", "options": ["imalah", "tashil", "isymam", "saktah"], "correctOption": "imalah"}',
     1
   ),
   (
@@ -274,7 +274,7 @@ FROM (VALUES
     'ex-alifat-ana',
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.seven_alifs_true_false.prompt", "correct_boolean": true, "explanation_key": "curriculum.questions.seven_alifs_true_false.explanation"}',
+    '{"promptKey": "curriculum.questions.seven_alifs_true_false.prompt", "correctBoolean": true, "explanationKey": "curriculum.questions.seven_alifs_true_false.explanation"}',
     1
   ),
   (
@@ -287,7 +287,7 @@ FROM (VALUES
     NULL,
     'muqoddimah-jazariyyah',
     105,
-    '{"prompt_key": "curriculum.questions.waqf_raum_isymam_match.prompt", "pairs": [{"left_key": "sukun_mahdh", "right_key": "fathah_kasrah_dhammah"}, {"left_key": "raum", "right_key": "kasrah_dhammah_one_third_sound"}, {"left_key": "isymam", "right_key": "dhammah_silent_lip_rounding"}]}',
+    '{"promptKey": "curriculum.questions.waqf_raum_isymam_match.prompt", "pairs": [{"leftKey": "sukun_mahdh", "rightKey": "fathah_kasrah_dhammah"}, {"leftKey": "raum", "rightKey": "kasrah_dhammah_one_third_sound"}, {"leftKey": "isymam", "rightKey": "dhammah_silent_lip_rounding"}]}',
     1
   ),
   (
@@ -300,7 +300,7 @@ FROM (VALUES
     NULL,
     'muqoddimah-jazariyyah',
     101,
-    '{"prompt_key": "curriculum.questions.hamzat_wasl_fil_rule.prompt", "missing_word": "بِضَمْ", "choices": ["بِضَمْ", "بِكَسْرْ", "بِفَتْحْ", "بِسُكُونْ"], "explanation_key": "curriculum.questions.hamzat_wasl_fil_rule.explanation"}',
+    '{"promptKey": "curriculum.questions.hamzat_wasl_fil_rule.prompt", "missingWord": "بِضَمْ", "choices": ["بِضَمْ", "بِكَسْرْ", "بِفَتْحْ", "بِسُكُونْ"], "explanationKey": "curriculum.questions.hamzat_wasl_fil_rule.explanation"}',
     1
   ),
   (
@@ -313,7 +313,7 @@ FROM (VALUES
     'ex-istiadah-nahl',
     NULL,
     NULL,
-    '{"prompt_key": "curriculum.questions.istiadah_taubah_modes.prompt", "options": [{"id": "a", "text_key": "two_modes_without_basmalah"}, {"id": "b", "text_key": "four_modes_with_basmalah"}], "correct_option_id": "a"}',
+    '{"promptKey": "curriculum.questions.istiadah_taubah_modes.prompt", "options": [{"id": "a", "textKey": "two_modes_without_basmalah"}, {"id": "b", "textKey": "four_modes_with_basmalah"}], "correctOptionId": "a"}',
     1
   ),
   (
@@ -326,7 +326,7 @@ FROM (VALUES
     'ex-tahdzirat-dhad-zha-1',
     'muqoddimah-jazariyyah',
     52,
-    '{"prompt_key": "curriculum.questions.misc_dhad_zha_audio.prompt", "arabic_target": "أَنقَضَ ظَهْرَكَ", "options": ["dhad_then_zha", "zha_then_dhad", "two_dhads", "two_zhas"], "correct_option": "dhad_then_zha"}',
+    '{"promptKey": "curriculum.questions.misc_dhad_zha_audio.prompt", "arabicTarget": "أَنقَضَ ظَهْرَكَ", "options": ["dhad_then_zha", "zha_then_dhad", "two_dhads", "two_zhas"], "correctOption": "dhad_then_zha"}',
     1
   )
 ) AS v(slug, topic_slug, unit_slug, question_type, difficulty, rule_slug, example_slug, source_slug, verse_number, question_data, sort_order)

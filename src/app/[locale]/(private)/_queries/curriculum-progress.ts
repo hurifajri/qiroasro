@@ -5,7 +5,7 @@ import {
   getUnitsWithProgress,
 } from '../_services/curriculum-progress';
 
-const curriculumKeys = {
+export const curriculumKeys = {
   all: ['curriculum'] as const,
   sections: () => [...curriculumKeys.all, 'sections'] as const,
   units: (topicSlug: string) =>
