@@ -1,6 +1,6 @@
 # Contributing to Qiroasro
 
-Thank you for your interest in contributing to **Qiroasro**! This project is a source-available (non-commercial), interactive web application designed to help Muslims learn and master *Tajweed*, *makharijul huruf* (articulation points), phonetic traits (*sifatul huruf*), and Quranic recitation. Every contribution — whether reporting a bug, proposing features, verifying phonetics/tajweed content, or contributing code — is a valuable community service (*amal jariyah*).
+Thank you for your interest in contributing to **Qiroasro**! This project is a source-available (non-commercial), interactive web application designed to help Muslims learn and master _Tajweed_, _makharijul huruf_ (articulation points), phonetic traits (_sifatul huruf_), and Quranic recitation. Every contribution — whether reporting a bug, proposing features, verifying phonetics/tajweed content, or contributing code — is a valuable community service (_amal jariyah_).
 
 ---
 
@@ -23,8 +23,9 @@ Thank you for your interest in contributing to **Qiroasro**! This project is a s
 ## Code of Conduct & Etiquette
 
 We strive to maintain an open, welcoming, and respectful environment. In the spirit of Islamic brotherhood and collaboration:
+
 - Communicate with patience, kindness, and mutual respect.
-- When discussing Quranic recitation, *makharijul huruf*, or *sifatul huruf*, prioritize verified scholarly sources (e.g., *Al-Muqaddimah Al-Jazariyyah*, credible classical/modern tajweed authorities) over personal opinion.
+- When discussing Quranic recitation, _makharijul huruf_, or _sifatul huruf_, prioritize verified scholarly sources (e.g., _Al-Muqaddimah Al-Jazariyyah_, credible classical/modern tajweed authorities) over personal opinion.
 - Constructive technical discussions and design feedback are always encouraged.
 
 ---
@@ -32,6 +33,7 @@ We strive to maintain an open, welcoming, and respectful environment. In the spi
 ## How Can You Contribute?
 
 ### 1. Reporting Bugs & Proposing Features
+
 - Check existing [GitHub Issues](https://github.com/hurifajri/qiroasro/issues) first to avoid duplicate reports.
 - If reporting a bug, please include:
   - Clear steps to reproduce the issue.
@@ -40,14 +42,17 @@ We strive to maintain an open, welcoming, and respectful environment. In the spi
 - If proposing a feature, explain how it benefits learners while keeping the interface focused and intuitive.
 
 ### 2. Islamic & Tajweed Content Verification
+
 Accurate transmission of Arabic articulation and tajweed rules is paramount. You do not need to be a developer to help:
+
 - Spotted an inaccurate articulation point description or diagram?
-- Found a mistake in letter attributes (*hamas*, *jahr*, *isti'la*, *qalqalah*, etc.)?
+- Found a mistake in letter attributes (_hamas_, _jahr_, _isti'la_, _qalqalah_, etc.)?
 - Have suggestions for clearer explanations in Indonesian, English, Arabic, Malay, or Turkish?
 
 Feel free to open a [GitHub Issue](https://github.com/hurifajri/qiroasro/issues/new) citing the letter, trait, and scholarly reference.
 
 ### 3. Code & UI Improvements
+
 - Pick up an open issue or suggest an improvement (accessibility, graph performance, animations, localization).
 - Read the [Development Workflow](#development-workflow) below before starting work.
 
@@ -74,15 +79,16 @@ Feel free to open a [GitHub Issue](https://github.com/hurifajri/qiroasro/issues/
 
 Commit messages must follow the format `<type>(<scope>)?: <subject>`, enforced locally via **Husky** + **Commitlint** and on GitHub Actions CI.
 
-| Type | Release Version Bump | Included in Changelog? | Description |
-| :--- | :---: | :---: | :--- |
-| `feat` | **Minor** (`0.x.0`) | Yes | New user-facing feature |
-| `fix` | **Patch** (`0.0.x`) | Yes | Bug fix for users |
-| `perf`, `revert` | None | Yes | Performance enhancement or commit revert |
-| `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore` | None | No | Code refactoring, documentation, tests, tooling |
-| `!` after type (e.g. `feat!:`) or `BREAKING CHANGE:` | **Major** (`x.0.0`) | Yes | Breaking API or compatibility change |
+| Type                                                        | Release Version Bump | Included in Changelog? | Description                                     |
+| :---------------------------------------------------------- | :------------------: | :--------------------: | :---------------------------------------------- |
+| `feat`                                                      | **Minor** (`0.x.0`)  |          Yes           | New user-facing feature                         |
+| `fix`                                                       | **Patch** (`0.0.x`)  |          Yes           | Bug fix for users                               |
+| `perf`, `revert`                                            |         None         |          Yes           | Performance enhancement or commit revert        |
+| `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore` |         None         |           No           | Code refactoring, documentation, tests, tooling |
+| `!` after type (e.g. `feat!:`) or `BREAKING CHANGE:`        | **Major** (`x.0.0`)  |          Yes           | Breaking API or compatibility change            |
 
-*Examples:*
+_Examples:_
+
 - `feat(graph): optimize node interaction on mobile touch`
 - `fix(locale): restore locale routing export`
 - `docs(readme): add environment setup guide`
@@ -108,6 +114,7 @@ pnpm build
 ## Pull Request Checklist
 
 Before opening or requesting a review on a PR:
+
 - [ ] Code adheres to Biome linting and formatting (`pnpm check`).
 - [ ] Strict TypeScript checks pass without errors (`pnpm check:types`).
 - [ ] Next.js production build succeeds (`pnpm build`).

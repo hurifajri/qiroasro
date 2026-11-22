@@ -1,5 +1,7 @@
 import { useTranslations } from 'next-intl';
+
 import { ItemGroup } from '@/components/ui/item';
+
 import type { PracticeSection } from '../_lib/mock-data';
 import { PracticeItem } from './practice-item';
 
@@ -7,7 +9,7 @@ interface PracticeListProps {
   section: PracticeSection;
 }
 
-export function PracticeList({ section }: PracticeListProps) {
+export function PracticeList({ section }: Readonly<PracticeListProps>) {
   const t = useTranslations('practice_page');
 
   return (

@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import type { CurriculumLesson, CurriculumUnit } from '../../_lib/curriculum';
 import { LessonNode } from './lesson-node';
 import { UnitHeader } from './unit-header';
@@ -10,7 +11,11 @@ interface UnitPathProps {
   topicTitleKey: string;
 }
 
-export function UnitPath({ unit, topicSlug, topicTitleKey }: UnitPathProps) {
+export function UnitPath({
+  unit,
+  topicSlug,
+  topicTitleKey,
+}: Readonly<UnitPathProps>) {
   const t = useTranslations();
 
   function handleClickLesson(lesson: CurriculumLesson) {
@@ -45,7 +50,7 @@ export function UnitPath({ unit, topicSlug, topicTitleKey }: UnitPathProps) {
       </div>
       <div className="mx-auto flex items-center gap-3 text-muted-foreground">
         <div className="h-px w-16 bg-border" />
-        <span className="text-center font-medium text-xs uppercase tracking-wider">
+        <span className="text-center text-xs font-medium tracking-wider uppercase">
           {t(unit.descriptionKey)}
         </span>
         <div className="h-px w-16 bg-border" />

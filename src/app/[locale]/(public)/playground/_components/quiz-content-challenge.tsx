@@ -14,9 +14,11 @@ import { CheckCircle2Icon, PlayIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useMounted } from '@/hooks/use-mounted';
+
 import { useQuizStore } from '../_providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -65,7 +67,7 @@ function Challenge({
   requiredConnection,
   timeRemaining,
   handleCheckAndNext,
-}: ChallengeProps) {
+}: Readonly<ChallengeProps>) {
   const t = useTranslations('playground_page.quiz');
   const { theme } = useTheme();
   const { isMounted } = useMounted();
@@ -203,7 +205,7 @@ export function QuizContentChallenge({
       <>
         <div className="flex flex-col gap-2">
           <div className="flex flex-col">
-            <p className="font-medium text-sm">
+            <p className="text-sm font-medium">
               {`${t('challenge_total_question_count', {
                 count: currentChallengeConfig.questions.length,
               })}. ${t('challenge_seconds_per_question', {

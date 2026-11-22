@@ -1,14 +1,16 @@
 import { LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { CurriculumTopic } from '../../_lib/curriculum';
 
 interface ReferenceCardProps {
   topic: CurriculumTopic;
 }
 
-export function ReferenceCard({ topic }: ReferenceCardProps) {
+export function ReferenceCard({ topic }: Readonly<ReferenceCardProps>) {
   const t = useTranslations();
   const { titleKey, subtitleKey, iconSymbol, href, available } = topic;
 
@@ -29,10 +31,10 @@ export function ReferenceCard({ topic }: ReferenceCardProps) {
       <span className="font-arabic text-4xl">{iconSymbol}</span>
 
       {/* Title */}
-      <p className="font-bold text-xs">{t(titleKey)}</p>
+      <p className="text-xs font-bold">{t(titleKey)}</p>
 
       {/* Count */}
-      <p className="text-muted-foreground text-xs">{t(subtitleKey)}</p>
+      <p className="text-xs text-muted-foreground">{t(subtitleKey)}</p>
     </div>
   );
 

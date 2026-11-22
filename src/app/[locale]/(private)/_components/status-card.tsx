@@ -1,13 +1,15 @@
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+
 import type { UserStatus } from '../_schemas/private';
 
 interface StatusCardProps {
   statuses: UserStatus[];
 }
 
-export function StatusCard({ statuses }: StatusCardProps) {
+export function StatusCard({ statuses }: Readonly<StatusCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

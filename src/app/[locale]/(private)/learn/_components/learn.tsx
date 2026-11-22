@@ -1,6 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
+
 import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
 import { UnitPath } from './unit-path';
 

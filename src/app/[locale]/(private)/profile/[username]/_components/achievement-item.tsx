@@ -1,15 +1,19 @@
 import { useTranslations } from 'next-intl';
+
 import { Badge } from '@/components/ui/badge';
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { getEmojiColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+
 import type { Achievement } from '../../../_schemas/achievement';
 
 interface AchievementItemProps {
   achievement: Achievement;
 }
 
-export function AchievementItem({ achievement }: AchievementItemProps) {
+export function AchievementItem({
+  achievement,
+}: Readonly<AchievementItemProps>) {
   const t = useTranslations('global.achievements');
 
   return (
@@ -29,7 +33,7 @@ export function AchievementItem({ achievement }: AchievementItemProps) {
 
         {/* Content */}
         <ItemContent className="gap-2">
-          <ItemTitle className="flex items-center gap-2 font-bold text-base">
+          <ItemTitle className="flex items-center gap-2 text-base font-bold">
             {t(achievement.titleKey)}
             <Badge
               variant="secondary"

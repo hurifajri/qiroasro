@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { LEAGUES } from '../_lib/league';
 import { MOCK_USER_STATS } from '../_lib/mock-data';
 import { Leaderboard } from './_components/leaderboard';
@@ -25,12 +26,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function LeaderboardPage({ params }: PageProps) {
+export default async function LeaderboardPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
-
   const t = await getTranslations({ locale, namespace: 'leaderboard_page' });
 
   return (

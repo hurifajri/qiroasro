@@ -1,5 +1,6 @@
 import { InfoIcon, XIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import {
   Card,
   CardAction,
@@ -7,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
 import type { QuizType } from '../_schemas/quiz';
 
 interface QuizInstructionProps {
@@ -14,7 +16,10 @@ interface QuizInstructionProps {
   onClose?: () => void;
 }
 
-export function QuizInstruction({ quizType, onClose }: QuizInstructionProps) {
+export function QuizInstruction({
+  quizType,
+  onClose,
+}: Readonly<QuizInstructionProps>) {
   const t = useTranslations('playground_page.quiz');
 
   return (

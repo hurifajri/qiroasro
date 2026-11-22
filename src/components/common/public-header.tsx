@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+
 import { LocaleSelector } from '@/components/common/locale-selector';
 import { ThemeSelector } from '@/components/common/theme-selector';
 import { useMounted } from '@/hooks/use-mounted';
@@ -9,10 +10,10 @@ import { useIsScrolled } from '@/hooks/use-scroll-position';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
-interface PublicHeaderProps {
+type PublicHeaderProps = Readonly<{
   className?: string;
   userId?: string;
-}
+}>;
 
 export function PublicHeader({ className, userId }: PublicHeaderProps) {
   const isScrolled = useIsScrolled();
@@ -22,6 +23,10 @@ export function PublicHeader({ className, userId }: PublicHeaderProps) {
 
   const pathname = usePathname();
   const isPlayground = pathname === '/playground';
+  const logoSrc =
+    currentTheme === 'light'
+      ? '/qiroasro-web-logo-light.png'
+      : '/qiroasro-web-logo-dark.png';
 
   return (
     <header
@@ -32,21 +37,12 @@ export function PublicHeader({ className, userId }: PublicHeaderProps) {
         className,
       )}
     >
-      <Link href="/" className="shrink-0 font-semibold text-xl">
+      <Link href="/" className="shrink-0 text-xl font-semibold">
         {!isMounted ? (
           <div className="h-7 w-24" />
-        ) : currentTheme === 'light' ? (
-          <Image
-            src="/qiroasro-web-logo-light.png"
-            alt="Qiroasro Logo"
-            width={96}
-            height={28}
-            priority
-            fetchPriority="high"
-          />
         ) : (
           <Image
-            src="/qiroasro-web-logo-dark.png"
+            src={logoSrc}
             alt="Qiroasro Logo"
             width={96}
             height={28}

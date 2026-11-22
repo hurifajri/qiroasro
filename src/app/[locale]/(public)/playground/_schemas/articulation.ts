@@ -17,7 +17,7 @@ export const RemoteArticulationAreaSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const ArticulationAreaSchema = omit(
+export const ArticulationAreaSchema = omit(
   object({
     ...RemoteArticulationAreaSchema.entries,
     isMuhaqqaq: boolean(),
@@ -38,7 +38,7 @@ export const RemoteArticulationPointSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const ArticulationPointSchema = omit(
+export const ArticulationPointSchema = omit(
   object({
     ...RemoteArticulationPointSchema.entries,
     areaId: pipe(number(), integer()),

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type React from 'react';
+
 import { PublicHeader } from '@/components/common/public-header';
 import { env } from '@/env';
 import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
@@ -35,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PublicLayout({
   children,
-}: React.PropsWithChildren) {
+}: Readonly<React.PropsWithChildren>) {
   const locale = await getLocale();
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
@@ -48,9 +49,7 @@ export default async function PublicLayout({
       <main>{children}</main>
       <script
         type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: <safe>
         dangerouslySetInnerHTML={{
-          // biome-ignore lint/style/useNamingConvention: <cant change this>
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebApplication',

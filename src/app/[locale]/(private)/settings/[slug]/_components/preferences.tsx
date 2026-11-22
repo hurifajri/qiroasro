@@ -4,6 +4,7 @@ import { useForm } from '@tanstack/react-form';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import {
@@ -22,6 +23,7 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { updateUserLocale } from '@/services/user-locale';
+
 import type { PreferenceToggle } from '../../_schemas/settings';
 
 interface PreferencesProps {
@@ -30,10 +32,12 @@ interface PreferencesProps {
 }
 
 type SaveStatus =
-  | { type: 'idle' }
-  | { type: 'error' | 'success'; messageKey: string };
+  { type: 'idle' } | { type: 'error' | 'success'; messageKey: string };
 
-export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
+export function Preferences({
+  userId,
+  lessonPreferences,
+}: Readonly<PreferencesProps>) {
   const t = useTranslations();
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
@@ -48,7 +52,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
   const form = useForm({
     defaultValues: {
       lessonPreferences, // TODO: Refactor so separate state
-      theme: theme || 'system',
+      theme: theme ?? 'system',
       locale,
     },
     onSubmit: async ({ value }) => {
@@ -60,8 +64,8 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
         }
 
         if (value.locale !== locale) {
-          router.replace(pathname, { locale: value.locale as Locale });
-          await updateUserLocale(userId, value.locale as Locale);
+          router.replace(pathname, { locale: value.locale });
+          await updateUserLocale(userId, value.locale);
         }
 
         setSaveStatus({ type: 'success', messageKey: 'save_success' });
@@ -84,13 +88,13 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
       id="preferences-form"
       onSubmit={(e) => {
         e.preventDefault();
-        form.handleSubmit();
+        void form.handleSubmit();
       }}
       className="mx-auto flex max-w-3xl flex-col gap-6"
     >
       {/* Lesson experience */}
       <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-lg">
+        <h2 className="text-lg font-bold">
           {t('settings_page.preferences.lesson_experience.title')}
         </h2>
         <form.Field name="lessonPreferences">
@@ -123,7 +127,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
 
       {/* Appearance */}
       <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-lg">
+        <h2 className="text-lg font-bold">
           {t('settings_page.preferences.appearance.title')}
         </h2>
 
@@ -196,7 +200,7 @@ export function Preferences({ userId, lessonPreferences }: PreferencesProps) {
                     <SelectContent position="item-aligned">
                       {routing.locales.map((l) => (
                         <SelectItem key={l} value={l}>
-                          {LOCALE_CONFIG[l as Locale].name}
+                          {LOCALE_CONFIG[l].name}
                         </SelectItem>
                       ))}
                     </SelectContent>

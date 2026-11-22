@@ -16,6 +16,7 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useCallback } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
@@ -33,6 +34,7 @@ import {
 } from '@/components/ui/select';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type {
   EdgeShape,
   EdgeStyleOptions,
@@ -154,7 +156,7 @@ export function GraphFilter({
     >
       <CollapsibleTrigger
         className={cn(
-          'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
+          'flex items-center justify-between gap-2 p-2 text-left text-xs font-semibold text-muted-foreground',
           isOpen ? 'border-b' : '',
         )}
       >
@@ -199,7 +201,7 @@ export function GraphFilter({
               <li id="tour-letter-selector">
                 <ScrollArea
                   dir={dir}
-                  className="w-full whitespace-nowrap rounded-lg border"
+                  className="w-full rounded-lg border whitespace-nowrap"
                 >
                   <div className="flex w-max items-center gap-2 p-4">
                     {letters.map((letter) => (

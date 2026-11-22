@@ -3,8 +3,10 @@
 import { CheckIcon, LockIcon, StarIcon, TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
 import type { CurriculumLesson } from '../../_lib/curriculum';
 
 interface LessonNodeProps {
@@ -108,21 +110,21 @@ export const LessonNode = memo(function LessonNode({
     if (status === 'completed')
       return <CheckIcon className={cn('size-10 stroke-3', styles.icon)} />;
 
-    switch (type) {
-      case 'trophy':
-        return <TrophyIcon className={iconClass} />;
-      default:
-        if (letterSymbol) {
-          return (
-            <span
-              className={cn('pb-1 font-arabic font-bold text-3xl', styles.icon)}
-            >
-              {letterSymbol}
-            </span>
-          );
-        }
-        return <StarIcon className={iconClass} />;
+    if (type === 'trophy') {
+      return <TrophyIcon className={iconClass} />;
     }
+
+    if (letterSymbol) {
+      return (
+        <span
+          className={cn('pb-1 font-arabic text-3xl font-bold', styles.icon)}
+        >
+          {letterSymbol}
+        </span>
+      );
+    }
+
+    return <StarIcon className={iconClass} />;
   };
 
   return (
@@ -135,7 +137,7 @@ export const LessonNode = memo(function LessonNode({
     >
       {/* Floating "Start" label for current lesson */}
       {status === 'in-progress' && (
-        <div className="relative mb-2 animate-bounce rounded-xl bg-primary px-3 py-1 font-bold text-primary-foreground text-xs uppercase tracking-wider shadow-sm after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-primary after:content-['']">
+        <div className="relative mb-2 animate-bounce rounded-xl bg-primary px-3 py-1 text-xs font-bold tracking-wider text-primary-foreground uppercase shadow-sm after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-primary after:content-['']">
           {t('start')}
         </div>
       )}

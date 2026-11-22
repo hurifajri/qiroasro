@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
+
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -12,6 +13,7 @@ import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { ActivityFeedItem } from '../_schemas/private';
 import { ActivityFeedRow } from './activity-feed-row';
 
@@ -19,7 +21,7 @@ interface ActivityFeedCardProps {
   items: ActivityFeedItem[];
 }
 
-export function ActivityFeedCard({ items }: ActivityFeedCardProps) {
+export function ActivityFeedCard({ items }: Readonly<ActivityFeedCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

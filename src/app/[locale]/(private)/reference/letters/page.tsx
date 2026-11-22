@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { Letters } from './_components/letters';
 import { getLettersStats, MAKHRAJ_GROUPS } from './_lib/mock-data';
 
@@ -23,9 +24,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function LettersPage({ params }: PageProps) {
+export default async function LettersPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-  setRequestLocale(locale);
 
   const t = await getTranslations({
     locale,

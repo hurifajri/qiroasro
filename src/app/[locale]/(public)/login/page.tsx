@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import {
   getAlternateLanguages,
   getLocalePath,
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import { Login } from './_components/login';
 
 type PageProps = {
@@ -36,11 +38,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function LoginPage({ params }: PageProps) {
+export default async function LoginPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'auth_page' });
 

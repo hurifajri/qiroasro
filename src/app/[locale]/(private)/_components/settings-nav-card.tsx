@@ -1,5 +1,6 @@
 import { ChevronRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import type { SettingsLink } from '@/app/[locale]/(private)/settings/_schemas/settings';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
@@ -16,7 +17,7 @@ export function SettingsNavCard({
   titleKey,
   links,
   activeId,
-}: SettingsNavCardProps) {
+}: Readonly<SettingsNavCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

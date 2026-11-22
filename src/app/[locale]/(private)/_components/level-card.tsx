@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import {
   Card,
   CardAction,
@@ -9,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
 import { SuperBadge } from './super-badge';
 import { SuperButton } from './super-button';
 

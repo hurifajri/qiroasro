@@ -1,4 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const emptySubscribe = () => () => {
+  /* static client hydration check */
+};
 
 /**
  * Returns true after the component has mounted on the client.
@@ -6,7 +10,7 @@ import { useEffect, useState } from 'react';
  *
  * @example
  * ```tsx
- * const isMounted = useIsMounted();
+ * const { isMounted } = useMounted();
  *
  * if (!isMounted) {
  *   return null; // or loading skeleton
@@ -16,11 +20,11 @@ import { useEffect, useState } from 'react';
  * ```
  */
 export function useMounted() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   return { isMounted };
 }

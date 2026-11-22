@@ -1,4 +1,7 @@
 import type { Edge, Node } from '@xyflow/react';
+
+import { secureRandom } from '@/lib/utils';
+
 import type { ArticulationPoint } from '../_schemas/articulation';
 import type {
   Letter,
@@ -27,7 +30,7 @@ interface QuizGeneratorData {
 function shuffleArray<T>(items: readonly T[]): T[] {
   const copy = [...items];
   for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(secureRandom() * (i + 1));
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
@@ -227,10 +230,10 @@ function generateCase1(
   const letter = shuffledLetters[0];
   const letterCorrectIds = getCorrectTargetIds(letter);
   const shuffledCorrectIds = shuffleArray(letterCorrectIds);
-  const selectedTargetId = shuffledCorrectIds[0];
-  if (selectedTargetId === undefined) {
+  if (shuffledCorrectIds.length === 0) {
     return { questions: [], targets: [] };
   }
+  const selectedTargetId = shuffledCorrectIds[0];
 
   const questions: QuizQuestion[] = [
     { letter, correctTargetIds: [selectedTargetId], targetType: type },
@@ -289,10 +292,10 @@ function generateCase3(
   const firstLetter = shuffledLetters[0];
   const firstLetterCorrectIds = getCorrectTargetIds(firstLetter);
   const shuffledCorrectIds = shuffleArray(firstLetterCorrectIds);
-  const selectedTargetId = shuffledCorrectIds[0];
-  if (selectedTargetId === undefined) {
+  if (shuffledCorrectIds.length === 0) {
     return { questions: [], targets: [] };
   }
+  const selectedTargetId = shuffledCorrectIds[0];
 
   const distractorLetters = shuffledLetters.slice(1).filter((letter) => {
     const letterTargetIds = getCorrectTargetIds(letter);

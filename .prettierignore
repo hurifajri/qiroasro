@@ -1,0 +1,13 @@
+.next
+node_modules
+dist
+build
+coverage
+out
+pnpm-lock.yaml
+.agents
+.agent
+.remember
+next-env.d.ts
+CHANGELOG.md
+*.mdx

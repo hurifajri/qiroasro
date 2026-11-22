@@ -1,9 +1,9 @@
 'use client';
 
 import { MenuIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import {
@@ -14,10 +14,14 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { getLocaleDir } from '@/i18n/locale';
+import { usePathname } from '@/i18n/navigation';
 import type { Locale } from '@/i18n/routing';
+
 import { ReferenceSidebar } from './reference-sidebar';
 
-export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
+export function ReferenceLayoutWrapper({
+  children,
+}: Readonly<React.PropsWithChildren>) {
   const t = useTranslations('reference_page.categories_menu');
   const pathname = usePathname();
   const locale = useLocale() as Locale;
@@ -26,14 +30,10 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
 
   const isRoot = pathname.endsWith('/reference');
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, []);
-
-  if (isRoot) return children;
+  if (isRoot) return <>{children}</>;
 
   return (
-    <div className="@container flex @6xl/main:flex-row flex-col gap-6">
+    <div className="@container flex flex-col gap-6 @6xl/main:flex-row">
       {/* Mobile Trigger & Sidebar Sheet */}
       <div className="@6xl:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -58,7 +58,7 @@ export function ReferenceLayoutWrapper({ children }: React.PropsWithChildren) {
       </div>
 
       {/* Desktop Sidebar */}
-      <aside className="sticky top-6 @6xl:block hidden h-dvh border-e">
+      <aside className="sticky top-6 hidden h-dvh border-e @6xl:block">
         <ScrollArea dir={dir} className="h-full w-72 pe-3">
           <ReferenceSidebar />
           <ScrollBar orientation="vertical" />

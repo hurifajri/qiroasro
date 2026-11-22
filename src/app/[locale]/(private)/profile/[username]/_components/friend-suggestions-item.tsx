@@ -5,7 +5,9 @@ interface FriendSuggestionsItemProps {
   friend: FriendSuggestion;
 }
 
-export function FriendSuggestionsItem({ friend }: FriendSuggestionsItemProps) {
+export function FriendSuggestionsItem({
+  friend,
+}: Readonly<FriendSuggestionsItemProps>) {
   return (
     <li>
       <FriendSuggestionsCard friend={friend} />

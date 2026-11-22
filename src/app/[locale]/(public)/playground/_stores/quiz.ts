@@ -1,6 +1,7 @@
 'use client';
 
 import { createStore } from 'zustand/vanilla';
+
 import {
   type ChallengeQuizAnalytic,
   type ChallengeQuizDifficulty,

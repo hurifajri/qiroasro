@@ -4,6 +4,8 @@ import { AnimatePresence } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useEffect, useState } from 'react';
 
+import { secureRandom } from '@/lib/utils';
+
 const CONFETTI_COLORS = [
   '#FFD700',
   '#FF6B6B',
@@ -56,12 +58,12 @@ function createConfettiParticles(): ConfettiParticleData[] {
   const width = typeof window !== 'undefined' ? window.innerWidth : 500;
   return Array.from({ length: CONFETTI_COUNT }).map((_, i) => ({
     id: i,
-    delay: Math.random() * 0.5,
-    x: Math.random() * width,
-    driftX: (Math.random() - 0.5) * 200,
-    duration: 3 + Math.random() * 2,
-    color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-    rotation: Math.random() * 720 - 360,
+    delay: secureRandom() * 0.5,
+    x: secureRandom() * width,
+    driftX: (secureRandom() - 0.5) * 200,
+    duration: 3 + secureRandom() * 2,
+    color: CONFETTI_COLORS[Math.floor(secureRandom() * CONFETTI_COLORS.length)],
+    rotation: secureRandom() * 720 - 360,
   }));
 }
 

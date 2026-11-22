@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+
 import { config } from 'dotenv';
 import postgres from 'postgres';
 
@@ -26,7 +27,9 @@ async function main() {
 
   const sql = postgres(databaseUrl, {
     max: 1,
-    onnotice: () => {},
+    onnotice: () => {
+      /* suppress postgres NOTICE logs during seed */
+    },
   });
 
   try {

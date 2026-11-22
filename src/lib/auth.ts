@@ -1,9 +1,12 @@
+import { randomInt } from 'node:crypto';
+
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { eq } from 'drizzle-orm';
-import { getLocale } from 'next-intl/server';
+
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
+import { type Locale, routing } from '@/i18n/routing';
 import { DEFAULT_AVATAR_COLOR_CODE } from '@/lib/avatar';
 import { db } from '@/lib/db';
 
@@ -24,7 +27,7 @@ function slugifyName(name: string): string {
 
 /** Returns a random 4-digit numeric suffix (1000–9999) */
 function randomSuffix(): string {
-  return Math.floor(1000 + Math.random() * 9000).toString();
+  return randomInt(1000, 10000).toString();
 }
 
 /**
@@ -83,8 +86,11 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
-        after: async (user) => {
-          const locale = await getLocale();
+        after: async (user, ctx) => {
+          const cookieLocale = ctx?.getCookie('NEXT_LOCALE');
+          const locale: Locale =
+            routing.locales.find((item) => item === cookieLocale) ??
+            routing.defaultLocale;
           const username = await generateUniqueUsername(user.id, user.name);
 
           // Auto-create a user profile after every new signup

@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+
 import { ADD_FRIENDS_ITEMS } from '../_lib/mock-data';
 import { AddFriendsRow } from './add-friends-row';
 

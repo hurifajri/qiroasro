@@ -15,7 +15,8 @@ import {
 const KEBAB_SLUG_REGEX = '^[a-z0-9]+(-[a-z0-9]+)*$';
 
 function kebabCheck(name: string, column: AnyPgColumn) {
-  return check(name, sql`${column} ~ ${sql.raw(`'${KEBAB_SLUG_REGEX}'`)}`);
+  const regexLiteral = `'${KEBAB_SLUG_REGEX}'`;
+  return check(name, sql`${column} ~ ${sql.raw(regexLiteral)}`);
 }
 
 function positiveCheck(name: string, column: AnyPgColumn) {

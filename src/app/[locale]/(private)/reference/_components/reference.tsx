@@ -2,6 +2,7 @@
 
 import { BookOpenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { ReferenceGrid } from './reference-grid';
 
 export function Reference() {
@@ -11,7 +12,7 @@ export function Reference() {
     <div className="@container flex flex-col gap-6">
       <div className="flex items-center gap-2">
         <BookOpenIcon className="size-6 text-primary" />
-        <h2 className="font-bold text-lg">{t('title')}</h2>
+        <h2 className="text-lg font-bold">{t('title')}</h2>
       </div>
 
       {/* Categories Grid */}

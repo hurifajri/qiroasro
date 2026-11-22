@@ -2,6 +2,7 @@
 
 import { ChevronLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
@@ -12,7 +13,9 @@ export function SettingsContentHeader() {
   const isMobileSettings = pathname === '/settings';
 
   // Extract slug from pathname (e.g., "/settings/profile" -> "profile")
-  const slug = pathname.split('/').pop() || 'preferences';
+  const lastSegment = pathname.split('/').pop();
+  const slug =
+    lastSegment && lastSegment.length > 0 ? lastSegment : 'preferences';
 
   return (
     <div className="relative flex items-center justify-center rounded-xl border bg-background/10 p-2 backdrop-blur-sm">
@@ -27,7 +30,7 @@ export function SettingsContentHeader() {
           <ChevronLeftIcon />
         </Link>
       )}
-      <h1 className="font-bold text-xl leading-none">
+      <h1 className="text-xl leading-none font-bold">
         {isMobileSettings ? t('nav.settings') : t(`account.${slug}`)}
       </h1>
     </div>

@@ -2,6 +2,7 @@
 
 import { type Edge, useStoreApi } from '@xyflow/react';
 import { useCallback, useEffect, useRef } from 'react';
+
 import {
   buildCanvasEdgeItems,
   type CanvasEdgeItem,

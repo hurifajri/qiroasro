@@ -29,7 +29,7 @@ export const RemoteLetterSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const LetterSchema = omit(
+export const LetterSchema = omit(
   object({
     ...RemoteLetterSchema.entries,
     parentLetterSlug: nullable(string()),
@@ -49,7 +49,7 @@ export const RemoteLetterArticulationSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const LetterArticulationSchema = object({
+export const LetterArticulationSchema = object({
   isPrimary: boolean(),
   letterId: pipe(number(), integer()),
   pointId: pipe(number(), integer()),
@@ -66,7 +66,7 @@ export const RemoteLetterTraitSchema = object({
   trait_id: pipe(number(), integer()),
 });
 
-const LetterTraitSchema = object({
+export const LetterTraitSchema = object({
   letterId: pipe(number(), integer()),
   traitId: pipe(number(), integer()),
 });

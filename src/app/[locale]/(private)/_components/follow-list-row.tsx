@@ -5,6 +5,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
 import { UserAvatar } from '../_components/user-avatar';
 import type { FollowEntry } from '../_schemas/private';
 
@@ -12,7 +13,7 @@ interface FollowListRowProps {
   entry: FollowEntry;
 }
 
-export function FollowListRow({ entry }: FollowListRowProps) {
+export function FollowListRow({ entry }: Readonly<FollowListRowProps>) {
   return (
     <Item asChild>
       <li className="p-0!">

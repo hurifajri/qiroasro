@@ -4,8 +4,10 @@ import { CheckCircle2Icon, XCircleIcon } from 'lucide-react';
 import { AnimatePresence } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+
 import type { PracticeQuizScore } from '../_schemas/quiz';
 
 interface QuizScoreBaseProps {
@@ -28,7 +30,7 @@ const successStyles =
   'bg-green-500/10 text-green-600 dark:bg-green-500/20 dark:text-green-500';
 
 /** Challenge mode score display with calendar flip animation */
-function ChallengeScore({ totalPoint }: { totalPoint: number }) {
+function ChallengeScore({ totalPoint }: Readonly<{ totalPoint: number }>) {
   const t = useTranslations('playground_page.quiz');
 
   // Determine gradient based on point value
@@ -41,7 +43,7 @@ function ChallengeScore({ totalPoint }: { totalPoint: number }) {
   return (
     <div
       className={cn(
-        'relative flex h-8.5 w-20 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5 font-medium text-sm text-white',
+        'relative flex h-8.5 w-20 items-center justify-center overflow-hidden rounded-full bg-linear-to-r px-4 py-1.5 text-sm font-medium text-white',
         getGradientClass(),
       )}
     >
@@ -84,7 +86,7 @@ export function QuizScore(props: QuizScoreProps) {
           className={cn('gap-2 px-3 py-4 [&>svg]:size-5!', successStyles)}
         >
           <CheckCircle2Icon />
-          <span className="font-semibold text-base">
+          <span className="text-base font-semibold">
             {isAllCorrect
               ? t('all_correct')
               : t('correct_score', { correct: score.correct })}
@@ -97,7 +99,7 @@ export function QuizScore(props: QuizScoreProps) {
           className={cn('gap-2 px-3 py-4 [&>svg]:size-5!')}
         >
           <XCircleIcon />
-          <span className="font-semibold text-base">
+          <span className="text-base font-semibold">
             {isIncorrectSingleAnswer
               ? t('incorrect_single_answer')
               : t('incorrect_score', { incorrect })}

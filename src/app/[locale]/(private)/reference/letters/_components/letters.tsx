@@ -2,7 +2,9 @@
 
 import { ZapIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
+
 import type { ArticulationGroup } from '../_lib/mock-data';
 import { LetterGridGroup } from './letter-grid-group';
 
@@ -12,7 +14,11 @@ interface LettersProps {
   totalCount: number;
 }
 
-export function Letters({ groups, learnedCount, totalCount }: LettersProps) {
+export function Letters({
+  groups,
+  learnedCount,
+  totalCount,
+}: Readonly<LettersProps>) {
   const t = useTranslations('reference_letters_page');
 
   function handleStartPractice() {
@@ -23,7 +29,7 @@ export function Letters({ groups, learnedCount, totalCount }: LettersProps) {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center gap-3 text-center">
         <div className="flex flex-col text-center">
-          <h2 className="font-bold text-lg">{t('title')}</h2>
+          <h2 className="text-lg font-bold">{t('title')}</h2>
           <p className="text-muted-foreground">{t('description')}</p>
         </div>
 
@@ -37,7 +43,7 @@ export function Letters({ groups, learnedCount, totalCount }: LettersProps) {
         </Button>
 
         {/* Progress indicator */}
-        <p className="text-muted-foreground text-sm">
+        <p className="text-sm text-muted-foreground">
           {t('progress', { learned: learnedCount, total: totalCount })}
         </p>
       </div>

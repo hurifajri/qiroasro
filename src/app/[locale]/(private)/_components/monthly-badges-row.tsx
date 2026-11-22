@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Item,
@@ -9,13 +10,14 @@ import {
 } from '@/components/ui/item';
 import { getEmojiColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+
 import type { MonthlyBadge } from '../_schemas/badge';
 
 interface MonthlyBadgeRowProps {
   badge: MonthlyBadge;
 }
 
-export function MonthlyBadgesRow({ badge }: MonthlyBadgeRowProps) {
+export function MonthlyBadgesRow({ badge }: Readonly<MonthlyBadgeRowProps>) {
   const t = useTranslations('global');
 
   return (

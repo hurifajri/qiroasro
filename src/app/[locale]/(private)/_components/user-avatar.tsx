@@ -27,7 +27,7 @@ export function UserAvatar({
   isOnline = false,
   className,
   textClassName,
-}: UserAvatarProps) {
+}: Readonly<UserAvatarProps>) {
   const initials = getInitials(name);
   const bgColorClass = getAvatarColorClass(colorCode);
 

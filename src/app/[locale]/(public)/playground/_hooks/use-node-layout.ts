@@ -1,5 +1,6 @@
 import { Position } from '@xyflow/react';
 import { useCallback } from 'react';
+
 import type { BaseNodeData } from '../_schemas/node';
 
 /**
@@ -33,7 +34,7 @@ export function useNodeLayout(
   );
 
   // Only dim nodes that are not selected and not highlighted
-  const isActive = selected || nodeData.isHighlighted;
+  const isActive = selected ?? nodeData.isHighlighted;
   const isDimmed = nodeData.isDimmed && !isActive;
 
   return {

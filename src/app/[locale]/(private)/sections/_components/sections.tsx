@@ -3,9 +3,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { ArrowLeftIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { useRouter } from '@/i18n/navigation';
+
 import { getSectionsWithProgressOpt } from '../../_queries/curriculum-progress';
 import type { SectionWithProgress } from '../../_schemas/curriculum-progress';
 import { SectionsList } from './section-list';

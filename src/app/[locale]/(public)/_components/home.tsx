@@ -3,6 +3,7 @@
 import { RocketIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import { useRouter } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
@@ -53,7 +54,7 @@ export function Home() {
           {/* Title */}
           <m.h2
             variants={itemVariants}
-            className="bg-linear-to-r from-accent-violet via-accent-sky to-accent-amber bg-clip-text font-bold text-4xl text-transparent"
+            className="bg-linear-to-r from-accent-violet via-accent-sky to-accent-amber bg-clip-text text-4xl font-bold text-transparent"
           >
             {t('development.title')}
           </m.h2>
@@ -72,7 +73,7 @@ export function Home() {
             variants={itemVariants}
             className={cn(
               buttonVariants({ size: 'lg' }),
-              'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-accent-sky/25 shadow-lg transition-all hover:scale-[1.005] hover:shadow-accent-sky/30 hover:shadow-xl active:scale-95',
+              'h-12 cursor-pointer bg-linear-to-r from-accent-sky to-accent-sky-dark px-6 text-base text-white shadow-lg shadow-accent-sky/25 transition-all hover:scale-[1.005] hover:shadow-xl hover:shadow-accent-sky/30 active:scale-95',
             )}
           >
             <RocketIcon className="size-5" />

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { Shop } from './_components/shop';
 import { MOCK_HEARTS_ITEMS, MOCK_POWERUP_ITEMS } from './_lib/mock-data';
 
@@ -23,11 +24,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ShopPage({ params }: PageProps) {
+export default async function ShopPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'shop_page' });
 

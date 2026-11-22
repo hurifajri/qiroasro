@@ -2,8 +2,10 @@
 
 import { eq } from 'drizzle-orm';
 import { parse } from 'valibot';
+
 import { userProfiles } from '@/db/user-schema';
 import { db } from '@/lib/db';
+
 import {
   type UpdateUserProfile,
   UpdateUserProfileSchema,
@@ -52,8 +54,7 @@ export async function getUserProfileByUsername(
 }
 
 export type UsernameAvailability =
-  | { available: true }
-  | { available: false; reason: 'taken' | 'invalid' };
+  { available: true } | { available: false; reason: 'taken' | 'invalid' };
 
 /**
  * Check if a username is available (not taken by another user).

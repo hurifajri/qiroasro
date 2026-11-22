@@ -1,4 +1,5 @@
 import { Flame, Shield, Trophy, Zap } from 'lucide-react';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +16,7 @@ const iconMap = {
   trophy: Trophy,
 };
 
-export function StatCard({ label, value, icon }: StatCardProps) {
+export function StatCard({ label, value, icon }: Readonly<StatCardProps>) {
   const Icon = iconMap[icon as keyof typeof iconMap];
 
   // Determine if the stat is zero (inactive)
@@ -33,13 +34,13 @@ export function StatCard({ label, value, icon }: StatCardProps) {
         <div className="flex flex-col">
           <p
             className={cn(
-              'font-bold text-lg',
+              'text-lg font-bold',
               isActive ? 'text-primary' : 'text-muted-foreground',
             )}
           >
             {value === '' ? '-' : value}
           </p>
-          <p className="text-muted-foreground text-sm">{label}</p>
+          <p className="text-sm text-muted-foreground">{label}</p>
         </div>
       </CardContent>
     </Card>

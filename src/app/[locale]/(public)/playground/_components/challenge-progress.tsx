@@ -2,14 +2,29 @@
 
 import { CheckIcon, XIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
+
 // import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+
 import type { ChallengeQuizQuestionScore } from '../_schemas/quiz';
 
-interface ChallengeProgressProps {
+type ChallengeProgressProps = Readonly<{
   currQuestionIdx: number;
   totalQuestion: number;
   questionScores: ChallengeQuizQuestionScore[];
+}>;
+
+function renderStepContent(
+  isPast: boolean,
+  isPerfect: boolean | undefined,
+  index: number,
+) {
+  if (!isPast) return <span>{index + 1}</span>;
+  return isPerfect ? (
+    <CheckIcon className="size-3.5" />
+  ) : (
+    <XIcon className="size-3.5" />
+  );
 }
 
 export function ChallengeProgress({
@@ -39,7 +54,7 @@ export function ChallengeProgress({
             <m.div
               key={key}
               className={cn(
-                'flex size-6 items-center justify-center rounded-full border-2 font-medium text-xs transition-all',
+                'flex size-6 items-center justify-center rounded-full border-2 text-xs font-medium transition-all',
                 isCurrent &&
                   'scale-110 border-primary bg-primary text-primary-foreground',
                 isPast &&
@@ -54,15 +69,7 @@ export function ChallengeProgress({
               animate={isCurrent ? { scale: 1.1 } : { scale: 1 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {isPast ? (
-                isPerfect ? (
-                  <CheckIcon className="size-3.5" />
-                ) : (
-                  <XIcon className="size-3.5" />
-                )
-              ) : (
-                index + 1
-              )}
+              {renderStepContent(isPast, isPerfect, index)}
             </m.div>
           );
         })}

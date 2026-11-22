@@ -7,6 +7,7 @@ import {
   ZapIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import {
   Item,
   ItemContent,
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/item';
 import { getPracticeColors } from '@/lib/colors';
 import { cn } from '@/lib/utils';
+
 import { SuperBadge } from '../../_components/super-badge';
 import type { PracticeMode } from '../_lib/mock-data';
 
@@ -33,7 +35,7 @@ interface PracticeItemProps {
   mode: PracticeMode;
 }
 
-export function PracticeItem({ mode }: PracticeItemProps) {
+export function PracticeItem({ mode }: Readonly<PracticeItemProps>) {
   const t = useTranslations('practice_page');
   const Icon = iconMap[mode.iconName];
   const colors = getPracticeColors(mode.colorCode);
@@ -65,11 +67,11 @@ export function PracticeItem({ mode }: PracticeItemProps) {
         </ItemContent>
         <ItemMedia
           variant="icon"
-          className="translate-0! self-center! relative"
+          className="relative translate-0! self-center!"
         >
           <Icon className={cn('size-12', colors.icon)} />
           {mode.badge && (
-            <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-600 font-bold text-white text-xs">
+            <span className="absolute -top-1 -right-1 flex size-6 items-center justify-center rounded-full bg-amber-600 text-xs font-bold text-white">
               {mode.badge > 99 ? '99+' : mode.badge}
             </span>
           )}

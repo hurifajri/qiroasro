@@ -8,6 +8,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+
 import { useQuizStore } from '../_providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -60,7 +61,10 @@ export function useQuizChallenge({
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const lastGeneratedKeyRef = useRef<string | null>(null);
   const generateQuizRef = useRef(generateQuiz);
-  generateQuizRef.current = generateQuiz;
+
+  useEffect(() => {
+    generateQuizRef.current = generateQuiz;
+  }, [generateQuiz]);
 
   const clearPendingTimeouts = useCallback(() => {
     for (const timer of timeoutsRef.current) {
@@ -91,8 +95,11 @@ export function useQuizChallenge({
 
   const startTimerRef = useRef(startTimer);
   const resetTimerRef = useRef(resetTimer);
-  startTimerRef.current = startTimer;
-  resetTimerRef.current = resetTimer;
+
+  useEffect(() => {
+    startTimerRef.current = startTimer;
+    resetTimerRef.current = resetTimer;
+  }, [startTimer, resetTimer]);
 
   function handlePlayAgain() {
     if (!difficulty) return;

@@ -5,7 +5,7 @@ interface LetterGridGroupProps {
   groups: ArticulationGroup[];
 }
 
-export function LetterGridGroup({ groups }: LetterGridGroupProps) {
+export function LetterGridGroup({ groups }: Readonly<LetterGridGroupProps>) {
   return (
     <ul className="flex flex-col gap-6">
       {groups.map((group) => (

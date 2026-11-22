@@ -5,13 +5,15 @@ import {
 } from '@tanstack/react-query';
 import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import {
   getAlternateLanguages,
   getLocalePath,
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import { Playground } from './_components/playground';
 import { PlaygroundStoreProvider } from './_providers/playground';
 import { QuizStoreProvider } from './_providers/quiz';
@@ -45,11 +47,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function PlaygroundPage({ params }: PageProps) {
+export default async function PlaygroundPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'playground_page' });
 

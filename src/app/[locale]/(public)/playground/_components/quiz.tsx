@@ -10,6 +10,7 @@ import {
 } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
+
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+
 import { useQuizChallenge } from '../_hooks/use-quiz-challenge';
 import { useQuizGenerator } from '../_hooks/use-quiz-generator';
 import { useQuizPractice } from '../_hooks/use-quiz-practice';
@@ -32,6 +34,54 @@ const nodeTypes: NodeTypes = {
   letterQuiz: LetterQuizNode,
   targetQuiz: TargetQuizNode,
 };
+
+type QuizTranslator = ReturnType<
+  typeof useTranslations<'playground_page.quiz'>
+>;
+
+function getPracticeDialogMeta(
+  t: QuizTranslator,
+  type: string,
+  isStarted: boolean,
+) {
+  if (!isStarted) {
+    return {
+      dialogTitle: t('practice_settings_title'),
+      dialogDescription: t(`practice_settings_description_${type}`),
+    };
+  }
+  return {
+    dialogTitle: t(`practice_title_${type}`),
+    dialogDescription: t(`practice_description_${type}`),
+  };
+}
+
+function getChallengeDialogMeta(
+  t: QuizTranslator,
+  challengeDifficulty: unknown,
+  isStarted: boolean,
+  challengeResult: unknown,
+) {
+  if (!challengeDifficulty) {
+    return {
+      dialogTitle: t('challenge_select_difficulty_title'),
+      dialogDescription: t('challenge_select_difficulty_description'),
+    };
+  }
+  if (!isStarted) {
+    return {
+      dialogTitle: t('challenge_confirm_title'),
+      dialogDescription: '',
+    };
+  }
+  if (!challengeResult) {
+    return {
+      dialogTitle: t('challenge_title'),
+      dialogDescription: t('challenge_description'),
+    };
+  }
+  return { dialogTitle: '', dialogDescription: '' };
+}
 
 export function Quiz() {
   const t = useTranslations('playground_page.quiz');
@@ -88,37 +138,23 @@ export function Quiz() {
     resetAll();
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <t won't change>
   const { dialogTitle, dialogDescription } = useMemo(() => {
-    let title = t('select_mode_title');
-    let description = t('select_mode_description');
-
     if (mode === 'practice' && type) {
-      if (!isStarted) {
-        title = t('practice_settings_title');
-        description = t(`practice_settings_description_${type}`);
-      } else {
-        title = t(`practice_title_${type}`);
-        description = t(`practice_description_${type}`);
-      }
-    } else if (mode === 'challenge') {
-      if (!challengeDifficulty) {
-        title = t('challenge_select_difficulty_title');
-        description = t('challenge_select_difficulty_description');
-      } else if (!isStarted) {
-        title = t('challenge_confirm_title');
-        description = '';
-      } else if (isStarted && !challengeResult) {
-        title = t('challenge_title');
-        description = t('challenge_description');
-      } else if (challengeResult) {
-        title = '';
-        description = '';
-      }
+      return getPracticeDialogMeta(t, type, isStarted);
     }
-
-    return { dialogTitle: title, dialogDescription: description };
-  }, [mode, challengeResult, challengeDifficulty, isStarted, type]);
+    if (mode === 'challenge') {
+      return getChallengeDialogMeta(
+        t,
+        challengeDifficulty,
+        isStarted,
+        challengeResult,
+      );
+    }
+    return {
+      dialogTitle: t('select_mode_title'),
+      dialogDescription: t('select_mode_description'),
+    };
+  }, [mode, challengeResult, challengeDifficulty, isStarted, type, t]);
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>

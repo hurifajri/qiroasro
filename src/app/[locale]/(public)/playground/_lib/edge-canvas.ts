@@ -9,6 +9,7 @@ import {
   type Transform,
   type XYPosition,
 } from '@xyflow/react';
+
 import { getEdgeParams } from './edge';
 
 const DEFAULT_EDGE_STROKE = '#b1b1b7';
@@ -136,6 +137,7 @@ function getEdgePathString(
       });
       return path;
     }
+    case undefined:
     default: {
       const [path] = getBezierPath({
         sourceX: sourcePoint.x,

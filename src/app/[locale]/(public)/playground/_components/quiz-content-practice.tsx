@@ -13,9 +13,11 @@ import type {
 import { CheckCircle2Icon, PlayIcon, RefreshCwIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 import { useMounted } from '@/hooks/use-mounted';
+
 import { useQuizStore } from '../_providers/quiz';
 import { QuizContent } from './quiz-content';
 import { QuizInstruction } from './quiz-instruction';
@@ -53,7 +55,7 @@ export function QuizContentPractice({
   handleChangeMode,
   handlePlayAgain,
   handleCheckAnswer,
-}: QuizContentPracticeProps) {
+}: Readonly<QuizContentPracticeProps>) {
   const t = useTranslations('playground_page.quiz');
   const { theme } = useTheme();
   const { isMounted } = useMounted();
@@ -121,7 +123,7 @@ export function QuizContentPractice({
           }
         />
         <DialogFooter className="flex-col! gap-4 rounded-b-none sm:rounded-b-xl">
-          {isInstructionShown && type && (
+          {isInstructionShown && (
             <QuizInstruction
               quizType={type}
               onClose={() => setIsInstructionShown(false)}

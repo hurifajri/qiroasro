@@ -1,8 +1,10 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
+
 import { usePathname, useRouter } from '@/i18n/navigation';
+
 import type {
   EdgeShape,
   HierarchyDirection,
@@ -75,18 +77,65 @@ export interface UsePlaygroundParamsOptions {
   onLetterSelect: (id: number) => void;
 }
 
+function syncEnumPlaygroundParams(
+  searchParams: ReadonlyURLSearchParams,
+  {
+    currentSettings,
+    onViewModeChange,
+    onLayoutModeChange,
+    onHierarchyDirectionChange,
+    onEdgeShapeChange,
+  }: UsePlaygroundParamsOptions,
+) {
+  const viewParam = searchParams.get(PARAM_VIEW);
+  if (isValidViewMode(viewParam) && viewParam !== currentSettings.viewMode) {
+    onViewModeChange(viewParam);
+  }
+
+  const layoutParam = searchParams.get(PARAM_LAYOUT);
+  if (
+    isValidLayoutMode(layoutParam) &&
+    layoutParam !== currentSettings.layoutMode
+  ) {
+    onLayoutModeChange(layoutParam);
+  }
+
+  const directionParam = searchParams.get(PARAM_DIRECTION);
+  if (
+    isValidHierarchyDirection(directionParam) &&
+    directionParam !== currentSettings.hierarchyDirection
+  ) {
+    onHierarchyDirectionChange(directionParam);
+  }
+
+  const shapeParam = searchParams.get(PARAM_SHAPE);
+  if (
+    isValidEdgeShape(shapeParam) &&
+    shapeParam !== currentSettings.edgeShape
+  ) {
+    onEdgeShapeChange(shapeParam);
+  }
+}
+
+function syncLetterPlaygroundParam(
+  searchParams: ReadonlyURLSearchParams,
+  currentLetterId: number,
+  onLetterSelect: (id: number) => void,
+) {
+  const letterParam = searchParams.get(PARAM_LETTER);
+  if (!isValidLetterId(letterParam)) return;
+
+  const letterId = Number.parseInt(letterParam!, 10);
+  if (letterId !== currentLetterId) {
+    onLetterSelect(letterId);
+  }
+}
+
 /**
  * Hook to sync playground settings with URL query params.
  * - On mount: reads query params and updates store if valid
  */
-export function usePlaygroundParams({
-  currentSettings,
-  onViewModeChange,
-  onLayoutModeChange,
-  onHierarchyDirectionChange,
-  onEdgeShapeChange,
-  onLetterSelect,
-}: UsePlaygroundParamsOptions) {
+export function usePlaygroundParams(options: UsePlaygroundParamsOptions) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -111,46 +160,14 @@ export function usePlaygroundParams({
   }, [pathname, router, searchParams]);
 
   // Read from URL and update store on mount
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <Read only once>
   useEffect(() => {
-    const viewParam = searchParams.get(PARAM_VIEW);
-    const layoutParam = searchParams.get(PARAM_LAYOUT);
-    const directionParam = searchParams.get(PARAM_DIRECTION);
-    const shapeParam = searchParams.get(PARAM_SHAPE);
-    const letterParam = searchParams.get(PARAM_LETTER);
-
-    // Apply valid params to store
-    if (isValidViewMode(viewParam) && viewParam !== currentSettings.viewMode) {
-      onViewModeChange(viewParam);
-    }
-
-    if (
-      isValidLayoutMode(layoutParam) &&
-      layoutParam !== currentSettings.layoutMode
-    ) {
-      onLayoutModeChange(layoutParam);
-    }
-
-    if (
-      isValidHierarchyDirection(directionParam) &&
-      directionParam !== currentSettings.hierarchyDirection
-    ) {
-      onHierarchyDirectionChange(directionParam);
-    }
-
-    if (
-      isValidEdgeShape(shapeParam) &&
-      shapeParam !== currentSettings.edgeShape
-    ) {
-      onEdgeShapeChange(shapeParam);
-    }
-
-    if (isValidLetterId(letterParam)) {
-      const letterId = Number.parseInt(letterParam as string, 10);
-      if (letterId !== currentSettings.selectedLetterId) {
-        onLetterSelect(letterId);
-      }
-    }
+    syncEnumPlaygroundParams(searchParams, options);
+    syncLetterPlaygroundParam(
+      searchParams,
+      options.currentSettings.selectedLetterId,
+      options.onLetterSelect,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- read URL params once on mount
   }, []);
 
   return { clearPlaygroundParams };

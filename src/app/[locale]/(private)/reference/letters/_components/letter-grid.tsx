@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import type { ArticulationGroup } from '../_lib/mock-data';
 import { LetterItem } from './letter-item';
 
@@ -6,7 +7,7 @@ interface LetterGridProps {
   group: ArticulationGroup;
 }
 
-export function LetterGrid({ group }: LetterGridProps) {
+export function LetterGrid({ group }: Readonly<LetterGridProps>) {
   const t = useTranslations('reference_letters_page');
 
   return (

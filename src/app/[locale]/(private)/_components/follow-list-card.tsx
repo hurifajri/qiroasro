@@ -1,12 +1,14 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { FollowEntry } from '../_schemas/private';
 import { FollowListRow } from './follow-list-row';
 
@@ -22,7 +24,7 @@ export function FollowListCard({
   followers,
   followingCount,
   followersCount,
-}: FollowListCardProps) {
+}: Readonly<FollowListCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

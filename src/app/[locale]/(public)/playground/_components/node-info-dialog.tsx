@@ -1,4 +1,5 @@
 import { CircleQuestionMarkIcon } from 'lucide-react';
+
 import {
   Dialog,
   DialogContent,
@@ -23,7 +24,7 @@ export function NodeInfoDialog({
   description,
   open,
   onOpenChange,
-}: NodeInfoDialogProps) {
+}: Readonly<NodeInfoDialogProps>) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>

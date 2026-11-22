@@ -3,6 +3,7 @@
 import { AnimatePresence } from 'motion/react';
 import * as m from 'motion/react-m';
 import { useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/lib/utils';
 
 interface PointAnimationProps {
@@ -14,7 +15,9 @@ interface AnimationItem {
   id: string;
 }
 
-export function PointAnimation({ lastPointChange }: PointAnimationProps) {
+export function PointAnimation({
+  lastPointChange,
+}: Readonly<PointAnimationProps>) {
   const [queue, setQueue] = useState<AnimationItem[]>([]);
   const lastProcessedTimestamp = useRef<number>(0);
 
@@ -25,7 +28,7 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
       lastPointChange.timestamp > lastProcessedTimestamp.current
     ) {
       lastProcessedTimestamp.current = lastPointChange.timestamp;
-      const id = `${lastPointChange.timestamp}-${Math.random()}`;
+      const id = `${lastPointChange.timestamp}-${crypto.randomUUID()}`;
       setQueue((prev) => [...prev, { value: lastPointChange.value, id }]);
     }
   }, [lastPointChange]);
@@ -48,7 +51,7 @@ export function PointAnimation({ lastPointChange }: PointAnimationProps) {
         <m.div
           key={item.id}
           className={cn(
-            'pointer-events-none fixed z-50 font-bold text-3xl',
+            'pointer-events-none fixed z-50 text-3xl font-bold',
             item.value > 0 ? 'text-green-500' : 'text-red-500',
           )}
           style={{

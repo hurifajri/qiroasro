@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import type { ShopItem } from '../_schemas/shop';
 import { ShopSection } from './shop-section';
 
@@ -9,7 +10,7 @@ interface ShopProps {
   powerupItems: ShopItem[];
 }
 
-export function Shop({ heartsItems, powerupItems }: ShopProps) {
+export function Shop({ heartsItems, powerupItems }: Readonly<ShopProps>) {
   const t = useTranslations('shop_page');
 
   return (

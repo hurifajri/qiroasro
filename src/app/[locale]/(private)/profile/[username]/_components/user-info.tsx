@@ -1,8 +1,10 @@
 import { format } from 'date-fns';
 import { Calendar } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+
 import type { Locale } from '@/i18n/routing';
 import { getDateLocale } from '@/lib/date';
+
 import { UserAvatar } from '../../../_components/user-avatar';
 import type { UserProfile } from '../../../_schemas/user-profile';
 
@@ -10,7 +12,7 @@ interface UserInfoProps {
   user: UserProfile;
 }
 
-export function UserInfo({ user }: UserInfoProps) {
+export function UserInfo({ user }: Readonly<UserInfoProps>) {
   const t = useTranslations('profile_page.user_info');
   const locale = useLocale() as Locale;
 
@@ -31,9 +33,9 @@ export function UserInfo({ user }: UserInfoProps) {
         />
 
         <div className="flex flex-col gap-1">
-          <h2 className="font-bold text-lg">{user.displayName}</h2>
+          <h2 className="text-lg font-bold">{user.displayName}</h2>
           <p className="text-muted-foreground">{user.username}</p>
-          <div className="flex items-center gap-1 text-muted-foreground text-sm">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Calendar className="size-4" />
             <span>{t('joined', { date: joinedDateFormatted })}</span>
           </div>

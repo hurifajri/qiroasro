@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+
 import { calculateAccuracy } from '../_lib/challenge-results';
 import type { ChallengeQuizResult } from '../_schemas/quiz';
 import { ChallengeActions } from './challenge-actions';
@@ -19,7 +20,7 @@ export function ChallengeResults({
   result,
   onPlayAgain,
   onChangeMode,
-}: ChallengeResultsProps) {
+}: Readonly<ChallengeResultsProps>) {
   const resultRef = useRef<HTMLDivElement>(null);
   const accuracy = calculateAccuracy(
     result.score.correctConnection,

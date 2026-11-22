@@ -1,5 +1,6 @@
 import { GemIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,6 +10,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+
 import { SuperButton } from '../../_components/super-button';
 import type { ShopItem } from '../_schemas/shop';
 
@@ -16,7 +18,7 @@ interface ShopItemCardProps {
   item: ShopItem;
 }
 
-export function ShopItemCard({ item }: ShopItemCardProps) {
+export function ShopItemCard({ item }: Readonly<ShopItemCardProps>) {
   const t = useTranslations('shop_page');
 
   const renderAction = () => {
@@ -30,7 +32,12 @@ export function ShopItemCard({ item }: ShopItemCardProps) {
 
     if (item.status === 'super') {
       return (
-        <SuperButton onClick={() => {}} className="uppercase">
+        <SuperButton
+          onClick={() => {
+            /* TODO: open Super subscription modal */
+          }}
+          className="uppercase"
+        >
           {t('hearts.get_super')}
         </SuperButton>
       );

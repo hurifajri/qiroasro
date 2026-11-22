@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { MOCK_QUESTS } from '../_lib/mock-data';
 import { Quests } from './_components/quests';
 import { MOCK_MONTHLY_QUEST } from './_lib/mock-data';
@@ -24,12 +25,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function QuestsPage({ params }: PageProps) {
+export default async function QuestsPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
-
   const t = await getTranslations({ locale, namespace: 'quests_page' });
 
   return (

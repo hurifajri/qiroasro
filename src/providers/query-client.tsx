@@ -29,7 +29,9 @@ function getQueryClient() {
   }
 }
 
-export function QueryClientProvider({ children }: React.PropsWithChildren) {
+export function QueryClientProvider({
+  children,
+}: Readonly<React.PropsWithChildren>) {
   const queryClient = getQueryClient();
 
   return (

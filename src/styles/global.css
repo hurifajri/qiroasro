@@ -1,7 +1,7 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@plugin "@tailwindcss/typography";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@plugin '@tailwindcss/typography';
 
 @theme {
   --breakpoint-3xl: 120rem; /* 1920px - Monitor Full HD (1080p) */
@@ -222,7 +222,7 @@
     @apply overscroll-x-none!;
   }
   body {
-    @apply font-latin bg-background text-foreground;
+    @apply bg-background font-latin text-foreground;
   }
 
   /* MDX Heading Anchor Customization */
@@ -231,8 +231,8 @@
   }
 
   .prose a.subheading-anchor::before {
-    content: "#";
-    @apply absolute -left-6 top-1/2 -translate-y-1/2 text-muted-foreground/30 font-normal opacity-0 transition-opacity text-[0.8em];
+    content: '#';
+    @apply absolute top-1/2 -left-6 -translate-y-1/2 text-[0.8em] font-normal text-muted-foreground/30 opacity-0 transition-opacity;
   }
 
   .prose :is(h1, h2, h3, h4, h5, h6) {
@@ -240,19 +240,19 @@
   }
 
   .prose :is(h1, h2, h3, h4, h5, h6):hover a.subheading-anchor::before {
-    @apply opacity-100 text-muted-foreground;
+    @apply text-muted-foreground opacity-100;
   }
 
   .prose :is(blockquote) {
-    @apply not-italic! font-normal!;
+    @apply font-normal! not-italic!;
   }
 
   /* Arabic Locale Specific Styling for MDX */
-  html[lang="ar"] .prose {
+  html[lang='ar'] .prose {
     @apply font-arabic text-xl leading-loose;
   }
 
-  html[lang="ar"] .prose blockquote {
+  html[lang='ar'] .prose blockquote {
     @apply text-2xl;
   }
 }
@@ -305,7 +305,7 @@
 }
 
 .driverjs-theme.driver-popover {
-  @apply bg-background text-foreground border border-border shadow-lg rounded-xl p-4;
+  @apply rounded-xl border border-border bg-background p-4 text-foreground shadow-lg;
 }
 
 .driverjs-theme.driver-popover * {
@@ -313,7 +313,7 @@
 }
 
 .driverjs-theme .driver-popover-title {
-  @apply text-foreground font-semibold;
+  @apply font-semibold text-foreground;
 }
 
 .driverjs-theme .driver-popover-description {
@@ -321,12 +321,12 @@
 }
 
 .driverjs-theme .driver-popover-progress-text {
-  @apply text-muted-foreground text-xs;
+  @apply text-xs text-muted-foreground;
 }
 
 .driverjs-theme .driver-popover-prev-btn,
 .driverjs-theme .driver-popover-next-btn {
-  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors text-shadow-none!;
+  @apply rounded-md border-0 bg-secondary px-3 py-1.5 text-sm font-medium text-secondary-foreground transition-colors text-shadow-none! hover:bg-secondary/80;
 }
 
 .driverjs-theme .driver-popover-next-btn {
@@ -350,5 +350,5 @@
   .driver-popover-footer
   .driver-popover-navigation-btns
   .driver-popover-next-btn {
-  @apply ml-0 mr-1;
+  @apply mr-1 ml-0;
 }

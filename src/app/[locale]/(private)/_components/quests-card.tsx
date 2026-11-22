@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -10,6 +11,7 @@ import {
 import { ItemGroup } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { Quest } from '../_schemas/private';
 import { QuestRow } from './quests-row';
 
@@ -20,7 +22,7 @@ interface QuestsCardProps {
 /**
  * Daily quests widget showing progress towards daily challenges.
  */
-export function QuestsCard({ quests }: QuestsCardProps) {
+export function QuestsCard({ quests }: Readonly<QuestsCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

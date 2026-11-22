@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { Reference } from './_components/reference';
 
 type PageProps = {
@@ -22,9 +23,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ReferencePage({ params }: PageProps) {
+export default async function ReferencePage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'reference_page' });
 
