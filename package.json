@@ -6,11 +6,11 @@
     "prepare": "husky",
     "dev": "next dev",
     "build": "next build",
-    "build:analyze": "next experimental-analyze",
+    "build:analyze": "next analyze",
     "start": "next start",
     "check": "biome check && biome format",
     "check:types": "tsc --noEmit --pretty",
-    "check:packages": "pnpm exec npm-check-updates -u",
+    "check:packages": "pnpm exec npm-check-updates",
     "fix": "biome check --write --unsafe && biome format --write",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts"

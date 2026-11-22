@@ -47,8 +47,6 @@ next-env.d.ts
 /.claude/
 /.mcp.json
 /.vscode/mcp.json
-/AGENTS.md
-/CLAUDE.md
 /skills-lock.json
 
 # internal docs
