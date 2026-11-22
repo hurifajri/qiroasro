@@ -11,7 +11,6 @@ import {
   type Edge as FlowEdge,
   type Node as FlowNode,
   // MiniMap,
-  type NodeTypes,
   Panel,
   ReactFlow,
   useNodesState,
@@ -24,6 +23,15 @@ import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { CanvasEdges } from '@/features/tajweed-graph/components/canvas-edges';
+import { TAJWEED_NODE_TYPES } from '@/features/tajweed-graph/components/tajweed-graph-nodes';
+import {
+  applyEdgesHighlight,
+  applyNodesHighlight,
+  buildLayoutedGraph,
+} from '@/features/tajweed-graph/lib/graph-highlight';
+import { getRootLetters } from '@/features/tajweed-graph/lib/letter';
+import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
 import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
@@ -31,24 +39,10 @@ import { cn } from '@/lib/utils';
 
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
 import { usePlaygroundTour } from '../_hooks/use-playground-tour';
-import { generateGraphFromData } from '../_lib/graph-generator';
-import {
-  applyHierarchicalLayout,
-  applyRadialLayout,
-} from '../_lib/graph-layout';
-import { getRootLetters } from '../_lib/letter';
 import { usePlaygroundStore } from '../_providers/playground';
 import { useQuizStore } from '../_providers/quiz';
-import { getPlaygroundDataOpt } from '../_queries/playground';
-import { CanvasEdges } from './canvas-edges';
 import { GraphFilter } from './graph-filter';
 import { GraphLegend } from './graph-legend';
-import {
-  ArticulationAreaNode,
-  ArticulationPointNode,
-} from './node-articulation';
-import { LetterNode } from './node-letter';
-import { TraitGroupNode, TraitNode } from './node-trait';
 
 /**
  * Lazy load Quiz component - only shown when dialog is open
@@ -64,15 +58,6 @@ const GraphDownload = dynamic(
   () => import('./graph-download').then((mod) => mod.GraphDownload),
   { ssr: false },
 );
-
-// Register custom node types
-const nodeTypes: NodeTypes = {
-  letter: LetterNode,
-  articulationArea: ArticulationAreaNode,
-  articulationPoint: ArticulationPointNode,
-  traitGroup: TraitGroupNode,
-  trait: TraitNode,
-};
 
 const EMPTY_EDGES: FlowEdge[] = [];
 const PRO_OPTIONS = { hideAttribution: true };
@@ -186,44 +171,16 @@ export function Playground() {
     };
 
     function updateLayout() {
-      // Generate nodes and edges (without positions)
-      const { nodes: rawNodes, edges: newEdges } = generateGraphFromData(data, {
-        viewMode,
-        layoutMode,
-        hierarchyDirection,
-        selectedId: selectedLetterId,
-        isTraitVisible,
-        isArticulationVisible,
-      });
-
-      // Apply layout based on mode
-      let layoutedNodes: FlowNode[];
-      if (layoutMode === 'radial') {
-        layoutedNodes = applyRadialLayout(rawNodes, 600, 400, { viewMode });
-      } else {
-        layoutedNodes = applyHierarchicalLayout(rawNodes, {
-          direction: hierarchyDirection,
-          nodeSpacing: 30,
-          layerSpacing: viewMode === 'letter' ? 200 : 600,
-        });
-      }
-
-      // Calculate which nodes have source/target edges
-      const nodesWithSourceEdge = new Set(newEdges.map((e) => e.source));
-      const nodesWithTargetEdge = new Set(newEdges.map((e) => e.target));
-
-      // Add layout info to node data for conditional handle rendering
-      const nodesWithLayoutInfo = layoutedNodes.map((node) => ({
-        ...node,
-        data: {
-          ...node.data,
-          isFloating: edgeStyle.isFloating,
+      const { nodes: nodesWithLayoutInfo, edges: newEdges } =
+        buildLayoutedGraph(data, {
+          viewMode,
           layoutMode,
           hierarchyDirection,
-          hasSourceEdge: nodesWithSourceEdge.has(node.id),
-          hasTargetEdge: nodesWithTargetEdge.has(node.id),
-        },
-      }));
+          selectedLetterId,
+          isTraitVisible,
+          isArticulationVisible,
+          isFloating: edgeStyle.isFloating,
+        });
 
       setNodes(nodesWithLayoutInfo);
       setEdges(newEdges);
@@ -248,81 +205,20 @@ export function Playground() {
     setNodes,
   ]);
 
-  // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)
-  // Optimized: only create new objects when values actually change
-  const highlightedNodes = useMemo(() => {
-    return nodes.map((node) => {
-      const isSelected = node.id === selectedNodeId;
-      const isConnected = connectedNodeIds.has(node.id);
-      const shouldHighlight = isSelected || isConnected;
-      const shouldDim = selectedNodeId ? !shouldHighlight : false;
+  const highlightedNodes = useMemo(
+    () => applyNodesHighlight(nodes, selectedNodeId, connectedNodeIds),
+    [nodes, connectedNodeIds, selectedNodeId],
+  );
 
-      // Only create new object if highlight/dim state changed
-      const currentHighlight = node.data?.isHighlighted ?? false;
-      const currentDim = node.data?.isDimmed ?? false;
-      if (
-        currentHighlight === shouldHighlight &&
-        currentDim === shouldDim &&
-        node.hidden !== true
-      ) {
-        return node;
-      }
-
-      return {
-        ...node,
-        hidden: false,
-        data: {
-          ...node.data,
-          isHighlighted: shouldHighlight,
-          isDimmed: shouldDim,
-        },
-      };
-    });
-  }, [nodes, connectedNodeIds, selectedNodeId]);
-
-  // Compute highlighted edges - uses store-based connectedEdgeIds (O(1) lookup)
-  // Optimized: only create new objects when values actually change
-  const highlightedEdges = useMemo(() => {
-    const edgeType = edgeStyle.isFloating ? 'floating' : edgeStyle.shape;
-
-    return edges.map((edge) => {
-      const isConnected = connectedEdgeIds.has(edge.id);
-      const targetStrokeWidth = isConnected ? 3 : 1;
-      const targetOpacity = selectedNodeId && !isConnected ? 0.2 : 1;
-      const targetAnimated = isConnected ? true : edgeStyle.isAnimated;
-
-      // Only create new object if style or type changed
-      const currentStyle = edge.style as Record<string, unknown> | undefined;
-      if (
-        edge.hidden !== true &&
-        edge.type === edgeType &&
-        currentStyle?.strokeWidth === targetStrokeWidth &&
-        currentStyle?.opacity === targetOpacity &&
-        edge.animated === targetAnimated
-      ) {
-        return edge;
-      }
-
-      return {
-        ...edge,
-        type: edgeType,
-        hidden: false,
-        style: {
-          ...edge.style,
-          strokeWidth: targetStrokeWidth,
-          opacity: targetOpacity,
-        },
-        animated: targetAnimated,
-      };
-    });
-  }, [
-    edges,
-    connectedEdgeIds,
-    selectedNodeId,
-    edgeStyle.isAnimated,
-    edgeStyle.isFloating,
-    edgeStyle.shape,
-  ]);
+  const highlightedEdges = useMemo(
+    () =>
+      applyEdgesHighlight(edges, {
+        selectedNodeId,
+        connectedEdgeIds,
+        edgeStyle,
+      }),
+    [edges, connectedEdgeIds, selectedNodeId, edgeStyle],
+  );
 
   // Debounce ref for highlight updates
   const highlightTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
@@ -389,7 +285,7 @@ export function Playground() {
             nodes={highlightedNodes}
             edges={EMPTY_EDGES}
             onNodesChange={onNodesChange}
-            nodeTypes={nodeTypes}
+            nodeTypes={TAJWEED_NODE_TYPES}
             onNodeClick={handleNodeClick}
             onPaneClick={handlePaneClick}
             nodeDragThreshold={5}

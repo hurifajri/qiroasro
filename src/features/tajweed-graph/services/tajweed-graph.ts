@@ -8,7 +8,7 @@ import { db } from '@/lib/db';
 import {
   type PlaygroundData,
   PlaygroundDataSchema,
-} from '../_schemas/playground';
+} from '../schemas/tajweed-graph';
 
 export async function getPlaygroundData(): Promise<PlaygroundData> {
   try {

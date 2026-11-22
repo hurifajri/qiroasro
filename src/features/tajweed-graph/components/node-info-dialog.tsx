@@ -8,23 +8,23 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-type NodeInfoDialogProps = {
+type NodeInfoDialogProps = Readonly<{
   label: string;
   description: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-};
+}>;
 
 /**
  * Reusable dialog component for displaying node information.
- * Used by TraitNode and ArticulationPointNode.
+ * Used by TraitNode, ArticulationPointNode, and TargetQuizNode.
  */
 export function NodeInfoDialog({
   label,
   description,
   open,
   onOpenChange,
-}: Readonly<NodeInfoDialogProps>) {
+}: NodeInfoDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>

@@ -10,12 +10,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { getLeafLetters } from '@/features/tajweed-graph/lib/letter';
+import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 
-import { getLeafLetters } from '../_lib/letter';
 import { useQuizStore } from '../_providers/quiz';
-import { getPlaygroundDataOpt } from '../_queries/playground';
 import {
   PRACTICE_QUIZ_TYPE_CONFIG,
   type PracticeQuizSettings,

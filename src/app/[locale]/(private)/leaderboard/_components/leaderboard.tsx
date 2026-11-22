@@ -3,15 +3,14 @@
 import { useTranslations } from 'next-intl';
 
 import type { League } from '../../_schemas/league';
-import type { LeagueNameKey } from '../../_schemas/private';
-import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
+import type { LeaderboardEntry, LeagueNameKey } from '../../_schemas/private';
 import { LeaderboardList } from './leaderboard-list';
 import { LeagueHeader } from './league-header';
 
 interface LeaderboardProps {
   leagues: League[];
   currentLeagueNameKey: LeagueNameKey;
-  entries: FullLeaderboardEntry[];
+  entries: LeaderboardEntry[];
 }
 
 export function Leaderboard({

@@ -1,22 +1,47 @@
 import type { Edge, Node } from '@xyflow/react';
 
-import { secureRandom } from '@/lib/utils';
-
-import type { ArticulationPoint } from '../_schemas/articulation';
+import type { ArticulationPoint } from '@/features/tajweed-graph/schemas/articulation';
 import type {
   Letter,
   LetterArticulation,
   LetterTrait,
-} from '../_schemas/letter';
-import type { TargetQuizNodeData } from '../_schemas/node';
+} from '@/features/tajweed-graph/schemas/letter';
+import type { Trait, TraitGroup } from '@/features/tajweed-graph/schemas/trait';
+import { secureRandom } from '@/lib/utils';
+
 import type {
   QuizLetter,
   QuizQuestion,
   QuizTarget,
   QuizType,
+  TargetQuizNodeData,
 } from '../_schemas/quiz';
-import type { Trait, TraitGroup } from '../_schemas/trait';
-import { createLetterQuizNode, createTargetQuizNode } from './node';
+
+function createLetterQuizNode(
+  letter: QuizLetter,
+  position: { x: number; y: number } = { x: 0, y: 0 },
+): Node {
+  return {
+    id: `letter-quiz-${letter.id}`,
+    type: 'letterQuiz',
+    position,
+    data: letter,
+    draggable: false,
+  };
+}
+
+function createTargetQuizNode(
+  target: TargetQuizNodeData,
+  position: { x: number; y: number } = { x: 0, y: 0 },
+): Node {
+  return {
+    id: `target-quiz-${target.id}`,
+    type: 'targetQuiz',
+    position,
+    data: target,
+    draggable: false,
+  };
+}
 
 interface QuizGeneratorData {
   letters: Letter[];

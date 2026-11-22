@@ -1,6 +1,12 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
+import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
 import {
   getAlternateLanguages,
   getLocalePath,
@@ -40,10 +46,13 @@ export default async function HomePage({ params }: PageProps) {
 
   const t = await getTranslations({ locale, namespace: 'home_page' });
 
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(getPlaygroundDataOpt());
+
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <Home />
-    </>
+    </HydrationBoundary>
   );
 }

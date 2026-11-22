@@ -3,25 +3,22 @@
 import { type ReadonlyURLSearchParams, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 
-import { usePathname, useRouter } from '@/i18n/navigation';
-
-import type {
-  EdgeShape,
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
-} from '../_schemas/graph';
 import {
   EDGE_SHAPES,
+  type EdgeShape,
   HIERARCHY_DIRECTIONS,
+  type HierarchyDirection,
   LAYOUT_MODES,
+  type LayoutMode,
   PARAM_DIRECTION,
   PARAM_LAYOUT,
   PARAM_LETTER,
   PARAM_SHAPE,
   PARAM_VIEW,
   VIEW_MODES,
-} from '../_schemas/graph';
+  type ViewMode,
+} from '@/features/tajweed-graph/schemas/graph';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 const PLAYGROUND_QUERY_PARAMS = [
   PARAM_VIEW,

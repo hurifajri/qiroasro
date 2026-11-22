@@ -1,14 +1,14 @@
 import type { Edge } from '@xyflow/react';
 import { createStore } from 'zustand/vanilla';
 
-import { computeHighlight } from '../_lib/graph-traversal';
+import { computeHighlight } from '@/features/tajweed-graph/lib/graph-traversal';
 import type {
   EdgeShape,
   EdgeStyleOptions,
   HierarchyDirection,
   LayoutMode,
   ViewMode,
-} from '../_schemas/graph';
+} from '@/features/tajweed-graph/schemas/graph';
 
 interface PlaygroundState {
   viewMode: ViewMode;

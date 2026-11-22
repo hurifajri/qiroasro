@@ -7,7 +7,7 @@ import {
   buildCanvasEdgeItems,
   type CanvasEdgeItem,
   drawCanvasEdgeItems,
-} from '../_lib/edge-canvas';
+} from '../lib/edge-canvas';
 
 type CanvasEdgesProps = Readonly<{
   edges: Edge[];

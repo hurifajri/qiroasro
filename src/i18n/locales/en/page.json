@@ -9,6 +9,108 @@
       "title": "Under Development",
       "subtitle": "We are currently developing an interactive tajweed learning application. Please pray for us so that Allah makes it easy. Aamiin...",
       "playground_cta": "Explore Playground"
+    },
+    "hero": {
+      "badge": "Interactive Graph-Based Tajweed Platform",
+      "title": "Understand Makharij & Sifat Visually, Master Tajweed Step by Step.",
+      "subtitle": "Explore the interactive knowledge graph of 29 Hijaiyyah letters right away in Playground, or sign in to unlock the full 24-topic curriculum, skill drills, and daily Istiqamah progress.",
+      "cta_login": "Sign In to Start Learning",
+      "cta_playground": "Explore Graph Playground"
+    },
+    "nav_bar": {
+      "prev": "Previous modules",
+      "next": "Next modules",
+      "aria_label": "Tajweed learning modules"
+    },
+    "features": {
+      "knowledge_graph": {
+        "badge": "Visual Knowledge Graph",
+        "title": "See how every letter connects to its articulation and traits.",
+        "description": "Instead of memorizing dry tables, explore interactive node connections across 29 root Hijaiyyah letters, 17 Makharij Khas, and 22 Sifatul Huruf. Switch between Radial or Hierarchical layouts and export diagrams anytime.",
+        "card_title": "Playground Graph Canvas",
+        "card_subtitle": "3 Tafkhim tiers • Node & edge filters"
+      },
+      "structured_curriculum": {
+        "badge": "Guided Learning Path",
+        "title": "Follow a structured 24-topic curriculum from basics to mastery.",
+        "description": "Sign in to progress through unit-by-unit lessons—starting from Quran transmission, Makharijul Huruf, and Sifatul Huruf up to Nun/Mim rules, Madd, and Waqf—with interactive zigzag checkpoints.",
+        "unit_category": "24 Curriculum Topics",
+        "unit_progress": "Unit 2 • Throat Letters (Al-Halq)"
+      },
+      "classical_sanad": {
+        "badge": "Grounded in Classical Texts",
+        "title": "Every rule is traced back to verified verses and Quranic examples.",
+        "description": "Study Tajweed with clear references to Muqaddimah Al-Jazariyyah, Tuhfatul Athfal, Nuniyah As-Sakhawi, and Qasidah Al-Khaqaniyyah alongside annotated Mushaf verses.",
+        "jazariyyah_title": "Muqaddimah Al-Jazariyyah",
+        "jazariyyah_meta": "Verse 9 • 17 Articulation Points",
+        "tuhfah_title": "Tuhfatul Athfal",
+        "tuhfah_meta": "Verse 6 • Nun Sukun & Tanwin",
+        "example_label": "Surah Al-Fajr • Qalqalah Kubra"
+      },
+      "interactive_evaluation": {
+        "badge": "Practice, Quests & Halaqah",
+        "title": "Reinforce recitation accuracy with node quizzes and daily habits.",
+        "description": "Connect letters to their Makhraj and Sifat in timed Challenge mode, review weak spots in Skill Drills, complete Daily Quests, and grow together inside Halaqah leaderboards.",
+        "stats_streak_days": "Istiqamah Streak",
+        "quest_progress_label": "Daily Quests",
+        "challenge_mode_label": "Node Connection Challenge"
+      }
+    },
+    "access_modes": {
+      "title": "Two Ways to Learn on Qiroasro",
+      "subtitle": "Try visual graph exploration immediately without signing up, or log in for the full guided curriculum.",
+      "playground": {
+        "badge": "Open Access • No Login Needed",
+        "title": "Tajweed Graph Playground",
+        "description": "Experiment freely with the relational map of Hijaiyyah letters, articulation points, and letter traits.",
+        "feature_1": "Explore 29 Hijaiyyah letters, 17 Makharij & 22 Sifat",
+        "feature_2": "Radial & Hierarchical graph layouts with edge controls",
+        "feature_3": "Practice & timed Challenge node-matching quizzes",
+        "feature_4": "Download high-resolution PNG graph diagrams",
+        "cta": "Open Playground"
+      },
+      "full_learning": {
+        "badge": "Full Platform • Sign In Required",
+        "title": "Guided Learning Path & Drills",
+        "description": "Unlock the complete learning experience with saved mastery progress across every Tajweed topic.",
+        "feature_1": "Structured 24-topic curriculum & zigzag unit lessons",
+        "feature_2": "Complete Knowledge Library & 29-letter directory",
+        "feature_3": "Targeted Skill Drills, mistake review & saved items",
+        "feature_4": "Daily Quests, XP streaks & Halaqah leaderboards",
+        "cta": "Sign In to Continue"
+      }
+    },
+    "bottom_cta": {
+      "title": "Ready to map your Tajweed mastery?",
+      "subtitle": "Start your full curriculum journey by signing in, or inspect the interactive letter graph in Playground first.",
+      "cta_login": "Sign In to Learn",
+      "cta_playground": "Try Playground First"
+    },
+    "footer": {
+      "about_title": "About Qiroasro",
+      "about_mission": "Vision & Method",
+      "about_methodology": "Graph Visualization",
+      "about_sources": "Classical Matan Sources",
+      "about_curriculum": "24-Topic Syllabus",
+      "products_title": "Learning Modes",
+      "products_playground": "Tajweed Playground",
+      "products_learn": "Learning Path",
+      "products_practice": "Skill Drills",
+      "products_quests": "Daily Quests",
+      "modules_title": "Core Modules",
+      "modules_makharij": "Makharijul Huruf",
+      "modules_sifat": "Sifatul Huruf",
+      "modules_letters": "Hijaiyyah Directory",
+      "modules_library": "Knowledge Library",
+      "support_title": "Access & Guide",
+      "support_tour": "Playground Guide",
+      "support_faq": "Curriculum Overview",
+      "support_login": "Account Sign In",
+      "legal_title": "Policies",
+      "legal_guidelines": "Community Standards",
+      "legal_terms": "Terms of Service",
+      "legal_privacy": "Privacy Policy",
+      "site_language": "Site language:"
     }
   },
   "playground_page": {

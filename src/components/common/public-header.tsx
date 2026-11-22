@@ -31,7 +31,7 @@ export function PublicHeader({ className, userId }: PublicHeaderProps) {
   return (
     <header
       className={cn(
-        'sticky top-0 flex items-center justify-between gap-2 bg-background/20 px-4 py-2 backdrop-blur-sm transition-[border-color] duration-200',
+        'sticky top-0 z-50 flex items-center justify-between gap-2 bg-background/80 px-4 py-2 backdrop-blur-md transition-[border-color] duration-200',
         isScrolled && !isPlayground ? 'border-b' : '',
         isPlayground && 'border-b',
         className,
@@ -46,7 +46,7 @@ export function PublicHeader({ className, userId }: PublicHeaderProps) {
             alt="Qiroasro Logo"
             width={96}
             height={28}
-            priority
+            preload
             fetchPriority="high"
           />
         )}

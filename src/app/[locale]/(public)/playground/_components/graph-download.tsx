@@ -12,10 +12,9 @@ import { useTheme } from 'next-themes';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { drawEdgesOnCanvas } from '@/features/tajweed-graph/lib/edge-canvas';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-
-import { drawEdgesOnCanvas } from '../_lib/edge-canvas';
 
 const IMAGE_WIDTH = 1920;
 const IMAGE_HEIGHT = 1080;

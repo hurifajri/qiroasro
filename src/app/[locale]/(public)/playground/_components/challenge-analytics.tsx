@@ -11,12 +11,14 @@ import {
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
 
+import {
+  LETTER_TAFKHIM_GRADIENT,
+  type LetterTafkhimType,
+} from '@/components/graph/tajweed-node';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
-import type { LetterTafkhimType } from '../_schemas/letter';
 import type { ChallengeQuizAnalytic, QuizType } from '../_schemas/quiz';
 
 type ChallengeAnalyticsProps = Readonly<{

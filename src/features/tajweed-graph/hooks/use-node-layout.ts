@@ -1,7 +1,7 @@
 import { Position } from '@xyflow/react';
 import { useCallback } from 'react';
 
-import type { BaseNodeData } from '../_schemas/node';
+import type { BaseNodeData } from '../schemas/node';
 
 /**
  * Hook to compute layout positions and visual state for graph nodes.

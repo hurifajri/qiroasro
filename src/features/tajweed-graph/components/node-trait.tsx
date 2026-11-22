@@ -4,13 +4,16 @@ import { useTranslations } from 'next-intl';
 import { memo, useState } from 'react';
 
 import { BaseHandle } from '@/components/graph/base-handle';
-import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
+import {
+  TraitGroupNodeShell,
+  TraitNodeShell,
+} from '@/components/graph/tajweed-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-import { useNodeLayout } from '../_hooks/use-node-layout';
-import type { BaseNodeData } from '../_schemas/node';
-import type { Trait, TraitGroup } from '../_schemas/trait';
+import { useNodeLayout } from '../hooks/use-node-layout';
+import type { BaseNodeData } from '../schemas/node';
+import type { Trait, TraitGroup } from '../schemas/trait';
 import { NodeInfoDialog } from './node-info-dialog';
 
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
@@ -19,20 +22,22 @@ type TraitNodeData = Trait & BaseNodeData;
 export const TraitGroupNode = memo(function TraitGroupNode({
   data,
   selected,
-}: NodeProps) {
+}: Readonly<NodeProps>) {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
+  const isInteractive = nodeData.isInteractive !== false;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
     useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
-    <BaseNode
+    <TraitGroupNodeShell
+      label={label}
       className={cn(
-        'rounded-xl border-0 bg-linear-to-br from-node-trait to-node-trait-dark px-6 py-4 transition-transform duration-300 hover:ring-0',
-        isActive ? 'scale-110' : 'hover:scale-105',
+        'transition-transform duration-300',
+        isActive ? 'scale-110' : isInteractive && 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
@@ -43,45 +48,43 @@ export const TraitGroupNode = memo(function TraitGroupNode({
         isConnectable={false}
       />
 
-      <BaseNodeContent className="flex flex-col items-center p-0 text-sm font-semibold text-node-letter-text capitalize select-none">
-        {label}
-      </BaseNodeContent>
-
       <BaseHandle
         type="source"
         position={sourcePosition}
         className={getHandleClass(nodeData.hasSourceEdge ?? false)}
         isConnectable={false}
       />
-    </BaseNode>
+    </TraitGroupNodeShell>
   );
 });
 
 export const TraitNode = memo(function TraitNode({
   data,
   selected,
-}: NodeProps) {
+}: Readonly<NodeProps>) {
   const t = useTranslations('global');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(`trait.${localeKey}`);
   const description = t(`trait_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const isInteractive = nodeData.isInteractive !== false;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
     useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
 
   return (
     <>
-      <BaseNode
+      <TraitNodeShell
+        label={label}
+        isDashed={['tafkhim', 'tarqiq'].includes(nodeData.slug)}
         className={cn(
-          'rounded-lg border-2 border-node-trait/50 bg-node-trait-secondary px-4 py-2 text-node-trait-text transition-transform duration-300 hover:ring-0',
-          isActive ? 'scale-110' : 'hover:scale-105',
+          'transition-transform duration-300',
+          isActive ? 'scale-110' : isInteractive && 'hover:scale-105',
           isDimmed && 'opacity-30',
-          ['tafkhim', 'tarqiq'].includes(nodeData.slug) && 'border-dashed',
         )}
       >
-        {isActive && (
+        {isActive && isInteractive && (
           <NodeAppendix
             position="top"
             className="top-3.5 -right-2.5 w-auto rounded-full border-none bg-node-trait-secondary p-0"
@@ -102,17 +105,13 @@ export const TraitNode = memo(function TraitNode({
           isConnectable={false}
         />
 
-        <BaseNodeContent className="flex flex-col items-center p-0 text-xs font-medium capitalize select-none">
-          {label}
-        </BaseNodeContent>
-
         <BaseHandle
           type="source"
           position={sourcePosition}
           className={getHandleClass(nodeData.hasSourceEdge ?? false)}
           isConnectable={false}
         />
-      </BaseNode>
+      </TraitNodeShell>
 
       {isDialogOpen && (
         <NodeInfoDialog

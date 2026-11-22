@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
 import type { Dispatch, SetStateAction } from 'react';
 
+import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
+
 import {
   applyResultsToEdges,
   applyResultsToNodes,
@@ -15,7 +17,6 @@ import {
 } from '../_lib/quiz-connection';
 import { generateQuizData } from '../_lib/quiz-generator';
 import { useQuizStore } from '../_providers/quiz';
-import { getPlaygroundDataOpt } from '../_queries/playground';
 import type { QuizType } from '../_schemas/quiz';
 
 interface UseQuizGeneratorProps {

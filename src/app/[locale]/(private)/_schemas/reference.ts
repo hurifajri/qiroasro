@@ -12,6 +12,8 @@ import {
   unknown,
 } from 'valibot';
 
+import type { LetterTafkhimType } from '@/components/graph/tajweed-node';
+
 export const RULE_CATEGORIES = [
   'nun_sukun_tanwin',
   'mim_sukun',
@@ -41,9 +43,6 @@ export const RULE_CATEGORIES = [
 export type RuleCategory = (typeof RULE_CATEGORIES)[number];
 
 export type LetterStatus = 'locked' | 'available' | 'learned';
-
-export type LetterTafkhimType =
-  'always_tafkhim' | 'conditional' | 'always_tarqiq';
 
 // =====================================================================
 // MATERIALIZED VIEW SCHEMAS (mv_tajwid_reference camelCase JSONB)
