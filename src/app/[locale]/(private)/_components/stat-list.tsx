@@ -1,8 +1,8 @@
 import { FlameIcon, GemIcon, HeartIcon, ZapIcon } from 'lucide-react';
 
+import type { UserStats } from '@/features/gamification/schemas/gamification';
 import { cn } from '@/lib/utils';
 
-import type { UserStats } from '../_schemas/private';
 import { StatItem } from './stat-item';
 
 interface StatListProps {

@@ -8,10 +8,9 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import type { MonthlyBadge } from '@/features/gamification/schemas/badge';
 import { getEmojiColorClass } from '@/lib/colors';
 import { cn } from '@/lib/utils';
-
-import type { MonthlyBadge } from '../_schemas/badge';
 
 interface MonthlyBadgeRowProps {
   badge: MonthlyBadge;

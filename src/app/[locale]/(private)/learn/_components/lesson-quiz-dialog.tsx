@@ -14,10 +14,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { gamificationKeys } from '@/features/gamification/queries/gamification';
 import { cn } from '@/lib/utils';
 
 import { curriculumKeys } from '../../_queries/curriculum-progress';
-import { gamificationKeys } from '../../_queries/gamification';
 import { getUnitQuizQuestionsOpt, practiceKeys } from '../../_queries/practice';
 import type { QuizSessionQuestion } from '../../_schemas/practice';
 import { completeLessonAction } from '../../_services/curriculum-progress';

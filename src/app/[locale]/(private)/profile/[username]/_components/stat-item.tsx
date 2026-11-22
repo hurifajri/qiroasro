@@ -2,7 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 
-import type { Statistic } from '../../../_schemas/user-profile';
+import type { Statistic } from '@/features/gamification/schemas/gamification';
+
 import { StatCard } from './stat-card';
 
 interface StatItemProps {

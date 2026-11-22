@@ -6,10 +6,10 @@ import {
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 
+import { getUserProfileByUserIdOpt } from '@/features/user-profile/queries/user-profile';
 import { auth } from '@/lib/auth';
 
 import { Private } from './_components/private';
-import { getUserProfileByUserIdOpt } from './_queries/user-profile';
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },

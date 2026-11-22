@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
-import { LEAGUES } from '../_lib/league';
-import { getCurrentUserStats } from '../_services/gamification';
+import { LEAGUES } from '@/features/gamification/lib/league';
+import { getCurrentUserStats } from '@/features/gamification/services/gamification';
+
 import { getWeeklyLeaderboard } from '../_services/social';
 import { Leaderboard } from './_components/leaderboard';
 

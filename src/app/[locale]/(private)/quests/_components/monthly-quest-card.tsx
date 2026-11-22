@@ -12,12 +12,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import type { MonthlyQuest } from '@/features/gamification/schemas/quests';
 import type { Locale } from '@/i18n/routing';
 import { getCardColorClass, getEmojiColorClass } from '@/lib/colors';
 import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
-
-import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
   quest: MonthlyQuest;

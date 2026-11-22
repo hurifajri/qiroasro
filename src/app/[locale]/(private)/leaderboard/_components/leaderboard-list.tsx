@@ -1,8 +1,8 @@
 import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
+import type { LeaderboardEntry } from '@/features/gamification/schemas/gamification';
 
 import { LeaderboardRow } from '../../_components/leaderboard-row';
-import type { LeaderboardEntry } from '../../_schemas/private';
 
 interface LeaderboardListProps {
   entries: LeaderboardEntry[];

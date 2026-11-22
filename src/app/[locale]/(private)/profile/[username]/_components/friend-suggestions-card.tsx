@@ -4,14 +4,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
 
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { userProfileKeys } from '@/features/user-profile/queries/user-profile';
+import type { FriendSuggestion } from '@/features/user-profile/schemas/user-profile';
 import { useRouter } from '@/i18n/navigation';
 
-import { UserAvatar } from '../../../_components/user-avatar';
 import { socialKeys } from '../../../_queries/social';
-import { userProfileKeys } from '../../../_queries/user-profile';
-import type { FriendSuggestion } from '../../../_schemas/user-profile';
 import { toggleFollowUser } from '../../../_services/social';
 
 interface FriendSuggestionsCardProps {

@@ -1,4 +1,5 @@
-import type { Statistic } from '../../../_schemas/user-profile';
+import type { Statistic } from '@/features/gamification/schemas/gamification';
+
 import { StatItem } from './stat-item';
 
 interface StatGridProps {

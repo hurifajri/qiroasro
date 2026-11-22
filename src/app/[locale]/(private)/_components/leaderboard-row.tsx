@@ -5,9 +5,8 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import type { LeaderboardEntry } from '@/features/gamification/schemas/gamification';
 import { cn } from '@/lib/utils';
-
-import type { LeaderboardEntry } from '../_schemas/private';
 
 interface LeaderboardRowProps {
   entry: LeaderboardEntry & {

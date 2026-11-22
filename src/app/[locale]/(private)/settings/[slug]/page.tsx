@@ -9,16 +9,16 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
 import { Separator } from '@/components/ui/separator';
-import { auth } from '@/lib/auth';
-
-import { getUserProfileByUserIdOpt } from '../../_queries/user-profile';
 import {
   MOCK_DAILY_REMINDER,
   MOCK_GENERAL_NOTIFICATIONS,
   MOCK_LESSON_PREFERENCES,
   MOCK_PRIVACY_SETTINGS,
   MOCK_SOCIAL_ACCOUNTS,
-} from '../_lib/mock-data';
+} from '@/features/user-profile/lib/settings-mock-data';
+import { getUserProfileByUserIdOpt } from '@/features/user-profile/queries/user-profile';
+import { auth } from '@/lib/auth';
+
 import { Notifications } from './_components/notifications';
 import { Preferences } from './_components/preferences';
 import { PrivacySettings } from './_components/privacy-settings';

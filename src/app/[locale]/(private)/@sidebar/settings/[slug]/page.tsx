@@ -1,10 +1,11 @@
-import { LogoutButton } from '../../../_components/logout-button';
-import { SettingsNavCard } from '../../../_components/settings-nav-card';
+import { SettingsNavCard } from '@/features/user-profile/components/settings-nav-card';
 import {
   MOCK_ACCOUNT_LINKS,
   MOCK_SUBSCRIPTION_LINKS,
   MOCK_SUPPORT_LINKS,
-} from '../../../settings/_lib/mock-data';
+} from '@/features/user-profile/lib/settings-mock-data';
+
+import { LogoutButton } from '../../../_components/logout-button';
 
 interface SettingsSidebarProps {
   params: Promise<{ slug: string }>;

@@ -2,17 +2,17 @@
 
 import { useEffect } from 'react';
 
+import { SettingsNavCard } from '@/features/user-profile/components/settings-nav-card';
+import {
+  MOCK_ACCOUNT_LINKS,
+  MOCK_SUBSCRIPTION_LINKS,
+  MOCK_SUPPORT_LINKS,
+} from '@/features/user-profile/lib/settings-mock-data';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { useRouter } from '@/i18n/navigation';
 
 import { LogoutButton } from '../../_components/logout-button';
-import { SettingsNavCard } from '../../_components/settings-nav-card';
-import {
-  MOCK_ACCOUNT_LINKS,
-  MOCK_SUBSCRIPTION_LINKS,
-  MOCK_SUPPORT_LINKS,
-} from '../_lib/mock-data';
 
 export function Settings() {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { ItemGroup } from '@/components/ui/item';
+import type { Achievement } from '@/features/gamification/schemas/achievement';
 
-import type { Achievement } from '../../../_schemas/achievement';
 import { AchievementItem } from './achievement-item';
 
 interface AchievementListProps {

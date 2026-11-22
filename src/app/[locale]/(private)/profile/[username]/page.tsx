@@ -7,11 +7,12 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
 import {
   getUserAchievementsById,
   getUserProfileStatistics,
-} from '../../_services/gamification';
+} from '@/features/gamification/services/gamification';
+import { getUserProfileByUsernameOpt } from '@/features/user-profile/queries/user-profile';
+
 import { getFriendSuggestions } from '../../_services/social';
 import { Profile } from './_components/profile';
 

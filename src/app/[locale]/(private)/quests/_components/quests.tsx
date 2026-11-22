@@ -3,8 +3,9 @@
 import { Clock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import type { Quest } from '../../_schemas/private';
-import type { MonthlyQuest } from '../_schemas/quests';
+import type { Quest } from '@/features/gamification/schemas/gamification';
+import type { MonthlyQuest } from '@/features/gamification/schemas/quests';
+
 import { DailyQuestList } from './daily-quest-list';
 import { MonthlyQuestCard } from './monthly-quest-card';
 
