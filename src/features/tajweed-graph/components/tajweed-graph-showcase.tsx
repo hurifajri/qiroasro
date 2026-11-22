@@ -14,13 +14,14 @@ import {
 } from '@xyflow/react';
 import { useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
 import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
+import { useTajweedLetterCycle } from '../hooks/use-tajweed-letter-cycle';
 import {
   applyEdgesHighlight,
   applyNodesHighlight,
@@ -34,6 +35,7 @@ import { CanvasEdges } from './canvas-edges';
 import { TAJWEED_NODE_TYPES } from './tajweed-graph-nodes';
 
 type TajweedGraphShowcaseProps = Readonly<{
+  activeLetterId?: number | null;
   intervalMs?: number;
   className?: string;
 }>;
@@ -48,6 +50,7 @@ const SHOWCASE_EDGE_STYLE: EdgeStyleOptions = {
 };
 
 function TajweedGraphShowcaseContent({
+  activeLetterId,
   intervalMs = 2200,
   className,
 }: TajweedGraphShowcaseProps) {
@@ -62,7 +65,6 @@ function TajweedGraphShowcaseContent({
   const { fitView } = useReactFlow();
   const containerRef = useRef<HTMLDivElement>(null);
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowNode>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
 
@@ -70,6 +72,15 @@ function TajweedGraphShowcaseContent({
     () => getRootLetters(playgroundData?.letters ?? []),
     [playgroundData?.letters],
   );
+
+  const isControlled = activeLetterId !== undefined;
+  const internalLetterId = useTajweedLetterCycle(rootLetters, {
+    intervalMs,
+    isEnabled: !isControlled,
+  });
+  const resolvedLetterId = isControlled ? activeLetterId : internalLetterId;
+  const selectedNodeId =
+    resolvedLetterId !== null ? `letter-${resolvedLetterId}` : null;
 
   const baseGraph = useMemo(() => {
     if (!playgroundData || playgroundData.letters.length === 0) {
@@ -110,28 +121,6 @@ function TajweedGraphShowcaseContent({
 
     return () => observer.disconnect();
   }, [baseGraph.nodes.length, fitView]);
-
-  const isCycleComplete =
-    rootLetters.length > 0 && activeIndex >= rootLetters.length;
-
-  useEffect(() => {
-    if (rootLetters.length === 0 || isCycleComplete) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    const interval = setInterval(() => {
-      if (!document.hidden) {
-        setActiveIndex((prev) => (prev < rootLetters.length ? prev + 1 : prev));
-      }
-    }, intervalMs);
-
-    return () => clearInterval(interval);
-  }, [rootLetters.length, isCycleComplete, intervalMs]);
-
-  const activeLetter =
-    !isCycleComplete && activeIndex < rootLetters.length
-      ? rootLetters[activeIndex]
-      : null;
-  const selectedNodeId = activeLetter ? `letter-${activeLetter.id}` : null;
 
   const { connectedNodeIds, connectedEdgeIds } = useMemo(() => {
     if (!selectedNodeId) {

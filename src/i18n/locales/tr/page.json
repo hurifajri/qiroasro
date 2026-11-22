@@ -20,17 +20,7 @@
     "nav_bar": {
       "prev": "Önceki modüller",
       "next": "Sonraki modüller",
-      "aria_label": "Tecvid öğrenme modülleri",
-      "items": {
-        "al_jauf": "El-Cevf (3 Harf)",
-        "al_halq": "El-Halk (6 Harf)",
-        "al_lisan": "El-Lisan (18 Harf)",
-        "asy_syafatain": "Eş-Şefeteyn (4 Harf)",
-        "al_khaisyum": "El-Hayşum (Gunne)",
-        "sifatul_huruf": "22 Harf Sıfatı",
-        "hijaiyyah_29": "29 Arapça Harf",
-        "matan_klasik": "4 Klasik Metin"
-      }
+      "aria_label": "Tecvid öğrenme modülleri"
     },
     "features": {
       "knowledge_graph": {

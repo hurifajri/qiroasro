@@ -20,17 +20,7 @@
     "nav_bar": {
       "prev": "Previous modules",
       "next": "Next modules",
-      "aria_label": "Tajweed learning modules",
-      "items": {
-        "al_jauf": "Al-Jauf (3 Letters)",
-        "al_halq": "Al-Halq (6 Letters)",
-        "al_lisan": "Al-Lisan (18 Letters)",
-        "asy_syafatain": "Ash-Shafatain (4 Letters)",
-        "al_khaisyum": "Al-Khaisyum (Ghunnah)",
-        "sifatul_huruf": "22 Letter Traits",
-        "hijaiyyah_29": "29 Hijaiyyah Letters",
-        "matan_klasik": "4 Classical Matans"
-      }
+      "aria_label": "Tajweed learning modules"
     },
     "features": {
       "knowledge_graph": {

@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import {
   ArrowLeftIcon,
   BookOpenIcon,
@@ -20,16 +21,17 @@ import {
 } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useLocale, useTranslations } from 'next-intl';
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode, useEffect, useMemo, useRef } from 'react';
 
 import { NodeButton } from '@/components/common/node-button';
 import {
   ArticulationPointNodeShell,
+  LETTER_TAFKHIM_GRADIENT,
   LetterNodeShell,
   TraitNodeShell,
 } from '@/components/graph/tajweed-node';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import {
   Card,
@@ -49,62 +51,68 @@ import {
 } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
 import { TajweedGraphShowcase } from '@/features/tajweed-graph/components/tajweed-graph-showcase';
+import { useTajweedLetterCycle } from '@/features/tajweed-graph/hooks/use-tajweed-letter-cycle';
+import { getRootLetters } from '@/features/tajweed-graph/lib/letter';
+import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
+import {
+  PARAM_LETTER,
+  PARAM_VIEW,
+} from '@/features/tajweed-graph/schemas/graph';
+import type { Letter } from '@/features/tajweed-graph/schemas/letter';
 import { LOCALE_CONFIG } from '@/i18n/config';
+import { getLocaleDir } from '@/i18n/locale';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
-import { cn } from '@/lib/utils';
+import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-const MAKHARIJ_MODULES = [
-  {
-    key: 'al_jauf',
-    symbol: 'ا و ي',
-    badgeClass: 'bg-node-articulation text-node-letter-text',
-  },
-  {
-    key: 'al_halq',
-    symbol: 'ء هـ ع ح غ خ',
-    badgeClass: 'bg-node-letter text-node-letter-text',
-  },
-  {
-    key: 'al_lisan',
-    symbol: 'ق ك ج ش ض',
-    badgeClass: 'bg-node-letter-tafkhim text-node-letter-text',
-  },
-  {
-    key: 'asy_syafatain',
-    symbol: 'ف ب م و',
-    badgeClass: 'bg-node-letter-conditional text-node-letter-text',
-  },
-  {
-    key: 'al_khaisyum',
-    symbol: 'ن م',
-    badgeClass: 'bg-node-trait text-node-letter-text',
-  },
-  {
-    key: 'sifatul_huruf',
-    symbol: 'قلقلة',
-    badgeClass: 'bg-primary text-primary-foreground',
-  },
-  {
-    key: 'hijaiyyah_29',
-    symbol: '٢٩',
-    badgeClass: 'bg-node-letter-dark text-node-letter-text',
-  },
-  {
-    key: 'matan_klasik',
-    symbol: '٤',
-    badgeClass: 'bg-node-articulation-dark text-node-letter-text',
-  },
-] as const;
+type LetterNavigationBarProps = Readonly<{
+  letters: readonly Letter[];
+  activeLetterId: number | null;
+}>;
 
-function MakharijNavigationBar() {
+function LetterNavigationBar({
+  letters,
+  activeLetterId,
+}: LetterNavigationBarProps) {
   const t = useTranslations('home_page.nav_bar');
+  const tLetter = useTranslations('global.letter');
+  const dir = getLocaleDir(useLocale() as Locale);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const isHoveredRef = useRef(false);
+
+  useEffect(() => {
+    if (isHoveredRef.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    if (activeLetterId === null) {
+      container.scrollTo({ left: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const itemEl = itemRefs.current.get(activeLetterId);
+    if (!itemEl) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = itemEl.getBoundingClientRect();
+    const delta =
+      itemRect.left +
+      itemRect.width / 2 -
+      (containerRect.left + containerRect.width / 2);
+
+    container.scrollBy({ left: delta, behavior: 'smooth' });
+  }, [activeLetterId]);
+
+  if (letters.length === 0) return null;
 
   function handleScroll(direction: number) {
     const container = scrollContainerRef.current;
     if (!container) return;
-    container.scrollBy({ left: direction * 260, behavior: 'smooth' });
+    const sign = dir === 'rtl' ? -1 : 1;
+    container.scrollBy({ left: direction * sign * 260, behavior: 'smooth' });
   }
 
   return (
@@ -124,31 +132,61 @@ function MakharijNavigationBar() {
         <nav
           ref={scrollContainerRef}
           aria-label={t('aria_label')}
-          className="flex flex-1 items-center gap-2 overflow-x-auto scroll-smooth py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          onMouseEnter={() => {
+            isHoveredRef.current = true;
+          }}
+          onMouseLeave={() => {
+            isHoveredRef.current = false;
+          }}
+          className="flex flex-1 items-center gap-2 overflow-x-auto scroll-smooth p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {MAKHARIJ_MODULES.map((item) => (
-            <Button
-              key={item.key}
-              variant="ghost"
-              size="sm"
-              asChild
-              className="h-auto shrink-0 gap-2.5 rounded-xl px-3 py-1.5"
-            >
-              <Link href="/playground">
-                <span
+          {letters.map((letter) => {
+            const isActive = letter.id === activeLetterId;
+
+            return (
+              <div
+                key={letter.id}
+                ref={(el) => {
+                  if (el) {
+                    itemRefs.current.set(letter.id, el);
+                  } else {
+                    itemRefs.current.delete(letter.id);
+                  }
+                }}
+                className="shrink-0"
+              >
+                <Link
+                  href={`/playground?${PARAM_VIEW}=letter&${PARAM_LETTER}=${letter.id}`}
                   className={cn(
-                    'inline-flex h-7 min-w-9 items-center justify-center rounded-lg px-2 font-arabic text-xs font-bold shadow-xs',
-                    item.badgeClass,
+                    buttonVariants({ variant: 'ghost', size: 'sm' }),
+                    'h-auto gap-2 rounded-xl px-3 py-1.5 transition-all',
+                    isActive &&
+                      'bg-accent shadow-xs ring-2 ring-node-letter/60',
                   )}
                 >
-                  {item.symbol}
-                </span>
-                <span className="text-xs font-semibold text-muted-foreground">
-                  {t(`items.${item.key}`)}
-                </span>
-              </Link>
-            </Button>
-          ))}
+                  <span
+                    lang="ar"
+                    dir="rtl"
+                    className={cn(
+                      'inline-flex size-7 items-center justify-center rounded-full bg-linear-to-br font-arabic text-sm font-bold text-node-letter-text shadow-xs transition-transform',
+                      LETTER_TAFKHIM_GRADIENT[letter.tafkhimType],
+                      isActive && 'scale-110',
+                    )}
+                  >
+                    {letter.symbol}
+                  </span>
+                  <span
+                    className={cn(
+                      'text-xs font-semibold',
+                      isActive ? 'text-foreground' : 'text-muted-foreground',
+                    )}
+                  >
+                    {tLetter(kebabToSnakeCase(letter.slug))}
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
         </nav>
 
         <Button
@@ -163,6 +201,80 @@ function MakharijNavigationBar() {
         </Button>
       </div>
     </div>
+  );
+}
+
+function HeroWithLetterNavigation() {
+  const t = useTranslations('home_page.hero');
+  const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
+
+  const rootLetters = useMemo(
+    () => getRootLetters(playgroundData?.letters ?? []),
+    [playgroundData?.letters],
+  );
+  const activeLetterId = useTajweedLetterCycle(rootLetters);
+
+  return (
+    <>
+      {/* 1. Hero Split Section */}
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:gap-14 lg:py-20">
+        <m.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.45 }}
+          className="flex w-full flex-1 justify-center"
+        >
+          <TajweedGraphShowcase
+            activeLetterId={activeLetterId}
+            className="w-full max-w-xl"
+          />
+        </m.div>
+
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+          className="flex flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-start"
+        >
+          <Badge
+            variant="secondary"
+            className="bg-node-articulation-secondary px-3 py-1 text-xs font-bold text-node-articulation-text"
+          >
+            <SparklesIcon className="size-3.5" />
+            {t('badge')}
+          </Badge>
+
+          <h2 className="max-w-lg text-3xl leading-tight font-extrabold tracking-tight text-foreground sm:text-4xl">
+            {t('title')}
+          </h2>
+
+          <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
+            {t('subtitle')}
+          </p>
+
+          <div className="flex w-full max-w-sm flex-col gap-3 pt-1">
+            <Button size="lg" asChild className="h-12 text-sm font-bold">
+              <Link href="/login">{t('cta_login')}</Link>
+            </Button>
+
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="h-12 text-sm font-bold"
+            >
+              <Link href="/playground">{t('cta_playground')}</Link>
+            </Button>
+          </div>
+        </m.div>
+      </section>
+
+      {/* 2. Synced Hijaiyyah Letter Navigation Bar */}
+      <LetterNavigationBar
+        letters={rootLetters}
+        activeLetterId={activeLetterId}
+      />
+    </>
   );
 }
 
@@ -827,58 +939,7 @@ export function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
-      {/* 1. Hero Split Section */}
-      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:gap-14 lg:py-20">
-        <m.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.45 }}
-          className="flex w-full flex-1 justify-center"
-        >
-          <TajweedGraphShowcase className="w-full max-w-xl" />
-        </m.div>
-
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-          className="flex flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-start"
-        >
-          <Badge
-            variant="secondary"
-            className="bg-node-articulation-secondary px-3 py-1 text-xs font-bold text-node-articulation-text"
-          >
-            <SparklesIcon className="size-3.5" />
-            {t('hero.badge')}
-          </Badge>
-
-          <h2 className="max-w-lg text-3xl leading-tight font-extrabold tracking-tight text-foreground sm:text-4xl">
-            {t('hero.title')}
-          </h2>
-
-          <p className="max-w-lg text-base leading-relaxed text-muted-foreground">
-            {t('hero.subtitle')}
-          </p>
-
-          <div className="flex w-full max-w-sm flex-col gap-3 pt-1">
-            <Button size="lg" asChild className="h-12 text-sm font-bold">
-              <Link href="/login">{t('hero.cta_login')}</Link>
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-              className="h-12 text-sm font-bold"
-            >
-              <Link href="/playground">{t('hero.cta_playground')}</Link>
-            </Button>
-          </div>
-        </m.div>
-      </section>
-
-      {/* 2. Makharij & Curriculum Navigation Bar */}
-      <MakharijNavigationBar />
+      <HeroWithLetterNavigation />
 
       {/* 3. Alternating 4 Core Platform Sections */}
       <div className="divide-y divide-border/50">

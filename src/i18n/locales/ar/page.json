@@ -20,17 +20,7 @@
     "nav_bar": {
       "prev": "الوحدات السابقة",
       "next": "الوحدات التالية",
-      "aria_label": "وحدات تعلم التجويد",
-      "items": {
-        "al_jauf": "الجوف (٣ أحرف)",
-        "al_halq": "الحلق (٦ أحرف)",
-        "al_lisan": "اللسان (١٨ حرفاً)",
-        "asy_syafatain": "الشفتان (٤ أحرف)",
-        "al_khaisyum": "الخيشوم (الغنة)",
-        "sifatul_huruf": "٢٢ صفة للحروف",
-        "hijaiyyah_29": "٢٩ حرفاً هجائياً",
-        "matan_klasik": "٤ متون تجويدية"
-      }
+      "aria_label": "وحدات تعلم التجويد"
     },
     "features": {
       "knowledge_graph": {

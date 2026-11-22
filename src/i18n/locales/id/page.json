@@ -20,17 +20,7 @@
     "nav_bar": {
       "prev": "Modul sebelumnya",
       "next": "Modul berikutnya",
-      "aria_label": "Modul pembelajaran tajwid",
-      "items": {
-        "al_jauf": "Al-Jauf (3 Huruf)",
-        "al_halq": "Al-Halq (6 Huruf)",
-        "al_lisan": "Al-Lisan (18 Huruf)",
-        "asy_syafatain": "Asy-Syafatain (4 Huruf)",
-        "al_khaisyum": "Al-Khaisyum (Ghunnah)",
-        "sifatul_huruf": "22 Sifatul Huruf",
-        "hijaiyyah_29": "29 Huruf Hijaiyyah",
-        "matan_klasik": "4 Matan Klasik"
-      }
+      "aria_label": "Modul pembelajaran tajwid"
     },
     "features": {
       "knowledge_graph": {
