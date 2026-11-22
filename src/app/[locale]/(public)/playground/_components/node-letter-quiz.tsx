@@ -3,7 +3,7 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { BaseHandle } from '@/components/graph/base-handle';
 import { LetterNodeShell } from '@/components/graph/tajweed-node';
 
-import type { LetterQuizNodeData } from '../_schemas/node';
+import type { LetterQuizNodeData } from '../_schemas/quiz';
 
 export function LetterQuizNode({ data }: NodeProps) {
   const nodeData = data as LetterQuizNodeData;

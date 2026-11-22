@@ -3,11 +3,9 @@ import type { Node } from '@xyflow/react';
 import type {
   ArticulationArea,
   ArticulationPoint,
-} from '../_schemas/articulation';
-import type { Letter } from '../_schemas/letter';
-import type { TargetQuizNodeData } from '../_schemas/node';
-import type { QuizLetter } from '../_schemas/quiz';
-import type { Trait, TraitGroup } from '../_schemas/trait';
+} from '../schemas/articulation';
+import type { Letter } from '../schemas/letter';
+import type { Trait, TraitGroup } from '../schemas/trait';
 
 export function createLetterNode(
   letter: Letter,
@@ -66,32 +64,6 @@ export function createTraitNode(
     type: 'trait',
     position,
     data: trait,
-  };
-}
-
-export function createLetterQuizNode(
-  letter: QuizLetter,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `letter-quiz-${letter.id}`,
-    type: 'letterQuiz',
-    position,
-    data: letter,
-    draggable: false,
-  };
-}
-
-export function createTargetQuizNode(
-  target: TargetQuizNodeData,
-  position: { x: number; y: number } = { x: 0, y: 0 },
-): Node {
-  return {
-    id: `target-quiz-${target.id}`,
-    type: 'targetQuiz',
-    position,
-    data: target,
-    draggable: false,
   };
 }
 

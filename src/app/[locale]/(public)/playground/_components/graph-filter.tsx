@@ -32,28 +32,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { usePathname, useRouter } from '@/i18n/navigation';
-import { cn } from '@/lib/utils';
-
-import type {
-  EdgeShape,
-  EdgeStyleOptions,
-  HierarchyDirection,
-  LayoutMode,
-  ViewMode,
-} from '../_schemas/graph';
 import {
   EDGE_SHAPES,
+  type EdgeShape,
+  type EdgeStyleOptions,
   HIERARCHY_DIRECTIONS,
+  type HierarchyDirection,
   LAYOUT_MODES,
+  type LayoutMode,
   PARAM_DIRECTION,
   PARAM_LAYOUT,
   PARAM_LETTER,
   PARAM_SHAPE,
   PARAM_VIEW,
   VIEW_MODES,
-} from '../_schemas/graph';
-import type { Letter } from '../_schemas/letter';
+  type ViewMode,
+} from '@/features/tajweed-graph/schemas/graph';
+import type { Letter } from '@/features/tajweed-graph/schemas/letter';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 
 type GraphFilterProps = Readonly<{
   dir: 'ltr' | 'rtl';

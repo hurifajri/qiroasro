@@ -1,6 +1,6 @@
 import type { Node } from '@xyflow/react';
 
-import type { HierarchyDirection, ViewMode } from '../_schemas/graph';
+import type { HierarchyDirection, ViewMode } from '../schemas/graph';
 import { getNodeHeight, getNodeWidth } from './node';
 
 interface HierarchicalLayoutOptions {

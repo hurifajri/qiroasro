@@ -9,10 +9,10 @@ import {
   ArticulationPointNodeShell,
   TraitNodeShell,
 } from '@/components/graph/tajweed-node';
+import { NodeInfoDialog } from '@/features/tajweed-graph/components/node-info-dialog';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-import type { TargetQuizNodeData } from '../_schemas/node';
-import { NodeInfoDialog } from './node-info-dialog';
+import type { TargetQuizNodeData } from '../_schemas/quiz';
 
 export function TargetQuizNode({ data }: NodeProps) {
   const nodeData = data as TargetQuizNodeData;

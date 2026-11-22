@@ -3,18 +3,18 @@ import type { Edge, Node } from '@xyflow/react';
 import type {
   ArticulationArea,
   ArticulationPoint,
-} from '../_schemas/articulation';
+} from '../schemas/articulation';
 import type {
   HierarchyDirection,
   LayoutMode,
   ViewMode,
-} from '../_schemas/graph';
+} from '../schemas/graph';
 import type {
   Letter,
   LetterArticulation,
   LetterTrait,
-} from '../_schemas/letter';
-import type { Trait, TraitGroup } from '../_schemas/trait';
+} from '../schemas/letter';
+import type { Trait, TraitGroup } from '../schemas/trait';
 import {
   createArticulationAreaNode,
   createArticulationPointNode,

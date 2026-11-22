@@ -1,6 +1,6 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getPlaygroundData } from '../_services/playground';
+import { getPlaygroundData } from '../services/tajweed-graph';
 
 const playgroundDataKey = {
   all: ['playground-data'],

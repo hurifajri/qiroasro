@@ -1,9 +1,8 @@
 import type { LucideIcon } from 'lucide-react';
 
 import type { LetterTafkhimType } from '@/components/graph/tajweed-node';
-
-import type { Letter } from './letter';
-import type { NODE_TYPES } from './node';
+import type { Letter } from '@/features/tajweed-graph/schemas/letter';
+import type { NODE_TYPES } from '@/features/tajweed-graph/schemas/node';
 
 // Quiz Constants
 export const CORRECT_POINT = 10;
@@ -19,6 +18,15 @@ export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 export type QuizMode = (typeof QUIZ_MODES)[number];
 export type QuizType = Extract<NodeType, 'articulation_point' | 'trait'>;
 type NodeType = (typeof NODE_TYPES)[number];
+
+export type LetterQuizNodeData = Letter & { status: QuizStatus };
+
+export type TargetQuizNodeData = {
+  id: number;
+  slug: string;
+  type: QuizType;
+  status: QuizStatus;
+};
 
 // Quiz question and answer types
 export interface QuizQuestion {

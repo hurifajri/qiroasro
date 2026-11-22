@@ -2,6 +2,7 @@ import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { LETTER_TAFKHIM_GRADIENT } from '@/components/graph/tajweed-node';
 import {
   Collapsible,
   CollapsibleContent,
@@ -15,8 +16,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-
-import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 
 type GraphLegendProps = Readonly<{
   dir: 'ltr' | 'rtl';

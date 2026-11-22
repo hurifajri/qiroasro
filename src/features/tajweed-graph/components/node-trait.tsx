@@ -11,9 +11,9 @@ import {
 } from '@/components/graph/tajweed-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-import { useNodeLayout } from '../_hooks/use-node-layout';
-import type { BaseNodeData } from '../_schemas/node';
-import type { Trait, TraitGroup } from '../_schemas/trait';
+import { useNodeLayout } from '../hooks/use-node-layout';
+import type { BaseNodeData } from '../schemas/node';
+import type { Trait, TraitGroup } from '../schemas/trait';
 import { NodeInfoDialog } from './node-info-dialog';
 
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
@@ -22,11 +22,12 @@ type TraitNodeData = Trait & BaseNodeData;
 export const TraitGroupNode = memo(function TraitGroupNode({
   data,
   selected,
-}: NodeProps) {
+}: Readonly<NodeProps>) {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(localeKey);
+  const isInteractive = nodeData.isInteractive !== false;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
     useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
@@ -36,7 +37,7 @@ export const TraitGroupNode = memo(function TraitGroupNode({
       label={label}
       className={cn(
         'transition-transform duration-300',
-        isActive ? 'scale-110' : 'hover:scale-105',
+        isActive ? 'scale-110' : isInteractive && 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >
@@ -60,13 +61,14 @@ export const TraitGroupNode = memo(function TraitGroupNode({
 export const TraitNode = memo(function TraitNode({
   data,
   selected,
-}: NodeProps) {
+}: Readonly<NodeProps>) {
   const t = useTranslations('global');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = t(`trait.${localeKey}`);
   const description = t(`trait_description.${localeKey}`);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const isInteractive = nodeData.isInteractive !== false;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
     useNodeLayout(nodeData, 'bg-node-trait-handle!', selected);
@@ -78,11 +80,11 @@ export const TraitNode = memo(function TraitNode({
         isDashed={['tafkhim', 'tarqiq'].includes(nodeData.slug)}
         className={cn(
           'transition-transform duration-300',
-          isActive ? 'scale-110' : 'hover:scale-105',
+          isActive ? 'scale-110' : isInteractive && 'hover:scale-105',
           isDimmed && 'opacity-30',
         )}
       >
-        {isActive && (
+        {isActive && isInteractive && (
           <NodeAppendix
             position="top"
             className="top-3.5 -right-2.5 w-auto rounded-full border-none bg-node-trait-secondary p-0"

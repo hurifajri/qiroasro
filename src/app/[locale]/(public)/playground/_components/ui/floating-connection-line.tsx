@@ -4,7 +4,7 @@ import {
   type InternalNode,
 } from '@xyflow/react';
 
-import { getEdgeParams } from '../../_lib/edge';
+import { getEdgeParams } from '@/features/tajweed-graph/lib/edge';
 
 /**
  * Floating Connection Line component - shows a dynamic line while connecting nodes.

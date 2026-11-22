@@ -1,7 +1,7 @@
 import { type EdgeProps, getBezierPath, useStore } from '@xyflow/react';
 import { memo } from 'react';
 
-import { getEdgeParams } from '../../_lib/edge';
+import { getEdgeParams } from '@/features/tajweed-graph/lib/edge';
 
 /**
  * Floating Edge component - dynamically calculates edge connection points

@@ -1,6 +1,4 @@
-export { LETTER_TAFKHIM_GRADIENT } from '@/components/graph/tajweed-node';
-
-import type { Letter } from '../_schemas/letter';
+import type { Letter } from '../schemas/letter';
 
 /** The 29 root hijaiyyah letters (excludes waw/ya variant child nodes). */
 export function getRootLetters(letters: Letter[]): Letter[] {

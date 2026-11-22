@@ -6,20 +6,21 @@ import { BaseHandle } from '@/components/graph/base-handle';
 import { LetterNodeShell } from '@/components/graph/tajweed-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
 
-import { useNodeLayout } from '../_hooks/use-node-layout';
-import type { Letter } from '../_schemas/letter';
-import type { BaseNodeData } from '../_schemas/node';
+import { useNodeLayout } from '../hooks/use-node-layout';
+import type { Letter } from '../schemas/letter';
+import type { BaseNodeData } from '../schemas/node';
 
 type LetterNodeData = Letter & BaseNodeData;
 
 export const LetterNode = memo(function LetterNode({
   data,
   selected,
-}: NodeProps) {
+}: Readonly<NodeProps>) {
   const t = useTranslations('global.letter');
   const nodeData = data as LetterNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
   const label = `(${t(localeKey)})`;
+  const isInteractive = nodeData.isInteractive !== false;
 
   const { targetPosition, sourcePosition, getHandleClass, isActive, isDimmed } =
     useNodeLayout(nodeData, 'bg-node-letter-handle!', selected);
@@ -31,7 +32,7 @@ export const LetterNode = memo(function LetterNode({
       tafkhimType={nodeData.tafkhimType}
       className={cn(
         'transition-transform duration-300',
-        isActive ? 'scale-110' : 'hover:scale-105',
+        isActive ? 'scale-110' : isInteractive && 'hover:scale-105',
         isDimmed && 'opacity-30',
       )}
     >

@@ -24,7 +24,6 @@ import { type ReactNode, useRef } from 'react';
 
 import { NodeButton } from '@/components/common/node-button';
 import {
-  ArticulationAreaNodeShell,
   ArticulationPointNodeShell,
   LetterNodeShell,
   TraitNodeShell,
@@ -49,108 +48,11 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
+import { TajweedGraphShowcase } from '@/features/tajweed-graph/components/tajweed-graph-showcase';
 import { LOCALE_CONFIG } from '@/i18n/config';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-
-function HeroGraphShowcase() {
-  const tHome = useTranslations('home_page.hero');
-  const tGlobal = useTranslations('global');
-
-  return (
-    <Card className="w-full max-w-md border border-node-articulation/30 bg-linear-to-br from-node-articulation-secondary/45 via-card to-node-trait-secondary/45 shadow-md">
-      <CardHeader className="border-b border-border/60 pb-3">
-        <div className="flex items-center justify-between gap-2">
-          <CardTitle className="text-sm font-bold text-foreground">
-            {tHome('preview_title')}
-          </CardTitle>
-          <Badge
-            variant="secondary"
-            className="bg-node-letter-tafkhim/15 text-node-letter-tafkhim"
-          >
-            {tGlobal('trait.tafkhim')}
-          </Badge>
-        </div>
-        <CardDescription className="text-xs">
-          {tHome('preview_citation')}
-        </CardDescription>
-      </CardHeader>
-
-      <CardContent className="flex flex-col items-center gap-4 pt-2 pb-4">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <ArticulationAreaNodeShell
-            label={tGlobal('articulation_area.al_lisan')}
-            className="px-4 py-2 text-xs"
-          />
-          <ArticulationPointNodeShell
-            label={tGlobal('articulation_point.hafah_lisan_adhras')}
-            className="px-3 py-1.5"
-          />
-        </div>
-
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 260 36"
-          className="h-8 w-60 overflow-visible"
-        >
-          <path
-            d="M 65 2 C 65 20, 130 14, 130 34"
-            fill="none"
-            stroke="var(--color-node-articulation)"
-            strokeWidth="2.5"
-            strokeDasharray="5 4"
-          />
-          <path
-            d="M 195 2 C 195 20, 130 14, 130 34"
-            fill="none"
-            stroke="var(--color-node-trait)"
-            strokeWidth="2.5"
-            strokeDasharray="5 4"
-          />
-        </svg>
-
-        <LetterNodeShell
-          symbol="ض"
-          label={`(${tGlobal('letter.dhad')})`}
-          tafkhimType="always_tafkhim"
-          className="shadow-md"
-        />
-
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <TraitNodeShell label={tGlobal('trait.jahr')} className="px-3 py-1" />
-          <TraitNodeShell
-            label={tGlobal('trait.istila')}
-            className="px-3 py-1"
-          />
-          <TraitNodeShell
-            label={tGlobal('trait.itbaq')}
-            className="px-3 py-1"
-          />
-          <TraitNodeShell
-            label={tGlobal('trait.istithalah')}
-            className="px-3 py-1"
-          />
-          <TraitNodeShell
-            label={tGlobal('trait.tafkhim')}
-            isDashed
-            className="px-3 py-1"
-          />
-        </div>
-      </CardContent>
-
-      <CardFooter className="justify-center border-t border-border/60 bg-muted/40 py-3">
-        <p
-          lang="ar"
-          dir="rtl"
-          className="text-center font-arabic text-base leading-loose text-foreground"
-        >
-          وَالضَّادُ: مِنْ حَافَتِهِ إِذْ وَلِيَا ✽ لَاضْرَاسَ مِنْ أَيْسَرَ أَوْ يُمْنَاهَا
-        </p>
-      </CardFooter>
-    </Card>
-  );
-}
 
 const MAKHARIJ_MODULES = [
   {
@@ -926,14 +828,14 @@ export function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {/* 1. Hero Split Section */}
-      <section className="mx-auto flex w-full max-w-5xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:gap-14 lg:py-20">
+      <section className="mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-4 py-12 sm:px-6 lg:flex-row lg:gap-14 lg:py-20">
         <m.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.45 }}
           className="flex w-full flex-1 justify-center"
         >
-          <HeroGraphShowcase />
+          <TajweedGraphShowcase className="w-full max-w-xl" />
         </m.div>
 
         <m.div
