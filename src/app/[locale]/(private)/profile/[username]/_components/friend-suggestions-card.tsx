@@ -1,13 +1,18 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useRouter } from '@/i18n/navigation';
 
 import { UserAvatar } from '../../../_components/user-avatar';
+import { socialKeys } from '../../../_queries/social';
+import { userProfileKeys } from '../../../_queries/user-profile';
 import type { FriendSuggestion } from '../../../_schemas/user-profile';
+import { toggleFollowUser } from '../../../_services/social';
 
 interface FriendSuggestionsCardProps {
   friend: FriendSuggestion;
@@ -17,10 +22,28 @@ export function FriendSuggestionsCard({
   friend,
 }: Readonly<FriendSuggestionsCardProps>) {
   const t = useTranslations('profile_page.friend_suggestions');
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const [isFollowing, setIsFollowing] = useState(friend.isFollowing);
+  const [isPending, startTransition] = useTransition();
 
   const handleFollow = () => {
-    setIsFollowing(!isFollowing);
+    const previous = isFollowing;
+    setIsFollowing(!previous);
+
+    startTransition(async () => {
+      const result = await toggleFollowUser({ targetUserId: friend.id });
+      if (result.ok) {
+        setIsFollowing(result.isFollowing);
+        await Promise.all([
+          queryClient.invalidateQueries({ queryKey: userProfileKeys.all }),
+          queryClient.invalidateQueries({ queryKey: socialKeys.all }),
+        ]);
+        router.refresh();
+      } else {
+        setIsFollowing(previous);
+      }
+    });
   };
 
   return (
@@ -49,6 +72,7 @@ export function FriendSuggestionsCard({
           <Button
             size="sm"
             variant={isFollowing ? 'outline' : 'default'}
+            disabled={isPending}
             onClick={handleFollow}
             className="mt-auto w-full font-semibold uppercase"
           >

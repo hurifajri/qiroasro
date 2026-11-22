@@ -12,8 +12,8 @@ import {
   getUserAchievementsById,
   getUserProfileStatistics,
 } from '../../_services/gamification';
+import { getFriendSuggestions } from '../../_services/social';
 import { Profile } from './_components/profile';
-import { MOCK_FRIEND_SUGGESTIONS } from './_lib/mock-data';
 
 type PageProps = {
   params: Promise<{ locale: string; username: string }>;
@@ -50,10 +50,11 @@ export default async function ProfilePage({ params }: Readonly<PageProps>) {
   if (!userProfile) notFound();
 
   // Prefetch user profile so Profile component gets it instantly via useSuspenseQuery
-  const [, stats, achievements] = await Promise.all([
+  const [, stats, achievements, friendSuggestions] = await Promise.all([
     queryClient.prefetchQuery(getUserProfileByUsernameOpt(username)),
     getUserProfileStatistics(userProfile.id, locale),
     getUserAchievementsById(userProfile.id),
+    getFriendSuggestions(userProfile.id),
   ]);
 
   return (
@@ -62,7 +63,7 @@ export default async function ProfilePage({ params }: Readonly<PageProps>) {
       <Profile
         username={username}
         stats={stats}
-        friendSuggestions={MOCK_FRIEND_SUGGESTIONS}
+        friendSuggestions={friendSuggestions}
         achievements={achievements}
       />
     </HydrationBoundary>

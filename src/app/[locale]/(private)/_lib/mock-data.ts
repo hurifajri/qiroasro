@@ -1,10 +1,4 @@
-import type {
-  ActivityFeedItem,
-  FollowEntry,
-  LeaderboardEntry,
-  NavItem,
-  UserStatus,
-} from '../_schemas/private';
+import type { NavItem, UserStatus } from '../_schemas/private';
 
 export const ADD_FRIENDS_ITEMS = [
   {
@@ -24,40 +18,6 @@ export const ADD_FRIENDS_ITEMS = [
       'flex size-10 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30',
     iconClass: 'size-5 text-emerald-600 dark:text-emerald-400',
     labelKey: 'add_friends.invite',
-  },
-];
-
-/**
- * Mock leaderboard entries
- */
-export const MOCK_LEADERBOARD: LeaderboardEntry[] = [
-  {
-    rank: 1,
-    userId: 'user-1',
-    name: 'Ahmad',
-    xp: 2450,
-    isCurrentUser: false,
-  },
-  {
-    rank: 2,
-    userId: 'user-2',
-    name: 'Abdullah',
-    xp: 2180,
-    isCurrentUser: false,
-  },
-  {
-    rank: 3,
-    userId: 'user-3',
-    name: 'Muhammad',
-    xp: 2050,
-    isCurrentUser: false,
-  },
-  {
-    rank: 7,
-    userId: 'current-user',
-    name: 'Anda',
-    xp: 1883,
-    isCurrentUser: true,
   },
 ];
 
@@ -132,82 +92,4 @@ export const MOCK_USER_STATUSES: UserStatus[] = [
   { emoji: '🎓', label: 'Graduate' },
   { emoji: '🌟', label: 'Star' },
   { emoji: '🦉', label: 'Wise' },
-];
-
-/**
- * Mock activity feed items
- */
-export const MOCK_ACTIVITY_FEED: ActivityFeedItem[] = [
-  {
-    id: '1',
-    userName: 'Bagus Brahmantya',
-    avatarColorCode: 'amber',
-    activityDate: '2026-02-16T00:30:00.000Z',
-    descriptionKey: 'activity.completed_streak',
-    reactionEmojis: ['🎉'],
-    reactionCount: 2,
-  },
-  {
-    id: '2',
-    userName: 'W',
-    avatarColorCode: 'rose',
-    activityDate: '2026-02-15T01:00:00.000Z',
-    descriptionKey: 'activity.collected_badge',
-    reactionEmojis: ['🎉', '😊'],
-    reactionCount: 5,
-  },
-];
-
-/**
- * Mock following list
- */
-export const MOCK_FOLLOWING: FollowEntry[] = [
-  {
-    id: '1',
-    name: 'Hajar Haura',
-    avatarColorCode: 'rose_violet',
-    xp: 1566566,
-    isOnline: true,
-  },
-  {
-    id: '2',
-    name: 'Nurul Huriyyah',
-    avatarColorCode: 'amber',
-    xp: 606236,
-    isOnline: false,
-  },
-  {
-    id: '3',
-    name: `Rifa'atul Mahmudah`,
-    avatarColorCode: 'teal',
-    xp: 130976,
-    isOnline: false,
-  },
-];
-
-/**
- * Mock followers list
- */
-export const MOCK_FOLLOWERS: FollowEntry[] = [
-  {
-    id: '1',
-    name: 'Ahmad',
-    avatarColorCode: 'sky',
-    xp: 245000,
-    isOnline: false,
-  },
-  {
-    id: '2',
-    name: 'Abdullah',
-    avatarColorCode: 'amber',
-    xp: 218000,
-    isOnline: true,
-  },
-  {
-    id: '3',
-    name: 'Muhammad',
-    avatarColorCode: 'violet',
-    xp: 205000,
-    isOnline: true,
-  },
 ];

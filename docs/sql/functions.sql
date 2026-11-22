@@ -101,6 +101,8 @@ DECLARE
     v_safe_time INT := GREATEST(0, COALESCE(p_time_spent_sec, 0));
     v_today DATE := CURRENT_DATE;
     v_week_start DATE := date_trunc('week', CURRENT_DATE)::DATE;
+    v_league_slug TEXT;
+    v_cohort_id INT;
 BEGIN
     -- 1. Upsert lesson progress (matches user_lesson_progress composite PK ulp_pk)
     INSERT INTO user_lesson_progress (
@@ -208,16 +210,45 @@ BEGIN
       AND quest_date = v_today
       AND quest_slug IN ('earn_xp', 'complete_lessons', 'high_accuracy');
 
-    -- 5. Increment weekly leaderboard XP in current active league cohort (if enrolled)
-    UPDATE league_participants lp
-    SET
-        weekly_xp  = lp.weekly_xp + v_safe_xp,
-        updated_at = CURRENT_TIMESTAMP
-    FROM league_cohorts lc
-    WHERE lp.cohort_id = lc.id
-      AND lp.user_id = p_user_id
+    -- 5. Ensure active weekly cohort enrollment and increment weekly leaderboard XP
+    SELECT COALESCE(current_league_slug, 'peace')
+    INTO v_league_slug
+    FROM user_gamification
+    WHERE user_id = p_user_id;
+
+    v_league_slug := COALESCE(v_league_slug, 'peace');
+
+    SELECT lc.id
+    INTO v_cohort_id
+    FROM league_participants lp
+    JOIN league_cohorts lc ON lc.id = lp.cohort_id
+    WHERE lp.user_id = p_user_id
       AND lc.week_start_date = v_week_start
-      AND lc.is_processed = FALSE;
+      AND lc.is_processed = FALSE
+    LIMIT 1;
+
+    IF v_cohort_id IS NULL THEN
+        SELECT id
+        INTO v_cohort_id
+        FROM league_cohorts
+        WHERE league_slug = v_league_slug
+          AND week_start_date = v_week_start
+          AND is_processed = FALSE
+        ORDER BY id ASC
+        LIMIT 1;
+
+        IF v_cohort_id IS NULL THEN
+            INSERT INTO league_cohorts (league_slug, week_start_date, is_processed)
+            VALUES (v_league_slug, v_week_start, FALSE)
+            RETURNING id INTO v_cohort_id;
+        END IF;
+    END IF;
+
+    INSERT INTO league_participants (cohort_id, user_id, weekly_xp)
+    VALUES (v_cohort_id, p_user_id, v_safe_xp)
+    ON CONFLICT (cohort_id, user_id) DO UPDATE SET
+        weekly_xp  = league_participants.weekly_xp + v_safe_xp,
+        updated_at = CURRENT_TIMESTAMP;
 END;
 $$;
 
