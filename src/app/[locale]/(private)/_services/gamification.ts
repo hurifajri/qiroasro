@@ -414,6 +414,36 @@ export async function claimDailyQuestReward(
 
     await incrementCurrentMonthBadgeProgress(userId);
 
+    const [activeParticipant] = await db
+      .select({ cohortId: leagueParticipants.cohortId })
+      .from(leagueParticipants)
+      .innerJoin(
+        leagueCohorts,
+        eq(leagueParticipants.cohortId, leagueCohorts.id),
+      )
+      .where(
+        and(
+          eq(leagueParticipants.userId, userId),
+          eq(leagueCohorts.isProcessed, false),
+        ),
+      )
+      .limit(1);
+
+    if (activeParticipant) {
+      await db
+        .update(leagueParticipants)
+        .set({
+          weeklyXp: sql`${leagueParticipants.weeklyXp} + ${claimed.xpReward}`,
+          updatedAt: new Date(),
+        })
+        .where(
+          and(
+            eq(leagueParticipants.cohortId, activeParticipant.cohortId),
+            eq(leagueParticipants.userId, userId),
+          ),
+        );
+    }
+
     return {
       ok: true,
       xpAwarded: claimed.xpReward,

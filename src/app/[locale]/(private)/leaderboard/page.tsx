@@ -3,8 +3,8 @@ import { getTranslations } from 'next-intl/server';
 
 import { LEAGUES } from '../_lib/league';
 import { getCurrentUserStats } from '../_services/gamification';
+import { getWeeklyLeaderboard } from '../_services/social';
 import { Leaderboard } from './_components/leaderboard';
-import { MOCK_FULL_LEADERBOARD } from './_lib/mock-data';
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -28,9 +28,10 @@ export async function generateMetadata({
 
 export default async function LeaderboardPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-  const [t, stats] = await Promise.all([
+  const [t, stats, entries] = await Promise.all([
     getTranslations({ locale, namespace: 'leaderboard_page' }),
     getCurrentUserStats(),
+    getWeeklyLeaderboard(),
   ]);
 
   return (
@@ -39,7 +40,7 @@ export default async function LeaderboardPage({ params }: Readonly<PageProps>) {
       <Leaderboard
         leagues={LEAGUES}
         currentLeagueNameKey={stats.leagueNameKey}
-        entries={MOCK_FULL_LEADERBOARD}
+        entries={entries}
       />
     </>
   );

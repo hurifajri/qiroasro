@@ -5,14 +5,12 @@ import {
   getUserProfileByUsername,
 } from '../_services/user-profile';
 
-const userProfileKeys = {
-  all: ['user-profile'],
-  byUserId: (userId: string) => [...userProfileKeys.all, 'user', userId],
-  byUsername: (username: string) => [
-    ...userProfileKeys.all,
-    'username',
-    username,
-  ],
+export const userProfileKeys = {
+  all: ['user-profile'] as const,
+  byUserId: (userId: string) =>
+    [...userProfileKeys.all, 'user', userId] as const,
+  byUsername: (username: string) =>
+    [...userProfileKeys.all, 'username', username] as const,
 };
 
 export function getUserProfileByUserIdOpt(userId: string) {
