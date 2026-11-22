@@ -1,4 +1,4 @@
-import type { ArticulationGroup } from '../_lib/mock-data';
+import type { ArticulationGroup } from '../../../_schemas/reference';
 import { LetterGrid } from './letter-grid';
 
 interface LetterGridGroupProps {

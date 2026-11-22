@@ -10,7 +10,6 @@ import {
   type UpdateUserProfile,
   UpdateUserProfileSchema,
   type UserProfile,
-  UserProfileSchema,
 } from '../_schemas/user-profile';
 
 export async function getUserProfileById(
@@ -23,10 +22,7 @@ export async function getUserProfileById(
       .where(eq(userProfiles.id, id))
       .limit(1);
 
-    const remoteUserProfile = result[0];
-    const userProfile = parse(UserProfileSchema, remoteUserProfile);
-
-    return userProfile;
+    return result[0] ?? null;
   } catch (error) {
     console.error('[getUserProfileById] Error:', error);
     return null;
@@ -43,10 +39,7 @@ export async function getUserProfileByUsername(
       .where(eq(userProfiles.username, username))
       .limit(1);
 
-    const remoteUserProfile = result[0];
-    const userProfile = parse(UserProfileSchema, remoteUserProfile);
-
-    return userProfile;
+    return result[0] ?? null;
   } catch (error) {
     console.error('[getUserProfileByUsername] Error:', error);
     return null;
@@ -125,11 +118,9 @@ export async function updateUserProfile(
       return { success: false, error: 'not_found' };
     }
 
-    const userProfile = parse(UserProfileSchema, remoteUserProfile);
-
     return {
       success: true,
-      profile: userProfile,
+      profile: remoteUserProfile,
     };
   } catch (error) {
     console.error('[updateUserProfile] Error:', error);

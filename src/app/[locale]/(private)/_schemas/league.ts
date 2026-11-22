@@ -1,8 +1,3 @@
-import { type InferOutput, object, picklist, string } from 'valibot';
-
-/**
- * League Schema
- */
 export const LEAGUE_NAME_KEYS = [
   'leagues.peace',
   'leagues.stability',
@@ -16,13 +11,10 @@ export const LEAGUE_NAME_KEYS = [
   'leagues.paradise',
 ] as const;
 
-/**
- * League Schema
- */
-export const LeagueSchema = object({
-  id: string(),
-  nameKey: picklist(LEAGUE_NAME_KEYS), // i18n key
-  emoji: string(),
-});
+export type LeagueNameKey = (typeof LEAGUE_NAME_KEYS)[number];
 
-export type League = InferOutput<typeof LeagueSchema>;
+export interface League {
+  id: string;
+  nameKey: LeagueNameKey;
+  emoji: string;
+}

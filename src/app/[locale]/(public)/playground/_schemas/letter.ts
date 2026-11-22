@@ -6,7 +6,6 @@ import {
   nullable,
   number,
   object,
-  omit,
   picklist,
   pipe,
   string,
@@ -20,56 +19,29 @@ export const LETTER_TAFKHIM_TYPES = [
 
 export type LetterTafkhimType = (typeof LETTER_TAFKHIM_TYPES)[number];
 
-export const RemoteLetterSchema = object({
+export const LetterSchema = object({
   id: pipe(number(), integer()),
   slug: pipe(string(), minLength(1)),
-  parent_letter_slug: nullable(string()),
+  parentLetterSlug: nullable(string()),
   symbol: pipe(string(), minLength(1)),
-  tafkhim_type: picklist(LETTER_TAFKHIM_TYPES),
-  sort_order: pipe(number(), integer()),
-});
-
-export const LetterSchema = omit(
-  object({
-    ...RemoteLetterSchema.entries,
-    parentLetterSlug: nullable(string()),
-    tafkhimType: picklist(LETTER_TAFKHIM_TYPES),
-    sortOrder: pipe(number(), integer()),
-  }),
-  ['parent_letter_slug', 'tafkhim_type', 'sort_order'],
-);
-
-export type RemoteLetter = InferOutput<typeof RemoteLetterSchema>;
-export type Letter = InferOutput<typeof LetterSchema>;
-
-export const RemoteLetterArticulationSchema = object({
-  letter_id: pipe(number(), integer()),
-  point_id: pipe(number(), integer()),
-  is_primary: boolean(),
-  sort_order: pipe(number(), integer()),
-});
-
-export const LetterArticulationSchema = object({
-  isPrimary: boolean(),
-  letterId: pipe(number(), integer()),
-  pointId: pipe(number(), integer()),
+  tafkhimType: picklist(LETTER_TAFKHIM_TYPES),
   sortOrder: pipe(number(), integer()),
 });
 
-export type RemoteLetterArticulation = InferOutput<
-  typeof RemoteLetterArticulationSchema
->;
-export type LetterArticulation = InferOutput<typeof LetterArticulationSchema>;
+export type Letter = InferOutput<typeof LetterSchema>;
 
-export const RemoteLetterTraitSchema = object({
-  letter_id: pipe(number(), integer()),
-  trait_id: pipe(number(), integer()),
+export const LetterArticulationSchema = object({
+  letterId: pipe(number(), integer()),
+  pointId: pipe(number(), integer()),
+  isPrimary: boolean(),
+  sortOrder: pipe(number(), integer()),
 });
+
+export type LetterArticulation = InferOutput<typeof LetterArticulationSchema>;
 
 export const LetterTraitSchema = object({
   letterId: pipe(number(), integer()),
   traitId: pipe(number(), integer()),
 });
 
-export type RemoteLetterTrait = InferOutput<typeof RemoteLetterTraitSchema>;
 export type LetterTrait = InferOutput<typeof LetterTraitSchema>;

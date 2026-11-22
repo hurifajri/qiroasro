@@ -3,7 +3,6 @@
 import { and, eq, sql } from 'drizzle-orm';
 import { headers } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
-import { parse } from 'valibot';
 
 import {
   userLessonProgress,
@@ -14,11 +13,9 @@ import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 
 import { CURRICULUM_TOPICS } from '../_lib/curriculum';
-import {
-  SectionProgressListSchema,
-  type SectionWithProgress,
-  UnitProgressListSchema,
-  type UnitWithProgress,
+import type {
+  SectionWithProgress,
+  UnitWithProgress,
 } from '../_schemas/curriculum-progress';
 
 /**
@@ -112,7 +109,7 @@ export async function getSectionsWithProgress(): Promise<
       prevIsStarted = sectionProgressMap.has(topic.slug) || completedUnits > 0;
     }
 
-    return parse(SectionProgressListSchema, sectionProgressList);
+    return sectionProgressList;
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getSectionsWithProgress] Error:', error);
@@ -186,7 +183,7 @@ export async function getUnitsWithProgress(
       totalLessons: unit.lessons.length,
     }));
 
-    return parse(UnitProgressListSchema, unitProgressList);
+    return unitProgressList;
   } catch (error) {
     unstable_rethrow(error);
     console.error('[getUnitsWithProgress] Error:', error);

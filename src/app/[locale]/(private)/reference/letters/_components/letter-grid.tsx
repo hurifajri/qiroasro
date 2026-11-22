@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import type { ArticulationGroup } from '../_lib/mock-data';
+import type { ArticulationGroup } from '../../../_schemas/reference';
 import { LetterItem } from './letter-item';
 
 interface LetterGridProps {

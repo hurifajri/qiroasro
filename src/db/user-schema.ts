@@ -9,6 +9,9 @@ import {
   timestamp,
 } from 'drizzle-orm/pg-core';
 
+import type { Locale } from '@/i18n/routing';
+import type { AvatarColorCode } from '@/lib/avatar';
+
 import { user } from './auth-schema';
 
 // =====================================================================
@@ -26,8 +29,10 @@ export const userProfiles = pgTable(
     username: text('username').notNull().unique(),
     displayName: text('display_name').notNull(),
     email: text('email').notNull().unique(),
-    avatarColorCode: text('avatar_color_code').notNull(),
-    locale: text('locale').notNull(),
+    avatarColorCode: text('avatar_color_code')
+      .$type<AvatarColorCode>()
+      .notNull(),
+    locale: text('locale').$type<Locale>().notNull(),
     followersCount: integer('followers_count').notNull().default(0),
     followingCount: integer('following_count').notNull().default(0),
     createdAt: timestamp('created_at', { withTimezone: true })

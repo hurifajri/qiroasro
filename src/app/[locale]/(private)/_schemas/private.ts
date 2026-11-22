@@ -1,114 +1,66 @@
-import type { InferOutput } from 'valibot';
-import {
-  array,
-  boolean,
-  integer,
-  isoDateTime,
-  number,
-  object,
-  optional,
-  picklist,
-  pipe,
-  string,
-} from 'valibot';
+import type { AvatarColorCode } from '@/lib/avatar';
 
-import { AVATAR_GRADIENT_CODES, AVATAR_SOLID_CODES } from '@/lib/avatar';
+import type { LeagueNameKey } from './league';
 
-import { LEAGUE_NAME_KEYS } from './league';
+export type { LeagueNameKey };
 
-const LeagueNameKeySchema = picklist(LEAGUE_NAME_KEYS);
+export interface UserStats {
+  xp: number;
+  level: number;
+  streak: number;
+  hearts: number;
+  gems: number;
+  leagueNameKey: LeagueNameKey;
+  leagueRank: number;
+}
 
-// User Stats Schema
-export const UserStatsSchema = object({
-  xp: pipe(number(), integer()),
-  level: pipe(number(), integer()),
-  streak: pipe(number(), integer()),
-  hearts: pipe(number(), integer()),
-  gems: pipe(number(), integer()),
-  leagueNameKey: LeagueNameKeySchema,
-  leagueRank: pipe(number(), integer()),
-});
+export interface LeaderboardEntry {
+  rank: number;
+  userId: string;
+  name: string;
+  xp: number;
+  avatarColorCode?: AvatarColorCode;
+  isCurrentUser: boolean;
+}
 
-export type UserStats = InferOutput<typeof UserStatsSchema>;
-export type LeagueNameKey = InferOutput<typeof LeagueNameKeySchema>;
+export interface Quest {
+  id: number;
+  titleKey: string;
+  descriptionKey: string;
+  target: number;
+  current: number;
+  xpReward: number;
+  completed: boolean;
+  iconType: 'xp' | 'accuracy' | 'streak' | 'lessons';
+}
 
-// Leaderboard Entry Schema
-export const LeaderboardEntrySchema = object({
-  rank: pipe(number(), integer()),
-  userId: string(),
-  name: string(),
-  xp: pipe(number(), integer()),
-  avatarColorCode: optional(
-    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
-  ),
-  isCurrentUser: boolean(),
-});
+export interface NavItem {
+  id: string;
+  labelKey: string;
+  iconName: string;
+  href: string;
+  isActive: boolean;
+}
 
-export type LeaderboardEntry = InferOutput<typeof LeaderboardEntrySchema>;
+export interface UserStatus {
+  emoji: string;
+  label: string;
+}
 
-// Quest Schema
-export const QuestSchema = object({
-  id: pipe(number(), integer()),
-  titleKey: string(), // i18n key
-  descriptionKey: string(), // i18n key
-  target: pipe(number(), integer()),
-  current: pipe(number(), integer()),
-  xpReward: pipe(number(), integer()),
-  completed: boolean(),
-  iconType: picklist(['xp', 'accuracy', 'streak', 'lessons']),
-});
+export interface ActivityFeedItem {
+  id: string;
+  userName: string;
+  avatarColorCode?: AvatarColorCode;
+  activityDate: string;
+  descriptionKey: string;
+  reactionEmojis: string[];
+  reactionCount: number;
+}
 
-export type Quest = InferOutput<typeof QuestSchema>;
-
-// Navigation Item Schema
-export const NavItemSchema = object({
-  id: string(),
-  labelKey: string(), // i18n key
-  iconName: string(), // Lucide icon name
-  href: string(),
-  isActive: boolean(),
-});
-
-export type NavItem = InferOutput<typeof NavItemSchema>;
-
-/**
- * User Status Schema (for sidebar)
- */
-export const UserStatusSchema = object({
-  emoji: string(),
-  label: string(),
-});
-
-export type UserStatus = InferOutput<typeof UserStatusSchema>;
-
-/**
- * Activity Feed Item Schema
- */
-export const ActivityFeedItemSchema = object({
-  id: string(),
-  userName: string(),
-  avatarColorCode: optional(
-    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
-  ),
-  activityDate: pipe(string(), isoDateTime()), // UTC ISO datetime string
-  descriptionKey: string(), // i18n key
-  reactionEmojis: array(string()), // e.g., ["🎉", "😊"]
-  reactionCount: pipe(number(), integer()),
-});
-
-export type ActivityFeedItem = InferOutput<typeof ActivityFeedItemSchema>;
-
-/**
- * Follow Entry Schema (for Following/Followers tabs)
- */
-export const FollowEntrySchema = object({
-  id: string(),
-  name: string(),
-  avatarColorCode: optional(
-    picklist([...AVATAR_SOLID_CODES, ...AVATAR_GRADIENT_CODES]),
-  ),
-  xp: pipe(number(), integer()),
-  isOnline: boolean(),
-});
-
-export type FollowEntry = InferOutput<typeof FollowEntrySchema>;
+export interface FollowEntry {
+  id: string;
+  name: string;
+  avatarColorCode?: AvatarColorCode;
+  xp: number;
+  isOnline: boolean;
+}
