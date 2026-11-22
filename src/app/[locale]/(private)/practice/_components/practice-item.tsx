@@ -19,7 +19,7 @@ import { getPracticeColors } from '@/lib/colors';
 import { cn } from '@/lib/utils';
 
 import { SuperBadge } from '../../_components/super-badge';
-import type { PracticeMode } from '../_lib/mock-data';
+import type { PracticeMode } from '../../_schemas/practice';
 
 // Icon mapping
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -33,28 +33,28 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 interface PracticeItemProps {
   mode: PracticeMode;
+  onSelectMode: (mode: PracticeMode) => void;
 }
 
-export function PracticeItem({ mode }: Readonly<PracticeItemProps>) {
+export function PracticeItem({
+  mode,
+  onSelectMode,
+}: Readonly<PracticeItemProps>) {
   const t = useTranslations('practice_page');
   const Icon = iconMap[mode.iconName];
   const colors = getPracticeColors(mode.colorCode);
 
-  function handleClickMode() {
-    console.log(mode);
-  }
-
   return (
     <Item variant="outline" asChild>
       <li
-        onClick={() => handleClickMode()}
+        onClick={() => onSelectMode(mode)}
         onKeyUp={(e) => {
           if (e.key === 'Enter') {
-            handleClickMode();
+            onSelectMode(mode);
           }
         }}
         className={cn(
-          'relative flex w-full items-center gap-4 rounded-2xl! border-2 p-4! text-left transition-all',
+          'relative flex w-full cursor-pointer items-center gap-4 rounded-2xl! border-2 p-4! text-left transition-all',
           colors.card,
         )}
       >
