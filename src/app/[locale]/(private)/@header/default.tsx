@@ -1,10 +1,12 @@
 import { StatList } from '../_components/stat-list';
-import { MOCK_USER_STATS } from '../_lib/mock-data';
+import { getCurrentUserStats } from '../_services/gamification';
 
-export default function DefaultHeader() {
+export default async function DefaultHeader() {
+  const stats = await getCurrentUserStats();
+
   return (
     <StatList
-      stats={MOCK_USER_STATS}
+      stats={stats}
       className="rounded-xl border bg-background/10 backdrop-blur-sm"
     />
   );

@@ -1,11 +1,14 @@
 import { StatList } from '../../_components/stat-list';
 import { StatusCard } from '../../_components/status-card';
-import { MOCK_USER_STATS, MOCK_USER_STATUSES } from '../../_lib/mock-data';
+import { MOCK_USER_STATUSES } from '../../_lib/mock-data';
+import { getCurrentUserStats } from '../../_services/gamification';
 
-export default function LeaderboardSidebar() {
+export default async function LeaderboardSidebar() {
+  const stats = await getCurrentUserStats();
+
   return (
     <>
-      <StatList stats={MOCK_USER_STATS} />
+      <StatList stats={stats} />
       <StatusCard statuses={MOCK_USER_STATUSES} />
     </>
   );

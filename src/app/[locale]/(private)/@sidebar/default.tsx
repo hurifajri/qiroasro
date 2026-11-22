@@ -2,19 +2,24 @@ import { LeaderboardCard } from '../_components/leaderboard-card';
 import { LevelCard } from '../_components/level-card';
 import { QuestsCard } from '../_components/quests-card';
 import { StatList } from '../_components/stat-list';
+import { MOCK_LEADERBOARD } from '../_lib/mock-data';
 import {
-  MOCK_LEADERBOARD,
-  MOCK_QUESTS,
-  MOCK_USER_STATS,
-} from '../_lib/mock-data';
+  getCurrentUserDailyQuests,
+  getCurrentUserStats,
+} from '../_services/gamification';
 
-export default function DefaultSidebar() {
+export default async function DefaultSidebar() {
+  const [stats, quests] = await Promise.all([
+    getCurrentUserStats(),
+    getCurrentUserDailyQuests(),
+  ]);
+
   return (
     <>
-      <StatList stats={MOCK_USER_STATS} />
+      <StatList stats={stats} />
       <LevelCard />
-      <LeaderboardCard entries={MOCK_LEADERBOARD} userStats={MOCK_USER_STATS} />
-      <QuestsCard quests={MOCK_QUESTS} />
+      <LeaderboardCard entries={MOCK_LEADERBOARD} userStats={stats} />
+      <QuestsCard quests={quests} />
     </>
   );
 }

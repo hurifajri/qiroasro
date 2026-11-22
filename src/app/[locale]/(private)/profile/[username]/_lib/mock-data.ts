@@ -1,37 +1,4 @@
-import type {
-  FriendSuggestion,
-  Statistic,
-} from '../../../_schemas/user-profile';
-
-/**
- * Mock statistics data
- */
-export const MOCK_STATISTICS: Statistic[] = [
-  {
-    id: 'streak',
-    labelKey: 'day_streak',
-    value: 3,
-    icon: 'flame',
-  },
-  {
-    id: 'xp',
-    labelKey: 'total_xp',
-    value: 91757,
-    icon: 'zap',
-  },
-  {
-    id: 'league',
-    labelKey: 'current_league',
-    value: `Maq'adu Sidq`,
-    icon: 'shield',
-  },
-  {
-    id: 'top3',
-    labelKey: 'top_3_finishes',
-    value: 16,
-    icon: 'trophy',
-  },
-];
+import type { FriendSuggestion } from '../../../_schemas/user-profile';
 
 /**
  * Mock friend suggestions

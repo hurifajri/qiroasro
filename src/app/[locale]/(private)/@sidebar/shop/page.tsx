@@ -1,11 +1,13 @@
 import { AdsPlaceholder } from '../../_components/ads-placeholder';
 import { QuestsCard } from '../../_components/quests-card';
-import { MOCK_QUESTS } from '../../_lib/mock-data';
+import { getCurrentUserDailyQuests } from '../../_services/gamification';
 
-export default function ShopSidebar() {
+export default async function ShopSidebar() {
+  const quests = await getCurrentUserDailyQuests();
+
   return (
     <>
-      <QuestsCard quests={MOCK_QUESTS} />
+      <QuestsCard quests={quests} />
       <AdsPlaceholder />
     </>
   );

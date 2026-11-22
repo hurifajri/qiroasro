@@ -1,6 +1,6 @@
 'use server';
 
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import { headers } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
 import { parse } from 'valibot';
@@ -203,6 +203,8 @@ export async function completeLessonAction(
   unitSlug: string,
   lessonOrder: number,
   score: number,
+  xpEarned = 10,
+  timeSpentSec = 60,
 ): Promise<{ success: boolean }> {
   const session = await auth.api.getSession({ headers: await headers() });
   const userId = session?.user?.id;
@@ -212,30 +214,40 @@ export async function completeLessonAction(
   }
 
   try {
-    await db
-      .insert(userLessonProgress)
-      .values({
-        userId,
-        topicSlug,
-        unitSlug,
-        lessonOrder,
-        isCompleted: true,
-        score,
-        completedAt: new Date(),
-      })
-      .onConflictDoUpdate({
-        target: [
-          userLessonProgress.userId,
-          userLessonProgress.topicSlug,
-          userLessonProgress.unitSlug,
-          userLessonProgress.lessonOrder,
-        ],
-        set: {
+    try {
+      await db.execute(
+        sql`SELECT fn_complete_lesson_with_rewards(${userId}, ${topicSlug}, ${unitSlug}, ${lessonOrder}::smallint, ${score}, ${xpEarned}, ${timeSpentSec})`,
+      );
+    } catch (fnError) {
+      console.warn(
+        '[completeLessonAction] fn_complete_lesson_with_rewards failed, falling back to direct lesson progress insert:',
+        fnError,
+      );
+      await db
+        .insert(userLessonProgress)
+        .values({
+          userId,
+          topicSlug,
+          unitSlug,
+          lessonOrder,
           isCompleted: true,
           score,
           completedAt: new Date(),
-        },
-      });
+        })
+        .onConflictDoUpdate({
+          target: [
+            userLessonProgress.userId,
+            userLessonProgress.topicSlug,
+            userLessonProgress.unitSlug,
+            userLessonProgress.lessonOrder,
+          ],
+          set: {
+            isCompleted: true,
+            score,
+            completedAt: new Date(),
+          },
+        });
+    }
 
     // Check if all lessons in the unit are now complete
     const topic = CURRICULUM_TOPICS.find((t) => t.slug === topicSlug);

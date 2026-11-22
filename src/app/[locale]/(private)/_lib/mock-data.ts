@@ -3,8 +3,6 @@ import type {
   FollowEntry,
   LeaderboardEntry,
   NavItem,
-  Quest,
-  UserStats,
   UserStatus,
 } from '../_schemas/private';
 
@@ -26,55 +24,6 @@ export const ADD_FRIENDS_ITEMS = [
       'flex size-10 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30',
     iconClass: 'size-5 text-emerald-600 dark:text-emerald-400',
     labelKey: 'add_friends.invite',
-  },
-];
-
-/**
- * Mock user stats
- */
-export const MOCK_USER_STATS: UserStats = {
-  xp: 1883,
-  level: 12,
-  streak: 5,
-  hearts: 5,
-  gems: 129,
-  leagueNameKey: 'leagues.honor',
-  leagueRank: 7,
-};
-
-/**
- * Mock daily quests
- */
-export const MOCK_QUESTS: Quest[] = [
-  {
-    id: 1,
-    titleKey: 'quests.earn_xp.title',
-    descriptionKey: 'quests.earn_xp.description',
-    target: 10,
-    current: 0,
-    xpReward: 5,
-    completed: false,
-    iconType: 'xp',
-  },
-  {
-    id: 2,
-    titleKey: 'quests.high_accuracy.title',
-    descriptionKey: 'quests.high_accuracy.description',
-    target: 1,
-    current: 0,
-    xpReward: 10,
-    completed: false,
-    iconType: 'accuracy',
-  },
-  {
-    id: 3,
-    titleKey: 'quests.complete_lessons.title',
-    descriptionKey: 'quests.complete_lessons.description',
-    target: 3,
-    current: 1,
-    xpReward: 15,
-    completed: false,
-    iconType: 'lessons',
   },
 ];
 

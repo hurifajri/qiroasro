@@ -4,6 +4,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { eq } from 'drizzle-orm';
 
+import { userGamification } from '@/db/gamification-schema';
 import { userProfiles } from '@/db/user-schema';
 import { env } from '@/env';
 import { type Locale, routing } from '@/i18n/routing';
@@ -102,6 +103,12 @@ export const auth = betterAuth({
             avatarColorCode: DEFAULT_AVATAR_COLOR_CODE,
             locale,
           });
+
+          // Initialize default gamification row for the new user
+          await db
+            .insert(userGamification)
+            .values({ userId: user.id })
+            .onConflictDoNothing();
         },
       },
     },

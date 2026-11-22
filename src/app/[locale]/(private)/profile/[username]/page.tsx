@@ -7,10 +7,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { ACHIEVEMENTS } from '../../_lib/achievement';
 import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
+import {
+  getUserAchievementsById,
+  getUserProfileStatistics,
+} from '../../_services/gamification';
 import { Profile } from './_components/profile';
-import { MOCK_FRIEND_SUGGESTIONS, MOCK_STATISTICS } from './_lib/mock-data';
+import { MOCK_FRIEND_SUGGESTIONS } from './_lib/mock-data';
 
 type PageProps = {
   params: Promise<{ locale: string; username: string }>;
@@ -47,16 +50,20 @@ export default async function ProfilePage({ params }: Readonly<PageProps>) {
   if (!userProfile) notFound();
 
   // Prefetch user profile so Profile component gets it instantly via useSuspenseQuery
-  await queryClient.prefetchQuery(getUserProfileByUsernameOpt(username));
+  const [, stats, achievements] = await Promise.all([
+    queryClient.prefetchQuery(getUserProfileByUsernameOpt(username)),
+    getUserProfileStatistics(userProfile.id, locale),
+    getUserAchievementsById(userProfile.id),
+  ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <h1 className="sr-only">{t('title')}</h1>
       <Profile
         username={username}
-        stats={MOCK_STATISTICS}
+        stats={stats}
         friendSuggestions={MOCK_FRIEND_SUGGESTIONS}
-        achievements={ACHIEVEMENTS}
+        achievements={achievements}
       />
     </HydrationBoundary>
   );
