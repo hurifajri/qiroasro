@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Field,
@@ -13,13 +14,14 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import type { PrivacySetting } from '../../_schemas/settings';
 
 interface PrivacySettingsProps {
   settings: PrivacySetting[];
 }
 
-export function PrivacySettings({ settings }: PrivacySettingsProps) {
+export function PrivacySettings({ settings }: Readonly<PrivacySettingsProps>) {
   const t = useTranslations('settings_page.privacy');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);

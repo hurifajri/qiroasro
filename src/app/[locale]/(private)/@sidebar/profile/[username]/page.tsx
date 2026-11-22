@@ -9,9 +9,9 @@ import {
 
 export default async function ProfileSidebar({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ username: string }>;
-}) {
+}>) {
   // Get username from params (for future use)
   await params;
 

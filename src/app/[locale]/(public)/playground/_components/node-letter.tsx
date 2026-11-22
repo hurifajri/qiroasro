@@ -1,9 +1,11 @@
 import type { NodeProps } from '@xyflow/react';
 import { useTranslations } from 'next-intl';
 import { memo } from 'react';
+
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
+
 import { useNodeLayout } from '../_hooks/use-node-layout';
 import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 import type { Letter } from '../_schemas/letter';
@@ -11,7 +13,10 @@ import type { BaseNodeData } from '../_schemas/node';
 
 type LetterNodeData = Letter & BaseNodeData;
 
-export const LetterNode = memo(({ data, selected }: NodeProps) => {
+export const LetterNode = memo(function LetterNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.letter');
   const nodeData = data as LetterNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -37,8 +42,8 @@ export const LetterNode = memo(({ data, selected }: NodeProps) => {
         isConnectable={false}
       />
 
-      <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
-        <span className="font-arabic font-bold text-4xl">
+      <BaseNodeContent className="flex items-center justify-center gap-0 p-0 text-node-letter-text select-none">
+        <span className="font-arabic text-4xl font-bold">
           {nodeData.symbol}
         </span>
         <span className="px-1 text-center text-xs leading-tight">{label}</span>

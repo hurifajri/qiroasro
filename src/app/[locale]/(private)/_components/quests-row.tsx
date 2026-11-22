@@ -5,6 +5,7 @@ import {
   ZapIcon,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -15,13 +16,14 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
+
 import type { Quest } from '../_schemas/private';
 
 interface QuestRowProps {
   quest: Quest;
 }
 
-export function QuestRow({ quest }: QuestRowProps) {
+export function QuestRow({ quest }: Readonly<QuestRowProps>) {
   const t = useTranslations('global.private_layout');
   const progress = Math.min((quest.current / quest.target) * 100, 100);
 
@@ -63,7 +65,7 @@ export function QuestRow({ quest }: QuestRowProps) {
                 style={{ width: `${progress}%` }}
               />
             </span>
-            <span className="font-medium text-muted-foreground text-xs">
+            <span className="text-xs font-medium text-muted-foreground">
               {quest.current} / {quest.target}
             </span>
           </ItemDescription>

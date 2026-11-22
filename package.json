@@ -8,10 +8,10 @@
     "build": "next build",
     "build:analyze": "next analyze",
     "start": "next start",
-    "check": "biome check && biome format",
+    "check": "eslint . && prettier --check .",
     "check:types": "tsc --noEmit --pretty",
     "check:packages": "pnpm exec npm-check-updates",
-    "fix": "biome check --write --unsafe && biome format --write",
+    "fix": "eslint . --fix && prettier --write .",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts"
   },
@@ -51,17 +51,27 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.13",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/eslint-plugin-query": "^5.108.2",
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "^1.0.0",
     "drizzle-kit": "^0.31.8",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.4.6",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-drizzle": "^0.2.3",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
+    "eslint-plugin-sonarjs": "^4.2.2",
+    "eslint-plugin-unused-imports": "^4.4.1",
     "husky": "^9.1.7",
+    "prettier": "^3.10.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
@@ -69,7 +79,8 @@
     "shadcn": "^3.8.5",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.73.0"
   },
   "browserslist": [
     "baseline widely available with downstream"

@@ -1,4 +1,5 @@
 import type { Node } from '@xyflow/react';
+
 import type {
   ArticulationArea,
   ArticulationPoint,
@@ -130,6 +131,7 @@ export function getNodeWidth(nodeType: string | undefined): number {
       return 120;
     case 'trait':
       return 100;
+    case undefined:
     default:
       return 80;
   }
@@ -150,6 +152,7 @@ export function getNodeHeight(nodeType: string | undefined): number {
       return 56;
     case 'trait':
       return 40;
+    case undefined:
     default:
       return 40;
   }

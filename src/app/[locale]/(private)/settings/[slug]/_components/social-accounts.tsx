@@ -2,17 +2,19 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import type { SocialAccount } from '../../_schemas/settings';
 
 interface SocialAccountsProps {
   accounts: SocialAccount[];
 }
 
-export function SocialAccounts({ accounts }: SocialAccountsProps) {
+export function SocialAccounts({ accounts }: Readonly<SocialAccountsProps>) {
   const t = useTranslations('settings_page.social');
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);

@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Connection, Edge, Node } from '@xyflow/react';
 import type { Dispatch, SetStateAction } from 'react';
+
 import {
   applyResultsToEdges,
   applyResultsToNodes,
@@ -157,7 +158,7 @@ export function useQuizGenerator({
   );
 
   // Check answer - returns the score and question analytics for caller to use
-  function checkAnswer(questionNumber: number = 1) {
+  function checkAnswer(questionNumber = 1) {
     setIsChecked(true);
 
     const { correctCount, letterResults, targetResults, questionAnalytics } =

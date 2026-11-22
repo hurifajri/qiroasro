@@ -10,9 +10,11 @@ import { DownloadIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import { drawEdgesOnCanvas } from '../_lib/edge-canvas';
 
 const IMAGE_WIDTH = 1920;
@@ -46,9 +48,9 @@ export function GraphDownload({ edges }: GraphDownloadProps) {
     if (nodes.length === 0) return;
 
     // Get the viewport element
-    const viewportElement = document.querySelector(
+    const viewportElement = document.querySelector<HTMLElement>(
       '.react-flow__viewport',
-    ) as HTMLElement | null;
+    );
     if (!viewportElement) return;
 
     setIsDownloading(true);

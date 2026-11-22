@@ -1,31 +1,25 @@
 'use client';
 
-import { createContext, useContext, useRef } from 'react';
+import { createContext, type PropsWithChildren, use, useState } from 'react';
 import { useStore } from 'zustand';
+
 import { createQuizStore, type QuizStore } from '../_stores/quiz';
 
 type QuizStoreApi = ReturnType<typeof createQuizStore>;
 
 const QuizStoreContext = createContext<QuizStoreApi | undefined>(undefined);
 
-export function QuizStoreProvider({ children }: React.PropsWithChildren) {
-  const storeRef = useRef<QuizStoreApi>(undefined);
-  storeRef.current ??= createQuizStore();
+export function QuizStoreProvider({ children }: Readonly<PropsWithChildren>) {
+  const [store] = useState(() => createQuizStore());
 
-  const store = storeRef.current;
-
-  return (
-    <QuizStoreContext.Provider value={store}>
-      {children}
-    </QuizStoreContext.Provider>
-  );
+  return <QuizStoreContext value={store}>{children}</QuizStoreContext>;
 }
 
 export function useQuizStore<T>(selector: (store: QuizStore) => T): T {
-  const quizStoreContext = useContext(QuizStoreContext);
+  const quizStoreContext = use(QuizStoreContext);
 
   if (!quizStoreContext) {
-    throw new Error(`useQuizStore must be used within QuizStoreProvider`);
+    throw new Error('useQuizStore must be used within QuizStoreProvider');
   }
 
   return useStore(quizStoreContext, selector);

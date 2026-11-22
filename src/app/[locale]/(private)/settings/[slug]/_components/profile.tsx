@@ -5,6 +5,7 @@ import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Field,
@@ -23,6 +24,7 @@ import {
 } from '@/lib/avatar';
 import { translateErrors } from '@/lib/form';
 import { cn } from '@/lib/utils';
+
 import { UserAvatar } from '../../../_components/user-avatar';
 import { getUserProfileByUserIdOpt } from '../../../_queries/user-profile';
 import { UpdateUserProfileSchema } from '../../../_schemas/user-profile';
@@ -36,10 +38,9 @@ interface ProfileProps {
 }
 
 type SaveStatus =
-  | { type: 'idle' }
-  | { type: 'error' | 'success'; messageKey: string };
+  { type: 'idle' } | { type: 'error' | 'success'; messageKey: string };
 
-export function Profile({ userId }: ProfileProps) {
+export function Profile({ userId }: Readonly<ProfileProps>) {
   const t = useTranslations('settings_page.profile');
   const isMaxMd = useMediaQuery('(width < 48rem)');
   const queryClient = useQueryClient();
@@ -81,13 +82,13 @@ export function Profile({ userId }: ProfileProps) {
       id="profile-form"
       onSubmit={(e) => {
         e.preventDefault();
-        form.handleSubmit();
+        void form.handleSubmit();
       }}
       className="mx-auto flex max-w-3xl flex-col gap-6"
     >
       {/* Avatar */}
       <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-lg">{t('avatar.title')}</h2>
+        <h2 className="text-lg font-bold">{t('avatar.title')}</h2>
 
         <form.Field name="avatarColorCode">
           {(field) => {
@@ -106,7 +107,7 @@ export function Profile({ userId }: ProfileProps) {
 
                 {/* Solid colors */}
                 <div className="flex flex-col gap-2">
-                  <p className="font-medium text-sm">
+                  <p className="text-sm font-medium">
                     {t('avatar.solid_colors')}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -131,7 +132,7 @@ export function Profile({ userId }: ProfileProps) {
 
                 {/* Gradient colors */}
                 <div className="flex flex-col gap-2">
-                  <p className="font-medium text-sm">
+                  <p className="text-sm font-medium">
                     {t('avatar.gradient_colors')}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -161,7 +162,7 @@ export function Profile({ userId }: ProfileProps) {
 
       {/* Personal info */}
       <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-lg">{t('personal_info.title')}</h2>
+        <h2 className="text-lg font-bold">{t('personal_info.title')}</h2>
 
         <FieldGroup className="gap-3">
           {/* Display name */}

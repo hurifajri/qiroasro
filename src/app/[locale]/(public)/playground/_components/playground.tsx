@@ -1,5 +1,7 @@
 'use client';
 
+import '@xyflow/react/dist/style.css';
+
 import { useQuery } from '@tanstack/react-query';
 import {
   Background,
@@ -15,17 +17,18 @@ import {
   useNodesState,
   useReactFlow,
 } from '@xyflow/react';
-import dynamic from 'next/dynamic';
-import '@xyflow/react/dist/style.css';
 import { CircleHelpIcon, TrophyIcon } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { useMounted } from '@/hooks/use-mounted';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+
 import { usePlaygroundParams } from '../_hooks/use-playground-params';
 import { usePlaygroundTour } from '../_hooks/use-playground-tour';
 import { generateGraphFromData } from '../_lib/graph-generator';
@@ -163,11 +166,14 @@ export function Playground() {
 
   // Fetch data from single consolidated query
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
-  const letters = playgroundData?.letters ?? [];
+  const letters = useMemo(
+    () => playgroundData?.letters ?? [],
+    [playgroundData?.letters],
+  );
 
   // Update nodes/edges when data or filters change
   // Data comes from SSR, so it's always available
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <perf optimization>
+
   useEffect(() => {
     const data = {
       letters: playgroundData?.letters ?? [],
@@ -238,6 +244,8 @@ export function Playground() {
     selectedLetterId,
     isTraitVisible,
     isArticulationVisible,
+    fitView,
+    setNodes,
   ]);
 
   // Compute highlighted nodes - uses store-based connectedNodeIds (O(1) lookup)

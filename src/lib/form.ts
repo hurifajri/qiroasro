@@ -11,9 +11,9 @@
  * />
  */
 export function translateErrors(
-  errors: Array<string | { message?: string } | undefined>,
+  errors: (string | { message?: string } | undefined)[],
   t: (key: string) => string,
-): Array<{ message: string }> {
+): { message: string }[] {
   return errors
     .map((err) => {
       const key = typeof err === 'string' ? err : err?.message;

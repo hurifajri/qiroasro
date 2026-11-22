@@ -18,7 +18,7 @@ export const RemoteTraitSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const TraitSchema = omit(
+export const TraitSchema = omit(
   object({
     ...RemoteTraitSchema.entries,
     groupId: pipe(number(), integer()),
@@ -39,7 +39,7 @@ export const RemoteTraitGroupSchema = object({
   sort_order: pipe(number(), integer()),
 });
 
-const TraitGroupSchema = omit(
+export const TraitGroupSchema = omit(
   object({
     ...RemoteTraitGroupSchema.entries,
     isLazimah: boolean(),

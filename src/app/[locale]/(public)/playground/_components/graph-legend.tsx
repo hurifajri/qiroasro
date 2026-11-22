@@ -1,6 +1,7 @@
 import { ChevronsUpDown, CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -14,6 +15,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+
 import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 
 type GraphLegendProps = Readonly<{
@@ -145,7 +147,7 @@ export function GraphLegend({
       >
         <CollapsibleTrigger
           className={cn(
-            'flex items-center justify-between gap-2 p-2 text-left font-semibold text-muted-foreground text-xs',
+            'flex items-center justify-between gap-2 p-2 text-left text-xs font-semibold text-muted-foreground',
             isOpen ? 'border-b' : '',
           )}
         >
@@ -162,7 +164,7 @@ export function GraphLegend({
                     legend.color,
                   )}
                 />
-                <span className="flex flex-1 items-center justify-between text-muted-foreground text-xs">
+                <span className="flex flex-1 items-center justify-between text-xs text-muted-foreground">
                   {legend.label}
                   {legend.hasInfo && (
                     <CircleQuestionMarkIcon

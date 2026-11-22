@@ -12,7 +12,7 @@ interface SettingsSidebarProps {
 
 export default async function SettingsSidebar({
   params,
-}: SettingsSidebarProps) {
+}: Readonly<SettingsSidebarProps>) {
   const { slug } = await params;
 
   return (

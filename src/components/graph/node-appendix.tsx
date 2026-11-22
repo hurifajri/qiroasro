@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
+
 import { cn } from '@/lib/utils';
 
 const appendixVariants = cva(
@@ -20,8 +21,7 @@ const appendixVariants = cva(
 );
 
 export interface NodeAppendixProps
-  extends ComponentProps<'div'>,
-    VariantProps<typeof appendixVariants> {
+  extends ComponentProps<'div'>, VariantProps<typeof appendixVariants> {
   className?: string;
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
@@ -31,7 +31,7 @@ export function NodeAppendix({
   className,
   position,
   ...props
-}: NodeAppendixProps) {
+}: Readonly<NodeAppendixProps>) {
   return (
     <div className={cn(appendixVariants({ position }), className)} {...props}>
       {children}

@@ -1,14 +1,16 @@
 import { CheckIcon, LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
 import type { Letter } from '../_lib/mock-data';
 
 interface LetterCardProps {
   letter: Letter;
 }
 
-export function LetterCard({ letter }: LetterCardProps) {
+export function LetterCard({ letter }: Readonly<LetterCardProps>) {
   const t = useTranslations('reference_letters_page');
   const { symbol, nameKey, status } = letter;
   const isLearned = status === 'learned';
@@ -44,7 +46,7 @@ export function LetterCard({ letter }: LetterCardProps) {
       {/* Letter symbol */}
       <span
         className={cn(
-          'font-arabic font-bold text-3xl',
+          'font-arabic text-3xl font-bold',
           isLearned && 'text-emerald-600 dark:text-emerald-400',
           isAvailable && 'text-primary',
           isLocked && 'text-muted-foreground',
@@ -54,7 +56,7 @@ export function LetterCard({ letter }: LetterCardProps) {
       </span>
 
       {/* Letter name */}
-      <p className="font-bold text-xs">{t(nameKey)}</p>
+      <p className="text-xs font-bold">{t(nameKey)}</p>
     </Button>
   );
 }

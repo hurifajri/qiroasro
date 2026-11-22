@@ -14,6 +14,7 @@ import {
   timestamp,
   unique,
 } from 'drizzle-orm/pg-core';
+
 import { user } from './auth-schema';
 
 function validLeagueCheck(name: string, column: AnyPgColumn) {

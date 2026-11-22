@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useTranslations } from 'next-intl';
+
 import {
   Tooltip,
   TooltipContent,
@@ -51,6 +52,7 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 import { Link, usePathname, useRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
+
 import type { NavItem } from '../_schemas/private';
 
 // Icon mapping
@@ -94,7 +96,7 @@ function MoreMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger
         className={cn(
-          'flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
+          'flex items-center gap-3 rounded-xl p-3 text-sm font-medium transition-colors',
           isActive
             ? 'bg-primary/10 text-primary'
             : 'text-muted-foreground hover:bg-muted hover:text-foreground',
@@ -146,7 +148,7 @@ function MoreMenu() {
 /**
  * Desktop sidebar navigation.
  */
-export function SidebarNav({ items }: SidebarNavProps) {
+export function SidebarNav({ items }: Readonly<SidebarNavProps>) {
   const t = useTranslations('global.private_layout');
   const isLg = useMediaQuery('(width >= 64rem)');
 
@@ -161,7 +163,7 @@ export function SidebarNav({ items }: SidebarNavProps) {
             href={item.href}
             title={t(item.labelKey)}
             className={cn(
-              'flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
+              'flex items-center gap-3 rounded-xl p-3 text-sm font-medium transition-colors',
               item.isActive
                 ? 'bg-primary/10 text-primary'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground',
@@ -197,7 +199,7 @@ interface BottomNavProps {
 /**
  * Mobile bottom navigation.
  */
-export function BottomNav({ items }: BottomNavProps) {
+export function BottomNav({ items }: Readonly<BottomNavProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

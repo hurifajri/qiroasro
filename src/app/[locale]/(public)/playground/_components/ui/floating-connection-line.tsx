@@ -3,6 +3,7 @@ import {
   getBezierPath,
   type InternalNode,
 } from '@xyflow/react';
+
 import { getEdgeParams } from '../../_lib/edge';
 
 /**
@@ -15,7 +16,7 @@ export function FloatingConnectionLine({
   fromPosition,
   toPosition,
   fromNode,
-}: ConnectionLineComponentProps) {
+}: Readonly<ConnectionLineComponentProps>) {
   if (!fromNode) {
     return null;
   }

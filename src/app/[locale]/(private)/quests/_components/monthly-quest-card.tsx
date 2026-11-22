@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { Clock } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -15,13 +16,14 @@ import type { Locale } from '@/i18n/routing';
 import { getCardColorClass, getEmojiColorClass } from '@/lib/colors';
 import { getDateLocale } from '@/lib/date';
 import { cn } from '@/lib/utils';
+
 import type { MonthlyQuest } from '../_schemas/quests';
 
 interface MonthlyQuestCardProps {
   quest: MonthlyQuest;
 }
 
-export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
+export function MonthlyQuestCard({ quest }: Readonly<MonthlyQuestCardProps>) {
   const t = useTranslations('quests_page.monthly_quest');
   const locale = useLocale();
 
@@ -47,7 +49,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
             {monthName}
           </Badge>
         </CardAction>
-        <CardTitle className="font-bold text-2xl text-white">
+        <CardTitle className="text-2xl font-bold text-white">
           {t(quest.titleKey)}
         </CardTitle>
         <CardDescription className="flex items-center gap-1 font-semibold text-white">
@@ -72,7 +74,7 @@ export function MonthlyQuestCard({ quest }: MonthlyQuestCardProps) {
               />
             </div>
             {/* Count */}
-            <span className="font-bold text-sm">
+            <span className="text-sm font-bold">
               {quest.current} / {quest.target}
             </span>
             {/* Reward icon */}

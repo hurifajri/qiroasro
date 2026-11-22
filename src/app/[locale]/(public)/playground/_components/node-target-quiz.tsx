@@ -2,10 +2,12 @@ import { type NodeProps, Position } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
+
 import type { TargetQuizNodeData } from '../_schemas/node';
 import { NodeInfoDialog } from './node-info-dialog';
 
@@ -42,7 +44,7 @@ export function TargetQuizNode({ data }: NodeProps) {
               setIsDialogOpen(true);
             }}
             className={cn(
-              'nodrag size-5 animate-node-appendix-pulse cursor-pointer transition-transform',
+              'nodrag animate-node-appendix-pulse size-5 cursor-pointer transition-transform',
               nodeData.type === 'trait' && 'text-node-trait/50',
               nodeData.type === 'articulation_point' &&
                 'text-node-articulation/50',
@@ -54,10 +56,10 @@ export function TargetQuizNode({ data }: NodeProps) {
         <BaseHandle
           type="target"
           position={Position.Left}
-          className="absolute! transform-none! inset-0! h-full! w-full! rounded-lg! border-0! bg-transparent!"
+          className="absolute! inset-0! h-full! w-full! transform-none! rounded-lg! border-0! bg-transparent!"
         />
 
-        <BaseNodeContent className="select-none p-0 font-medium text-xs capitalize">
+        <BaseNodeContent className="p-0 text-xs font-medium capitalize select-none">
           {label}
         </BaseNodeContent>
       </BaseNode>

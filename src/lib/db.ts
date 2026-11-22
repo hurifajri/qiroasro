@@ -1,5 +1,6 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
+
 import * as authSchema from '@/db/auth-schema';
 import * as curriculumSchema from '@/db/curriculum-schema';
 import * as gamificationSchema from '@/db/gamification-schema';

@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import type { Statistic } from '../../../_schemas/user-profile';
 import { StatCard } from './stat-card';
 
@@ -8,7 +9,7 @@ interface StatItemProps {
   stat: Statistic;
 }
 
-export function StatItem({ stat }: StatItemProps) {
+export function StatItem({ stat }: Readonly<StatItemProps>) {
   const t = useTranslations('profile_page.statistics');
 
   return (

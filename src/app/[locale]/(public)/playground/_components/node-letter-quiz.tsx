@@ -1,7 +1,9 @@
 import { type NodeProps, Position } from '@xyflow/react';
+
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { cn } from '@/lib/utils';
+
 import { LETTER_TAFKHIM_GRADIENT } from '../_lib/letter';
 import type { LetterQuizNodeData } from '../_schemas/node';
 
@@ -16,8 +18,8 @@ export function LetterQuizNode({ data }: NodeProps) {
         LETTER_TAFKHIM_GRADIENT[nodeData.tafkhimType],
       )}
     >
-      <BaseNodeContent className="flex select-none items-center justify-center gap-0 p-0 text-node-letter-text">
-        <span className="font-arabic font-bold text-4xl">
+      <BaseNodeContent className="flex items-center justify-center gap-0 p-0 text-node-letter-text select-none">
+        <span className="font-arabic text-4xl font-bold">
           {nodeData.symbol}
         </span>
       </BaseNodeContent>
@@ -26,7 +28,7 @@ export function LetterQuizNode({ data }: NodeProps) {
       <BaseHandle
         type="source"
         position={Position.Right}
-        className="absolute! transform-none! inset-0! h-full! w-full! rounded-full! border-0! bg-transparent!"
+        className="absolute! inset-0! h-full! w-full! transform-none! rounded-full! border-0! bg-transparent!"
       />
     </BaseNode>
   );

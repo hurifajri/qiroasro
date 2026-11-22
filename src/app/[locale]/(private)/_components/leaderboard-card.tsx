@@ -2,6 +2,7 @@
 
 import { TrophyIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -14,6 +15,7 @@ import {
 import { ItemGroup } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { LeaderboardEntry, UserStats } from '../_schemas/private';
 import { LeaderboardRow } from './leaderboard-row';
 
@@ -25,7 +27,10 @@ interface LeaderboardCardProps {
 /**
  * Leaderboard preview widget showing top 3 and current user position.
  */
-export function LeaderboardCard({ entries, userStats }: LeaderboardCardProps) {
+export function LeaderboardCard({
+  entries,
+  userStats,
+}: Readonly<LeaderboardCardProps>) {
   const t = useTranslations('global');
 
   // Get league display name

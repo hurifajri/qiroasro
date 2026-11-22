@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { Practice } from './_components/practice';
 import { PRACTICE_SECTIONS } from './_lib/mock-data';
 
@@ -23,10 +24,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function PracticePage({ params }: PageProps) {
+export default async function PracticePage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-  setRequestLocale(locale);
-
   const t = await getTranslations({ locale, namespace: 'practice_page' });
 
   return (

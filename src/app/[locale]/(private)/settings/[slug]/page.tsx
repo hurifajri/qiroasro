@@ -6,9 +6,11 @@ import {
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { Separator } from '@/components/ui/separator';
 import { auth } from '@/lib/auth';
+
 import { getUserProfileByUserIdOpt } from '../../_queries/user-profile';
 import {
   MOCK_DAILY_REMINDER,
@@ -57,16 +59,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function SettingsPage({ params }: SettingsPageProps) {
+export default async function SettingsPage({
+  params,
+}: Readonly<SettingsPageProps>) {
   const { locale, slug } = await params;
 
   // Validate slug
   if (!VALID_SLUGS.includes(slug as SettingsSlug)) {
     notFound();
   }
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'settings_page' });
 
@@ -77,7 +78,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
+        <h1 className="hidden pb-3 text-xl font-bold md:mx-auto md:block md:max-w-3xl">
           {t('preferences.title')}
         </h1>
         <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
@@ -101,7 +102,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
 
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
+        <h1 className="hidden pb-3 text-xl font-bold md:mx-auto md:block md:max-w-3xl">
           {t('profile.title')}
         </h1>
         <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
@@ -113,7 +114,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'notifications') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
+        <h1 className="hidden pb-3 text-xl font-bold md:mx-auto md:block md:max-w-3xl">
           {t('notifications.title')}
         </h1>
         <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
@@ -128,7 +129,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'social') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
+        <h1 className="hidden pb-3 text-xl font-bold md:mx-auto md:block md:max-w-3xl">
           {t('social.title')}
         </h1>
         <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />
@@ -140,7 +141,7 @@ export default async function SettingsPage({ params }: SettingsPageProps) {
   if (slug === 'privacy') {
     return (
       <>
-        <h1 className="hidden pb-3 font-bold text-xl md:mx-auto md:block md:max-w-3xl">
+        <h1 className="hidden pb-3 text-xl font-bold md:mx-auto md:block md:max-w-3xl">
           {t('privacy.title')}
         </h1>
         <Separator className="mb-6 hidden md:mx-auto md:block md:max-w-3xl" />

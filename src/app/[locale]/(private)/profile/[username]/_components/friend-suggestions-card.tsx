@@ -2,8 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+
 import { UserAvatar } from '../../../_components/user-avatar';
 import type { FriendSuggestion } from '../../../_schemas/user-profile';
 
@@ -11,7 +13,9 @@ interface FriendSuggestionsCardProps {
   friend: FriendSuggestion;
 }
 
-export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
+export function FriendSuggestionsCard({
+  friend,
+}: Readonly<FriendSuggestionsCardProps>) {
   const t = useTranslations('profile_page.friend_suggestions');
   const [isFollowing, setIsFollowing] = useState(friend.isFollowing);
 
@@ -21,7 +25,7 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
 
   return (
     <Card size="sm" className="relative h-full">
-      <CardContent className="flex h-full @md:flex-col items-center gap-3 p-4 @md:text-center">
+      <CardContent className="flex h-full items-center gap-3 p-4 @md:flex-col @md:text-center">
         {/* Avatar */}
         <UserAvatar
           name={friend.displayName}
@@ -36,7 +40,7 @@ export function FriendSuggestionsCard({ friend }: FriendSuggestionsCardProps) {
 
           {/* Mutual friends */}
           {friend.mutualFriendsCount > 0 && (
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               {t('followed_by', { count: friend.mutualFriendsCount })}
             </p>
           )}

@@ -1,17 +1,20 @@
 'use client';
 
 import { LockIcon } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+
+import { Link, usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
 
 interface ReferenceSidebarProps {
   onLinkClick?: () => void;
 }
 
-export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
+export function ReferenceSidebar({
+  onLinkClick,
+}: Readonly<ReferenceSidebarProps>) {
   const pathname = usePathname();
   const t = useTranslations();
 
@@ -24,7 +27,7 @@ export function ReferenceSidebar({ onLinkClick }: ReferenceSidebarProps) {
           <div
             key={category.slug}
             className={cn(
-              'relative flex items-center gap-3 rounded-xl p-3 font-medium text-sm transition-colors',
+              'relative flex items-center gap-3 rounded-xl p-3 text-sm font-medium transition-colors',
               isActive && 'bg-primary/15 text-primary',
               !category.available && 'cursor-not-allowed opacity-50',
             )}

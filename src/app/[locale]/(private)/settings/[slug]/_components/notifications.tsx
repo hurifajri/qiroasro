@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+
 import { Checkbox } from '@/components/ui/checkbox';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import {
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+
 import type {
   DailyReminder,
   NotificationCheckbox,
@@ -25,7 +27,7 @@ interface NotificationsProps {
 export function Notifications({
   generalNotifications,
   dailyReminder,
-}: NotificationsProps) {
+}: Readonly<NotificationsProps>) {
   const t = useTranslations('settings_page.notifications');
 
   const [notifications, setNotifications] =
@@ -69,7 +71,7 @@ export function Notifications({
       {/* General notifications */}
       <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">
-          <h2 className="font-bold text-lg">{t('general.title')}</h2>
+          <h2 className="text-lg font-bold">{t('general.title')}</h2>
           <p className="text-muted-foreground">{t('email')}</p>
         </div>
         <FieldGroup className="gap-3">
@@ -93,7 +95,7 @@ export function Notifications({
       {/* Daily reminders */}
       <div className="flex flex-col gap-3">
         <div className="flex w-full items-center justify-between">
-          <h2 className="font-bold text-lg">{t('daily_reminders.title')}</h2>
+          <h2 className="text-lg font-bold">{t('daily_reminders.title')}</h2>
           <span className="text-muted-foreground">{t('email')}</span>
         </div>
         <FieldGroup className="gap-3">

@@ -6,11 +6,11 @@ interface StatItemProps {
   color: string;
 }
 
-export function StatItem({ icon, value, color }: StatItemProps) {
+export function StatItem({ icon, value, color }: Readonly<StatItemProps>) {
   return (
     <li className="flex items-center gap-1.5">
       {icon}
-      <span className={cn('font-bold text-sm tabular-nums', color)}>
+      <span className={cn('text-sm font-bold tabular-nums', color)}>
         {value.toLocaleString()}
       </span>
     </li>

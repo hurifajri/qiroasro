@@ -4,6 +4,7 @@ import type { ColorMode } from '@xyflow/react';
 import type { Driver, DriveStep } from 'driver.js';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCallback, useEffect, useRef } from 'react';
+
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
 
@@ -246,7 +247,10 @@ export function usePlaygroundTour({
   }, [dir, getTourSteps, t, theme]);
 
   const startTourRef = useRef(startTour);
-  startTourRef.current = startTour;
+
+  useEffect(() => {
+    startTourRef.current = startTour;
+  }, [startTour]);
 
   // Auto-start tour on first visit
   useEffect(() => {

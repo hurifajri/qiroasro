@@ -3,6 +3,7 @@
 import { AlertCircle, Loader2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+
 import { GoogleIcon } from '@/components/icons/google';
 import { Button } from '@/components/ui/button';
 import { authClient } from '@/lib/auth-client';
@@ -13,7 +14,11 @@ interface LoginButtonProps {
   errorDesc: string;
 }
 
-export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
+export function LoginButton({
+  text,
+  errorTitle,
+  errorDesc,
+}: Readonly<LoginButtonProps>) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const searchParams = useSearchParams();
@@ -26,7 +31,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
     try {
       await authClient.signIn.social({
         provider: 'google',
-        callbackURL: callbackUrl || '/learn',
+        callbackURL: callbackUrl ?? '/learn',
       });
     } catch {
       setError(true);
@@ -51,7 +56,7 @@ export function LoginButton({ text, errorTitle, errorDesc }: LoginButtonProps) {
       </Button>
 
       {error && (
-        <div className="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-destructive text-sm">
+        <div className="flex items-center gap-2 rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
           <AlertCircle className="shrink-0" />
           <div>
             <p className="font-semibold">{errorTitle}</p>

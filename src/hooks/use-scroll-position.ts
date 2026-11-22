@@ -43,8 +43,8 @@ function useScrollPosition(
             x: window.scrollX,
             y: window.scrollY,
           });
-        } else if (!timeoutId) {
-          timeoutId = setTimeout(
+        } else {
+          timeoutId ??= setTimeout(
             () => {
               lastRun = Date.now();
               setScrollPosition({

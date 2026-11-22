@@ -1,4 +1,5 @@
 import '@/env';
+
 import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
@@ -17,8 +18,8 @@ const nextConfig: NextConfig = {
   // Configure `pageExtensions` to include markdown and MDX files
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 
-  async headers() {
-    return [
+  headers() {
+    return Promise.resolve([
       {
         // Cache static assets (images, fonts) for 1 year
         source: '/:all*(svg|jpg|jpeg|png|gif|ico|webp|woff|woff2)',
@@ -29,7 +30,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-    ];
+    ]);
   },
 };
 

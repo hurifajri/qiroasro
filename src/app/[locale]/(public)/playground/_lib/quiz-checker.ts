@@ -1,4 +1,5 @@
 import type { Edge, Node } from '@xyflow/react';
+
 import type {
   ChallengeQuizAnalytic,
   QuizQuestion,
@@ -172,12 +173,12 @@ export function calculateAnswer(
   questions: QuizQuestion[],
   edges: Edge[],
   displayedTargets: QuizTarget[],
-  questionNumber: number = 1,
+  questionNumber = 1,
 ): CalculateAnswerResult {
   let correctCount = 0;
   let wrongConnectionCount = 0;
-  const letterResults: Map<string, 'correct' | 'incorrect'> = new Map();
-  const targetResults: Map<string, 'correct' | 'incorrect'> = new Map();
+  const letterResults = new Map<string, 'correct' | 'incorrect'>();
+  const targetResults = new Map<string, 'correct' | 'incorrect'>();
 
   const allLetters: ChallengeQuizAnalytic['letters'] = [];
   const allCorrectTargets: QuizTarget[] = [];
@@ -256,11 +257,11 @@ export function applyResultsToNodes(
 ): Node[] {
   return nodes.map((node) => {
     if (node.type === 'letterQuiz') {
-      const status = letterResults.get(node.id) || 'none';
+      const status = letterResults.get(node.id) ?? 'none';
       return { ...node, data: { ...node.data, status } };
     }
     if (node.type === 'targetQuiz') {
-      const status = targetResults.get(node.id) || 'none';
+      const status = targetResults.get(node.id) ?? 'none';
       return { ...node, data: { ...node.data, status } };
     }
     return node;
@@ -284,7 +285,7 @@ export function applyResultsToEdges(
       10,
     );
     const question = questions.find((q) => q.letter.id === letterIdNum);
-    const isCorrect = question?.correctTargetIds.includes(targetIdNum) || false;
+    const isCorrect = question?.correctTargetIds.includes(targetIdNum) ?? false;
 
     return {
       ...edge,

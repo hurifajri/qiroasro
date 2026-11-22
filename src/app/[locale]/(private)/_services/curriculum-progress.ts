@@ -4,6 +4,7 @@ import { and, eq } from 'drizzle-orm';
 import { headers } from 'next/headers';
 import { unstable_rethrow } from 'next/navigation';
 import { parse } from 'valibot';
+
 import {
   userLessonProgress,
   userSectionProgress,
@@ -11,6 +12,7 @@ import {
 } from '@/db/curriculum-schema';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
+
 import { CURRICULUM_TOPICS } from '../_lib/curriculum';
 import {
   SectionProgressListSchema,

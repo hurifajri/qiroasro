@@ -2,8 +2,10 @@
 
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
 import { useQuizStore } from '../_providers/quiz';
 import type { QuizMode, QuizType } from '../_schemas/quiz';
 
@@ -29,7 +31,7 @@ export function QuizModeSelector() {
       <Button
         onClick={() => handleSelect('practice', 'articulation_point')}
         variant="outline"
-        className="h-20 w-full justify-start gap-6 px-6 font-bold text-lg uppercase"
+        className="h-20 w-full justify-start gap-6 px-6 text-lg font-bold uppercase"
       >
         <span className="text-5xl">🎯</span>
         {t('mode_articulation_point')}
@@ -38,7 +40,7 @@ export function QuizModeSelector() {
       <Button
         onClick={() => handleSelect('practice', 'trait')}
         variant="outline"
-        className="h-20 w-full justify-start gap-6 px-6 font-bold text-lg uppercase"
+        className="h-20 w-full justify-start gap-6 px-6 text-lg font-bold uppercase"
       >
         <span className="text-5xl">✨</span>
         {t('mode_trait')}
@@ -49,7 +51,7 @@ export function QuizModeSelector() {
         onClick={() => handleSelect('challenge')}
         className={cn(
           buttonVariants({ variant: 'outline' }),
-          'h-20 w-full justify-start gap-6 border-2 border-amber-400 bg-linear-to-r from-amber-50 to-yellow-50 px-6 font-bold text-lg uppercase hover:from-amber-100 hover:to-yellow-100 dark:from-amber-950 dark:to-yellow-950 dark:hover:from-amber-900 dark:hover:to-yellow-900',
+          'h-20 w-full justify-start gap-6 border-2 border-amber-400 bg-linear-to-r from-amber-50 to-yellow-50 px-6 text-lg font-bold uppercase hover:from-amber-100 hover:to-yellow-100 dark:from-amber-950 dark:to-yellow-950 dark:hover:from-amber-900 dark:hover:to-yellow-900',
         )}
         animate={{
           boxShadow: [

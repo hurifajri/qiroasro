@@ -1,4 +1,5 @@
 import { array, type InferOutput, object } from 'valibot';
+
 import {
   type ArticulationArea,
   type ArticulationPoint,

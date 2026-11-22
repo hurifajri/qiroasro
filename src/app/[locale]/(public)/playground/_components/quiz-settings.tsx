@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { SettingsIcon, TimerIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useMemo } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -11,10 +12,14 @@ import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import { getLeafLetters } from '../_lib/letter';
 import { useQuizStore } from '../_providers/quiz';
 import { getPlaygroundDataOpt } from '../_queries/playground';
-import { PRACTICE_QUIZ_TYPE_CONFIG } from '../_schemas/quiz';
+import {
+  PRACTICE_QUIZ_TYPE_CONFIG,
+  type PracticeQuizSettings,
+} from '../_schemas/quiz';
 
 type SliderKey = 'lettersPerQuiz' | 'targetsPerQuiz';
 
@@ -23,9 +28,83 @@ const SLIDER_CONFIG: { key: SliderKey; labelKey: string }[] = [
   { key: 'targetsPerQuiz', labelKey: 'practice_targets_per_quiz' },
 ];
 
-interface QuizSettingsProps {
-  hasHeader?: boolean;
+function resolveMultiEdge(
+  current: boolean,
+  primaryCount: number,
+  allowMultiEdge: boolean,
+): boolean {
+  return primaryCount <= 2 || !allowMultiEdge ? false : current;
 }
+
+function getLettersSliderUpdate(
+  newValue: number,
+  practiceSettings: PracticeQuizSettings,
+  allowMultiEdge: boolean,
+): PracticeQuizSettings {
+  if (newValue > 1) {
+    return {
+      ...practiceSettings,
+      lettersPerQuiz: newValue,
+      targetsPerQuiz: 1,
+      multiEdge: resolveMultiEdge(
+        practiceSettings.multiEdge,
+        newValue,
+        allowMultiEdge,
+      ),
+      specificLetterId: null,
+    };
+  }
+
+  const newTargets =
+    practiceSettings.targetsPerQuiz === 1 ? 2 : practiceSettings.targetsPerQuiz;
+  return {
+    ...practiceSettings,
+    lettersPerQuiz: newValue,
+    targetsPerQuiz: newTargets,
+    multiEdge: resolveMultiEdge(
+      practiceSettings.multiEdge,
+      newTargets,
+      allowMultiEdge,
+    ),
+  };
+}
+
+function getTargetsSliderUpdate(
+  newValue: number,
+  practiceSettings: PracticeQuizSettings,
+  allowMultiEdge: boolean,
+): PracticeQuizSettings {
+  if (newValue > 1) {
+    return {
+      ...practiceSettings,
+      targetsPerQuiz: newValue,
+      lettersPerQuiz: 1,
+      multiEdge: resolveMultiEdge(
+        practiceSettings.multiEdge,
+        newValue,
+        allowMultiEdge,
+      ),
+    };
+  }
+
+  const newLetters =
+    practiceSettings.lettersPerQuiz === 1 ? 2 : practiceSettings.lettersPerQuiz;
+  return {
+    ...practiceSettings,
+    targetsPerQuiz: newValue,
+    lettersPerQuiz: newLetters,
+    multiEdge: resolveMultiEdge(
+      practiceSettings.multiEdge,
+      newLetters,
+      allowMultiEdge,
+    ),
+    specificLetterId: null,
+  };
+}
+
+type QuizSettingsProps = Readonly<{
+  hasHeader?: boolean;
+}>;
 
 export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const t = useTranslations('playground_page.quiz');
@@ -36,12 +115,14 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const practiceSettings = useQuizStore((s) => s.practiceSettings);
   const setPracticeSettings = useQuizStore((s) => s.setPracticeSettings);
 
-  // Get letters from playground data
+  // Fetch playground data
   const { data: playgroundData } = useQuery(getPlaygroundDataOpt());
-  const letters = playgroundData?.letters ?? [];
 
   // Only quizzable letters (waw/ya are represented by their variant nodes)
-  const memoizedLetters = useMemo(() => getLeafLetters(letters), [letters]);
+  const memoizedLetters = useMemo(
+    () => getLeafLetters(playgroundData?.letters ?? []),
+    [playgroundData?.letters],
+  );
 
   // Get config for current type (default to trait if no type selected)
   const config = type
@@ -52,59 +133,20 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
     key: SliderKey,
     value: number | readonly number[],
   ) => {
-    const newValue = Array.isArray(value) ? value[0] : value;
-
-    if (key === 'lettersPerQuiz') {
-      if (newValue > 1) {
-        // letters > 1 means targets = 1, so multiEdge only valid if letters > 2
-        const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
-        setPracticeSettings({
-          ...practiceSettings,
-          lettersPerQuiz: newValue,
-          targetsPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
-          specificLetterId: null,
-        });
-      } else {
-        const newTargets =
-          practiceSettings.targetsPerQuiz === 1
-            ? 2
-            : practiceSettings.targetsPerQuiz;
-        // letters = 1, targets > 1, multiEdge valid if targets > 2
-        const shouldResetMultiEdge = newTargets <= 2 || !config.allowMultiEdge;
-        setPracticeSettings({
-          ...practiceSettings,
-          lettersPerQuiz: newValue,
-          targetsPerQuiz: newTargets,
-          multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
-        });
-      }
-    } else {
-      if (newValue > 1) {
-        // targets > 1 means letters = 1, so multiEdge only valid if targets > 2
-        const shouldResetMultiEdge = newValue <= 2 || !config.allowMultiEdge;
-        setPracticeSettings({
-          ...practiceSettings,
-          targetsPerQuiz: newValue,
-          lettersPerQuiz: 1,
-          multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
-        });
-      } else {
-        const newLetters =
-          practiceSettings.lettersPerQuiz === 1
-            ? 2
-            : practiceSettings.lettersPerQuiz;
-        // targets = 1, letters > 1, multiEdge valid if letters > 2
-        const shouldResetMultiEdge = newLetters <= 2 || !config.allowMultiEdge;
-        setPracticeSettings({
-          ...practiceSettings,
-          targetsPerQuiz: newValue,
-          lettersPerQuiz: newLetters,
-          multiEdge: shouldResetMultiEdge ? false : practiceSettings.multiEdge,
-          specificLetterId: null,
-        });
-      }
-    }
+    const newValue = typeof value === 'number' ? value : (value[0] ?? 1);
+    const nextSettings =
+      key === 'lettersPerQuiz'
+        ? getLettersSliderUpdate(
+            newValue,
+            practiceSettings,
+            config.allowMultiEdge,
+          )
+        : getTargetsSliderUpdate(
+            newValue,
+            practiceSettings,
+            config.allowMultiEdge,
+          );
+    setPracticeSettings(nextSettings);
   };
 
   const getSliderConfig = (key: SliderKey) => {
@@ -122,20 +164,20 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
   const hasSpecificLetter = practiceSettings.specificLetterId !== null;
   const isMultiLetter = practiceSettings.lettersPerQuiz !== 1;
 
-  const handleToggleSpecificLetters = (enabled: boolean) => {
-    if (enabled) {
-      // Set first letter when toggling ON (fallback to ID 1 if letters not loaded)
-      const firstLetterId = memoizedLetters[0]?.id ?? 1;
-      setPracticeSettings({
-        ...practiceSettings,
-        specificLetterId: firstLetterId,
-      });
-    } else {
-      setPracticeSettings({
-        ...practiceSettings,
-        specificLetterId: null,
-      });
-    }
+  const handleEnableSpecificLetter = () => {
+    // Set first letter when toggling ON (fallback to ID 1 if letters not loaded)
+    const firstLetterId = memoizedLetters[0]?.id ?? 1;
+    setPracticeSettings({
+      ...practiceSettings,
+      specificLetterId: firstLetterId,
+    });
+  };
+
+  const handleDisableSpecificLetter = () => {
+    setPracticeSettings({
+      ...practiceSettings,
+      specificLetterId: null,
+    });
   };
 
   const handleLetterClick = (letterId: number) => {
@@ -172,7 +214,7 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
                     ? t(labelKey)
                     : t(`${labelKey}_${type}`)}
                 </Label>
-                <span className="font-medium text-sm">
+                <span className="text-sm font-medium">
                   {practiceSettings[key]}
                 </span>
               </div>
@@ -209,13 +251,19 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
               dir={dir}
               checked={hasSpecificLetter && !isMultiLetter}
               disabled={isMultiLetter}
-              onCheckedChange={handleToggleSpecificLetters}
+              onCheckedChange={(checked) => {
+                if (checked) {
+                  handleEnableSpecificLetter();
+                } else {
+                  handleDisableSpecificLetter();
+                }
+              }}
             />
           </div>
 
           {hasSpecificLetter && !isMultiLetter && (
             <div className="flex flex-col gap-2">
-              <p className="text-muted-foreground text-xs">
+              <p className="text-xs text-muted-foreground">
                 {t('practice_specific_letters_hint')}
               </p>
               <div className="flex flex-wrap gap-1">
@@ -255,10 +303,10 @@ export function QuizSettings({ hasHeader = false }: QuizSettingsProps) {
           </div>
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <Label className="text-muted-foreground text-sm">
+              <Label className="text-sm text-muted-foreground">
                 {t('practice_timer_duration')}
               </Label>
-              <span className="font-medium text-sm">
+              <span className="text-sm font-medium">
                 {practiceSettings.timerDuration}
               </span>
             </div>

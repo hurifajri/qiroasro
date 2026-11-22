@@ -1,5 +1,7 @@
 import { FlameIcon, GemIcon, HeartIcon, ZapIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+
 import type { UserStats } from '../_schemas/private';
 import { StatItem } from './stat-item';
 
@@ -12,7 +14,7 @@ interface StatListProps {
  * Top stats bar showing XP, Streak, Hearts, and Gems.
  * Responsive: horizontal on desktop, compact on mobile.
  */
-export function StatList({ stats, className }: StatListProps) {
+export function StatList({ stats, className }: Readonly<StatListProps>) {
   const { xp, streak, hearts, gems } = stats;
 
   return (

@@ -3,7 +3,9 @@
 import { ClockIcon, FlameIcon, ZapIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
+
 import { useQuizStore } from '../_providers/quiz';
 import {
   CHALLENGE_QUIZ_LEVEL,
@@ -64,11 +66,11 @@ export function ChallengeDifficultySelector() {
             >
               <div className="flex items-center gap-2">
                 <Icon className={`size-5 ${uiConfig.color}`} />
-                <span className="font-semibold text-lg">
+                <span className="text-lg font-semibold">
                   {t(`challenge_difficulty_${difficulty}`)}
                 </span>
               </div>
-              <span className="text-muted-foreground text-sm">
+              <span className="text-sm text-muted-foreground">
                 {t('challenge_seconds_per_question', {
                   seconds: modeConfig.timerDuration,
                 })}

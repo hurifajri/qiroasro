@@ -1,10 +1,12 @@
 import '@/styles/global.css';
+
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata, Viewport } from 'next';
 import { Noto_Naskh_Arabic, Outfit } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
+
 import { env } from '@/env';
 import { getLocaleDir } from '@/i18n/locale';
 import { routing } from '@/i18n/routing';
@@ -66,15 +68,12 @@ export const viewport: Viewport = {
 export default async function RootLayout({
   children,
   params,
-}: RootLayoutProps) {
+}: Readonly<RootLayoutProps>) {
   const { locale } = await params;
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const dir = getLocaleDir(locale);
 

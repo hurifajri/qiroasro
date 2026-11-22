@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +18,7 @@ interface LocaleSelectorProps {
   userId?: string;
 }
 
-export function LocaleSelector({ userId }: LocaleSelectorProps) {
+export function LocaleSelector({ userId }: Readonly<LocaleSelectorProps>) {
   const locale = useLocale() as Locale;
   const dir = getLocaleDir(locale);
   const router = useRouter();

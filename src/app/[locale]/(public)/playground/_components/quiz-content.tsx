@@ -11,7 +11,9 @@ import type {
   OnNodesChange,
 } from '@xyflow/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/lib/utils';
+
 import type { QuizMode } from '../_schemas/quiz';
 import { QuizCanvas } from './quiz-canvas';
 
@@ -42,7 +44,7 @@ export function QuizContent({
   isValidConnection,
   headerContent,
   extraTopOffset = 0,
-}: QuizContentProps) {
+}: Readonly<QuizContentProps>) {
   const headerRef = useRef<HTMLDivElement>(null);
   const [canvasHeight, setCanvasHeight] = useState<number>(634);
 

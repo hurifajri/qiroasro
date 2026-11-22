@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
+
 import type { Letter, LetterTafkhimType } from './letter';
 import type { NODE_TYPES } from './node';
 
@@ -79,11 +80,11 @@ export const PRACTICE_QUIZ_DEFAULT_SETTINGS: PracticeQuizSettings = {
 // Track weakness for detailed analysis
 export interface ChallengeQuizAnalytic {
   questionNumber: number;
-  letters: Array<{
+  letters: {
     id: number;
     symbol: string;
     tafkhimType: LetterTafkhimType;
-  }>;
+  }[];
   targetType: QuizType;
   correctTargets: QuizTarget[];
   displayedTargets: QuizTarget[]; // All targets shown on screen (including distractors)

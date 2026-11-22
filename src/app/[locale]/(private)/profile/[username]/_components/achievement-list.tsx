@@ -1,4 +1,5 @@
 import { ItemGroup } from '@/components/ui/item';
+
 import type { Achievement } from '../../../_schemas/achievement';
 import { AchievementItem } from './achievement-item';
 
@@ -6,7 +7,9 @@ interface AchievementListProps {
   achievements: Achievement[];
 }
 
-export function AchievementList({ achievements }: AchievementListProps) {
+export function AchievementList({
+  achievements,
+}: Readonly<AchievementListProps>) {
   return (
     <ItemGroup>
       {achievements.map((achievement) => (

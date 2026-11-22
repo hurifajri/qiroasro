@@ -2,6 +2,7 @@
 
 import { TriangleAlertIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -20,14 +21,14 @@ interface PlaygroundErrorProps {
 export default function PlaygroundError({
   error,
   reset,
-}: PlaygroundErrorProps) {
+}: Readonly<PlaygroundErrorProps>) {
   const t = useTranslations('playground_page.error');
 
   return (
     <div className="flex h-[calc(100dvh-49px)] flex-col items-center justify-center p-4">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-1 font-semibold text-foreground text-xl">
+          <CardTitle className="flex items-center gap-1 text-xl font-semibold text-foreground">
             <TriangleAlertIcon />
             {t('title')}
           </CardTitle>
@@ -35,7 +36,7 @@ export default function PlaygroundError({
         </CardHeader>
         <CardContent className="min-w-sm">
           {error.digest && (
-            <p className="mt-1 font-mono text-muted-foreground text-xs">
+            <p className="mt-1 font-mono text-xs text-muted-foreground">
               Error ID: {error.digest}
             </p>
           )}

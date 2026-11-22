@@ -1,4 +1,5 @@
 import type { Node } from '@xyflow/react';
+
 import type { HierarchyDirection, ViewMode } from '../_schemas/graph';
 import { getNodeHeight, getNodeWidth } from './node';
 
@@ -33,6 +34,7 @@ function getHierarchicalLayer(node: Node, hasChildLetters: boolean): number {
     case 'traitGroup':
     case 'articulationArea':
       return detailLayer + 1;
+    case undefined:
     default:
       return 0;
   }
@@ -153,6 +155,7 @@ function getRadialRing(node: Node): RadialRing {
     case 'articulationArea':
     case 'traitGroup':
       return 'group';
+    case undefined:
     default:
       return 'letter';
   }

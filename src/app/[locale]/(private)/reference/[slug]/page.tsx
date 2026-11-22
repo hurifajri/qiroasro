@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { CURRICULUM_TOPICS } from '../../_lib/curriculum';
 
 type PageProps = {
@@ -29,19 +30,23 @@ export async function generateMetadata({
   };
 }
 
-export default async function ReferenceSlugPage({ params }: PageProps) {
+export default async function ReferenceSlugPage({
+  params,
+}: Readonly<PageProps>) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
 
   const topic = CURRICULUM_TOPICS.find((t) => t.slug === slug);
-  if (!topic || !topic.available) notFound();
+  if (!topic?.available) notFound();
 
+  let Content: React.ComponentType;
   try {
-    const { default: Content } = await import(
-      `../_contents/${slug}/${locale}.mdx`
-    );
-    return <Content />;
+    const mod = (await import(`../_contents/${slug}/${locale}.mdx`)) as {
+      default: React.ComponentType;
+    };
+    Content = mod.default;
   } catch {
     notFound();
   }
+
+  return <Content />;
 }

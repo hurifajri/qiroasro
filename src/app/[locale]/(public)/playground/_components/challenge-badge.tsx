@@ -2,7 +2,9 @@
 
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { cn } from '@/lib/utils';
+
 import { getBadge } from '../_lib/challenge-results';
 import type { ChallengeQuizDifficulty } from '../_schemas/quiz';
 
@@ -11,7 +13,10 @@ interface ChallengeBadgeProps {
   accuracy: number;
 }
 
-export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
+export function ChallengeBadge({
+  difficulty,
+  accuracy,
+}: Readonly<ChallengeBadgeProps>) {
   const t = useTranslations('playground_page.quiz');
   const badge = getBadge(accuracy);
 
@@ -23,7 +28,7 @@ export function ChallengeBadge({ difficulty, accuracy }: ChallengeBadgeProps) {
       transition={{ type: 'spring', stiffness: 200, damping: 15 }}
     >
       <span className="text-6xl">{badge.emoji}</span>
-      <span className={cn('font-bold text-2xl', badge.color)}>
+      <span className={cn('text-2xl font-bold', badge.color)}>
         {t(badge.key)}
       </span>
       <div className="flex items-center gap-2 text-muted-foreground">

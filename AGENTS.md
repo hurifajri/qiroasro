@@ -1,6 +1,6 @@
 # AGENTS.md - Qiroasro Development Guide
 
-Qiroasro is an interactive Tajweed & Quran recitation learning platform built with **Next.js 16.4 (App Router)**, **React 19.2** (`reactCompiler: true`), **TypeScript 5 (strict)**, **Tailwind CSS v4**, **Drizzle ORM + PostgreSQL**, **Better Auth**, **`next-intl` v4**, **TanStack Query v5**, **TanStack Form v1**, **Valibot v1**, **Zustand v5**, **`@xyflow/react` v12**, and **Biome 2.3**.
+Qiroasro is an interactive Tajweed & Quran recitation learning platform built with **Next.js 16.4 (App Router)**, **React 19.2** (`reactCompiler: true`), **TypeScript 5 (strict)**, **Tailwind CSS v4**, **Drizzle ORM + PostgreSQL**, **Better Auth**, **`next-intl` v4**, **TanStack Query v5**, **TanStack Form v1**, **Valibot v1**, **Zustand v5**, **`@xyflow/react` v12**, and **ESLint 9 + Prettier 3**.
 
 ---
 
@@ -8,17 +8,17 @@ Qiroasro is an interactive Tajweed & Quran recitation learning platform built wi
 
 All commands use **pnpm** (never `npm` or `yarn`).
 
-| Command | Purpose |
-|---------|---------|
-| `pnpm dev` | Start Next.js dev server (port 3000) |
-| `pnpm build` / `pnpm start` | Production build / serve |
-| `pnpm build:analyze` | Bundle analysis (`next analyze`) |
-| `pnpm check` | Read-only Biome lint & format check (`biome check && biome format`) |
-| `pnpm fix` | Apply Biome fixes & formatting (`biome check --write --unsafe && biome format --write`) |
-| `pnpm check:types` | TypeScript type check (`tsc --noEmit --pretty`) |
-| `pnpm check:packages` | Read-only outdated dependency check (`npm-check-updates`; pass `-u` to upgrade) |
-| `pnpm db:push` | Push Drizzle schema directly to DB (no migration files) |
-| `pnpm db:seed` | Run SQL seed files in `docs/sql/` via `tsx src/db/seed.ts` |
+| Command                     | Purpose                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------- |
+| `pnpm dev`                  | Start Next.js dev server (port 3000)                                            |
+| `pnpm build` / `pnpm start` | Production build / serve                                                        |
+| `pnpm build:analyze`        | Bundle analysis (`next analyze`)                                                |
+| `pnpm check`                | Read-only ESLint & Prettier check (`eslint . && prettier --check .`)            |
+| `pnpm fix`                  | Apply ESLint fixes (unused/sorted imports) & Prettier formatting                |
+| `pnpm check:types`          | TypeScript type check (`tsc --noEmit --pretty`)                                 |
+| `pnpm check:packages`       | Read-only outdated dependency check (`npm-check-updates`; pass `-u` to upgrade) |
+| `pnpm db:push`              | Push Drizzle schema directly to DB (no migration files)                         |
+| `pnpm db:seed`              | Run SQL seed files in `docs/sql/` via `tsx src/db/seed.ts`                      |
 
 - **Before committing:** run `pnpm check && pnpm check:types`. Husky enforces Conventional Commits (`commitlint`) on `commit-msg`.
 - **Gotchas:** CI (`.github/workflows/check.yml`) runs parallel `lint-and-types` (`pnpm check`, `pnpm check:types`) and `build` (`pnpm build` with dummy env vars — add `pnpm test` once Vitest/MSW is configured). Pages that query the DB only at runtime must opt into dynamic rendering (e.g., `await connection()` from `'next/server'`) so `pnpm build` with dummy `DATABASE_URL` does not fail during static prerendering. Releases are automated via `release-please` on `main`.
@@ -87,7 +87,7 @@ src/
 
 ## 3. Code Style & Naming Conventions
 
-Configured in `biome.json` (`2.3.x`): **80-char** line width, **2 spaces**, LF, single quotes JS / double JSX, trailing commas (except JSON), semicolons always, `organizeImports: "on"`, `linter.domains` (`next`, `react`, `test`), `noUnusedImports: "error"`, `useSortedClasses: "error"` (`clsx`, `cva`, `cn`, `tw`), and `useNamingConvention: "error"` (`strictCase: false`, allowing `snake_case` on object literal properties).
+Configured in `eslint.config.mjs` (ESLint 9 Flat Config) and `prettier.config.mjs` (Prettier 3): **80-char** line width, **2 spaces**, LF, single quotes JS / double JSX, trailing commas (`all`), semicolons always, auto-removed unused imports (`unused-imports/no-unused-imports`), auto-sorted imports/exports (`simple-import-sort`), Tailwind v4 class sorting (`prettier-plugin-tailwindcss` for `clsx`/`cva`/`cn`/`tw`), SonarQube rules (`eslint-plugin-sonarjs`), Next.js Core Web Vitals + React Compiler (`eslint-config-next`), type-aware `typescript-eslint`, TanStack Query (`@tanstack/eslint-plugin-query`), and Drizzle ORM (`eslint-plugin-drizzle`).
 
 - **Files:** `kebab-case.tsx` (components), `use-*.ts` (hooks), `kebab-case.ts` (helpers/schemas/stores/services), `*.test.ts(x)` (unit/integration), `*.spec.ts` (Playwright E2E), Next.js conventions (`page.tsx`, `layout.tsx`, `error.tsx`, `proxy.ts`).
 - **Symbols:** `PascalCase` components & types; `<ComponentName>Props`; `camelCase` functions/vars; `SCREAMING_SNAKE_CASE` constants; `<Entity>Schema` / `Remote<Entity>Schema`; `<Domain>Store` / `create<Domain>Store`; `<entity>Keys` / `get<Entity>Opt`; `handle*` internal handlers vs `on*` callback props; booleans prefixed with `is`/`has`/`should`/`can`.
@@ -151,13 +151,13 @@ type LocalePageProps = Readonly<{
 
 ## 6. State Management (Zustand v5)
 
-| State Kind | Owner |
-|------------|-------|
-| Server / async data | **RSC + TanStack Query v5** |
-| Shareable / navigable filters & tabs | **URL `searchParams`** |
-| Forms & validation | **TanStack Form v1 / `useActionState`** |
-| Ephemeral local UI | **React `useState`** |
-| Shared client feature state | **Zustand v5** (scoped provider) |
+| State Kind                           | Owner                                   |
+| ------------------------------------ | --------------------------------------- |
+| Server / async data                  | **RSC + TanStack Query v5**             |
+| Shareable / navigable filters & tabs | **URL `searchParams`**                  |
+| Forms & validation                   | **TanStack Form v1 / `useActionState`** |
+| Ephemeral local UI                   | **React `useState`**                    |
+| Shared client feature state          | **Zustand v5** (scoped provider)        |
 
 - **React 19 + React Compiler Safe Provider:** Initialize vanilla stores (`createStore`) inside `useState(() => createQuizStore())` — **never** read or write `ref.current` during render (`react-hooks/refs`). Provide via `<QuizStoreContext value={store}>` and read via `use(QuizStoreContext)`. Wrap provider props in `Readonly<PropsWithChildren>`.
 - **Zustand v5 Selectors:** Subscribe to primitive/function fields, or wrap multi-field/derived objects/arrays with `useShallow` from `'zustand/react/shallow'` to prevent `useSyncExternalStore` infinite re-render loops. Never select `(s) => s`.

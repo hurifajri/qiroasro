@@ -5,7 +5,8 @@ import {
 } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { ACHIEVEMENTS } from '../../_lib/achievement';
 import { getUserProfileByUsernameOpt } from '../../_queries/user-profile';
 import { Profile } from './_components/profile';
@@ -31,12 +32,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProfilePage({ params }: PageProps) {
+export default async function ProfilePage({ params }: Readonly<PageProps>) {
   const { locale, username } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
-
   const t = await getTranslations({ locale, namespace: 'profile_page' });
 
   const queryClient = new QueryClient();

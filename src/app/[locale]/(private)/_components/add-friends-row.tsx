@@ -1,5 +1,6 @@
 import { ChevronRightIcon, SearchIcon, UserPlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 
@@ -23,7 +24,7 @@ export function AddFriendsRow({
   iconBgClass,
   iconClass,
   labelKey,
-}: AddFriendsRowProps) {
+}: Readonly<AddFriendsRowProps>) {
   const t = useTranslations('global.private_layout');
   const Icon = iconMap[iconName];
 

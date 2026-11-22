@@ -3,6 +3,7 @@
 import { MonitorIcon, MoonIcon, SunIcon } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +16,12 @@ import type { Locale } from '@/i18n/routing';
 
 const themeSelectorClassName =
   'flex size-8 items-center justify-center rounded-full border border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50';
+
+function renderThemeIcon(theme: string | undefined) {
+  if (theme === 'system') return <MonitorIcon className="size-4" />;
+  if (theme === 'dark') return <MoonIcon className="size-4" />;
+  return <SunIcon className="size-4" />;
+}
 
 export function ThemeSelector() {
   const t = useTranslations('global.color_mode');
@@ -33,13 +40,7 @@ export function ThemeSelector() {
         id="tour-theme-selector"
         className={themeSelectorClassName}
       >
-        {theme === 'system' ? (
-          <MonitorIcon className="size-4" />
-        ) : theme === 'dark' ? (
-          <MoonIcon className="size-4" />
-        ) : (
-          <SunIcon className="size-4" />
-        )}
+        {renderThemeIcon(theme)}
         <span className="sr-only">{t('title')}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

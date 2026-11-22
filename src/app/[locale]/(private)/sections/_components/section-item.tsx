@@ -1,5 +1,6 @@
 import { CheckCircleIcon, LockIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -10,14 +11,15 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
+
 import type { SectionWithProgress } from '../../_schemas/curriculum-progress';
 
-interface SectionItemProps {
+type SectionItemProps = Readonly<{
   section: SectionWithProgress;
   onStart: (section: SectionWithProgress) => void;
   onContinue: (section: SectionWithProgress) => void;
   onReview: (section: SectionWithProgress) => void;
-}
+}>;
 
 export function SectionItem({
   section,
@@ -33,11 +35,12 @@ export function SectionItem({
   const isAvailable = status === 'available';
   const isLocked = status === 'locked';
 
-  const progressColor = isCompleted
-    ? 'bg-emerald-500'
-    : isLocked
-      ? 'bg-muted'
-      : 'bg-primary';
+  let progressColor = 'bg-primary';
+  if (isCompleted) {
+    progressColor = 'bg-emerald-500';
+  } else if (isLocked) {
+    progressColor = 'bg-muted';
+  }
 
   return (
     <Item variant="outline" asChild>

@@ -2,6 +2,7 @@
 
 import { ArrowLeftIcon, BookOpenIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -13,6 +14,7 @@ import {
 import { useRouter } from '@/i18n/navigation';
 import { getCardColorClass } from '@/lib/colors';
 import { cn, spaceToKebabCase } from '@/lib/utils';
+
 import type { CurriculumUnit } from '../../_lib/curriculum';
 
 interface UnitHeaderProps {
@@ -25,7 +27,11 @@ interface UnitHeaderProps {
  * Sticky unit header like Duolingo's section headers.
  * Shows section info, unit title, and guidebook button.
  */
-export function UnitHeader({ unit, topicSlug, topicTitle }: UnitHeaderProps) {
+export function UnitHeader({
+  unit,
+  topicSlug,
+  topicTitle,
+}: Readonly<UnitHeaderProps>) {
   const t = useTranslations();
   const router = useRouter();
 

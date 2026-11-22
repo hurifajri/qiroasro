@@ -4,7 +4,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     ...components,
     wrapper: ({ children }) => (
-      <article className="prose dark:prose-invert mx-auto px-6 text-xl">
+      <article className="mx-auto prose px-6 text-xl dark:prose-invert">
         {children}
       </article>
     ),

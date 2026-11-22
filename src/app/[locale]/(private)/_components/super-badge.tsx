@@ -1,4 +1,5 @@
 import { SparklesIcon } from 'lucide-react';
+
 import { Badge } from '@/components/ui/badge';
 
 export function SuperBadge() {

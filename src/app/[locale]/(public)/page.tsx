@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import {
   getAlternateLanguages,
   getLocalePath,
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
+
 import { Home } from './_components/home';
 
-type PageProps = {
+type PageProps = Readonly<{
   params: Promise<{ locale: string }>;
-};
+}>;
 
 export async function generateMetadata({
   params,
@@ -35,9 +37,6 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
-
-  // Enable static rendering
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'home_page' });
 

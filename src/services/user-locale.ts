@@ -1,6 +1,7 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
+
 import { userProfiles } from '@/db/user-schema';
 import type { Locale } from '@/i18n/routing';
 import { db } from '@/lib/db';

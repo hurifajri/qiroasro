@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
+
 import {
   Card,
   CardContent,
@@ -8,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
 import { LoginButton } from './login-button';
 
 export function Login() {
@@ -30,7 +32,7 @@ export function Login() {
           </Suspense>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <p className="text-center text-muted-foreground text-xs">
+          <p className="text-center text-xs text-muted-foreground">
             {t('terms')}
           </p>
         </CardFooter>

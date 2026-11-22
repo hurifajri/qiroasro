@@ -4,7 +4,8 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
+
 import { getSectionsWithProgressOpt } from '../_queries/curriculum-progress';
 import { Sections } from './_components/sections';
 
@@ -28,10 +29,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function SectionsPage({ params }: PageProps) {
+export default async function SectionsPage({ params }: Readonly<PageProps>) {
   const { locale } = await params;
-
-  setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'sections_page' });
 

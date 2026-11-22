@@ -1,4 +1,5 @@
 import { type InferOutput, object, optional, picklist, string } from 'valibot';
+
 import { EMOJI_COLOR_CODES } from '@/lib/colors';
 
 /**

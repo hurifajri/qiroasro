@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
@@ -10,6 +11,7 @@ import {
 import { ItemGroup } from '@/components/ui/item';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
+
 import type { MonthlyBadge } from '../_schemas/badge';
 import { MonthlyBadgesRow } from './monthly-badges-row';
 
@@ -17,7 +19,9 @@ interface MonthlyBadgesCardProps {
   badges: MonthlyBadge[];
 }
 
-export function MonthlyBadgesCard({ badges }: MonthlyBadgesCardProps) {
+export function MonthlyBadgesCard({
+  badges,
+}: Readonly<MonthlyBadgesCardProps>) {
   const t = useTranslations('global.private_layout');
 
   return (

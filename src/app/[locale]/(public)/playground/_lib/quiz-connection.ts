@@ -6,6 +6,45 @@ interface ConnectionValidatorOptions {
   multiEdge: boolean;
 }
 
+function canAddMultiEdge(
+  connection: Connection,
+  edges: Edge[],
+  nodes: Node[],
+  lettersPerQuiz: number,
+  targetsPerQuiz: number,
+): boolean {
+  if (lettersPerQuiz === 1 && targetsPerQuiz > 1) {
+    if (edges.some((e) => e.target === connection.target)) return false;
+    const targetNodes = nodes.filter((n) => n.type === 'targetQuiz');
+    return edges.length < targetNodes.length - 1;
+  }
+
+  if (lettersPerQuiz > 1 && targetsPerQuiz === 1) {
+    if (edges.some((e) => e.source === connection.source)) return false;
+    const letterNodes = nodes.filter((n) => n.type === 'letterQuiz');
+    return edges.length < letterNodes.length - 1;
+  }
+
+  return true;
+}
+
+function filterExistingEdges(
+  connection: Connection,
+  edges: Edge[],
+  lettersPerQuiz: number,
+  targetsPerQuiz: number,
+): Edge[] {
+  if (lettersPerQuiz === 1 && targetsPerQuiz > 1) {
+    return edges.filter((e) => e.source !== connection.source);
+  }
+  if (lettersPerQuiz > 1 && targetsPerQuiz === 1) {
+    return edges.filter((e) => e.target !== connection.target);
+  }
+  return edges.filter(
+    (e) => e.source !== connection.source && e.target !== connection.target,
+  );
+}
+
 /**
  * Handles new connection logic for quiz.
  * Returns updated edges array or null if connection should be rejected.
@@ -19,41 +58,17 @@ export function handleQuizConnection(
   if (!connection.source || !connection.target) return null;
 
   const { lettersPerQuiz, targetsPerQuiz, multiEdge } = options;
-  let newEdges: Edge[];
 
-  if (multiEdge) {
-    if (lettersPerQuiz === 1 && targetsPerQuiz > 1) {
-      const connectionExists = edges.some(
-        (e) => e.target === connection.target,
-      );
-      if (connectionExists) return null;
-      const targetNodes = nodes.filter((n) => n.type === 'targetQuiz');
-      const maxEdges = targetNodes.length - 1;
-      if (edges.length >= maxEdges) return null;
-    }
-
-    if (lettersPerQuiz > 1 && targetsPerQuiz === 1) {
-      const connectionExists = edges.some(
-        (e) => e.source === connection.source,
-      );
-      if (connectionExists) return null;
-      const letterNodes = nodes.filter((n) => n.type === 'letterQuiz');
-      const maxEdges = letterNodes.length - 1;
-      if (edges.length >= maxEdges) return null;
-    }
-
-    newEdges = edges;
-  } else {
-    if (lettersPerQuiz === 1 && targetsPerQuiz > 1) {
-      newEdges = edges.filter((e) => e.source !== connection.source);
-    } else if (lettersPerQuiz > 1 && targetsPerQuiz === 1) {
-      newEdges = edges.filter((e) => e.target !== connection.target);
-    } else {
-      newEdges = edges.filter(
-        (e) => e.source !== connection.source && e.target !== connection.target,
-      );
-    }
+  if (
+    multiEdge &&
+    !canAddMultiEdge(connection, edges, nodes, lettersPerQuiz, targetsPerQuiz)
+  ) {
+    return null;
   }
+
+  const newEdges = multiEdge
+    ? edges
+    : filterExistingEdges(connection, edges, lettersPerQuiz, targetsPerQuiz);
 
   const newEdge: Edge = {
     ...connection,

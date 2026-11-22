@@ -1,6 +1,7 @@
 'use client';
 
 import { TimerIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 export interface QuizTimerProps {
@@ -23,7 +24,7 @@ export function QuizTimer({
   warningThreshold = 10,
   criticalThreshold = 5,
   className,
-}: QuizTimerProps) {
+}: Readonly<QuizTimerProps>) {
   const getTimerStyles = () => {
     if (timeRemaining <= criticalThreshold) {
       return 'animate-pulse border-destructive bg-destructive/10 text-destructive';
@@ -37,7 +38,7 @@ export function QuizTimer({
   return (
     <div
       className={cn(
-        'flex w-20 items-center gap-2 self-center rounded-full border px-4 py-1.5 font-medium text-sm',
+        'flex w-20 items-center gap-2 self-center rounded-full border px-4 py-1.5 text-sm font-medium',
         getTimerStyles(),
         className,
       )}

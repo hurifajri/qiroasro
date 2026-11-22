@@ -1,5 +1,6 @@
 import { ItemGroup } from '@/components/ui/item';
 import { Separator } from '@/components/ui/separator';
+
 import { LeaderboardRow } from '../../_components/leaderboard-row';
 import type { FullLeaderboardEntry } from '../_schemas/leaderboard';
 
@@ -7,7 +8,7 @@ interface LeaderboardListProps {
   entries: FullLeaderboardEntry[];
 }
 
-export function LeaderboardList({ entries }: LeaderboardListProps) {
+export function LeaderboardList({ entries }: Readonly<LeaderboardListProps>) {
   // Separate promotion zone (top 3), safe zone, and demotion zone (bottom 3)
   const promotionZone = entries.filter((e) => e.rank <= 3);
   const safeZone = entries.filter((e) => e.rank > 3 && e.rank <= 7);

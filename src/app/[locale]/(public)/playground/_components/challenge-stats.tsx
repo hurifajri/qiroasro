@@ -8,7 +8,9 @@ import {
 } from 'lucide-react';
 import * as m from 'motion/react-m';
 import { useTranslations } from 'next-intl';
+
 import { cn, parseDuration } from '@/lib/utils';
+
 import type {
   ChallengeConnectionStatItem,
   ChallengeQuizResult,
@@ -20,7 +22,10 @@ interface ChallengeStatsProps {
   accuracy: number;
 }
 
-export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
+export function ChallengeStats({
+  result,
+  accuracy,
+}: Readonly<ChallengeStatsProps>) {
   const t = useTranslations('playground_page.quiz');
   const duration = parseDuration(result.totalTime);
 
@@ -93,7 +98,7 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
             <span className={cn('font-bold', stat.valueClass)}>
               {stat.value}
             </span>
-            <span className="text-muted-foreground text-xs">
+            <span className="text-xs text-muted-foreground">
               {t(stat.labelKey)}
             </span>
           </div>
@@ -109,10 +114,10 @@ export function ChallengeStats({ result, accuracy }: ChallengeStatsProps) {
       >
         {connectionStats.map((stat) => (
           <div key={stat.labelKey} className="flex flex-col items-center">
-            <span className={cn('font-semibold text-lg', stat.valueClass)}>
+            <span className={cn('text-lg font-semibold', stat.valueClass)}>
               {stat.value}
             </span>
-            <span className="text-muted-foreground text-xs">
+            <span className="text-xs text-muted-foreground">
               {t(stat.labelKey)}
             </span>
           </div>

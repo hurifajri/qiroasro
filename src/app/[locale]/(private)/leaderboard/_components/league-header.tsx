@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
+
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+
 import type { League } from '../../_schemas/league';
 import type { LeagueNameKey } from '../../_schemas/private';
 
@@ -9,7 +11,10 @@ interface LeagueHeaderProps {
   nameKey: LeagueNameKey;
 }
 
-export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
+export function LeagueHeader({
+  leagues,
+  nameKey,
+}: Readonly<LeagueHeaderProps>) {
   const t = useTranslations();
 
   const currentLeague = leagues.find((l) => l.nameKey === nameKey);
@@ -57,7 +62,7 @@ export function LeagueHeader({ leagues, nameKey }: LeagueHeaderProps) {
 
       {/* League name */}
       <div className="flex flex-col items-center gap-2">
-        <h2 className="font-bold text-lg">{leagueName}</h2>
+        <h2 className="text-lg font-bold">{leagueName}</h2>
         <Badge variant="secondary">{t('leaderboard_page.week_info')}</Badge>
       </div>
     </div>

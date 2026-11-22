@@ -2,10 +2,12 @@ import type { NodeProps } from '@xyflow/react';
 import { CircleQuestionMarkIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { memo, useState } from 'react';
+
 import { BaseHandle } from '@/components/graph/base-handle';
 import { BaseNode, BaseNodeContent } from '@/components/graph/base-node';
 import { NodeAppendix } from '@/components/graph/node-appendix';
 import { cn, kebabToSnakeCase } from '@/lib/utils';
+
 import { useNodeLayout } from '../_hooks/use-node-layout';
 import type { BaseNodeData } from '../_schemas/node';
 import type { Trait, TraitGroup } from '../_schemas/trait';
@@ -14,7 +16,10 @@ import { NodeInfoDialog } from './node-info-dialog';
 type TraitGroupNodeData = TraitGroup & BaseNodeData;
 type TraitNodeData = Trait & BaseNodeData;
 
-export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
+export const TraitGroupNode = memo(function TraitGroupNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global.trait_group');
   const nodeData = data as TraitGroupNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -38,7 +43,7 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
         isConnectable={false}
       />
 
-      <BaseNodeContent className="flex select-none flex-col items-center p-0 font-semibold text-node-letter-text text-sm capitalize">
+      <BaseNodeContent className="flex flex-col items-center p-0 text-sm font-semibold text-node-letter-text capitalize select-none">
         {label}
       </BaseNodeContent>
 
@@ -52,7 +57,10 @@ export const TraitGroupNode = memo(({ data, selected }: NodeProps) => {
   );
 });
 
-export const TraitNode = memo(({ data, selected }: NodeProps) => {
+export const TraitNode = memo(function TraitNode({
+  data,
+  selected,
+}: NodeProps) {
   const t = useTranslations('global');
   const nodeData = data as TraitNodeData;
   const localeKey = kebabToSnakeCase(nodeData.slug);
@@ -82,7 +90,7 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
               onClick={() => {
                 setIsDialogOpen(true);
               }}
-              className="nodrag size-5 animate-node-appendix-pulse cursor-pointer text-node-trait/50 transition-transform"
+              className="nodrag animate-node-appendix-pulse size-5 cursor-pointer text-node-trait/50 transition-transform"
             />
           </NodeAppendix>
         )}
@@ -94,7 +102,7 @@ export const TraitNode = memo(({ data, selected }: NodeProps) => {
           isConnectable={false}
         />
 
-        <BaseNodeContent className="flex select-none flex-col items-center p-0 font-medium text-xs capitalize">
+        <BaseNodeContent className="flex flex-col items-center p-0 text-xs font-medium capitalize select-none">
           {label}
         </BaseNodeContent>
 

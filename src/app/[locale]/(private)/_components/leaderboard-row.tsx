@@ -6,6 +6,7 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 import { cn } from '@/lib/utils';
+
 import type { LeaderboardEntry } from '../_schemas/private';
 
 interface LeaderboardRowProps {
@@ -15,7 +16,7 @@ interface LeaderboardRowProps {
   };
 }
 
-export function LeaderboardRow({ entry }: LeaderboardRowProps) {
+export function LeaderboardRow({ entry }: Readonly<LeaderboardRowProps>) {
   const { rank, name, xp, isCurrentUser } = entry;
 
   // Medal colors for top 3
@@ -41,7 +42,7 @@ export function LeaderboardRow({ entry }: LeaderboardRowProps) {
         <ItemMedia>
           <div
             className={cn(
-              'flex size-8 shrink-0 items-center justify-center rounded-full font-bold text-sm',
+              'flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold',
               getMedalStyle(),
             )}
           >
