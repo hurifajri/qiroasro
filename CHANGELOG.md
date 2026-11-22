@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.1](https://github.com/hurifajri/qiroasro/compare/v0.3.0...v0.3.1) (2026-11-22)
+
+
+### Bug Fixes
+
+* **playground:** disable pan/zoom and enforce single detail filter in mobile all view ([#43](https://github.com/hurifajri/qiroasro/issues/43)) ([36f39c3](https://github.com/hurifajri/qiroasro/commit/36f39c32d17e9f9272b1aa57a4a8f0b256df3230))
+* **playground:** expand panels and reset filters when starting tour ([#39](https://github.com/hurifajri/qiroasro/issues/39)) ([115516d](https://github.com/hurifajri/qiroasro/commit/115516dfd0860477e55a8e8fb1e9469993306049))
+* **playground:** hide traits and articulations by default in mobile all view ([#42](https://github.com/hurifajri/qiroasro/issues/42)) ([edb0347](https://github.com/hurifajri/qiroasro/commit/edb03475c8839f5d691cac199be0c0ee1fb6dca7))
+* **playground:** optimize mobile canvas rendering and enable all view mode ([#41](https://github.com/hurifajri/qiroasro/issues/41)) ([ee5e4c2](https://github.com/hurifajri/qiroasro/commit/ee5e4c278b9489e41f2e96d347af8a7269435be6))
+* **playground:** paint download loading state before exporting image ([#45](https://github.com/hurifajri/qiroasro/issues/45)) ([627886e](https://github.com/hurifajri/qiroasro/commit/627886e5fcd504d5fb7283dfd0a8bd010ddcc9b1))
+* **playground:** resolve quiz, tour, filter bugs and optimize rendering ([#46](https://github.com/hurifajri/qiroasro/issues/46)) ([22c848c](https://github.com/hurifajri/qiroasro/commit/22c848cf9d38260dca249d6b44ad5f198e07779f))
+
+
+### Performance Improvements
+
+* **playground:** render graph edges on a single canvas ([#44](https://github.com/hurifajri/qiroasro/issues/44)) ([364a768](https://github.com/hurifajri/qiroasro/commit/364a768adfb7112cdc5592684e62bd825c68dd70))
+
 ## [0.3.0](https://github.com/hurifajri/qiroasro/compare/v0.2.0...v0.3.0) (2026-11-21)
 
 
