@@ -56,7 +56,17 @@
     },
     "enabled": true,
     "rules": {
+      "complexity": {
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": {
+            "maxAllowedComplexity": 15
+          }
+        }
+      },
       "correctness": {
+        "noNestedComponentDefinitions": "error",
+        "noReactPropAssignments": "error",
         "noUnusedImports": "error",
         "useExhaustiveDependencies": "info"
       },
@@ -71,6 +81,9 @@
       },
       "recommended": true,
       "style": {
+        "noNestedTernary": "warn",
+        "useCollapsedElseIf": "warn",
+        "useCollapsedIf": "error",
         "useNamingConvention": {
           "level": "error",
           "options": {
@@ -95,7 +108,8 @@
             ],
             "strictCase": false
           }
-        }
+        },
+        "useReadonlyClassProperties": "error"
       },
       "suspicious": {
         "noUnknownAtRules": "off"

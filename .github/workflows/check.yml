@@ -12,7 +12,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check:
+  lint-and-types:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm check:types
+
+  build:
+    name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -33,6 +50,4 @@ jobs:
         with:
           cache: true
       - run: pnpm install --frozen-lockfile
-      - run: pnpm check
-      - run: pnpm check:types
       - run: pnpm build
