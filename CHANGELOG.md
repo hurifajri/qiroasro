@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0](https://github.com/hurifajri/qiroasro/compare/v0.3.1...v0.4.0) (2026-11-25)
+
+
+### Features
+
+* **gamification:** implement phase 1 gamification, quests, and profile stats ([#49](https://github.com/hurifajri/qiroasro/issues/49)) ([e026e20](https://github.com/hurifajri/qiroasro/commit/e026e2032c890e25ab697fcfc120bd57b7d4d9d7))
+* **home:** build interactive landing page and extract shared node components ([#54](https://github.com/hurifajri/qiroasro/issues/54)) ([2956841](https://github.com/hurifajri/qiroasro/commit/29568416b0c933184e35493aaf49eff421110394))
+* **practice:** implement phase 3 learn quiz bank and adaptive practice ([#52](https://github.com/hurifajri/qiroasro/issues/52)) ([a60aca9](https://github.com/hurifajri/qiroasro/commit/a60aca9e2fc81a1d1421490e4a9b882957b9b907))
+* **reference:** implement phase 2 reference data and simplify camelCase schemas ([#51](https://github.com/hurifajri/qiroasro/issues/51)) ([1354e76](https://github.com/hurifajri/qiroasro/commit/1354e7659e133d990f18d76a4d4d0fe9c39ec861))
+* **social:** implement phase 4 leaderboard cohorts and user follows ([#53](https://github.com/hurifajri/qiroasro/issues/53)) ([afd46f0](https://github.com/hurifajri/qiroasro/commit/afd46f07d33a2beaf4ab658e1a4ed416c976a17b))
+
 ## [0.3.1](https://github.com/hurifajri/qiroasro/compare/v0.3.0...v0.3.1) (2026-11-22)
 
 
