@@ -13,6 +13,8 @@ import {
   userXpLedger,
 } from '@/db/gamification-schema';
 import { userFollows, userProfiles } from '@/db/user-schema';
+import type { LeaderboardEntry } from '@/features/gamification/schemas/gamification';
+import type { FriendSuggestion } from '@/features/user-profile/schemas/user-profile';
 import { auth } from '@/lib/auth';
 import {
   AVATAR_GRADIENT_CODES,
@@ -21,17 +23,12 @@ import {
 } from '@/lib/avatar';
 import { db } from '@/lib/db';
 
-import type {
-  ActivityFeedItem,
-  FollowEntry,
-  LeaderboardEntry,
-} from '../_schemas/private';
+import type { ActivityFeedItem, FollowEntry } from '../_schemas/private';
 import {
   type ToggleFollowInput,
   ToggleFollowInputSchema,
   type ToggleFollowResult,
 } from '../_schemas/social';
-import type { FriendSuggestion } from '../_schemas/user-profile';
 
 const VALID_AVATAR_COLORS = new Set<string>([
   ...AVATAR_SOLID_CODES,

@@ -5,10 +5,9 @@ import { useState } from 'react';
 
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
+import type { SocialAccount } from '@/features/user-profile/schemas/settings';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-
-import type { SocialAccount } from '../../_schemas/settings';
 
 interface SocialAccountsProps {
   accounts: SocialAccount[];

@@ -4,13 +4,11 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
+import type { Achievement } from '@/features/gamification/schemas/achievement';
+import type { Statistic } from '@/features/gamification/schemas/gamification';
+import { getUserProfileByUsernameOpt } from '@/features/user-profile/queries/user-profile';
+import type { FriendSuggestion } from '@/features/user-profile/schemas/user-profile';
 
-import { getUserProfileByUsernameOpt } from '../../../_queries/user-profile';
-import type { Achievement } from '../../../_schemas/achievement';
-import type {
-  FriendSuggestion,
-  Statistic,
-} from '../../../_schemas/user-profile';
 import { AchievementList } from './achievement-list';
 import { FriendSuggestionsGrid } from './friend-suggestions-grid';
 import { StatGrid } from './stat-grid';

@@ -2,12 +2,12 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 
+import { getUserProfileByUserIdOpt } from '@/features/user-profile/queries/user-profile';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { usePathname } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
 import { MOCK_NAV_ITEMS } from '../_lib/mock-data';
-import { getUserProfileByUserIdOpt } from '../_queries/user-profile';
 import { BottomNav } from './navigation';
 import { LeftSidebar, RightSidebar } from './sidebar';
 

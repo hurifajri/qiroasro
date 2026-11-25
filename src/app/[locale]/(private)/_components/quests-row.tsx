@@ -15,9 +15,8 @@ import {
   ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
+import type { Quest } from '@/features/gamification/schemas/gamification';
 import { cn } from '@/lib/utils';
-
-import type { Quest } from '../_schemas/private';
 
 interface QuestRowProps {
   quest: Quest;

@@ -13,10 +13,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+import type {
+  LeaderboardEntry,
+  UserStats,
+} from '@/features/gamification/schemas/gamification';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
-import type { LeaderboardEntry, UserStats } from '../_schemas/private';
 import { LeaderboardRow } from './leaderboard-row';
 
 interface LeaderboardCardProps {

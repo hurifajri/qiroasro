@@ -12,10 +12,9 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Switch } from '@/components/ui/switch';
+import type { PrivacySetting } from '@/features/user-profile/schemas/settings';
 import { getLocaleDir } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-
-import type { PrivacySetting } from '../../_schemas/settings';
 
 interface PrivacySettingsProps {
   settings: PrivacySetting[];

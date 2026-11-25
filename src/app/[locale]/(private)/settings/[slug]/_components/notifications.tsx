@@ -13,11 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
 import type {
   DailyReminder,
   NotificationCheckbox,
-} from '../../_schemas/settings';
+} from '@/features/user-profile/schemas/settings';
 
 interface NotificationsProps {
   generalNotifications: NotificationCheckbox[];

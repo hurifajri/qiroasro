@@ -9,10 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+import type { Quest } from '@/features/gamification/schemas/gamification';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
-import type { Quest } from '../_schemas/private';
 import { QuestRow } from './quests-row';
 
 interface QuestsCardProps {

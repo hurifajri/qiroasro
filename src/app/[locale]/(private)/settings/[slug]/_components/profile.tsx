@@ -6,6 +6,7 @@ import { CheckIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { UserAvatar } from '@/components/common/user-avatar';
 import { Button } from '@/components/ui/button';
 import {
   Field,
@@ -15,6 +16,12 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { getUserProfileByUserIdOpt } from '@/features/user-profile/queries/user-profile';
+import { UpdateUserProfileSchema } from '@/features/user-profile/schemas/user-profile';
+import {
+  checkUsernameAvailability,
+  updateUserProfile,
+} from '@/features/user-profile/services/user-profile';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import {
   AVATAR_COLORS,
@@ -24,14 +31,6 @@ import {
 } from '@/lib/avatar';
 import { translateErrors } from '@/lib/form';
 import { cn } from '@/lib/utils';
-
-import { UserAvatar } from '../../../_components/user-avatar';
-import { getUserProfileByUserIdOpt } from '../../../_queries/user-profile';
-import { UpdateUserProfileSchema } from '../../../_schemas/user-profile';
-import {
-  checkUsernameAvailability,
-  updateUserProfile,
-} from '../../../_services/user-profile';
 
 interface ProfileProps {
   userId: string;

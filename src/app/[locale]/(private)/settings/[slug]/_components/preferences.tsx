@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import type { PreferenceToggle } from '@/features/user-profile/schemas/settings';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useMounted } from '@/hooks/use-mounted';
 import { LOCALE_CONFIG } from '@/i18n/config';
@@ -23,8 +24,6 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { updateUserLocale } from '@/services/user-locale';
-
-import type { PreferenceToggle } from '../../_schemas/settings';
 
 interface PreferencesProps {
   userId: string;

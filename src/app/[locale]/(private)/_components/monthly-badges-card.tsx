@@ -9,10 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ItemGroup } from '@/components/ui/item';
+import type { MonthlyBadge } from '@/features/gamification/schemas/badge';
 import { Link } from '@/i18n/navigation';
 import { cn } from '@/lib/utils';
 
-import type { MonthlyBadge } from '../_schemas/badge';
 import { MonthlyBadgesRow } from './monthly-badges-row';
 
 interface MonthlyBadgesCardProps {

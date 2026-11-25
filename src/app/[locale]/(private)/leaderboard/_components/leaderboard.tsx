@@ -2,8 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 
-import type { League } from '../../_schemas/league';
-import type { LeaderboardEntry, LeagueNameKey } from '../../_schemas/private';
+import type { LeaderboardEntry } from '@/features/gamification/schemas/gamification';
+import type {
+  League,
+  LeagueNameKey,
+} from '@/features/gamification/schemas/league';
+
 import { LeaderboardList } from './leaderboard-list';
 import { LeagueHeader } from './league-header';
 

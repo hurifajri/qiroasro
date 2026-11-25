@@ -1,3 +1,5 @@
+import { getUserProfileByUsername } from '@/features/user-profile/services/user-profile';
+
 import { ActivityFeedCard } from '../../../_components/activity-feed-card';
 import { AddFriendsCard } from '../../../_components/add-friends-card';
 import { FollowListCard } from '../../../_components/follow-list-card';
@@ -6,7 +8,6 @@ import {
   getUserFollowers,
   getUserFollowing,
 } from '../../../_services/social';
-import { getUserProfileByUsername } from '../../../_services/user-profile';
 
 export default async function ProfileSidebar({
   params,

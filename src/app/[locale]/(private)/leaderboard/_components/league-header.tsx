@@ -1,10 +1,11 @@
 import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
+import type {
+  League,
+  LeagueNameKey,
+} from '@/features/gamification/schemas/league';
 import { cn } from '@/lib/utils';
-
-import type { League } from '../../_schemas/league';
-import type { LeagueNameKey } from '../../_schemas/private';
 
 interface LeagueHeaderProps {
   leagues: League[];

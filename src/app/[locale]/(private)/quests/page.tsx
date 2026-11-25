@@ -4,7 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import {
   getCurrentUserDailyQuests,
   getCurrentUserMonthlyQuest,
-} from '../_services/gamification';
+} from '@/features/gamification/services/gamification';
+
 import { Quests } from './_components/quests';
 
 type PageProps = {

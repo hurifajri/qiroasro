@@ -1,7 +1,7 @@
 import { ItemGroup } from '@/components/ui/item';
+import type { Quest } from '@/features/gamification/schemas/gamification';
 
 import { QuestRow } from '../../_components/quests-row';
-import type { Quest } from '../../_schemas/private';
 
 interface DailyQuestListProps {
   quests: Quest[];

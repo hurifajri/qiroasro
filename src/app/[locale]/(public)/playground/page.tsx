@@ -7,6 +7,9 @@ import { ReactFlowProvider } from '@xyflow/react';
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
+import { Playground } from '@/features/tajweed-graph/components/playground';
+import { PlaygroundStoreProvider } from '@/features/tajweed-graph/providers/playground';
+import { QuizStoreProvider } from '@/features/tajweed-graph/providers/quiz';
 import { getPlaygroundDataOpt } from '@/features/tajweed-graph/queries/tajweed-graph';
 import {
   getAlternateLanguages,
@@ -14,10 +17,6 @@ import {
   getOgLocale,
 } from '@/i18n/locale';
 import type { Locale } from '@/i18n/routing';
-
-import { Playground } from './_components/playground';
-import { PlaygroundStoreProvider } from './_providers/playground';
-import { QuizStoreProvider } from './_providers/quiz';
 
 type PageProps = {
   params: Promise<{ locale: string }>;

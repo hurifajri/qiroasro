@@ -3,11 +3,12 @@ import { headers } from 'next/headers';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type React from 'react';
 
-import { PublicHeader } from '@/components/common/public-header';
 import { env } from '@/env';
 import { getAlternateOgLocale, getOgLocale } from '@/i18n/locale';
 import { type Locale, routing } from '@/i18n/routing';
 import { auth } from '@/lib/auth';
+
+import { PublicHeader } from './_components/public-header';
 
 const APP_NAME = env.NEXT_PUBLIC_APP_NAME;
 const APP_URL = env.NEXT_PUBLIC_APP_URL;

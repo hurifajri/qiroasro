@@ -1,11 +1,12 @@
+import {
+  getCurrentUserDailyQuests,
+  getCurrentUserStats,
+} from '@/features/gamification/services/gamification';
+
 import { LeaderboardCard } from '../_components/leaderboard-card';
 import { LevelCard } from '../_components/level-card';
 import { QuestsCard } from '../_components/quests-card';
 import { StatList } from '../_components/stat-list';
-import {
-  getCurrentUserDailyQuests,
-  getCurrentUserStats,
-} from '../_services/gamification';
 import { getCurrentUserLeaderboardPreview } from '../_services/social';
 
 export default async function DefaultSidebar() {
